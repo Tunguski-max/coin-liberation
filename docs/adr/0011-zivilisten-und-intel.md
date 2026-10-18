@@ -18,6 +18,10 @@
   **„Intel-Punkte“**.
 - **Nebenmission FOB Hunting** wird abgeschaltet (Hook). Konvoi-Überfall und Rettungsmission bleiben und
   werden weiter mit Intel-Punkten bezahlt.
+- **Verhör** von Gefangenen geht überall mit Dolmetscher, einmal pro Gefangenem. Liberations Belohnung
+  für das Abliefern an der FOB (Intel-Punkte) bleibt zusätzlich bestehen.
+- **Intel-Marker:** Wahre Marker eines zerstörten Nests verschwinden automatisch. Lügen-Marker bleiben,
+  bis Spieler das Gebiet durchsucht haben, damit ihr Verschwinden nichts verrät.
 
 ## Begründung
 - Befragungen, Ältester und Attentäter brauchen Menschen in den Orten, die die Armee hält.

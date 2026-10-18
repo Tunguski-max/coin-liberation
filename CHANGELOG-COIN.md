@@ -17,5 +17,12 @@
 - Eigene Mission im Build: `coin_liberation.lythium`, Titel „COIN Liberation Lythium dev (KP v0.96.7a)“, eigene Beschreibung;
   Build liest `_tools/_presets.coin.json`, Liberation-Karten optional mit `COIN_ALL_PRESETS=1`
 
+- Design v0.3 (Phase-1-Befragung): ganze Karte ausgedünnt mit Hauptstadt Kalae Noowi (ADR 0016),
+  Bauliste und Elite-Fahrzeuge der leichten Brigade (ADR 0007), schweres Gerät der Miliz (ADR 0014),
+  Ruf nur über den Dolmetscher erfahrbar, Verhör überall, Regeln für Intel-Marker (ADR 0009, 0011),
+  ADR 0002 akzeptiert, 15 Slots, Roadmap Phase 1 neu geschnitten
+- Design: Aufträge (Hilfs- und Aufklärungsaufträge, DESIGN 8.2), sofortiger Readiness-Abzug pro zerstörtem Nest
+  (ADR 0013), Roadmap-Tickets 1.10 und 5.9–5.16
+
 ### Behoben
 - Build brach ab, wenn kein Preset eine Workshop-ID hat (`_tools/gulpfile.ts`)
