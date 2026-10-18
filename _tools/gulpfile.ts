@@ -12,7 +12,11 @@ import { MissionPaths, uploadLegacy } from "./src";
 import { Preset, FolderStructureInfo } from "./src";
 
 
-const presets: Preset[] = require('./_presets.json');
+// COIN BEGIN: build the COIN missions from _presets.coin.json (docs/hooks.md #3).
+// Set the environment variable COIN_ALL_PRESETS=1 to additionally build all KP Liberation presets from _presets.json.
+const presets: Preset[] = require('./_presets.coin.json')
+    .concat(process.env.COIN_ALL_PRESETS === '1' ? require('./_presets.json') : []);
+// COIN END
 
 /**
  * Mission folders configuration
@@ -87,7 +91,13 @@ for (let preset of presets) {
                     }
 
                     // add version number and map name to mission name
-                    return content.replace(nameRegex, `$1CTI 34 KP Liberation ${preset.mapDisplay || preset.map} ${version}$3`);
+                    // COIN BEGIN: optional title template per preset (docs/hooks.md #3)
+                    const mapName = preset.mapDisplay || preset.map;
+                    const title = preset.missionTitle
+                        ? preset.missionTitle.replace('{map}', mapName).replace('{version}', version)
+                        : `CTI 34 KP Liberation ${mapName} ${version}`;
+                    return content.replace(nameRegex, `$1${title}$3`);
+                    // COIN END
                 }))
                 .pipe(gulp.dest(mission.getOutputDir(), { overwrite: true, }))
             ;
@@ -168,7 +178,10 @@ gulp.task('pbo', gulp.series(taskNamesPbo));
 
 gulp.task('zip', gulp.series(taskNamesZip));
 
-gulp.task('workshop', gulp.series(taskNamesWorkshop));
+// COIN: gulp.series fails on an empty list, COIN presets have no workshopId (docs/hooks.md #3)
+if (taskNamesWorkshop.length > 0) {
+    gulp.task('workshop', gulp.series(taskNamesWorkshop));
+}
 
 gulp.task('default',
     gulp.series(

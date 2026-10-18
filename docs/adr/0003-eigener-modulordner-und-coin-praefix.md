@@ -1,6 +1,6 @@
 # ADR 0003: Eigener Modulordner und Präfix `COIN`
 
-**Status:** Vorgeschlagen
+**Status:** Akzeptiert (2026-10-18)
 
 ## Kontext
 Unser Code könnte entweder direkt in die Liberation-Dateien geschrieben werden oder in einem
@@ -22,4 +22,6 @@ eigenen Bereich liegen, der an wenigen Stellen eingehängt ist.
 
 ## Folgen
 - Etwas mehr Aufwand für saubere Schnittstellen.
-- Präfix `COIN` muss auf Kollisionen mit geladenen Mods geprüft werden (Phase 0).
+- Präfix-Check (Phase 0, siehe `docs/kp-liberation-map.md` Abschnitt 9): Weder Liberation noch die
+  installierten Versionen von CBA, ACE, RHS, Project OPFOR, CUP Terrains, TFAR, Jbad und Lythium
+  verwenden `COIN` als Funktions-Tag oder Variablenpräfix. Bei neuen Mods erneut prüfen.
