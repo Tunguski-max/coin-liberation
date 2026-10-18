@@ -83,3 +83,17 @@ Keine neuen Mod-Abhängigkeiten ohne Rückfrage.
 - Die MIT-Lizenz von KP Liberation (`LICENSE.md`) nicht entfernen oder ändern.
 - Keine großflächigen Umformatierungen von Liberation-Dateien (macht Diffs unlesbar).
 - Keine Features außerhalb der aktuellen Roadmap-Phase anfangen, ohne zu fragen.
+
+## Agent skills
+
+### Issue tracker
+
+Issues leben in GitHub Issues (`Tunguski-max/coin-liberation`, `gh` CLI). Siehe `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Standard-Vokabular (`needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`). Siehe `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Single-context: `CONTEXT.md` (Glossar) + `docs/adr/` im Repo-Root. Siehe `docs/agents/domain.md`.
