@@ -10,15 +10,20 @@
   Netzwerkstärke steuerte bisher nur Hauptstadt-Garnison und Camps.
 
 ## Entscheidung
-- Im Kartenausschnitt gibt es **keine Funktürme** (`tower`-Sektoren). Die Verstärkungsquelle wird ab
+- Auf der Karte gibt es **keine Funktürme** (`tower`-Sektoren), siehe auch ADR 0016. Die Verstärkungsquelle wird ab
   Phase 6 der Kommandoposten.
 - Unser Server-Code begrenzt `combat_readiness` regelmäßig auf einen Höchstwert, der von den aktiven
   Nestern abhängt (Phase 6, kein Hook).
+- Zusätzlich senkt ein **zerstörtes Nest die Readiness sofort** um einen Wert je Nest-Typ (z. B. 10,
+  Kommandoposten 20; ergänzt 2026-10-18). Einige Aufklärungsaufträge senken sie um 10 %.
+  Die Readiness bleibt im Overlay sichtbar.
 
 ## Begründung
 - Aufklärung läuft nur über Intel (Säule 1). Kein Eingriff in Liberation nötig.
 - DESIGN 4 verspricht „Netzwerk schwächer → schwächere Gegenangriffe“. Der Deckel macht das auf der
   ganzen Karte spürbar, ohne Liberations Balancing zu ersetzen.
+- Der Deckel allein wirkt erst, wenn die Readiness über ihm liegt. Der sofortige Abzug gibt direktes
+  Feedback und übernimmt die Rolle der abgeschalteten Nebenmission „FOB Hunting“ (ADR 0011).
 
 ## Folgen
 - Bis Phase 6 bekommen angegriffene feindliche Sektoren keine Verstärkung; die frühen Phasen sind etwas leichter.

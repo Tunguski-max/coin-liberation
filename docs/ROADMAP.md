@@ -33,42 +33,59 @@ Ziel: Unveränderte Liberation-Mission läuft lokal auf Lythium, und Claude Code
 
 ## Phase 1 – Spielfeld
 
-Ziel: Nur noch unser Kartenausschnitt existiert.
+Ziel: Lythium ist ausgedünnt auf unsere Ziele, Slots und Ausrüstung passen zum Design (ADR 0007, 0016).
 
-- [ ] 1.1 Ausschnitt und Hauptstadt festlegen (Entscheidung E3)
-- [ ] 1.2 Sektoren außerhalb des Ausschnitts aus der `mission.sqm` entfernen, ebenso die
-  Miliz-Spawnpunkte `opfor_point` und `opfor_airspawn`. Keine Funktürme (`tower`) im Ausschnitt (ADR 0013)
-- [ ] 1.3 Hauptstadt, 15–20 Ortschaften, 3–5 Supply Points, 2–4 Militärposten setzen
-- [ ] 1.4 Startbasis an den Rand des Ausschnitts verlegen
-- [ ] 1.5 Dolmetscher-Slot(s) in der Lobby anlegen (Entscheidung E6)
-- [ ] 1.6 Presets: Miliz, Zivilisten, BLUFOR (Entscheidung E1)
+- [x] 1.1 Hauptstadt und Gebiet festlegen (E3): Kalae Noowi, ganze Karte ausgedünnt (ADR 0016)
+- [ ] 1.2 Eigene `Missionbasefiles/coin_liberation.lythium/mission.sqm` als Kopie anlegen, Build darauf umstellen
+- [ ] 1.3 Skript: Sektoren auswählen und in die Kopie schreiben
+  - 25 Ortschaften (7 herabgestufte Hauptstädte, Arobster entfällt), 5 Supply Points, 4 Militärposten
+  - Mindestabstand 2,5 km zwischen Ortschaften, nichts im Umkreis von 1 km um Kalae Noowi
+  - alle Funktürme entfernen (ADR 0013), Miliz-Spawnpunkte behalten
+  - Vorschlag als Karte an Niklas, Tausche einarbeiten, dann schreiben
+- [ ] ~~1.4 Startbasis verlegen~~ – entfällt, die Startbasis bleibt im Südwesten (ADR 0016)
+- [ ] 1.5 Slots im Eden-Editor (15): Führungsgruppe (Kommandant, 2 Dolmetscher), Trupp A und B
+  (je Truppführer, Sanitäter, EOD, 2 Schützen), 2 Hubschrauberpiloten (E6)
+- [ ] 1.6 Presets (ADR 0007, 0014)
   - Auswahl der Presets in `_tools/_presets.coin.json` (überschreibt die Werte in `kp_liberation_config.sqf` beim Build)
-  - BLUFOR als **leichte Brigade**: keine fahrbare Artillerie, keine Jets, Rest nach E9/E11 (siehe `DESIGN.md` Abschnitt 10)
-  - Elite-Liste mit erlaubtem, wertvollem Gerät füllen (ADR 0014)
-  - Miliz: eigenes Preset auf Basis Project OPFOR „Afghan Militia“, ohne Luftangriffe und Panzerverbände (E10, ADR 0014)
-  - Widerstand: erkennbare Kleidung für lokale Kämpfer (ADR 0014)
-  - Liberation-Artillerieunterstützung über Lobby-Parameter `SuppMod` abschalten
-- [ ] 1.7 Siegbedingung auf „Hauptstadt eingenommen“ umstellen
-  (genau ein Hauptstadt-Sektor + Lobby-Parameter `VictoryCondition` = „alle Hauptstädte“)
-- [ ] 1.8 Erste Liberation-Hooks: eigener Save-Key (ADR 0005), Zeus-Standardwerte
-  `LimitedZeus` aus und `ZeusAddEnemies` an (ADR 0010)
+  - BLUFOR (RHS USAF Desert) als **leichte Brigade** nach `DESIGN.md` Abschnitt 10
+  - Elite-Liste: Stryker M1126, Stryker M1134, AH-1Z, AH-6M
+  - Miliz: eigenes Preset auf Basis Project OPFOR „Afghan Militia“: Technicals in Sektoren und Patrouillen,
+    Gegenangriffe mit seltenem Altfahrzeug, leere Luft- und Hubschrauberlisten
+  - Widerstand: erkennbare Kleidung für lokale Kämpfer (2–3 Varianten, Niklas wählt im Arsenal)
+- [ ] 1.7 Siegbedingung „Hauptstadt eingenommen“: genau ein Hauptstadt-Sektor (aus 1.3) und Lobby-Standard
+  `VictoryCondition` = „alle Hauptstädte“ (in 1.8)
+- [ ] 1.8 Erste Liberation-Hooks: eigener Save-Key (ADR 0005), Lobby-Standardwerte `LimitedZeus` aus,
+  `ZeusAddEnemies` an (ADR 0010), `VictoryCondition` = 0, `SuppMod` = 0
+- [ ] 1.9 Limit für AH-1Z und AH-6M: je max. 1 gleichzeitig, 30 Min. Sperre ab Kauf, nicht gespeichert
+  (Hook im Kaufmenü, Prüfung auf dem Server, Werte pro Klasse in `coin_config.sqf`, ADR 0007)
+
+- [ ] 1.10 Test: Liberations Verwundete nach einer Einnahme mit Lobby-Parameter `DebugCivRep` beobachten.
+  Gibt ACE-Behandlung den Ruf? Kostet ein Sterbender Ruf? Nur bei einem Problem: Hook, der sie wie die
+  Patienten des Arzt-Einsatzes behandelt (DESIGN 8.2)
 
 **DoD:** Neue Kampagne starten, Karte zeigt nur unsere Sektoren, ein Sektor lässt sich einnehmen,
-Speichern und Laden funktioniert nach Neustart.
+Speichern und Laden funktioniert nach Neustart. Bauliste und Slots entsprechen `DESIGN.md`,
+ein zweiter AH-1Z lässt sich nicht kaufen.
 
 ## Phase 2 – Miliz-Netzwerk
 
 Ziel: Nester existieren, sind persistent und schwächen bei Zerstörung das Netzwerk.
 
 - [ ] 2.1 Datenmodell für Nester festlegen (Spec) und in den Liberation-Save einhängen (Eintrag 22, ADR 0005)
-- [ ] 2.2 Nester beim Kampagnenstart platzieren (Gebäude in Ortschaften, Lager im Gelände)
+- [ ] 2.2 Nester beim Kampagnenstart platzieren (Gebäude in Ortschaften, Lager im Gelände;
+  gleichmäßig über die Karte, mindestens 4 km von der Startbasis)
 - [ ] 2.3 Nest-Objekte und Bewachung spawnen, wenn Spieler in der Nähe sind
+  (Gebäude-Nest: Kernobjekt und Requisiten auf freie Gebäudeplätze; Gelände-Nest: Template;
+  Kernobjekte pro Typ im Spec festlegen)
+- [ ] 2.3a Template-Mechanik für Gelände-Nester und Camps: Platzhalter-Templates von Claude,
+  danach je 2–3 Templates pro Nest-Typ und für Camps von Niklas (Eden, `BIS_fnc_objectsGrabber`)
 - [ ] 2.4 Zerstörung erkennen, Zustand speichern, Ereignis auslösen
 - [ ] 2.5 Debug-Anzeige (Parameter): Nester und Radien auf der Karte
 - [ ] 2.6 Netzwerkstärke berechnen und im Debug anzeigen
 - [ ] 2.7 Camps: Kapazität aus aktiven Nestern berechnen (Entscheidung E8)
-- [ ] 2.8 Camps zufällig platzieren (Kartenausschnitt plus Randzone, Abstandsregeln, Sperrzone um befreites Gebiet)
-- [ ] 2.9 Camp-Inhalt spawnen bei Spielernähe (Zelte, Feuer, 3–6 Kämpfer, optional Technical)
+- [ ] 2.8 Camps zufällig platzieren (ganze Karte, Abstandsregeln, Sperrzone um befreites Gebiet)
+- [ ] 2.9 Camp-Inhalt spawnen bei Spielernähe (Zelte, Feuer, 3–6 Kämpfer, optional Technical);
+  Waffenlager bekommen 1–2 Altfahrzeuge, die mit dem Lager verschwinden
 - [ ] 2.10 Nachschub nach Zerstörung und Wechsel unentdeckter Camps
 - [ ] 2.11 Debug-Anzeige für Camps und ihr zugehöriges Nest
 - [ ] 2.12 Liberation-Nebenmission „FOB Hunting“ abschalten (ADR 0011)
@@ -87,9 +104,10 @@ Ziel: Zivilisten befragen liefert brauchbare (oder gelogene) Hinweise auf Nester
 
 - [ ] 3.1 ACE-Interaktion „Befragen“ an jedem Zivilisten (auch Liberations), nur mit Dolmetscher in Reichweite
 - [ ] 3.2 Ergebnis-Logik (Nichts, Gerücht, Hinweis, Tipp, Warnung, Lüge) mit Ruf-Gewichtung
-- [ ] 3.3 Intel-Marker für die Seite, persistent
+- [ ] 3.3 Intel-Marker für die Seite, persistent; wahre Marker verschwinden mit ihrem Nest,
+  Lügen-Marker erst nach Durchsuchen des Gebiets (ADR 0011)
 - [ ] 3.4 Triangulation: weitere Hinweise verkleinern den Kreis
-- [ ] 3.5 Gefangene verhören (ACE-Fesseln)
+- [ ] 3.5 Gefangene verhören (ACE-Fesseln), überall, einmal pro Gefangenem (ADR 0011)
 - [ ] 3.6 Dokumente bei toten Anführern, in zerstörten Nestern und in ausgehobenen Camps
   (Camps zeigen auf ihr zugehöriges Nest)
   - *Option (E13):* als ACE Intel Items, die eingesammelt und beim Dolmetscher ausgewertet werden
@@ -106,7 +124,8 @@ Ziel: IEDs, VBIEDs, Attentäter und Hinterhalte, gespeist aus den Nestern.
 - [ ] 4.1 IED-Budget pro Werkstatt, IED-Platzierung an Straßen im Radius
 - [ ] 4.2 IED-Varianten: vergraben, ferngezündet mit Auslöser, Attrappe; ACE-Entschärfen
 - [ ] 4.3 VBIED-Ereignis (nur mit aktiver Garage)
-- [ ] 4.4 Selbstmordattentäter unter Zivilisten (abhängig vom Ruf)
+- [ ] 4.4 Selbstmordattentäter unter Zivilisten (abhängig vom Ruf); Befehle an Zivilisten prüfen
+  (ACE „Get Down“/„Go Away“ für Spieler logisch auffindbar? sonst eigene Einträge inkl. „Stehen bleiben“)
 - [ ] 4.5 Hinterhalte an Straßen
 - [ ] 4.6 Werkstatt/Garage zerstört → Budgets und Ereignisse im Radius versiegen
 - [ ] 4.7 Liberations IEDs und Hinterhalte in Ortschaften per Schalter abschalten (ADR 0008)
@@ -120,7 +139,8 @@ Ziel: Verhalten der Spieler verändert die Welt spürbar.
 
 - [ ] 5.1 Liberation-Ruf um die Aktionen aus `DESIGN.md` Abschnitt 8 erweitern
 - [ ] 5.2 Ruf wirkt auf Intel-Qualität, Informanten-Häufigkeit (über Liberations Informanten-Werte) und Attentäter-Häufigkeit
-- [ ] 5.3 Anzeige des aktuellen Rufs für Spieler: Liberation-Overlay zeigt ihn bereits; prüfen, ob zusätzlich das Ruf-Band angezeigt werden soll
+- [ ] 5.3 Ruf-Anzeige: Zahl im Liberation-Overlay ausblenden (Hook), Dolmetscher kann Zivilisten nach ihrer
+  Haltung fragen und erfährt das Ruf-Band in Worten (ADR 0009)
 - [ ] 5.4 Gefälligkeiten: Zähler ab Ruf-Schwelle, Vorrat, Anforderung beim Ältesten über den Dolmetscher (E12)
 - [ ] 5.5 Gefälligkeit „Ablenkungsangriff“: Ziel und Zeitpunkt wählen, Miliz-Kräfte abziehen
 - [ ] 5.6 Gefälligkeit „Verstärkung“: Gruppe lokaler Kämpfer, die einem Spieler-Gruppenführer folgt
@@ -128,18 +148,31 @@ Ziel: Verhalten der Spieler verändert die Welt spürbar.
 - [ ] 5.7 Start-Ruf −20 bei neuer Kampagne (ADR 0009)
 - [ ] 5.8 Ruf-Abzug für Gebäude, die die Armee in befreiten Ortschaften zerstört (ADR 0009)
 
+**Aufträge (DESIGN 8.2)**
+- [ ] 5.9 Ältester-Dialog über den Dolmetscher: Hilfsauftrag anbieten, „Kommt später wieder“, Wartezeit pro Ortschaft
+- [ ] 5.10 Hilfsauftrag „Hilfsgüter liefern“ (Liberation-Supply-Kiste)
+- [ ] 5.11 Hilfsauftrag „Arzt-Einsatz“ (unsterbliche Patienten, Aktion „Behandeln“ nur für Sanitäter)
+- [ ] 5.12 Hilfsauftrag „Infrastruktur reparieren“
+- [ ] 5.13 Aufklärungsauftrag entsteht aus Befragung/Verhör (Chance, Zeitfenster, max. 1 gleichzeitig)
+- [ ] 5.14 Aufklärungsauftrag „Kurier abfangen“
+- [ ] 5.15 Aufklärungsauftrag „Anführer festnehmen“ (lebend, Readiness −10 %)
+- [ ] 5.16 Aufklärungsauftrag „Waffentransport abfangen“ (Readiness −10 %, Hinweis auf Ziel-Lager)
+
 **DoD:** Zwei Testläufe (absichtlich „gut“ und „schlecht“ spielen) zeigen deutlich
 unterschiedliche Intel-Qualität. Mit Ruf im Debug hochgesetzt lassen sich beide
 Gefälligkeiten anfordern, und die Miliz reagiert sichtbar auf den Ablenkungsangriff.
+Je ein Hilfs- und ein Aufklärungsauftrag lassen sich annehmen und abschließen; die Belohnung erscheint im Log.
 
 ## Phase 6 – Gegenangriffe und Hauptstadt
 
 - [ ] 6.1 Gegenangriffe und Verstärkung nur aus Regionen mit aktivem Kommandoposten
-- [ ] 6.2 Asymmetrische Gegenangriffe: Technicals, Mörser auf FOBs, Konvoi-Überfälle
-- [ ] 6.3 Hauptstadt-Garnison skaliert mit Netzwerkstärke
+- [ ] 6.2 Asymmetrische Gegenangriffe: Technicals, höchstens 1 Altfahrzeug pro Gegenangriff (Hook),
+  Mörser auf FOBs, Konvoi-Überfälle
+- [ ] 6.3 Hauptstadt-Garnison skaliert mit Netzwerkstärke; festes schweres Gerät: 2 T-72BA, 1 ZSU-23-4,
+  Igla-Schützen (Klassen in `coin_config.sqf`, ADR 0014)
 - [ ] 6.4 Optional: Miliz baut Nester langsam neu auf (Entscheidung E5)
 - [ ] 6.5 Kampagnenende mit Abschluss-Statistik
-- [ ] 6.6 Netzwerkstärke deckelt Liberations Readiness (ADR 0013)
+- [ ] 6.6 Netzwerkstärke deckelt Liberations Readiness; zerstörtes Nest senkt die Readiness sofort (ADR 0013)
 
 **DoD:** Komplettdurchlauf im Debug-Modus beschleunigt möglich, von Start bis Sieg.
 

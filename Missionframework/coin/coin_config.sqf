@@ -33,6 +33,7 @@ COIN_enableNestRebuild      = false;    // Phase 6, decision E5
 COIN_disableFobHunting      = true;     // Phase 2, ADR 0011: no enemy bases besides nests
 COIN_replaceLiberationThreats = true;   // Phase 4, ADR 0008: Liberation IEDs and town ambushes off
 COIN_capReadinessByNetwork  = true;     // Phase 6, ADR 0013: active nests cap combat_readiness
+COIN_hideReputationNumber   = true;     // Phase 5, ADR 0009: no reputation number in the Liberation overlay
 
 // ---------------------------------------------------------------------------
 // Performance budgets (no headless client), ADR 0015
@@ -45,16 +46,27 @@ COIN_maxActiveIEDs          = 25;       // COIN IEDs at the same time
 COIN_spawnRadius            = 1500;     // m around players in which COIN content spawns
 
 // ---------------------------------------------------------------------------
-// Militia network (Phase 2)
+// Militia network (Phase 2) - whole map is the area of operations (ADR 0016)
 // [type, count, influence radius in m]
 // ---------------------------------------------------------------------------
 COIN_nestSetup = [
-    ["command",      2, 1500],
-    ["iedWorkshop",  3, 1200],
-    ["cache",        3, 1000],
-    ["vbiedGarage",  1, 1500],
-    ["recruitment",  2, 1200]
+    ["command",      2, 2500],
+    ["iedWorkshop",  3, 2000],
+    ["cache",        3, 1500],
+    ["vbiedGarage",  1, 2500],
+    ["recruitment",  2, 2000]
 ];
+COIN_nestMinDistStartBase   = 4000;     // m between nests and the start base at campaign start
+// Immediate combat_readiness drop when a nest is destroyed: [type, drop] (Phase 6, ADR 0013)
+COIN_nestReadinessDrop = [
+    ["command",      20],
+    ["iedWorkshop",  10],
+    ["cache",        10],
+    ["vbiedGarage",  10],
+    ["recruitment",  10]
+];
+COIN_cacheOldVehicles       = [1, 2];   // [min, max] old vehicles guarded by a weapons cache
+COIN_oldVehicleClasses      = ["LOP_AM_OPF_BTR60", "LOP_AM_OPF_M113_W"];
 COIN_nestGuardsMin          = 3;
 COIN_nestGuardsMax          = 8;
 COIN_documentDropChance     = 0.5;      // Chance a destroyed nest yields documents
@@ -72,7 +84,6 @@ COIN_campsPerNest = [
     ["vbiedGarage",  1],
     ["recruitment",  2]
 ];
-COIN_campBorderZone         = 1500;     // m beyond the play area where camps may appear
 COIN_campExclusionRadius    = 1000;     // m around captured sectors and FOBs without camps
 COIN_campMinDistRoad        = 150;      // m
 COIN_campMinDistTown        = 500;      // m
@@ -83,9 +94,23 @@ COIN_campReplaceMinutes     = [30, 60]; // Delay before a destroyed camp is repl
 COIN_campRelocateMinutes    = [120, 180]; // Undiscovered camps move after this time
 COIN_campIntelChance        = 0.4;      // Chance a cleared camp yields intel on its nest
 
-// Capital garrison = base * (1 + factor * active nests)
+// Capital garrison = base * (1 + factor * active nests) - Phase 6
 COIN_capitalGarrisonBase    = 1.0;
 COIN_capitalGarrisonFactor  = 0.15;
+// Fixed heavy equipment of the capital, independent of caches (ADR 0014)
+COIN_capitalHeavyVehicles   = ["LOP_AM_OPF_T72BA", "LOP_AM_OPF_T72BA", "LOP_ISTS_OPF_ZSU234"];
+COIN_capitalAAInfantry      = 3;        // Igla gunners in the capital garrison
+
+// ---------------------------------------------------------------------------
+// Army equipment limits (Phase 1, ticket 1.9, ADR 0007)
+// [classname, max alive at the same time, lock in minutes after each purchase]
+// Locks are not persisted and restart with the server.
+// ---------------------------------------------------------------------------
+COIN_enableVehicleLimits    = true;
+COIN_vehicleLimits = [
+    ["RHS_AH1Z",       1, 30],
+    ["RHS_MELB_AH6M",  1, 30]
+];
 
 // ---------------------------------------------------------------------------
 // Interpreter and intel (Phase 3)
@@ -156,3 +181,25 @@ COIN_diversionFighters      = [6, 10];
 
 COIN_reinforcementSize      = [4, 6];
 COIN_reinforcementMaxMin    = 60;       // Group leaves after this time
+
+// ---------------------------------------------------------------------------
+// Tasks (Phase 5, DESIGN 8.2) - not persisted, abort or failure costs nothing
+// ---------------------------------------------------------------------------
+COIN_enableAidTasks         = true;
+COIN_enableReconTasks       = true;
+
+// Aid tasks, offered by the elder of a liberated town (any reputation band)
+COIN_aidTaskMaxActive       = 2;        // Aid tasks active at the same time
+COIN_aidTaskCooldownMin     = 60;       // Minutes before a town offers its next aid task
+COIN_aidTaskTimeoutMin      = 60;       // Minutes to complete an accepted aid task
+COIN_repAidSupplies         = 4;        // Reputation for delivering a supply crate
+COIN_repAidPatient          = 1;        // Reputation per treated patient
+COIN_repAidMedicalBonus     = 2;        // Bonus when all patients are treated in time
+COIN_aidMedicalPatients     = [3, 5];   // [min, max] patients in a medical task
+COIN_repAidRepair           = 3;        // Reputation for repairing infrastructure
+
+// Recon tasks, created as a result of questioning or interrogation
+COIN_reconTaskChance        = 0.15;     // Chance per questioning/interrogation result
+COIN_reconTaskMaxActive     = 1;
+COIN_reconTaskWindowMin     = [30, 60]; // Time window in minutes
+COIN_reconReadinessFactor   = 0.9;      // combat_readiness multiplier for leader capture and arms transport

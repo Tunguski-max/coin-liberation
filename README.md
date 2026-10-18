@@ -10,8 +10,8 @@ Dolmetscher, Intel von Zivilisten, Ruf, verdeckte Miliz-Nester, IEDs, VBIEDs und
 
 ## Kurzfassung
 
-- Die Miliz hat eine Stadt zu ihrer **Hauptstadt** gemacht.
-- Um sie herum: 15–20 **Ortschaften**, mehrere **Supply Points** und verdeckte **Nester**.
+- Die Miliz hat Kalae Noowi zu ihrer **Hauptstadt** gemacht und sich auf ganz Lythium eingegraben.
+- Über die Karte verteilt: 25 **Ortschaften**, 5 **Supply Points**, 4 **Militärposten** und verdeckte **Nester**.
 - Die Spieler sammeln über den **Dolmetscher** Intel, zerschlagen das Netzwerk und stürmen am Ende die Hauptstadt.
 
 Details: [`docs/DESIGN.md`](docs/DESIGN.md) · Fortschritt: [`docs/ROADMAP.md`](docs/ROADMAP.md)
@@ -42,4 +42,5 @@ Die genaue Mod-Liste für den Server wird in Phase 7 festgeschrieben.
 ## Lizenz
 
 KP Liberation steht unter der MIT-Lizenz (`LICENSE.md`), die erhalten bleibt.
-Hearts and Minds dient nur als Ideengeber, es wird kein Code daraus übernommen.
+[Hearts and Minds](https://github.com/Vdauphin/HeartsAndMinds) (Vdauphin) dient nur als Ideengeber,
+es wird kein Code daraus übernommen (ADR 0002).

@@ -16,6 +16,15 @@
 - Die **Elite-Liste** wird mit erlaubtem, aber wertvollem Gerät gefüllt. Militärposten werden damit
   zu lohnenden optionalen Zielen; E9 („wenige Schützenpanzer, teuer“) kann darüber freigeschaltet werden.
 
+- **Verteilung des schweren Geräts (E10):**
+  - Sektorverteidiger und Patrouillen: nur Technicals.
+  - Gegenangriffe: Technicals, höchstens 1 Altfahrzeug (BTR-60/M113). Bis Phase 6.2 nur über die Gewichtung
+    der Liste, danach hart per Hook.
+  - Waffenlager: 1–2 Altfahrzeuge, gespawnt von unserem Code; sie verschwinden mit dem Lager.
+  - Hauptstadt: 2 T-72BA, 1 ZSU-23-4, Igla-Schützen, gespawnt von unserem Code (Klassen in `coin_config.sqf`,
+    Ticket 6.3). Sie stehen nicht in Liberations Listen, damit Liberation sie nicht anderswo würfelt.
+  - Liberations Flugzeug- und Hubschrauberlisten bleiben leer.
+
 ## Begründung
 - Afghan Militia entspricht „Taliban-ähnlich, asymmetrisch“ (DESIGN 1) und bringt die passenden Fahrzeuge mit.
 - Unterscheidbare Optik verhindert Teamkills an lokalen Kämpfern.

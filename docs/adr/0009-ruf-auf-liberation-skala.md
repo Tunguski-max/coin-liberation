@@ -20,9 +20,12 @@ Miliz, ab +25 auf unserer Seite und erst dann erscheinen Informanten.
 - **Informanten:** Ihre Häufigkeit steigt mit dem Ruf. Unser Code setzt Liberations
   `KP_liberation_civinfo_*`-Werte je nach Band (kein Hook). Unter Ruf 25 gibt es weiterhin keine.
 - Zivilisten töten kostet bereits bei Liberation Ruf. Wir ziehen dafür nicht zusätzlich ab.
+- **Anzeige:** Die Zahl im Liberation-Overlay wird ausgeblendet (Hook). Spieler erfahren das Ruf-Band,
+  indem der Dolmetscher Zivilisten fragt, wie sie zur Armee stehen (Ticket 5.3).
 
 ## Begründung
-- Ein Wert statt zwei, Speicherung, Sync an Clients und Anzeige im Overlay sind vorhanden.
+- Ein Wert statt zwei, Speicherung und Sync an Clients sind vorhanden.
+- Ein verborgener Ruf, den man nur über die Bevölkerung erfährt, macht den Dolmetscher wichtiger.
 - −20 liegt im Band „niedrig“ (viele Lügen, DESIGN 8 „Start: niedrig“), ohne den Widerstand feindlich
   zu machen. Bis „hoch“ sind es 45 Punkte, etwa neun befreite Ortschaften.
 - Die Bänder fallen mit Liberations Schwelle +25 zusammen: „hoch“ = Informanten = freundlicher Widerstand.

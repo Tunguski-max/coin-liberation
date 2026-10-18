@@ -1,7 +1,8 @@
 # Design: COIN Liberation (Arbeitstitel)
 
-> Status: **Entwurf v0.2** – Grundlage für die Umsetzung mit Claude Code.
+> Status: **Entwurf v0.3** – Grundlage für die Umsetzung mit Claude Code.
 > v0.2: Entscheidungen aus Phase 0 eingearbeitet (ADR 0008–0015, `docs/kp-liberation-map.md`).
+> v0.3: Spielfeld und Ausrüstung für Phase 1 festgelegt (ADR 0007, 0016), Abgleich mit Hearts and Minds.
 > Offene Entscheidungen stehen gesammelt in [Abschnitt 12](#12-offene-entscheidungen).
 > Begriffe sind in [`CONTEXT.md`](../CONTEXT.md) definiert.
 
@@ -10,12 +11,12 @@
 ## 1. Vision in einem Satz
 
 Ein persistenter Coop-Modus für **5–10 Spieler** auf **Lythium**: Eine Taliban-ähnliche
-Miliz hat eine Stadt zu ihrer Hauptstadt gemacht und baut von dort ein Netzwerk aus
-Verstecken, IED-Werkstätten und Waffenlagern auf. Die Spieler sind die Armee, die dieses
-Netzwerk mit Hilfe der Bevölkerung **aufspürt und zerschlägt**, bevor sie die Hauptstadt stürmt.
+Miliz hat Kalae Noowi zu ihrer Hauptstadt gemacht und sich mit einem Netzwerk aus
+Verstecken, IED-Werkstätten und Waffenlagern in der ganzen Region eingegraben. Die Spieler sind die
+Armee, die dieses Netzwerk mit Hilfe der Bevölkerung **aufspürt und zerschlägt**, bevor sie die Hauptstadt stürmt.
 
 **Basis:** KP Liberation (Logistik, FOBs, Ressourcen, Sektoren, Speichern).
-**Zusatzschicht im Stil von Hearts and Minds:** Dolmetscher, Intel von Zivilisten, Ruf,
+**Zusatzschicht, inspiriert von Hearts and Minds (nur Ideen, ADR 0002):** Dolmetscher, Intel von Zivilisten, Ruf,
 IEDs, VBIEDs, Selbstmordattentäter, Hinterhalte.
 
 ## 2. Design-Säulen
@@ -26,26 +27,30 @@ IEDs, VBIEDs, Selbstmordattentäter, Hinterhalte.
    oder schweigen. Kollateralschäden haben spürbare Folgen.
 3. **Gefahr ist lesbar.** IEDs, VBIEDs und Attentäter zeigen Hinweise, auf die aufmerksame
    Spieler reagieren können. Kein Tod ohne Chance.
-4. **Klein und dicht statt groß und leer.** Ein Kartenausschnitt, den 5–10 Leute in
-   mehreren Wochen Spielzeit realistisch befreien können.
+4. **Weit, aber gezielt.** Die ganze Karte ist Einsatzgebiet, aber mit wenigen, verteilten Zielen.
+   Die Bedrohung zwischen den Zielen kommt aus dem Netzwerk der Miliz, nicht aus der Zahl der Sektoren.
 5. **Zeus bleibt Herr im Haus.** Alles, was die Mission erzeugt, kann Zeus sehen, ändern und löschen.
 
 ## 3. Spielfeld
 
+Einsatzgebiet ist **ganz Lythium**, stark ausgedünnt (ADR 0016).
+
 | Element | Anzahl | Herkunft | Zweck |
 |---|---|---|---|
-| Hauptstadt | 1 | Liberation-Sektor (Typ „Hauptstadt“) | Finales Ziel, Sitz der Miliz |
-| Ortschaften | 15–20 | Liberation-Sektoren (Städte/Dörfer) | Einnehmen, halten, Bevölkerung gewinnen |
-| Supply Points | 3–5 | Liberation-Fabriken/Ressourcen-Sektoren | Ressourcen-Produktion |
-| Militärische Posten | 2–4 | Liberation-Militärsektoren | Optionale harte Ziele, schalten Elite-Fahrzeuge frei (ADR 0014) |
-| Miliz-Nester | 8–14 | **neu** (siehe Abschnitt 5) | Verdeckt, nur über Intel auffindbar |
+| Hauptstadt | 1: **Kalae Noowi** (Norden) | Liberation-Sektor (Typ „Hauptstadt“) | Finales Ziel, Sitz der Miliz |
+| Ortschaften | 25, davon 7 herabgestufte Hauptstädte | Liberation-Sektoren (Städte/Dörfer) | Einnehmen, halten, Bevölkerung gewinnen |
+| Supply Points | 5 | Liberation-Fabriken/Ressourcen-Sektoren | Ressourcen-Produktion |
+| Militärposten | 4 | Liberation-Militärsektoren | Optionale harte Ziele, schalten je ein Elite-Fahrzeug frei |
+| Miliz-Nester | 11 | **neu** (siehe Abschnitt 5) | Verdeckt, nur über Intel auffindbar |
 | Miliz-Camps | bis 10 gleichzeitig | **neu** (siehe Abschnitt 5.1) | Zufällig im Gelände, Spur zu den Nestern |
-| Startbasis | 1 | Liberation-Startpunkt | Am Rand des Spielfelds |
+| Startbasis | 1 | Liberation-Startpunkt im Südwesten | Ausgangspunkt, etwa 19 km von der Hauptstadt |
 
-- Der Ausschnitt wird in Phase 1 gemeinsam auf der Karte festgelegt (Radius grob 5–8 km um die Hauptstadt).
-- Alle Liberation-Sektoren außerhalb des Ausschnitts werden aus der `mission.sqm` entfernt, ebenso die
-  Spawnpunkte der Miliz (`opfor_point`, `opfor_airspawn`). Sonst kommen Gegenangriffe und Patrouillen von außerhalb.
-- **Keine Funktürme** im Ausschnitt (ADR 0013): Sie würden Nester und Camps auf der Karte verraten.
+- Auswahl der Ziele aus den vorhandenen Liberation-Markern: Mindestabstand 2,5 km zwischen Ortschaften,
+  im Umkreis von 1 km um die Hauptstadt liegt kein weiteres Ziel. Die übrigen Hauptstädte werden zu
+  Ortschaften herabgestuft (Arobster entfällt).
+- **Keine Funktürme** (ADR 0013): Sie würden Nester und Camps auf der Karte verraten.
+- Die Spawnpunkte der Miliz (`opfor_point`, `opfor_airspawn`) bleiben.
+- Die erste FOB bringen die Spieler per Hubschrauber (FOB-Container an der Chinook) an eine frei gewählte Stelle.
 - Siegbedingung: Hauptstadt eingenommen (nicht: alle Sektoren). Mit genau einem Hauptstadt-Sektor
   erfüllt Liberations Lobby-Parameter „Siegbedingung: alle Hauptstädte“ das ohne eigenen Code.
 
@@ -85,12 +90,21 @@ die jeweils einen **Einflussradius** haben und dort einen konkreten Effekt erzeu
 |---|---|---|
 | Kommandoposten | Steuert Patrouillen, Gegenangriffe und Verstärkung | Keine Gegenangriffe und keine Verstärkung mehr aus dieser Region, weniger Patrouillen |
 | IED-Werkstatt | Erzeugt IED-Budget | IED-Obergrenze im Radius sinkt deutlich |
-| Waffenlager | Verstärkt Garnisonen und Ausrüstung | Garnisonen kleiner, weniger schwere Waffen |
+| Waffenlager | Verstärkt Garnisonen und Ausrüstung, bewacht 1–2 Altfahrzeuge | Garnisonen kleiner, weniger schwere Waffen, seine Altfahrzeuge verschwinden |
 | VBIED-Garage | Ermöglicht VBIED-Ereignisse | Keine VBIEDs mehr im Radius |
 | Rekrutierungsstelle | Füllt Verluste der Miliz wieder auf | Miliz regeneriert langsamer |
 
 **Regeln**
+- 11 Nester zu Kampagnenbeginn, gleichmäßig über die Karte verteilt, mindestens 4 km von der Startbasis.
+- Einflussradius 1500–2500 m je nach Typ (Werte in `coin_config.sqf`).
 - Nester stehen in Gebäuden in Ortschaften oder als kleine Lager im Gelände. Leichte Bewachung.
+  - **Gebäude-Nest:** Kernobjekt und 2–4 passende Requisiten werden zufällig auf freie Plätze in einem
+    vorhandenen Haus gesetzt. Kein Template nötig.
+  - **Gelände-Nest:** 2–3 Templates pro Nest-Typ (Zelte, Tarnnetz, Kisten, Kernobjekt), platziert an einer
+    ebenen, freien Stelle. Niklas baut die Templates im Eden-Editor und liest sie mit `BIS_fnc_objectsGrabber` aus;
+    für den ersten Test gibt es je ein einfaches Platzhalter-Template.
+- Beim Kampagnenstart entstehen nur Daten (Ort, Typ, Zustand), gespeichert im Spielstand. Objekte und Wachen
+  spawnen erst, wenn Spieler in der Nähe sind, und werden wieder abgebaut, wenn niemand mehr da ist.
 - Nester sind **nicht** auf der Karte markiert. Nur Intel macht sie sichtbar (siehe System C).
 - Jedes Nest zählt zur **Netzwerkstärke**. Die Garnison der Hauptstadt skaliert damit:
   `Garnison = Basis × (1 + Faktor × verbleibende Nester)`.
@@ -118,15 +132,16 @@ und sind die zweite Intel-Quelle neben dem Dolmetscher.
 | Speichern | Ja | **Nein** – bei jedem Serverstart neu verteilt |
 
 **Regeln (entschieden)**
-- Gebiet: Kartenausschnitt plus eine **Randzone von 1–2 km**.
+- Gebiet: die ganze Karte.
 - Platzierung zufällig auf ebenem Gelände mit Deckung, mit Mindestabstand zu Straßen,
   Ortschaften, FOBs und der Startbasis.
 - Nicht persistent. Beim Serverstart wird die aktuelle Kapazität (siehe unten) neu verteilt.
 - Jedes Camp **gehört zu einem Nest**. Ausgehobene Camps liefern mit einer gewissen Chance
   Dokumente oder einen Gefangenen, die als Intel auf das zugehörige Nest zeigen.
 - KI und Objekte spawnen erst, wenn Spieler in der Nähe sind.
+- Camps nutzen dieselbe Template-Mechanik wie Gelände-Nester, mit eigenen 2–3 Camp-Templates (ohne Kernobjekt).
 
-**Wie viele Camps es gibt (Vorschlag, Entscheidung E8)**
+**Wie viele Camps es gibt (Entscheidung E8)**
 
 Die Anzahl hängt von zwei Dingen ab, die beide den Spielfortschritt abbilden:
 
@@ -155,11 +170,13 @@ keine IEDs, ohne Garage keine VBIEDs.
 | IED (ferngezündet) | Mit Auslöser in Sichtweite | Zivilist mit Telefon, der beobachtet | Auslöser ausschalten, dann entschärfen |
 | Attrappe | Wie IED, harmlos | – | Kostet Zeit, kein Schaden |
 | VBIED | Ziviles Fahrzeug fährt auf Konvoi/FOB zu | Fahrer allein, ignoriert Warnungen, hält nicht an | Stoppen, Distanz, Feuer |
-| Selbstmordattentäter | Zivilist nähert sich Gruppe | Ignoriert Aufforderungen, Hände verdeckt, zielstrebig | Anhalten lassen (ACE-Geste), Distanz |
+| Selbstmordattentäter | Zivilist nähert sich Gruppe | Ignoriert Aufforderungen, Hände verdeckt, zielstrebig | Befehl an Zivilisten (ACE „Get Down“/„Go Away“, ggf. eigenes „Stehen bleiben“), Distanz |
 | Hinterhalt | Miliz-Gruppe an Straße mit vorbereiteter Stellung | Plötzlich keine Zivilisten mehr | Aufklärung, Routen wechseln |
 | Kämpfer in Zivil | Unbewaffnet, bis Kontakt | Verhalten, Nähe zu Nestern | Vorsicht, Durchsuchen (ACE) |
 
 - Das **Entschärfen** eines IEDs erhöht den Ruf.
+- Befehle an Zivilisten kann jeder Spieler geben, ohne Dolmetscher (Gesten). Sie müssen im Interaktionsmenü
+  für Spieler logisch auffindbar sein; reichen die ACE-Einträge dafür nicht, bauen wir eigene, einheitliche.
 - Budgets und Häufigkeiten stehen in `coin_config.sqf` und sind ohne Code-Änderung anpassbar.
 - Liberations eigene IEDs (in feindlichen Sektoren bei negativem Ruf) und Guerilla-Hinterhalte
   (in befreiten Ortschaften bei Ruf ≤ −25) werden **ersetzt** und sind per Schalter abschaltbar.
@@ -168,7 +185,7 @@ keine IEDs, ohne Garage keine VBIEDs.
 ## 7. System C: Dolmetscher und Intel
 
 **Dolmetscher**
-- Eigene Rolle (Slot) in der Lobby. Optional zweiter Slot als Ersatz.
+- Zwei Slots in der Führungsgruppe beim Kommandanten.
 - Befragen geht nur, wenn der Dolmetscher **selbst fragt oder höchstens ~5 m entfernt** steht.
 - Fällt der Dolmetscher aus, gibt es keine Gespräche. Das macht ihn zu einem Schutzobjekt.
 
@@ -184,11 +201,16 @@ keine IEDs, ohne Garage keine VBIEDs.
   - **Konkreter Tipp**: kleiner Kreis (z. B. 100 m)
   - **Warnung**: IED oder Hinterhalt in der Nähe
   - **Lüge**: Kreis an einer falschen Stelle. Häufig bei niedrigem Ruf.
+- Zusätzlich kann der Dolmetscher fragen, **wie die Bevölkerung zur Armee steht**. Die Antwort nennt das
+  Ruf-Band in Worten (der Ruf wird nicht als Zahl angezeigt, siehe Abschnitt 8).
 - **Triangulation:** Mehrere wahre Hinweise auf dasselbe Nest verkleinern den Kreis.
 - Ergebnisse erscheinen als Kartenmarker für die ganze Seite und werden gespeichert.
+- Wahre Marker eines zerstörten Nests verschwinden automatisch. Lügen-Marker bleiben, bis Spieler das
+  Gebiet durchsucht haben, damit ihr Verschwinden nichts verrät.
 
 **Weitere Intel-Quellen**
-- **Gefangene verhören** (ACE-Fesseln plus Dolmetscher): höhere Chance auf konkrete Tipps.
+- **Gefangene verhören** (ACE-Fesseln plus Dolmetscher): überall möglich, einmal pro Gefangenem, höhere
+  Chance auf konkrete Tipps. Liberations Belohnung für das Abliefern an der FOB (Intel-Punkte) bleibt zusätzlich.
 - **Dokumente** bei toten Anführern, in zerstörten Nestern und ausgehobenen Camps.
   - *Option (E13):* Dokumente sind echte **ACE Intel Items** (Dokument/Foto) im Inventar.
     Sie müssen eingesammelt und zum **Dolmetscher** gebracht werden. Erst bei der Auswertung
@@ -230,6 +252,7 @@ in einer **befreiten** Ortschaft Ruf, wenn die Armee es zerstört hat.
 
 - **Start: −20.** Zu Beginn lügen viele Zivilisten. Das zwingt zum Aufbau von Vertrauen.
   Der Widerstand ist bei −20 noch neutral (feindlich erst unter −25).
+- **Keine Zahl im Overlay.** Spieler erfahren den Ruf, indem der Dolmetscher die Bevölkerung fragt (Abschnitt 7).
 - Ruf wirkt auf: Wahrheitsquote und Kreisgröße bei Intel, Häufigkeit der Informanten (steigt mit dem Ruf,
   unter +25 keine), Häufigkeit von Attentätern unter Zivilisten.
 - Der Ruf bleibt **global**, wie bei Liberation. Ruf pro Ortschaft wäre eine spätere Erweiterung (E4).
@@ -259,49 +282,84 @@ Wer die Bevölkerung wirklich auf seiner Seite hat, bekommt mehr als nur Informa
 - Liberations spontane Guerilla-Einsätze bleiben: Bei hohem Ruf stoßen gelegentlich Widerstandskämpfer
   zu unseren Sektorangriffen, bei Ruf unter −25 kämpfen sie für die Miliz.
 
+### 8.2 Aufträge
+
+Neben Liberations **Nebenmissionen** (Konvoi-Überfall, Rettung, mit Intel-Punkten gekauft) gibt es eigene
+**Aufträge** in zwei Arten. Sie werden nicht gespeichert und verfallen beim Serverneustart.
+Scheitern oder Abbruch kosten nichts.
+
+| | Hilfsauftrag | Aufklärungsauftrag |
+|---|---|---|
+| Woher | Der Dolmetscher spricht mit dem Ältesten einer befreiten Ortschaft. Gibt es gerade keinen Auftrag, heißt es „Kommt später wieder“. | Entsteht mit gewisser Chance als Ergebnis einer Befragung oder eines Verhörs. |
+| Verfügbarkeit | In jedem Ruf-Band. Pro Ortschaft 1 Angebot, danach Wartezeit; höchstens 2 gleichzeitig aktiv. | Zeitfenster (z. B. 30–60 Min.); höchstens 1 gleichzeitig aktiv. |
+| Belohnung | Ruf | Intel (Konkreter Tipp), teils sinkende Readiness |
+
+**Hilfsaufträge (erste Welle)**
+- **Hilfsgüter liefern:** eine Liberation-Supply-Kiste in die Ortschaft bringen (kostet Supplies).
+- **Arzt-Einsatz:** 3–5 kranke oder verletzte Zivilisten versorgen. Die Patienten können nicht sterben,
+  auch nicht durch Querschläger. Behandelt wird über eine eigene Aktion „Behandeln“ (nur Sanitäter, verbraucht
+  Material). Ruf pro Patient, Bonus für den ganzen Einsatz. Läuft die Zeit ab, gibt es nur keinen Bonus.
+- **Infrastruktur reparieren:** einen beschädigten Generator oder Brunnen instand setzen (EOD/Pionier).
+- *Später:* Straße räumen (nach Phase 4), Entführte befreien.
+
+**Aufklärungsaufträge (erste Welle)**
+- **Kurier abfangen:** Ein Fahrzeug mit Dokumenten fährt in einem Zeitfenster eine bekannte Strecke.
+- **Anführer festnehmen:** Ein Miliz-Anführer ist zu einer Zeit an einem Ort und muss lebend gefangen werden.
+  Zusätzlich sinkt die Readiness um 10 %.
+- **Waffentransport abfangen:** Ein Lkw ist unterwegs zu einem Waffenlager. Readiness −10 %, Hinweis auf das Ziel-Lager.
+
+Liberations HVT-Aufgabe nach Informanten bleibt unverändert daneben bestehen.
+
 ## 9. System E: Gegenangriffe und Hauptstadt
 
 - Liberation-Gegenangriffe auf eingenommene Sektoren bleiben, werden aber **asymmetrisch**:
-  Technicals und Infanterie statt Panzern, Mörserbeschuss auf FOBs, Überfälle auf Konvois.
+  Technicals und Infanterie, höchstens **ein Altfahrzeug** pro Gegenangriff, keine Kampfpanzer.
+  Dazu Mörserbeschuss auf FOBs und Überfälle auf Konvois.
 - Gegenangriffe starten nur aus Regionen mit aktivem **Kommandoposten**. Kommandoposten sind auch die
   Quelle für Verstärkung angegriffener Miliz-Sektoren; Liberations Funktürme entfallen (ADR 0013).
 - Die **Netzwerkstärke deckelt Liberations Readiness**: Je weniger Nester aktiv sind, desto niedriger der
-  Höchstwert. Das macht ein geschwächtes Netzwerk auf der ganzen Karte spürbar (ADR 0013).
+  Höchstwert. Zusätzlich **senkt jedes zerstörte Nest die Readiness sofort** (z. B. um 10, Kommandoposten 20),
+  einige Aufklärungsaufträge um 10 %. Die Readiness bleibt im Overlay sichtbar (ADR 0013).
+- Hohe Readiness bedeutet: mehr Patrouillen, stärkere Besatzungen in den Sektoren, häufigere Gegenangriffe.
 - **Hauptstadt:** Garnisonsstärke skaliert mit dem Restnetzwerk (siehe Abschnitt 5).
   Bei 0 verbleibenden Nestern: Mindestbesetzung. Bei vollem Netzwerk: praktisch nicht einnehmbar.
+  Fest dazu gehört schweres Gerät für den Endkampf: **2 Kampfpanzer T-72**, **1 Flakpanzer ZSU-23-4**
+  und Igla-Schützen. Es hängt nicht an den Waffenlagern.
 - Einnahme der Hauptstadt = Kampagnensieg.
 
 ## 10. Ausrüstung: leichte Brigade
 
-Die Armee ist eine **leichte Brigade**, keine schwere Streitmacht. Die Bau- und Kauflisten von
-Liberation werden über ein eigenes BLUFOR-Preset stark reduziert. Siehe ADR 0007.
+Die Armee ist eine **leichte Brigade** (RHS USAF Desert), keine schwere Streitmacht. Die Bau- und Kauflisten
+von Liberation werden über ein eigenes BLUFOR-Preset stark reduziert. Siehe ADR 0007.
 
 | Kategorie | Status |
 |---|---|
 | Infanterie, Scharfschützen, Pioniere, Sanitäter | erlaubt |
-| Geschützte Radfahrzeuge (MRAP), leichte Transporter, Logistik-Lkw | erlaubt |
-| Statische Waffen (MG, Granatmaschinenwerfer) | erlaubt |
-| Kleine Aufklärungsdrohnen | erlaubt (Vorschlag) |
-| Statische Mörser | offen (E11) |
-| Hubschrauber (Transport, MEDEVAC) | offen (E11) |
-| Kampfhubschrauber | offen (E11), Vorschlag: nein |
-| **Fahrbare Artillerie** (Panzerhaubitzen, Raketenwerfer) | **ausgeschlossen** |
-| **Jets** | **ausgeschlossen** |
-| Kampf- und Schützenpanzer | offen (E9), hängt an E10 |
+| Radfahrzeuge (MRAP, Humvee, Lkw, Logistik) | erlaubt |
+| Statische Waffen (MG, Granatmaschinenwerfer, TOW, Mörser) | erlaubt |
+| Kleine Aufklärungsdrohnen (Darter, Pelican) | erlaubt |
+| Hubschrauber (Transport, MEDEVAC, mit Türschützen, UH-1Y Ground Suppression) | erlaubt |
+| Bergepanzer CRV-6e Bobcat (Reparatur) | erlaubt (einzige Ausnahme bei Kettenfahrzeugen) |
+| Stryker M1126, Stryker M1134 (TOW) | nur als Elite-Fahrzeug |
+| Kampfhubschrauber AH-1Z, leichter Kampfhubschrauber AH-6M | nur als Elite-Fahrzeug, je max. 1 gleichzeitig, 30 Min. Sperre nach Kauf |
+| AH-64D | **ausgeschlossen** |
+| **Artillerie** außer Mörsern (Panzerhaubitzen, Raketenwerfer, gezogenes Geschütz M119A2) | **ausgeschlossen** |
+| **Jets** und Transportflugzeuge | **ausgeschlossen** |
+| Kettenfahrzeuge (Kampf- und Schützenpanzer, M113) | **ausgeschlossen** |
+| Große Drohnen, Luftabwehrsystem MIM-145, Boote | **ausgeschlossen** |
 
-**Kopplung an die Miliz (Vorschlag):** Die Ausrüstung der Spieler richtet sich nach der Miliz.
-- Hat die Miliz keine Panzer, haben die Spieler auch keine.
-- Hat die Miliz einzelne erbeutete Altfahrzeuge (z. B. 1–2 alte Schützenpanzer in der Hauptstadt
-  oder in Waffenlagern), dürfen die Spieler wenige Schützenpanzer zu hohen Ressourcenkosten bauen.
+**Kopplung an die Miliz:** Die Miliz hat Kampfpanzer nur in der Hauptstadt und Altfahrzeuge bei Waffenlagern.
+Die Spieler bekommen dafür Radpanzer (Stryker) über Militärposten, aber keine Kampfpanzer.
 
-**Elite-Fahrzeuge:** Militärposten schalten wertvolles, aber erlaubtes Gerät frei (z. B. schwer bewaffnete
-MRAPs, Transport-Hubschrauber, wenige Schützenpanzer nach E9). Die Liste wird mit E9/E11 in Ticket 1.6 festgelegt (ADR 0014).
+**Elite-Fahrzeuge:** Jeder der 4 Militärposten schaltet eines frei (Zuordnung ausgelost):
+Stryker M1126, Stryker M1134, AH-1Z, AH-6M (ADR 0007, 0014).
 
 **Die Miliz selbst:** Eigenes Preset auf Basis von Project OPFOR „Afghan Militia“ (ADR 0014):
 Infanterie, Technicals, Motorräder, zivile Fahrzeuge, leichte statische Waffen und Mörser.
-Keine Luftangriffe und keine Panzerverbände (Details E10).
-Liberations Luftangriffe und schwere Gegenangriffe werden über das Miliz-Preset abgeschaltet
-(leere Listen für Flugzeuge und Hubschrauber, keine Panzer in den Fahrzeuglisten).
+- Sektorverteidiger und Patrouillen: nur Technicals.
+- Gegenangriffe: Technicals, höchstens 1 Altfahrzeug (BTR-60, M113).
+- Waffenlager: 1–2 Altfahrzeuge. Hauptstadt: 2 T-72, 1 ZSU-23-4 (Abschnitt 9).
+- Keine Luftangriffe, keine Hubschrauber (leere Listen im Preset).
 
 ## 11. Querschnitt
 
@@ -311,6 +369,11 @@ Liberations Luftangriffe und schwere Gegenangriffe werden über das Miliz-Preset
 - Alle von der Mission erzeugten Einheiten, Fahrzeuge und Objekte werden automatisch allen
   Kuratoren als bearbeitbar hinzugefügt (gesammelte Funktion, nicht pro Skript).
 - Debug-Modus (Parameter): Nester, Einflussradien und IEDs auf der Karte anzeigen.
+
+**Slots (15)**
+- Führungsgruppe: Kommandant (Zeus), 2 Dolmetscher
+- Trupp A und Trupp B: je Truppführer, Sanitäter, EOD, 2 Schützen
+- 2 Hubschrauberpiloten
 
 **Performance (kein Headless Client)**
 - **Gemeinsames Budget** pro Kategorie (Gegner-KI, Zivilisten): Ein Gesamtwert gilt für Liberation
@@ -328,31 +391,31 @@ Liberations Luftangriffe und schwere Gegenangriffe werden über das Miliz-Preset
 - Ausnahme: **Camps** werden bewusst nicht gespeichert (siehe Abschnitt 5.1).
 
 **Fraktionen**
-- Ausgangspunkt: die Lythium-Fassung von Liberation (RHS USAF gegen Project OPFOR „Islamic State“).
+- Armee: RHS USAF Desert (Liberation-Lythium-Standard).
 - Miliz: eigenes Preset auf Basis „Afghan Militia“ (Abschnitt 10). Zivilisten: Liberation-Preset
-  „Middle Eastern“. BLUFOR-Wahl ist offen (E1).
+  „Middle Eastern“.
 - Umfang der Ausrüstung beider Seiten: siehe Abschnitt 10.
 
 **Nicht im Umfang (vorerst)**
-- Die gesamte Karte
 - Luftkrieg, Seekrieg, chemische Waffen
 - Eigenes Wirtschaftssystem jenseits von Liberation
 - PvP
+- Code aus Hearts and Minds (ADR 0002)
 
 ## 12. Offene Entscheidungen
 
-| # | Frage | Vorschlag | Status |
+| # | Frage | Vorschlag / Ergebnis | Status |
 |---|---|---|---|
-| E1 | Welche Armee spielen die Spieler? | RHS USAF (Liberation-Lythium-Standard) zum Start | offen |
+| E1 | Welche Armee spielen die Spieler? | RHS USAF Desert | **entschieden** |
 | E2 | Name und Erscheinung der Miliz | Fiktiver Name; Erscheinung: Project OPFOR „Afghan Militia“ (ADR 0014) | offen (Name) |
-| E3 | Welche Stadt wird Hauptstadt, welcher Ausschnitt? | Gemeinsam in Phase 1 festlegen | offen |
+| E3 | Welche Stadt wird Hauptstadt, welches Gebiet? | Kalae Noowi, ganze Karte ausgedünnt (ADR 0016) | **entschieden** |
 | E4 | Ruf global oder pro Ortschaft? | Global starten (Liberation-Ruf ist global, ADR 0009) | offen |
 | E5 | Bauen sich Nester neu auf? | Ja, langsam, ab Phase 6 | offen |
-| E6 | Reicht ein Dolmetscher-Slot oder zwei? | Zwei (Haupt + Ersatz) | offen |
+| E6 | Reicht ein Dolmetscher-Slot oder zwei? | Zwei, in der Führungsgruppe | **entschieden** |
 | E7 | Funktions-Präfix für eigenen Code | `COIN` (siehe ADR 0003) | **entschieden** |
 | E8 | Regel für die Anzahl der Camps | Kapazität aus aktiven Nestern (max. 10), keine Camps nahe befreitem Gebiet | **entschieden** |
-| E9 | Panzer für die Spieler? | Nur wenn die Miliz Panzer hat, dann wenige und teuer | offen |
-| E10 | Welches schwere Gerät darf die Miliz haben? | Technicals und Mörser aus „Afghan Militia“; optional 1–2 erbeutete Altfahrzeuge (z. B. BTR-60, M113) | offen |
-| E11 | Mörser und Hubschrauber für die Spieler? | Mörser ja, Transport-/MEDEVAC-Hubschrauber ja, keine Kampfhubschrauber | offen |
+| E9 | Panzer für die Spieler? | Keine Kampfpanzer; Stryker M1126/M1134 als Elite-Fahrzeuge (ADR 0007) | **entschieden** |
+| E10 | Welches schwere Gerät darf die Miliz haben? | Technicals überall, Altfahrzeuge bei Waffenlagern und max. 1 pro Gegenangriff, 2 T-72 + 1 ZSU-23-4 in der Hauptstadt (ADR 0014) | **entschieden** |
+| E11 | Mörser und Hubschrauber für die Spieler? | Mörser ja, Hubschrauber außer AH-64D ja, AH-1Z/AH-6M nur als Elite mit Limit (ADR 0007) | **entschieden** |
 | E12 | Unterstützung bei sehr hohem Ruf (Abschnitt 8.1) | Gefälligkeiten über den Ältesten: Ablenkungsangriff und Verstärkung | vorgeschlagen |
 | E13 | Dokumente als ACE Intel Items, die zum Dolmetscher gebracht werden müssen? | Option für Phase 3, Entscheidung beim Spec von Ticket 3.6 | offen |
