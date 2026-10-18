@@ -8,9 +8,8 @@
 
 Ein Server lädt Missionen als `.pbo`-Datei.
 
-- Prüfen, ob `build.bat` von Liberation bereits PBOs erzeugt **(Phase 0 prüfen)**.
-- Falls nicht: den Missionsordner mit **Arma 3 Tools → Addon Builder** oder einem PBO-Tool packen.
-- Dateiname: `coin_liberation.lythium.pbo` (Name vor dem Punkt frei, nach dem Punkt der Kartenname).
+- `build.bat` erzeugt das PBO automatisch: `_tools\build\pbo\coin_liberation.lythium.pbo`
+  (Name aus `missionName` und `map` in `_tools\_presets.coin.json`).
 
 ## 2. Hochladen
 

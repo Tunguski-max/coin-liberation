@@ -38,6 +38,12 @@ export interface Preset {
      * Steam Workshop Id
      */
     readonly workshopId: string;
+
+    // COIN: optional mission title template, placeholders {map} and {version} (docs/hooks.md #3)
+    /**
+     * Mission title shown in the mission list, defaults to "CTI 34 KP Liberation {map} {version}"
+     */
+    readonly missionTitle?: string;
 }
 
 export interface VariablesReplacements {

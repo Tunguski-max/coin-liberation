@@ -25,7 +25,8 @@ class Header {
 };
 
 // Name of Mission author(s) and contributors. Obviously you can only add and not (!) remove someone.
-author = "[GREUH] Zbug & McKeewa, KP Liberation Dev Team";
+// COIN: COIN Liberation added as author (docs/hooks.md #2)
+author = "[GREUH] Zbug & McKeewa, KP Liberation Dev Team, COIN Liberation";
 
 
 /*
@@ -40,7 +41,8 @@ briefingName = $STR_MISSION_TITLE;
 overviewPicture = "res\lib.paa";
 
 // Text to be displayed below the overviewPicture on the mission selection screen
-overviewText = "www.killahpotatoes.de";
+// COIN: own mission description (docs/hooks.md #2)
+overviewText = "Counterinsurgency auf Lythium: Spürt das Netzwerk der Miliz mit Hilfe der Bevölkerung auf und zerschlagt es, bevor ihr die Hauptstadt stürmt. Basiert auf KP Liberation (www.killahpotatoes.de).";
 
 
 /*
@@ -56,7 +58,8 @@ onLoadName = $STR_MISSION_TITLE;
 loadScreen = "res\lib.paa";
 
 // Displays a message while the mission is loading below the loadScreen picture.
-onLoadMission = "www.killahpotatoes.de";
+// COIN: own loading text (docs/hooks.md #2)
+onLoadMission = "COIN Liberation - basiert auf KP Liberation (www.killahpotatoes.de)";
 
 
 /*
@@ -230,6 +233,8 @@ class CfgDiscordRichPresence {
 class CfgFunctions {
     #include "CfgFunctions.hpp"
     #include "KP\KPPLM\KPPLM_functions.hpp"
+    // COIN: register COIN_fnc_* of the COIN module (ADR 0003, docs/hooks.md #1)
+    #include "coin\CfgFunctions.hpp"
 };
 
 class CfgRespawnTemplates {
