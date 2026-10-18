@@ -41,6 +41,8 @@
 Je Karte ein Ordner `kp_liberation.<worldName>/` mit **nur** einer `mission.sqm`
 (Slots, Sektor-Marker, Startbasis, Zeus-Modul). 17 Karten plus `kp_liberation_devkit.VR`.
 Für uns relevant: `Missionbasefiles/kp_liberation.lythium/mission.sqm` (33 005 Zeilen).
+COIN baut aus einer eigenen Kopie `Missionbasefiles/coin_liberation.lythium/mission.sqm` (ADR 0016, Ticket 1.2).
+Kartenänderungen (Sektoren, Slots) nur dort, das Original bleibt als Referenz unverändert.
 
 ### 1.3 Build (`build.bat` → `_tools/`)
 
@@ -61,7 +63,8 @@ Für uns relevant: `Missionbasefiles/kp_liberation.lythium/mission.sqm` (33 005 
   - ZIP: `_tools/build/kp_liberation.lythium.zip` (PBO + `userconfig/`, `LICENSE.md`, `README.md`, `CHANGELOG.md`)
 - `_tools/build/` und `_tools/node_modules/` stehen in `.gitignore`.
 - **COIN-Änderung (Hook #3, `docs/hooks.md`):** Der Build liest standardmäßig nur `_tools/_presets.coin.json`
-  (Ausgabe `coin_liberation.lythium`, Titel „COIN Liberation Lythium dev (KP v0.96.7a)“). Die Liberation-Karten aus
+  (Ausgabe `coin_liberation.lythium`, Titel „COIN Liberation Lythium dev (KP v0.96.7a)“, Quelle
+  `Missionbasefiles/coin_liberation.lythium/` über `sourceFolder` in `_presets.coin.json`, kein Hook). Die Liberation-Karten aus
   `_presets.json` kommen nur mit `COIN_ALL_PRESETS=1` dazu. Die Beschreibung oben gilt für den Upstream-Stand.
 - Wichtig: Die Preset-Nummern in `kp_liberation_config.sqf` werden beim Build **überschrieben**. Wer Presets
   für Lythium ändern will, muss `_tools/_presets.json` anpassen (oder dort und in der Config gleich halten).

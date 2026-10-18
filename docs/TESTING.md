@@ -24,6 +24,7 @@ Startparameter (Launcher → Parameter → Erweitert):
 
 Liberation setzt die Mission aus `Missionframework/` (Logik) und
 `Missionbasefiles/<karte>/mission.sqm` (Karte, Slots, Marker) zusammen.
+Die COIN-Mission nutzt die eigene Kopie `Missionbasefiles/coin_liberation.lythium/mission.sqm`.
 
 1. `build.bat` im Repo-Root ausführen (braucht Node.js).
    Schneller, nur der Missionsordner ohne PBO/ZIP: im Ordner `_tools` `npx gulp mission_coin_liberation.lythium`.

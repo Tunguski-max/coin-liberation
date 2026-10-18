@@ -23,6 +23,8 @@
   ADR 0002 akzeptiert, 15 Slots, Roadmap Phase 1 neu geschnitten
 - Design: Aufträge (Hilfs- und Aufklärungsaufträge, DESIGN 8.2), sofortiger Readiness-Abzug pro zerstörtem Nest
   (ADR 0013), Roadmap-Tickets 1.10 und 5.9–5.16
+- Eigene Missionsbasis `Missionbasefiles/coin_liberation.lythium/mission.sqm` (Kopie von Liberations Lythium,
+  ADR 0016, Ticket 1.2 / #3); der Build nutzt sie statt des Originals
 
 ### Behoben
 - Build brach ab, wenn kein Preset eine Workshop-ID hat (`_tools/gulpfile.ts`)
