@@ -36,30 +36,30 @@ Ziel: Unveränderte Liberation-Mission läuft lokal auf Lythium, und Claude Code
 Ziel: Lythium ist ausgedünnt auf unsere Ziele, Slots und Ausrüstung passen zum Design (ADR 0007, 0016).
 
 - [x] 1.1 Hauptstadt und Gebiet festlegen (E3): Kalae Noowi, ganze Karte ausgedünnt (ADR 0016)
-- [ ] 1.2 Eigene `Missionbasefiles/coin_liberation.lythium/mission.sqm` als Kopie anlegen, Build darauf umstellen
-- [ ] 1.3 Skript: Sektoren auswählen und in die Kopie schreiben
+- [x] 1.2 Eigene `Missionbasefiles/coin_liberation.lythium/mission.sqm` als Kopie anlegen, Build darauf umstellen (#3)
+- [ ] 1.3 Skript: Sektoren auswählen und in die Kopie schreiben (#4 Vorschlag, #5 Schreiben)
   - 25 Ortschaften (7 herabgestufte Hauptstädte, Arobster entfällt), 5 Supply Points, 4 Militärposten
   - Mindestabstand 2,5 km zwischen Ortschaften, nichts im Umkreis von 1 km um Kalae Noowi
   - alle Funktürme entfernen (ADR 0013), Miliz-Spawnpunkte behalten
   - Vorschlag als Karte an Niklas, Tausche einarbeiten, dann schreiben
 - [ ] ~~1.4 Startbasis verlegen~~ – entfällt, die Startbasis bleibt im Südwesten (ADR 0016)
-- [ ] 1.5 Slots im Eden-Editor (15): Führungsgruppe (Kommandant, 2 Dolmetscher), Trupp A und B
+- [ ] 1.5 (#10) Slots im Eden-Editor (15): Führungsgruppe (Kommandant, 2 Dolmetscher), Trupp A und B
   (je Truppführer, Sanitäter, EOD, 2 Schützen), 2 Hubschrauberpiloten (E6)
-- [ ] 1.6 Presets (ADR 0007, 0014)
+- [ ] 1.6 Presets (ADR 0007, 0014): #7 BLUFOR, #8 Miliz, #9 Widerstand
   - Auswahl der Presets in `_tools/_presets.coin.json` (überschreibt die Werte in `kp_liberation_config.sqf` beim Build)
   - BLUFOR (RHS USAF Desert) als **leichte Brigade** nach `DESIGN.md` Abschnitt 10
   - Elite-Liste: Stryker M1126, Stryker M1134, AH-1Z, AH-6M
   - Miliz: eigenes Preset auf Basis Project OPFOR „Afghan Militia“: Technicals in Sektoren und Patrouillen,
     Gegenangriffe mit seltenem Altfahrzeug, leere Luft- und Hubschrauberlisten
   - Widerstand: erkennbare Kleidung für lokale Kämpfer (2–3 Varianten, Niklas wählt im Arsenal)
-- [ ] 1.7 Siegbedingung „Hauptstadt eingenommen“: genau ein Hauptstadt-Sektor (aus 1.3) und Lobby-Standard
+- [ ] 1.7 (#5, #6) Siegbedingung „Hauptstadt eingenommen“: genau ein Hauptstadt-Sektor (aus 1.3) und Lobby-Standard
   `VictoryCondition` = „alle Hauptstädte“ (in 1.8)
-- [ ] 1.8 Erste Liberation-Hooks: eigener Save-Key (ADR 0005), Lobby-Standardwerte `LimitedZeus` aus,
+- [ ] 1.8 (#6) Erste Liberation-Hooks: eigener Save-Key (ADR 0005), Lobby-Standardwerte `LimitedZeus` aus,
   `ZeusAddEnemies` an (ADR 0010), `VictoryCondition` = 0, `SuppMod` = 0
-- [ ] 1.9 Limit für AH-1Z und AH-6M: je max. 1 gleichzeitig, 30 Min. Sperre ab Kauf, nicht gespeichert
+- [ ] 1.9 (#11) Limit für AH-1Z und AH-6M: je max. 1 gleichzeitig, 30 Min. Sperre ab Kauf, nicht gespeichert
   (Hook im Kaufmenü, Prüfung auf dem Server, Werte pro Klasse in `coin_config.sqf`, ADR 0007)
 
-- [ ] 1.10 Test: Liberations Verwundete nach einer Einnahme mit Lobby-Parameter `DebugCivRep` beobachten.
+- [ ] 1.10 (#12) Test: Liberations Verwundete nach einer Einnahme mit Lobby-Parameter `DebugCivRep` beobachten.
   Gibt ACE-Behandlung den Ruf? Kostet ein Sterbender Ruf? Nur bei einem Problem: Hook, der sie wie die
   Patienten des Arzt-Einsatzes behandelt (DESIGN 8.2)
 
