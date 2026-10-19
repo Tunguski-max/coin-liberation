@@ -9,3 +9,9 @@
 */
 
 diag_log "[COIN] init (client)";
+
+// ACE abilities of the slot (EOD, medic), again after every respawn
+if (COIN_enableRoleTraits) then {
+    [player] call COIN_fnc_applyRoleTraits;
+    player addEventHandler ["Respawn", {params ["_unit"]; [_unit] call COIN_fnc_applyRoleTraits;}];
+};

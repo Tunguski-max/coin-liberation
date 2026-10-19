@@ -12,6 +12,9 @@ class COIN {
     class core {
         file = "coin\functions\core";
 
+        // Gives a player unit the ACE abilities of its slot class (EOD repair, ACE medic)
+        class applyRoleTraits {};
+
         // Entry point of the COIN module, runs on every machine at mission start
         class init {
             postInit = 1;

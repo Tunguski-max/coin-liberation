@@ -369,7 +369,7 @@ Infanterie, Technicals, Motorräder, zivile Fahrzeuge, leichte statische Waffen 
 ## 11. Querschnitt
 
 **Zeus**
-- Zeus ist der **Kommandant** (Liberation-Slot „Platoon Leader (Commander)“), kein eigener Spielleiter-Slot.
+- Zeus ist der **Kommandant** (Slot „Kommandant (Zeus)“, bei Liberation „Platoon Leader (Commander)“), kein eigener Spielleiter-Slot.
   Standardmäßig ohne Einschränkungen und mit Sicht auf Gegner (ADR 0010).
 - Alle von der Mission erzeugten Einheiten, Fahrzeuge und Objekte werden automatisch allen
   Kuratoren als bearbeitbar hinzugefügt (gesammelte Funktion, nicht pro Skript).

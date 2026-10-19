@@ -3,7 +3,7 @@
 **Status:** Akzeptiert (2026-10-18)
 
 ## Kontext
-Liberation gibt Zeus dem Slot „Platoon Leader (Commander)“ (`commandant`). Die Lobby-Parameter
+Liberation gibt Zeus dem Kommandanten-Slot (`commandant`, bei Liberation „Platoon Leader (Commander)“, bei uns „Kommandant (Zeus)“). Die Lobby-Parameter
 `LimitedZeus` (Standard an: kein Platzieren, Bearbeiten, Zerstören) und `ZeusAddEnemies` (Standard aus)
 passen nicht zu Säule 5 „Zeus bleibt Herr im Haus“.
 

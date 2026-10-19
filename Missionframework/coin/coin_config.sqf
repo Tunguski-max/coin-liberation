@@ -28,12 +28,25 @@ COIN_enableVBIEDs           = true;     // Phase 4
 COIN_enableSuicideBombers   = true;     // Phase 4
 COIN_enableAmbushes         = true;     // Phase 4
 COIN_enableNestRebuild      = false;    // Phase 6, decision E5
+COIN_enableRoleTraits       = true;     // Phase 1, ticket 1.5: ACE abilities per slot class, also after respawn
 
 // Changes to Liberation behaviour (each one is a hook or overrides a Liberation global)
 COIN_disableFobHunting      = true;     // Phase 2, ADR 0011: no enemy bases besides nests
 COIN_replaceLiberationThreats = true;   // Phase 4, ADR 0008: Liberation IEDs and town ambushes off
 COIN_capReadinessByNetwork  = true;     // Phase 6, ADR 0013: active nests cap combat_readiness
 COIN_hideReputationNumber   = true;     // Phase 5, ADR 0009: no reputation number in the Liberation overlay
+
+// ---------------------------------------------------------------------------
+// Slot roles (Phase 1, ticket 1.5)
+// ACE abilities a slot gets beyond its class config: [unit class, [[variable, value], ...]]
+// The classes already bring most of it (B_medic_F is an ACE medic, B_soldier_exp_F an explosive specialist);
+// the table sets the ACE variables explicitly, at start and after every respawn.
+// ---------------------------------------------------------------------------
+COIN_roleTraits = [
+    ["B_soldier_exp_F", [["ACE_isEngineer", 1]]],               // EOD: repair (ACE engineer)
+    ["B_medic_F",       [["ace_medical_medicClass", 1]]],       // Medic: ACE medic
+    ["B_officer_F",     [["ace_medical_medicClass", 1], ["ACE_isEngineer", 1]]]  // Commander (as in his Eden init), kept after respawn
+];
 
 // ---------------------------------------------------------------------------
 // Performance budgets (no headless client), ADR 0015

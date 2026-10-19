@@ -36,6 +36,11 @@
   Lobby-Parameter, Standardwerte `LimitedZeus` aus, `ZeusAddEnemies` an, `VictoryCondition` alle Hauptstädte, `SuppMod` aus,
   `ResourcesMultiplier` x2 (Hooks 4–6); `[COIN]`-Logzeilen mit Save-Key und Lobby-Werten beim Serverstart
 
+- 15 Slots in der COIN-Missionsbasis (Ticket 1.5 / #10), in der Lobby gruppiert als „Führungsgruppe“ (Kommandant, 2 Dolmetscher), „Trupp A“ und
+  „Trupp B“ (Truppführer, Sanitäter, EOD, 2 Schützen) und „Hubschrauberpiloten“ (2 Piloten); zweiter Squad, MedEvac, Logistik, CAS und UAV entfallen.
+  Der Zeus-Slot heißt „Kommandant (Zeus)“ statt „Platoon Leader (Commander)“ (Variablenname `commandant` bleibt). `COIN_fnc_applyRoleTraits` gibt EOD
+  (ACE-Pionier), Sanitätern und dem Kommandanten ihre ACE-Fähigkeiten beim Start und nach jedem Respawn, Schalter `COIN_enableRoleTraits`
+
 ### Behoben
 - Sektor-Vorschlag: Marker-Parser kam mit mehrzeiligen Arrays (`addons[]=`) aus dem Tritt (Ergebnis bisher zufällig richtig)
 - Build brach ab, wenn kein Preset eine Workshop-ID hat (`_tools/gulpfile.ts`)
