@@ -51,8 +51,8 @@ Einsatzgebiet ist **ganz Lythium**, stark ausgedünnt (ADR 0016).
   Ortschaften herabgestuft (Arobster entfällt). Einzelne Ziele ergänzt Niklas von Hand ohne Abstandsregeln,
   vor allem in der Mitte und Kalae Barracks (E) direkt an der Hauptstadt (ADR 0016). Die Auswahl steht in
   `docs/sektorauswahl.md`.
-- **Ressourcen** (ADR 0017): Lobby-Standard Ressourcen-Multiplikator x2, jede Sorte (Supplies, Munition,
-  Treibstoff) kommt bei Kampagnenstart mindestens einmal unter den Supply Points vor. Preise unverändert.
+- **Ressourcen** (ADR 0017): Lobby-Standard Ressourcen-Multiplikator x2, die Sorten (Supplies, Munition,
+  Treibstoff) sind bei Kampagnenstart unter den Supply Points ausgeglichen (bei 8 immer 3-3-2). Preise unverändert.
 - **Keine Funktürme** (ADR 0013): Sie würden Nester und Camps auf der Karte verraten.
 - Die Spawnpunkte der Miliz (`opfor_point`, `opfor_airspawn`) bleiben.
 - Die erste FOB bringen die Spieler per Hubschrauber (FOB-Container an der Chinook) an eine frei gewählte Stelle.

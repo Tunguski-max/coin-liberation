@@ -68,8 +68,8 @@ Ziel: Lythium ist ausgedünnt auf unsere Ziele, Slots und Ausrüstung passen zum
 - [ ] 1.10 (#12) Test: Liberations Verwundete nach einer Einnahme mit Lobby-Parameter `DebugCivRep` beobachten.
   Gibt ACE-Behandlung den Ruf? Kostet ein Sterbender Ruf? Nur bei einem Problem: Hook, der sie wie die
   Patienten des Arzt-Einsatzes behandelt (DESIGN 8.2)
-- [ ] 1.11 (#14) Jede Ressourcen-Sorte garantiert: nach Liberations Auslosung der Supply Points mindestens einmal
-  Supplies, Munition und Treibstoff (Hook, Schalter in `coin_config.sqf`, ADR 0017;
+- [ ] 1.11 (#14) Ressourcen-Sorten ausgleichen: nach Liberations Auslosung der Supply Points Supplies, Munition
+  und Treibstoff so verteilen, dass sich die Sorten um höchstens 1 unterscheiden, bei 8 also 3-3-2 (Hook, Schalter in `coin_config.sqf`, ADR 0017;
   implementiert, ungetestet: Hook 14, `COIN_fnc_guaranteeResources`)
 
 **DoD:** Neue Kampagne starten, Karte zeigt nur unsere Sektoren, ein Sektor lässt sich einnehmen,

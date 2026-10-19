@@ -3,11 +3,12 @@
     Author: COIN Liberation
 
     Description:
-        Makes sure every resource type (supplies, ammo, fuel) is produced by at least one supply point
-        (ticket 1.11, ADR 0017). Liberation draws the type of every supply point at random when a new campaign
-        starts (hook 14 in synchronise_eco.sqf); with few supply points a type can be missing completely.
-        Each missing type is taken over by one supply point of a type that occurs more than once, chosen at random.
-        Supply points of a type that occurs only once are never changed.
+        Balances the resource types (supplies, ammo, fuel) among the supply points (ticket 1.11, ADR 0017).
+        Liberation draws the type of every supply point at random when a new campaign starts (hook 14 in
+        synchronise_eco.sqf); with few supply points that gives lopsided results or a missing type.
+        While the most frequent type has more than one supply point more than the least frequent one, a random
+        supply point of the most frequent type is switched to the least frequent type. With 8 supply points
+        the result is always 3-3-2 (which type gets only 2 stays random), so every type occurs at least twice.
         Must run on the server, once, right after the draw of a NEW campaign. A loaded save never gets here.
 
     Parameter(s):
@@ -30,7 +31,7 @@ if (canSuspend) then {
     waitUntil {sleep 0.5; !isNil "COIN_enableResourceGuarantee" || {diag_tickTime > _timeout}};
 };
 if (isNil "COIN_enableResourceGuarantee" || {!COIN_enableResourceGuarantee}) exitWith {
-    diag_log "[COIN] resources: guarantee is off or the config is missing, the draw stays as Liberation made it";
+    diag_log "[COIN] resources: balancing is off or the config is missing, the draw stays as Liberation made it";
     0
 };
 
@@ -56,28 +57,25 @@ if (count _markers < count _names) exitWith {
 };
 
 private _changed = 0;
-{
-    if ((_counts select _x) == 0) then {
-        private _candidates = _markers select {
-            private _type = [_x] call _typeOf;
-            _type >= 0 && {(_counts select _type) > 1}
-        };
+private _from = _counts find (selectMax _counts);
+private _to = _counts find (selectMin _counts);
 
-        if (_candidates isEqualTo []) exitWith {
-            diag_log format ["[COIN] resources: ERROR - no supply point to spare for %1", _names select _x];
-        };
+// Every step moves one supply point and brings the extremes closer, so the loop ends
+while {(_counts select _from) - (_counts select _to) > 1} do {
+    private _candidates = _markers select {([_x] call _typeOf) == _from};
+    private _marker = selectRandom _candidates;
 
-        private _marker = selectRandom _candidates;
-        private _oldType = [_marker] call _typeOf;
-        _marker set [1 + _oldType, false];
-        _marker set [1 + _x, true];
-        _counts set [_oldType, (_counts select _oldType) - 1];
-        _counts set [_x, 1];
-        _changed = _changed + 1;
+    _marker set [1 + _from, false];
+    _marker set [1 + _to, true];
+    _counts set [_from, (_counts select _from) - 1];
+    _counts set [_to, (_counts select _to) + 1];
+    _changed = _changed + 1;
 
-        diag_log format ["[COIN] resources: %1 changed from %2 to %3", _marker select 0, _names select _oldType, _names select _x];
-    };
-} forEach [0, 1, 2];
+    diag_log format ["[COIN] resources: %1 changed from %2 to %3", _marker select 0, _names select _from, _names select _to];
+
+    _from = _counts find (selectMax _counts);
+    _to = _counts find (selectMin _counts);
+};
 
 diag_log format ["[COIN] resources: now supplies %1, ammo %2, fuel %3, %4 supply points changed", _counts select 0, _counts select 1, _counts select 2, _changed];
 
