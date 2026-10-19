@@ -46,35 +46,37 @@ Ziel: Lythium ist ausgedünnt auf unsere Ziele, Slots und Ausrüstung passen zum
 - [ ] ~~1.4 Startbasis verlegen~~ – entfällt, die Startbasis bleibt im Südwesten (ADR 0016)
 - [x] 1.5 (#10) Slots im Eden-Editor (15): Führungsgruppe (Kommandant, 2 Dolmetscher), Trupp A und B
   (je Truppführer, Sanitäter, EOD, 2 Schützen), 2 Hubschrauberpiloten (E6)
-- [ ] 1.6 Presets (ADR 0007, 0014): #7 BLUFOR, #8 Miliz, #9 Widerstand
+- [x] 1.6 Presets (ADR 0007, 0014): #7 BLUFOR, #8 Miliz, #9 Widerstand
   - Auswahl der Presets in `_tools/_presets.coin.json` (überschreibt die Werte in `kp_liberation_config.sqf` beim Build)
   - BLUFOR (RHS USAF Desert) als **leichte Brigade** nach `DESIGN.md` Abschnitt 10
-    (#7 implementiert, ungetestet: Preset 31 `coin_light_brigade.sqf`)
+    (#7 getestet: Preset 31 `coin_light_brigade.sqf`)
   - Elite-Liste: M113A3 (M2), M113A3 (Mk19), Stryker M1126, Stryker M1134, AH-1Z, AH-6M
   - Miliz: eigenes Preset auf Basis Project OPFOR „Afghan Militia“: Technicals in Sektoren und Patrouillen,
     Gegenangriffe mit Technicals, Truppentransportern (Ural) und seltenem Altfahrzeug, leere Luft- und Hubschrauberlisten
-    (#8 implementiert, ungetestet: Preset 21 `coin_militia.sqf`)
-  - Widerstand und Miliz: farbiges Kopftuch als Erkennungszeichen (#9 implementiert, ungetestet): rot Miliz, grün feindlicher
+    (#8 getestet: Preset 21 `coin_militia.sqf`)
+  - Widerstand und Miliz: farbiges Kopftuch als Erkennungszeichen (#9 getestet): rot Miliz, grün feindlicher
     Widerstand, blau neutraler oder freundlicher Widerstand, live nach Ruf; Erklärung im Karten-Tagebuch (`COIN_fnc_markFactions`)
-  - Rüstung der Miliz: gepanzerte Islamic-State-Kämpfer nach Bereitschaft in die Feld-Squads gemischt (Hooks 9 und 10, `COIN_fnc_mixSquad`, implementiert, ungetestet)
-- [ ] 1.7 (#5, #6) Siegbedingung „Hauptstadt eingenommen“: genau ein Hauptstadt-Sektor (aus 1.3) und Lobby-Standard
+  - Rüstung der Miliz: gepanzerte Islamic-State-Kämpfer nach Bereitschaft in die Feld-Squads gemischt (Hooks 9 und 10, `COIN_fnc_mixSquad`, getestet)
+- [x] 1.7 (#5, #6) Siegbedingung „Hauptstadt eingenommen“: genau ein Hauptstadt-Sektor (aus 1.3) und Lobby-Standard
   `VictoryCondition` = „alle Hauptstädte“ (in 1.8)
-- [ ] 1.8 (#6) Erste Liberation-Hooks: eigener Save-Key (ADR 0005), Lobby-Standardwerte `LimitedZeus` aus,
+- [x] 1.8 (#6) Erste Liberation-Hooks: eigener Save-Key (ADR 0005), Lobby-Standardwerte `LimitedZeus` aus,
   `ZeusAddEnemies` an (ADR 0010), `VictoryCondition` = 0, `SuppMod` = 0, `ResourcesMultiplier` = x2 (ADR 0017)
-- [ ] 1.9 (#11) Limit für AH-1Z und AH-6M: je max. 1 gleichzeitig, 30 Min. Sperre ab Kauf, nicht gespeichert
+- [x] 1.9 (#11) Limit für AH-1Z und AH-6M: je max. 1 gleichzeitig, 30 Min. Sperre ab Kauf, nicht gespeichert
   (Hook im Kaufmenü, Prüfung auf dem Server, Werte pro Klasse in `coin_config.sqf`, ADR 0007;
-  implementiert, ungetestet: Hooks 11 bis 13, `COIN_fnc_vehicleLimit*`)
-
-- [ ] 1.10 (#12) Test: Liberations Verwundete nach einer Einnahme mit Lobby-Parameter `DebugCivRep` beobachten.
-  Gibt ACE-Behandlung den Ruf? Kostet ein Sterbender Ruf? Nur bei einem Problem: Hook, der sie wie die
-  Patienten des Arzt-Einsatzes behandelt (DESIGN 8.2)
-- [ ] 1.11 (#14) Ressourcen-Sorten ausgleichen: nach Liberations Auslosung der Supply Points Supplies, Munition
+  getestet: Hooks 11 bis 13, `COIN_fnc_vehicleLimit*`)
+- [x] 1.10 (#12) Test: Liberations Verwundete nach einer Einnahme beobachtet. Ergebnis: Zivilisten lassen sich mit dem
+  Sanitäter über „Heilen“ versorgen, kein Hook nötig. Aufgefallen: bewusstlose Gegner werden bei der Einnahme zu Zivilisten,
+  ihr Tod kostet Ruf. Fix bewusst verworfen (zu riskant für den Nutzen), Ruf bei Bedarf manuell zurückgeben
+- [x] 1.11 (#14) Ressourcen-Sorten ausgleichen: nach Liberations Auslosung der Supply Points Supplies, Munition
   und Treibstoff so verteilen, dass sich die Sorten um höchstens 1 unterscheiden, bei 8 also 3-3-2 (Hook, Schalter in `coin_config.sqf`, ADR 0017;
-  implementiert, ungetestet: Hook 14, `COIN_fnc_guaranteeResources`)
+  getestet: Hook 14, `COIN_fnc_guaranteeResources`, Auslosung 3-1-4 wurde zu 3-2-3)
 
 **DoD:** Neue Kampagne starten, Karte zeigt nur unsere Sektoren, ein Sektor lässt sich einnehmen,
 Speichern und Laden funktioniert nach Neustart. Bauliste und Slots entsprechen `DESIGN.md`,
 ein zweiter AH-1Z lässt sich nicht kaufen.
+
+> Erfüllt am 2026-10-19 (lokaler Host): Alle Tickets 1.1 bis 1.11 sind umgesetzt und im Spiel getestet. Speichern und Laden
+> unter dem eigenen Save-Key und die Sperre für einen zweiten AH-1Z hat Niklas bestätigt.
 
 ## Phase 2 – Miliz-Netzwerk
 
