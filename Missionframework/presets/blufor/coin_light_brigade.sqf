@@ -11,7 +11,7 @@
     Needed Mods:
     - RHS USAF
 
-    (No optional mods: all USAF/FIR/JS classes were removed.)
+    (No optional mods: all USAF/FIR/JS classes were removed. BWA3_Flag_Ger_F in buildings is filtered out if missing.)
 */
 
 /*
