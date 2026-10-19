@@ -48,6 +48,9 @@ class COIN {
         // Client: reports a cancelled placement to the server (hook 13 in do_build.sqf)
         class vehicleLimitCancel {};
 
+        // Server: every resource type at least once among the supply points of a new campaign (hook 14 in synchronise_eco.sqf)
+        class guaranteeResources {};
+
         // Entry point of the COIN module, runs on every machine at mission start
         class init {
             postInit = 1;

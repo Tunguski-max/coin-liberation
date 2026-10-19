@@ -57,3 +57,5 @@
 - Build brach ab, wenn kein Preset eine Workshop-ID hat (`_tools/gulpfile.ts`)
 - Limit für AH-1Z und AH-6M (Ticket 1.9 / #11, ADR 0007): je höchstens 1 gleichzeitig, 30 Minuten Sperre ab Kauf, nicht gespeichert; Kaufmenü graut gesperrte Fahrzeuge aus und nennt den Grund,
   der Server prüft beim Kauf nach und schickt den Käufer bei Ablehnung zurück (Hooks 11 bis 13, `COIN_fnc_vehicleLimit*`); Werte und Schalter `COIN_enableVehicleLimits` in `coin_config.sqf`
+- Jede Ressourcen-Sorte garantiert (Ticket 1.11 / #14, ADR 0017): `COIN_fnc_guaranteeResources` stellt nach Liberations Auslosung bei einer neuen Kampagne einzelne Supply Points um, bis Supplies, Munition und Treibstoff
+  je mindestens einmal vorkommen (nur Supply Points einer mehrfach vorkommenden Sorte, Hook 14); `[COIN] resources:`-Zeilen im RPT, Schalter `COIN_enableResourceGuarantee`

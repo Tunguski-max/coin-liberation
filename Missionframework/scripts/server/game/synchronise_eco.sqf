@@ -11,6 +11,9 @@ if (KP_liberation_production_markers isEqualTo []) then {
         private _facility = selectRandom [[true,false,false], [false,true,false], [false,false,true]];
         KP_liberation_production_markers pushBack [_x, _facility select 0, _facility select 1, _facility select 2, markerText _x];
     } forEach sectors_factory;
+
+    // COIN: new campaign only, make sure supplies, ammo and fuel each occur at least once (ticket 1.11, ADR 0017)
+    [] call COIN_fnc_guaranteeResources;
 };
 
 private _KP_liberation_production_old = [0];
