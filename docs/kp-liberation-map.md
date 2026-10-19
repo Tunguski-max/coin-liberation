@@ -283,7 +283,7 @@ die im geladenen Modset nicht existieren (`KPLIB_fnc_checkClass`, Z. 169–205).
 
 | Variable | Wert | Datei |
 |---|---|---|
-| BLUFOR | 7 | `presets/blufor/rhs_usaf_des.sqf` (RHS USAF Desert) |
+| BLUFOR | 7 (Upstream) / **31** (COIN) | `presets/blufor/rhs_usaf_des.sqf` (RHS USAF Desert); COIN: `presets/blufor/coin_light_brigade.sqf` (leichte Brigade, Hook 7) |
 | OPFOR | **4** | `presets/opfor/islamic_state.sqf` (**Project OPFOR „Islamic State“**, nicht „Takistan“ = 3) |
 | Widerstand | 3 | `presets/resistance/middle_eastern.sqf` (Project OPFOR, `LOP_AM_*` = Afghan Militia) |
 | Zivilisten | 2 | `presets/civilians/middle_eastern.sqf` (Project OPFOR) |
