@@ -22,8 +22,10 @@ Sorten und 50 der fehlenden.
   Kalae Factory). Siehe ADR 0016.
 - **Lobby-Standard Ressourcen-Multiplikator x2** (Wert 6, Ticket 1.8): Intervall 15 Minuten, doppelt so
   viele Kisten in Sektoren. Der Multiplikator bleibt der Regler, falls es im Test zu zäh oder zu leicht ist.
-- **Jede Sorte garantiert:** Nach Liberations Auslosung prüft COIN, ob jede Sorte mindestens einmal
-  vorkommt, und korrigiert sonst einzelne Supply Points (Hook, Ticket 1.11).
+- **Sorten ausgeglichen:** Nach Liberations Auslosung gleicht COIN die Sorten aus (Hook, Ticket 1.11): Solange die
+  häufigste Sorte mehr als einen Supply Point mehr hat als die seltenste, stellt COIN einen zufälligen Supply Point der
+  häufigsten auf die seltenste um. Bei 8 Supply Points ergibt das immer 3-3-2, jede Sorte kommt also mindestens
+  zweimal vor. Geändert am 2026-10-19 nach dem ersten Test (Auslosung 5-2-1), vorher nur „jede Sorte mindestens einmal“.
 - **Preise bleiben unverändert.**
 
 ## Begründung

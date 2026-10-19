@@ -126,6 +126,14 @@ COIN_vehicleLimits = [
 ];
 
 // ---------------------------------------------------------------------------
+// Resource economy (Phase 1, ticket 1.11, ADR 0017)
+// ---------------------------------------------------------------------------
+// New campaign only: after Liberation draws what each supply point produces, balance supplies,
+// ammo and fuel so that their counts differ by 1 at most (8 supply points: always 3-3-2).
+// Loaded saves are never touched.
+COIN_enableResourceGuarantee = true;
+
+// ---------------------------------------------------------------------------
 // Interpreter and intel (Phase 3)
 // ---------------------------------------------------------------------------
 COIN_interpreterRange       = 5;        // m between asking player and interpreter
