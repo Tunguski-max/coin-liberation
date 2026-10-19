@@ -56,6 +56,7 @@ Ziel: Lythium ist ausgedünnt auf unsere Ziele, Slots und Ausrüstung passen zum
     (#8 implementiert, ungetestet: Preset 21 `coin_militia.sqf`)
   - Widerstand und Miliz: farbiges Kopftuch als Erkennungszeichen (#9 implementiert, ungetestet): rot Miliz, grün feindlicher
     Widerstand, blau neutraler oder freundlicher Widerstand, live nach Ruf; Erklärung im Karten-Tagebuch (`COIN_fnc_markFactions`)
+  - Rüstung der Miliz: gepanzerte Islamic-State-Kämpfer nach Bereitschaft in die Feld-Squads gemischt (`COIN_fnc_mixSquads`, implementiert, ungetestet)
 - [ ] 1.7 (#5, #6) Siegbedingung „Hauptstadt eingenommen“: genau ein Hauptstadt-Sektor (aus 1.3) und Lobby-Standard
   `VictoryCondition` = „alle Hauptstädte“ (in 1.8)
 - [ ] 1.8 (#6) Erste Liberation-Hooks: eigener Save-Key (ADR 0005), Lobby-Standardwerte `LimitedZeus` aus,

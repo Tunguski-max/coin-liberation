@@ -16,6 +16,7 @@ coin/
         ├── fn_init.sqf              COIN_fnc_init: Einstiegspunkt (postInit)
         ├── fn_applyRoleTraits.sqf   COIN_fnc_applyRoleTraits: ACE-Fähigkeiten der Slots (EOD, Sanitäter)
         ├── fn_markFactions.sqf      COIN_fnc_markFactions: Server-Schleife, farbiges Kopftuch für Miliz und Widerstand
+        ├── fn_mixSquads.sqf         COIN_fnc_mixSquads: Server-Schleife, gepanzerte Islamic-State-Kämpfer in den Feld-Squads der Miliz
         └── fn_createDiary.sqf       COIN_fnc_createDiary: Karten-Tagebuch "COIN Liberation" für Spieler
 ```
 

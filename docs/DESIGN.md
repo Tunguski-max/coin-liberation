@@ -365,6 +365,7 @@ M113A3 (M2), M113A3 (Mk19), Stryker M1126, Stryker M1134, AH-1Z, AH-6M (ADR 0007
 **Die Miliz selbst:** Eigenes Preset auf Basis von Project OPFOR „Afghan Militia“ (ADR 0014):
 Infanterie, Technicals, Motorräder, zivile Fahrzeuge, leichte statische Waffen und Mörser.
 - Sektorverteidiger und Patrouillen: nur Technicals.
+- Rüstung: Afghan Militia ist ungeschützt. Die Feld-Squads mischen gepanzerte Islamic-State-Kämpfer (Weste, Helm) nach Bereitschaft ein (25 % bei 30 bis 75 % bei 100), die Garnison bleibt ungeschützt (ADR 0014).
 - Gegenangriffe: Technicals und Truppentransporter (Ural), höchstens 1 Altfahrzeug (BTR-60, M113; auch als Truppentransporter nutzbar).
 - Waffenlager: 1–2 Altfahrzeuge. Hauptstadt: 2 T-72, 1 ZSU-23-4 (Abschnitt 9).
 - Keine Luftangriffe, keine Hubschrauber (leere Listen im Preset).

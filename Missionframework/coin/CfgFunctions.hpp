@@ -18,6 +18,9 @@ class COIN {
         // Server loop: colored shemag per faction (militia red, resistance green or blue)
         class markFactions {};
 
+        // Server loop: swaps militia squad members for armored Islamic State twins by combat readiness
+        class mixSquads {};
+
         // Client: diary tab "COIN Liberation" with the player-readable explanations
         class createDiary {};
 

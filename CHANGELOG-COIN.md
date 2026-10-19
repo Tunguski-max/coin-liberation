@@ -49,6 +49,8 @@
 - Erkennungstuch (Ticket 1.6 / #9): `COIN_fnc_markFactions` setzt allen KI-Kämpfern ein farbiges Kopftuch, rot für die Miliz, grün für feindlichen
   Widerstand, blau für neutralen oder freundlichen Widerstand. Die Farbe folgt dem Ruf live, auch bei lebenden Kämpfern; Schalter `COIN_enableFactionMarkers`.
   Karten-Tagebuch „COIN Liberation“ (`COIN_fnc_createDiary`) erklärt die Farben den Spielern. Kein Eingriff in Liberation-Dateien
+- Rüstung der Miliz (ADR 0014): `COIN_fnc_mixSquads` mischt Islamic-State-Kämpfer (Weste, Helm) in die Feld-Squads, Anteil 25 % bei Bereitschaft 30 bis 75 % bei 100;
+  Miliz mit Helm behält ihn statt des roten Tuchs; Schalter `COIN_enableSquadMix`
 
 ### Behoben
 - Sektor-Vorschlag: Marker-Parser kam mit mehrzeiligen Arrays (`addons[]=`) aus dem Tritt (Ergebnis bisher zufällig richtig)

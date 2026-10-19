@@ -37,3 +37,8 @@ if (COIN_enableFactionMarkers) then {
     diag_log format ["[COIN] init: faction markers militia=%1 resistanceHostile=%2 resistanceFriendly=%3 interval=%4", COIN_markerMilitia, COIN_markerResistanceHostile, COIN_markerResistanceFriendly, COIN_markerInterval];
     [] spawn COIN_fnc_markFactions;
 };
+
+// Armor mix of the militia field squads (ADR 0014): runs as long as COIN_enableSquadMix is true
+if (COIN_enableSquadMix) then {
+    [] spawn COIN_fnc_mixSquads;
+};

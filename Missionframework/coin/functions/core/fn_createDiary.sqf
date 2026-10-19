@@ -31,7 +31,7 @@ _unit createDiaryRecord ["COIN_info", ["Erkennungszeichen", format [
     "<font size='18'>Wer ist wer? Das Kopftuch (Shemag)</font><br/><br/>" +
     "Miliz und Widerstand sehen sich ähnlich. Deshalb tragen alle ihre bewaffneten Kämpfer ein Kopftuch in fester Farbe:<br/><br/>" +
     "<font color='%1' size='16'>ROT: Miliz</font><br/>" +
-    "Der Gegner. Immer feindlich.<br/><br/>" +
+    "Der Gegner. Immer feindlich. Miliz-Kämpfer mit Helm tragen statt des Tuchs ihren Helm: Wer einen Helm trägt, gehört zur Miliz.<br/><br/>" +
     "<font color='%2' size='16'>GRÜN: Widerstand, feindlich</font><br/>" +
     "Der Ruf bei der Bevölkerung ist schlecht. Der Widerstand kämpft gegen uns und an der Seite der Miliz.<br/><br/>" +
     "<font color='%3' size='16'>BLAU: Widerstand, neutral oder freundlich</font><br/>" +

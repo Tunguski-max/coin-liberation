@@ -13,7 +13,7 @@
         crosses the threshold. The rule is applied directly because Liberation calls setFriend only after the first
         reputation change or a save load, so getFriend is not reliable on a fresh campaign.
         Units are found by scanning allUnits, so no Liberation spawn script has to be touched. A unit that has left
-        its faction (e.g. a captured militia fighter) loses the shemag again.
+        its faction (e.g. a captured militia fighter) loses the shemag again. Militia fighters that wear a helmet keep it.
         Runs as long as COIN_enableFactionMarkers is true. Must run on the server only.
 
     Parameter(s):
@@ -68,19 +68,30 @@ while {COIN_enableFactionMarkers} do {
         };
         private _previous = _unit getVariable ["COIN_marker", ""];
 
-        if (_marker != "") then {
-            // Also catches a shemag that was taken off or replaced later
-            if (headgear _unit != _marker) then {
-                _unit setVariable ["COIN_marker", _marker];
-                [_unit, _marker] call _setHeadgear;
-            };
-        } else {
+        if (_marker == "") then {
             // The unit left its faction (captured, switched side): take our shemag off again
             if (_previous != "") then {
                 _unit setVariable ["COIN_marker", ""];
-                if (headgear _unit == _previous) then {
+                if (_previous != "helmet" && {headgear _unit == _previous}) then {
                     [_unit, ""] call _setHeadgear;
                 };
+            };
+        } else {
+            // Militia fighters with a helmet (Islamic State twins, see COIN_fnc_mixSquads) keep it: a helmet means militia anyway.
+            // Resistance fighters always get their shemag. The decision is stored, so the config lookup runs once per unit.
+            private _keepsHelmet = _previous == "helmet";
+            if (!_keepsHelmet && {_marker == COIN_markerMilitia} && {_previous == ""}) then {
+                private _headArmor = getNumber (configFile >> "CfgWeapons" >> (headgear _unit) >> "ItemInfo" >> "HitpointsProtectionInfo" >> "Head" >> "armor");
+                if (_headArmor > 0) then {
+                    _unit setVariable ["COIN_marker", "helmet"];
+                    _keepsHelmet = true;
+                };
+            };
+
+            // Also catches a shemag that was taken off or replaced later
+            if (!_keepsHelmet && {headgear _unit != _marker}) then {
+                _unit setVariable ["COIN_marker", _marker];
+                [_unit, _marker] call _setHeadgear;
             };
         };
     } forEach (allUnits select {alive _x && {!isPlayer _x} && {_x isKindOf "CAManBase"}});
