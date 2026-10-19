@@ -1,6 +1,6 @@
 // Sector selection proposal (ticket #4, ADR 0016).
 // Usage from the repo root: node _tools/coin/sectors/propose.js
-// Reads rules.json and the COIN mission.sqm, writes selection.json (input for writing the
+// Reads rules.json and Liberation's original mission.sqm (all candidates), writes selection.json (input for writing the
 // mission base) plus docs/sektorauswahl.md and docs/sektorauswahl.svg for review.
 const fs = require('fs');
 const path = require('path');
@@ -13,7 +13,7 @@ const listFile = path.join(repoRoot, 'docs', 'sektorauswahl.md');
 const svgFile = path.join(repoRoot, 'docs', 'sektorauswahl.svg');
 
 const rules = JSON.parse(fs.readFileSync(rulesFile, 'utf8'));
-const markers = parseMarkers(fs.readFileSync(path.join(repoRoot, rules.missionSqm), 'utf8'));
+const markers = parseMarkers(fs.readFileSync(path.join(repoRoot, rules.sourceSqm), 'utf8'));
 const previous = fs.existsSync(selectionFile) ? JSON.parse(fs.readFileSync(selectionFile, 'utf8')) : null;
 
 let result;

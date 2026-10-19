@@ -37,7 +37,7 @@ Ziel: Lythium ist ausgedünnt auf unsere Ziele, Slots und Ausrüstung passen zum
 
 - [x] 1.1 Hauptstadt und Gebiet festlegen (E3): Kalae Noowi, ganze Karte ausgedünnt (ADR 0016)
 - [x] 1.2 Eigene `Missionbasefiles/coin_liberation.lythium/mission.sqm` als Kopie anlegen, Build darauf umstellen (#3)
-- [ ] 1.3 Skript: Sektoren auswählen und in die Kopie schreiben (#4 Vorschlag, #5 Schreiben)
+- [x] 1.3 Skript: Sektoren auswählen und in die Kopie schreiben (#4 Vorschlag, #5 Schreiben)
   - 25 Ortschaften (7 herabgestufte Hauptstädte, Arobster entfällt), 5 Supply Points, 4 Militärposten per Regel,
     dazu von Hand: 4 Ortschaften, 3 Supply Points, 2 Militärposten (gesamt 29/8/6, ADR 0016, 0017)
   - Mindestabstand 2,5 km zwischen Ortschaften, nichts im Umkreis von 1 km um Kalae Noowi

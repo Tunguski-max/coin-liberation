@@ -87,4 +87,11 @@ node --test "_tools/coin/**/*.test.js"
 **Sektorauswahl (Ticket #4, ADR 0016):** `node _tools/coin/sectors/propose.js` liest die Regeln aus
 `_tools/coin/sectors/rules.json` und schreibt `docs/sektorauswahl.md` (Liste), `docs/sektorauswahl.svg` (Karte)
 und `_tools/coin/sectors/selection.json`. Tausche über `raus`/`rein`, Ergänzungen ohne Abstandsregeln über `dazu` in `rules.json` (Name oder Marker-ID);
-jeder Lauf zeigt, was sich gegenüber dem letzten Vorschlag geändert hat.
+jeder Lauf zeigt, was sich gegenüber dem letzten Vorschlag geändert hat. Der Vorschlag liest immer
+Liberations Original (`kp_liberation.lythium`), damit alle Kandidaten sichtbar bleiben.
+
+**Auswahl schreiben (Ticket #5):** `node _tools/coin/sectors/write.js` schreibt `selection.json` in
+`Missionbasefiles/coin_liberation.lythium/mission.sqm`: nicht gewählte Sektoren und alle Funktürme werden
+entfernt, herabgestufte Hauptstädte heißen danach `capture_bigtown_N` (Ortschaftssymbol, Name bleibt).
+Alles andere bleibt unverändert, auch Änderungen aus dem Eden-Editor. Ein zweiter Lauf ändert nichts.
+Nach dem Schreiben braucht es eine **neue Kampagne** (Abschnitt 5), weil ein alter Spielstand entfernte Sektoren enthält.

@@ -42,7 +42,9 @@ Je Karte ein Ordner `kp_liberation.<worldName>/` mit **nur** einer `mission.sqm`
 (Slots, Sektor-Marker, Startbasis, Zeus-Modul). 17 Karten plus `kp_liberation_devkit.VR`.
 Für uns relevant: `Missionbasefiles/kp_liberation.lythium/mission.sqm` (33 005 Zeilen).
 COIN baut aus einer eigenen Kopie `Missionbasefiles/coin_liberation.lythium/mission.sqm` (ADR 0016, Ticket 1.2).
-Kartenänderungen (Sektoren, Slots) nur dort, das Original bleibt als Referenz unverändert.
+Kartenänderungen (Sektoren, Slots) nur dort, das Original bleibt als Referenz unverändert. Die Sektoren schreibt
+`_tools/coin/sectors/write.js` (Ticket 1.3): 1 Hauptstadt, 29 Ortschaften (davon 7 als `capture_bigtown_N`),
+8 Supply Points, 6 Militärposten, keine Funktürme, Miliz-Spawnpunkte unverändert.
 
 ### 1.3 Build (`build.bat` → `_tools/`)
 
