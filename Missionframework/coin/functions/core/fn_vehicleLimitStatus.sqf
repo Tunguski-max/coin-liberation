@@ -31,7 +31,8 @@ private _limit = [];
 if (_limit isEqualTo []) exitWith {[true, "", []]};
 
 private _max = _limit select 1;
-private _alive = count (vehicles select {alive _x && {(toLower (typeOf _x)) isEqualTo _classLower}});
+// The placement preview and preplaced vehicles carry KP_liberation_preplaced (as in Liberation's unit_cap.sqf). On a local host the preview of the buyer is a vehicle of the server, too
+private _alive = count (vehicles select {alive _x && {(toLower (typeOf _x)) isEqualTo _classLower} && {!(_x getVariable ["KP_liberation_preplaced", false])}});
 if (_alive >= _max) exitWith {
     [false, format ["Bereits im Einsatz (höchstens %1 gleichzeitig)", _max], _limit]
 };
