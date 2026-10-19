@@ -64,8 +64,8 @@ Think of them like garrison or military police forces, which are more meant to c
 militia_squad = [
     "LOP_AM_OPF_Infantry_Rifleman",                                     // Rifleman (AKM)
     "LOP_AM_OPF_Infantry_Rifleman",                                     // Rifleman (AKM)
-    "LOP_AM_OPF_Infantry_Rifleman_5",                                   // Rifleman (AKM-74)
-    "LOP_AM_OPF_Infantry_Rifleman_5",                                   // Rifleman (AKM-74)
+    "LOP_AM_OPF_Infantry_Rifleman_5",                                   // Rifleman (AK-74)
+    "LOP_AM_OPF_Infantry_Rifleman_5",                                   // Rifleman (AK-74)
     "LOP_AM_OPF_Infantry_AT",                                           // Rifleman (RPG-7)
     "LOP_AM_OPF_Infantry_AR",                                           // Autorifleman (PKM)
     "LOP_AM_OPF_Infantry_Rifleman_3",                                   // Marksman (Lee Enfield)
@@ -99,7 +99,7 @@ opfor_vehicles_low_intensity = [
 ];
 
 /* Counterattacks (battlegroups) at high readiness: technicals, rarely one old vehicle.
-   COIN: LOP_ISTS_OPF_BTR60 is confirmed (upstream preset). One entry of 11 keeps it rare (ADR 0014, hard limit comes in phase 6.2). */
+   COIN: LOP_ISTS_OPF_BTR60 is confirmed (upstream preset). One entry of 25 (about 1 in 3 for a full 16-vehicle group) keeps it rare; a hard limit of 1 comes in phase 6.2 (ADR 0014). */
 opfor_battlegroup_vehicles = [
     "LOP_AM_OPF_UAZ_DshKM",                                             // UAZ-3151 (DShKM)
     "LOP_AM_OPF_UAZ_DshKM",                                             // UAZ-3151 (DShKM)
@@ -107,8 +107,22 @@ opfor_battlegroup_vehicles = [
     "LOP_AM_OPF_UAZ_DshKM",                                             // UAZ-3151 (DShKM)
     "LOP_AM_OPF_UAZ_DshKM",                                             // UAZ-3151 (DShKM)
     "LOP_AM_OPF_UAZ_DshKM",                                             // UAZ-3151 (DShKM)
+    "LOP_AM_OPF_UAZ_DshKM",                                             // UAZ-3151 (DShKM)
+    "LOP_AM_OPF_UAZ_DshKM",                                             // UAZ-3151 (DShKM)
+    "LOP_AM_OPF_UAZ_DshKM",                                             // UAZ-3151 (DShKM)
+    "LOP_AM_OPF_UAZ_DshKM",                                             // UAZ-3151 (DShKM)
+    "LOP_AM_OPF_UAZ_DshKM",                                             // UAZ-3151 (DShKM)
+    "LOP_AM_OPF_UAZ_DshKM",                                             // UAZ-3151 (DShKM)
     "LOP_AM_OPF_Nissan_PKM",                                            // Nissan (PKM)
     "LOP_AM_OPF_Nissan_PKM",                                            // Nissan (PKM)
+    "LOP_AM_OPF_Nissan_PKM",                                            // Nissan (PKM)
+    "LOP_AM_OPF_Nissan_PKM",                                            // Nissan (PKM)
+    "LOP_AM_OPF_Nissan_PKM",                                            // Nissan (PKM)
+    "LOP_AM_OPF_Nissan_PKM",                                            // Nissan (PKM)
+    "LOP_AM_OPF_Offroad_M2",                                            // Offroad (M2)
+    "LOP_AM_OPF_Offroad_M2",                                            // Offroad (M2)
+    "LOP_AM_OPF_Offroad_M2",                                            // Offroad (M2)
+    "LOP_AM_OPF_Offroad_M2",                                            // Offroad (M2)
     "LOP_AM_OPF_Offroad_M2",                                            // Offroad (M2)
     "LOP_AM_OPF_Offroad_M2",                                            // Offroad (M2)
     "LOP_ISTS_OPF_BTR60"                                                // BTR-60PB (old vehicle, rare)
