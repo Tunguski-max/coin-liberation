@@ -29,6 +29,9 @@
   Ausgabe `docs/sektorauswahl.md` und `.svg`, Tests mit `node --test`; Ergänzungen von Hand per `dazu`
 - Design: ADR 0017 Ressourcen-Wirtschaft (8 Supply Points, Multiplikator x2, jede Sorte garantiert),
   ADR 0016 um von Hand ergänzte Ziele erweitert (29 Ortschaften, 8 Supply Points, 6 Militärposten)
+- Ausgedünnte Karte (Ticket 1.3 / #5): `_tools/coin/sectors/write.js` schreibt die Auswahl in die COIN-`mission.sqm`
+  (157 Sektor-Marker entfernt, 7 Hauptstädte zu Ortschaften); gemeinsamer Parser `sqm.js`
 
 ### Behoben
+- Sektor-Vorschlag: Marker-Parser kam mit mehrzeiligen Arrays (`addons[]=`) aus dem Tritt (Ergebnis bisher zufällig richtig)
 - Build brach ab, wenn kein Preset eine Workshop-ID hat (`_tools/gulpfile.ts`)

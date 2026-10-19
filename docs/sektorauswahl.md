@@ -5,7 +5,7 @@ tauschen über `raus`/`rein`, ohne Abstandsregeln ergänzen über `dazu` in `_to
 
 ## Änderungen zum letzten Vorschlag
 
-- Neu: Kalae Barracks (E), Tonkuf, Kandar, Ramir, Kalae Village (N), Kandar Factory, Zarath Windpark, Kalae Factory, Mountain Patrol Camp
+- Neu: (keine)
 - Entfallen: (keine)
 
 ## Gewählte Ziele

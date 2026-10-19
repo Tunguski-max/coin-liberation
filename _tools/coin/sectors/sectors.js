@@ -1,5 +1,6 @@
 // Sector selection for the thinned-out Lythium map (ticket #4, ADR 0016).
 // Pure functions only; file access lives in propose.js.
+const { parseBlocks, walk } = require('./sqm');
 
 /**
  * Read all markers from a mission.sqm text.
@@ -9,30 +10,12 @@
  */
 function parseMarkers(sqmText) {
     const markers = [];
-    const stack = [];
-    for (const line of sqmText.split(/\r?\n/)) {
-        if (/^\s*class\s+\w+/.test(line)) {
-            stack.push({});
-            continue;
-        }
-        if (/^\s*};/.test(line)) {
-            const block = stack.pop();
-            if (block && block.dataType === 'Marker' && block.name) {
-                markers.push({ name: block.name, text: block.text || '', x: block.x, y: block.y });
-            }
-            continue;
-        }
-        const block = stack[stack.length - 1];
-        if (!block) continue;
-        const pos = line.match(/^\s*position\[\]=\{([-\d.e]+),([-\d.e]+),([-\d.e]+)\};/);
-        if (pos) {
-            block.x = Number(pos[1]);
-            block.y = Number(pos[3]);
-            continue;
-        }
-        const prop = line.match(/^\s*(\w+)="((?:[^"]|"")*)";/);
-        if (prop) block[prop[1]] = prop[2].replace(/""/g, '"');
-    }
+    walk(parseBlocks(sqmText.split(/\r?\n/)), block => {
+        const { dataType, name, text } = block.props;
+        if (dataType !== 'Marker' || !name) return;
+        const [x, , y] = block.props['position[]'].split(',').map(Number);
+        markers.push({ name, text: (text || '').replace(/""/g, '"'), x, y });
+    });
     return markers;
 }
 
@@ -294,4 +277,7 @@ function renderSvg(result, rules) {
     return out.join('\n');
 }
 
-module.exports = { parseMarkers, selectSectors, diffSelections, renderList, renderSvg };
+// Marker name prefixes Liberation treats as sectors (fn_initSectors.sqf matches them with find == 0).
+const SECTOR_PREFIXES = Object.keys(KINDS);
+
+module.exports = { SECTOR_PREFIXES, parseMarkers, selectSectors, diffSelections, renderList, renderSvg };

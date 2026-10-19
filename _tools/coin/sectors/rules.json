@@ -1,5 +1,6 @@
 {
-    "missionSqm": "Missionbasefiles/coin_liberation.lythium/mission.sqm",
+    "sourceSqm": "Missionbasefiles/kp_liberation.lythium/mission.sqm",
+    "targetSqm": "Missionbasefiles/coin_liberation.lythium/mission.sqm",
     "mapSize": 20480,
     "capital": "Kalae Noowi",
     "startBaseMarker": "startbase_marker",

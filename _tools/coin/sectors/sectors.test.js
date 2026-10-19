@@ -64,6 +64,33 @@ test('parseMarkers reads every marker with name, text and 2D map position', () =
     ]);
 });
 
+test('parseMarkers is not confused by multi-line arrays inside or before a marker', () => {
+    const sqm = `addons[]=
+{
+	"A3_Signs_F"
+};
+class Mission
+{
+	class Entities
+	{
+		class Item0
+		{
+			dataType="Marker";
+			drawLine[]=
+			{
+				1,
+				2
+			};
+			position[]={500,0,700};
+			name="capture_9";
+			text="Line Town";
+		};
+	};
+};
+`;
+    assert.deepEqual(parseMarkers(sqm), [{ name: 'capture_9', text: 'Line Town', x: 500, y: 700 }]);
+});
+
 // --- selectSectors -----------------------------------------------------------
 
 const m = (name, text, xKm, yKm) => ({ name, text, x: xKm * 1000, y: yKm * 1000 });
