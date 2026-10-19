@@ -49,11 +49,16 @@ COIN_roleTraits = [
 ];
 
 // ---------------------------------------------------------------------------
-// Performance budgets (no headless client), ADR 0015
-// Totals for Liberation AND COIN together. Liberation's own caps
-// (GRLIB_sector_cap, GRLIB_battlegroup_cap, GRLIB_patrol_cap) are derived from these.
+// Performance budgets (no headless client), ADR 0015 (changed 2026-10-19)
+// Enemy AI: Liberation's three caps (GRLIB_sector_cap, GRLIB_battlegroup_cap, GRLIB_patrol_cap) get one value,
+// COIN_maxEnemyAI times the Unitcap factor of the lobby. COIN units come on top: a server loop adds their
+// current number to Liberation's caps, because Liberation counts every OPFOR unit. Nests always spawn complete,
+// camps only while all COIN units together stay within COIN_maxCampAI.
 // ---------------------------------------------------------------------------
-COIN_maxEnemyAI             = 80;       // All OPFOR units on the map
+COIN_enableAIBudget         = true;     // Phase 2, ticket 2.13. Off: Liberation keeps its original caps, camps are not limited
+COIN_maxEnemyAI             = 100;      // Liberation's caps at Unitcap "normal" (original 180/150/150)
+COIN_maxCampAI              = 20;       // COIN units (nest guards included) up to which a camp may still spawn
+COIN_aiBudgetInterval       = 5;        // s between two updates of Liberation's caps
 COIN_maxCivilians           = 30;       // All civilians on the map
 COIN_maxActiveIEDs          = 25;       // COIN IEDs at the same time
 COIN_spawnRadius            = 1500;     // m around players in which COIN content spawns
