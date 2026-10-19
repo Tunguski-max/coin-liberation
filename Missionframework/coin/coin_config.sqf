@@ -223,5 +223,5 @@ COIN_reconReadinessFactor   = 0.9;      // combat_readiness multiplier for leade
 COIN_enableFactionMarkers       = true;                     // Colored shemag per faction, see COIN_fnc_markFactions
 COIN_markerInterval             = 3;                        // s between two scans for new units or a changed reputation
 COIN_markerMilitia              = "LOP_H_Shemag_RED1";      // Militia: red
-COIN_markerResistanceHostile    = "LOP_H_Shemag_GRE";       // Resistance, hostile to the army (reputation < -25): green
+COIN_markerResistanceHostile    = "H_Shemag_olive";         // Resistance, hostile to the army (reputation < -25): green (vanilla olive shemag)
 COIN_markerResistanceFriendly   = "LOP_H_Shemag_BLU";       // Resistance, neutral or friendly: blue
