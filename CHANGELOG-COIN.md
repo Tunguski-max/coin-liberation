@@ -40,6 +40,9 @@
   „Trupp B“ (Truppführer, Sanitäter, EOD, 2 Schützen) und „Hubschrauberpiloten“ (2 Piloten); zweiter Squad, MedEvac, Logistik, CAS und UAV entfallen.
   Der Zeus-Slot heißt „Kommandant (Zeus)“ statt „Platoon Leader (Commander)“ (Variablenname `commandant` bleibt). `COIN_fnc_applyRoleTraits` gibt EOD
   (ACE-Pionier), Sanitätern und dem Kommandanten ihre ACE-Fähigkeiten beim Start und nach jedem Respawn, Schalter `COIN_enableRoleTraits`
+- BLUFOR-Preset „leichte Brigade“ (Ticket 1.6 / #7): `presets/blufor/coin_light_brigade.sqf` (Preset 31, Hook 7) auf Basis von RHS USAF Desert ohne
+  Kettenfahrzeuge (außer Bobcat), Jets, Transportflugzeuge, AH-64D, große Drohnen, M119A2, MIM-145, Boote, SDV und Mk.V;
+  Elite-Fahrzeuge: Stryker M1126, Stryker M1134, AH-1Z, AH-6M; `[COIN]`-Logzeile mit Preset und Listengrößen
 
 ### Behoben
 - Sektor-Vorschlag: Marker-Parser kam mit mehrzeiligen Arrays (`addons[]=`) aus dem Tritt (Ergebnis bisher zufällig richtig)
