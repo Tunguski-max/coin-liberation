@@ -33,6 +33,21 @@ class COIN {
         // Client: diary tab "COIN Liberation" with the player-readable explanations
         class createDiary {};
 
+        // May this class be bought now? Maximum alive and lock after purchase (ticket 1.9, ADR 0007)
+        class vehicleLimitStatus {};
+
+        // Server: purchase check, starts the lock or sends the buyer's placement back (hook 12 in build_remote_call.sqf)
+        class vehicleLimitPurchase {};
+
+        // Server: lifts the lock of a cancelled placement
+        class vehicleLimitRelease {};
+
+        // Client: cancels the placement after a denied purchase
+        class vehicleLimitDeny {};
+
+        // Client: reports a cancelled placement to the server (hook 13 in do_build.sqf)
+        class vehicleLimitCancel {};
+
         // Entry point of the COIN module, runs on every machine at mission start
         class init {
             postInit = 1;

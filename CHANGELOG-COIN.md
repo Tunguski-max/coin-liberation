@@ -55,3 +55,5 @@
 ### Behoben
 - Sektor-Vorschlag: Marker-Parser kam mit mehrzeiligen Arrays (`addons[]=`) aus dem Tritt (Ergebnis bisher zufällig richtig)
 - Build brach ab, wenn kein Preset eine Workshop-ID hat (`_tools/gulpfile.ts`)
+- Limit für AH-1Z und AH-6M (Ticket 1.9 / #11, ADR 0007): je höchstens 1 gleichzeitig, 30 Minuten Sperre ab Kauf, nicht gespeichert; Kaufmenü graut gesperrte Fahrzeuge aus und nennt den Grund,
+  der Server prüft beim Kauf nach und schickt den Käufer bei Ablehnung zurück (Hooks 11 bis 13, `COIN_fnc_vehicleLimit*`); Werte und Schalter `COIN_enableVehicleLimits` in `coin_config.sqf`

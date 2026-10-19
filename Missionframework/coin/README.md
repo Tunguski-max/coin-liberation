@@ -20,7 +20,12 @@ coin/
         ├── fn_mixClass.sqf          COIN_fnc_mixClass: tauscht eine Miliz-Klasse gegen ihr Islamic-State-Gegenstück (Hook 10)
         ├── fn_mixSquad.sqf          COIN_fnc_mixSquad: tauscht eine ganze Squad (Hook 9)
         ├── fn_registerSquadTwins.sqf COIN_fnc_registerSquadTwins: Zwillingsklassen in KPLIB_o_inf_classes
-        └── fn_createDiary.sqf       COIN_fnc_createDiary: Karten-Tagebuch "COIN Liberation" für Spieler
+        ├── fn_createDiary.sqf       COIN_fnc_createDiary: Karten-Tagebuch "COIN Liberation" für Spieler
+        ├── fn_vehicleLimitStatus.sqf   COIN_fnc_vehicleLimitStatus: darf diese Klasse jetzt gekauft werden? (Kaufmenü und Server)
+        ├── fn_vehicleLimitPurchase.sqf COIN_fnc_vehicleLimitPurchase: Server-Prüfung beim Kauf, startet die Sperre (Hook 12)
+        ├── fn_vehicleLimitRelease.sqf  COIN_fnc_vehicleLimitRelease: Server hebt die Sperre eines abgebrochenen Kaufs auf
+        ├── fn_vehicleLimitDeny.sqf     COIN_fnc_vehicleLimitDeny: Client bricht die Platzierung nach abgelehntem Kauf ab
+        └── fn_vehicleLimitCancel.sqf   COIN_fnc_vehicleLimitCancel: Client meldet einen abgebrochenen Kauf (Hook 13)
 ```
 
 Geplante weitere Kategorien unter `functions/` (anlegen, wenn sie gebraucht werden):

@@ -32,6 +32,13 @@ diag_log format [
     opfor_choppers, opfor_air, opfor_troup_transports
 ];
 
+// Equipment limits (ticket 1.9, ADR 0007): locks start empty on every server start, they are not persisted
+if (COIN_enableVehicleLimits) then {
+    COIN_vehicleLocks = [];
+    publicVariable "COIN_vehicleLocks";
+    diag_log format ["[COIN] init: vehicle limits on %1", COIN_vehicleLimits];
+};
+
 // Colored shemag per faction (ticket #9): runs as long as COIN_enableFactionMarkers is true
 if (COIN_enableFactionMarkers) then {
     diag_log format ["[COIN] init: faction markers militia=%1 resistanceHostile=%2 resistanceFriendly=%3 interval=%4", COIN_markerMilitia, COIN_markerResistanceHostile, COIN_markerResistanceFriendly, COIN_markerInterval];
