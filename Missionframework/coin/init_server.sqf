@@ -24,3 +24,10 @@ diag_log format [
     KP_liberation_preset_blufor, count light_vehicles, count heavy_vehicles, count air_vehicles,
     count static_vehicles, count support_vehicles, elite_vehicles
 ];
+
+// Phase 1 check: OPFOR preset (militia) and which vehicles Liberation can pick for the militia
+diag_log format [
+    "[COIN] init: opfor preset %1, militia_vehicles=%2, opfor_vehicles=%3, battlegroup_vehicles=%4, choppers=%5, air=%6, transports=%7",
+    KP_liberation_preset_opfor, militia_vehicles, opfor_vehicles, opfor_battlegroup_vehicles,
+    opfor_choppers, opfor_air, opfor_troup_transports
+];

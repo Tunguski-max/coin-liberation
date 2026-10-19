@@ -53,6 +53,7 @@ Ziel: Lythium ist ausgedünnt auf unsere Ziele, Slots und Ausrüstung passen zum
   - Elite-Liste: M113A3 (M2), M113A3 (Mk19), Stryker M1126, Stryker M1134, AH-1Z, AH-6M
   - Miliz: eigenes Preset auf Basis Project OPFOR „Afghan Militia“: Technicals in Sektoren und Patrouillen,
     Gegenangriffe mit seltenem Altfahrzeug, leere Luft- und Hubschrauberlisten
+    (#8 implementiert, ungetestet: Preset 21 `coin_militia.sqf`)
   - Widerstand: erkennbare Kleidung für lokale Kämpfer (2–3 Varianten, Niklas wählt im Arsenal)
 - [ ] 1.7 (#5, #6) Siegbedingung „Hauptstadt eingenommen“: genau ein Hauptstadt-Sektor (aus 1.3) und Lobby-Standard
   `VictoryCondition` = „alle Hauptstädte“ (in 1.8)
