@@ -1,0 +1,393 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1061.6" height="1021.5999999999999" font-family="sans-serif" font-size="9">
+<rect width="100%" height="100%" fill="#f4efe4"/>
+<line x1="30" y1="30" x2="30" y2="951.5999999999999" stroke="#e2dccd"/>
+<line x1="30" y1="30" x2="951.5999999999999" y2="30" stroke="#e2dccd"/>
+<text x="30" y="22" text-anchor="middle" fill="#888">0</text>
+<text x="24" y="954.5999999999999" text-anchor="end" fill="#888">0</text>
+<line x1="75" y1="30" x2="75" y2="951.5999999999999" stroke="#e2dccd"/>
+<line x1="30" y1="75" x2="951.5999999999999" y2="75" stroke="#e2dccd"/>
+<line x1="120" y1="30" x2="120" y2="951.5999999999999" stroke="#e2dccd"/>
+<line x1="30" y1="120" x2="951.5999999999999" y2="120" stroke="#e2dccd"/>
+<text x="120" y="22" text-anchor="middle" fill="#888">2</text>
+<text x="24" y="864.5999999999999" text-anchor="end" fill="#888">2</text>
+<line x1="165" y1="30" x2="165" y2="951.5999999999999" stroke="#e2dccd"/>
+<line x1="30" y1="165" x2="951.5999999999999" y2="165" stroke="#e2dccd"/>
+<line x1="210" y1="30" x2="210" y2="951.5999999999999" stroke="#e2dccd"/>
+<line x1="30" y1="210" x2="951.5999999999999" y2="210" stroke="#e2dccd"/>
+<text x="210" y="22" text-anchor="middle" fill="#888">4</text>
+<text x="24" y="774.5999999999999" text-anchor="end" fill="#888">4</text>
+<line x1="255" y1="30" x2="255" y2="951.5999999999999" stroke="#e2dccd"/>
+<line x1="30" y1="255" x2="951.5999999999999" y2="255" stroke="#e2dccd"/>
+<line x1="300" y1="30" x2="300" y2="951.5999999999999" stroke="#e2dccd"/>
+<line x1="30" y1="300" x2="951.5999999999999" y2="300" stroke="#e2dccd"/>
+<text x="300" y="22" text-anchor="middle" fill="#888">6</text>
+<text x="24" y="684.5999999999999" text-anchor="end" fill="#888">6</text>
+<line x1="345" y1="30" x2="345" y2="951.5999999999999" stroke="#e2dccd"/>
+<line x1="30" y1="345" x2="951.5999999999999" y2="345" stroke="#e2dccd"/>
+<line x1="390" y1="30" x2="390" y2="951.5999999999999" stroke="#e2dccd"/>
+<line x1="30" y1="390" x2="951.5999999999999" y2="390" stroke="#e2dccd"/>
+<text x="390" y="22" text-anchor="middle" fill="#888">8</text>
+<text x="24" y="594.5999999999999" text-anchor="end" fill="#888">8</text>
+<line x1="435" y1="30" x2="435" y2="951.5999999999999" stroke="#e2dccd"/>
+<line x1="30" y1="435" x2="951.5999999999999" y2="435" stroke="#e2dccd"/>
+<line x1="480" y1="30" x2="480" y2="951.5999999999999" stroke="#e2dccd"/>
+<line x1="30" y1="480" x2="951.5999999999999" y2="480" stroke="#e2dccd"/>
+<text x="480" y="22" text-anchor="middle" fill="#888">10</text>
+<text x="24" y="504.5999999999999" text-anchor="end" fill="#888">10</text>
+<line x1="525" y1="30" x2="525" y2="951.5999999999999" stroke="#e2dccd"/>
+<line x1="30" y1="525" x2="951.5999999999999" y2="525" stroke="#e2dccd"/>
+<line x1="570" y1="30" x2="570" y2="951.5999999999999" stroke="#e2dccd"/>
+<line x1="30" y1="570" x2="951.5999999999999" y2="570" stroke="#e2dccd"/>
+<text x="570" y="22" text-anchor="middle" fill="#888">12</text>
+<text x="24" y="414.5999999999999" text-anchor="end" fill="#888">12</text>
+<line x1="615" y1="30" x2="615" y2="951.5999999999999" stroke="#e2dccd"/>
+<line x1="30" y1="615" x2="951.5999999999999" y2="615" stroke="#e2dccd"/>
+<line x1="660" y1="30" x2="660" y2="951.5999999999999" stroke="#e2dccd"/>
+<line x1="30" y1="660" x2="951.5999999999999" y2="660" stroke="#e2dccd"/>
+<text x="660" y="22" text-anchor="middle" fill="#888">14</text>
+<text x="24" y="324.5999999999999" text-anchor="end" fill="#888">14</text>
+<line x1="705" y1="30" x2="705" y2="951.5999999999999" stroke="#e2dccd"/>
+<line x1="30" y1="705" x2="951.5999999999999" y2="705" stroke="#e2dccd"/>
+<line x1="750" y1="30" x2="750" y2="951.5999999999999" stroke="#e2dccd"/>
+<line x1="30" y1="750" x2="951.5999999999999" y2="750" stroke="#e2dccd"/>
+<text x="750" y="22" text-anchor="middle" fill="#888">16</text>
+<text x="24" y="234.5999999999999" text-anchor="end" fill="#888">16</text>
+<line x1="795" y1="30" x2="795" y2="951.5999999999999" stroke="#e2dccd"/>
+<line x1="30" y1="795" x2="951.5999999999999" y2="795" stroke="#e2dccd"/>
+<line x1="840" y1="30" x2="840" y2="951.5999999999999" stroke="#e2dccd"/>
+<line x1="30" y1="840" x2="951.5999999999999" y2="840" stroke="#e2dccd"/>
+<text x="840" y="22" text-anchor="middle" fill="#888">18</text>
+<text x="24" y="144.5999999999999" text-anchor="end" fill="#888">18</text>
+<line x1="885" y1="30" x2="885" y2="951.5999999999999" stroke="#e2dccd"/>
+<line x1="30" y1="885" x2="951.5999999999999" y2="885" stroke="#e2dccd"/>
+<line x1="930" y1="30" x2="930" y2="951.5999999999999" stroke="#e2dccd"/>
+<line x1="30" y1="930" x2="951.5999999999999" y2="930" stroke="#e2dccd"/>
+<text x="930" y="22" text-anchor="middle" fill="#888">20</text>
+<text x="24" y="54.59999999999991" text-anchor="end" fill="#888">20</text>
+<circle cx="568.22574" cy="848.4033764999999" r="2.5" fill="#b5ae9f"/>
+<text x="572.22574" y="851.4033764999999" font-size="7" fill="#a39c8c">Kinduf Airbase</text>
+<circle cx="584.4275399999999" cy="865.7342849999999" r="2.5" fill="#b5ae9f"/>
+<text x="588.4275399999999" y="868.7342849999999" font-size="7" fill="#a39c8c">Kinduf Barracks</text>
+<circle cx="573.5575650000001" cy="826.9046265" r="2.5" fill="#b5ae9f"/>
+<text x="577.5575650000001" y="829.9046265" font-size="7" fill="#a39c8c">Kinduf Airport</text>
+<circle cx="711.6537" cy="931.6248145499999" r="2.5" fill="#b5ae9f"/>
+<text x="715.6537" y="934.6248145499999" font-size="7" fill="#a39c8c">Kinduf Factory</text>
+<circle cx="658.29972" cy="797.9114099999999" r="2.5" fill="#b5ae9f"/>
+<text x="662.29972" y="800.9114099999999" font-size="7" fill="#a39c8c">Iban Camp Base</text>
+<circle cx="653.7645299999999" cy="146.05648499999995" r="2.5" fill="#b5ae9f"/>
+<text x="657.7645299999999" y="149.05648499999995" font-size="7" fill="#a39c8c">Kalae Field Hospital</text>
+<circle cx="579.3116249999999" cy="172.84214999999995" r="2.5" fill="#b5ae9f"/>
+<text x="583.3116249999999" y="175.84214999999995" font-size="7" fill="#a39c8c">Kalae Barracks (W)</text>
+<circle cx="549.660045" cy="153.64222499999994" r="2.5" fill="#b5ae9f"/>
+<text x="553.660045" y="156.64222499999994" font-size="7" fill="#a39c8c">Kalae HQ</text>
+<circle cx="595.620795" cy="154.43678999999986" r="2.5" fill="#b5ae9f"/>
+<text x="599.620795" y="157.43678999999986" font-size="7" fill="#a39c8c">Kalae Airport</text>
+<circle cx="591.69252" cy="116.44693500000005" r="2.5" fill="#b5ae9f"/>
+<text x="595.69252" y="119.44693500000005" font-size="7" fill="#a39c8c">Kalae Village (W)</text>
+<circle cx="935.3128349999998" cy="111.49185" r="2.5" fill="#b5ae9f"/>
+<text x="939.3128349999998" y="114.49185" font-size="7" fill="#a39c8c">Morar (E)</text>
+<circle cx="908.462775" cy="113.94434999999999" r="2.5" fill="#b5ae9f"/>
+<text x="912.462775" y="116.94434999999999" font-size="7" fill="#a39c8c">Morar (W)</text>
+<circle cx="833.326275" cy="145.8169949999999" r="2.5" fill="#b5ae9f"/>
+<text x="837.326275" y="148.8169949999999" font-size="7" fill="#a39c8c">Kamir</text>
+<circle cx="776.832915" cy="155.98469999999998" r="2.5" fill="#b5ae9f"/>
+<text x="780.832915" y="158.98469999999998" font-size="7" fill="#a39c8c">Kamir Service Depot</text>
+<circle cx="674.8788" cy="95.00258999999994" r="2.5" fill="#b5ae9f"/>
+<text x="678.8788" y="98.00258999999994" font-size="7" fill="#a39c8c">Kalae Village (E)</text>
+<circle cx="773.08428" cy="37.565084999999954" r="2.5" fill="#b5ae9f"/>
+<text x="777.08428" y="40.565084999999954" font-size="7" fill="#a39c8c">Afarat (NE)</text>
+<circle cx="525.764325" cy="36.75517500000001" r="2.5" fill="#b5ae9f"/>
+<text x="529.764325" y="39.75517500000001" font-size="7" fill="#a39c8c">Alfaraz</text>
+<circle cx="521.5115549999999" cy="610.557636" r="2.5" fill="#b5ae9f"/>
+<text x="525.5115549999999" y="613.557636" font-size="7" fill="#a39c8c">Green Camp Base</text>
+<circle cx="157.9097865" cy="73.98668999999995" r="2.5" fill="#b5ae9f"/>
+<text x="161.9097865" y="76.98668999999995" font-size="7" fill="#a39c8c">Rebel Camp</text>
+<circle cx="203.5901595" cy="149.43827999999996" r="2.5" fill="#b5ae9f"/>
+<text x="207.5901595" y="152.43827999999996" font-size="7" fill="#a39c8c">Puesto Pineiro Base</text>
+<circle cx="148.91690549999998" cy="146.55737999999997" r="2.5" fill="#b5ae9f"/>
+<text x="152.91690549999998" y="149.55737999999997" font-size="7" fill="#a39c8c">Iban</text>
+<circle cx="202.85917049999998" cy="129.06142499999999" r="2.5" fill="#b5ae9f"/>
+<text x="206.85917049999998" y="132.06142499999999" font-size="7" fill="#a39c8c">Puesto Pineiro Village</text>
+<circle cx="263.59130999999996" cy="119.29566" r="2.5" fill="#b5ae9f"/>
+<text x="267.59130999999996" y="122.29566" font-size="7" fill="#a39c8c">Upper Puesto</text>
+<circle cx="254.3569905" cy="164.82377999999994" r="2.5" fill="#b5ae9f"/>
+<text x="258.3569905" y="167.82377999999994" font-size="7" fill="#a39c8c">Puesto  Vulcano Camp</text>
+<circle cx="943.9379399999999" cy="71.42524500000002" r="2.5" fill="#b5ae9f"/>
+<text x="947.9379399999999" y="74.42524500000002" font-size="7" fill="#a39c8c">Rebel Outpost</text>
+<circle cx="147.189405" cy="235.64360999999997" r="2.5" fill="#b5ae9f"/>
+<text x="151.189405" y="238.64360999999997" font-size="7" fill="#a39c8c">Limar Military Outpost</text>
+<circle cx="906.355155" cy="172.5246749999999" r="2.5" fill="#b5ae9f"/>
+<text x="910.355155" y="175.5246749999999" font-size="7" fill="#a39c8c">Rebel Outpost</text>
+<circle cx="922.4107499999999" cy="298.28932499999996" r="2.5" fill="#b5ae9f"/>
+<text x="926.4107499999999" y="301.28932499999996" font-size="7" fill="#a39c8c">Zarath Military Outpost</text>
+<circle cx="833.5472249999999" cy="284.71619999999996" r="2.5" fill="#b5ae9f"/>
+<text x="837.5472249999999" y="287.71619999999996" font-size="7" fill="#a39c8c">Zarath Military Camp</text>
+<circle cx="267.6236655" cy="467.12725499999993" r="2.5" fill="#b5ae9f"/>
+<text x="271.6236655" y="470.12725499999993" font-size="7" fill="#a39c8c">Bushlurker Camp Base</text>
+<circle cx="653.855025" cy="739.2397709999999" r="2.5" fill="#b5ae9f"/>
+<text x="657.855025" y="742.2397709999999" font-size="7" fill="#a39c8c">Peleton Camp Base North</text>
+<circle cx="465.6386279999999" cy="441.3129149999999" r="2.5" fill="#b5ae9f"/>
+<text x="469.6386279999999" y="444.3129149999999" font-size="7" fill="#a39c8c">Mikis FOB</text>
+<circle cx="228.592821" cy="363.68444999999986" r="2.5" fill="#b5ae9f"/>
+<text x="232.592821" y="366.68444999999986" font-size="7" fill="#a39c8c">Karift Factory</text>
+<circle cx="722.004915" cy="660.1465154999999" r="2.5" fill="#b5ae9f"/>
+<text x="726.004915" y="663.1465154999999" font-size="7" fill="#a39c8c">Afsher Military Camp</text>
+<circle cx="812.345205" cy="690.1843889999999" r="2.5" fill="#b5ae9f"/>
+<text x="816.345205" y="693.1843889999999" font-size="7" fill="#a39c8c">Arobster Base</text>
+<circle cx="740.657055" cy="700.3677045" r="2.5" fill="#b5ae9f"/>
+<text x="744.657055" y="703.3677045" font-size="7" fill="#a39c8c">Fabiano Camp Base</text>
+<circle cx="579.9380699999999" cy="701.5646189999999" r="2.5" fill="#b5ae9f"/>
+<text x="583.9380699999999" y="704.5646189999999" font-size="7" fill="#a39c8c">Orcarif Fuelstation</text>
+<circle cx="544.25928" cy="653.988261" r="2.5" fill="#b5ae9f"/>
+<text x="548.25928" y="656.988261" font-size="7" fill="#a39c8c">Orcarif  Carparts</text>
+<circle cx="648.92253" cy="530.9382854999999" r="2.5" fill="#b5ae9f"/>
+<text x="652.92253" y="533.9382854999999" font-size="7" fill="#a39c8c">Puesto Crow Outpost</text>
+<circle cx="480.72549" cy="890.7955004999999" r="2.5" fill="#b5ae9f"/>
+<text x="484.72549" y="893.7955004999999" font-size="7" fill="#a39c8c">Zregurat Mining Company</text>
+<circle cx="79.0321035" cy="781.1583239999999" r="2.5" fill="#b5ae9f"/>
+<text x="83.0321035" y="784.1583239999999" font-size="7" fill="#a39c8c">Rebel Camp</text>
+<circle cx="382.85328450000003" cy="85.54030499999988" r="2.5" fill="#b5ae9f"/>
+<text x="386.85328450000003" y="88.54030499999988" font-size="7" fill="#a39c8c">Doran</text>
+<circle cx="373.247211" cy="40.565054999999916" r="2.5" fill="#b5ae9f"/>
+<text x="377.247211" y="43.565054999999916" font-size="7" fill="#a39c8c">Upper Doran</text>
+<circle cx="441.913035" cy="64.90717499999994" r="2.5" fill="#b5ae9f"/>
+<text x="445.913035" y="67.90717499999994" font-size="7" fill="#a39c8c">Doran East Village</text>
+<circle cx="94.52856" cy="310.61604" r="2.5" fill="#b5ae9f"/>
+<text x="98.52856" y="313.61604" font-size="7" fill="#a39c8c">Mayankel</text>
+<circle cx="230.21156999999997" cy="529.5975599999999" r="2.5" fill="#b5ae9f"/>
+<text x="234.21156999999997" y="532.5975599999999" font-size="7" fill="#a39c8c">Mafaraz Farm</text>
+<circle cx="894.425925" cy="853.5977444999999" r="2.5" fill="#b5ae9f"/>
+<text x="898.425925" y="856.5977444999999" font-size="7" fill="#a39c8c">Rommell Factory</text>
+<circle cx="945.0088049999999" cy="719.8887359999999" r="2.5" fill="#b5ae9f"/>
+<text x="949.0088049999999" y="722.8887359999999" font-size="7" fill="#a39c8c">Teruk Border Patrol</text>
+<circle cx="707.954385" cy="89.77566000000002" r="2.5" fill="#b5ae9f"/>
+<text x="711.954385" y="92.77566000000002" font-size="7" fill="#a39c8c">Kalae Dealer</text>
+<circle cx="510.69099" cy="496.2188549999999" r="2.5" fill="#b5ae9f"/>
+<text x="514.69099" y="499.2188549999999" font-size="7" fill="#a39c8c">Limari</text>
+<circle cx="303.595716" cy="511.0996125" r="2.5" fill="#b5ae9f"/>
+<text x="307.595716" y="514.0996124999999" font-size="7" fill="#a39c8c">Mafaraz Carparts</text>
+<circle cx="334.318215" cy="509.10572549999995" r="2.5" fill="#b5ae9f"/>
+<text x="338.318215" y="512.1057255" font-size="7" fill="#a39c8c">Mafaraz Factory</text>
+<circle cx="494.97582" cy="463.08202499999993" r="2.5" fill="#b5ae9f"/>
+<text x="498.97582" y="466.08202499999993" font-size="7" fill="#a39c8c">Limar Carparts</text>
+<circle cx="455.5787115" cy="588.2765474999999" r="2.5" fill="#b5ae9f"/>
+<text x="459.5787115" y="591.2765474999999" font-size="7" fill="#a39c8c">Morut</text>
+<circle cx="485.026005" cy="646.3292744999999" r="2.5" fill="#b5ae9f"/>
+<text x="489.026005" y="649.3292744999999" font-size="7" fill="#a39c8c">Orcarif Farm</text>
+<circle cx="497.17497" cy="791.9628194999999" r="2.5" fill="#b5ae9f"/>
+<text x="501.17497" y="794.9628194999999" font-size="7" fill="#a39c8c">Kinduf Water Works</text>
+<circle cx="511.82805" cy="892.293555" r="2.5" fill="#b5ae9f"/>
+<text x="515.8280500000001" y="895.293555" font-size="7" fill="#a39c8c">Zregurat</text>
+<circle cx="327.80307899999997" cy="835.4907254999999" r="2.5" fill="#b5ae9f"/>
+<text x="331.80307899999997" y="838.4907254999999" font-size="7" fill="#a39c8c">Benamair</text>
+<circle cx="232.18113449999998" cy="784.3789694999999" r="2.5" fill="#b5ae9f"/>
+<text x="236.18113449999998" y="787.3789694999999" font-size="7" fill="#a39c8c">Mozerat Farmlands</text>
+<circle cx="275.01086999999995" cy="807.1801905" r="2.5" fill="#b5ae9f"/>
+<text x="279.01086999999995" y="810.1801905" font-size="7" fill="#a39c8c">Mozerat</text>
+<circle cx="205.50829349999998" cy="671.4524775" r="2.5" fill="#b5ae9f"/>
+<text x="209.50829349999998" y="674.4524775" font-size="7" fill="#a39c8c">Mountain Camp</text>
+<circle cx="821.0428499999999" cy="542.3597624999999" r="2.5" fill="#b5ae9f"/>
+<text x="825.0428499999999" y="545.3597624999999" font-size="7" fill="#a39c8c">Razbula</text>
+<circle cx="814.81944" cy="286.81531499999994" r="2.5" fill="#b5ae9f"/>
+<text x="818.81944" y="289.81531499999994" font-size="7" fill="#a39c8c">Zarath</text>
+<circle cx="673.74282" cy="233.36791499999993" r="2.5" fill="#b5ae9f"/>
+<text x="677.74282" y="236.36791499999993" font-size="7" fill="#a39c8c">Kalae Village</text>
+<circle cx="394.48663949999997" cy="371.4365099999999" r="2.5" fill="#b5ae9f"/>
+<text x="398.48663949999997" y="374.4365099999999" font-size="7" fill="#a39c8c">Kunara Town</text>
+<circle cx="365.13521399999996" cy="360.05385" r="2.5" fill="#b5ae9f"/>
+<text x="369.13521399999996" y="363.05385" font-size="7" fill="#a39c8c">Kunara Hill</text>
+<circle cx="293.205306" cy="305.37511499999994" r="2.5" fill="#b5ae9f"/>
+<text x="297.205306" y="308.37511499999994" font-size="7" fill="#a39c8c">Shoran</text>
+<circle cx="247.75594499999997" cy="185.28487500000006" r="2.5" fill="#b5ae9f"/>
+<text x="251.75594499999997" y="188.28487500000006" font-size="7" fill="#a39c8c">Nefer Village</text>
+<circle cx="136.24599" cy="186.96053999999992" r="2.5" fill="#b5ae9f"/>
+<text x="140.24599" y="189.96053999999992" font-size="7" fill="#a39c8c">Iban Trader Camp</text>
+<circle cx="257.82199049999997" cy="421.62640499999986" r="2.5" fill="#b5ae9f"/>
+<text x="261.82199049999997" y="424.62640499999986" font-size="7" fill="#a39c8c">Zhapir</text>
+<circle cx="216.1294905" cy="412.206735" r="2.5" fill="#b5ae9f"/>
+<text x="220.1294905" y="415.206735" font-size="7" fill="#a39c8c">Zhapir Market</text>
+<circle cx="914.56806" cy="633.6621659999998" r="2.5" fill="#b5ae9f"/>
+<text x="918.56806" y="636.6621659999998" font-size="7" fill="#a39c8c">Yeray</text>
+<circle cx="895.265625" cy="897.2047154999999" r="2.5" fill="#b5ae9f"/>
+<text x="899.265625" y="900.2047154999999" font-size="7" fill="#a39c8c">Digur Border Patrol</text>
+<circle cx="669.887895" cy="928.7935954499999" r="2.5" fill="#b5ae9f"/>
+<text x="673.887895" y="931.7935954499999" font-size="7" fill="#a39c8c">Puesto Mate Rebel Camp</text>
+<circle cx="594.31026" cy="918.3311818499999" r="2.5" fill="#b5ae9f"/>
+<text x="598.31026" y="921.3311818499999" font-size="7" fill="#a39c8c">Bagdir</text>
+<circle cx="625.041885" cy="915.485745" r="2.5" fill="#b5ae9f"/>
+<text x="629.041885" y="918.485745" font-size="7" fill="#a39c8c">Khebel</text>
+<circle cx="697.341585" cy="914.5670240999999" r="2.5" fill="#b5ae9f"/>
+<text x="701.341585" y="917.5670240999999" font-size="7" fill="#a39c8c">Kinduf Airfield</text>
+<circle cx="779.140245" cy="840.4326749999999" r="2.5" fill="#b5ae9f"/>
+<text x="783.140245" y="843.4326749999999" font-size="7" fill="#a39c8c">Adrian</text>
+<circle cx="178.4931555" cy="355.59074999999996" r="2.5" fill="#b5ae9f"/>
+<text x="182.4931555" y="358.59074999999996" font-size="7" fill="#a39c8c">Karift Village</text>
+<circle cx="808.0793399999999" cy="659.615961" r="2.5" fill="#b5ae9f"/>
+<text x="812.0793399999999" y="662.615961" font-size="7" fill="#a39c8c">Arobster Waterstation</text>
+<circle cx="334.5977055" cy="748.6092839999999" r="2.5" fill="#b5ae9f"/>
+<text x="338.5977055" y="751.6092839999999" font-size="7" fill="#a39c8c">Amir Town</text>
+<circle cx="138.0064395" cy="272.452125" r="2.5" fill="#b5ae9f"/>
+<text x="142.0064395" y="275.452125" font-size="7" fill="#a39c8c">Limar Village</text>
+<circle cx="620.711895" cy="789.5617904999999" r="2.5" fill="#b5ae9f"/>
+<text x="624.711895" y="792.5617904999999" font-size="7" fill="#a39c8c">Iban Plantage</text>
+<circle cx="595.31511" cy="733.0526444999999" r="2.5" fill="#b5ae9f"/>
+<text x="599.31511" y="736.0526444999999" font-size="7" fill="#a39c8c">Shegara</text>
+<circle cx="593.044185" cy="92.8662149999999" r="2.5" fill="#b5ae9f"/>
+<text x="597.044185" y="95.8662149999999" font-size="7" fill="#a39c8c">Kalae Base</text>
+<circle cx="426.63944999999995" cy="711.4048994999999" r="2.5" fill="#b5ae9f"/>
+<text x="430.63944999999995" y="714.4048994999999" font-size="7" fill="#a39c8c">Amir Farm</text>
+<circle cx="278.07910949999996" cy="267.3684299999999" r="2.5" fill="#b5ae9f"/>
+<text x="282.07910949999996" y="270.3684299999999" font-size="7" fill="#a39c8c">Shoran Hill</text>
+<circle cx="314.750244" cy="373.2800249999999" r="2.5" fill="#b5ae9f"/>
+<text x="318.750244" y="376.2800249999999" font-size="7" fill="#a39c8c">Shoran Valley</text>
+<circle cx="648.47118" cy="369.8205599999999" r="2.5" fill="#b5ae9f"/>
+<text x="652.47118" y="372.8205599999999" font-size="7" fill="#a39c8c">Rebel Camp</text>
+<circle cx="824.8332449999999" cy="360.22030499999994" r="2.5" fill="#b5ae9f"/>
+<text x="828.8332449999999" y="363.22030499999994" font-size="7" fill="#a39c8c">Rebel Camp</text>
+<circle cx="892.63866" cy="433.97489999999993" r="2.5" fill="#b5ae9f"/>
+<text x="896.63866" y="436.97489999999993" font-size="7" fill="#a39c8c">Anyakar Village</text>
+<circle cx="859.606635" cy="502.7610809999999" r="2.5" fill="#b5ae9f"/>
+<text x="863.606635" y="505.7610809999999" font-size="7" fill="#a39c8c">Anyakar Market</text>
+<circle cx="745.1813099999999" cy="235.6028399999999" r="2.5" fill="#b5ae9f"/>
+<text x="749.1813099999999" y="238.6028399999999" font-size="7" fill="#a39c8c">Lost Village</text>
+<circle cx="767.28711" cy="494.15393999999986" r="2.5" fill="#b5ae9f"/>
+<text x="771.28711" y="497.15393999999986" font-size="7" fill="#a39c8c">Zeko</text>
+<circle cx="321.6513495" cy="543.2231999999999" r="2.5" fill="#b5ae9f"/>
+<text x="325.6513495" y="546.2231999999999" font-size="7" fill="#a39c8c">Mafaraz Village</text>
+<circle cx="734.162475" cy="618.9664395" r="2.5" fill="#b5ae9f"/>
+<text x="738.162475" y="621.9664395" font-size="7" fill="#a39c8c">Afsher Village</text>
+<circle cx="865.6833899999999" cy="830.6489999999999" r="2.5" fill="#b5ae9f"/>
+<text x="869.6833899999999" y="833.6489999999999" font-size="7" fill="#a39c8c">Offar Village</text>
+<circle cx="841.0322549999999" cy="824.3971949999999" r="2.5" fill="#b5ae9f"/>
+<text x="845.0322549999999" y="827.3971949999999" font-size="7" fill="#a39c8c">Offar</text>
+<circle cx="772.6671749999999" cy="711.1335809999999" r="2.5" fill="#b5ae9f"/>
+<text x="776.6671749999999" y="714.1335809999999" font-size="7" fill="#a39c8c">Arobster Village</text>
+<circle cx="802.0196399999999" cy="632.20314" r="2.5" fill="#b5ae9f"/>
+<text x="806.0196399999999" y="635.20314" font-size="7" fill="#a39c8c">Afsher Junkyard</text>
+<circle cx="72.28060365" cy="862.6883699999998" r="2.5" fill="#b5ae9f"/>
+<text x="76.28060365" y="865.6883699999998" font-size="7" fill="#a39c8c">Southern Factory</text>
+<circle cx="562.96398" cy="377.80774499999995" r="2.5" fill="#b5ae9f"/>
+<text x="566.96398" y="380.80774499999995" font-size="7" fill="#a39c8c">Old Radio Station</text>
+<circle cx="549.749775" cy="725.503125" r="2.5" fill="#b5ae9f"/>
+<text x="553.749775" y="728.503125" font-size="7" fill="#a39c8c">Shegara Waterstation</text>
+<circle cx="517.24632" cy="710.7720194999999" r="2.5" fill="#b5ae9f"/>
+<text x="521.24632" y="713.7720194999999" font-size="7" fill="#a39c8c">Lobo Checkpoint</text>
+<circle cx="477.81055649999996" cy="685.7225759999999" r="2.5" fill="#b5ae9f"/>
+<text x="481.81055649999996" y="688.7225759999999" font-size="7" fill="#a39c8c">Lobo Farmlands</text>
+<circle cx="572.327535" cy="254.43628499999988" r="2.5" fill="#b5ae9f"/>
+<text x="576.327535" y="257.4362849999999" font-size="7" fill="#a39c8c">Ramir Village</text>
+<circle cx="770.7642599999999" cy="269.09053499999993" r="2.5" fill="#b5ae9f"/>
+<text x="774.7642599999999" y="272.09053499999993" font-size="7" fill="#a39c8c">New Village</text>
+<circle cx="513.53382" cy="827.1499845" r="2.5" fill="#b5ae9f"/>
+<text x="517.53382" y="830.1499845" font-size="7" fill="#a39c8c">Kinduf Hospital</text>
+<circle cx="534.694125" cy="194.85844499999996" r="2.5" fill="#b5ae9f"/>
+<text x="538.694125" y="197.85844499999996" font-size="7" fill="#a39c8c">Kalae Storages</text>
+<circle cx="403.05009" cy="491.1485699999999" r="2.5" fill="#b5ae9f"/>
+<text x="407.05009" y="494.1485699999999" font-size="7" fill="#a39c8c">Mikis Farmlands</text>
+<circle cx="434.853795" cy="467.83550999999994" r="2.5" fill="#b5ae9f"/>
+<text x="438.853795" y="470.83550999999994" font-size="7" fill="#a39c8c">Mikis Farm</text>
+<circle cx="431.532363" cy="380.2951199999999" r="2.5" fill="#b5ae9f"/>
+<text x="435.532363" y="383.2951199999999" font-size="7" fill="#a39c8c">Kunara Village</text>
+<circle cx="419.81096099999996" cy="341.80216499999995" r="2.5" fill="#b5ae9f"/>
+<text x="423.81096099999996" y="344.80216499999995" font-size="7" fill="#a39c8c">Kunara North</text>
+<circle cx="628.617855" cy="168.50324999999987" r="45" fill="none" stroke="#c0392b" stroke-dasharray="3 2"/>
+<circle cx="628.617855" cy="168.50324999999987" r="6" fill="#c0392b" stroke="#fff" stroke-width="1"/>
+<text x="635.617855" y="171.50324999999987" font-weight="bold" fill="#222">Kalae Noowi</text>
+<circle cx="776.24562" cy="644.66247" r="4.5" fill="#e67e22" stroke="#fff" stroke-width="1"/>
+<text x="783.24562" y="647.66247" font-weight="bold" fill="#222">Afsher</text>
+<circle cx="449.54488649999996" cy="428.23479" r="4.5" fill="#e67e22" stroke="#fff" stroke-width="1"/>
+<text x="456.54488649999996" y="431.23479" font-weight="bold" fill="#222">Mikis</text>
+<circle cx="285.27185999999995" cy="166.21536000000003" r="4.5" fill="#e67e22" stroke="#fff" stroke-width="1"/>
+<text x="292.27185999999995" y="169.21536000000003" font-weight="bold" fill="#222">Nefer</text>
+<circle cx="262.43495399999995" cy="485.7386249999999" r="4.5" fill="#e67e22" stroke="#fff" stroke-width="1"/>
+<text x="269.43495399999995" y="488.7386249999999" font-weight="bold" fill="#222">Mafaraz</text>
+<circle cx="358.351221" cy="754.9485914999999" r="4.5" fill="#e67e22" stroke="#fff" stroke-width="1"/>
+<text x="365.351221" y="757.9485914999999" font-weight="bold" fill="#222">Amir City</text>
+<circle cx="200.91251549999998" cy="373.9132649999999" r="4.5" fill="#e67e22" stroke="#fff" stroke-width="1"/>
+<text x="207.91251549999998" y="376.9132649999999" font-weight="bold" fill="#222">Karift</text>
+<circle cx="542.899965" cy="825.3480404999999" r="4.5" fill="#e67e22" stroke="#fff" stroke-width="1"/>
+<text x="549.899965" y="828.3480404999999" font-weight="bold" fill="#222">Kinduf</text>
+<circle cx="923.8997099999999" cy="54.235559999999964" r="4.5" fill="#2c7fb8" stroke="#fff" stroke-width="1"/>
+<text x="930.8997099999999" y="57.235559999999964" font-weight="bold" fill="#222">Morar (N)</text>
+<circle cx="874.54803" cy="938.9902124999999" r="4.5" fill="#2c7fb8" stroke="#fff" stroke-width="1"/>
+<text x="881.54803" y="941.9902124999999" font-weight="bold" fill="#222">Digur Farm</text>
+<circle cx="76.693665" cy="713.3562659999999" r="4.5" fill="#2c7fb8" stroke="#fff" stroke-width="1"/>
+<text x="83.693665" y="716.3562659999999" font-weight="bold" fill="#222">Kafira Junction</text>
+<circle cx="898.64571" cy="300.2794499999999" r="4.5" fill="#2c7fb8" stroke="#fff" stroke-width="1"/>
+<text x="905.64571" y="303.2794499999999" font-weight="bold" fill="#222">Zarath Village</text>
+<circle cx="435.42503849999997" cy="47.57213999999988" r="4.5" fill="#2c7fb8" stroke="#fff" stroke-width="1"/>
+<text x="442.42503849999997" y="50.57213999999988" font-weight="bold" fill="#222">Doran East Village</text>
+<circle cx="886.021275" cy="479.3201849999999" r="4.5" fill="#2c7fb8" stroke="#fff" stroke-width="1"/>
+<text x="893.021275" y="482.3201849999999" font-weight="bold" fill="#222">Anyakar</text>
+<circle cx="83.93808" cy="535.2084074999999" r="4.5" fill="#2c7fb8" stroke="#fff" stroke-width="1"/>
+<text x="90.93808" y="538.2084074999999" font-weight="bold" fill="#222">Kafira Valley Village</text>
+<circle cx="568.136685" cy="557.0734845" r="4.5" fill="#2c7fb8" stroke="#fff" stroke-width="1"/>
+<text x="575.136685" y="560.0734845" font-weight="bold" fill="#222">Bramar</text>
+<circle cx="751.5619949999999" cy="51.820274999999924" r="4.5" fill="#2c7fb8" stroke="#fff" stroke-width="1"/>
+<text x="758.5619949999999" y="54.820274999999924" font-weight="bold" fill="#222">Afarat (SW)</text>
+<circle cx="748.7913" cy="811.6477049999999" r="4.5" fill="#2c7fb8" stroke="#fff" stroke-width="1"/>
+<text x="755.7913" y="814.6477049999999" font-weight="bold" fill="#222">Orfar</text>
+<circle cx="936.83532" cy="675.7640399999999" r="4.5" fill="#2c7fb8" stroke="#fff" stroke-width="1"/>
+<text x="943.83532" y="678.7640399999999" font-weight="bold" fill="#222">Yemara</text>
+<circle cx="717.00591" cy="503.8426604999999" r="4.5" fill="#2c7fb8" stroke="#fff" stroke-width="1"/>
+<text x="724.00591" y="506.8426604999999" font-weight="bold" fill="#222">Zeko Valley</text>
+<circle cx="153.41083049999997" cy="220.86664499999995" r="4.5" fill="#2c7fb8" stroke="#fff" stroke-width="1"/>
+<text x="160.41083049999997" y="223.86664499999995" font-weight="bold" fill="#222">Limar</text>
+<circle cx="464.7016245" cy="938.77553955" r="4.5" fill="#2c7fb8" stroke="#fff" stroke-width="1"/>
+<text x="471.7016245" y="941.77553955" font-weight="bold" fill="#222">Zagun</text>
+<circle cx="694.43985" cy="289.07593499999996" r="4.5" fill="#2c7fb8" stroke="#fff" stroke-width="1"/>
+<text x="701.43985" y="292.07593499999996" font-weight="bold" fill="#222">Old Village</text>
+<circle cx="819.0667199999999" cy="168.5267849999999" r="4.5" fill="#2c7fb8" stroke="#fff" stroke-width="1"/>
+<text x="826.0667199999999" y="171.5267849999999" font-weight="bold" fill="#222">Kamir Compound</text>
+<circle cx="519.2775300000001" cy="681.3992145" r="4.5" fill="#2c7fb8" stroke="#fff" stroke-width="1"/>
+<text x="526.2775300000001" y="684.3992145" font-weight="bold" fill="#222">Lobo</text>
+<circle cx="905.1586950000001" cy="794.980875" r="4.5" fill="#2c7fb8" stroke="#fff" stroke-width="1"/>
+<text x="912.1586950000001" y="797.980875" font-weight="bold" fill="#222">Teruk</text>
+<circle cx="815.6233649999999" cy="821.5161509999999" r="4.5" fill="#27ae60" stroke="#fff" stroke-width="1"/>
+<text x="822.6233649999999" y="824.5161509999999" font-weight="bold" fill="#222">Offar Factory</text>
+<circle cx="59.7743859" cy="456.1728599999999" r="4.5" fill="#27ae60" stroke="#fff" stroke-width="1"/>
+<text x="66.7743859" y="459.1728599999999" font-weight="bold" fill="#222">Kafira Valley Mine</text>
+<circle cx="501.43795499999993" cy="534.914328" r="4.5" fill="#27ae60" stroke="#fff" stroke-width="1"/>
+<text x="508.43795499999993" y="537.914328" font-weight="bold" fill="#222">Limari Market</text>
+<circle cx="216.84288" cy="165.81404999999995" r="4.5" fill="#27ae60" stroke="#fff" stroke-width="1"/>
+<text x="223.84288" y="168.81404999999995" font-weight="bold" fill="#222">Nefer Junk</text>
+<circle cx="437.2415175" cy="843.9527054999999" r="4.5" fill="#27ae60" stroke="#fff" stroke-width="1"/>
+<text x="444.2415175" y="846.9527054999999" font-weight="bold" fill="#222">General Storage</text>
+<circle cx="72.89760675" cy="346.338525" r="4.5" fill="#7f3fbf" stroke="#fff" stroke-width="1"/>
+<text x="79.89760675" y="349.338525" font-weight="bold" fill="#222">Mayankel Rebel Camp</text>
+<circle cx="710.0151149999999" cy="755.9945355" r="4.5" fill="#7f3fbf" stroke="#fff" stroke-width="1"/>
+<text x="717.0151149999999" y="758.9945355" font-weight="bold" fill="#222">Peleton Camp Base East</text>
+<circle cx="339.3657075" cy="80.09116499999993" r="4.5" fill="#7f3fbf" stroke="#fff" stroke-width="1"/>
+<text x="346.3657075" y="83.09116499999993" font-weight="bold" fill="#222">Doran Pass Checkpoint</text>
+<circle cx="418.177164" cy="722.0037584999999" r="4.5" fill="#7f3fbf" stroke="#fff" stroke-width="1"/>
+<text x="425.177164" y="725.0037584999999" font-weight="bold" fill="#222">Amir Barricaded Village</text>
+<circle cx="589.0823399999999" cy="162.02104499999996" r="4.5" fill="#7f3fbf" stroke="#111" stroke-width="2"/>
+<text x="596.0823399999999" y="165.02104499999996" font-weight="bold" fill="#222">Kalae Barracks (E)</text>
+<circle cx="460.898247" cy="313.33426499999985" r="4.5" fill="#2c7fb8" stroke="#111" stroke-width="2"/>
+<text x="467.898247" y="316.33426499999985" font-weight="bold" fill="#222">Tonkuf</text>
+<circle cx="402.6733905" cy="203.747745" r="4.5" fill="#2c7fb8" stroke="#111" stroke-width="2"/>
+<text x="409.6733905" y="206.747745" font-weight="bold" fill="#222">Kandar</text>
+<circle cx="604.8844949999999" cy="260.40855" r="4.5" fill="#2c7fb8" stroke="#111" stroke-width="2"/>
+<text x="611.8844949999999" y="263.40855" font-weight="bold" fill="#222">Ramir</text>
+<circle cx="574.60611" cy="73.16606999999988" r="4.5" fill="#2c7fb8" stroke="#111" stroke-width="2"/>
+<text x="581.60611" y="76.16606999999988" font-weight="bold" fill="#222">Kalae Village (N)</text>
+<circle cx="436.13167799999997" cy="223.7893499999999" r="4.5" fill="#27ae60" stroke="#111" stroke-width="2"/>
+<text x="443.13167799999997" y="226.7893499999999" font-weight="bold" fill="#222">Kandar Factory</text>
+<circle cx="726.996945" cy="374.0410649999999" r="4.5" fill="#27ae60" stroke="#111" stroke-width="2"/>
+<text x="733.996945" y="377.0410649999999" font-weight="bold" fill="#222">Zarath Windpark</text>
+<circle cx="554.893185" cy="125.60258999999996" r="4.5" fill="#27ae60" stroke="#111" stroke-width="2"/>
+<text x="561.893185" y="128.60258999999996" font-weight="bold" fill="#222">Kalae Factory</text>
+<circle cx="552.20169" cy="318.83574" r="4.5" fill="#7f3fbf" stroke="#111" stroke-width="2"/>
+<text x="559.20169" y="321.83574" font-weight="bold" fill="#222">Mountain Patrol Camp</text>
+<circle cx="217.106859" cy="913.6719763499999" r="4.5" fill="#111111" stroke="#fff" stroke-width="1"/>
+<text x="224.106859" y="916.6719763499999" font-weight="bold" fill="#222">Startbasis</text>
+<g transform="translate(30,979.5999999999999)">
+<circle cx="5" cy="0" r="4.5" fill="#c0392b"/><text x="13" y="3">Hauptstadt</text>
+<circle cx="86" cy="0" r="4.5" fill="#e67e22"/><text x="94" y="3">Ortschaft (herabgestufte Hauptstadt)</text>
+<circle cx="297" cy="0" r="4.5" fill="#2c7fb8"/><text x="305" y="3">Ortschaft</text>
+<circle cx="373" cy="0" r="4.5" fill="#27ae60"/><text x="381" y="3">Supply Point</text>
+<circle cx="464" cy="0" r="4.5" fill="#7f3fbf"/><text x="472" y="3">Militärposten</text>
+<circle cx="560" cy="0" r="4.5" fill="#111111"/><text x="568" y="3">Startbasis</text>
+<circle cx="641" cy="0" r="4.5" fill="#ffffff" stroke="#111" stroke-width="2"/><text x="649" y="3">von Hand ergänzt (Ring)</text>
+<circle cx="787" cy="0" r="2.5" fill="#b5ae9f"/><text x="795" y="3">nicht gewählt (Kandidat)</text>
+</g></svg>

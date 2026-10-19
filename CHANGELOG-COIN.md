@@ -25,6 +25,10 @@
   (ADR 0013), Roadmap-Tickets 1.10 und 5.9–5.16
 - Eigene Missionsbasis `Missionbasefiles/coin_liberation.lythium/mission.sqm` (Kopie von Liberations Lythium,
   ADR 0016, Ticket 1.2 / #3); der Build nutzt sie statt des Originals
+- Skript für den Sektor-Vorschlag `_tools/coin/sectors/` (Ticket 1.3 / #4): Regeln in `rules.json`, Tausche per `raus`/`rein`,
+  Ausgabe `docs/sektorauswahl.md` und `.svg`, Tests mit `node --test`; Ergänzungen von Hand per `dazu`
+- Design: ADR 0017 Ressourcen-Wirtschaft (8 Supply Points, Multiplikator x2, jede Sorte garantiert),
+  ADR 0016 um von Hand ergänzte Ziele erweitert (29 Ortschaften, 8 Supply Points, 6 Militärposten)
 
 ### Behoben
 - Build brach ab, wenn kein Preset eine Workshop-ID hat (`_tools/gulpfile.ts`)
