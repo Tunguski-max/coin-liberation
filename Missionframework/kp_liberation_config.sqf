@@ -188,7 +188,8 @@ KP_liberation_fuel_max = 45;
 
 /* - Gameplay constant settings.
 Name of the savegame namespace inside of the [ServerProfileName].vars.Arma3Profile file. */
-GRLIB_save_key = "KP_LIBERATION_" + (toUpper worldName) + "_SAVEGAME";
+// COIN: own save key, so we do not share the savegame with the regular KP Liberation on this map (ADR 0005)
+GRLIB_save_key = "COIN_LIBERATION_" + (toUpper worldName) + "_SAVEGAME";
 
 KP_liberation_save_interval = 60;                                       // Interval in seconds for automatic save.
 

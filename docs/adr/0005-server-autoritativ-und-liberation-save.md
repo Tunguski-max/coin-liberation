@@ -17,6 +17,8 @@ könnte (siehe `docs/kp-liberation-map.md` Abschnitt 3).
   - Der Block beginnt mit `COIN_saveVersion`.
 - Die Mission bekommt einen **eigenen Save-Key** `"COIN_LIBERATION_" + toUpper worldName + "_SAVEGAME"`
   statt `KP_LIBERATION_<WORLD>_SAVEGAME` (Hook in `kp_liberation_config.sqf`).
+- Auch die gespeicherten Lobby-Parameter bekommen einen eigenen Key `"COIN_LIBERATION_" + toUpper worldName + "_SAVE_PARAMS"`
+  (Hook in `functions/fn_getSaveableParam.sqf`).
 
 ## Begründung
 - Ein Speichersystem statt zwei: weniger Fehlerquellen, ein Reset-Weg.
@@ -26,13 +28,15 @@ könnte (siehe `docs/kp-liberation-map.md` Abschnitt 3).
   Liberation- und COIN-Stand werden immer gemeinsam geschrieben.
 - Eigener Key: Liberations Key hängt an der Karte, nicht an der Mission. Ohne eigenen Key würden sich
   unsere Mission und das normale KP Liberation Lythium auf demselben Profil gegenseitig überschreiben.
+  Dasselbe gilt für die gespeicherten Lobby-Parameter: Der Standard „Laden“ ließe sonst die Parameter des normalen
+  KP Liberation unsere Lobby-Standardwerte überstimmen.
 
 ## Verworfene Alternative
 - Eigene Profilvariable für COIN-Daten: Liberation-Array bliebe unberührt, aber es bräuchte drei
   Hooks (Speichern, Löschen per Parameter, Löschen bei Sieg), und es gäbe zwei getrennte Speicherstände.
 
 ## Folgen
-- Drei Hooks in Liberation-Dateien, alle in `docs/hooks.md`.
+- Vier Hooks in Liberation-Dateien (Speichern und Laden von Eintrag 22, Save-Key, Parameter-Key), alle in `docs/hooks.md`.
 - Gespeichert werden dürfen nur Zahlen, Strings, Booleans und Arrays (Liberation nutzt `str` und
   `parseSimpleArray`). Keine Objekte, Gruppen, Seiten, `nil` oder Code.
 - Führt Upstream selbst einen Eintrag 22 ein, müssen wir umziehen.
