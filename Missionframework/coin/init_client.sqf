@@ -23,9 +23,7 @@ if (COIN_enableFactionMarkers) then {
 };
 
 // Islamic State twins are enemy infantry too (Liberation's prisoner script checks KPLIB_o_inf_classes on the client).
-// The server mixes them in COIN_fnc_mixSquads; clients and late joiners build their own list in init_presets.sqf, so add them here.
-// Not on a local host: its list is the server's weighted list.
-if (COIN_enableSquadMix && {!isServer}) then {
-    KPLIB_o_inf_classes append (COIN_squadMixTwins apply {toLower (_x select 1)});
-    KPLIB_o_inf_classes = KPLIB_o_inf_classes arrayIntersect KPLIB_o_inf_classes;
+// init_presets.sqf builds that list on every client, so the twins are added here as well, also for late joiners.
+if (COIN_enableSquadMix) then {
+    [] call COIN_fnc_registerSquadTwins;
 };

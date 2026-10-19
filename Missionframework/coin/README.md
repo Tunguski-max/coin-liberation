@@ -16,7 +16,10 @@ coin/
         ├── fn_init.sqf              COIN_fnc_init: Einstiegspunkt (postInit)
         ├── fn_applyRoleTraits.sqf   COIN_fnc_applyRoleTraits: ACE-Fähigkeiten der Slots (EOD, Sanitäter)
         ├── fn_markFactions.sqf      COIN_fnc_markFactions: Server-Schleife, farbiges Kopftuch für Miliz und Widerstand
-        ├── fn_mixSquads.sqf         COIN_fnc_mixSquads: Server-Schleife, gepanzerte Islamic-State-Kämpfer in den Feld-Squads der Miliz
+        ├── fn_getSquadMixShare.sqf  COIN_fnc_getSquadMixShare: Anteil gepanzerter Islamic-State-Kämpfer nach Bereitschaft
+        ├── fn_mixClass.sqf          COIN_fnc_mixClass: tauscht eine Miliz-Klasse gegen ihr Islamic-State-Gegenstück (Hook 10)
+        ├── fn_mixSquad.sqf          COIN_fnc_mixSquad: tauscht eine ganze Squad (Hook 9)
+        ├── fn_registerSquadTwins.sqf COIN_fnc_registerSquadTwins: Zwillingsklassen in KPLIB_o_inf_classes
         └── fn_createDiary.sqf       COIN_fnc_createDiary: Karten-Tagebuch "COIN Liberation" für Spieler
 ```
 

@@ -229,11 +229,9 @@ COIN_markerResistanceFriendly   = "LOP_H_Shemag_BLU";       // Resistance, neutr
 // ---------------------------------------------------------------------------
 // Militia armor mix (Phase 1, ADR 0014): Islamic State twins (vest 16, helmet 6) in the field squads
 // ---------------------------------------------------------------------------
-COIN_enableSquadMix         = true;         // See COIN_fnc_mixSquads. Off: squads stay Afghan Militia without armor
-COIN_squadMixInterval       = 30;           // s between two re-rolls of the squad lists
+COIN_enableSquadMix         = true;         // Hooks 9 and 10 call COIN_fnc_mixSquad / COIN_fnc_mixClass. Off: squads stay Afghan Militia without armor
 COIN_squadMixReadiness      = [30, 100];    // combat_readiness range the share is scaled over
 COIN_squadMixShare          = [0.25, 0.75]; // Share of Islamic State twins at the lower / upper readiness
-COIN_squadMixInfWeight      = 8;            // Entries per role in the battlegroup infantry list (share granularity)
 // Afghan Militia class -> Islamic State twin of the same role
 COIN_squadMixTwins = [
     ["LOP_AM_OPF_Infantry_SL",          "LOP_ISTS_OPF_Infantry_SL"],

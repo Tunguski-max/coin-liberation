@@ -13,7 +13,7 @@
 - Die Miliz bekommt ein **eigenes Preset auf Basis von Project OPFOR „Afghan Militia“** (`LOP_AM_OPF_*`):
   Infanterie, Technicals, statische Waffen. Schweres Gerät nur im Rahmen von E10.
 - **Rüstung der Miliz:** Afghan Militia hat keinen Schutz (Weste 0, Kopf 0), Islamic State Weste 16 und Helm 6. Die Feld-Squads (höhere Bereitschaft, Gegenangriffe) mischen
-  Islamic-State-Zwillinge ein, Anteil linear von 25 % (Bereitschaft 30) bis 75 % (100), darunter 0 %, neu gewürfelt alle 30 s von `COIN_fnc_mixSquads`. Die Garnison bei niedriger
+  Islamic-State-Zwillinge ein, Anteil linear von 25 % (Bereitschaft 30) bis 75 % (100), darunter 0 %, pro Spawn gewürfelt (Hooks 9 und 10: `COIN_fnc_mixSquad`, `COIN_fnc_mixClass`). Die Garnison bei niedriger
   Bereitschaft und Fahrzeugbesatzungen bleiben Afghan Militia (2026-10-19).
 - Miliz und Widerstand bekommen ein **farbiges Kopftuch** als Erkennungszeichen (rot Miliz, grün feindlicher Widerstand, blau neutraler oder freundlicher
   Widerstand), gesetzt von `COIN_fnc_markFactions`, nicht über Kleidungslisten (2026-10-19, Ticket #9; ersetzt „Kleidungslisten im Widerstands-Preset“).

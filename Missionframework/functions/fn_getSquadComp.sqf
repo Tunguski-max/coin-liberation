@@ -55,4 +55,7 @@ if (_type == "army") then {
     while {count _squadcomp < (10 * _multiplier)} do {_squadcomp pushback (selectRandom militia_squad)};
 };
 
+// COIN: mix armored Islamic State twins into army squads by combat readiness (ADR 0014)
+if (_type == "army") then {_squadcomp = [_squadcomp] call COIN_fnc_mixSquad;};
+
 _squadcomp

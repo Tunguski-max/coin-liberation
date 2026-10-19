@@ -38,7 +38,8 @@ if (COIN_enableFactionMarkers) then {
     [] spawn COIN_fnc_markFactions;
 };
 
-// Armor mix of the militia field squads (ADR 0014): runs as long as COIN_enableSquadMix is true
+// Armor mix of the militia field squads (ADR 0014): the mixing itself runs on demand from Liberation's squad composition (hooks 9 and 10)
 if (COIN_enableSquadMix) then {
-    [] spawn COIN_fnc_mixSquads;
+    private _added = [] call COIN_fnc_registerSquadTwins;
+    diag_log format ["[COIN] init: squad mix on, %1 twin classes registered, share %2 at readiness %3 to %4 at readiness %5", _added, COIN_squadMixShare select 0, COIN_squadMixReadiness select 0, COIN_squadMixShare select 1, COIN_squadMixReadiness select 1];
 };
