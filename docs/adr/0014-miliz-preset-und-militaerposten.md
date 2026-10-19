@@ -1,6 +1,6 @@
 # ADR 0014: Miliz auf Afghan-Militia-Basis, Militärposten als Belohnungsleiter
 
-**Status:** Akzeptiert (2026-10-18), Details in Ticket 1.6. Ergänzt ADR 0007.
+**Status:** Akzeptiert (2026-10-18), Details in Ticket 1.6. Ergänzt ADR 0007.; Gegenangriffe um Truppentransporter (Ural) ergänzt (2026-10-19)
 
 ## Kontext
 - Die Lythium-Fassung nutzt das OPFOR-Preset „Islamic State“ (`presets/opfor/islamic_state.sqf`) mit
@@ -18,7 +18,8 @@
 
 - **Verteilung des schweren Geräts (E10):**
   - Sektorverteidiger und Patrouillen: nur Technicals.
-  - Gegenangriffe: Technicals, höchstens 1 Altfahrzeug (BTR-60/M113). Bis Phase 6.2 nur über die Gewichtung
+  - Gegenangriffe: Technicals und Truppentransporter (Ural), höchstens 1 Altfahrzeug (BTR-60/M113, auch als
+    Truppentransporter nutzbar; zwei gleichzeitig wären zu viel). Bis Phase 6.2 nur über die Gewichtung
     der Liste, danach hart per Hook.
   - Waffenlager: 1–2 Altfahrzeuge, gespawnt von unserem Code; sie verschwinden mit dem Lager.
   - Hauptstadt: 2 T-72BA, 1 ZSU-23-4, Igla-Schützen, gespawnt von unserem Code (Klassen in `coin_config.sqf`,
