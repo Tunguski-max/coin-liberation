@@ -32,6 +32,10 @@
 - Ausgedünnte Karte (Ticket 1.3 / #5): `_tools/coin/sectors/write.js` schreibt die Auswahl in die COIN-`mission.sqm`
   (157 Sektor-Marker entfernt, 7 Hauptstädte zu Ortschaften); gemeinsamer Parser `sqm.js`
 
+- Eigener Spielstand und Lobby-Standardwerte (Ticket 1.7/1.8 / #6): Save-Key `COIN_LIBERATION_<WORLD>_SAVEGAME`, eigener Key für gespeicherte
+  Lobby-Parameter, Standardwerte `LimitedZeus` aus, `ZeusAddEnemies` an, `VictoryCondition` alle Hauptstädte, `SuppMod` aus,
+  `ResourcesMultiplier` x2 (Hooks 4–6); `[COIN]`-Logzeilen mit Save-Key und Lobby-Werten beim Serverstart
+
 ### Behoben
 - Sektor-Vorschlag: Marker-Parser kam mit mehrzeiligen Arrays (`addons[]=`) aus dem Tritt (Ergebnis bisher zufällig richtig)
 - Build brach ab, wenn kein Preset eine Workshop-ID hat (`_tools/gulpfile.ts`)

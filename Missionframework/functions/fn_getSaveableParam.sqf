@@ -25,7 +25,8 @@ params [
     ["_action", nil, [0]]
 ];
 
-private _saveKey = "KP_LIBERATION_" + (toUpper worldName) + "_SAVE_PARAMS";
+// COIN: own key for saved lobby params, so the regular KP Liberation params neither override our lobby defaults nor get overwritten (ADR 0005)
+private _saveKey = "COIN_LIBERATION_" + (toUpper worldName) + "_SAVE_PARAMS";
 private _value = nil;
 
 // Use lobby value if no action specified
