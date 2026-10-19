@@ -99,7 +99,7 @@ opfor_vehicles_low_intensity = [
 ];
 
 /* Counterattacks (battlegroups) at high readiness: technicals, rarely one old vehicle.
-   COIN: LOP_ISTS_OPF_BTR60 is confirmed (upstream preset). One entry of 25 (about 1 in 3 for a full 16-vehicle group) keeps it rare; a hard limit of 1 comes in phase 6.2 (ADR 0014). */
+   COIN: LOP_ISTS_OPF_BTR60 is confirmed (upstream preset). One entry of 25 (a group of 8-16 vehicles contains one with roughly 30-50 percent) keeps it rare; a hard limit of 1 comes in phase 6.2 (ADR 0014). */
 opfor_battlegroup_vehicles = [
     "LOP_AM_OPF_UAZ_DshKM",                                             // UAZ-3151 (DShKM)
     "LOP_AM_OPF_UAZ_DshKM",                                             // UAZ-3151 (DShKM)
