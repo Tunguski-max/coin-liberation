@@ -13,7 +13,8 @@ coin/
 ├── init_client.sqf        Client-Teil des Moduls (Maschinen mit Interface)
 └── functions/
     └── core/
-        └── fn_init.sqf    COIN_fnc_init: Einstiegspunkt (postInit)
+        ├── fn_init.sqf              COIN_fnc_init: Einstiegspunkt (postInit)
+        └── fn_applyRoleTraits.sqf   COIN_fnc_applyRoleTraits: ACE-Fähigkeiten der Slots (EOD, Sanitäter)
 ```
 
 Geplante weitere Kategorien unter `functions/` (anlegen, wenn sie gebraucht werden):
