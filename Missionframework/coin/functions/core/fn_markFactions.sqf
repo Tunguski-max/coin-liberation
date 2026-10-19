@@ -28,7 +28,7 @@ while {COIN_enableFactionMarkers} do {
     // Liberation sets this to 0 (hostile) if the civil reputation is below -25
     private _hostile = (GRLIB_side_resistance getFriend GRLIB_side_friendly) < 0.5;
 
-    if (isNil "_wasHostile" || {_wasHostile != _hostile}) then {
+    if (isNil "_wasHostile" || {!(_wasHostile isEqualTo _hostile)}) then {
         diag_log format ["[COIN] markers: resistance is %1, shemag %2", ["neutral or friendly", "hostile"] select _hostile, [COIN_markerResistanceFriendly, COIN_markerResistanceHostile] select _hostile];
         _wasHostile = _hostile;
     };
