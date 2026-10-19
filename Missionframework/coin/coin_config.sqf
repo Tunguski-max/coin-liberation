@@ -44,7 +44,8 @@ COIN_hideReputationNumber   = true;     // Phase 5, ADR 0009: no reputation numb
 // ---------------------------------------------------------------------------
 COIN_roleTraits = [
     ["B_soldier_exp_F", [["ACE_isEngineer", 1]]],               // EOD: repair (ACE engineer)
-    ["B_medic_F",       [["ace_medical_medicClass", 1]]]        // Medic: ACE medic
+    ["B_medic_F",       [["ace_medical_medicClass", 1]]],       // Medic: ACE medic
+    ["B_officer_F",     [["ace_medical_medicClass", 1], ["ACE_isEngineer", 1]]]  // Commander (as in his Eden init), kept after respawn
 ];
 
 // ---------------------------------------------------------------------------

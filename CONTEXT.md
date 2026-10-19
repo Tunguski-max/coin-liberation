@@ -14,7 +14,7 @@ Code-Bezeichner stehen in Klammern.
 | **Widerstand** (`resistance`) | Bewaffnete Einheimische (Liberation-Fraktion, im Code auch „Guerilla“). Ihre Haltung zur Armee und zur Miliz hängt vom Ruf ab. |
 | **Dolmetscher** (`interpreter`) | Spielerrolle. Ohne ihn keine Befragungen. |
 | **Trupp** | Spielergruppe der Armee aus Truppführer, Sanitäter, EOD und zwei Schützen. |
-| **Kommandant** (`commandant`) | Spieler-Slot „Platoon Leader (Commander)“. Führt die Armee und ist zugleich Zeus. |
+| **Kommandant** (`commandant`) | Spieler-Slot „Kommandant (Zeus)“ in der Führungsgruppe. Führt die Armee und ist zugleich Zeus. |
 | **Zeus** | Spielleiter-Rolle (Kurator), liegt beim Kommandanten. Darf alles sehen, ändern, löschen. |
 
 ## Spielfeld

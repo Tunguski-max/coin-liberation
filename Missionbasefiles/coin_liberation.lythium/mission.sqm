@@ -2082,7 +2082,7 @@ class Mission
 						rank="COLONEL";
 						init="removeallWeapons this; removebackpack this; this setVariable ['ace_medical_medicClass', 1]; this setVariable ['ACE_isEngineer', 1];";
 						name="commandant";
-						description="Kommandant (Zeus)";
+						description="Kommandant (Zeus)@Führungsgruppe";
 						isPlayer=1;
 						isPlayable=1;
 					};
@@ -2127,7 +2127,7 @@ class Mission
 					{
 						rank="CAPTAIN";
 						init="removeallWeapons this; removebackpack this;";
-						description="Dolmetscher 1";
+						description="Dolmetscher@Führungsgruppe";
 						isPlayable=1;
 					};
 					id=139;
@@ -2171,7 +2171,7 @@ class Mission
 					{
 						rank="CAPTAIN";
 						init="removeallWeapons this; removebackpack this;";
-						description="Dolmetscher 2";
+						description="Dolmetscher@Führungsgruppe";
 						isPlayable=1;
 					};
 					id=3243;
@@ -2228,7 +2228,7 @@ class Mission
 					class Attributes
 					{
 						rank="SERGEANT";
-						description="Trupp A Truppführer";
+						description="Truppführer@Trupp A";
 						isPlayable=1;
 					};
 					id=141;
@@ -2271,7 +2271,7 @@ class Mission
 					class Attributes
 					{
 						rank="CORPORAL";
-						description="Trupp A Sanitäter";
+						description="Sanitäter@Trupp A";
 						isPlayable=1;
 					};
 					id=142;
@@ -2313,7 +2313,7 @@ class Mission
 					flags=5;
 					class Attributes
 					{
-						description="Trupp A EOD";
+						description="EOD@Trupp A";
 						isPlayable=1;
 					};
 					id=143;
@@ -2355,7 +2355,7 @@ class Mission
 					flags=5;
 					class Attributes
 					{
-						description="Trupp A Schütze 1";
+						description="Schütze@Trupp A";
 						isPlayable=1;
 					};
 					id=145;
@@ -2397,7 +2397,7 @@ class Mission
 					flags=5;
 					class Attributes
 					{
-						description="Trupp A Schütze 2";
+						description="Schütze@Trupp A";
 						isPlayable=1;
 					};
 					id=146;
@@ -2454,7 +2454,7 @@ class Mission
 					class Attributes
 					{
 						rank="SERGEANT";
-						description="Trupp B Truppführer";
+						description="Truppführer@Trupp B";
 						isPlayable=1;
 					};
 					id=153;
@@ -2497,7 +2497,7 @@ class Mission
 					class Attributes
 					{
 						rank="CORPORAL";
-						description="Trupp B Sanitäter";
+						description="Sanitäter@Trupp B";
 						isPlayable=1;
 					};
 					id=154;
@@ -2539,7 +2539,7 @@ class Mission
 					flags=5;
 					class Attributes
 					{
-						description="Trupp B EOD";
+						description="EOD@Trupp B";
 						isPlayable=1;
 					};
 					id=155;
@@ -2581,7 +2581,7 @@ class Mission
 					flags=5;
 					class Attributes
 					{
-						description="Trupp B Schütze 1";
+						description="Schütze@Trupp B";
 						isPlayable=1;
 					};
 					id=157;
@@ -2623,7 +2623,7 @@ class Mission
 					flags=5;
 					class Attributes
 					{
-						description="Trupp B Schütze 2";
+						description="Schütze@Trupp B";
 						isPlayable=1;
 					};
 					id=158;
@@ -2722,7 +2722,7 @@ class Mission
 					class Attributes
 					{
 						rank="LIEUTENANT";
-						description="Hubschrauberpilot 1";
+						description="Pilot@Hubschrauberpiloten";
 						isPlayable=1;
 					};
 					id=168;
@@ -2765,7 +2765,7 @@ class Mission
 					class Attributes
 					{
 						rank="SERGEANT";
-						description="Hubschrauberpilot 2";
+						description="Pilot@Hubschrauberpiloten";
 						isPlayable=1;
 					};
 					id=169;
