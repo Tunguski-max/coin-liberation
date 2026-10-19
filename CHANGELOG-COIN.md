@@ -44,7 +44,7 @@
   Kettenfahrzeuge (außer Bobcat und M113A3), Jets, Transportflugzeuge, AH-64D, große Drohnen, M119A2, MIM-145, Boote, SDV und Mk.V;
   Elite-Fahrzeuge: M113A3 (M2), M113A3 (Mk19), Stryker M1126, Stryker M1134, AH-1Z, AH-6M; M113A3 Medical frei kaufbar; `[COIN]`-Logzeile mit Preset und Listengrößen
 - Miliz-Preset (Ticket 1.6 / #8): `presets/opfor/coin_militia.sqf` (Preset 21, Hook 8) auf Basis von Project OPFOR „Afghan Militia“: Sektorverteidiger und
-  Patrouillen nur Technicals, Gegenangriffe Technicals mit einem seltenen BTR-60, leere Listen für Flugzeuge, Hubschrauber und Truppentransporter,
+  Patrouillen nur Technicals, Gegenangriffe Technicals und Ural-Truppentransporter mit einem seltenen BTR-60, leere Listen für Flugzeuge und Hubschrauber,
   keine Kampfpanzer; `[COIN]`-Logzeile mit Preset und Fahrzeuglisten
 
 ### Behoben

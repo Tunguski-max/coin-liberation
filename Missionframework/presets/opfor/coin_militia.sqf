@@ -5,7 +5,8 @@
     - Infantry: Afghan Militia. Roles without a confirmed AM class fall back to a confirmed one (see _pick),
       so a wrong or missing classname never produces an invalid unit.
     - Sector defenders and patrols (militia_vehicles, opfor_vehicles*): technicals only.
-    - Counterattacks (opfor_battlegroup_vehicles*): technicals, rarely one old vehicle (BTR-60) via list weighting.
+    - Counterattacks (opfor_battlegroup_vehicles*): technicals and troop transports (Ural), rarely one old vehicle
+      (BTR-60, also a troop transport) via list weighting. Two BTR-60 at once would be too much (hard limit: phase 6.2).
     - No tanks, no anti-aircraft tank, no helicopters, no planes (empty lists). The capital's heavy equipment is
       spawned by COIN code later (ticket 6.3), not through these lists.
     - Lists that Liberation picks from with selectRandom must never be empty (selectRandom [] returns nil).
@@ -47,7 +48,7 @@ opfor_paratrooper = "LOP_AM_OPF_Infantry_Rifleman_5";                   // Parat
 // Enemy vehicles used by secondary objectives.
 opfor_mrap = ["LOP_AM_OPF_Offroad", "LOP_AM_OPF_UAZ_DshKM"] call _pick;                              // Offroad
 opfor_mrap_armed = ["LOP_AM_OPF_Offroad_M2", "LOP_AM_OPF_UAZ_DshKM"] call _pick;                     // Offroad (M2)
-opfor_transport_helo = "LOP_TKA_Ural";                                  // COIN: no helicopters for the militia. Enemy FOB template 5 places this class, so it is a truck here
+opfor_transport_helo = "LOP_TKA_Mi8MT_Cargo";                        // Mi-8MT (Cargo) -> COIN: only parked as an empty prop by enemy FOB template 5, never flies (opfor_choppers is empty)
 opfor_transport_truck = "LOP_TKA_Ural";                                 // Ural-4320 (Covered)
 opfor_ammobox_transport = "LOP_TKA_Ural_open";                          // Ural-4320 (Open) -> Has to be able to transport resource crates!
 opfor_fuel_truck = "RHS_Ural_Fuel_MSV_01";                              // Ural-4320 (Fuel)
@@ -98,8 +99,8 @@ opfor_vehicles_low_intensity = [
     "LOP_AM_OPF_Nissan_PKM"                                             // Nissan (PKM)
 ];
 
-/* Counterattacks (battlegroups) at high readiness: technicals, rarely one old vehicle.
-   COIN: LOP_ISTS_OPF_BTR60 is confirmed (upstream preset). One entry of 25 (a group of 8-16 vehicles contains one with roughly 30-50 percent) keeps it rare; a hard limit of 1 comes in phase 6.2 (ADR 0014). */
+/* Counterattacks (battlegroups) at high readiness: technicals, troop transports, rarely one old vehicle.
+   COIN: LOP_ISTS_OPF_BTR60 is confirmed (upstream preset). One entry of 40 keeps it rare (about 6 percent for two or more in a group of 16); a hard limit of 1 comes in phase 6.2 (ADR 0014). */
 opfor_battlegroup_vehicles = [
     "LOP_AM_OPF_UAZ_DshKM",                                             // UAZ-3151 (DShKM)
     "LOP_AM_OPF_UAZ_DshKM",                                             // UAZ-3151 (DShKM)
@@ -113,6 +114,12 @@ opfor_battlegroup_vehicles = [
     "LOP_AM_OPF_UAZ_DshKM",                                             // UAZ-3151 (DShKM)
     "LOP_AM_OPF_UAZ_DshKM",                                             // UAZ-3151 (DShKM)
     "LOP_AM_OPF_UAZ_DshKM",                                             // UAZ-3151 (DShKM)
+    "LOP_AM_OPF_UAZ_DshKM",                                             // UAZ-3151 (DShKM)
+    "LOP_AM_OPF_UAZ_DshKM",                                             // UAZ-3151 (DShKM)
+    "LOP_AM_OPF_UAZ_DshKM",                                             // UAZ-3151 (DShKM)
+    "LOP_AM_OPF_UAZ_DshKM",                                             // UAZ-3151 (DShKM)
+    "LOP_AM_OPF_Nissan_PKM",                                            // Nissan (PKM)
+    "LOP_AM_OPF_Nissan_PKM",                                            // Nissan (PKM)
     "LOP_AM_OPF_Nissan_PKM",                                            // Nissan (PKM)
     "LOP_AM_OPF_Nissan_PKM",                                            // Nissan (PKM)
     "LOP_AM_OPF_Nissan_PKM",                                            // Nissan (PKM)
@@ -125,20 +132,36 @@ opfor_battlegroup_vehicles = [
     "LOP_AM_OPF_Offroad_M2",                                            // Offroad (M2)
     "LOP_AM_OPF_Offroad_M2",                                            // Offroad (M2)
     "LOP_AM_OPF_Offroad_M2",                                            // Offroad (M2)
-    "LOP_ISTS_OPF_BTR60"                                                // BTR-60PB (old vehicle, rare)
+    "LOP_AM_OPF_Offroad_M2",                                            // Offroad (M2)
+    "LOP_AM_OPF_Offroad_M2",                                            // Offroad (M2)
+    "LOP_TKA_Ural",                                                     // Ural-4320 (Covered), troop transport
+    "LOP_TKA_Ural",                                                     // Ural-4320 (Covered), troop transport
+    "LOP_TKA_Ural",                                                     // Ural-4320 (Covered), troop transport
+    "LOP_TKA_Ural",                                                     // Ural-4320 (Covered), troop transport
+    "LOP_TKA_Ural",                                                     // Ural-4320 (Covered), troop transport
+    "LOP_TKA_Ural",                                                     // Ural-4320 (Covered), troop transport
+    "LOP_TKA_Ural",                                                     // Ural-4320 (Covered), troop transport
+    "LOP_ISTS_OPF_BTR60"                                                // BTR-60PB (old vehicle, rare, also a troop transport)
 ];
 
-// Counterattacks (battlegroups) at low readiness: technicals only.
+// Counterattacks (battlegroups) at low readiness: technicals and troop transports, no old vehicle.
 opfor_battlegroup_vehicles_low_intensity = [
     "LOP_AM_OPF_UAZ_DshKM",                                             // UAZ-3151 (DShKM)
     "LOP_AM_OPF_UAZ_DshKM",                                             // UAZ-3151 (DShKM)
+    "LOP_AM_OPF_UAZ_DshKM",                                             // UAZ-3151 (DShKM)
     "LOP_AM_OPF_Nissan_PKM",                                            // Nissan (PKM)
-    "LOP_AM_OPF_Nissan_PKM"                                             // Nissan (PKM)
+    "LOP_AM_OPF_Nissan_PKM",                                            // Nissan (PKM)
+    "LOP_AM_OPF_Nissan_PKM",                                            // Nissan (PKM)
+    "LOP_TKA_Ural",                                                     // Ural-4320 (Covered), troop transport
+    "LOP_TKA_Ural"                                                      // Ural-4320 (Covered), troop transport
 ];
 
-/* Vehicles of battlegroups that carry 8 soldiers as passengers. Technicals cannot hold 8, so the list is empty:
-   battlegroup vehicles then drive without a dismount squad. */
-opfor_troup_transports = [];
+/* Vehicles of battlegroups that carry 8 soldiers as passengers (they unload a squad near the objective).
+   COIN: the covered Ural and the rare BTR-60. Technicals cannot hold 8 soldiers and stay out of this list. */
+opfor_troup_transports = [
+    "LOP_TKA_Ural",                                                     // Ural-4320 (Covered)
+    "LOP_ISTS_OPF_BTR60"                                                // BTR-60PB
+];
 
 // COIN: no rotary-wings (empty, see send_paratroopers.sqf: a non-empty list without a transporter hangs forever).
 opfor_choppers = [];
