@@ -108,7 +108,8 @@ If you want to change a preset, it's recommended to set all four presets to 0 an
 27 = CUP Takistani Army
 28 = SFP (Woodland)
 29 = SFP (Desert)
-30 = LDF (Contact DLC) */
+30 = LDF (Contact DLC)
+31 = COIN light brigade (RHS USAF Desert, reduced; ADR 0007) */ // COIN: preset 31
 KP_liberation_preset_blufor = 0;
 
 /* OPFOR preset:

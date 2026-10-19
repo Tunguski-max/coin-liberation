@@ -39,6 +39,7 @@ switch (KP_liberation_preset_blufor) do {
     case 28: {[] call compileFinal preprocessFileLineNumbers "presets\blufor\sfp_wdl.sqf";};
     case 29: {[] call compileFinal preprocessFileLineNumbers "presets\blufor\sfp_des.sqf";};
     case 30: {[] call compileFinal preprocessFileLineNumbers "presets\blufor\enoch.sqf";};
+    case 31: {[] call compileFinal preprocessFileLineNumbers "presets\blufor\coin_light_brigade.sqf";}; // COIN: light brigade preset (ADR 0007)
     default  {[] call compileFinal preprocessFileLineNumbers "presets\blufor\custom.sqf";};
 };
 

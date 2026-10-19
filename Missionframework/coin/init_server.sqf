@@ -17,3 +17,10 @@ diag_log format [
     KP_liberation_limited_zeus, KP_liberation_enemies_zeus, KP_liberation_victoryCondition,
     KP_liberation_suppMod, GRLIB_resources_multiplier, KP_liberation_commander_zeus
 ];
+
+// Phase 1 check: BLUFOR preset (light brigade) and what the build menu ended up with
+diag_log format [
+    "[COIN] init: blufor preset %1, build lists light=%2 heavy=%3 air=%4 static=%5 support=%6, elite=%7",
+    KP_liberation_preset_blufor, count light_vehicles, count heavy_vehicles, count air_vehicles,
+    count static_vehicles, count support_vehicles, elite_vehicles
+];
