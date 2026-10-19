@@ -79,7 +79,7 @@ while {COIN_enableFactionMarkers} do {
         } else {
             // Militia fighters with a helmet (Islamic State twins, see COIN_fnc_mixSquads) keep it: a helmet means militia anyway.
             // Resistance fighters always get their shemag. The decision is stored, so the config lookup runs once per unit.
-            private _keepsHelmet = _previous == "helmet";
+            private _keepsHelmet = _previous == "helmet" && {_marker == COIN_markerMilitia};
             if (!_keepsHelmet && {_marker == COIN_markerMilitia} && {_previous == ""}) then {
                 private _headArmor = getNumber (configFile >> "CfgWeapons" >> (headgear _unit) >> "ItemInfo" >> "HitpointsProtectionInfo" >> "Head" >> "armor");
                 if (_headArmor > 0) then {

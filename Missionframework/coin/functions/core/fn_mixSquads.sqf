@@ -14,6 +14,7 @@
         and KPLIB_o_inf_classes (infantry of battlegroups at readiness 50 or more).
         KPLIB_o_inf_classes is also used by Liberation to recognise enemy infantry, so it always contains the
         Afghan Militia class and its twin of every role at least once; the share only sets how often each is drawn.
+        Clients and late joiners add the twins to their own list in init_client.sqf, because init_presets.sqf rebuilds it there.
         Runs as long as COIN_enableSquadMix is true. Must run on the server only.
 
     Parameter(s):
@@ -42,23 +43,18 @@ private _twinOf = {
 // Originals as built by init_presets.sqf (Afghan Militia), the loop always starts from these
 private _squadVars = ["KPLIB_o_squadStd", "KPLIB_o_squadInf", "KPLIB_o_squadTank", "KPLIB_o_squadAir"];
 private _templates = _squadVars apply {+(missionNamespace getVariable [_x, []])};
-private _infBase = KPLIB_o_inf_classes arrayIntersect KPLIB_o_inf_classes;
-
-// Clients only need to know all enemy infantry classes (Liberation's prisoner script): send the full list once
-private _infAll = +_infBase;
-{
-    private _twin = [_x] call _twinOf;
-    if (_twin != "") then {_infAll pushBackUnique (toLower _twin)};
-} forEach _infBase;
-KPLIB_o_inf_classes = _infAll;
-publicVariable "KPLIB_o_inf_classes";
+private _infBase = +KPLIB_o_inf_classes;
 
 diag_log format ["[COIN] squads: mixing %1 role twins, share %2 at readiness %3 to %4 at readiness %5, every %6 s", count _twins, COIN_squadMixShare select 0, COIN_squadMixReadiness select 0, COIN_squadMixShare select 1, COIN_squadMixReadiness select 1, COIN_squadMixInterval];
 
 private _lastShare = -1;
 
 while {COIN_enableSquadMix} do {
-    private _share = linearConversion [COIN_squadMixReadiness select 0, COIN_squadMixReadiness select 1, combat_readiness, COIN_squadMixShare select 0, COIN_squadMixShare select 1, true];
+    // Below the lower readiness bound the squads stay Afghan Militia
+    private _share = 0;
+    if (combat_readiness >= (COIN_squadMixReadiness select 0)) then {
+        _share = linearConversion [COIN_squadMixReadiness select 0, COIN_squadMixReadiness select 1, combat_readiness, COIN_squadMixShare select 0, COIN_squadMixShare select 1, true];
+    };
 
     // Squads of the sectors: every unit is swapped for its twin with the probability "share"
     {
