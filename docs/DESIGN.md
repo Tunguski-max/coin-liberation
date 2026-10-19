@@ -177,8 +177,8 @@ und sind die zweite Intel-Quelle neben dem Dolmetscher.
 - Ein Camp ist **ausgehoben**, wenn in seiner Nähe kein Kämpfer des Camps mehr kampffähig ist (tot, gefangen,
   ergeben oder geflohen), die Besatzung des Technicals eingeschlossen.
 - KI und Objekte spawnen erst, wenn Spieler in der Nähe sind (gleiche Regeln wie bei Nestern). Ein Camp spawnt ganz
-  oder gar nicht, solange die COIN-Einheiten unter einem eigenen Budget liegen (ADR 0015). Ist kein Platz, entsteht
-  es, sobald wieder Platz ist.
+  oder gar nicht, nur wenn danach höchstens 30 COIN-Einheiten leben, Nest-Wachen eingerechnet (ADR 0015). Ist kein
+  Platz, entsteht es, sobald wieder Platz ist.
 - Der Technical eines Camps ist nicht gesperrt und kann erbeutet werden.
 - Camps nutzen dieselbe Template-Mechanik wie Gelände-Nester, mit eigenen 2–3 Camp-Templates (ohne Kernobjekt).
 
@@ -436,7 +436,8 @@ Infanterie, Technicals, Motorräder, zivile Fahrzeuge, leichte statische Waffen 
   eigenen COIN-Budgets. Für Zivilisten gilt ein gemeinsamer Wert, geregelt ab Phase 3.
 - Dazu eine Obergrenze für gleichzeitige IEDs.
 - Spawnen nur im Umkreis von Spielern, wie bei Liberation.
-- Startwerte (in Tests anpassen): Liberation ~100 Gegner-KI, COIN-Camps ~20, ~30 Zivilisten, ~25 IEDs.
+- Startwerte (in Tests anpassen): Liberation ~100 Gegner-KI, Camps nur bis ~30 COIN-Einheiten insgesamt
+  (Nest-Wachen eingerechnet), ~30 Zivilisten, ~25 IEDs.
 
 **Persistenz**
 - Alle neuen Zustände (Nester, Intel-Marker, Budgets) werden über den

@@ -22,6 +22,13 @@ if (COIN_enableFactionMarkers) then {
     player addEventHandler ["Respawn", {params ["_unit"]; [_unit] call COIN_fnc_createDiary;}];
 };
 
+// AI budget (ticket 2.13, ADR 0015): Liberation's caps on this client follow the server. A late joiner's own
+// kp_liberation_config.sqf has just set Liberation's original values, so the published ones are taken here again
+if (COIN_enableAIBudget && {!isServer}) then {
+    "COIN_enemyAICaps" addPublicVariableEventHandler {[_this select 1] call COIN_fnc_applyEnemyAICaps;};
+    if (!isNil "COIN_enemyAICaps") then {[COIN_enemyAICaps] call COIN_fnc_applyEnemyAICaps;};
+};
+
 // Islamic State twins are enemy infantry too (Liberation's prisoner script checks KPLIB_o_inf_classes on the client).
 // init_presets.sqf builds that list on every client, so the twins are added here as well, also for late joiners.
 if (COIN_enableSquadMix) then {

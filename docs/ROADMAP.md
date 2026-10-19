@@ -101,7 +101,10 @@ Ziel: Nester existieren, sind persistent und schwächen bei Zerstörung das Netz
 - [ ] 2.11 Debug-Anzeige für Camps und ihr zugehöriges Nest
 - [x] 2.12 (#26) Liberation-Nebenmission „FOB Hunting“ abschalten (ADR 0011; getestet: Hooks 15 und 16,
   `COIN_fnc_secondaryMissionStatus`, Start per Debug-Konsole vom Server abgelehnt)
-- [ ] 2.13 KI-Budget: Liberations Obergrenzen auf 100, COIN-Einheiten obendrauf, Nester immer vollständig, Camps mit eigenem Budget (ADR 0015)
+- [x] 2.13 (#27) KI-Budget: Liberations Obergrenzen auf 100, COIN-Einheiten obendrauf, Nester immer vollständig, Camps nur bis
+  30 COIN-Einheiten insgesamt (ADR 0015; getestet: `COIN_fnc_aiBudget` 100 → 105 → 110 mit Test-Einheiten, nach dem Löschen wieder 100,
+  Abschalten zur Laufzeit stellt 180/150/150 wieder her, `COIN_fnc_campFitsBudget` 25 ja / 26 nein;
+  noch offen: Unitcap ×1,5 beim nächsten Wipe, später beitretender Client)
 
 **DoD:** Mit Debug-Anzeige ein Nest finden und zerstören, Neustart, Nest bleibt zerstört,
 Netzwerkstärke ist gesunken. Nach dem Neustart gibt es entsprechend weniger Camps,

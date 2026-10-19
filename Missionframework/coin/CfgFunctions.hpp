@@ -54,6 +54,21 @@ class COIN {
         // May this secondary mission be started? FOB hunting is switched off (ticket 2.12, hooks 15 and 16)
         class secondaryMissionStatus {};
 
+        // Server loop: Liberation's enemy AI caps = COIN_maxEnemyAI x Unitcap + COIN units (ticket 2.13, ADR 0015)
+        class aiBudget {};
+
+        // Sets Liberation's three enemy AI caps on this machine (server loop and clients)
+        class applyEnemyAICaps {};
+
+        // Marks units spawned by COIN so the AI budget counts them
+        class markCoinUnits {};
+
+        // Number of living COIN units on the enemy side
+        class countCoinUnits {};
+
+        // May a camp with N fighters spawn now? All or nothing within COIN_maxCampAI
+        class campFitsBudget {};
+
         // Entry point of the COIN module, runs on every machine at mission start
         class init {
             postInit = 1;
