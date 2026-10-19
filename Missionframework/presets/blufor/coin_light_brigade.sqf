@@ -1,10 +1,10 @@
 /*
     COIN Liberation: BLUFOR preset "light brigade" (ADR 0007, DESIGN section 10).
     Derived from rhs_usaf_des.sqf (RHS USAF Desert). Differences:
-    - removed: tracked vehicles (except the CRV-6e Bobcat), jets and transport planes, AH-64D, large drones,
+    - removed: tracked vehicles (except the CRV-6e Bobcat and the elite M113A3), jets and transport planes, AH-64D, large drones,
       M119A2, MIM-145, boats, SDV, Mk.V, UGV Stomper, jet pilot, missile carts, aircraft hangar
     - kept: wheeled vehicles, static weapons incl. mortar, small drones, helicopters except AH-64D, Bobcat
-    - elite vehicles: M1126, M1134, AH-1Z, AH-6M (limit for AH-1Z/AH-6M: ticket 1.9)
+    - elite vehicles: M113A3, M1126, M1134, AH-1Z, AH-6M (limit for AH-1Z/AH-6M: ticket 1.9)
 */
 
 /*
@@ -109,6 +109,7 @@ light_vehicles = [
 ];
 
 heavy_vehicles = [
+    ["rhsusf_m113d_usarmy",200,40,100],                                 // M113A3 (M2)
     ["rhsusf_stryker_m1126_m2_d",200,150,100],                          // M1126 Stryker (M2)
     ["rhsusf_stryker_m1134_d",250,200,125]                              // M1134 Stryker (TOW)
 ];
@@ -335,9 +336,10 @@ blufor_squad_para = [
     --- Elite vehicles ---
     Classnames below have to be unlocked by capturing military bases.
     Which base locks a vehicle is randomized on the first start of the campaign.
-    COIN: exactly the four elite vehicles of ADR 0007. Each one must also be listed in heavy_vehicles / air_vehicles.
+    COIN: the elite vehicles of ADR 0007 (at most one per military base, 6 on Lythium). Each one must also be listed in heavy_vehicles / air_vehicles.
 */
 elite_vehicles = [
+    "rhsusf_m113d_usarmy",                                              // M113A3 (M2)
     "rhsusf_stryker_m1126_m2_d",                                        // M1126 Stryker (M2)
     "rhsusf_stryker_m1134_d",                                           // M1134 Stryker (TOW)
     "RHS_AH1Z",                                                         // AH-1Z (Multi-Role)

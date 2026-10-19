@@ -50,7 +50,7 @@ Ziel: Lythium ist ausgedünnt auf unsere Ziele, Slots und Ausrüstung passen zum
   - Auswahl der Presets in `_tools/_presets.coin.json` (überschreibt die Werte in `kp_liberation_config.sqf` beim Build)
   - BLUFOR (RHS USAF Desert) als **leichte Brigade** nach `DESIGN.md` Abschnitt 10
     (#7 implementiert, ungetestet: Preset 31 `coin_light_brigade.sqf`)
-  - Elite-Liste: Stryker M1126, Stryker M1134, AH-1Z, AH-6M
+  - Elite-Liste: M113A3, Stryker M1126, Stryker M1134, AH-1Z, AH-6M
   - Miliz: eigenes Preset auf Basis Project OPFOR „Afghan Militia“: Technicals in Sektoren und Patrouillen,
     Gegenangriffe mit seltenem Altfahrzeug, leere Luft- und Hubschrauberlisten
   - Widerstand: erkennbare Kleidung für lokale Kämpfer (2–3 Varianten, Niklas wählt im Arsenal)

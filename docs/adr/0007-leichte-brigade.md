@@ -1,6 +1,6 @@
 # ADR 0007: Die Armee ist eine leichte Brigade
 
-**Status:** Akzeptiert (2026-10-17), E9 und E11 entschieden (2026-10-18)
+**Status:** Akzeptiert (2026-10-17), E9 und E11 entschieden (2026-10-18), M113A3 als fünftes Elite-Fahrzeug ergänzt (2026-10-19)
 
 ## Kontext
 Liberation bietet in den Standard-Presets nahezu alles bis hin zu Jets und Artillerie.
@@ -12,11 +12,11 @@ und nimmt der Aufklärung durch Dolmetscher und Intel ihren Sinn.
   werden über ein eigenes BLUFOR-Preset stark reduziert.
 - **Ausgeschlossen:** jede Artillerie außer Mörsern (Panzerhaubitzen, Raketenwerfer, gezogenes Geschütz
   M119A2), Jets und Transportflugzeuge, AH-64D, große Drohnen, Kettenfahrzeuge (Ausnahme: Bergepanzer
-  CRV-6e Bobcat als Reparaturfahrzeug), Luftabwehrsystem MIM-145, Boote.
+  CRV-6e Bobcat als Reparaturfahrzeug, und der M113A3 als Elite-Fahrzeug), Luftabwehrsystem MIM-145, Boote.
 - **Erlaubt:** Radfahrzeuge, statische Waffen inklusive Mörser, kleine Drohnen (Darter, Pelican),
   Hubschrauber außer AH-64D (inklusive UH-1Y Ground Suppression).
 - **Elite-Fahrzeuge** (je eines pro Militärposten, freigeschaltet durch dessen Einnahme):
-  Stryker M1126, Stryker M1134 (TOW), AH-1Z, AH-6M.
+  M113A3 (M2), Stryker M1126, Stryker M1134 (TOW), AH-1Z, AH-6M. Es gibt 6 Militärposten, ein Posten bleibt ohne Fahrzeug.
 - **AH-1Z und AH-6M:** je höchstens einer gleichzeitig, 30 Minuten Sperre ab Kauf, Sperre wird nicht
   gespeichert. Werte pro Klasse in `coin_config.sqf` (Hook im Kaufmenü, Ticket 1.9).
 - Keine Kampfpanzer für die Spieler. Gegen die Kampfpanzer der Hauptstadt helfen Panzerabwehr der
