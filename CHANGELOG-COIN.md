@@ -41,8 +41,8 @@
   Der Zeus-Slot heißt „Kommandant (Zeus)“ statt „Platoon Leader (Commander)“ (Variablenname `commandant` bleibt). `COIN_fnc_applyRoleTraits` gibt EOD
   (ACE-Pionier), Sanitätern und dem Kommandanten ihre ACE-Fähigkeiten beim Start und nach jedem Respawn, Schalter `COIN_enableRoleTraits`
 - BLUFOR-Preset „leichte Brigade“ (Ticket 1.6 / #7): `presets/blufor/coin_light_brigade.sqf` (Preset 31, Hook 7) auf Basis von RHS USAF Desert ohne
-  Kettenfahrzeuge (außer Bobcat und Elite-M113A3), Jets, Transportflugzeuge, AH-64D, große Drohnen, M119A2, MIM-145, Boote, SDV und Mk.V;
-  Elite-Fahrzeuge: M113A3 (M2), Stryker M1126, Stryker M1134, AH-1Z, AH-6M; `[COIN]`-Logzeile mit Preset und Listengrößen
+  Kettenfahrzeuge (außer Bobcat und M113A3), Jets, Transportflugzeuge, AH-64D, große Drohnen, M119A2, MIM-145, Boote, SDV und Mk.V;
+  Elite-Fahrzeuge: M113A3 (M2), M113A3 (Mk19), Stryker M1126, Stryker M1134, AH-1Z, AH-6M; M113A3 Medical frei kaufbar; `[COIN]`-Logzeile mit Preset und Listengrößen
 
 ### Behoben
 - Sektor-Vorschlag: Marker-Parser kam mit mehrzeiligen Arrays (`addons[]=`) aus dem Tritt (Ergebnis bisher zufällig richtig)

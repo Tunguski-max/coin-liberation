@@ -345,19 +345,20 @@ von Liberation werden über ein eigenes BLUFOR-Preset stark reduziert. Siehe ADR
 | Kleine Aufklärungsdrohnen (Darter, Pelican) | erlaubt |
 | Hubschrauber (Transport, MEDEVAC, mit Türschützen, UH-1Y Ground Suppression) | erlaubt |
 | Bergepanzer CRV-6e Bobcat (Reparatur) | erlaubt (einzige Ausnahme bei Kettenfahrzeugen) |
-| M113A3 (M2), Stryker M1126, Stryker M1134 (TOW) | nur als Elite-Fahrzeug |
+| M113A3 (M2, Mk19), Stryker M1126, Stryker M1134 (TOW) | nur als Elite-Fahrzeug |
+| M113A3 (Medical) | erlaubt (Ausnahme bei Kettenfahrzeugen, frei kaufbar) |
 | Kampfhubschrauber AH-1Z, leichter Kampfhubschrauber AH-6M | nur als Elite-Fahrzeug, je max. 1 gleichzeitig, 30 Min. Sperre nach Kauf |
 | AH-64D | **ausgeschlossen** |
 | **Artillerie** außer Mörsern (Panzerhaubitzen, Raketenwerfer, gezogenes Geschütz M119A2) | **ausgeschlossen** |
 | **Jets** und Transportflugzeuge | **ausgeschlossen** |
-| Kettenfahrzeuge (Kampf- und Schützenpanzer) | **ausgeschlossen** (Ausnahme M113A3 als Elite-Fahrzeug) |
+| Kettenfahrzeuge (Kampf- und Schützenpanzer) | **ausgeschlossen** (Ausnahme M113A3: Medical frei, M2/Mk19 als Elite-Fahrzeug) |
 | Große Drohnen, Luftabwehrsystem MIM-145, Boote | **ausgeschlossen** |
 
 **Kopplung an die Miliz:** Die Miliz hat Kampfpanzer nur in der Hauptstadt und Altfahrzeuge bei Waffenlagern.
 Die Spieler bekommen dafür Radpanzer (Stryker) über Militärposten, aber keine Kampfpanzer.
 
 **Elite-Fahrzeuge:** Jeder der 6 Militärposten schaltet eines frei (Zuordnung ausgelost):
-M113A3, Stryker M1126, Stryker M1134, AH-1Z, AH-6M (ADR 0007, 0014); bei 6 Militärposten bleibt einer ohne Fahrzeug.
+M113A3 (M2), M113A3 (Mk19), Stryker M1126, Stryker M1134, AH-1Z, AH-6M (ADR 0007, 0014).
 
 **Die Miliz selbst:** Eigenes Preset auf Basis von Project OPFOR „Afghan Militia“ (ADR 0014):
 Infanterie, Technicals, Motorräder, zivile Fahrzeuge, leichte statische Waffen und Mörser.
