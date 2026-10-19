@@ -39,8 +39,8 @@ COIN_hideReputationNumber   = true;     // Phase 5, ADR 0009: no reputation numb
 // ---------------------------------------------------------------------------
 // Slot roles (Phase 1, ticket 1.5)
 // ACE abilities a slot gets beyond its class config: [unit class, [[variable, value], ...]]
-// The medic class already counts as ACE medic and B_soldier_exp_F as explosive specialist;
-// listed here are the additions, set at start and after every respawn.
+// The classes already bring most of it (B_medic_F is an ACE medic, B_soldier_exp_F an explosive specialist);
+// the table sets the ACE variables explicitly, at start and after every respawn.
 // ---------------------------------------------------------------------------
 COIN_roleTraits = [
     ["B_soldier_exp_F", [["ACE_isEngineer", 1]]],               // EOD: repair (ACE engineer)
