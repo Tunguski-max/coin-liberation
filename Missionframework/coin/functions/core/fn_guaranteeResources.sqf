@@ -25,11 +25,14 @@ params [
 if (!isServer) exitWith {0};
 
 // The config is loaded in postInit on every machine, but this runs early in the server start
-private _timeout = diag_tickTime + COIN_initTimeout;
+private _timeout = diag_tickTime + (missionNamespace getVariable ["COIN_initTimeout", 300]);
 if (canSuspend) then {
     waitUntil {sleep 0.5; !isNil "COIN_enableResourceGuarantee" || {diag_tickTime > _timeout}};
 };
-if (isNil "COIN_enableResourceGuarantee" || {!COIN_enableResourceGuarantee}) exitWith {0};
+if (isNil "COIN_enableResourceGuarantee" || {!COIN_enableResourceGuarantee}) exitWith {
+    diag_log "[COIN] resources: guarantee is off or the config is missing, the draw stays as Liberation made it";
+    0
+};
 
 private _names = ["supplies", "ammo", "fuel"];
 
@@ -47,8 +50,8 @@ private _counts = [0, 0, 0];
 
 diag_log format ["[COIN] resources: draw gave supplies %1, ammo %2, fuel %3 of %4 supply points", _counts select 0, _counts select 1, _counts select 2, count _markers];
 
-if (count _markers < 3) exitWith {
-    diag_log "[COIN] resources: ERROR - fewer than 3 supply points, not every type can be produced";
+if (count _markers < count _names) exitWith {
+    diag_log "[COIN] resources: ERROR - fewer supply points than resource types, not every type can be produced";
     0
 };
 
