@@ -1,0 +1,24 @@
+{
+    "missionSqm": "Missionbasefiles/coin_liberation.lythium/mission.sqm",
+    "mapSize": 20480,
+    "capital": "Kalae Noowi",
+    "startBaseMarker": "startbase_marker",
+    "capitalClearRadius": 1000,
+    "towns": { "count": 25, "minDistance": 2500 },
+    "supplyPoints": { "count": 5, "minDistance": 1500 },
+    "militaryPosts": { "count": 4, "minDistance": 1500, "minDistanceToCapital": 2000 },
+    "removedByDesign": ["Arobster"],
+    "raus": [],
+    "rein": [],
+    "dazu": [
+        "Kalae Barracks (E)",
+        "Tonkuf",
+        "Kandar",
+        "Ramir",
+        "Kalae Village (N)",
+        "Kandar Factory",
+        "Zarath Windpark",
+        "Kalae Factory",
+        "Mountain Patrol Camp"
+    ]
+}

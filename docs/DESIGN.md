@@ -3,6 +3,7 @@
 > Status: **Entwurf v0.3** – Grundlage für die Umsetzung mit Claude Code.
 > v0.2: Entscheidungen aus Phase 0 eingearbeitet (ADR 0008–0015, `docs/kp-liberation-map.md`).
 > v0.3: Spielfeld und Ausrüstung für Phase 1 festgelegt (ADR 0007, 0016), Abgleich mit Hearts and Minds.
+> v0.3.1: Sektorauswahl von Hand ergänzt (ADR 0016), Ressourcen-Wirtschaft (ADR 0017).
 > Offene Entscheidungen stehen gesammelt in [Abschnitt 12](#12-offene-entscheidungen).
 > Begriffe sind in [`CONTEXT.md`](../CONTEXT.md) definiert.
 
@@ -38,16 +39,20 @@ Einsatzgebiet ist **ganz Lythium**, stark ausgedünnt (ADR 0016).
 | Element | Anzahl | Herkunft | Zweck |
 |---|---|---|---|
 | Hauptstadt | 1: **Kalae Noowi** (Norden) | Liberation-Sektor (Typ „Hauptstadt“) | Finales Ziel, Sitz der Miliz |
-| Ortschaften | 25, davon 7 herabgestufte Hauptstädte | Liberation-Sektoren (Städte/Dörfer) | Einnehmen, halten, Bevölkerung gewinnen |
-| Supply Points | 5 | Liberation-Fabriken/Ressourcen-Sektoren | Ressourcen-Produktion |
-| Militärposten | 4 | Liberation-Militärsektoren | Optionale harte Ziele, schalten je ein Elite-Fahrzeug frei |
+| Ortschaften | 29: 25 per Regel (davon 7 herabgestufte Hauptstädte), 4 von Hand ergänzt | Liberation-Sektoren (Städte/Dörfer) | Einnehmen, halten, Bevölkerung gewinnen |
+| Supply Points | 8: 5 per Regel, 3 von Hand ergänzt | Liberation-Fabriken/Ressourcen-Sektoren | Ressourcen-Produktion (ADR 0017) |
+| Militärposten | 6: 4 per Regel, 2 von Hand ergänzt (u. a. Kalae Barracks (E) an der Hauptstadt) | Liberation-Militärsektoren | Optionale harte Ziele, schalten je ein Elite-Fahrzeug frei |
 | Miliz-Nester | 11 | **neu** (siehe Abschnitt 5) | Verdeckt, nur über Intel auffindbar |
 | Miliz-Camps | bis 10 gleichzeitig | **neu** (siehe Abschnitt 5.1) | Zufällig im Gelände, Spur zu den Nestern |
 | Startbasis | 1 | Liberation-Startpunkt im Südwesten | Ausgangspunkt, etwa 19 km von der Hauptstadt |
 
 - Auswahl der Ziele aus den vorhandenen Liberation-Markern: Mindestabstand 2,5 km zwischen Ortschaften,
   im Umkreis von 1 km um die Hauptstadt liegt kein weiteres Ziel. Die übrigen Hauptstädte werden zu
-  Ortschaften herabgestuft (Arobster entfällt).
+  Ortschaften herabgestuft (Arobster entfällt). Einzelne Ziele ergänzt Niklas von Hand ohne Abstandsregeln,
+  vor allem in der Mitte und Kalae Barracks (E) direkt an der Hauptstadt (ADR 0016). Die Auswahl steht in
+  `docs/sektorauswahl.md`.
+- **Ressourcen** (ADR 0017): Lobby-Standard Ressourcen-Multiplikator x2, jede Sorte (Supplies, Munition,
+  Treibstoff) kommt bei Kampagnenstart mindestens einmal unter den Supply Points vor. Preise unverändert.
 - **Keine Funktürme** (ADR 0013): Sie würden Nester und Camps auf der Karte verraten.
 - Die Spawnpunkte der Miliz (`opfor_point`, `opfor_airspawn`) bleiben.
 - Die erste FOB bringen die Spieler per Hubschrauber (FOB-Container an der Chinook) an eine frei gewählte Stelle.

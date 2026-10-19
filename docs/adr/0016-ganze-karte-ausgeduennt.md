@@ -13,6 +13,12 @@ ganzen Region eingegraben haben, und nicht alles soll sich um die Hauptstadt dre
 - **Ausgedünnt:** 25 Ortschaften (davon 7 herabgestufte Hauptstädte), 5 Supply Points, 4 Militärposten.
   Mindestabstand 2,5 km zwischen Ortschaften, nichts im Umkreis von 1 km um die Hauptstadt. Arobster und
   alle Funktürme entfallen. Die Spawnpunkte der Miliz bleiben.
+- **Von Hand ergänzt** (2026-10-19, ohne Abstandsregeln, die Regel-Auswahl bleibt unverändert):
+  - Kalae Barracks (E) als Militärposten direkt an der Hauptstadt: Eine Gruppe würde sich dieser Anlage
+    ohnehin bemächtigen. Ein starker Gegenangriff dort ist gewollt. Kalae Airport und Kalae Field Hospital bleiben aus.
+  - Mitte verdichtet: Ortschaften Tonkuf, Kandar, Ramir, Kalae Village (N); Militärposten Mountain Patrol Camp.
+  - Supply Points Kandar Factory, Zarath Windpark, Kalae Factory (ADR 0017).
+  - Damit gesamt: **29 Ortschaften, 8 Supply Points, 6 Militärposten.**
 - Die **Startbasis** bleibt am Liberation-Startpunkt im Südwesten. Die erste FOB wird per Hubschrauber
   frei im Gebiet gesetzt.
 - **Umsetzung:** eigene Kopie `Missionbasefiles/coin_liberation.lythium/mission.sqm`. Ein Skript filtert

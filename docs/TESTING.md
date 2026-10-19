@@ -75,3 +75,16 @@ sonst wird bei jedem Start gelöscht.
 - [ ] Testanleitung aus dem Ticket Schritt für Schritt durchgespielt
 - [ ] Speichern → Mission neu starten → Zustand noch da (wenn das Ticket Persistenz betrifft)
 - [ ] Ergebnis und RPT-Auszug an Claude Code
+
+## 7. Skripte außerhalb von Arma
+
+Werkzeuge unter `_tools/coin/` laufen mit Node.js (kein Arma nötig) und haben eigene Tests:
+
+```
+node --test "_tools/coin/**/*.test.js"
+```
+
+**Sektorauswahl (Ticket #4, ADR 0016):** `node _tools/coin/sectors/propose.js` liest die Regeln aus
+`_tools/coin/sectors/rules.json` und schreibt `docs/sektorauswahl.md` (Liste), `docs/sektorauswahl.svg` (Karte)
+und `_tools/coin/sectors/selection.json`. Tausche über `raus`/`rein`, Ergänzungen ohne Abstandsregeln über `dazu` in `rules.json` (Name oder Marker-ID);
+jeder Lauf zeigt, was sich gegenüber dem letzten Vorschlag geändert hat.

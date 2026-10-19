@@ -38,7 +38,8 @@ Ziel: Lythium ist ausgedünnt auf unsere Ziele, Slots und Ausrüstung passen zum
 - [x] 1.1 Hauptstadt und Gebiet festlegen (E3): Kalae Noowi, ganze Karte ausgedünnt (ADR 0016)
 - [x] 1.2 Eigene `Missionbasefiles/coin_liberation.lythium/mission.sqm` als Kopie anlegen, Build darauf umstellen (#3)
 - [ ] 1.3 Skript: Sektoren auswählen und in die Kopie schreiben (#4 Vorschlag, #5 Schreiben)
-  - 25 Ortschaften (7 herabgestufte Hauptstädte, Arobster entfällt), 5 Supply Points, 4 Militärposten
+  - 25 Ortschaften (7 herabgestufte Hauptstädte, Arobster entfällt), 5 Supply Points, 4 Militärposten per Regel,
+    dazu von Hand: 4 Ortschaften, 3 Supply Points, 2 Militärposten (gesamt 29/8/6, ADR 0016, 0017)
   - Mindestabstand 2,5 km zwischen Ortschaften, nichts im Umkreis von 1 km um Kalae Noowi
   - alle Funktürme entfernen (ADR 0013), Miliz-Spawnpunkte behalten
   - Vorschlag als Karte an Niklas, Tausche einarbeiten, dann schreiben
@@ -55,13 +56,15 @@ Ziel: Lythium ist ausgedünnt auf unsere Ziele, Slots und Ausrüstung passen zum
 - [ ] 1.7 (#5, #6) Siegbedingung „Hauptstadt eingenommen“: genau ein Hauptstadt-Sektor (aus 1.3) und Lobby-Standard
   `VictoryCondition` = „alle Hauptstädte“ (in 1.8)
 - [ ] 1.8 (#6) Erste Liberation-Hooks: eigener Save-Key (ADR 0005), Lobby-Standardwerte `LimitedZeus` aus,
-  `ZeusAddEnemies` an (ADR 0010), `VictoryCondition` = 0, `SuppMod` = 0
+  `ZeusAddEnemies` an (ADR 0010), `VictoryCondition` = 0, `SuppMod` = 0, `ResourcesMultiplier` = x2 (ADR 0017)
 - [ ] 1.9 (#11) Limit für AH-1Z und AH-6M: je max. 1 gleichzeitig, 30 Min. Sperre ab Kauf, nicht gespeichert
   (Hook im Kaufmenü, Prüfung auf dem Server, Werte pro Klasse in `coin_config.sqf`, ADR 0007)
 
 - [ ] 1.10 (#12) Test: Liberations Verwundete nach einer Einnahme mit Lobby-Parameter `DebugCivRep` beobachten.
   Gibt ACE-Behandlung den Ruf? Kostet ein Sterbender Ruf? Nur bei einem Problem: Hook, der sie wie die
   Patienten des Arzt-Einsatzes behandelt (DESIGN 8.2)
+- [ ] 1.11 (#14) Jede Ressourcen-Sorte garantiert: nach Liberations Auslosung der Supply Points mindestens einmal
+  Supplies, Munition und Treibstoff (Hook, Schalter in `coin_config.sqf`, ADR 0017)
 
 **DoD:** Neue Kampagne starten, Karte zeigt nur unsere Sektoren, ein Sektor lässt sich einnehmen,
 Speichern und Laden funktioniert nach Neustart. Bauliste und Slots entsprechen `DESIGN.md`,
