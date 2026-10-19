@@ -4,6 +4,7 @@
 > v0.2: Entscheidungen aus Phase 0 eingearbeitet (ADR 0008–0015, `docs/kp-liberation-map.md`).
 > v0.3: Spielfeld und Ausrüstung für Phase 1 festgelegt (ADR 0007, 0016), Abgleich mit Hearts and Minds.
 > v0.3.1: Sektorauswahl von Hand ergänzt (ADR 0016), Ressourcen-Wirtschaft (ADR 0017).
+> v0.4: Miliz-Netzwerk für Phase 2 festgelegt (Nester, Camps, Datenmodell, KI-Budget, ADR 0015 geändert).
 > Offene Entscheidungen stehen gesammelt in [Abschnitt 12](#12-offene-entscheidungen).
 > Begriffe sind in [`CONTEXT.md`](../CONTEXT.md) definiert.
 
@@ -100,28 +101,57 @@ die jeweils einen **Einflussradius** haben und dort einen konkreten Effekt erzeu
 | Rekrutierungsstelle | Füllt Verluste der Miliz wieder auf | Miliz regeneriert langsamer |
 
 **Regeln**
-- 11 Nester zu Kampagnenbeginn, gleichmäßig über die Karte verteilt, mindestens 4 km von der Startbasis.
+- 11 Nester zu Kampagnenbeginn, gleichmäßig über die Karte verteilt: mindestens 2,5 km Abstand untereinander,
+  mindestens 4 km von der Startbasis, keines im Umkreis von 1 km um die Hauptstadt. Findet die Verteilung keinen
+  Platz, wird der Abstand schrittweise verringert (mit Logzeile).
 - Einflussradius 1500–2500 m je nach Typ (Werte in `coin_config.sqf`).
-- Nester stehen in Gebäuden in Ortschaften oder als kleine Lager im Gelände. Leichte Bewachung.
-  - **Gebäude-Nest:** Kernobjekt und 2–4 passende Requisiten werden zufällig auf freie Plätze in einem
-    vorhandenen Haus gesetzt. Kein Template nötig.
+- Nester stehen in Gebäuden in Ortschaften oder als kleine Lager im Gelände. Ob ein Nest ein Gebäude- oder
+  ein Gelände-Nest wird, entscheidet ein Anteil pro Typ (Startwerte: Kommandoposten 0,5, IED-Werkstatt 0,7,
+  Waffenlager 0,3, VBIED-Garage und Rekrutierungsstelle 1,0; im Schnitt etwa 7 Gebäude- und 4 Gelände-Nester).
+  - **Gebäude-Nest:** nur in Ortschaften (nicht in der Hauptstadt), in einem vorhandenen Haus **am Ortsrand**,
+    250–600 m vom Sektormittelpunkt. Grund: Liberation wertet einen Sektor im Radius von 175 m aus. Wachen darin
+    würden die Einnahme blockieren und eine befreite Ortschaft als „angegriffen“ gelten lassen.
+    Kernobjekt und 2–4 passende Requisiten stehen auf freien Plätzen im Haus. Kein Template nötig.
   - **Gelände-Nest:** 2–3 Templates pro Nest-Typ (Zelte, Tarnnetz, Kisten, Kernobjekt), platziert an einer
-    ebenen, freien Stelle. Niklas baut die Templates im Eden-Editor und liest sie mit `BIS_fnc_objectsGrabber` aus;
-    für den ersten Test gibt es je ein einfaches Platzhalter-Template.
-- Beim Kampagnenstart entstehen nur Daten (Ort, Typ, Zustand), gespeichert im Spielstand. Objekte und Wachen
-  spawnen erst, wenn Spieler in der Nähe sind, und werden wieder abgebaut, wenn niemand mehr da ist.
+    ebenen, freien Stelle mit denselben Abständen wie Camps (Abschnitt 5.1). Niklas baut die Templates im Eden-Editor
+    und liest sie mit `BIS_fnc_objectsGrabber` aus; für den ersten Test gibt es je ein einfaches Platzhalter-Template.
+- Ein Gebäude-Nest bleibt aktiv, wenn die Armee seine Ortschaft einnimmt. Das Nest hängt nicht am Sektor.
+- Beim Kampagnenstart entstehen nur Daten, gespeichert im Spielstand. Objekte und Wachen spawnen erst, wenn Spieler
+  in der Nähe sind, und werden wieder abgebaut, wenn niemand mehr da ist:
+  - Spawn ab 1000 m zum nächsten Spieler, Abbau, wenn 2 Minuten lang kein Spieler innerhalb von 1300 m ist.
+  - Drohnen zählen als Spieler, bemannte Luftfahrzeuge mehr als 100 m über Grund nicht.
+  - Ein Nest sieht bei jedem Besuch gleich aus (Template, Ausrichtung und Plätze folgen aus einem gespeicherten Zufallswert).
+- **Leichte Bewachung:** bei jedem Spawn vollständig, Verluste werden nicht gemerkt. Etwa die Hälfte sitzt beim
+  Kernobjekt, der Rest patrouilliert im Umkreis von etwa 100 m. Ein Nest ruft keine Verstärkung (die kommt mit dem
+  Kommandoposten in Phase 6). Nester spawnen immer vollständig, auch wenn viele Gegner auf der Karte sind (ADR 0015).
+- Die **Altfahrzeuge eines Waffenlagers** sind besetzt und für Spieler gesperrt (ADR 0007). Sie sind wie die Wachen
+  bei jedem Spawn wieder da, bis das Lager zerstört ist.
 - Nester sind **nicht** auf der Karte markiert. Nur Intel macht sie sichtbar (siehe System C).
-- Jedes Nest zählt zur **Netzwerkstärke**. Die Garnison der Hauptstadt skaliert damit:
+- Die **Netzwerkstärke** ist der Anteil der aktiven Nester an allen Nestern (0 bis 1, alle Typen gleich gewichtet).
+  Die Garnison der Hauptstadt skaliert mit der Zahl der Nester:
   `Garnison = Basis × (1 + Faktor × verbleibende Nester)`.
-- Ein Nest gilt als zerstört, wenn sein Kernobjekt zerstört ist (z. B. Waffenkiste, Werkbank, Funkgerät).
+- Ein Nest gilt als zerstört, wenn sein Kernobjekt zerstört ist (z. B. Waffenkiste, Funkgerät) oder das Haus eines
+  Gebäude-Nests einstürzt. Kernobjekte sind nur Objekte, die Arma zerstören kann; passende, aber unzerstörbare Objekte
+  (z. B. Werkbank) stehen nur als Requisite daneben. Löscht Zeus das Kernobjekt, ist das keine Zerstörung.
+- Die Zerstörung wird sofort gespeichert und löst ein Ereignis aus. Daran hängen sich spätere Phasen:
+  Ruf (Phase 5), Readiness-Abzug (Phase 6, ADR 0013) und Dokumente (Phase 3).
 - Beim Zerstören besteht eine Chance auf **Intel-Gegenstände** (Dokumente), die auf ein anderes Nest zeigen.
 - *Später/optional:* Bei niedrigem Ruf kann die Miliz in Regionen ohne Spielerpräsenz langsam
   neue Nester aufbauen. Das hält das Netzwerk lebendig.
 
-**Datenmodell (Server, persistent)** – Vorschlag, wird in Phase 2 festgelegt:
+**Datenmodell (Server, persistent, Eintrag 22 im Liberation-Spielstand, ADR 0005, ADR 0018)**
 ```
-[id, typ, position, einflussradius, zustand ("aktiv"|"zerstört"), intel_level, ...]
+[COIN_saveVersion, [nest, nest, ...]]
+nest = [id, type, kind, pos, seed, state]
+  id     Nummer
+  type   "command" | "iedWorkshop" | "cache" | "vbiedGarage" | "recruitment"
+  kind   "building" | "terrain"
+  pos    Gebäude-Nest: Position des Hauses; Gelände-Nest: Mittelpunkt des Templates
+  seed   Zufallswert für Template, Ausrichtung und Plätze von Kernobjekt und Requisiten
+  state  "active" | "destroyed"
 ```
+Einflussradius und Bewachung stehen nicht im Spielstand, sie kommen nach Typ aus `coin_config.sqf`. So wirken
+Balancing-Änderungen auch in laufenden Kampagnen. Intel-Felder kommen in Phase 3 mit einer neuen `COIN_saveVersion`.
 
 ### 5.1 Camps
 
@@ -141,26 +171,40 @@ und sind die zweite Intel-Quelle neben dem Dolmetscher.
 - Platzierung zufällig auf ebenem Gelände mit Deckung, mit Mindestabstand zu Straßen,
   Ortschaften, FOBs und der Startbasis.
 - Nicht persistent. Beim Serverstart wird die aktuelle Kapazität (siehe unten) neu verteilt.
-- Jedes Camp **gehört zu einem Nest**. Ausgehobene Camps liefern mit einer gewissen Chance
-  Dokumente oder einen Gefangenen, die als Intel auf das zugehörige Nest zeigen.
-- KI und Objekte spawnen erst, wenn Spieler in der Nähe sind.
+- Jedes Camp **gehört zu einem Nest**: dem nächstgelegenen aktiven Nest, das noch Kapazität frei hat.
+  Ausgehobene Camps liefern mit einer gewissen Chance Dokumente oder einen Gefangenen, die als Intel auf das
+  zugehörige Nest zeigen.
+- Ein Camp ist **ausgehoben**, wenn in seiner Nähe kein Kämpfer des Camps mehr kampffähig ist (tot, gefangen,
+  ergeben oder geflohen), die Besatzung des Technicals eingeschlossen.
+- KI und Objekte spawnen erst, wenn Spieler in der Nähe sind (gleiche Regeln wie bei Nestern). Ein Camp spawnt ganz
+  oder gar nicht, solange die COIN-Einheiten unter einem eigenen Budget liegen (ADR 0015). Ist kein Platz, entsteht
+  es, sobald wieder Platz ist.
+- Der Technical eines Camps ist nicht gesperrt und kann erbeutet werden.
 - Camps nutzen dieselbe Template-Mechanik wie Gelände-Nester, mit eigenen 2–3 Camp-Templates (ohne Kernobjekt).
 
 **Wie viele Camps es gibt (Entscheidung E8)**
 
 Die Anzahl hängt von zwei Dingen ab, die beide den Spielfortschritt abbilden:
 
-1. **Kapazität aus den Nestern.** Jedes aktive Nest „versorgt“ eine Anzahl Camps:
+1. **Kapazität aus den Nestern.** Jedes Nest hat ein Gewicht:
    Kommandoposten und Rekrutierungsstelle je 2, alle anderen Nest-Typen je 1.
-   Die Summe ist die Kapazität, gedeckelt bei 10.
+   Die Kapazität ist der Anteil der aktiven Nester an diesem Gewicht, bezogen auf höchstens 10 Camps:
+   `Kapazität = abrunden(10 × Gewicht der aktiven Nester / Gewicht aller Nester)`, mindestens 1, solange ein Nest aktiv ist.
+   So verringert schon das erste zerstörte Nest die Camps, wichtige Typen stärker.
    Wird ein Nest zerstört, verschwinden seine Camps beim nächsten Abbau und es kommen keine neuen nach.
-   *Beispiel:* Zu Beginn mit 11 Nestern liegt die Kapazität rechnerisch bei 15, gedeckelt also bei 10. Sind noch 4 Nester übrig, sind es etwa 5 Camps, am Ende nur noch 1–2.
+   *Beispiel:* Zu Beginn sind es 10 Camps (Gewicht 15 von 15). Ist ein Kommandoposten zerstört, sind es 8 (13/15),
+   nach einem Waffenlager 9 (14/15). Sind noch 4 Nester übrig, sind es etwa 3–4 Camps, am Ende nur noch 1.
+   (Geändert am 2026-10-19, vorher Summe der Gewichte gedeckelt bei 10: Die ersten 3–4 zerstörten Nester hätten
+   an der Zahl der Camps nichts geändert.)
 2. **Befreites Gebiet ist tabu.** Im Umkreis von 1 km um eingenommene Sektoren und um FOBs
    entstehen keine Camps. Je weiter ihr vorrückt, desto mehr werden die Camps Richtung Hauptstadt gedrängt.
 
 **Nachschub und Wechsel**
-- Ein zerstörtes Camp wird nach 30–60 Minuten an anderer Stelle ersetzt, sofern noch Kapazität frei ist.
-- Unentdeckte Camps werden nach 2–3 Stunden abgebaut und tauchen woanders neu auf.
+- Ein ausgehobenes Camp wird nach 30–60 Minuten an anderer Stelle ersetzt, sofern noch Kapazität frei ist.
+- Unentdeckte Camps (seit ihrer Entstehung war noch kein Spieler in der Nähe) werden nach 2–3 Stunden abgebaut
+  und tauchen woanders neu auf. Entdeckte, aber nicht ausgehobene Camps bleiben, wo sie sind.
+- Entsteht während einer Sitzung eine neue Sperrzone (Sektor eingenommen, FOB gebaut), wird ein Camp darin beim
+  nächsten Abbau entfernt und an anderer Stelle neu gesetzt.
 - Durch den Neustart kommen ausgehobene Camps zwar zurück, aber nur bis zur aktuellen
   Kapazität. Der Fortschritt bleibt also über die Nester erhalten.
 
@@ -377,7 +421,9 @@ Infanterie, Technicals, Motorräder, zivile Fahrzeuge, leichte statische Waffen 
   Standardmäßig ohne Einschränkungen und mit Sicht auf Gegner (ADR 0010).
 - Alle von der Mission erzeugten Einheiten, Fahrzeuge und Objekte werden automatisch allen
   Kuratoren als bearbeitbar hinzugefügt (gesammelte Funktion, nicht pro Skript).
-- Debug-Modus (Parameter): Nester, Einflussradien und IEDs auf der Karte anzeigen.
+- Debug-Modus (Lobby-Parameter „COIN Debug“, Standard aus): zeigt allen Spielern Nester (Farbe nach Typ, zerstörte
+  ausgegraut), Einflussradien, Camps mit Linie zu ihrem Nest, die Netzwerkstärke und später IEDs auf der Karte.
+  Schaltet zugleich die ausführlichen `[COIN]`-Logs ein.
 
 **Slots (15)**
 - Führungsgruppe: Kommandant (Zeus), 2 Dolmetscher
@@ -385,11 +431,12 @@ Infanterie, Technicals, Motorräder, zivile Fahrzeuge, leichte statische Waffen 
 - 2 Hubschrauberpiloten
 
 **Performance (kein Headless Client)**
-- **Gemeinsames Budget** pro Kategorie (Gegner-KI, Zivilisten): Ein Gesamtwert gilt für Liberation
-  und COIN zusammen. Liberations eigene Obergrenzen werden daraus abgeleitet (ADR 0015).
+- **Budget für Gegner-KI** (ADR 0015): Liberations drei Obergrenzen bekommen einen gemeinsamen Wert (100 mal
+  Unitcap-Faktor), die COIN-Einheiten kommen obendrauf. Nester spawnen immer vollständig, Camps nur innerhalb eines
+  eigenen COIN-Budgets. Für Zivilisten gilt ein gemeinsamer Wert, geregelt ab Phase 3.
 - Dazu eine Obergrenze für gleichzeitige IEDs.
 - Spawnen nur im Umkreis von Spielern, wie bei Liberation.
-- Startwerte (in Tests anpassen): max. ~80 Gegner-KI, ~30 Zivilisten, ~25 IEDs.
+- Startwerte (in Tests anpassen): Liberation ~100 Gegner-KI, COIN-Camps ~20, ~30 Zivilisten, ~25 IEDs.
 
 **Persistenz**
 - Alle neuen Zustände (Nester, Intel-Marker, Budgets) werden über den
@@ -422,7 +469,7 @@ Infanterie, Technicals, Motorräder, zivile Fahrzeuge, leichte statische Waffen 
 | E5 | Bauen sich Nester neu auf? | Ja, langsam, ab Phase 6 | offen |
 | E6 | Reicht ein Dolmetscher-Slot oder zwei? | Zwei, in der Führungsgruppe | **entschieden** |
 | E7 | Funktions-Präfix für eigenen Code | `COIN` (siehe ADR 0003) | **entschieden** |
-| E8 | Regel für die Anzahl der Camps | Kapazität aus aktiven Nestern (max. 10), keine Camps nahe befreitem Gebiet | **entschieden** |
+| E8 | Regel für die Anzahl der Camps | Kapazität anteilig aus dem Gewicht der aktiven Nester (max. 10, geändert 2026-10-19), keine Camps nahe befreitem Gebiet | **entschieden** |
 | E9 | Panzer für die Spieler? | Keine Kampfpanzer; Stryker M1126/M1134 als Elite-Fahrzeuge (ADR 0007) | **entschieden** |
 | E10 | Welches schwere Gerät darf die Miliz haben? | Technicals überall, Altfahrzeuge bei Waffenlagern und max. 1 pro Gegenangriff, 2 T-72 + 1 ZSU-23-4 in der Hauptstadt (ADR 0014) | **entschieden** |
 | E11 | Mörser und Hubschrauber für die Spieler? | Mörser ja, Hubschrauber außer AH-64D ja, AH-1Z/AH-6M nur als Elite mit Limit (ADR 0007) | **entschieden** |
