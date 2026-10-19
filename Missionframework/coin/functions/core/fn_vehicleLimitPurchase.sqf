@@ -18,7 +18,7 @@
 */
 
 params [
-    ["_class", "", [""]],
+    ["_class", "", ["", []]],
     ["_owner", 0, [0]]
 ];
 
@@ -32,7 +32,7 @@ if (_owner <= 0) then {_owner = 2;};
 
 if (!_allowed) exitWith {
     diag_log format ["[COIN] limits: purchase of %1 denied (%2), buyer %3", _class, _reason, _owner];
-    [_reason] remoteExecCall ["COIN_fnc_vehicleLimitDeny", _owner];
+    [_reason, _class] remoteExecCall ["COIN_fnc_vehicleLimitDeny", _owner];
     false
 };
 
