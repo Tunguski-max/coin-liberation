@@ -15,6 +15,12 @@ class COIN {
         // Gives a player unit the ACE abilities of its slot class (EOD repair, ACE medic)
         class applyRoleTraits {};
 
+        // Server loop: colored shemag per faction (militia red, resistance green or blue)
+        class markFactions {};
+
+        // Client: diary tab "COIN Liberation" with the player-readable explanations
+        class createDiary {};
+
         // Entry point of the COIN module, runs on every machine at mission start
         class init {
             postInit = 1;

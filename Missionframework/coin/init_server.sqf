@@ -31,3 +31,9 @@ diag_log format [
     KP_liberation_preset_opfor, militia_vehicles, opfor_vehicles, opfor_battlegroup_vehicles,
     opfor_choppers, opfor_air, opfor_troup_transports
 ];
+
+// Colored shemag per faction (ticket #9): runs as long as COIN_enableFactionMarkers is true
+if (COIN_enableFactionMarkers) then {
+    diag_log format ["[COIN] init: faction markers militia=%1 resistanceHostile=%2 resistanceFriendly=%3 interval=%4", COIN_markerMilitia, COIN_markerResistanceHostile, COIN_markerResistanceFriendly, COIN_markerInterval];
+    [] spawn COIN_fnc_markFactions;
+};

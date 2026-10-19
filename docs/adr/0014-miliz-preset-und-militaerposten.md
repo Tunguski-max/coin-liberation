@@ -12,7 +12,8 @@
 ## Entscheidung
 - Die Miliz bekommt ein **eigenes Preset auf Basis von Project OPFOR „Afghan Militia“** (`LOP_AM_OPF_*`):
   Infanterie, Technicals, statische Waffen. Schweres Gerät nur im Rahmen von E10.
-- Lokale Kämpfer bekommen über die Kleidungslisten im Widerstands-Preset eine **erkennbare Kleidung**.
+- Miliz und Widerstand bekommen ein **farbiges Kopftuch** als Erkennungszeichen (rot Miliz, grün feindlicher Widerstand, blau neutraler oder freundlicher
+  Widerstand), gesetzt von `COIN_fnc_markFactions`, nicht über Kleidungslisten (2026-10-19, Ticket #9; ersetzt „Kleidungslisten im Widerstands-Preset“).
 - Die **Elite-Liste** wird mit erlaubtem, aber wertvollem Gerät gefüllt. Militärposten werden damit
   zu lohnenden optionalen Zielen; E9 („wenige Schützenpanzer, teuer“) kann darüber freigeschaltet werden.
 

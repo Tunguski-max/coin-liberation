@@ -46,6 +46,9 @@
 - Miliz-Preset (Ticket 1.6 / #8): `presets/opfor/coin_militia.sqf` (Preset 21, Hook 8) auf Basis von Project OPFOR „Afghan Militia“: Sektorverteidiger und
   Patrouillen nur Technicals, Gegenangriffe Technicals und Ural-Truppentransporter mit einem seltenen BTR-60, leere Listen für Flugzeuge und Hubschrauber,
   keine Kampfpanzer; `[COIN]`-Logzeile mit Preset und Fahrzeuglisten
+- Erkennungstuch (Ticket 1.6 / #9): `COIN_fnc_markFactions` setzt allen KI-Kämpfern ein farbiges Kopftuch, rot für die Miliz, grün für feindlichen
+  Widerstand, blau für neutralen oder freundlichen Widerstand. Die Farbe folgt dem Ruf live, auch bei lebenden Kämpfern; Schalter `COIN_enableFactionMarkers`.
+  Karten-Tagebuch „COIN Liberation“ (`COIN_fnc_createDiary`) erklärt die Farben den Spielern. Kein Eingriff in Liberation-Dateien
 
 ### Behoben
 - Sektor-Vorschlag: Marker-Parser kam mit mehrzeiligen Arrays (`addons[]=`) aus dem Tritt (Ergebnis bisher zufällig richtig)

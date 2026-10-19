@@ -15,3 +15,9 @@ if (COIN_enableRoleTraits) then {
     [player] call COIN_fnc_applyRoleTraits;
     player addEventHandler ["Respawn", {params ["_unit"]; [_unit] call COIN_fnc_applyRoleTraits;}];
 };
+
+// Player-readable explanations in the map diary (tab "COIN Liberation"), again after every respawn
+if (COIN_enableFactionMarkers) then {
+    [player] call COIN_fnc_createDiary;
+    player addEventHandler ["Respawn", {params ["_unit"]; [_unit] call COIN_fnc_createDiary;}];
+};

@@ -11,7 +11,8 @@ Code-Bezeichner stehen in Klammern.
 | **Leichte Brigade** | Ausrüstungsrahmen der Armee: Infanterie, geschützte Radfahrzeuge, leichte Unterstützung. Keine fahrbare Artillerie, keine Jets. |
 | **Miliz** (`militia`) | Der Gegner (OPFOR). Taliban-ähnlich, asymmetrisch, nutzt Project-OPFOR-Einheiten („Afghan Militia“). |
 | **Zivilisten** (`civ`) | Bevölkerung. Quelle von Intel, aber auch Tarnung für Attentäter. |
-| **Widerstand** (`resistance`) | Bewaffnete Einheimische (Liberation-Fraktion, im Code auch „Guerilla“). Ihre Haltung zur Armee und zur Miliz hängt vom Ruf ab. |
+| **Widerstand** (`resistance`) | Bewaffnete Einheimische (Liberation-Fraktion, im Code auch „Guerilla“). Ihre Haltung zur Armee und zur Miliz hängt vom Ruf ab. Erkennbar am Kopftuch: grün feindlich, blau neutral oder freundlich. |
+| **Erkennungstuch** (`COIN_marker*`) | Farbiges Kopftuch (Shemag) der KI-Kämpfer: rot Miliz, grün feindlicher Widerstand, blau neutraler oder freundlicher Widerstand. |
 | **Dolmetscher** (`interpreter`) | Spielerrolle. Ohne ihn keine Befragungen. |
 | **Trupp** | Spielergruppe der Armee aus Truppführer, Sanitäter, EOD und zwei Schützen. |
 | **Kommandant** (`commandant`) | Spieler-Slot „Kommandant (Zeus)“ in der Führungsgruppe. Führt die Armee und ist zugleich Zeus. |

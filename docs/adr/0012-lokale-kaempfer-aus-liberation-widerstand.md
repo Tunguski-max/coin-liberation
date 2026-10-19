@@ -20,4 +20,5 @@ Guerilla-Gruppen in Sektorkämpfe (`sector_guerilla.sqf`, 35 % bei |Ruf| ≥ 25)
 ## Folgen
 - Der Abzug bei Vertrauensverlust passt thematisch und tritt selten ein (von +50 unter +25 fallen
   bedeutet etwa fünf getötete Zivilisten).
-- Lokale Kämpfer brauchen eine erkennbare Kleidung, siehe ADR 0014.
+- Erkennbarkeit: Ein farbiges Kopftuch pro Haltung (rot Miliz, grün feindlicher Widerstand, blau neutraler oder freundlicher
+  Widerstand), gesetzt von `COIN_fnc_markFactions` (live, folgt der Haltung des Widerstands). Erklärung im Karten-Tagebuch (2026-10-19).
