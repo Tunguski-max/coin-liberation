@@ -26,7 +26,8 @@ coin/
         ├── fn_vehicleLimitRelease.sqf  COIN_fnc_vehicleLimitRelease: Server hebt die Sperre eines abgebrochenen Kaufs auf
         ├── fn_vehicleLimitDeny.sqf     COIN_fnc_vehicleLimitDeny: Client bricht die Platzierung nach abgelehntem Kauf ab
         ├── fn_vehicleLimitCancel.sqf   COIN_fnc_vehicleLimitCancel: Client meldet einen abgebrochenen Kauf (Hook 13)
-        └── fn_guaranteeResources.sqf   COIN_fnc_guaranteeResources: gleicht die Sorten der Supply Points aus, bei 8 immer 3-3-2 (Hook 14)
+        ├── fn_guaranteeResources.sqf   COIN_fnc_guaranteeResources: gleicht die Sorten der Supply Points aus, bei 8 immer 3-3-2 (Hook 14)
+        └── fn_secondaryMissionStatus.sqf COIN_fnc_secondaryMissionStatus: darf diese Nebenmission starten? FOB Hunting ist abgeschaltet (Hooks 15 und 16)
 ```
 
 Geplante weitere Kategorien unter `functions/` (anlegen, wenn sie gebraucht werden):

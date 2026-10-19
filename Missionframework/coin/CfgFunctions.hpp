@@ -51,6 +51,9 @@ class COIN {
         // Server: balances the resource types among the supply points of a new campaign (hook 14 in synchronise_eco.sqf)
         class guaranteeResources {};
 
+        // May this secondary mission be started? FOB hunting is switched off (ticket 2.12, hooks 15 and 16)
+        class secondaryMissionStatus {};
+
         // Entry point of the COIN module, runs on every machine at mission start
         class init {
             postInit = 1;
