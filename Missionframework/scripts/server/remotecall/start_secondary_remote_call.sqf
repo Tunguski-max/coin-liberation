@@ -6,6 +6,12 @@ params [
 
 if (_mission_index < 0) exitWith {false};
 
+// COIN: FOB hunting is switched off (ticket 2.12, ADR 0011): refuse the start before any intel is spent
+if !(([_mission_index] call COIN_fnc_secondaryMissionStatus) select 0) exitWith {
+    diag_log format ["[COIN] secondary: start of mission %1 refused, FOB hunting is switched off", _mission_index];
+    false
+};
+
 if (isNil "GRLIB_secondary_starting") then { GRLIB_secondary_starting = false;};
 if (GRLIB_secondary_starting) exitWith {["Multiple calls to start secondary mission : shouldn't be possible, isn't allowed", "ERROR"] call KPLIB_fnc_log;};
 if (isNil "used_positions") then {used_positions = [];};

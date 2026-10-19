@@ -39,6 +39,9 @@ if (COIN_enableVehicleLimits) then {
     diag_log format ["[COIN] init: vehicle limits on %1", COIN_vehicleLimits];
 };
 
+// Secondary mission FOB hunting (ticket 2.12, ADR 0011): checked on start in hooks 15 and 16, no loop
+diag_log format ["[COIN] init: FOB hunting switched off=%1", COIN_disableFobHunting];
+
 // Colored shemag per faction (ticket #9): runs as long as COIN_enableFactionMarkers is true
 if (COIN_enableFactionMarkers) then {
     diag_log format ["[COIN] init: faction markers militia=%1 resistanceHostile=%2 resistanceFriendly=%3 interval=%4", COIN_markerMilitia, COIN_markerResistanceHostile, COIN_markerResistanceFriendly, COIN_markerInterval];

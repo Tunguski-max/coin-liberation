@@ -38,14 +38,16 @@ Code-Bezeichner stehen in Klammern.
 |---|---|
 | **Nest** (`nest`) | Verdeckter Knoten der Miliz mit Effekt im Einflussradius. Ersetzt die Idee „OPFOR-FOB“. |
 | **Nest-Typ** (`nestType`) | Kommandoposten (`command`), IED-Werkstatt (`iedWorkshop`), Waffenlager (`cache`), VBIED-Garage (`vbiedGarage`), Rekrutierungsstelle (`recruitment`). |
-| **Gebäude-Nest** | Nest in einem vorhandenen Haus einer Ortschaft. |
+| **Gebäude-Nest** | Nest in einem vorhandenen Haus am Rand einer Ortschaft. |
 | **Gelände-Nest** | Nest als kleines Lager im Gelände abseits der Ortschaften. |
 | **Kernobjekt** | Das Objekt, dessen Zerstörung das Nest zerstört (Waffenkiste, Werkbank, Funkgerät …). |
 | **Einflussradius** (`influenceRadius`) | Bereich, in dem ein Nest wirkt. |
-| **Netzwerkstärke** (`networkStrength`) | Kennzahl aus allen aktiven Nestern. Bestimmt u. a. die Hauptstadt-Garnison und den Höchstwert der Readiness. |
+| **Netzwerkstärke** (`networkStrength`) | Anteil der aktiven Nester an allen Nestern der Kampagne (0 bis 1, alle Nest-Typen gleich gewichtet). Bestimmt u. a. die Hauptstadt-Garnison und den Höchstwert der Readiness. |
 | **Readiness** (`combat_readiness`) | Liberations Maß (0–100) dafür, wie aggressiv die Miliz auftritt: Besatzungen, Gegenangriffe, Patrouillen. |
 | **Gegenangriff** | Angriff der Miliz auf befreite Sektoren oder FOBs (Liberation: „Battlegroup“). |
 | **Camp** (`camp`) | Kleines, offenes Lager der Miliz im Gelände. Gehört zu einem Nest, wird nicht gespeichert, wechselt seine Position. |
+| **Unentdeckt** (`undiscovered`) | Zustand eines Camps, in dessen Nähe seit seiner Entstehung noch kein Spieler war. Nur unentdeckte Camps wechseln ihre Position. |
+| **Ausgehoben** (`cleared`) | Zustand eines Camps, in dessen Nähe kein Kämpfer des Camps mehr kampffähig ist (tot, gefangen, ergeben oder geflohen). _Nicht:_ „zerstört“, das gilt nur für Nester. |
 | **Camp-Kapazität** (`campCapacity`) | Maximale Zahl gleichzeitiger Camps, berechnet aus den aktiven Nestern. |
 | **Sperrzone** (`campExclusionRadius`) | Bereich um befreite Sektoren und FOBs, in dem keine Camps entstehen. |
 | **Altfahrzeug** | Erbeuteter, veralteter Schützen- oder Transportpanzer der Miliz (z. B. BTR-60, M113). Kein Kampfpanzer. |
