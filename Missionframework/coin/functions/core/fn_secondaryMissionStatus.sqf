@@ -22,7 +22,7 @@ params [
 // Index of FOB hunting in Liberation's GRLIB_secondary_missions_costs and start_secondary_remote_call
 private _fobHuntingIndex = 0;
 
-if (_index == _fobHuntingIndex && {missionNamespace getVariable ["COIN_disableFobHunting", false]}) exitWith {
+if (_index == _fobHuntingIndex && {COIN_disableFobHunting}) exitWith {
     [false, "Abgeschaltet: Die Miliz hat keine Basen, sie versteckt sich in Nestern."]
 };
 

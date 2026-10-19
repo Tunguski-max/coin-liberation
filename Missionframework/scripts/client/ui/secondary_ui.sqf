@@ -35,6 +35,7 @@ _briefings = [
 
 _oldchoice = -1;
 lbSetCurSel [ 101, 0 ];
+private _coinStatus = [true, ""]; // COIN: result of the switch check for the selected mission (ticket 2.12)
 
 while { dialog && alive player && dostartsecondary == 0 } do {
 
@@ -43,7 +44,7 @@ while { dialog && alive player && dostartsecondary == 0 } do {
         ctrlSetText [ 106, _images select _oldchoice ];
         ((findDisplay 6842) displayCtrl (102)) ctrlSetStructuredText parseText localize (_briefings select _oldchoice);
         // COIN: show why a switched off mission cannot be started instead of its briefing (ticket 2.12)
-        private _coinStatus = [_oldchoice] call COIN_fnc_secondaryMissionStatus;
+        _coinStatus = [_oldchoice] call COIN_fnc_secondaryMissionStatus;
         if !(_coinStatus select 0) then {
             ((findDisplay 6842) displayCtrl (102)) ctrlSetStructuredText parseText format ["<t color='#e00000' align='center'>%1</t>", _coinStatus select 1];
         };
@@ -52,7 +53,7 @@ while { dialog && alive player && dostartsecondary == 0 } do {
     _missioncost = GRLIB_secondary_missions_costs select _oldchoice;
 
     // COIN: a switched off mission keeps the start button disabled (ticket 2.12)
-    if ( ( _missioncost <= resources_intel ) && ( !GRLIB_secondary_starting ) && {([_oldchoice] call COIN_fnc_secondaryMissionStatus) select 0} )  then {
+    if ( ( _missioncost <= resources_intel ) && ( !GRLIB_secondary_starting ) && ( _coinStatus select 0 ) )  then {
         ctrlEnable [ 103, true ];
         ((findDisplay 6842) displayCtrl (103)) ctrlSetTooltip "";
     } else {
@@ -62,6 +63,10 @@ while { dialog && alive player && dostartsecondary == 0 } do {
         };
         if ( GRLIB_secondary_starting ) then {
             ((findDisplay 6842) displayCtrl (103)) ctrlSetTooltip (localize "STR_SECONDARY_IN_PROGRESS");
+        };
+        // COIN: the switched off reason wins over the intel and progress hints (ticket 2.12)
+        if !(_coinStatus select 0) then {
+            ((findDisplay 6842) displayCtrl (103)) ctrlSetTooltip (_coinStatus select 1);
         };
     };
 
