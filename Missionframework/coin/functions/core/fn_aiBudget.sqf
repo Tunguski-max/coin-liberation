@@ -30,6 +30,14 @@ diag_log format [
     _original, _base, COIN_maxEnemyAI, GRLIB_unitcap, COIN_maxCampAI
 ];
 
+// Applies the caps here and sends them to the clients
+private _publish = {
+    params ["_caps"];
+    COIN_enemyAICaps = _caps;
+    [COIN_enemyAICaps] call COIN_fnc_applyEnemyAICaps;
+    publicVariable "COIN_enemyAICaps";
+};
+
 private _lastCap = -1;
 
 while {COIN_enableAIBudget} do {
@@ -37,11 +45,10 @@ while {COIN_enableAIBudget} do {
     private _cap = _base + _coinUnits;
 
     if (_cap != _lastCap) then {
-        COIN_enemyAICaps = [_cap, _cap, _cap];
-        [COIN_enemyAICaps] call COIN_fnc_applyEnemyAICaps;
-        publicVariable "COIN_enemyAICaps";
-        if (COIN_debug) then {
-            diag_log format ["[COIN] budget: Liberation caps now %1 (%2 + %3 COIN units)", _cap, _base, _coinUnits];
+        [[_cap, _cap, _cap]] call _publish;
+        // The first application is always logged, every later change only with COIN_debug
+        if (_lastCap < 0 || COIN_debug) then {
+            diag_log format ["[COIN] budget: Liberation caps sector/battlegroup/patrol now %1/%2/%3 (%4 + %5 COIN units)", GRLIB_sector_cap, GRLIB_battlegroup_cap, GRLIB_patrol_cap, _base, _coinUnits];
         };
         _lastCap = _cap;
     };
@@ -49,9 +56,7 @@ while {COIN_enableAIBudget} do {
     sleep COIN_aiBudgetInterval;
 };
 
-COIN_enemyAICaps = _original;
-[COIN_enemyAICaps] call COIN_fnc_applyEnemyAICaps;
-publicVariable "COIN_enemyAICaps";
+[_original] call _publish;
 diag_log format ["[COIN] budget: switched off, Liberation caps back to %1", _original];
 
 true
