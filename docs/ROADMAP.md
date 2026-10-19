@@ -62,7 +62,8 @@ Ziel: Lythium ist ausgedünnt auf unsere Ziele, Slots und Ausrüstung passen zum
 - [ ] 1.8 (#6) Erste Liberation-Hooks: eigener Save-Key (ADR 0005), Lobby-Standardwerte `LimitedZeus` aus,
   `ZeusAddEnemies` an (ADR 0010), `VictoryCondition` = 0, `SuppMod` = 0, `ResourcesMultiplier` = x2 (ADR 0017)
 - [ ] 1.9 (#11) Limit für AH-1Z und AH-6M: je max. 1 gleichzeitig, 30 Min. Sperre ab Kauf, nicht gespeichert
-  (Hook im Kaufmenü, Prüfung auf dem Server, Werte pro Klasse in `coin_config.sqf`, ADR 0007)
+  (Hook im Kaufmenü, Prüfung auf dem Server, Werte pro Klasse in `coin_config.sqf`, ADR 0007;
+  implementiert, ungetestet: Hooks 11 bis 13, `COIN_fnc_vehicleLimit*`)
 
 - [ ] 1.10 (#12) Test: Liberations Verwundete nach einer Einnahme mit Lobby-Parameter `DebugCivRep` beobachten.
   Gibt ACE-Behandlung den Ruf? Kostet ein Sterbender Ruf? Nur bei einem Problem: Hook, der sie wie die

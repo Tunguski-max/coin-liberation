@@ -91,6 +91,11 @@ while {dialog && alive player && (dobuild == 0 || buildtype == 1)} do {
                 _affordable = false;
             };
 
+            // COIN: grey out vehicles that are blocked by the equipment limits (ticket 1.9)
+            if (_affordable && {!(([_x select 0] call COIN_fnc_vehicleLimitStatus) select 0)}) then {
+                _affordable = false;
+            };
+
             if ( _affordable ) then {
                 ((findDisplay 5501) displayCtrl (110)) lnbSetColor  [[((lnbSize 110) select 0) - 1, 0], [1,1,1,1]];
                 ((findDisplay 5501) displayCtrl (110)) lnbSetColor  [[((lnbSize 110) select 0) - 1, 1], [1,1,1,1]];
@@ -120,6 +125,7 @@ while {dialog && alive player && (dobuild == 0 || buildtype == 1)} do {
     _linked = false;
     _linked_unlocked = true;
     _base_link = "";
+    private _coinLimit = [true, "", []]; // COIN: result of the equipment limit check for the selected item (ticket 1.9)
     if (dobuild == 0 && _selected_item != -1 && (_selected_item < (count _build_list))) then {
         _build_item = _build_list select _selected_item;
         if (
@@ -143,6 +149,12 @@ while {dialog && alive player && (dobuild == 0 || buildtype == 1)} do {
             } else {
                 _affordable = true;
             };
+        };
+
+        // COIN: block the purchase of a vehicle over its equipment limit (ticket 1.9)
+        _coinLimit = [_build_item select 0] call COIN_fnc_vehicleLimitStatus;
+        if !(_coinLimit select 0) then {
+            _affordable = false;
         };
 
         if ( buildtype != 8 ) then {
@@ -189,6 +201,11 @@ while {dialog && alive player && (dobuild == 0 || buildtype == 1)} do {
         ((findDisplay 5501) displayCtrl (161)) ctrlSetStructuredText parseText ( "<t color='" + _link_color + "' align='center'>" + _link_str +  "<br/>" + ( markerText _base_link ) + "</t>" );
     } else {
         ((findDisplay 5501) displayCtrl (161)) ctrlSetStructuredText parseText "";
+    };
+
+    // COIN: show why the selected vehicle is blocked (ticket 1.9)
+    if !(_coinLimit select 0) then {
+        ((findDisplay 5501) displayCtrl (161)) ctrlSetStructuredText parseText format ["<t color='#e00000' align='center'>%1</t>", _coinLimit select 1];
     };
 
     buildindex = _selected_item;

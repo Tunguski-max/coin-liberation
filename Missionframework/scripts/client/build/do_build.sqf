@@ -288,6 +288,9 @@ while { true } do {
 
                 deleteVehicle _vehicle;
 
+                // COIN: the purchase is cancelled, lift its equipment lock (ticket 1.9)
+                [_classname] call COIN_fnc_vehicleLimitCancel;
+
                 if (_spaceSum < _crateSum) then {
                     hint localize "STR_CANCEL_ERROR";
                 } else {

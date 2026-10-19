@@ -89,3 +89,6 @@ if ((_price_s > 0) || (_price_a > 0) || (_price_f > 0)) then {
 
     please_recalculate = true;
 };
+
+// COIN: equipment limits for AH-1Z and AH-6M (ticket 1.9): start the lock, or send the buyer's placement back if the limit is reached
+[_typename, remoteExecutedOwner] call COIN_fnc_vehicleLimitPurchase;
