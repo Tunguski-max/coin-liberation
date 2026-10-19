@@ -17,8 +17,10 @@ Liberation prüft seine Grenzen **vor** dem Spawn: Ein Sektor, der startet, spaw
   `COIN_maxEnemyAI × Unitcap-Faktor + aktuelle Zahl der COIN-Einheiten` und verteilt sie an die Clients
   (für Liberations Overlay-Hinweis „Obergrenze erreicht“). Kein Hook, weil es globale Variablen sind.
 - **Nester spawnen immer vollständig**, ohne Obergrenze.
-- **Camps** spawnen ganz oder gar nicht, solange die COIN-Einheiten zusammen unter `COIN_maxCampAI` (20) liegen.
+- **Camps** spawnen ganz oder gar nicht: nur, wenn danach **höchstens** `COIN_maxCampAI` (30) COIN-Einheiten leben.
+  Gezählt werden **alle** COIN-Einheiten zusammen, also auch Nest-Wachen und Besatzungen der Altfahrzeuge.
   Ist kein Platz, entsteht das Camp, sobald wieder Platz ist.
+- Ist der Schalter `COIN_enableAIBudget` aus, behält Liberation seine Originalwerte und Camps sind nicht begrenzt.
 - **Zivilisten:** gemeinsamer Wert in `coin_config.sqf`, geregelt mit dem eigenen Zivilisten-Spawner in Phase 3.
 
 Geändert am 2026-10-19 (Phase 2, Grilling): vorher ein Gesamtwert, unter dem auch COIN bleiben musste. Weil Liberation
@@ -28,6 +30,9 @@ Geändert am 2026-10-19 (Phase 2, Grilling): vorher ein Gesamtwert, unter dem au
 - Liberations Sektoren, Gegenangriffe und Patrouillen werden deutlich gedämpft (100 statt 150–180), ohne in seine Logik einzugreifen.
 - Nester sind selten mehr als 1–2 gleichzeitig in Spielernähe. Ihre Wachen sind planbar, eine Grenze würde nur unbewachte Nester erzeugen.
 - Camps sind entbehrlich: Ein Camp, das später entsteht, merkt kein Spieler, weil er es noch nicht kennt.
+- Das Camp-Budget zählt alle COIN-Einheiten, weil es um die Gesamtlast auf dem Server geht, nicht darum, wem ein Kämpfer gehört.
+  Mit 30 liegen Liberation und Camps zusammen bei etwa 130, deutlich unter Liberations früheren 180
+  (Werte vom 2026-10-19, vorher 20).
 
 ## Verworfene Alternativen
 - Getrennte Grenzen ohne Absenkung: bis zu 180 + COIN gleichzeitig möglich.

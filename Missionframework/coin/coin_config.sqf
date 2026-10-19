@@ -57,7 +57,7 @@ COIN_roleTraits = [
 // ---------------------------------------------------------------------------
 COIN_enableAIBudget         = true;     // Phase 2, ticket 2.13. Off: Liberation keeps its original caps, camps are not limited
 COIN_maxEnemyAI             = 100;      // Liberation's caps at Unitcap "normal" (original 180/150/150)
-COIN_maxCampAI              = 20;       // COIN units (nest guards included) up to which a camp may still spawn
+COIN_maxCampAI              = 30;       // A camp spawns if afterwards at most this many COIN units live (nest guards and crews included)
 COIN_aiBudgetInterval       = 5;        // s between two updates of Liberation's caps
 COIN_maxCivilians           = 30;       // All civilians on the map
 COIN_maxActiveIEDs          = 25;       // COIN IEDs at the same time
