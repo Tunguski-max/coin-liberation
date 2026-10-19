@@ -21,3 +21,9 @@ if (COIN_enableFactionMarkers) then {
     [player] call COIN_fnc_createDiary;
     player addEventHandler ["Respawn", {params ["_unit"]; [_unit] call COIN_fnc_createDiary;}];
 };
+
+// Islamic State twins are enemy infantry too (Liberation's prisoner script checks KPLIB_o_inf_classes on the client).
+// init_presets.sqf builds that list on every client, so the twins are added here as well, also for late joiners.
+if (COIN_enableSquadMix) then {
+    [] call COIN_fnc_registerSquadTwins;
+};

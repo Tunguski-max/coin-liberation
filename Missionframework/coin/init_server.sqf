@@ -37,3 +37,9 @@ if (COIN_enableFactionMarkers) then {
     diag_log format ["[COIN] init: faction markers militia=%1 resistanceHostile=%2 resistanceFriendly=%3 interval=%4", COIN_markerMilitia, COIN_markerResistanceHostile, COIN_markerResistanceFriendly, COIN_markerInterval];
     [] spawn COIN_fnc_markFactions;
 };
+
+// Armor mix of the militia field squads (ADR 0014): the mixing itself runs on demand from Liberation's squad composition (hooks 9 and 10)
+if (COIN_enableSquadMix) then {
+    private _added = [] call COIN_fnc_registerSquadTwins;
+    diag_log format ["[COIN] init: squad mix on, %1 twin classes registered, share %2 at readiness %3 to %4 at readiness %5", _added, COIN_squadMixShare select 0, COIN_squadMixReadiness select 0, COIN_squadMixShare select 1, COIN_squadMixReadiness select 1];
+};
