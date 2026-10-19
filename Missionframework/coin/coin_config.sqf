@@ -216,3 +216,12 @@ COIN_reconTaskChance        = 0.15;     // Chance per questioning/interrogation 
 COIN_reconTaskMaxActive     = 1;
 COIN_reconTaskWindowMin     = [30, 60]; // Time window in minutes
 COIN_reconReadinessFactor   = 0.9;      // combat_readiness multiplier for leader capture and arms transport
+
+// ---------------------------------------------------------------------------
+// Faction markers (Phase 1, ticket 1.6 / #9, ADR 0012, ADR 0014)
+// ---------------------------------------------------------------------------
+COIN_enableFactionMarkers       = true;                     // Colored shemag per faction, see COIN_fnc_markFactions
+COIN_markerInterval             = 3;                        // s between two scans for new units or a changed reputation
+COIN_markerMilitia              = "LOP_H_Shemag_RED1";      // Militia: red
+COIN_markerResistanceHostile    = "LOP_H_Shemag_GRE";       // Resistance, hostile to the army (reputation < -25): green
+COIN_markerResistanceFriendly   = "LOP_H_Shemag_BLU";       // Resistance, neutral or friendly: blue

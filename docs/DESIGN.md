@@ -283,7 +283,9 @@ Wer die Bevölkerung wirklich auf seiner Seite hat, bekommt mehr als nur Informa
 - Lokale Kämpfer sind Einheiten von Liberations **Widerstand** (ADR 0012). Dessen Haltung hängt global am Ruf:
   ab +25 auf unserer Seite, darunter neutral, unter −25 auf Seiten der Miliz.
   **Fällt der Ruf unter +25, ziehen aktive lokale Kämpfer ab.**
-- Lokale Kämpfer tragen eine erkennbare Kleidung, damit sie nicht mit der Miliz verwechselt werden (ADR 0014).
+- Erkennungszeichen: Alle KI-Kämpfer von Miliz und Widerstand tragen ein farbiges Kopftuch (Shemag): **rot = Miliz**,
+  **grün = Widerstand, feindlich** (Ruf unter −25), **blau = Widerstand, neutral oder freundlich**. Die Farbe folgt dem
+  Ruf live, auch bei bereits lebenden Kämpfern. Die Spieler lesen das im Karten-Tagebuch „COIN Liberation“ (ADR 0012, 0014).
 - Liberations spontane Guerilla-Einsätze bleiben: Bei hohem Ruf stoßen gelegentlich Widerstandskämpfer
   zu unseren Sektorangriffen, bei Ruf unter −25 kämpfen sie für die Miliz.
 
