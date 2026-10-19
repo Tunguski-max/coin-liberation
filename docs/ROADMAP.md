@@ -44,7 +44,7 @@ Ziel: Lythium ist ausgedünnt auf unsere Ziele, Slots und Ausrüstung passen zum
   - alle Funktürme entfernen (ADR 0013), Miliz-Spawnpunkte behalten
   - Vorschlag als Karte an Niklas, Tausche einarbeiten, dann schreiben
 - [ ] ~~1.4 Startbasis verlegen~~ – entfällt, die Startbasis bleibt im Südwesten (ADR 0016)
-- [ ] 1.5 (#10) Slots im Eden-Editor (15): Führungsgruppe (Kommandant, 2 Dolmetscher), Trupp A und B
+- [x] 1.5 (#10) Slots im Eden-Editor (15): Führungsgruppe (Kommandant, 2 Dolmetscher), Trupp A und B
   (je Truppführer, Sanitäter, EOD, 2 Schützen), 2 Hubschrauberpiloten (E6)
 - [ ] 1.6 Presets (ADR 0007, 0014): #7 BLUFOR, #8 Miliz, #9 Widerstand
   - Auswahl der Presets in `_tools/_presets.coin.json` (überschreibt die Werte in `kp_liberation_config.sqf` beim Build)
