@@ -21,7 +21,7 @@ if (!(missionNamespace getVariable ["COIN_enableSquadMix", false])) exitWith {0}
 private _added = 0;
 {
     private _twin = toLower (_x select 1);
-    if (isClass (configFile >> "CfgVehicles" >> _twin) && {KPLIB_o_inf_classes pushBackUnique _twin >= 0}) then {_added = _added + 1;};
+    if (isClass (configFile >> "CfgVehicles" >> _twin) && {(KPLIB_o_inf_classes pushBackUnique _twin) >= 0}) then {_added = _added + 1;};
 } forEach COIN_squadMixTwins;
 
 _added
