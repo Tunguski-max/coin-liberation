@@ -108,6 +108,9 @@ private _id = 0;
     private _share = ([COIN_nestBuildingShare, _type] call COIN_fnc_findByType) param [1, 0];
     private _minArea = ([COIN_nestBuildingMinArea, _type] call COIN_fnc_findByType) param [1, 0];
     private _typeHouses = _houses select {(_x select 3) >= _minArea};
+    if (_share > 0) then {
+        diag_log format ["[COIN] nests: %1 houses with at least %2 m2 for %3 nests", count _typeHouses, _minArea, _type];
+    };
 
     for "_i" from 1 to _count do {
         private _nestId = _id + 1;
