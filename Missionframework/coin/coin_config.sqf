@@ -179,6 +179,15 @@ COIN_capitalCaptureFactor   = 1.4;      // Liberation's capture radius of the ca
 COIN_nestPatrolStart        = [10, 40]; // [min, max] m from the house where the patrol starts
 COIN_nestHouseTolerance     = 5;        // m between the saved nest position and the house when it is found again
 COIN_nestPropSpacing        = [1.5, 3]; // [min, max] m from the core object for props without a free building position
+// Clean placement (ticket #44): objects stand on the floor below their spot, need free space around them and keep doors free
+COIN_floorProbe             = [0.5, 2]; // [up, down] m from a spot in which the floor is searched
+COIN_spotCheckHeight        = 0.4;      // m above the floor where walls are looked for around an object
+COIN_spotSameFloor          = 2;        // m height difference up to which two objects count as on the same floor
+COIN_nestDoorClearance      = 1.2;      // m props and vehicles keep from doors
+COIN_nestPropTries          = 12;       // Spots next to the core object tried per prop when no building position is free
+// VBIED garage: a civilian vehicle as a prop (not the core object, decoration only, locked for players)
+COIN_vbiedGarageVehicles    = ["C_Offroad_01_F", "C_Hatchback_01_F", "C_SUV_01_F", "C_Van_01_transport_F"];
+COIN_nestVehicleOutside     = 20;       // m beyond the house searched for a vehicle spot if there is no room inside
 COIN_nestPropsCount         = [2, 4];   // [min, max] props next to the core object
 // Core object per type: destroying it destroys the nest (Phase 2, ticket 2.4). Only classes Arma can destroy,
 // checked on server start (destrType, armor); a class that fails is replaced by COIN_nestCoreFallback (one log line)

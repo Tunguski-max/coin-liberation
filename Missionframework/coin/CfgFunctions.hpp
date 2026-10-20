@@ -92,6 +92,19 @@ class COIN {
 
         // Players and drones that make COIN content spawn nearby
         class getPresence {};
+
+        // Sets an object down on the floor below it
+        class snapToFloor {};
+
+        // Is there room for an object at a spot (walls, placed objects, doors)?
+        class isSpotFree {};
+    };
+
+    class debug {
+        file = "coin\functions\debug";
+
+        // Debug console: core object, props and vehicles of a nest type in a row, for tuning
+        class debugNestContent {};
     };
 
     class persistence {
@@ -133,6 +146,9 @@ class COIN {
 
         // Server: core object, props and guards of a building nest
         class spawnBuildingNest {};
+
+        // Server: civilian vehicle of a VBIED garage, inside the hall or next to it
+        class placeNestVehicle {};
 
         // Server loop: spawns nests near players and removes them again (ticket 2.3)
         class nestSpawnLoop {};

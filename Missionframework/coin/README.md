@@ -38,7 +38,11 @@ coin/
     │   ├── fn_addToCurators.sqf        COIN_fnc_addToCurators: alles, was COIN erzeugt, für jeden Zeus bearbeitbar
     │   ├── fn_curatorSync.sqf          COIN_fnc_curatorSync: Server-Schleife, auch für später erzeugte Kuratoren
     │   ├── fn_seededRandom.sqf         COIN_fnc_seededRandom: wiederholbarer Zufall aus dem gespeicherten Seed
-    │   └── fn_getPresence.sqf          COIN_fnc_getPresence: Spieler und Drohnen, die COIN-Inhalte spawnen lassen
+    │   ├── fn_getPresence.sqf          COIN_fnc_getPresence: Spieler und Drohnen, die COIN-Inhalte spawnen lassen
+    │   ├── fn_snapToFloor.sqf          COIN_fnc_snapToFloor: setzt ein Objekt auf den Boden darunter
+    │   └── fn_isSpotFree.sqf           COIN_fnc_isSpotFree: ist an einer Stelle Platz (Wände, Objekte, Türen)?
+    ├── debug/
+    │   └── fn_debugNestContent.sqf     COIN_fnc_debugNestContent: Kernobjekt, Requisiten und Fahrzeuge eines Typs nebeneinander (Abstimmung)
     ├── persistence/
     │   ├── fn_receiveSaveBlock.sqf     COIN_fnc_receiveSaveBlock: merkt sich Eintrag 22 beim Laden des Spielstands (Hook 18)
     │   └── fn_getSaveBlock.sqf         COIN_fnc_getSaveBlock: baut Eintrag 22 beim Speichern, [COIN_saveVersion, Nester] (Hook 17)
@@ -52,6 +56,7 @@ coin/
         ├── fn_drawNestMarkers.sqf      COIN_fnc_drawNestMarkers: globale Debug-Marker der Nester (Lobby-Parameter „COIN Debug“)
         ├── fn_validateNestContent.sqf  COIN_fnc_validateNestContent: prüft Kernobjekte (zerstörbar) und Requisiten beim Start
         ├── fn_spawnBuildingNest.sqf    COIN_fnc_spawnBuildingNest: Kernobjekt, Requisiten und Wachen eines Gebäude-Nests
+        ├── fn_placeNestVehicle.sqf     COIN_fnc_placeNestVehicle: ziviles Fahrzeug der VBIED-Garage, in der Halle oder davor
         └── fn_nestSpawnLoop.sqf        COIN_fnc_nestSpawnLoop: Server-Schleife, Spawn ab 1000 m, Abbau nach 2 min außerhalb 1300 m
 ```
 
