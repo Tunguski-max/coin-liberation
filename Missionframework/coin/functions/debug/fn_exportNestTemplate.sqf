@@ -10,7 +10,8 @@
         Role: "core" for the object with the variable name "core" (Eden) or, if there is none, the first object of the
         type's class in COIN_nestCores; "vehicle" for land vehicles; "prop" for the rest.
         Only objects placed in the editor or by Zeus count: no terrain objects, units, logics, weapon holders or the
-        player's vehicle. Positions are taken at the object's contact point (getPosASL), as the spawn sets them.
+        player's vehicle, no ambient effects or mine ammunition. Positions are taken at the object's contact point
+        (getPosASL), as the spawn sets them.
         For the debug console of the mission; docs/templates.md has the same export for a plain Eden scenario.
         The clipboard works in single player and on the local host only.
 
@@ -48,6 +49,9 @@ private _objects = (nearestObjects [_house, [], vectorMagnitude [_halfX + _margi
     && {!(_x isKindOf "CAManBase")}
     && {!(_x isKindOf "Logic")}
     && {!(_x isKindOf "WeaponHolder")}
+    // Placeable objects only: no ambient effects (FxWindGrass, HouseFly) and no mine ammunition
+    && {isClass (configFile >> "CfgVehicles" >> typeOf _x)}
+    && {((typeOf _x) find "Fx") != 0}
     && {!(_x isEqualTo (vehicle player))}
     && {abs (_local select 0) <= _halfX + _margin}
     && {abs (_local select 1) <= _halfY + _margin}

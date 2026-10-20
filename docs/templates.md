@@ -27,7 +27,13 @@ Ein Beispielhaus jeder Klasse findest du im Katalog im RPT (COIN Debug an, neue 
 
 ## Weg 1: Eden-Editor (genau)
 
-1. In Eden ein neues Szenario auf Lythium anlegen, eine spielbare Einheit neben das Haus stellen.
+1. In Eden ein neues Szenario auf Lythium anlegen, zu einem echten Haus der Klasse springen und eine spielbare
+   Einheit daneben stellen. Viele Kartengebäude sind versteckt (`scope = 1`) und fehlen im Objekt-Browser, deshalb
+   das Haus auf der Karte nehmen. Kamera hinsetzen (Eden-Debug-Konsole, Strg+D), Position aus dem Katalog:
+   ```sqf
+   move3DENCamera [[16323, 6749, 40], false];
+   ```
+   Alternativ ein Haus setzen: `create3DENEntity ["Object", "Land_CarService_F", screenToWorld [0.5, 0.5]];`
 2. Objekte im Haus platzieren, dem Kernobjekt den Variablennamen `core` geben.
 3. Szenario starten (Vorschau), zum Haus schauen, Esc, Debug-Konsole, den Befehl unten einfügen,
    in der ersten Zeile den Nest-Typ eintragen, **Lokal ausführen**.
@@ -35,7 +41,7 @@ Ein Beispielhaus jeder Klasse findest du im Katalog im RPT (COIN Debug an, neue 
 5. Die Zeile in `Missionframework/coin/coin_templates.sqf` unter `// Templates` einfügen oder an Claude schicken.
 
 ```sqf
-private _type = "vbiedGarage"; private _house = [nearestBuilding player, cursorObject] select (cursorObject isKindOf "House"); (boundingBoxReal _house) params ["_c1", "_c2"]; private _hx = abs ((_c2 select 0) - (_c1 select 0)) / 2 + 3; private _hy = abs ((_c2 select 1) - (_c1 select 1)) / 2 + 3; private _objs = (nearestObjects [_house, [], vectorMagnitude [_hx, _hy, 0]]) select { private _l = _house worldToModel (ASLToAGL (getPosASL _x)); !(_x isEqualTo _house) && {getObjectType _x == 8} && {!(_x isKindOf "CAManBase")} && {!(_x isKindOf "Logic")} && {!(_x isKindOf "WeaponHolder")} && {!(_x isEqualTo (vehicle player))} && {abs (_l select 0) <= _hx} && {abs (_l select 1) <= _hy} }; private _e = _objs apply { private _l = _house worldToModel (ASLToAGL (getPosASL _x)); private _r = ["prop", "vehicle"] select (_x isKindOf "LandVehicle"); if ((vehicleVarName _x) isEqualTo "core") then {_r = "core"}; format ["[""%1"",[%2,%3,%4],%5,""%6""]", typeOf _x, (_l select 0) toFixed 3, (_l select 1) toFixed 3, (_l select 2) toFixed 3, (((getDir _x) - (getDir _house) + 360) mod 360) toFixed 1, _r] }; private _t = format ["COIN_nestBuildingTemplates pushBack [""%1"",""%2"",[%3]];", _type, typeOf _house, _e joinString ","]; copyToClipboard _t; hint format ["%1 in %2: %3 objects, %4 core object(s), copied", _type, typeOf _house, count _objs, {(vehicleVarName _x) isEqualTo "core"} count _objs];
+private _type = "vbiedGarage"; private _house = [nearestBuilding player, cursorObject] select (cursorObject isKindOf "House"); (boundingBoxReal _house) params ["_c1", "_c2"]; private _hx = abs ((_c2 select 0) - (_c1 select 0)) / 2 + 3; private _hy = abs ((_c2 select 1) - (_c1 select 1)) / 2 + 3; private _objs = (nearestObjects [_house, [], vectorMagnitude [_hx, _hy, 0]]) select { private _l = _house worldToModel (ASLToAGL (getPosASL _x)); !(_x isEqualTo _house) && {getObjectType _x == 8} && {!(_x isKindOf "CAManBase")} && {!(_x isKindOf "Logic")} && {!(_x isKindOf "WeaponHolder")} && {isClass (configFile >> "CfgVehicles" >> typeOf _x)} && {((typeOf _x) find "Fx") != 0} && {!(_x isEqualTo (vehicle player))} && {abs (_l select 0) <= _hx} && {abs (_l select 1) <= _hy} }; private _e = _objs apply { private _l = _house worldToModel (ASLToAGL (getPosASL _x)); private _r = ["prop", "vehicle"] select (_x isKindOf "LandVehicle"); if ((vehicleVarName _x) isEqualTo "core") then {_r = "core"}; format ["[""%1"",[%2,%3,%4],%5,""%6""]", typeOf _x, (_l select 0) toFixed 3, (_l select 1) toFixed 3, (_l select 2) toFixed 3, (((getDir _x) - (getDir _house) + 360) mod 360) toFixed 1, _r] }; private _t = format ["COIN_nestBuildingTemplates pushBack [""%1"",""%2"",[%3]];", _type, typeOf _house, _e joinString ","]; copyToClipboard _t; hint format ["%1 in %2: %3 objects, %4 core object(s), copied", _type, typeOf _house, count _objs, {(vehicleVarName _x) isEqualTo "core"} count _objs];
 ```
 
 ## Weg 2: in der Mission mit Zeus (schneller, weniger genau)
@@ -53,3 +59,10 @@ private _type = "vbiedGarage"; private _house = [nearestBuilding player, cursorO
 Nach dem Einfügen und einem neuen Build meldet der Server beim Start
 `[COIN] nests: N of N building templates usable`. Fehler stehen darüber (fehlende Klassen, kein oder mehrere
 Kernobjekte). Ein Nest mit Template meldet beim Spawn `… template with N objects …`, eines ohne `… free placement …`.
+
+## Hinweise
+
+- Umgebungseffekte (`FxWindGrass…`, `HouseFly`) und Minen-Munition (`ATMine_Range_Ammo`) nimmt der Export nicht mit.
+  Minen sind Munition, per Code erzeugt wären sie scharf.
+- Nur Klassen aus unserer Mod-Liste verwenden (CLAUDE.md). Fehlt eine Klasse auf dem Server, verwirft die Prüfung
+  das Objekt mit einer Logzeile, das Template bleibt sonst nutzbar.
