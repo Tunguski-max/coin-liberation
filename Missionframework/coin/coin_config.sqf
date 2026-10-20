@@ -64,14 +64,15 @@ COIN_maxActiveIEDs          = 25;       // COIN IEDs at the same time
 
 // ---------------------------------------------------------------------------
 // Spawning near players (DESIGN 5, ticket 2.3), used by nests and later by camps
-// Players count, and the drone (UAV) a player is connected to. Manned aircraft higher than
-// COIN_presenceMaxAirHeight do not.
+// Players count, and the drone (UAV) a player is connected to, below COIN_presenceMaxDroneHeight.
+// Manned aircraft higher than COIN_presenceMaxAirHeight do not.
 // ---------------------------------------------------------------------------
 COIN_spawnDistance          = 1000;     // m: content spawns when the nearest player is this close
 COIN_despawnDistance        = 1300;     // m: content is removed when no player was this close ...
 COIN_despawnDelay           = 120;      // ... for this many seconds
 COIN_spawnCheckInterval     = 5;        // s between two checks of all nests
 COIN_presenceMaxAirHeight   = 100;      // m above ground: manned aircraft higher up do not spawn anything
+COIN_presenceMaxDroneHeight = 500;      // m above ground: drones higher up do not either (as Liberation's sectors, fn_getUnitsCount.sqf)
 COIN_curatorSyncInterval    = 10;       // s: objects given to Zeus are added again to curators created later, 0 = off
 
 // ---------------------------------------------------------------------------
