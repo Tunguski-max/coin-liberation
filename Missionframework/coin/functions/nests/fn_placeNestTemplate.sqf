@@ -5,8 +5,9 @@
     Description:
         Sets up a building nest after a template (ADR 0019, ticket #44): every object of the template is placed at its
         position in the house model and turned with the house, so the layout follows the house's orientation.
-        All objects are created first and then set down on the floor below them, at most COIN_templateSnapMax away
-        (objects on tables stay on tables). Props have no simulation; the vehicle of a VBIED garage is locked and keeps
+        Props stand exactly as placed in Eden (COIN_templateSnapMax, default never corrected); vehicles are set down
+        on the floor within COIN_templateVehicleSnapMax and cannot be damaged for COIN_spawnVehicleProtection seconds
+        while their physics starts. Props have no simulation; the vehicle of a VBIED garage is locked and keeps
         its simulation, so it can be destroyed (decoration, not the core object). Mines are live (createMine), players
         can defuse them with ACE. Everything except the mines is excluded from Liberation's save: Liberation saves every
         mine near a FOB, so a FOB within about 150 m of such a nest doubles them after a restart (known limitation).
@@ -66,16 +67,32 @@ private _vehicles = [];
     _objects pushBack _object;
 } forEach _entries;
 
-// Set down after all objects exist, so something standing on a table finds the table. Measured at the contact
-// point, as Eden placed them: an object that stands right is not moved
+// Set down after all objects exist, measured at the contact point as Eden placed them. Props only if
+// COIN_templateSnapMax allows it (default never, they stand exactly as in Eden), vehicles always within
+// COIN_templateVehicleSnapMax, so their wheels are on the floor when their physics starts
 {
-    [_x, COIN_templateSnapMax, true] call COIN_fnc_snapToFloor;
+    private _maxShift = [COIN_templateSnapMax, COIN_templateVehicleSnapMax] select (_x in _vehicles);
+    if (_maxShift > 0) then {
+        [_x, _maxShift, true] call COIN_fnc_snapToFloor;
+    };
 } forEach _objects;
 
-// Core object and vehicles get their simulation back (they can be destroyed), props stay without
+// Core object and vehicles get their simulation back (they can be destroyed), props stay without.
+// Vehicles cannot be damaged for the first seconds, a jolt when their physics starts must not wreck them
 {
     _x enableSimulationGlobal true;
 } forEach ([_core] + _vehicles);
+{
+    _x allowDamage false;
+} forEach _vehicles;
+if !(_vehicles isEqualTo []) then {
+    _vehicles spawn {
+        sleep COIN_spawnVehicleProtection;
+        {
+            if (!isNull _x) then {_x allowDamage true};
+        } forEach _this;
+    };
+};
 
 private _outlines = _objects apply {[getPosATL _x, selectMax ([_x] call COIN_fnc_halfSize)]};
 

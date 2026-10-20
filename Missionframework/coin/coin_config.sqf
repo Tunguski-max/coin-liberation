@@ -187,7 +187,11 @@ COIN_spotFloorTolerance     = 0.5;      // m a spot next to the core object may 
 COIN_nestDoorClearance      = 1.2;      // m props and vehicles keep from door points
 COIN_doorSelectionNames     = ["door", "dvere"]; // Memory points of doors contain one of these (Arma 3 / Arma 2, CUP, Jbad)
 COIN_nestPropTries          = 12;       // Spots next to the core object tried per prop when no building position is free
-COIN_templateSnapMax        = 0.3;      // m a template object is moved at most to stand on the floor (ADR 0019, coin_templates.sqf)
+// Template objects stand exactly as placed in Eden (test 2026-10-20: setting them down lifted things on tables onto
+// their neighbours). Vehicles are still set down, they need their wheels on the floor when their physics starts.
+COIN_templateSnapMax        = 0;        // m a template prop is moved at most to stand on the floor, 0 = never
+COIN_templateVehicleSnapMax = 0.3;      // m a template vehicle is moved at most to stand on the floor
+COIN_spawnVehicleProtection = 5;        // s a spawned vehicle cannot be damaged, so a jolt when its physics starts cannot wreck it
 COIN_enableNestMines        = true;     // Mines in templates spawn live (createMine, ACE can defuse them). Off: left out
 // VBIED garage: a civilian vehicle as a prop (not the core object, decoration only, locked for players)
 COIN_enableNestVehicle      = true;     // Off: VBIED garages without vehicle
