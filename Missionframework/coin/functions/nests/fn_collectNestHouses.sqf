@@ -40,7 +40,7 @@ private _seen = createHashMap;
             _seen set [_pos, true];
             _houses pushBack [_pos, _town];
         };
-    } forEach (nearestObjects [_center, ["House"], _ringMax]);
+    } forEach (_center nearObjects ["House", _ringMax]);
 } forEach sectors_capture;
 
 _houses

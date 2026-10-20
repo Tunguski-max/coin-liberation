@@ -7,7 +7,7 @@
         (ticket 2.2, DESIGN 5, ADR 0018).
         - Kind: COIN_nestBuildingShare per type decides whether a nest should be a building or a terrain nest.
         - Building nest: a house at the edge of a town (COIN_fnc_collectNestHouses), any town that still has one.
-          Without a house it becomes a terrain nest (ADR 0018, consequences).
+          Only if no house is free even at the smallest distance it becomes a terrain nest (ADR 0018, consequences).
         - Terrain nest: a flat, free place away from towns and roads (COIN_fnc_findTerrainNestSpots).
         - Evenly spread ("best candidate"): of up to COIN_nestCandidates valid places, the one farthest from the nests
           placed so far wins.
@@ -55,6 +55,40 @@ private _drawCandidates = {
     _drawn
 };
 
+// Candidate finders: [placed positions, current distance] -> [[position, town], ...], town "" for terrain nests
+private _findHouses = {
+    params ["_placed", "_minDist"];
+    private _valid = _houses select {
+        private _housePos = _x select 0;
+        (_placed findIf {(_housePos distance2D _x) < _minDist}) < 0
+    };
+    [_valid] call _drawCandidates
+};
+private _findTerrain = {
+    params ["_placed", "_minDist"];
+    ([_placed, _minDist] call COIN_fnc_findTerrainNestSpots) apply {[_x, ""]}
+};
+
+// Best candidate of a finder, lowering the distance between nests step by step (one log line per step)
+private _placeRelaxed = {
+    params ["_nestId", "_type", "_kind", "_placed", "_finder"];
+    private _minDist = COIN_nestMinDistNests;
+    private _best = [];
+    while {_best isEqualTo [] && {_minDist >= COIN_nestMinDistNestsMin}} do {
+        private _candidates = [_placed, _minDist] call _finder;
+        if (_candidates isEqualTo []) then {
+            private _next = _minDist - COIN_nestMinDistNestsStep;
+            if (_next >= COIN_nestMinDistNestsMin) then {
+                diag_log format ["[COIN] nests: no place for nest %1 (%2 %3) with %4 m between nests, trying %5 m", _nestId, _type, _kind, _minDist, _next];
+            };
+            _minDist = _next;
+        } else {
+            _best = [_candidates, _placed] call _pickBest;
+        };
+    };
+    _best
+};
+
 private _houses = [] call COIN_fnc_collectNestHouses;
 diag_log format ["[COIN] nests: %1 houses at the edge of %2 towns can hold a building nest", count _houses, count sectors_capture];
 
@@ -67,45 +101,29 @@ private _id = 0;
     private _share = ([COIN_nestBuildingShare, _type] call COIN_fnc_findByType) param [1, 0];
 
     for "_i" from 1 to _count do {
-        private _wantBuilding = (random 1) < _share;
+        private _nestId = _id + 1;
+        private _kind = ["terrain", "building"] select ((random 1) < _share);
         private _placed = _nests apply {_x select 3};
-        private _minDist = COIN_nestMinDistNests;
-        private _result = [];   // [position, kind, town]
+        private _best = [];
 
-        while {_result isEqualTo [] && {_minDist >= COIN_nestMinDistNestsMin}} do {
-            if (_wantBuilding) then {
-                private _valid = _houses select {
-                    private _housePos = _x select 0;
-                    (_placed findIf {(_housePos distance2D _x) < _minDist}) < 0
-                };
-                if !(_valid isEqualTo []) then {
-                    private _best = [[_valid] call _drawCandidates, _placed] call _pickBest;
-                    _result = [_best select 0, "building", _best select 1];
-                };
-            };
-
-            if (_result isEqualTo []) then {
-                private _spots = [_placed, _minDist] call COIN_fnc_findTerrainNestSpots;
-                if !(_spots isEqualTo []) then {
-                    if (_wantBuilding) then {
-                        diag_log format ["[COIN] nests: no house for a building %1 nest with %2 m between nests, terrain nest instead", _type, _minDist];
-                    };
-                    private _best = [_spots apply {[_x, ""]}, _placed] call _pickBest;
-                    _result = [_best select 0, "terrain", ""];
-                };
-            };
-
-            if (_result isEqualTo []) then {
-                diag_log format ["[COIN] nests: no place for a %1 nest with %2 m between nests, trying %3 m", _type, _minDist, _minDist - COIN_nestMinDistNestsStep];
-                _minDist = _minDist - COIN_nestMinDistNestsStep;
+        // A building nest tries houses down to the smallest distance first, it becomes a terrain nest only as
+        // a last resort ("notfalls", ADR 0018). Any town with a free house will do.
+        if (_kind isEqualTo "building") then {
+            _best = [_nestId, _type, _kind, _placed, _findHouses] call _placeRelaxed;
+            if (_best isEqualTo []) then {
+                diag_log format ["[COIN] nests: no house for nest %1 (%2 building) even with %3 m between nests, terrain nest instead", _nestId, _type, COIN_nestMinDistNestsMin];
+                _kind = "terrain";
             };
         };
+        if (_kind isEqualTo "terrain") then {
+            _best = [_nestId, _type, _kind, _placed, _findTerrain] call _placeRelaxed;
+        };
 
-        if (_result isEqualTo []) then {
-            diag_log format ["[COIN] nests: ERROR - no place for a %1 nest even with %2 m between nests, nest left out", _type, COIN_nestMinDistNestsMin];
+        if (_best isEqualTo []) then {
+            diag_log format ["[COIN] nests: ERROR - no place for nest %1 (%2 %3) even with %4 m between nests, nest left out", _nestId, _type, _kind, COIN_nestMinDistNestsMin];
         } else {
-            _result params ["_pos", "_kind", "_town"];
-            _id = _id + 1;
+            _best params ["_pos", "_town"];
+            _id = _nestId;
             _nests pushBack [_id, _type, _kind, _pos, floor random _seedRange, "active"];
             _towns pushBack _town;
         };

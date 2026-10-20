@@ -19,4 +19,7 @@ params [
     ["_type", "", [""]]
 ];
 
-_table param [_table findIf {(_x select 0) isEqualTo _type}, []]
+private _index = _table findIf {(_x select 0) isEqualTo _type};
+if (_index < 0) exitWith {[]};
+
+_table select _index

@@ -37,7 +37,7 @@ while {count _spots < COIN_nestCandidates && {_attempt < COIN_nestPlaceAttempts}
         && {(_placed findIf {(_candidate distance2D _x) < _minDist}) < 0}
         && {(_towns findIf {(_candidate distance2D _x) < COIN_nestTerrainMinDistTown}) < 0}
         && {(_candidate nearRoads COIN_nestTerrainMinDistRoad) isEqualTo []}
-        && {!((_candidate isFlatEmpty [COIN_nestTerrainFlatRadius, -1, COIN_nestTerrainMaxGradient, COIN_nestTerrainFlatRadius, 0, false]) isEqualTo [])}
+        && {!(((AGLToASL _candidate) isFlatEmpty [COIN_nestTerrainFlatRadius, -1, COIN_nestTerrainMaxGradient, COIN_nestTerrainFlatRadius, 0, false]) isEqualTo [])}
     ) then {
         _spots pushBack _candidate;
     };
