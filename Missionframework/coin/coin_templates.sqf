@@ -28,3 +28,5 @@ COIN_nestBuildingTemplates pushBack ["vbiedGarage","Land_CarService_F",[["Land_W
 COIN_nestBuildingTemplates pushBack ["vbiedGarage","Land_Jbad_Ind_Garage01",[["CUP_C_TT650_RU",[-0.473,0.480,-0.716],182.3,"vehicle"],["Land_Carpet_rack_EP1",[1.489,0.502,-0.713],90.2,"prop"],["Box_IED_Exp_F",[-1.595,3.335,-0.704],183.4,"core"]]];
 // IED workshop in Land_jbad_House_8_old (Niklas, 2026-10-20)
 COIN_nestBuildingTemplates pushBack ["iedWorkshop","Land_jbad_House_8_old",[["Box_IED_Exp_F",[-1.731,-1.811,-1.569],91.1,"core"],["CUP_BOX_TK_MILITIA_Ammo_F",[2.045,2.161,-1.016],267.9,"prop"],["Box_IED_Exp_F",[-2.653,-1.866,-1.560],91.2,"prop"],["CUP_C_TT650_CIV",[-2.821,-5.050,-1.679],96.9,"vehicle"]]];
+// IED workshop in Land_jbad_House_7_old (Niklas, 2026-10-20)
+COIN_nestBuildingTemplates pushBack ["iedWorkshop","Land_jbad_House_7_old",[["CUP_BOX_TK_MILITIA_Grenades_F",[-0.408,3.405,-0.264],89.2,"prop"],["Lantern_01_black_F",[-2.291,2.677,0.204],216.4,"prop"],["Box_IED_Exp_F",[2.538,3.707,-0.264],179.6,"core"],["Lantern_01_red_F",[4.752,3.730,0.238],216.4,"prop"]]];
