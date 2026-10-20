@@ -6,7 +6,8 @@
         Creates the nests of a new campaign as data, as many of each type as COIN_nestSetup says
         (ticket 2.2, DESIGN 5, ADR 0018).
         - Kind: COIN_nestBuildingShare per type decides whether a nest should be a building or a terrain nest.
-        - Building nest: a house at the edge of a town (COIN_fnc_collectNestHouses), any town that still has one.
+        - Building nest: a house at the edge of a town (COIN_fnc_collectNestHouses), any town that still has one,
+          with at least the footprint COIN_nestBuildingMinArea asks for this type.
           Only if no house is free even at the smallest distance it becomes a terrain nest (ADR 0018, consequences).
         - Terrain nest: a flat, free place away from towns and roads (COIN_fnc_findTerrainNestSpots).
         - Evenly spread ("best candidate"): of up to COIN_nestCandidates valid places, the one farthest from the nests
@@ -55,10 +56,11 @@ private _drawCandidates = {
     _drawn
 };
 
-// Candidate finders: [placed positions, current distance] -> [[position, town], ...], town "" for terrain nests
+// Candidate finders: [placed positions, current distance] -> [[position, town, ...], ...], town "" for terrain nests.
+// _findHouses draws from _typeHouses, the houses big enough for the nest type being placed (set in the loop below)
 private _findHouses = {
     params ["_placed", "_minDist"];
-    private _valid = _houses select {
+    private _valid = _typeHouses select {
         private _housePos = _x select 0;
         (_placed findIf {(_housePos distance2D _x) < _minDist}) < 0
     };
@@ -91,14 +93,21 @@ private _placeRelaxed = {
 
 private _houses = [] call COIN_fnc_collectNestHouses;
 diag_log format ["[COIN] nests: %1 houses at the edge of %2 towns can hold a building nest", count _houses, count sectors_capture];
+if !(_houses isEqualTo []) then {
+    private _areas = _houses apply {_x select 3};
+    _areas sort true;
+    diag_log format ["[COIN] nests: house footprints min %1 / median %2 / max %3 m2", _areas select 0, _areas select (floor (count _areas / 2)), _areas select (count _areas - 1)];
+};
 
 private _nests = [];
-private _towns = [];    // Town marker per nest, "" for terrain nests (log only, not saved)
+private _picks = [];    // Chosen candidate per nest: [position, town, class, footprint], town "" for terrain nests (log only, not saved)
 private _id = 0;
 
 {
     _x params ["_type", "_count"];
     private _share = ([COIN_nestBuildingShare, _type] call COIN_fnc_findByType) param [1, 0];
+    private _minArea = ([COIN_nestBuildingMinArea, _type] call COIN_fnc_findByType) param [1, 0];
+    private _typeHouses = _houses select {(_x select 3) >= _minArea};
 
     for "_i" from 1 to _count do {
         private _nestId = _id + 1;
@@ -111,7 +120,7 @@ private _id = 0;
         if (_kind isEqualTo "building") then {
             _best = [_nestId, _type, _kind, _placed, _findHouses] call _placeRelaxed;
             if (_best isEqualTo []) then {
-                diag_log format ["[COIN] nests: no house for nest %1 (%2 building) even with %3 m between nests, terrain nest instead", _nestId, _type, COIN_nestMinDistNestsMin];
+                diag_log format ["[COIN] nests: no house for nest %1 (%2 building, %3 houses with at least %4 m2) even with %5 m between nests, terrain nest instead", _nestId, _type, count _typeHouses, _minArea, COIN_nestMinDistNestsMin];
                 _kind = "terrain";
             };
         };
@@ -122,10 +131,9 @@ private _id = 0;
         if (_best isEqualTo []) then {
             diag_log format ["[COIN] nests: ERROR - no place for nest %1 (%2 %3) even with %4 m between nests, nest left out", _nestId, _type, _kind, COIN_nestMinDistNestsMin];
         } else {
-            _best params ["_pos", "_town"];
             _id = _nestId;
-            _nests pushBack [_id, _type, _kind, _pos, floor random _seedRange, "active"];
-            _towns pushBack _town;
+            _nests pushBack [_id, _type, _kind, _best select 0, floor random _seedRange, "active"];
+            _picks pushBack _best;
         };
     };
 } forEach COIN_nestSetup;
@@ -136,9 +144,20 @@ private _positions = _nests apply {_x select 3};
     _x params ["_id", "_type", "_kind", "_pos"];
     private _others = _positions - [_pos];
     private _nearest = if (_others isEqualTo []) then {-1} else {round selectMin (_others apply {_pos distance2D _x})};
-    private _town = _towns select _forEachIndex;
-    private _townInfo = if (_town isEqualTo "") then {""} else {
-        format [", town %1 (%2) centre %3 m", markerText _town, _town, round (_pos distance2D (markerPos _town))]
+    (_picks select _forEachIndex) params ["", ["_town", ""], ["_class", ""], ["_area", 0]];
+    private _townInfo = "";
+    if !(_town isEqualTo "") then {
+        // Largest house in the same town's ring, to compare the size of the chosen one (COIN_nestBuildingMinArea)
+        private _largest = [0, ""];
+        {
+            if ((_x select 1) isEqualTo _town && {(_x select 3) > (_largest select 0)}) then {
+                _largest = [_x select 3, _x select 2];
+            };
+        } forEach _houses;
+        _townInfo = format [
+            ", town %1 (%2) centre %3 m, house %4 %5 m2, largest in this town %6 %7 m2",
+            markerText _town, _town, round (_pos distance2D (markerPos _town)), _class, _area, _largest select 1, _largest select 0
+        ];
     };
     diag_log format ["[COIN] nests: placed nest %1 %2 %3 at %4, nearest nest %5 m, start base %6 m%7", _id, _type, _kind, _pos, _nearest, round (_pos distance2D startbase), _townInfo];
 } forEach _nests;

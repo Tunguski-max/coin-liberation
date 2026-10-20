@@ -94,6 +94,14 @@ COIN_nestBuildingShare = [
 ];
 COIN_nestBuildingRing       = [250, 600]; // [min, max] m between the house of a building nest and its town's centre (not the capital)
 COIN_nestBuildingMinPositions = 8;      // Building positions a house needs: core object, 2-4 props and part of the guards
+// Footprint a house needs per type in m² (from boundingBoxReal). 0 = any size. Values follow from the measuring run (#29)
+COIN_nestBuildingMinArea = [
+    ["command",      0],
+    ["iedWorkshop",  0],
+    ["cache",        0],
+    ["vbiedGarage",  0],
+    ["recruitment",  0]
+];
 COIN_nestTerrainMinDistTown = 500;      // m between terrain nests and towns, as for camps (DESIGN 5.1)
 COIN_nestTerrainMinDistRoad = 150;      // m between terrain nests and roads, as for camps
 COIN_nestTerrainFlatRadius  = 15;       // m around a terrain nest that must be free of objects and flat ...
