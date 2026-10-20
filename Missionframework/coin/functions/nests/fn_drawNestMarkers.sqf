@@ -31,19 +31,20 @@ if (!isServer || {isNil "COIN_nests"}) exitWith {0};
     };
     private _radius = [_type] call COIN_fnc_getNestRadius;
 
+    // Local setters first, the last global one broadcasts the whole marker once (also to late joiners)
     private _area = format ["COIN_nest_%1_area", _id];
     deleteMarker _area;
-    createMarker [_area, _pos];
-    _area setMarkerShape "ELLIPSE";
-    _area setMarkerBrush "Border";
-    _area setMarkerSize [_radius, _radius];
+    createMarkerLocal [_area, _pos];
+    _area setMarkerShapeLocal "ELLIPSE";
+    _area setMarkerBrushLocal "Border";
+    _area setMarkerSizeLocal [_radius, _radius];
     _area setMarkerColor _color;
 
     private _icon = format ["COIN_nest_%1", _id];
     deleteMarker _icon;
-    createMarker [_icon, _pos];
-    _icon setMarkerType (["mil_objective", "mil_destroy"] select _destroyed);
-    _icon setMarkerColor _color;
+    createMarkerLocal [_icon, _pos];
+    _icon setMarkerTypeLocal (["mil_objective", "mil_destroy"] select _destroyed);
+    _icon setMarkerColorLocal _color;
     _icon setMarkerText format ["Nest %1 %2 (%3)", _id, _type, _kind];
 } forEach COIN_nests;
 
