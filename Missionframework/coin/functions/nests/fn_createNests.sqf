@@ -5,6 +5,9 @@
     Description:
         Creates the nests of a new campaign as data, as many of each type as COIN_nestSetup says
         (ticket 2.2, DESIGN 5, ADR 0018).
+        - Number: as COIN_nestSetup says, but every type gets at least COIN_nestMinPerType; the most frequent type
+          gives nests away, the total stays.
+        - Order: types with the fewest suitable houses first.
         - Kind: COIN_nestBuildingShare per type decides whether a nest should be a building or a terrain nest.
         - Building nest: a house at the edge of a town (COIN_fnc_collectNestHouses), any town that still has one,
           with at least the footprint COIN_nestBuildingMinArea asks for this type.
@@ -125,10 +128,8 @@ if (COIN_debug) then {
     } forEach _rows;
 };
 
-private _nests = [];
-private _picks = [];    // Chosen candidate per nest: [position, town, class, footprint], town "" for terrain nests (log only, not saved)
-private _id = 0;
-
+// Plan per type: [type, nests, building share, houses big enough and of an allowed class]
+private _plan = [];
 {
     _x params ["_type", "_count"];
     private _share = ([COIN_nestBuildingShare, _type] call COIN_fnc_findByType) param [1, 0];
@@ -146,6 +147,46 @@ private _id = 0;
             count _typeHouses, _minArea, _minPositions, _type, ["", format [" (%1 allowed classes)", count _classes]] select (count _classes > 0)
         ];
     };
+    _plan pushBack [_type, _count, _share, _typeHouses];
+} forEach COIN_nestSetup;
+
+// Every type gets at least COIN_nestMinPerType nests: the most frequent type gives one away (a tie is drawn),
+// so the total of COIN_nestSetup stays. Stops when no type has more than the minimum left to give.
+while {true} do {
+    private _counts = _plan apply {_x select 1};
+    private _short = _counts findIf {_x < COIN_nestMinPerType};
+    if (_short < 0) exitWith {};
+    private _most = selectMax _counts;
+    if (_most <= COIN_nestMinPerType) exitWith {
+        diag_log format ["[COIN] nests: not enough nests for %1 of every type, %2 keeps %3", COIN_nestMinPerType, (_plan select _short) select 0, _counts select _short];
+    };
+    private _donors = [];
+    {
+        if (_x == _most) then {_donors pushBack _forEachIndex};
+    } forEach _counts;
+    private _donor = _plan select (selectRandom _donors);
+    private _receiver = _plan select _short;
+    _donor set [1, (_donor select 1) - 1];
+    _receiver set [1, (_receiver select 1) + 1];
+    diag_log format ["[COIN] nests: %1 gives one nest to %2 (at least %3 of every type), now %4 and %5", _donor select 0, _receiver select 0, COIN_nestMinPerType, _donor select 1, _receiver select 1];
+};
+
+// Types with the fewest suitable houses are placed first, so they pick freely among them and the types with
+// many houses spread around them (otherwise "best candidate" sends a rare type to the same remote house every time)
+private _order = _plan apply {[count (_x select 3), _x select 0]};
+_order sort true;
+_order = _order apply {
+    private _type = _x select 1;
+    _plan select (_plan findIf {(_x select 0) isEqualTo _type})
+};
+diag_log format ["[COIN] nests: placing order %1", _order apply {format ["%1 x%2", _x select 0, _x select 1]}];
+
+private _nests = [];
+private _picks = [];    // Chosen candidate per nest: [position, town, class, footprint, positions], town "" for terrain nests (log only, not saved)
+private _id = 0;
+
+{
+    _x params ["_type", "_count", "_share", "_typeHouses"];
 
     for "_i" from 1 to _count do {
         private _nestId = _id + 1;
@@ -174,7 +215,7 @@ private _id = 0;
             _picks pushBack _best;
         };
     };
-} forEach COIN_nestSetup;
+} forEach _order;
 
 // Placement log: distances once all nests stand
 private _positions = _nests apply {_x select 3};

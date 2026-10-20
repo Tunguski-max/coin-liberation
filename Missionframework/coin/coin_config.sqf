@@ -75,6 +75,7 @@ COIN_nestSetup = [
     ["recruitment",  2, 2000]
 ];
 // Placement at campaign start (ticket 2.2, DESIGN 5, ADR 0018)
+COIN_nestMinPerType         = 2;        // Nests of every type at least; the most frequent type of COIN_nestSetup gives nests away, the total stays
 COIN_nestMinDistStartBase   = 4000;     // m between nests and the start base
 COIN_nestMinDistCapital     = 1000;     // m between nests and the capital (Liberation's sectors_bigtown)
 COIN_nestMinDistSector      = 250;      // m between nests and every sector centre (Liberation evaluates 175 m around it)
@@ -123,6 +124,7 @@ COIN_nestBuildingClasses = [
         "Land_CarService_F",
         "jbad_opx2_garage1",
         "Land_GarageRow_01_large_F",
+        "Land_Jbad_Ind_Garage01",       // From the catalog of 2026-10-20: 4 at town edges, 188 m², 4 building positions
         "Land_Shed_Big_F",
         "Land_Warehouse_01_F",
         "Land_Warehouse_02_F",

@@ -1,11 +1,12 @@
 # Design: COIN Liberation (Arbeitstitel)
 
-> Status: **Entwurf v0.4.1** – Grundlage für die Umsetzung mit Claude Code.
+> Status: **Entwurf v0.4.2** – Grundlage für die Umsetzung mit Claude Code.
 > v0.2: Entscheidungen aus Phase 0 eingearbeitet (ADR 0008–0015, `docs/kp-liberation-map.md`).
 > v0.3: Spielfeld und Ausrüstung für Phase 1 festgelegt (ADR 0007, 0016), Abgleich mit Hearts and Minds.
 > v0.3.1: Sektorauswahl von Hand ergänzt (ADR 0016), Ressourcen-Wirtschaft (ADR 0017).
 > v0.4: Miliz-Netzwerk für Phase 2 festgelegt (Nester, Camps, Datenmodell, KI-Budget, ADR 0015 geändert).
 > v0.4.1: Verteilung der Nester nach dem Prinzip „bester Kandidat“ mit Randabstand (Test 2026-10-20).
+> v0.4.2: Mindestens 2 Nester pro Typ, Häuser passend zum Typ (Fläche, Gebäudepositionen, Klassenliste der VBIED-Garage).
 > Offene Entscheidungen stehen gesammelt in [Abschnitt 12](#12-offene-entscheidungen).
 > Begriffe sind in [`CONTEXT.md`](../CONTEXT.md) definiert.
 
@@ -102,7 +103,11 @@ die jeweils einen **Einflussradius** haben und dort einen konkreten Effekt erzeu
 | Rekrutierungsstelle | Füllt Verluste der Miliz wieder auf | Miliz regeneriert langsamer |
 
 **Regeln**
-- 11 Nester zu Kampagnenbeginn, gleichmäßig über die Karte verteilt: mindestens 2,5 km Abstand untereinander,
+- 11 Nester zu Kampagnenbeginn, von jedem Typ mindestens 2: Reicht die Verteilung aus `coin_config.sqf` dafür nicht,
+  gibt der häufigste Typ ein Nest ab (bei Gleichstand gelost), die Gesamtzahl bleibt (Test 2026-10-20, wie bei den
+  Ressourcen). Typen mit den wenigsten passenden Häusern werden zuerst platziert, damit sie nicht immer im selben
+  abgelegenen Haus landen.
+- Gleichmäßig über die Karte verteilt: mindestens 2,5 km Abstand untereinander,
   mindestens 4 km von der Startbasis, keines im Umkreis von 1 km um die Hauptstadt. Findet die Verteilung keinen
   Platz, wird der Abstand schrittweise verringert (mit Logzeile).
   Gleichmäßig heißt: Für jedes Nest werden mehrere zulässige Stellen gezogen (Startwert 30), genommen wird die mit dem
@@ -112,11 +117,14 @@ die jeweils einen **Einflussradius** haben und dort einen konkreten Effekt erzeu
 - Einflussradius 1500–2500 m je nach Typ (Werte in `coin_config.sqf`).
 - Nester stehen in Gebäuden in Ortschaften oder als kleine Lager im Gelände. Ob ein Nest ein Gebäude- oder
   ein Gelände-Nest wird, entscheidet ein Anteil pro Typ (Startwerte: Kommandoposten 0,5, IED-Werkstatt 0,7,
-  Waffenlager 0,3, VBIED-Garage und Rekrutierungsstelle 1,0; im Schnitt etwa 7 Gebäude- und 4 Gelände-Nester).
+  Waffenlager 0,3, VBIED-Garage und Rekrutierungsstelle 1,0; im Schnitt etwa 7–8 Gebäude- und 3–4 Gelände-Nester).
   - **Gebäude-Nest:** nur in Ortschaften (nicht in der Hauptstadt), in einem vorhandenen Haus **am Ortsrand**,
     250–600 m vom Sektormittelpunkt. Grund: Liberation wertet einen Sektor im Radius von 175 m aus. Wachen darin
     würden die Einnahme blockieren und eine befreite Ortschaft als „angegriffen“ gelten lassen.
     Kernobjekt und 2–4 passende Requisiten stehen auf freien Plätzen im Haus. Kein Template nötig.
+    Das Haus passt zum Typ (Messlauf und Auswahl in Zeus, 2026-10-20): Mindestfläche und Mindestzahl an
+    Gebäudepositionen pro Typ, die VBIED-Garage nur in Hallen und Garagen aus einer Klassenliste
+    (ihre Wachen stehen draußen). Nicht-Häuser wie Stege und Flughafengebäude sind ausgeschlossen.
   - **Gelände-Nest:** 2–3 Templates pro Nest-Typ (Zelte, Tarnnetz, Kisten, Kernobjekt), platziert an einer
     ebenen, freien Stelle mit denselben Abständen wie Camps (Abschnitt 5.1). Niklas baut die Templates im Eden-Editor
     und liest sie mit `BIS_fnc_objectsGrabber` aus; für den ersten Test gibt es je ein einfaches Platzhalter-Template.
