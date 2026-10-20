@@ -85,8 +85,11 @@ Ziel: Nester existieren, sind persistent und schwächen bei Zerstörung das Netz
 - [x] 2.1 (#28) Datenmodell für Nester festlegen (Spec) und in den Liberation-Save einhängen (Eintrag 22, ADR 0005, ADR 0018;
   getestet: Spielstand aus Phase 1 bekommt 11 Nester, Sektoren, FOBs und Ressourcen bleiben, Neustart lädt dieselben Nester,
   Wipe per Lobby erzeugt neue; Platzierung vorerst einfach, die Regeln kommen mit 2.2)
-- [ ] 2.2 Nester beim Kampagnenstart platzieren (Gebäude in Ortschaften, Lager im Gelände;
-  gleichmäßig über die Karte, mindestens 4 km von der Startbasis)
+- [x] 2.2 (#29) Nester beim Kampagnenstart platzieren (Gebäude in Ortschaften, Lager im Gelände;
+  gleichmäßig über die Karte, mindestens 4 km von der Startbasis; getestet in 5 neuen Kampagnen: „bester Kandidat“
+  ohne Lockerung, kleinster Abstand 3,4–4 km, Gebäude-Nester 250–600 m vom Ortsmittelpunkt, Gelände-Nester abseits
+  von Straßen und Orten auf ebenem Boden, Häuser passend zum Typ (Mindestfläche, VBIED-Garage nur in Hallen und
+  Garagen aus einer Klassenliste, in Zeus ausgewählt), mindestens 2 Nester pro Typ)
 - [ ] 2.3 Nest-Objekte und Bewachung spawnen, wenn Spieler in der Nähe sind
   (Gebäude-Nest: Kernobjekt und Requisiten auf freie Gebäudeplätze; Gelände-Nest: Template;
   Kernobjekte pro Typ im Spec festlegen)
