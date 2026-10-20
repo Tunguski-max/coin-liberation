@@ -66,3 +66,7 @@
 - Niklas baut die Templates in einem eigenen Eden-Szenario auf Lythium (#32). Für den ersten Test reicht eines.
 - Ändert sich ein Template, sieht jedes Nest dieser Hausklasse beim nächsten Spawn anders aus. Das ist erlaubt,
   gespeichert werden nur Haus, Seed und Zustand (ADR 0018).
+- Ergänzt am 2026-10-20: Minen im Template spawnen **scharf** (Rolle `mine`, `createMine`), Spieler können sie mit
+  ACE entschärfen, ein Schuss kann sie auslösen. Liberation speichert jede Mine nahe einer FOB mit; eine FOB näher als
+  etwa 150 m an so einem Nest verdoppelt die Minen nach einem Neustart (bekannte Einschränkung).
+- Zivile Fahrzeuge in Templates dürfen aus CUP Vehicles kommen (seit 2026-10-20 erlaubte Abhängigkeit, CLAUDE.md).
