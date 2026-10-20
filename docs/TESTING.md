@@ -12,6 +12,7 @@ Ein eigenes Preset „COIN Dev“ anlegen mit:
 - RHS USAF, RHS AFRF
 - Project OPFOR
 - CUP Terrains – Core, CUP Terrains – Maps
+- CUP Vehicles (zivile Fahrzeuge in den Gebäude-Templates, seit 2026-10-20)
 - **Jbad** und **Lythium**
 - TFAR (optional; für Solo-Tests weglassen spart Ladezeit)
 

@@ -30,6 +30,9 @@ if !(missionNamespace getVariable ["save_is_loaded", false]) exitWith {
     0
 };
 
+// Core objects, props and building templates are checked first, the placement of new nests needs the templates
+[] call COIN_fnc_validateNestContent;
+
 private _block = missionNamespace getVariable ["COIN_loadedSaveBlock", []];
 
 // Unknown format or save version: keep the block untouched (COIN_fnc_getSaveBlock writes it back) instead of

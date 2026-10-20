@@ -92,6 +92,31 @@ class COIN {
 
         // Players and drones that make COIN content spawn nearby
         class getPresence {};
+
+        // Half width and half length of an object (bounding box)
+        class halfSize {};
+
+        // Can Arma destroy objects of this class (core objects)?
+        class isDestructible {};
+
+        // Height of the floor below a spot (building floor or terrain)
+        class getFloorASL {};
+
+        // Sets an object down on the floor below it
+        class snapToFloor {};
+
+        // Is there room for an object at a spot (walls, placed objects, doors)?
+        class isSpotFree {};
+    };
+
+    class debug {
+        file = "coin\functions\debug";
+
+        // Debug console: core object, props and vehicles of a nest type in a row, for tuning
+        class debugNestContent {};
+
+        // Debug console: building template of the house the player looks at, to the clipboard
+        class exportNestTemplate {};
     };
 
     class persistence {
@@ -133,6 +158,15 @@ class COIN {
 
         // Server: core object, props and guards of a building nest
         class spawnBuildingNest {};
+
+        // Server: core object, props and vehicle after a building template (ADR 0019)
+        class placeNestTemplate {};
+
+        // Server: free placement for houses without a template
+        class placeNestFree {};
+
+        // Server: civilian vehicle of a VBIED garage (free placement), inside the hall or next to it
+        class placeNestVehicle {};
 
         // Server loop: spawns nests near players and removes them again (ticket 2.3)
         class nestSpawnLoop {};

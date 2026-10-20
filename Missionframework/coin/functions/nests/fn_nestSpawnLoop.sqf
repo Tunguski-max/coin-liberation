@@ -20,7 +20,6 @@
 
 if (!isServer) exitWith {false};
 
-[] call COIN_fnc_validateNestContent;
 diag_log format [
     "[COIN] nests: spawn loop on, spawn at %1 m, removal after %2 s beyond %3 m, check every %4 s",
     COIN_spawnDistance, COIN_despawnDelay, COIN_despawnDistance, COIN_spawnCheckInterval

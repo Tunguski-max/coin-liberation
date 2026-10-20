@@ -9,6 +9,7 @@ Der Build (`build.bat`) kopiert den Ordner automatisch mit in die Mission.
 coin/
 ├── CfgFunctions.hpp       Registrierung aller COIN_fnc_* (in description.ext eingebunden, Hook #1)
 ├── coin_config.sqf        Balancing und Feature-Schalter, auf jeder Maschine geladen
+├── coin_templates.sqf     Gebäude-Templates der Nester (ADR 0019), nach coin_config.sqf geladen
 ├── init_server.sqf        Server-Teil des Moduls
 ├── init_client.sqf        Client-Teil des Moduls (Maschinen mit Interface)
 └── functions/
@@ -38,7 +39,15 @@ coin/
     │   ├── fn_addToCurators.sqf        COIN_fnc_addToCurators: alles, was COIN erzeugt, für jeden Zeus bearbeitbar
     │   ├── fn_curatorSync.sqf          COIN_fnc_curatorSync: Server-Schleife, auch für später erzeugte Kuratoren
     │   ├── fn_seededRandom.sqf         COIN_fnc_seededRandom: wiederholbarer Zufall aus dem gespeicherten Seed
-    │   └── fn_getPresence.sqf          COIN_fnc_getPresence: Spieler und Drohnen, die COIN-Inhalte spawnen lassen
+    │   ├── fn_getPresence.sqf          COIN_fnc_getPresence: Spieler und Drohnen, die COIN-Inhalte spawnen lassen
+    │   ├── fn_halfSize.sqf             COIN_fnc_halfSize: halbe Breite und Länge eines Objekts
+    │   ├── fn_isDestructible.sqf       COIN_fnc_isDestructible: kann Arma Objekte dieser Klasse zerstören (Kernobjekte)?
+    │   ├── fn_getFloorASL.sqf          COIN_fnc_getFloorASL: Höhe des Bodens unter einer Stelle (Gebäude oder Gelände)
+    │   ├── fn_snapToFloor.sqf          COIN_fnc_snapToFloor: setzt ein Objekt auf den Boden darunter
+    │   └── fn_isSpotFree.sqf           COIN_fnc_isSpotFree: ist an einer Stelle Platz (Wände, Objekte, Türen)?
+    ├── debug/
+    │   ├── fn_debugNestContent.sqf     COIN_fnc_debugNestContent: Kernobjekt, Requisiten und Fahrzeuge eines Typs nebeneinander (Abstimmung)
+    │   └── fn_exportNestTemplate.sqf   COIN_fnc_exportNestTemplate: Gebäude-Template des angeschauten Hauses in die Zwischenablage
     ├── persistence/
     │   ├── fn_receiveSaveBlock.sqf     COIN_fnc_receiveSaveBlock: merkt sich Eintrag 22 beim Laden des Spielstands (Hook 18)
     │   └── fn_getSaveBlock.sqf         COIN_fnc_getSaveBlock: baut Eintrag 22 beim Speichern, [COIN_saveVersion, Nester] (Hook 17)
@@ -52,6 +61,9 @@ coin/
         ├── fn_drawNestMarkers.sqf      COIN_fnc_drawNestMarkers: globale Debug-Marker der Nester (Lobby-Parameter „COIN Debug“)
         ├── fn_validateNestContent.sqf  COIN_fnc_validateNestContent: prüft Kernobjekte (zerstörbar) und Requisiten beim Start
         ├── fn_spawnBuildingNest.sqf    COIN_fnc_spawnBuildingNest: Kernobjekt, Requisiten und Wachen eines Gebäude-Nests
+        ├── fn_placeNestTemplate.sqf    COIN_fnc_placeNestTemplate: Kernobjekt, Requisiten und Fahrzeug nach Gebäude-Template (ADR 0019)
+        ├── fn_placeNestFree.sqf        COIN_fnc_placeNestFree: freie Platzierung für Häuser ohne Template
+        ├── fn_placeNestVehicle.sqf     COIN_fnc_placeNestVehicle: ziviles Fahrzeug der VBIED-Garage bei freier Platzierung
         └── fn_nestSpawnLoop.sqf        COIN_fnc_nestSpawnLoop: Server-Schleife, Spawn ab 1000 m, Abbau nach 2 min außerhalb 1300 m
 ```
 
@@ -61,7 +73,7 @@ Geplante weitere Kategorien unter `functions/` (anlegen, wenn sie gebraucht werd
 ## Ablauf beim Missionsstart
 
 1. Arma startet `COIN_fnc_init` auf **jeder** Maschine (CfgFunctions `postInit`).
-2. `COIN_fnc_init` lädt `coin_config.sqf`.
+2. `COIN_fnc_init` lädt `coin_config.sqf` und `coin_templates.sqf`.
 3. Es wartet, bis Liberations `init.sqf` auf dieser Maschine fertig ist (`KPLIB_init`), höchstens `COIN_initTimeout` Sekunden.
 4. Auf dem Server läuft `init_server.sqf`, auf Maschinen mit Interface `init_client.sqf`.
    Beim lokalen Host laufen beide.

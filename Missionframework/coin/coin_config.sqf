@@ -179,11 +179,29 @@ COIN_capitalCaptureFactor   = 1.4;      // Liberation's capture radius of the ca
 COIN_nestPatrolStart        = [10, 40]; // [min, max] m from the house where the patrol starts
 COIN_nestHouseTolerance     = 5;        // m between the saved nest position and the house when it is found again
 COIN_nestPropSpacing        = [1.5, 3]; // [min, max] m from the core object for props without a free building position
+// Clean placement (ticket #44): objects stand on the floor below their spot, need free space around them and keep doors free
+COIN_floorProbe             = [0.5, 2]; // [up, down] m from a spot in which the floor is searched
+COIN_spotCheckHeights       = [0.4, 1.2]; // m above the floor where walls are looked for around an object
+COIN_spotSameFloor          = 2;        // m height difference up to which two objects count as on the same floor
+COIN_spotFloorTolerance     = 0.5;      // m a spot next to the core object may differ from the core's floor (no edges, stairs)
+COIN_nestDoorClearance      = 1.2;      // m props and vehicles keep from door points
+COIN_doorSelectionNames     = ["door", "dvere"]; // Memory points of doors contain one of these (Arma 3 / Arma 2, CUP, Jbad)
+COIN_nestPropTries          = 12;       // Spots next to the core object tried per prop when no building position is free
+// Template objects stand exactly as placed in Eden (test 2026-10-20: setting them down lifted things on tables onto
+// their neighbours). Vehicles are still set down, they need their wheels on the floor when their physics starts.
+COIN_templateSnapMax        = 0;        // m a template prop is moved at most to stand on the floor, 0 = never
+COIN_templateVehicleSnapMax = 0.3;      // m a template vehicle is moved at most to stand on the floor
+COIN_spawnVehicleProtection = 5;        // s a spawned vehicle cannot be damaged, so a jolt when its physics starts cannot wreck it
+COIN_enableNestMines        = true;     // Mines in templates spawn live (createMine, ACE can defuse them). Off: left out
+// VBIED garage: a civilian vehicle as a prop (not the core object, decoration only, locked for players)
+COIN_enableNestVehicle      = true;     // Off: VBIED garages without vehicle
+COIN_vbiedGarageVehicles    = ["C_Offroad_01_F", "C_Hatchback_01_F", "C_SUV_01_F", "C_Van_01_transport_F"];
+COIN_nestVehicleOutside     = 20;       // m beyond the house searched for a vehicle spot if there is no room inside
 COIN_nestPropsCount         = [2, 4];   // [min, max] props next to the core object
 // Core object per type: destroying it destroys the nest (Phase 2, ticket 2.4). Only classes Arma can destroy,
 // checked on server start (destrType, armor); a class that fails is replaced by COIN_nestCoreFallback (one log line)
 COIN_nestCores = [
-    ["command",      "Land_SatelliteAntenna_01_F"],     // Satellite dish
+    ["command",      "Box_East_AmmoOrd_F"],             // Explosives crate (satellite dish cannot be destroyed, test 2026-10-20); a template core wins
     ["iedWorkshop",  "Box_East_AmmoOrd_F"],             // Explosives crate
     ["cache",        "Box_East_Wps_F"],                 // Weapons crate
     ["vbiedGarage",  "Box_IED_Exp_F"],                  // IED crate

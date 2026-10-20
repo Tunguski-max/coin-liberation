@@ -136,16 +136,27 @@ private _plan = [];
     private _minArea = ([COIN_nestBuildingMinArea, _type] call COIN_fnc_findByType) param [1, 0];
     private _classes = (([COIN_nestBuildingClasses, _type] call COIN_fnc_findByType) param [1, []]) apply {toLower _x};
     private _minPositions = ([COIN_nestBuildingMinPositions, _type] call COIN_fnc_findByType) param [1, 0];
-    private _typeHouses = _houses select {
-        (_x select 3) >= _minArea
-        && {(_x select 4) >= _minPositions}
-        && {_classes isEqualTo [] || {toLower (_x select 2) in _classes}}
+    // With templates for this type only their house classes count (ADR 0019), otherwise footprint, positions and classes
+    private _templateClasses = (COIN_nestValidTemplates select {(_x select 0) isEqualTo _type}) apply {_x select 1};
+    _templateClasses = _templateClasses arrayIntersect _templateClasses;
+    private _typeHouses = if (_templateClasses isEqualTo []) then {
+        _houses select {
+            (_x select 3) >= _minArea
+            && {(_x select 4) >= _minPositions}
+            && {_classes isEqualTo [] || {toLower (_x select 2) in _classes}}
+        }
+    } else {
+        _houses select {toLower (_x select 2) in _templateClasses}
     };
     if (_share > 0) then {
-        diag_log format [
-            "[COIN] nests: %1 houses with at least %2 m2 and %3 building positions for %4 nests%5",
-            count _typeHouses, _minArea, _minPositions, _type, ["", format [" (%1 allowed classes)", count _classes]] select (count _classes > 0)
-        ];
+        if (_templateClasses isEqualTo []) then {
+            diag_log format [
+                "[COIN] nests: %1 houses with at least %2 m2 and %3 building positions for %4 nests%5",
+                count _typeHouses, _minArea, _minPositions, _type, ["", format [" (%1 allowed classes)", count _classes]] select (count _classes > 0)
+            ];
+        } else {
+            diag_log format ["[COIN] nests: %1 houses of the template classes %2 for %3 nests", count _typeHouses, _templateClasses, _type];
+        };
     };
     _plan pushBack [_type, _count, _share, _typeHouses];
 } forEach COIN_nestSetup;
