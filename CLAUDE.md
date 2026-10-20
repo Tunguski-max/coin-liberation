@@ -72,7 +72,7 @@ Jede Änderung wird von Niklas lokal getestet. Deshalb gilt für **jede** Implem
   `COIN_fnc_addToCurators`, damit Zeus es sehen und löschen kann.
 
 ### Mods
-Erlaubte Abhängigkeiten: CBA, ACE, RHS, CUP Terrains, Project OPFOR, TFAR, Jbad, Lythium.
+Erlaubte Abhängigkeiten: CBA, ACE, RHS, CUP Terrains, CUP Vehicles, Project OPFOR, TFAR, Jbad, Lythium.
 ACE-Funktionen sind ausdrücklich erwünscht (Interaktionsmenü, Fesseln, Sprengstoff).
 Keine neuen Mod-Abhängigkeiten ohne Rückfrage.
 
