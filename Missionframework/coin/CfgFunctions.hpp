@@ -75,6 +75,13 @@ class COIN {
         };
     };
 
+    class common {
+        file = "coin\functions\common";
+
+        // Row of a config table keyed by nest type (COIN_nestSetup, COIN_nestBuildingShare, ...)
+        class findByType {};
+    };
+
     class persistence {
         file = "coin\functions\persistence";
 
@@ -91,8 +98,17 @@ class COIN {
         // Server: nests from the save or new ones for a new campaign, debug map (tickets 2.1 and 2.5, ADR 0018)
         class initNests {};
 
-        // Server: nests of a new campaign as data, simple placement until ticket 2.2
+        // Server: nests of a new campaign as data, placement rules and "best candidate" (ticket 2.2)
         class createNests {};
+
+        // Placement rules every nest has to keep (map edge, start base, capital, sector centres)
+        class isNestSpotAllowed {};
+
+        // Houses at the edge of the towns that can hold a building nest
+        class collectNestHouses {};
+
+        // Candidate places for a terrain nest (away from towns and roads, flat and free)
+        class findTerrainNestSpots {};
 
         // Influence radius of a nest type from COIN_nestSetup
         class getNestRadius {};

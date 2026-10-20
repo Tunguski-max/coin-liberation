@@ -74,9 +74,30 @@ COIN_nestSetup = [
     ["vbiedGarage",  1, 2500],
     ["recruitment",  2, 2000]
 ];
-COIN_nestMinDistStartBase   = 4000;     // m between nests and the start base at campaign start
+// Placement at campaign start (ticket 2.2, DESIGN 5, ADR 0018)
+COIN_nestMinDistStartBase   = 4000;     // m between nests and the start base
 COIN_nestMinDistCapital     = 1000;     // m between nests and the capital (Liberation's sectors_bigtown)
-COIN_nestPlaceAttempts      = 1000;     // Random positions tried per nest before it is left out (simple placement, ticket 2.1)
+COIN_nestMinDistSector      = 250;      // m between nests and every sector centre (Liberation evaluates 175 m around it)
+COIN_nestMinDistMapEdge     = 1000;     // m between nests and the map edge
+COIN_nestMinDistNests       = 2500;     // m between two nests ...
+COIN_nestMinDistNestsStep   = 250;      // ... lowered by this per step if a nest finds no place (one log line per step) ...
+COIN_nestMinDistNestsMin    = 1000;     // ... but never below this, then the nest is left out
+COIN_nestCandidates         = 30;       // Valid places drawn per nest, the one farthest from the other nests wins ("best candidate")
+COIN_nestPlaceAttempts      = 1000;     // Random positions tried per nest and step to find these terrain candidates
+// Share of building nests per type, the rest are terrain nests (on average about 7 building and 4 terrain nests)
+COIN_nestBuildingShare = [
+    ["command",      0.5],
+    ["iedWorkshop",  0.7],
+    ["cache",        0.3],
+    ["vbiedGarage",  1.0],
+    ["recruitment",  1.0]
+];
+COIN_nestBuildingRing       = [250, 600]; // [min, max] m between the house of a building nest and its town's centre (not the capital)
+COIN_nestBuildingMinPositions = 6;      // Building positions a house needs (core object, props and part of the guards)
+COIN_nestTerrainMinDistTown = 500;      // m between terrain nests and towns, as for camps (DESIGN 5.1)
+COIN_nestTerrainMinDistRoad = 150;      // m between terrain nests and roads, as for camps
+COIN_nestTerrainFlatRadius  = 15;       // m around a terrain nest that must be free of objects and flat ...
+COIN_nestTerrainMaxGradient = 0.15;     // ... with at most this gradient (isFlatEmpty, 1 = 45 degrees)
 // Debug map (lobby parameter "COIN Debug"): marker color per nest type, destroyed nests are grey
 COIN_nestDebugColors = [
     ["command",      "ColorRed"],
