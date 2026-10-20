@@ -33,19 +33,23 @@ coin/
     │   ├── fn_markCoinUnits.sqf        COIN_fnc_markCoinUnits: kennzeichnet von COIN gespawnte Einheiten für das Budget
     │   ├── fn_countCoinUnits.sqf       COIN_fnc_countCoinUnits: zählt lebende COIN-Einheiten auf der Feindseite
     │   └── fn_campFitsBudget.sqf       COIN_fnc_campFitsBudget: darf ein Camp mit N Kämpfern jetzt spawnen? Ganz oder gar nicht (COIN_maxCampAI)
+    ├── common/
+    │   └── fn_findByType.sqf           COIN_fnc_findByType: Zeile einer Config-Tabelle nach Nest-Typ
     ├── persistence/
     │   ├── fn_receiveSaveBlock.sqf     COIN_fnc_receiveSaveBlock: merkt sich Eintrag 22 beim Laden des Spielstands (Hook 18)
     │   └── fn_getSaveBlock.sqf         COIN_fnc_getSaveBlock: baut Eintrag 22 beim Speichern, [COIN_saveVersion, Nester] (Hook 17)
     └── nests/
         ├── fn_initNests.sqf            COIN_fnc_initNests: Server, Nester aus dem Spielstand oder neu, Debug-Karte (ADR 0018)
-        ├── fn_createNests.sqf          COIN_fnc_createNests: Nester einer neuen Kampagne als Daten (einfache Platzierung bis Ticket 2.2)
+        ├── fn_createNests.sqf          COIN_fnc_createNests: Nester einer neuen Kampagne als Daten, Art pro Typ, „bester Kandidat“, Lockerung
+        ├── fn_isNestSpotAllowed.sqf    COIN_fnc_isNestSpotAllowed: Regeln für jedes Nest (Kartenrand, Startbasis, Hauptstadt, Sektoren)
+        ├── fn_collectNestHouses.sqf    COIN_fnc_collectNestHouses: Häuser am Ortsrand für Gebäude-Nester (250–600 m)
+        ├── fn_findTerrainNestSpots.sqf COIN_fnc_findTerrainNestSpots: Kandidaten für Gelände-Nester (abseits von Orten und Straßen, eben)
         ├── fn_getNestRadius.sqf        COIN_fnc_getNestRadius: Einflussradius eines Nest-Typs aus COIN_nestSetup
         └── fn_drawNestMarkers.sqf      COIN_fnc_drawNestMarkers: globale Debug-Marker der Nester (Lobby-Parameter „COIN Debug“)
 ```
 
 Geplante weitere Kategorien unter `functions/` (anlegen, wenn sie gebraucht werden):
-`common/` (Zeus-Anbindung `COIN_fnc_addToCurators`, Hilfsfunktionen),
-`intel/` (Phase 3), `threats/` (Phase 4), `reputation/` (Phase 5).
+`intel/` (Phase 3), `threats/` (Phase 4), `reputation/` (Phase 5). In `common/` kommt noch die Zeus-Anbindung `COIN_fnc_addToCurators`.
 
 ## Ablauf beim Missionsstart
 

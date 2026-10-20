@@ -20,11 +20,7 @@ if (!isServer || {isNil "COIN_nests"}) exitWith {0};
 {
     _x params ["_id", "_type", "_kind", "_pos", "_seed", "_state"];
 
-    private _colorIndex = COIN_nestDebugColors findIf {(_x select 0) isEqualTo _type};
-    private _color = "ColorBlack";
-    if (_colorIndex >= 0) then {
-        _color = (COIN_nestDebugColors select _colorIndex) select 1;
-    };
+    private _color = ([COIN_nestDebugColors, _type] call COIN_fnc_findByType) param [1, "ColorBlack"];
     private _destroyed = _state isEqualTo "destroyed";
     if (_destroyed) then {
         _color = "ColorGrey";

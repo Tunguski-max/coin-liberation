@@ -74,9 +74,69 @@ COIN_nestSetup = [
     ["vbiedGarage",  1, 2500],
     ["recruitment",  2, 2000]
 ];
-COIN_nestMinDistStartBase   = 4000;     // m between nests and the start base at campaign start
+// Placement at campaign start (ticket 2.2, DESIGN 5, ADR 0018)
+COIN_nestMinPerType         = 2;        // Nests of every type at least; the most frequent type of COIN_nestSetup gives nests away, the total stays
+COIN_nestMinDistStartBase   = 4000;     // m between nests and the start base
 COIN_nestMinDistCapital     = 1000;     // m between nests and the capital (Liberation's sectors_bigtown)
-COIN_nestPlaceAttempts      = 1000;     // Random positions tried per nest before it is left out (simple placement, ticket 2.1)
+COIN_nestMinDistSector      = 250;      // m between nests and every sector centre (Liberation evaluates 175 m around it)
+COIN_nestMinDistMapEdge     = 1000;     // m between nests and the map edge
+COIN_nestMinDistNests       = 2500;     // m between two nests ...
+COIN_nestMinDistNestsStep   = 250;      // ... lowered by this per step if a nest finds no place (one log line per step) ...
+COIN_nestMinDistNestsMin    = 1000;     // ... but never below this, then the nest is left out
+COIN_nestCandidates         = 30;       // Valid places drawn per nest, the one farthest from the other nests wins ("best candidate")
+COIN_nestPlaceAttempts      = 1000;     // Random positions tried per nest and step to find these terrain candidates
+// Share of building nests per type, the rest are terrain nests (on average about 7 building and 4 terrain nests)
+COIN_nestBuildingShare = [
+    ["command",      0.5],
+    ["iedWorkshop",  0.7],
+    ["cache",        0.3],
+    ["vbiedGarage",  1.0],
+    ["recruitment",  1.0]
+];
+COIN_nestBuildingRing       = [250, 600]; // [min, max] m between the house of a building nest and its town's centre (not the capital)
+// Building positions a house needs per type: core object, 2-4 props and part of the guards.
+// The VBIED garage only holds core object and props, its guards stand outside (garages have 2-7 positions)
+COIN_nestBuildingMinPositions = [
+    ["command",      8],
+    ["iedWorkshop",  8],
+    ["cache",        8],
+    ["vbiedGarage",  2],
+    ["recruitment",  8]
+];
+// Footprint a house needs per type in m² (from boundingBoxReal), 0 = any size. Measuring run 2026-10-20 on Lythium
+// (287 houses, 102 / 266 / 2766 m² min / median / max): recruitment houses of 275 and 667 m² are the reference,
+// IED workshops of 134 and 157 m² fit, an industrial shed of 619 m² is the ideal VBIED garage
+COIN_nestBuildingMinArea = [
+    ["command",      250],
+    ["iedWorkshop",  130],
+    ["cache",        0],
+    ["vbiedGarage",  0],      // Chosen by class instead (COIN_nestBuildingClasses): large houses of 667 m² did not fit
+    ["recruitment",  250]
+];
+// Allowed house classes per type, a type without a row takes any class (then only the footprint counts).
+// Case does not matter. With COIN_debug, the RPT lists every house class at the town edges (catalog) to choose from.
+// VBIED garage chosen in Zeus on 2026-10-20 (Land_i_Shed_Ind_F is the reference, small Altis garages left out)
+COIN_nestBuildingClasses = [
+    ["vbiedGarage", [
+        "Land_i_Shed_Ind_F",
+        "Land_jbad_hangar_2",
+        "Land_ffaa_casa_hangar_2",
+        "Land_CarService_F",
+        "jbad_opx2_garage1",
+        "Land_GarageRow_01_large_F",
+        "Land_Jbad_Ind_Garage01",       // From the catalog of 2026-10-20: 4 at town edges, 188 m², 4 building positions
+        "Land_Shed_Big_F",
+        "Land_Warehouse_01_F",
+        "Land_Warehouse_02_F",
+        "Land_Warehouse_03_F"
+    ]]
+];
+// Classes that count as "House" and have building positions but are no houses (case does not matter)
+COIN_nestBuildingExcludedClasses = ["Land_Pier_F", "Land_Airport_left_F", "Land_Airport_right_F", "Land_Airport_center_F"];
+COIN_nestTerrainMinDistTown = 500;      // m between terrain nests and towns, as for camps (DESIGN 5.1)
+COIN_nestTerrainMinDistRoad = 150;      // m between terrain nests and roads, as for camps
+COIN_nestTerrainFlatRadius  = 15;       // m around a terrain nest that must be free of objects and flat ...
+COIN_nestTerrainMaxGradient = 0.15;     // ... with at most this terrain gradient (isFlatEmpty, as BIS_fnc_findSafePos uses it)
 // Debug map (lobby parameter "COIN Debug"): marker color per nest type, destroyed nests are grey
 COIN_nestDebugColors = [
     ["command",      "ColorRed"],
