@@ -93,7 +93,15 @@ COIN_nestBuildingShare = [
     ["recruitment",  1.0]
 ];
 COIN_nestBuildingRing       = [250, 600]; // [min, max] m between the house of a building nest and its town's centre (not the capital)
-COIN_nestBuildingMinPositions = 8;      // Building positions a house needs: core object, 2-4 props and part of the guards
+// Building positions a house needs per type: core object, 2-4 props and part of the guards.
+// The VBIED garage only holds core object and props, its guards stand outside (garages have 2-7 positions)
+COIN_nestBuildingMinPositions = [
+    ["command",      8],
+    ["iedWorkshop",  8],
+    ["cache",        8],
+    ["vbiedGarage",  2],
+    ["recruitment",  8]
+];
 // Footprint a house needs per type in m² (from boundingBoxReal), 0 = any size. Measuring run 2026-10-20 on Lythium
 // (287 houses, 102 / 266 / 2766 m² min / median / max): recruitment houses of 275 and 667 m² are the reference,
 // IED workshops of 134 and 157 m² fit, an industrial shed of 619 m² is the ideal VBIED garage
@@ -106,15 +114,15 @@ COIN_nestBuildingMinArea = [
 ];
 // Allowed house classes per type, a type without a row takes any class (then only the footprint counts).
 // Case does not matter. With COIN_debug, the RPT lists every house class at the town edges (catalog) to choose from.
-// Measuring run 2026-10-20: Land_i_Shed_Ind_F is the reference VBIED garage, the rest are halls and garages to be checked in Zeus
+// VBIED garage chosen in Zeus on 2026-10-20 (Land_i_Shed_Ind_F is the reference, small Altis garages left out)
 COIN_nestBuildingClasses = [
     ["vbiedGarage", [
         "Land_i_Shed_Ind_F",
         "Land_jbad_hangar_2",
         "Land_ffaa_casa_hangar_2",
         "Land_CarService_F",
-        "Land_i_Garage_V1_F",
-        "Land_i_Garage_V2_F",
+        "jbad_opx2_garage1",
+        "Land_GarageRow_01_large_F",
         "Land_Shed_Big_F",
         "Land_Warehouse_01_F",
         "Land_Warehouse_02_F",

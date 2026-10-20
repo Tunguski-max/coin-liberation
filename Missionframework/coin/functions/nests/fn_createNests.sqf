@@ -102,10 +102,10 @@ if !(_houses isEqualTo []) then {
 // Debug catalog to choose COIN_nestBuildingClasses from: every house class at the town edges, largest first,
 // with its number, footprint and one example to look at in Zeus
 if (COIN_debug) then {
-    private _catalog = createHashMap;   // class -> [footprint, number, town of the example, position of the example]
+    private _catalog = createHashMap;   // class -> [footprint, number, town of the example, position of the example, building positions]
     {
-        _x params ["_pos", "_town", "_class", "_area"];
-        private _entry = _catalog getOrDefault [_class, [_area, 0, _town, _pos]];
+        _x params ["_pos", "_town", "_class", "_area", "_positions"];
+        private _entry = _catalog getOrDefault [_class, [_area, 0, _town, _pos, _positions]];
         _entry set [1, (_entry select 1) + 1];
         _catalog set [_class, _entry];
     } forEach _houses;
@@ -117,11 +117,11 @@ if (COIN_debug) then {
     } forEach _catalog;
     _rows sort false;
 
-    diag_log format ["[COIN] nests: catalog of %1 house classes at the town edges (class: number, footprint, example)", count _rows];
+    diag_log format ["[COIN] nests: catalog of %1 house classes at the town edges (class: number, footprint, building positions, example)", count _rows];
     {
         _x params ["_area", "_class"];
         private _entry = _catalog get _class;
-        diag_log format ["[COIN] nests: catalog %1: %2 houses, %3 m2, e.g. %4 at %5", _class, _entry select 1, _area, markerText (_entry select 2), _entry select 3];
+        diag_log format ["[COIN] nests: catalog %1: %2 houses, %3 m2, %4 building positions, e.g. %5 at %6", _class, _entry select 1, _area, _entry select 4, markerText (_entry select 2), _entry select 3];
     } forEach _rows;
 };
 
@@ -134,13 +134,16 @@ private _id = 0;
     private _share = ([COIN_nestBuildingShare, _type] call COIN_fnc_findByType) param [1, 0];
     private _minArea = ([COIN_nestBuildingMinArea, _type] call COIN_fnc_findByType) param [1, 0];
     private _classes = (([COIN_nestBuildingClasses, _type] call COIN_fnc_findByType) param [1, []]) apply {toLower _x};
+    private _minPositions = ([COIN_nestBuildingMinPositions, _type] call COIN_fnc_findByType) param [1, 0];
     private _typeHouses = _houses select {
-        (_x select 3) >= _minArea && {_classes isEqualTo [] || {toLower (_x select 2) in _classes}}
+        (_x select 3) >= _minArea
+        && {(_x select 4) >= _minPositions}
+        && {_classes isEqualTo [] || {toLower (_x select 2) in _classes}}
     };
     if (_share > 0) then {
         diag_log format [
-            "[COIN] nests: %1 houses with at least %2 m2 for %3 nests%4",
-            count _typeHouses, _minArea, _type, ["", format [" (%1 allowed classes)", count _classes]] select (count _classes > 0)
+            "[COIN] nests: %1 houses with at least %2 m2 and %3 building positions for %4 nests%5",
+            count _typeHouses, _minArea, _minPositions, _type, ["", format [" (%1 allowed classes)", count _classes]] select (count _classes > 0)
         ];
     };
 
@@ -155,7 +158,7 @@ private _id = 0;
         if (_kind isEqualTo "building") then {
             _best = [_nestId, _type, _kind, _placed, _findHouses] call _placeRelaxed;
             if (_best isEqualTo []) then {
-                diag_log format ["[COIN] nests: no house for nest %1 (%2 building, %3 houses with at least %4 m2) even with %5 m between nests, terrain nest instead", _nestId, _type, count _typeHouses, _minArea, COIN_nestMinDistNestsMin];
+                diag_log format ["[COIN] nests: no house for nest %1 (%2 building, %3 suitable houses) even with %4 m between nests, terrain nest instead", _nestId, _type, count _typeHouses, COIN_nestMinDistNestsMin];
                 _kind = "terrain";
             };
         };
