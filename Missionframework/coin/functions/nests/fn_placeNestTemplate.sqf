@@ -7,7 +7,9 @@
         position in the house model and turned with the house, so the layout follows the house's orientation.
         All objects are created first and then set down on the floor below them, at most COIN_templateSnapMax away
         (objects on tables stay on tables). Props have no simulation; the vehicle of a VBIED garage is locked and keeps
-        its simulation, so it can be destroyed (decoration, not the core object). Nothing is saved by Liberation.
+        its simulation, so it can be destroyed (decoration, not the core object). Mines are live (createMine), players
+        can defuse them with ACE. Everything except the mines is excluded from Liberation's save: Liberation saves every
+        mine near a FOB, so a FOB within about 150 m of such a nest doubles them after a restart (known limitation).
         Server only.
 
     Parameter(s):
@@ -35,12 +37,20 @@ private _vehicles = [];
 {
     _x params ["_class", "_offset", "_dirOffset", "_role"];
     if (_role isEqualTo "vehicle" && {!COIN_enableNestVehicle}) then {continue};
+    if (_role isEqualTo "mine" && {!COIN_enableNestMines}) then {continue};
 
-    private _object = createVehicle [_class, [0, 0, 0], [], 0, "CAN_COLLIDE"];
-    // No physics while it is moved into the house
-    _object enableSimulationGlobal false;
+    private _posASL = AGLToASL (_house modelToWorld _offset);
+    private _object = if (_role isEqualTo "mine") then {
+        // Live mine (decided 2026-10-20): players can defuse it with ACE, a shot can set it off
+        createMine [_class, ASLToATL _posASL, [], 0]
+    } else {
+        private _created = createVehicle [_class, [0, 0, 0], [], 0, "CAN_COLLIDE"];
+        // No physics while it is moved into the house
+        _created enableSimulationGlobal false;
+        _created
+    };
     _object setDir (_houseDir + _dirOffset);
-    _object setPosASL (AGLToASL (_house modelToWorld _offset));
+    _object setPosASL _posASL;
     _object setVariable ["KP_liberation_preplaced", true];
 
     switch (_role) do {

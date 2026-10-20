@@ -52,6 +52,23 @@ COIN_nestValidProps = createHashMap;
     COIN_nestValidProps set [_type, _valid];
 } forEach COIN_nestProps;
 
+// Mine class (CfgVehicles, e.g. ATMine) that uses an ammunition class (e.g. ATMine_Range_Ammo), "" if none.
+// Looked up once per ammunition, the search runs over all of CfgVehicles
+private _mineClasses = createHashMap;
+private _mineClassOf = {
+    params ["_ammo"];
+    if !(_ammo in _mineClasses) then {
+        private _found = "";
+        {
+            if ((getText (_x >> "ammo")) isEqualTo _ammo && {(configName _x) isKindOf "MineBase"}) exitWith {
+                _found = configName _x;
+            };
+        } forEach ("true" configClasses (configFile >> "CfgVehicles"));
+        _mineClasses set [_ammo, _found];
+    };
+    _mineClasses get _ammo
+};
+
 COIN_nestValidTemplates = [];
 {
     _x params [["_type", ""], ["_houseClass", ""], ["_objects", []]];
@@ -62,9 +79,17 @@ COIN_nestValidTemplates = [];
         diag_log format ["[COIN] nests: ERROR - %1: malformed entries left out: %2", _label, _objects - _wellFormed];
     };
     // Deep copy, so a replaced core class does not change the config list
-    private _valid = +(_wellFormed select {isClass (configFile >> "CfgVehicles" >> (_x select 0))});
-    if (count _valid < count _objects) then {
-        diag_log format ["[COIN] nests: %1: classes not found and left out: %2", _label, (_objects - _valid) apply {_x select 0}];
+    _wellFormed = +_wellFormed;
+    // Mines are exported as their ammunition (what Eden places), createMine needs the mine class that uses it
+    {
+        _x params ["_class", "", "", "_role"];
+        if (_role isEqualTo "mine" && {!isClass (configFile >> "CfgVehicles" >> _class)}) then {
+            _x set [0, [_class] call _mineClassOf];
+        };
+    } forEach _wellFormed;
+    private _valid = _wellFormed select {isClass (configFile >> "CfgVehicles" >> (_x select 0))};
+    if (count _valid < count _wellFormed) then {
+        diag_log format ["[COIN] nests: %1: classes not found and left out: %2", _label, (_wellFormed - _valid) apply {_x select 0}];
     };
     private _cores = _valid select {(_x select 3) isEqualTo "core"};
     if (count _cores != 1) then {

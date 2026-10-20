@@ -8,9 +8,10 @@
         direction relative to the house and role as one line "COIN_nestBuildingTemplates pushBack [...];" to the
         clipboard and the RPT, ready to paste into coin_templates.sqf.
         Role: "core" for the object with the variable name "core" (Eden) or, if there is none, the first object of the
-        type's class in COIN_nestCores; "vehicle" for land vehicles; "prop" for the rest.
+        type's class in COIN_nestCores; "mine" for mines (live, decided 2026-10-20); "vehicle" for land vehicles;
+        "prop" for the rest.
         Only objects placed in the editor or by Zeus count: no terrain objects, units, logics, weapon holders or the
-        player's vehicle, no ambient effects or mine ammunition. Positions are taken at the object's contact point
+        player's vehicle, no ambient effects. Positions are taken at the object's contact point
         (getPosASL), as the spawn sets them.
         For the debug console of the mission; docs/templates.md has the same export for a plain Eden scenario.
         The clipboard works in single player and on the local host only.
@@ -41,21 +42,25 @@ private _margin = 3;
 ([_house] call COIN_fnc_halfSize) params ["_halfX", "_halfY"];
 private _coreClass = ([COIN_nestCores, _type] call COIN_fnc_findByType) param [1, ""];
 
-// Search radius reaches the corners of the outline, the rectangle check below does the rest
-private _objects = (nearestObjects [_house, [], vectorMagnitude [_halfX + _margin, _halfY + _margin, 0]]) select {
+private _inside = {
     private _local = _house worldToModel (ASLToAGL (getPosASL _x));
+    abs (_local select 0) <= _halfX + _margin && {abs (_local select 1) <= _halfY + _margin}
+};
+
+// Search radius reaches the corners of the outline, the rectangle check does the rest
+private _objects = (nearestObjects [_house, [], vectorMagnitude [_halfX + _margin, _halfY + _margin, 0]]) select {
     !(_x isEqualTo _house)
     && {getObjectType _x == 8}
     && {!(_x isKindOf "CAManBase")}
     && {!(_x isKindOf "Logic")}
     && {!(_x isKindOf "WeaponHolder")}
-    // Placeable objects only: no ambient effects (FxWindGrass, HouseFly) and no mine ammunition
+    // Placeable objects only: no ambient effects (FxWindGrass, HouseFly), mines are added below
     && {isClass (configFile >> "CfgVehicles" >> typeOf _x)}
     && {((typeOf _x) find "Fx") != 0}
     && {!(_x isEqualTo (vehicle player))}
-    && {abs (_local select 0) <= _halfX + _margin}
-    && {abs (_local select 1) <= _halfY + _margin}
+    && _inside
 };
+_objects append (allMines select _inside);
 
 private _coreIndex = _objects findIf {(vehicleVarName _x) isEqualTo "core"};
 if (_coreIndex < 0) then {
@@ -68,6 +73,7 @@ private _entries = [];
     private _dir = ((getDir _x) - (getDir _house) + 360) mod 360;
     private _role = switch (true) do {
         case (_forEachIndex == _coreIndex): {"core"};
+        case (_x in allMines): {"mine"};
         case (_x isKindOf "LandVehicle"): {"vehicle"};
         default {"prop"};
     };
