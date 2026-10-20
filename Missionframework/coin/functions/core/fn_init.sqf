@@ -16,6 +16,7 @@
 */
 
 [] call compileFinal preprocessFileLineNumbers "coin\coin_config.sqf";
+[] call compileFinal preprocessFileLineNumbers "coin\coin_templates.sqf";
 
 // Lobby parameter "COIN Debug" (ticket 2.5) switches debug on for the whole mission, on every machine
 if ((["COINDebug", 0] call BIS_fnc_getParamValue) == 1) then {

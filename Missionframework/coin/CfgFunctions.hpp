@@ -96,6 +96,9 @@ class COIN {
         // Half width and half length of an object (bounding box)
         class halfSize {};
 
+        // Can Arma destroy objects of this class (core objects)?
+        class isDestructible {};
+
         // Height of the floor below a spot (building floor or terrain)
         class getFloorASL {};
 
@@ -111,6 +114,9 @@ class COIN {
 
         // Debug console: core object, props and vehicles of a nest type in a row, for tuning
         class debugNestContent {};
+
+        // Debug console: building template of the house the player looks at, to the clipboard
+        class exportNestTemplate {};
     };
 
     class persistence {
@@ -153,7 +159,13 @@ class COIN {
         // Server: core object, props and guards of a building nest
         class spawnBuildingNest {};
 
-        // Server: civilian vehicle of a VBIED garage, inside the hall or next to it
+        // Server: core object, props and vehicle after a building template (ADR 0019)
+        class placeNestTemplate {};
+
+        // Server: free placement for houses without a template
+        class placeNestFree {};
+
+        // Server: civilian vehicle of a VBIED garage (free placement), inside the hall or next to it
         class placeNestVehicle {};
 
         // Server loop: spawns nests near players and removes them again (ticket 2.3)

@@ -187,6 +187,7 @@ COIN_spotFloorTolerance     = 0.5;      // m a spot next to the core object may 
 COIN_nestDoorClearance      = 1.2;      // m props and vehicles keep from door points
 COIN_doorSelectionNames     = ["door", "dvere"]; // Memory points of doors contain one of these (Arma 3 / Arma 2, CUP, Jbad)
 COIN_nestPropTries          = 12;       // Spots next to the core object tried per prop when no building position is free
+COIN_templateSnapMax        = 0.3;      // m a template object is moved at most to stand on the floor (ADR 0019, coin_templates.sqf)
 // VBIED garage: a civilian vehicle as a prop (not the core object, decoration only, locked for players)
 COIN_enableNestVehicle      = true;     // Off: VBIED garages without vehicle
 COIN_vbiedGarageVehicles    = ["C_Offroad_01_F", "C_Hatchback_01_F", "C_SUV_01_F", "C_Van_01_transport_F"];
