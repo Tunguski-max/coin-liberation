@@ -12,32 +12,40 @@ coin/
 ├── init_server.sqf        Server-Teil des Moduls
 ├── init_client.sqf        Client-Teil des Moduls (Maschinen mit Interface)
 └── functions/
-    └── core/
-        ├── fn_init.sqf              COIN_fnc_init: Einstiegspunkt (postInit)
-        ├── fn_applyRoleTraits.sqf   COIN_fnc_applyRoleTraits: ACE-Fähigkeiten der Slots (EOD, Sanitäter)
-        ├── fn_markFactions.sqf      COIN_fnc_markFactions: Server-Schleife, farbiges Kopftuch für Miliz und Widerstand
-        ├── fn_getSquadMixShare.sqf  COIN_fnc_getSquadMixShare: Anteil gepanzerter Islamic-State-Kämpfer nach Bereitschaft
-        ├── fn_mixClass.sqf          COIN_fnc_mixClass: tauscht eine Miliz-Klasse gegen ihr Islamic-State-Gegenstück (Hook 10)
-        ├── fn_mixSquad.sqf          COIN_fnc_mixSquad: tauscht eine ganze Squad (Hook 9)
-        ├── fn_registerSquadTwins.sqf COIN_fnc_registerSquadTwins: Zwillingsklassen in KPLIB_o_inf_classes
-        ├── fn_createDiary.sqf       COIN_fnc_createDiary: Karten-Tagebuch "COIN Liberation" für Spieler
-        ├── fn_vehicleLimitStatus.sqf   COIN_fnc_vehicleLimitStatus: darf diese Klasse jetzt gekauft werden? (Kaufmenü und Server)
-        ├── fn_vehicleLimitPurchase.sqf COIN_fnc_vehicleLimitPurchase: Server-Prüfung beim Kauf, startet die Sperre (Hook 12)
-        ├── fn_vehicleLimitRelease.sqf  COIN_fnc_vehicleLimitRelease: Server hebt die Sperre eines abgebrochenen Kaufs auf
-        ├── fn_vehicleLimitDeny.sqf     COIN_fnc_vehicleLimitDeny: Client bricht die Platzierung nach abgelehntem Kauf ab
-        ├── fn_vehicleLimitCancel.sqf   COIN_fnc_vehicleLimitCancel: Client meldet einen abgebrochenen Kauf (Hook 13)
-        ├── fn_guaranteeResources.sqf   COIN_fnc_guaranteeResources: gleicht die Sorten der Supply Points aus, bei 8 immer 3-3-2 (Hook 14)
-        ├── fn_secondaryMissionStatus.sqf COIN_fnc_secondaryMissionStatus: darf diese Nebenmission starten? FOB Hunting ist abgeschaltet (Hooks 15 und 16)
-        ├── fn_aiBudget.sqf             COIN_fnc_aiBudget: Server-Schleife, Liberations Gegner-Grenzen = 100 × Unitcap + COIN-Einheiten (ADR 0015)
-        ├── fn_applyEnemyAICaps.sqf     COIN_fnc_applyEnemyAICaps: setzt Liberations drei Grenzen auf dieser Maschine (Server und Clients)
-        ├── fn_markCoinUnits.sqf        COIN_fnc_markCoinUnits: kennzeichnet von COIN gespawnte Einheiten für das Budget
-        ├── fn_countCoinUnits.sqf       COIN_fnc_countCoinUnits: zählt lebende COIN-Einheiten auf der Feindseite
-        └── fn_campFitsBudget.sqf       COIN_fnc_campFitsBudget: darf ein Camp mit N Kämpfern jetzt spawnen? Ganz oder gar nicht (COIN_maxCampAI)
+    ├── core/
+    │   ├── fn_init.sqf              COIN_fnc_init: Einstiegspunkt (postInit)
+    │   ├── fn_applyRoleTraits.sqf   COIN_fnc_applyRoleTraits: ACE-Fähigkeiten der Slots (EOD, Sanitäter)
+    │   ├── fn_markFactions.sqf      COIN_fnc_markFactions: Server-Schleife, farbiges Kopftuch für Miliz und Widerstand
+    │   ├── fn_getSquadMixShare.sqf  COIN_fnc_getSquadMixShare: Anteil gepanzerter Islamic-State-Kämpfer nach Bereitschaft
+    │   ├── fn_mixClass.sqf          COIN_fnc_mixClass: tauscht eine Miliz-Klasse gegen ihr Islamic-State-Gegenstück (Hook 10)
+    │   ├── fn_mixSquad.sqf          COIN_fnc_mixSquad: tauscht eine ganze Squad (Hook 9)
+    │   ├── fn_registerSquadTwins.sqf COIN_fnc_registerSquadTwins: Zwillingsklassen in KPLIB_o_inf_classes
+    │   ├── fn_createDiary.sqf       COIN_fnc_createDiary: Karten-Tagebuch "COIN Liberation" für Spieler
+    │   ├── fn_vehicleLimitStatus.sqf   COIN_fnc_vehicleLimitStatus: darf diese Klasse jetzt gekauft werden? (Kaufmenü und Server)
+    │   ├── fn_vehicleLimitPurchase.sqf COIN_fnc_vehicleLimitPurchase: Server-Prüfung beim Kauf, startet die Sperre (Hook 12)
+    │   ├── fn_vehicleLimitRelease.sqf  COIN_fnc_vehicleLimitRelease: Server hebt die Sperre eines abgebrochenen Kaufs auf
+    │   ├── fn_vehicleLimitDeny.sqf     COIN_fnc_vehicleLimitDeny: Client bricht die Platzierung nach abgelehntem Kauf ab
+    │   ├── fn_vehicleLimitCancel.sqf   COIN_fnc_vehicleLimitCancel: Client meldet einen abgebrochenen Kauf (Hook 13)
+    │   ├── fn_guaranteeResources.sqf   COIN_fnc_guaranteeResources: gleicht die Sorten der Supply Points aus, bei 8 immer 3-3-2 (Hook 14)
+    │   ├── fn_secondaryMissionStatus.sqf COIN_fnc_secondaryMissionStatus: darf diese Nebenmission starten? FOB Hunting ist abgeschaltet (Hooks 15 und 16)
+    │   ├── fn_aiBudget.sqf             COIN_fnc_aiBudget: Server-Schleife, Liberations Gegner-Grenzen = 100 × Unitcap + COIN-Einheiten (ADR 0015)
+    │   ├── fn_applyEnemyAICaps.sqf     COIN_fnc_applyEnemyAICaps: setzt Liberations drei Grenzen auf dieser Maschine (Server und Clients)
+    │   ├── fn_markCoinUnits.sqf        COIN_fnc_markCoinUnits: kennzeichnet von COIN gespawnte Einheiten für das Budget
+    │   ├── fn_countCoinUnits.sqf       COIN_fnc_countCoinUnits: zählt lebende COIN-Einheiten auf der Feindseite
+    │   └── fn_campFitsBudget.sqf       COIN_fnc_campFitsBudget: darf ein Camp mit N Kämpfern jetzt spawnen? Ganz oder gar nicht (COIN_maxCampAI)
+    ├── persistence/
+    │   ├── fn_receiveSaveBlock.sqf     COIN_fnc_receiveSaveBlock: merkt sich Eintrag 22 beim Laden des Spielstands (Hook 18)
+    │   └── fn_getSaveBlock.sqf         COIN_fnc_getSaveBlock: baut Eintrag 22 beim Speichern, [COIN_saveVersion, Nester] (Hook 17)
+    └── nests/
+        ├── fn_initNests.sqf            COIN_fnc_initNests: Server, Nester aus dem Spielstand oder neu, Debug-Karte (ADR 0018)
+        ├── fn_createNests.sqf          COIN_fnc_createNests: Nester einer neuen Kampagne als Daten (einfache Platzierung bis Ticket 2.2)
+        ├── fn_getNestRadius.sqf        COIN_fnc_getNestRadius: Einflussradius eines Nest-Typs aus COIN_nestSetup
+        └── fn_drawNestMarkers.sqf      COIN_fnc_drawNestMarkers: globale Debug-Marker der Nester (Lobby-Parameter „COIN Debug“)
 ```
 
 Geplante weitere Kategorien unter `functions/` (anlegen, wenn sie gebraucht werden):
-`common/` (Zeus-Anbindung `COIN_fnc_addToCurators`, Hilfsfunktionen), `nests/` (Phase 2),
-`intel/` (Phase 3), `threats/` (Phase 4), `reputation/` (Phase 5), `persistence/` (Speichern über den Liberation-Save, ADR 0005).
+`common/` (Zeus-Anbindung `COIN_fnc_addToCurators`, Hilfsfunktionen),
+`intel/` (Phase 3), `threats/` (Phase 4), `reputation/` (Phase 5).
 
 ## Ablauf beim Missionsstart
 

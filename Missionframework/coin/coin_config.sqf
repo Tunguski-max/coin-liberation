@@ -75,6 +75,16 @@ COIN_nestSetup = [
     ["recruitment",  2, 2000]
 ];
 COIN_nestMinDistStartBase   = 4000;     // m between nests and the start base at campaign start
+COIN_nestMinDistCapital     = 1000;     // m between nests and the capital (Liberation's sectors_bigtown)
+COIN_nestPlaceAttempts      = 1000;     // Random positions tried per nest before it is left out (simple placement, ticket 2.1)
+// Debug map (lobby parameter "COIN Debug"): marker color per nest type, destroyed nests are grey
+COIN_nestDebugColors = [
+    ["command",      "ColorRed"],
+    ["iedWorkshop",  "ColorOrange"],
+    ["cache",        "ColorYellow"],
+    ["vbiedGarage",  "ColorPink"],
+    ["recruitment",  "ColorBrown"]
+];
 // Immediate combat_readiness drop when a nest is destroyed: [type, drop] (Phase 6, ADR 0013)
 COIN_nestReadinessDrop = [
     ["command",      20],

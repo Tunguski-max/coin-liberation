@@ -204,5 +204,6 @@ private _weights = [
     resources_intel,
     _allMines,
     _allCrates,
-    KPLIB_sectorTowers
+    KPLIB_sectorTowers,
+    [] call COIN_fnc_getSaveBlock // COIN: entry 22 = COIN block (nests), ADR 0005
 ] // return

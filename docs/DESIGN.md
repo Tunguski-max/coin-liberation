@@ -1,10 +1,11 @@
 # Design: COIN Liberation (Arbeitstitel)
 
-> Status: **Entwurf v0.3** – Grundlage für die Umsetzung mit Claude Code.
+> Status: **Entwurf v0.4.1** – Grundlage für die Umsetzung mit Claude Code.
 > v0.2: Entscheidungen aus Phase 0 eingearbeitet (ADR 0008–0015, `docs/kp-liberation-map.md`).
 > v0.3: Spielfeld und Ausrüstung für Phase 1 festgelegt (ADR 0007, 0016), Abgleich mit Hearts and Minds.
 > v0.3.1: Sektorauswahl von Hand ergänzt (ADR 0016), Ressourcen-Wirtschaft (ADR 0017).
 > v0.4: Miliz-Netzwerk für Phase 2 festgelegt (Nester, Camps, Datenmodell, KI-Budget, ADR 0015 geändert).
+> v0.4.1: Verteilung der Nester nach dem Prinzip „bester Kandidat“ mit Randabstand (Test 2026-10-20).
 > Offene Entscheidungen stehen gesammelt in [Abschnitt 12](#12-offene-entscheidungen).
 > Begriffe sind in [`CONTEXT.md`](../CONTEXT.md) definiert.
 
@@ -104,6 +105,10 @@ die jeweils einen **Einflussradius** haben und dort einen konkreten Effekt erzeu
 - 11 Nester zu Kampagnenbeginn, gleichmäßig über die Karte verteilt: mindestens 2,5 km Abstand untereinander,
   mindestens 4 km von der Startbasis, keines im Umkreis von 1 km um die Hauptstadt. Findet die Verteilung keinen
   Platz, wird der Abstand schrittweise verringert (mit Logzeile).
+  Gleichmäßig heißt: Für jedes Nest werden mehrere zulässige Stellen gezogen (Startwert 30), genommen wird die mit dem
+  größten Abstand zu den bisherigen Nestern („bester Kandidat“). Mindestens 1 km Abstand zum Kartenrand.
+  Grund (Test 2026-10-20): Rein zufällige Stellen bilden Haufen und lassen große Teile der Karte leer; ein starres
+  Raster wäre für Spieler als Muster erkennbar.
 - Einflussradius 1500–2500 m je nach Typ (Werte in `coin_config.sqf`).
 - Nester stehen in Gebäuden in Ortschaften oder als kleine Lager im Gelände. Ob ein Nest ein Gebäude- oder
   ein Gelände-Nest wird, entscheidet ein Anteil pro Typ (Startwerte: Kommandoposten 0,5, IED-Werkstatt 0,7,

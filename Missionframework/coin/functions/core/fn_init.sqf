@@ -17,6 +17,11 @@
 
 [] call compileFinal preprocessFileLineNumbers "coin\coin_config.sqf";
 
+// Lobby parameter "COIN Debug" (ticket 2.5) switches debug on for the whole mission, on every machine
+if ((["COINDebug", 0] call BIS_fnc_getParamValue) == 1) then {
+    COIN_debug = true;
+};
+
 if (COIN_debug) then {
     diag_log format ["[COIN] init: config loaded (saveVersion %1)", COIN_saveVersion];
 };
