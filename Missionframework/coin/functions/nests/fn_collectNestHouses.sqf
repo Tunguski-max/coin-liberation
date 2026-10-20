@@ -18,6 +18,7 @@
 
 COIN_nestBuildingRing params ["_ringMin", "_ringMax"];
 
+private _excluded = COIN_nestBuildingExcludedClasses apply {toLower _x};
 private _houses = [];
 private _seen = createHashMap;
 
@@ -34,7 +35,7 @@ private _seen = createHashMap;
         if (
             !(_pos in _seen)
             && {alive _house}
-            && {!(typeOf _house in COIN_nestBuildingExcludedClasses)}
+            && {!(toLower typeOf _house in _excluded)}
             && {(_center distance2D _pos) >= _ringMin}
             && {count (_house buildingPos -1) >= COIN_nestBuildingMinPositions}
             && {[_pos] call COIN_fnc_isNestSpotAllowed}

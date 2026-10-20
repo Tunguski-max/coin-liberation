@@ -99,6 +99,32 @@ if !(_houses isEqualTo []) then {
     diag_log format ["[COIN] nests: house footprints min %1 / median %2 / max %3 m2", _areas select 0, _areas select (floor (count _areas / 2)), _areas select (count _areas - 1)];
 };
 
+// Debug catalog to choose COIN_nestBuildingClasses from: every house class at the town edges, largest first,
+// with its number, footprint and one example to look at in Zeus
+if (COIN_debug) then {
+    private _catalog = createHashMap;   // class -> [footprint, number, town of the example, position of the example]
+    {
+        _x params ["_pos", "_town", "_class", "_area"];
+        private _entry = _catalog getOrDefault [_class, [_area, 0, _town, _pos]];
+        _entry set [1, (_entry select 1) + 1];
+        _catalog set [_class, _entry];
+    } forEach _houses;
+
+    // Sorted as [footprint, class] pairs only, sort compares numbers and strings
+    private _rows = [];
+    {
+        _rows pushBack [_y select 0, _x];
+    } forEach _catalog;
+    _rows sort false;
+
+    diag_log format ["[COIN] nests: catalog of %1 house classes at the town edges (class: number, footprint, example)", count _rows];
+    {
+        _x params ["_area", "_class"];
+        private _entry = _catalog get _class;
+        diag_log format ["[COIN] nests: catalog %1: %2 houses, %3 m2, e.g. %4 at %5", _class, _entry select 1, _area, markerText (_entry select 2), _entry select 3];
+    } forEach _rows;
+};
+
 private _nests = [];
 private _picks = [];    // Chosen candidate per nest: [position, town, class, footprint], town "" for terrain nests (log only, not saved)
 private _id = 0;
@@ -107,9 +133,15 @@ private _id = 0;
     _x params ["_type", "_count"];
     private _share = ([COIN_nestBuildingShare, _type] call COIN_fnc_findByType) param [1, 0];
     private _minArea = ([COIN_nestBuildingMinArea, _type] call COIN_fnc_findByType) param [1, 0];
-    private _typeHouses = _houses select {(_x select 3) >= _minArea};
+    private _classes = (([COIN_nestBuildingClasses, _type] call COIN_fnc_findByType) param [1, []]) apply {toLower _x};
+    private _typeHouses = _houses select {
+        (_x select 3) >= _minArea && {_classes isEqualTo [] || {toLower (_x select 2) in _classes}}
+    };
     if (_share > 0) then {
-        diag_log format ["[COIN] nests: %1 houses with at least %2 m2 for %3 nests", count _typeHouses, _minArea, _type];
+        diag_log format [
+            "[COIN] nests: %1 houses with at least %2 m2 for %3 nests%4",
+            count _typeHouses, _minArea, _type, ["", format [" (%1 allowed classes)", count _classes]] select (count _classes > 0)
+        ];
     };
 
     for "_i" from 1 to _count do {

@@ -101,11 +101,28 @@ COIN_nestBuildingMinArea = [
     ["command",      250],
     ["iedWorkshop",  130],
     ["cache",        0],
-    ["vbiedGarage",  500],
+    ["vbiedGarage",  0],      // Chosen by class instead (COIN_nestBuildingClasses): large houses of 667 m² did not fit
     ["recruitment",  250]
 ];
-// Classes that count as "House" and have building positions but are no houses
-COIN_nestBuildingExcludedClasses = ["Land_Pier_F"];
+// Allowed house classes per type, a type without a row takes any class (then only the footprint counts).
+// Case does not matter. With COIN_debug, the RPT lists every house class at the town edges (catalog) to choose from.
+// Measuring run 2026-10-20: Land_i_Shed_Ind_F is the reference VBIED garage, the rest are halls and garages to be checked in Zeus
+COIN_nestBuildingClasses = [
+    ["vbiedGarage", [
+        "Land_i_Shed_Ind_F",
+        "Land_jbad_hangar_2",
+        "Land_ffaa_casa_hangar_2",
+        "Land_CarService_F",
+        "Land_i_Garage_V1_F",
+        "Land_i_Garage_V2_F",
+        "Land_Shed_Big_F",
+        "Land_Warehouse_01_F",
+        "Land_Warehouse_02_F",
+        "Land_Warehouse_03_F"
+    ]]
+];
+// Classes that count as "House" and have building positions but are no houses (case does not matter)
+COIN_nestBuildingExcludedClasses = ["Land_Pier_F", "Land_Airport_left_F", "Land_Airport_right_F", "Land_Airport_center_F"];
 COIN_nestTerrainMinDistTown = 500;      // m between terrain nests and towns, as for camps (DESIGN 5.1)
 COIN_nestTerrainMinDistRoad = 150;      // m between terrain nests and roads, as for camps
 COIN_nestTerrainFlatRadius  = 15;       // m around a terrain nest that must be free of objects and flat ...
