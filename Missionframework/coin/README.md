@@ -39,6 +39,8 @@ coin/
     │   ├── fn_curatorSync.sqf          COIN_fnc_curatorSync: Server-Schleife, auch für später erzeugte Kuratoren
     │   ├── fn_seededRandom.sqf         COIN_fnc_seededRandom: wiederholbarer Zufall aus dem gespeicherten Seed
     │   ├── fn_getPresence.sqf          COIN_fnc_getPresence: Spieler und Drohnen, die COIN-Inhalte spawnen lassen
+    │   ├── fn_halfSize.sqf             COIN_fnc_halfSize: halbe Breite und Länge eines Objekts
+    │   ├── fn_getFloorASL.sqf          COIN_fnc_getFloorASL: Höhe des Bodens unter einer Stelle (Gebäude oder Gelände)
     │   ├── fn_snapToFloor.sqf          COIN_fnc_snapToFloor: setzt ein Objekt auf den Boden darunter
     │   └── fn_isSpotFree.sqf           COIN_fnc_isSpotFree: ist an einer Stelle Platz (Wände, Objekte, Türen)?
     ├── debug/

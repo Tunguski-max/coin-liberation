@@ -93,6 +93,12 @@ class COIN {
         // Players and drones that make COIN content spawn nearby
         class getPresence {};
 
+        // Half width and half length of an object (bounding box)
+        class halfSize {};
+
+        // Height of the floor below a spot (building floor or terrain)
+        class getFloorASL {};
+
         // Sets an object down on the floor below it
         class snapToFloor {};
 

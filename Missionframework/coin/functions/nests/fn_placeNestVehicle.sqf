@@ -6,8 +6,8 @@
         Civilian vehicle of a VBIED garage (ticket #44, decided 2026-10-20): a prop, not the core object, decoration only.
         The class follows from the nest's seed (COIN_vbiedGarageVehicles), so the garage looks the same on every visit.
         Stands inside the hall on the ground floor if there is room (house centre or a ground floor building position,
-        facing along the house or across), otherwise on a free spot next to the house (findEmptyPosition, up to
-        COIN_nestVehicleOutside beyond it). Locked for players, without simulation, not saved by Liberation.
+        facing along the house or across), otherwise on the free spot next to the house closest to it
+        (findEmptyPosition, up to COIN_nestVehicleOutside beyond it). Locked for players, not saved by Liberation.
         Server only.
 
     Parameter(s):
@@ -16,7 +16,7 @@
         _blockers - Taken places [ARRAY of [position ATL, radius]]
 
     Returns:
-        Vehicle, objNull if no class exists or there is no room [OBJECT]
+        [vehicle, stands inside], [objNull, false] if no class exists or there is no room [ARRAY]
 */
 
 params [
@@ -32,15 +32,14 @@ private _streamTurn = 6001;
 private _classes = COIN_vbiedGarageVehicles select {isClass (configFile >> "CfgVehicles" >> _x)};
 if (_classes isEqualTo []) exitWith {
     diag_log format ["[COIN] nests: no class of COIN_vbiedGarageVehicles exists, VBIED garage without vehicle (%1)", COIN_vbiedGarageVehicles];
-    objNull
+    [objNull, false]
 };
 
 private _class = _classes select (floor ([_seed, _streamClass, count _classes] call COIN_fnc_seededRandom));
 private _vehicle = createVehicle [_class, [0, 0, 0], [], 0, "CAN_COLLIDE"];
+// No physics while it is moved into the hall
 _vehicle enableSimulationGlobal false;
-(boundingBoxReal _vehicle) params ["_c1", "_c2"];
-private _halfX = abs ((_c2 select 0) - (_c1 select 0)) / 2;
-private _halfY = abs ((_c2 select 1) - (_c1 select 1)) / 2;
+([_vehicle] call COIN_fnc_halfSize) params ["_halfX", "_halfY"];
 
 // Inside: house centre and ground floor building positions (the lowest floor of the house)
 private _positions = _house buildingPos -1;
@@ -69,15 +68,15 @@ private _spotDir = _houseDir;
 
 private _inside = !(_spot isEqualTo []);
 if (!_inside) then {
-    (boundingBoxReal _house) params ["_h1", "_h2"];
-    private _houseRadius = ((abs ((_h2 select 0) - (_h1 select 0))) max (abs ((_h2 select 1) - (_h1 select 1)))) / 2;
+    ([_house] call COIN_fnc_halfSize) params ["_houseHalfX", "_houseHalfY"];
+    private _houseRadius = _houseHalfX max _houseHalfY;
     _spot = _houseCenter findEmptyPosition [_houseRadius, _houseRadius + COIN_nestVehicleOutside, _class];
 };
 
 if (_spot isEqualTo []) exitWith {
     deleteVehicle _vehicle;
     diag_log format ["[COIN] nests: no room for a %1 in or next to %2, VBIED garage without vehicle", _class, typeOf _house];
-    objNull
+    [objNull, false]
 };
 
 _vehicle setDir _spotDir;
@@ -85,6 +84,7 @@ _vehicle setPosATL _spot;
 [_vehicle] call COIN_fnc_snapToFloor;
 _vehicle setVehicleLock "LOCKED";
 _vehicle setVariable ["KP_liberation_preplaced", true];
-_vehicle setVariable ["COIN_nestVehicleInside", _inside];
+// With simulation again, so it can be destroyed like any vehicle
+_vehicle enableSimulationGlobal true;
 
-_vehicle
+[_vehicle, _inside]

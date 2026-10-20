@@ -181,11 +181,14 @@ COIN_nestHouseTolerance     = 5;        // m between the saved nest position and
 COIN_nestPropSpacing        = [1.5, 3]; // [min, max] m from the core object for props without a free building position
 // Clean placement (ticket #44): objects stand on the floor below their spot, need free space around them and keep doors free
 COIN_floorProbe             = [0.5, 2]; // [up, down] m from a spot in which the floor is searched
-COIN_spotCheckHeight        = 0.4;      // m above the floor where walls are looked for around an object
+COIN_spotCheckHeights       = [0.4, 1.2]; // m above the floor where walls are looked for around an object
 COIN_spotSameFloor          = 2;        // m height difference up to which two objects count as on the same floor
-COIN_nestDoorClearance      = 1.2;      // m props and vehicles keep from doors
+COIN_spotFloorTolerance     = 0.5;      // m a spot next to the core object may differ from the core's floor (no edges, stairs)
+COIN_nestDoorClearance      = 1.2;      // m props and vehicles keep from door points
+COIN_doorSelectionNames     = ["door", "dvere"]; // Memory points of doors contain one of these (Arma 3 / Arma 2, CUP, Jbad)
 COIN_nestPropTries          = 12;       // Spots next to the core object tried per prop when no building position is free
 // VBIED garage: a civilian vehicle as a prop (not the core object, decoration only, locked for players)
+COIN_enableNestVehicle      = true;     // Off: VBIED garages without vehicle
 COIN_vbiedGarageVehicles    = ["C_Offroad_01_F", "C_Hatchback_01_F", "C_SUV_01_F", "C_Van_01_transport_F"];
 COIN_nestVehicleOutside     = 20;       // m beyond the house searched for a vehicle spot if there is no room inside
 COIN_nestPropsCount         = [2, 4];   // [min, max] props next to the core object

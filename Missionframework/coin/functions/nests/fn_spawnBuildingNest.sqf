@@ -71,76 +71,83 @@ while {!(_pool isEqualTo [])} do {
     _order pushBack (_pool deleteAt ([_streamOrder + count _order, count _pool] call _seededIndex));
 };
 
-// Half width and half length of an object (bounding box)
-private _halfSize = {
-    params ["_object"];
-    (boundingBoxReal _object) params ["_c1", "_c2"];
-    [abs ((_c2 select 0) - (_c1 select 0)) / 2, abs ((_c2 select 1) - (_c1 select 1)) / 2]
-};
-
 // Core object and props are no Liberation objects: never saved near a FOB, never doubled after a load.
 // Each one is set down on the floor below its spot (ticket #44)
-private _create = {
+private _createObject = {
     params ["_class"];
     private _object = createVehicle [_class, [0, 0, 0], [], 0, "CAN_COLLIDE"];
     _object setVariable ["KP_liberation_preplaced", true];
     _object
 };
-private _put = {
+private _putDown = {
     params ["_object", "_posATL", "_dir"];
     _object setDir _dir;
     _object setPosATL _posATL;
     [_object] call COIN_fnc_snapToFloor;
 };
 
-// Taken places: doors stay free, every placed object blocks its own outline
-private _blockers = ((_house selectionNames "Memory") select {((toLower _x) find "door") >= 0}) apply {
+// Taken places: door points stay free, every placed object blocks its outline (only those block guard positions)
+private _doorPoints = (_house selectionNames "Memory") select {
+    private _name = toLower _x;
+    (COIN_doorSelectionNames findIf {(_name find _x) >= 0}) >= 0
+};
+private _blockers = _doorPoints apply {
     [ASLToATL (AGLToASL (_house modelToWorld (_house selectionPosition [_x, "Memory"]))), COIN_nestDoorClearance]
 };
+private _placedOutlines = [];
 private _block = {
     params ["_object"];
-    _blockers pushBack [getPosATL _object, selectMax ([_object] call _halfSize)];
+    private _outline = [getPosATL _object, selectMax ([_object] call COIN_fnc_halfSize)];
+    _blockers pushBack _outline;
+    _placedOutlines pushBack _outline;
 };
 
 private _objects = [];
-private _usedPositions = [_order select 0];
+private _usedPositions = [];
 
-// Core object
-private _corePos = _positions select (_order select 0);
+// Core object: the first building position in the seed's order where it fits (the first one if none fits)
 private _coreClass = COIN_nestValidCores getOrDefault [_type, COIN_nestCoreFallback];
-private _core = [_coreClass] call _create;
-[_core, _corePos, [_seed, _streamCoreDir, 360] call COIN_fnc_seededRandom] call _put;
+private _core = [_coreClass] call _createObject;
+private _coreDir = [_seed, _streamCoreDir, 360] call COIN_fnc_seededRandom;
+([_core] call COIN_fnc_halfSize) params ["_coreHalfX", "_coreHalfY"];
+private _coreIndex = _order select ((_order findIf {
+    [_positions select _x, _coreDir, _coreHalfX, _coreHalfY, [_core], _blockers] call COIN_fnc_isSpotFree
+}) max 0);
+_usedPositions pushBack _coreIndex;
+[_core, _positions select _coreIndex, _coreDir] call _putDown;
 _core setVariable ["COIN_nestId", _id];
 [_core] call _block;
 _objects pushBack _core;
+private _corePos = getPosATL _core;
+private _coreFloor = [AGLToASL _corePos, _core] call COIN_fnc_getFloorASL;
 
 // VBIED garage: civilian vehicle as a prop, before the other props because it needs the most room
 private _vehicleInfo = "";
-if (_type isEqualTo "vbiedGarage") then {
-    private _vehicle = [_house, _seed, _blockers] call COIN_fnc_placeNestVehicle;
+if (_type isEqualTo "vbiedGarage" && {COIN_enableNestVehicle}) then {
+    ([_house, _seed, _blockers] call COIN_fnc_placeNestVehicle) params ["_vehicle", "_inside"];
     if (!isNull _vehicle) then {
         [_vehicle] call _block;
         _objects pushBack _vehicle;
-        _vehicleInfo = format [", vehicle %1 %2", typeOf _vehicle, ["next to the house", "inside"] select (_vehicle getVariable ["COIN_nestVehicleInside", false])];
+        _vehicleInfo = format [", vehicle %1 %2", typeOf _vehicle, ["next to the house", "inside"] select _inside];
     };
 };
 
 // Props: the next free building position where the prop fits, otherwise a free spot next to the core object
-// (same floor, no wall in between). A prop without room is left out.
+// (floor at the core's height, no wall in between). A prop without room is left out.
 private _props = COIN_nestValidProps getOrDefault [_type, []];
 COIN_nestPropsCount params ["_propsMin", "_propsMax"];
 private _propCount = if (_props isEqualTo []) then {0} else {
     _propsMin + ([_streamPropCount, _propsMax - _propsMin + 1] call _seededIndex)
 };
 COIN_nestPropSpacing params ["_spacingMin", "_spacingMax"];
-private _coreCheckASL = (AGLToASL (getPosATL _core)) vectorAdd [0, 0, COIN_spotCheckHeight];
+private _coreCheckASL = (AGLToASL _corePos) vectorAdd [0, 0, COIN_spotCheckHeights select 0];
 private _placedProps = 0;
 private _propsInHouse = 0;
 for "_i" from 1 to _propCount do {
     private _class = _props select ([_streamProp + _i, count _props] call _seededIndex);
     private _dir = [_seed, _streamPropDir + _i, 360] call COIN_fnc_seededRandom;
-    private _prop = [_class] call _create;
-    ([_prop] call _halfSize) params ["_halfX", "_halfY"];
+    private _prop = [_class] call _createObject;
+    ([_prop] call COIN_fnc_halfSize) params ["_halfX", "_halfY"];
     private _spot = [];
 
     {
@@ -152,16 +159,19 @@ for "_i" from 1 to _propCount do {
         };
     } forEach _order;
 
-    if (_spot isEqualTo []) then {
+    if (_spot isEqualTo [] && {!(_coreFloor isEqualTo [])}) then {
         for "_try" from 1 to COIN_nestPropTries do {
-            private _ground = (getPosATL _core) getPos [
+            private _ground = _corePos getPos [
                 _spacingMin + ([_seed, _streamPropSpot + _i * 100 + _try, _spacingMax - _spacingMin] call COIN_fnc_seededRandom),
                 [_seed, _streamPropSpot + 50 + _i * 100 + _try, 360] call COIN_fnc_seededRandom
             ];
-            private _candidate = [_ground select 0, _ground select 1, (getPosATL _core) select 2];
-            private _candidateASL = (AGLToASL _candidate) vectorAdd [0, 0, COIN_spotCheckHeight];
+            private _candidate = [_ground select 0, _ground select 1, _corePos select 2];
+            private _candidateASL = AGLToASL _candidate;
+            private _floor = [_candidateASL, _prop, _core] call COIN_fnc_getFloorASL;
             if (
-                (lineIntersectsSurfaces [_coreCheckASL, _candidateASL, _core, _prop, true, 1, "GEOM", "NONE"]) isEqualTo []
+                !(_floor isEqualTo [])
+                && {abs ((_floor select 0) - (_coreFloor select 0)) < COIN_spotFloorTolerance}
+                && {(lineIntersectsSurfaces [_coreCheckASL, _candidateASL vectorAdd [0, 0, COIN_spotCheckHeights select 0], _core, _prop, true, 1, "GEOM", "VIEW"]) isEqualTo []}
                 && {[_candidate, _dir, _halfX, _halfY, [_prop], _blockers] call COIN_fnc_isSpotFree}
             ) exitWith {
                 _spot = _candidate;
@@ -175,7 +185,7 @@ for "_i" from 1 to _propCount do {
             diag_log format ["[COIN] nests: no room for prop %1 of nest %2 (%3), left out", _class, _id, _type];
         };
     } else {
-        [_prop, _spot, _dir] call _put;
+        [_prop, _spot, _dir] call _putDown;
         // Props are decoration, without simulation they do not slide or fall over
         _prop enableSimulationGlobal false;
         [_prop] call _block;
@@ -186,8 +196,15 @@ for "_i" from 1 to _propCount do {
 
 // Guards: complete on every spawn
 private _guardCount = COIN_nestGuardsMin + ([_streamGuards, COIN_nestGuardsMax - COIN_nestGuardsMin + 1] call _seededIndex);
-// Free building positions, closest to the core object first
-private _free = (_order select {!(_x in _usedPositions)}) apply {_positions select _x};
+// Free building positions not covered by a placed object, closest to the core object first
+private _free = ((_order select {!(_x in _usedPositions)}) apply {_positions select _x}) select {
+    private _guardPos = _x;
+    (_placedOutlines findIf {
+        _x params ["_outlinePos", "_outlineRadius"];
+        (_guardPos distance2D _outlinePos) < _outlineRadius
+        && {abs ((_guardPos select 2) - (_outlinePos select 2)) < COIN_spotSameFloor}
+    }) < 0
+};
 _free = [_free, [], {_x distance _corePos}, "ASCEND"] call BIS_fnc_sortBy;
 private _inHouse = (round (_guardCount * COIN_nestGuardsInHouseShare)) min (count _free);
 private _patrolling = _guardCount - _inHouse;

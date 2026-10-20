@@ -19,7 +19,14 @@ params [
     ["_type", "", [""]]
 ];
 
-// Spacing of the row in m
+// Objects are created where Zeus and Liberation's save see them: on the server (local host)
+if (!isServer) exitWith {
+    hint "COIN_fnc_debugNestContent runs on the local host only";
+    0
+};
+
+// Row in front of the player: distance to its start and spacing in m
+private _rowStart = 10;
 private _spacing = 5;
 
 {
@@ -38,7 +45,7 @@ if (_type isEqualTo "vbiedGarage") then {
     _classes append COIN_vbiedGarageVehicles;
 };
 
-private _origin = player getPos [10, getDir player];
+private _origin = player getPos [_rowStart, getDir player];
 private _side = (getDir player) + 90;
 {
     private _class = _x;
