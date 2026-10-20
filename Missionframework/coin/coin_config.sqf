@@ -94,14 +94,18 @@ COIN_nestBuildingShare = [
 ];
 COIN_nestBuildingRing       = [250, 600]; // [min, max] m between the house of a building nest and its town's centre (not the capital)
 COIN_nestBuildingMinPositions = 8;      // Building positions a house needs: core object, 2-4 props and part of the guards
-// Footprint a house needs per type in m² (from boundingBoxReal). 0 = any size. Values follow from the measuring run (#29)
+// Footprint a house needs per type in m² (from boundingBoxReal), 0 = any size. Measuring run 2026-10-20 on Lythium
+// (287 houses, 102 / 266 / 2766 m² min / median / max): recruitment houses of 275 and 667 m² are the reference,
+// IED workshops of 134 and 157 m² fit, an industrial shed of 619 m² is the ideal VBIED garage
 COIN_nestBuildingMinArea = [
-    ["command",      0],
-    ["iedWorkshop",  0],
+    ["command",      250],
+    ["iedWorkshop",  130],
     ["cache",        0],
-    ["vbiedGarage",  0],
-    ["recruitment",  0]
+    ["vbiedGarage",  500],
+    ["recruitment",  250]
 ];
+// Classes that count as "House" and have building positions but are no houses
+COIN_nestBuildingExcludedClasses = ["Land_Pier_F"];
 COIN_nestTerrainMinDistTown = 500;      // m between terrain nests and towns, as for camps (DESIGN 5.1)
 COIN_nestTerrainMinDistRoad = 150;      // m between terrain nests and roads, as for camps
 COIN_nestTerrainFlatRadius  = 15;       // m around a terrain nest that must be free of objects and flat ...

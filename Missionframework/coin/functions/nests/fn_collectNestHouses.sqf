@@ -4,7 +4,7 @@
 
     Description:
         Houses that can hold a building nest (ticket 2.2, ADR 0018): in a town (Liberation's sectors_capture, not the
-        capital), at the edge, i.e. COIN_nestBuildingRing from the town's centre, intact, with at least
+        capital), at the edge, i.e. COIN_nestBuildingRing from the town's centre, intact, not in COIN_nestBuildingExcludedClasses, with at least
         COIN_nestBuildingMinPositions building positions and allowed by COIN_fnc_isNestSpotAllowed.
         The footprint (m², from boundingBoxReal) lets each nest type ask for a minimum size (COIN_nestBuildingMinArea).
         A house in the ring of two towns is listed once. Collected once per new campaign.
@@ -34,6 +34,7 @@ private _seen = createHashMap;
         if (
             !(_pos in _seen)
             && {alive _house}
+            && {!(typeOf _house in COIN_nestBuildingExcludedClasses)}
             && {(_center distance2D _pos) >= _ringMin}
             && {count (_house buildingPos -1) >= COIN_nestBuildingMinPositions}
             && {[_pos] call COIN_fnc_isNestSpotAllowed}
