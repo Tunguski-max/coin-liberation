@@ -1,12 +1,13 @@
 # Design: COIN Liberation (Arbeitstitel)
 
-> Status: **Entwurf v0.4.2** – Grundlage für die Umsetzung mit Claude Code.
+> Status: **Entwurf v0.4.3** – Grundlage für die Umsetzung mit Claude Code.
 > v0.2: Entscheidungen aus Phase 0 eingearbeitet (ADR 0008–0015, `docs/kp-liberation-map.md`).
 > v0.3: Spielfeld und Ausrüstung für Phase 1 festgelegt (ADR 0007, 0016), Abgleich mit Hearts and Minds.
 > v0.3.1: Sektorauswahl von Hand ergänzt (ADR 0016), Ressourcen-Wirtschaft (ADR 0017).
 > v0.4: Miliz-Netzwerk für Phase 2 festgelegt (Nester, Camps, Datenmodell, KI-Budget, ADR 0015 geändert).
 > v0.4.1: Verteilung der Nester nach dem Prinzip „bester Kandidat“ mit Randabstand (Test 2026-10-20).
 > v0.4.2: Mindestens 2 Nester pro Typ, Häuser passend zum Typ (Fläche, Gebäudepositionen, Klassenliste der VBIED-Garage).
+> v0.4.3: Gebäude-Nester nach Templates pro Hausklasse und Nest-Typ (ADR 0019).
 > Offene Entscheidungen stehen gesammelt in [Abschnitt 12](#12-offene-entscheidungen).
 > Begriffe sind in [`CONTEXT.md`](../CONTEXT.md) definiert.
 
@@ -121,13 +122,18 @@ die jeweils einen **Einflussradius** haben und dort einen konkreten Effekt erzeu
   - **Gebäude-Nest:** nur in Ortschaften (nicht in der Hauptstadt), in einem vorhandenen Haus **am Ortsrand**,
     250–600 m vom Sektormittelpunkt. Grund: Liberation wertet einen Sektor im Radius von 175 m aus. Wachen darin
     würden die Einnahme blockieren und eine befreite Ortschaft als „angegriffen“ gelten lassen.
-    Kernobjekt und 2–4 passende Requisiten stehen auf freien Plätzen im Haus. Kein Template nötig.
-    Das Haus passt zum Typ (Messlauf und Auswahl in Zeus, 2026-10-20): Mindestfläche und Mindestzahl an
-    Gebäudepositionen pro Typ, die VBIED-Garage nur in Hallen und Garagen aus einer Klassenliste
-    (ihre Wachen stehen draußen). Nicht-Häuser wie Stege und Flughafengebäude sind ausgeschlossen.
+    Kernobjekt, Requisiten und bei der VBIED-Garage ein ziviles Fahrzeug kommen aus einem **Template pro Hausklasse
+    und Nest-Typ** (ADR 0019): von Niklas in Eden eingerichtet, relativ zum Hausmodell gespeichert und beim Spawn an
+    Lage und Ausrichtung des Hauses angepasst. Höchstens 3 Hausklassen pro Typ, nur Klassen, die mehrfach an
+    Lythiums Ortsrändern stehen. Ein Gebäude-Nest kommt nur in ein Haus mit Template für seinen Typ; gibt es mehrere
+    Templates, wählt der Seed. Wachen bleiben dynamisch (Gebäudepositionen und Patrouille).
+    Ohne Template (älterer Spielstand, Typ noch ohne Template) gilt die freie Platzierung: Mindestfläche,
+    Gebäudepositionen und Klassenliste pro Typ (Messlauf und Auswahl in Zeus, 2026-10-20). Nicht-Häuser wie Stege
+    und Flughafengebäude sind ausgeschlossen.
   - **Gelände-Nest:** 2–3 Templates pro Nest-Typ (Zelte, Tarnnetz, Kisten, Kernobjekt), platziert an einer
     ebenen, freien Stelle mit denselben Abständen wie Camps (Abschnitt 5.1). Niklas baut die Templates im Eden-Editor
-    und liest sie mit `BIS_fnc_objectsGrabber` aus; für den ersten Test gibt es je ein einfaches Platzhalter-Template.
+    und liest sie mit demselben Export-Befehl wie die Gebäude-Templates aus (ADR 0019); für den ersten Test gibt es je
+    ein einfaches Platzhalter-Template.
 - Ein Gebäude-Nest bleibt aktiv, wenn die Armee seine Ortschaft einnimmt. Das Nest hängt nicht am Sektor.
 - Beim Kampagnenstart entstehen nur Daten, gespeichert im Spielstand. Objekte und Wachen spawnen erst, wenn Spieler
   in der Nähe sind, und werden wieder abgebaut, wenn niemand mehr da ist:
