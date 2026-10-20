@@ -16,6 +16,8 @@
         Number of core classes that had to be replaced [NUMBER]
 */
 
+if (!isServer) exitWith {0};
+
 private _describe = {
     params ["_class"];
     private _cfg = configFile >> "CfgVehicles" >> _class;

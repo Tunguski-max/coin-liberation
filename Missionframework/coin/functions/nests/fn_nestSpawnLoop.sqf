@@ -26,7 +26,7 @@ diag_log format [
     COIN_spawnDistance, COIN_despawnDelay, COIN_despawnDistance, COIN_spawnCheckInterval
 ];
 
-// Nest id -> [objects and units, groups, time a player was last within COIN_despawnDistance]
+// Nest id -> [objects and units, time a player was last within COIN_despawnDistance]
 private _spawned = createHashMap;
 private _failed = [];
 
@@ -47,12 +47,15 @@ while {COIN_enableNestSpawn} do {
 
     {
         _x params ["_id", "_type", "_kind", "_pos", "_seed", "_state"];
-        private _distance = if (_present isEqualTo []) then {1e10} else {selectMin (_present apply {_x distance2D _pos})};
+        // Nobody present counts as out of range for both spawn and removal
+        private _hasPresence = !(_present isEqualTo []);
+        private _distance = if (_hasPresence) then {selectMin (_present apply {_x distance2D _pos})} else {-1};
         private _entry = _spawned getOrDefault [_id, []];
 
         if (_entry isEqualTo []) then {
             if (
-                _distance <= COIN_spawnDistance
+                _hasPresence
+                && {_distance <= COIN_spawnDistance}
                 && {_kind isEqualTo "building"}
                 && {_state isEqualTo "active"}
                 && {!(_id in _failed)}
@@ -61,14 +64,14 @@ while {COIN_enableNestSpawn} do {
                 if (_content isEqualTo []) then {
                     _failed pushBack _id;
                 } else {
-                    _spawned set [_id, _content + [time]];
+                    _spawned set [_id, [_content, time]];
                 };
             };
         } else {
-            if (_distance <= COIN_despawnDistance) then {
-                _entry set [2, time];
+            if (_hasPresence && {_distance <= COIN_despawnDistance}) then {
+                _entry set [1, time];
             } else {
-                if ((time - (_entry select 2)) >= COIN_despawnDelay) then {
+                if ((time - (_entry select 1)) >= COIN_despawnDelay) then {
                     [_id, _entry, format ["no player within %1 m for %2 s", COIN_despawnDistance, COIN_despawnDelay]] call _despawn;
                     _spawned deleteAt _id;
                 };

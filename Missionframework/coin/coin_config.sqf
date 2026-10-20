@@ -64,14 +64,15 @@ COIN_maxActiveIEDs          = 25;       // COIN IEDs at the same time
 
 // ---------------------------------------------------------------------------
 // Spawning near players (DESIGN 5, ticket 2.3), used by nests and later by camps
-// Players count, and player-side drones (UAVs). Manned aircraft higher than COIN_presenceMaxAirHeight do not.
+// Players count, and player-side drones (UAVs) a player is connected to. Manned aircraft higher than
+// COIN_presenceMaxAirHeight do not.
 // ---------------------------------------------------------------------------
 COIN_spawnDistance          = 1000;     // m: content spawns when the nearest player is this close
 COIN_despawnDistance        = 1300;     // m: content is removed when no player was this close ...
 COIN_despawnDelay           = 120;      // ... for this many seconds
 COIN_spawnCheckInterval     = 5;        // s between two checks of all nests
 COIN_presenceMaxAirHeight   = 100;      // m above ground: manned aircraft higher up do not spawn anything
-COIN_curatorSyncInterval    = 10;       // s: objects given to Zeus are added again to curators created later
+COIN_curatorSyncInterval    = 10;       // s: objects given to Zeus are added again to curators created later, 0 = off
 
 // ---------------------------------------------------------------------------
 // Militia network (Phase 2) - whole map is the area of operations (ADR 0016)
@@ -171,7 +172,12 @@ COIN_nestGuardsMax          = 8;
 // About half of the guards stay at the core object inside the house, the others patrol as a group.
 COIN_enableNestSpawn        = true;     // Off: nests stay data only, nothing spawns
 COIN_nestGuardsInHouseShare = 0.5;      // Share of the guards inside the house (at most as many as free building positions)
-COIN_nestPatrolRadius       = 100;      // m around the nest the patrol walks
+COIN_nestPatrolRadius       = 100;      // m around the nest the patrol walks, smaller near a sector (below)
+COIN_nestPatrolSectorMargin = 25;       // m the patrol keeps outside Liberation's capture radius of the nearest sector
+COIN_capitalCaptureFactor   = 1.4;      // Liberation's capture radius of the capital = GRLIB_capture_size x this (fn_getBluforRatio.sqf)
+COIN_nestPatrolStart        = [10, 40]; // [min, max] m from the house where the patrol starts
+COIN_nestHouseTolerance     = 5;        // m between the saved nest position and the house when it is found again
+COIN_nestPropSpacing        = [1.5, 3]; // [min, max] m from the core object for props without a free building position
 COIN_nestPropsCount         = [2, 4];   // [min, max] props next to the core object
 // Core object per type: destroying it destroys the nest (Phase 2, ticket 2.4). Only classes Arma can destroy,
 // checked on server start (destrType, armor); a class that fails is replaced by COIN_nestCoreFallback (one log line)
