@@ -93,6 +93,10 @@ Ziel: Nester existieren, sind persistent und schwächen bei Zerstörung das Netz
 - [ ] 2.3 Nest-Objekte und Bewachung spawnen, wenn Spieler in der Nähe sind
   (Gebäude-Nest: Kernobjekt und Requisiten auf freie Gebäudeplätze; Gelände-Nest: Template;
   Kernobjekte pro Typ im Spec festlegen)
+  Gebäude-Nest (#30) getestet: Spawn bei etwa 1000 m, Abbau nach 2 min außerhalb 1300 m, erneuter Besuch gleich,
+  Wachen mit rotem Tuch, Zeus sieht alles, Budget steigt um die Wachen, Hubschrauber über 100 m und Drohne über 500 m
+  spawnen nichts, gesteuerte Drohne darunter schon, Kisten als Kernobjekt zerstörbar; offen: Gelände-Nest (#31),
+  saubere Platzierung und Fahrzeug der VBIED-Garage (#44)
 - [ ] 2.3a Template-Mechanik für Gelände-Nester und Camps: Platzhalter-Templates von Claude,
   danach je 2–3 Templates pro Nest-Typ und für Camps von Niklas (Eden, `BIS_fnc_objectsGrabber`)
 - [ ] 2.4 Zerstörung erkennen, Zustand speichern, Ereignis auslösen

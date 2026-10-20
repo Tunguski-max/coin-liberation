@@ -50,6 +50,9 @@ if (COIN_enableAIBudget) then {
     diag_log format ["[COIN] init: AI budget off, Liberation caps stay sector/battlegroup/patrol %1/%2/%3", GRLIB_sector_cap, GRLIB_battlegroup_cap, GRLIB_patrol_cap];
 };
 
+// Zeus: everything COIN spawns is added to every curator, also to curators created later
+[] spawn COIN_fnc_curatorSync;
+
 // Militia network (tickets 2.1 and 2.5, ADR 0018): nests from entry 22 of the save, new ones for a new campaign
 if (COIN_enableNests) then {
     [] spawn COIN_fnc_initNests;

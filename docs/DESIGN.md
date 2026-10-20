@@ -132,7 +132,8 @@ die jeweils einen **Einflussradius** haben und dort einen konkreten Effekt erzeu
 - Beim Kampagnenstart entstehen nur Daten, gespeichert im Spielstand. Objekte und Wachen spawnen erst, wenn Spieler
   in der Nähe sind, und werden wieder abgebaut, wenn niemand mehr da ist:
   - Spawn ab 1000 m zum nächsten Spieler, Abbau, wenn 2 Minuten lang kein Spieler innerhalb von 1300 m ist.
-  - Drohnen zählen als Spieler, bemannte Luftfahrzeuge mehr als 100 m über Grund nicht.
+  - Drohnen zählen als Spieler, aber wie bei Liberations Sektoren nur unter 500 m über Grund (Test 2026-10-20);
+    bemannte Luftfahrzeuge mehr als 100 m über Grund zählen nicht.
   - Ein Nest sieht bei jedem Besuch gleich aus (Template, Ausrichtung und Plätze folgen aus einem gespeicherten Zufallswert).
 - **Leichte Bewachung:** bei jedem Spawn vollständig, Verluste werden nicht gemerkt. Etwa die Hälfte sitzt beim
   Kernobjekt, der Rest patrouilliert im Umkreis von etwa 100 m. Ein Nest ruft keine Verstärkung (die kommt mit dem
