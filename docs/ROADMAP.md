@@ -82,7 +82,9 @@ ein zweiter AH-1Z lässt sich nicht kaufen.
 
 Ziel: Nester existieren, sind persistent und schwächen bei Zerstörung das Netzwerk.
 
-- [ ] 2.1 Datenmodell für Nester festlegen (Spec) und in den Liberation-Save einhängen (Eintrag 22, ADR 0005)
+- [x] 2.1 (#28) Datenmodell für Nester festlegen (Spec) und in den Liberation-Save einhängen (Eintrag 22, ADR 0005, ADR 0018;
+  getestet: Spielstand aus Phase 1 bekommt 11 Nester, Sektoren, FOBs und Ressourcen bleiben, Neustart lädt dieselben Nester,
+  Wipe per Lobby erzeugt neue; Platzierung vorerst einfach, die Regeln kommen mit 2.2)
 - [ ] 2.2 Nester beim Kampagnenstart platzieren (Gebäude in Ortschaften, Lager im Gelände;
   gleichmäßig über die Karte, mindestens 4 km von der Startbasis)
 - [ ] 2.3 Nest-Objekte und Bewachung spawnen, wenn Spieler in der Nähe sind
@@ -91,7 +93,8 @@ Ziel: Nester existieren, sind persistent und schwächen bei Zerstörung das Netz
 - [ ] 2.3a Template-Mechanik für Gelände-Nester und Camps: Platzhalter-Templates von Claude,
   danach je 2–3 Templates pro Nest-Typ und für Camps von Niklas (Eden, `BIS_fnc_objectsGrabber`)
 - [ ] 2.4 Zerstörung erkennen, Zustand speichern, Ereignis auslösen
-- [ ] 2.5 Debug-Anzeige (Parameter): Nester und Radien auf der Karte
+- [x] 2.5 (#28) Debug-Anzeige (Parameter): Nester und Radien auf der Karte (Lobby-Parameter „COIN Debug“; getestet: an zeigt 11 Nester
+  mit Farbe und Radius nach Typ, aus zeigt keine Marker; noch offen: später beitretender Spieler)
 - [ ] 2.6 Netzwerkstärke berechnen und im Debug anzeigen
 - [ ] 2.7 Camps: Kapazität aus aktiven Nestern berechnen (Entscheidung E8)
 - [ ] 2.8 Camps zufällig platzieren (ganze Karte, Abstandsregeln, Sperrzone um befreites Gebiet)
@@ -104,7 +107,7 @@ Ziel: Nester existieren, sind persistent und schwächen bei Zerstörung das Netz
 - [x] 2.13 (#27) KI-Budget: Liberations Obergrenzen auf 100, COIN-Einheiten obendrauf, Nester immer vollständig, Camps nur bis
   30 COIN-Einheiten insgesamt (ADR 0015; getestet: `COIN_fnc_aiBudget` 100 → 105 → 110 mit Test-Einheiten, nach dem Löschen wieder 100,
   Abschalten zur Laufzeit stellt 180/150/150 wieder her, `COIN_fnc_campFitsBudget` 25 ja / 26 nein;
-  noch offen: Unitcap ×1,5 beim nächsten Wipe, später beitretender Client)
+  Unitcap ×1,5 beim Wipe: 270/225/225 → 150, auch nach Neustart; noch offen: später beitretender Client)
 
 **DoD:** Mit Debug-Anzeige ein Nest finden und zerstören, Neustart, Nest bleibt zerstört,
 Netzwerkstärke ist gesunken. Nach dem Neustart gibt es entsprechend weniger Camps,
