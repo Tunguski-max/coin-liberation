@@ -401,6 +401,13 @@ class Params {
         texts[] = {""};
         default = "";
     };
+    // COIN: lobby switch for COIN_debug, shows the nests on the map for all players (ticket 2.5)
+    class COINDebug {
+        title = "COIN Debug";
+        values[] = {0, 1};
+        texts[] = {$STR_PARAMS_DISABLED, $STR_PARAMS_ENABLED};
+        default = 0;
+    };
     class DebugAsymmetric {
         title = $STR_PARAMS_DEBUG_ASYMMETRIC;
         values[] = {0, 1};

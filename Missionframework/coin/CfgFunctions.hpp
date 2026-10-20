@@ -74,4 +74,30 @@ class COIN {
             postInit = 1;
         };
     };
+
+    class persistence {
+        file = "coin\functions\persistence";
+
+        // Stores entry 22 of Liberation's save while it loads (hook in save_manager.sqf, ADR 0005)
+        class receiveSaveBlock {};
+
+        // Builds entry 22 of Liberation's save: [COIN_saveVersion, nests] (hook in KPLIB_fnc_getSaveData)
+        class getSaveBlock {};
+    };
+
+    class nests {
+        file = "coin\functions\nests";
+
+        // Server: nests from the save or new ones for a new campaign, debug map (tickets 2.1 and 2.5, ADR 0018)
+        class initNests {};
+
+        // Server: nests of a new campaign as data, simple placement until ticket 2.2
+        class createNests {};
+
+        // Influence radius of a nest type from COIN_nestSetup
+        class getNestRadius {};
+
+        // Server: global debug markers for all nests (lobby parameter "COIN Debug")
+        class drawNestMarkers {};
+    };
 };

@@ -9,6 +9,7 @@
 */
 
 diag_log "[COIN] init (server)";
+diag_log format ["[COIN] init: debug=%1 (lobby parameter COIN Debug or COIN_debug in the config)", COIN_debug];
 
 // Phase 1 check: which save key and which lobby values Liberation ended up with
 diag_log format ["[COIN] init: save key %1", GRLIB_save_key];
@@ -47,6 +48,13 @@ if (COIN_enableAIBudget) then {
     [] spawn COIN_fnc_aiBudget;
 } else {
     diag_log format ["[COIN] init: AI budget off, Liberation caps stay sector/battlegroup/patrol %1/%2/%3", GRLIB_sector_cap, GRLIB_battlegroup_cap, GRLIB_patrol_cap];
+};
+
+// Militia network (tickets 2.1 and 2.5, ADR 0018): nests from entry 22 of the save, new ones for a new campaign
+if (COIN_enableNests) then {
+    [] spawn COIN_fnc_initNests;
+} else {
+    diag_log "[COIN] init: nests off, none are created, a COIN block in the save is kept unchanged";
 };
 
 // Colored shemag per faction (ticket #9): runs as long as COIN_enableFactionMarkers is true
