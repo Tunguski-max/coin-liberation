@@ -3,8 +3,8 @@
     Author: COIN Liberation
 
     Description:
-        Everything that makes COIN content spawn nearby (DESIGN 5, ticket 2.3): living players and drones (UAVs) of the
-        player side that a player is connected to. A player in a manned aircraft higher than
+        Everything that makes COIN content spawn nearby (DESIGN 5, ticket 2.3): living players and the drone (UAV)
+        each player is connected to (getConnectedUAV). A player in a manned aircraft higher than
         COIN_presenceMaxAirHeight above ground does not count, so flying over the map spawns nothing.
         Headless clients never count.
         Called once per check by the spawn loops, which then measure the distance to each nest or camp.
@@ -22,7 +22,12 @@ private _present = (allPlayers - entities "HeadlessClient_F") select {
     && {!(_vehicle isKindOf "Air") || {((getPosATL _vehicle) select 2) <= COIN_presenceMaxAirHeight}}
 };
 
-// Only drones a player is flying (connected to a terminal), not parked or autonomous ones
-_present append (allUnitsUAV select {alive _x && {(side _x) isEqualTo GRLIB_side_friendly} && {isUAVConnected _x}});
+// The drone each player is connected to (whatever its side, e.g. one placed by Zeus), not parked or autonomous ones
+{
+    private _uav = getConnectedUAV _x;
+    if (!isNull _uav && {alive _uav}) then {
+        _present pushBackUnique _uav;
+    };
+} forEach (allPlayers - entities "HeadlessClient_F");
 
 _present

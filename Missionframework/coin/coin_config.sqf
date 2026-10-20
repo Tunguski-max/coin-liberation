@@ -64,7 +64,7 @@ COIN_maxActiveIEDs          = 25;       // COIN IEDs at the same time
 
 // ---------------------------------------------------------------------------
 // Spawning near players (DESIGN 5, ticket 2.3), used by nests and later by camps
-// Players count, and player-side drones (UAVs) a player is connected to. Manned aircraft higher than
+// Players count, and the drone (UAV) a player is connected to. Manned aircraft higher than
 // COIN_presenceMaxAirHeight do not.
 // ---------------------------------------------------------------------------
 COIN_spawnDistance          = 1000;     // m: content spawns when the nearest player is this close
