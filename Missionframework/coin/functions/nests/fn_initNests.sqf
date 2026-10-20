@@ -76,4 +76,11 @@ if (COIN_debug) then {
     [] call COIN_fnc_drawNestMarkers;
 };
 
+// Content near players (ticket 2.3)
+if (COIN_enableNestSpawn) then {
+    [] spawn COIN_fnc_nestSpawnLoop;
+} else {
+    diag_log "[COIN] nests: spawning off, nests stay data only";
+};
+
 count COIN_nests

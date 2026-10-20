@@ -61,7 +61,17 @@ COIN_maxCampAI              = 30;       // A camp spawns if afterwards at most t
 COIN_aiBudgetInterval       = 5;        // s between two updates of Liberation's caps
 COIN_maxCivilians           = 30;       // All civilians on the map
 COIN_maxActiveIEDs          = 25;       // COIN IEDs at the same time
-COIN_spawnRadius            = 1500;     // m around players in which COIN content spawns
+
+// ---------------------------------------------------------------------------
+// Spawning near players (DESIGN 5, ticket 2.3), used by nests and later by camps
+// Players count, and player-side drones (UAVs). Manned aircraft higher than COIN_presenceMaxAirHeight do not.
+// ---------------------------------------------------------------------------
+COIN_spawnDistance          = 1000;     // m: content spawns when the nearest player is this close
+COIN_despawnDistance        = 1300;     // m: content is removed when no player was this close ...
+COIN_despawnDelay           = 120;      // ... for this many seconds
+COIN_spawnCheckInterval     = 5;        // s between two checks of all nests
+COIN_presenceMaxAirHeight   = 100;      // m above ground: manned aircraft higher up do not spawn anything
+COIN_curatorSyncInterval    = 10;       // s: objects given to Zeus are added again to curators created later
 
 // ---------------------------------------------------------------------------
 // Militia network (Phase 2) - whole map is the area of operations (ADR 0016)
@@ -157,6 +167,30 @@ COIN_cacheOldVehicles       = [1, 2];   // [min, max] old vehicles guarded by a 
 COIN_oldVehicleClasses      = ["LOP_AM_OPF_BTR60", "LOP_AM_OPF_M113_W"];
 COIN_nestGuardsMin          = 3;
 COIN_nestGuardsMax          = 8;
+// Content of a nest when players come near (ticket 2.3). Guards come from the preset's militia_squad.
+// About half of the guards stay at the core object inside the house, the others patrol as a group.
+COIN_enableNestSpawn        = true;     // Off: nests stay data only, nothing spawns
+COIN_nestGuardsInHouseShare = 0.5;      // Share of the guards inside the house (at most as many as free building positions)
+COIN_nestPatrolRadius       = 100;      // m around the nest the patrol walks
+COIN_nestPropsCount         = [2, 4];   // [min, max] props next to the core object
+// Core object per type: destroying it destroys the nest (Phase 2, ticket 2.4). Only classes Arma can destroy,
+// checked on server start (destrType, armor); a class that fails is replaced by COIN_nestCoreFallback (one log line)
+COIN_nestCores = [
+    ["command",      "Land_SatelliteAntenna_01_F"],     // Satellite dish
+    ["iedWorkshop",  "Box_East_AmmoOrd_F"],             // Explosives crate
+    ["cache",        "Box_East_Wps_F"],                 // Weapons crate
+    ["vbiedGarage",  "Box_IED_Exp_F"],                  // IED crate
+    ["recruitment",  "Box_East_Support_F"]              // Support crate
+];
+COIN_nestCoreFallback       = "Box_East_Ammo_F";
+// Props per type, may be indestructible (e.g. workbench). Missing classes are left out (one log line on server start)
+COIN_nestProps = [
+    ["command",      ["Land_CampingTable_F", "Land_CampingChair_V2_F", "Land_Laptop_unfolded_F", "Land_PortableLongRangeRadio_F", "Land_SatellitePhone_F", "Land_Map_unfolded_F"]],
+    ["iedWorkshop",  ["Land_Workbench_01_F", "Land_ToolTrolley_01_F", "Land_MetalBarrel_F", "Land_CanisterPlastic_F", "Land_BarrelWater_F", "Land_Sack_F"]],
+    ["cache",        ["Land_WoodenCrate_01_F", "Land_Sacks_heap_F", "Land_PaperBox_closed_F", "Box_East_Ammo_F", "Land_Sack_F"]],
+    ["vbiedGarage",  ["Land_CanisterFuel_F", "Land_GasTank_01_blue_F", "Land_ToolTrolley_02_F", "Land_EngineCrane_01_F", "Land_WeldingTrolley_01_F", "Land_Workbench_01_F"]],
+    ["recruitment",  ["Land_Sleeping_bag_F", "Land_Ground_sheet_F", "Land_WaterBottle_01_stack_F", "Land_Pallet_MilBoxes_F", "Land_CampingChair_V1_F", "Land_FoodSacks_01_cargo_brown_F"]]
+];
 COIN_documentDropChance     = 0.5;      // Chance a destroyed nest yields documents
 
 // ---------------------------------------------------------------------------

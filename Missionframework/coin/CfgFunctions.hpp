@@ -80,6 +80,18 @@ class COIN {
 
         // Row of a config table keyed by nest type (COIN_nestSetup, COIN_nestBuildingShare, ...)
         class findByType {};
+
+        // Server: makes COIN objects and units editable for every curator (Zeus)
+        class addToCurators {};
+
+        // Server loop: adds them again to curators created later
+        class curatorSync {};
+
+        // Repeatable random number from a saved seed (a nest looks the same on every visit)
+        class seededRandom {};
+
+        // Players and drones that make COIN content spawn nearby
+        class getPresence {};
     };
 
     class persistence {
@@ -115,5 +127,14 @@ class COIN {
 
         // Server: global debug markers for all nests (lobby parameter "COIN Debug")
         class drawNestMarkers {};
+
+        // Server: checks core and prop classes once (core objects must be destructible)
+        class validateNestContent {};
+
+        // Server: core object, props and guards of a building nest
+        class spawnBuildingNest {};
+
+        // Server loop: spawns nests near players and removes them again (ticket 2.3)
+        class nestSpawnLoop {};
     };
 };
