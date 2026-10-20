@@ -2,8 +2,9 @@
     COIN Liberation - templates
 
     Building templates (ADR 0019, ticket #44): how a nest of a type is set up in a house of a class.
-    Built by Niklas in Eden (or in the mission with Zeus) and read out with the export command
-    (COIN_fnc_exportNestTemplate, or the console snippet in the test guide of #44). Paste its output into the list.
+    Built by Niklas in Eden or in the mission with Zeus and read out with the export command
+    (COIN_fnc_exportNestTemplate in the mission, the snippet in docs/templates.md in Eden).
+    Its output is one complete line "COIN_nestBuildingTemplates pushBack [...];", paste it below the list.
 
     [nest type, house class, [[class, position in the house model, direction relative to the house, role], ...]]
       role  "core"     the core object, exactly one (destroying it destroys the nest)
@@ -15,5 +16,6 @@
     Loaded on every machine by COIN_fnc_init right after coin_config.sqf.
 */
 
-COIN_nestBuildingTemplates = [
-];
+COIN_nestBuildingTemplates = [];
+
+// Templates (paste exported lines here)

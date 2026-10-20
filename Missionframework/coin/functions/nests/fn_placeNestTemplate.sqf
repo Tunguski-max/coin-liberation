@@ -30,7 +30,7 @@ _template params ["_type", "", "_entries"];
 private _houseDir = getDir _house;
 private _objects = [];
 private _core = objNull;
-private _vehicles = 0;
+private _vehicles = [];
 
 {
     _x params ["_class", "_offset", "_dirOffset", "_role"];
@@ -50,24 +50,23 @@ private _vehicles = 0;
         };
         case "vehicle": {
             _object setVehicleLock "LOCKED";
-            _vehicles = _vehicles + 1;
+            _vehicles pushBack _object;
         };
     };
     _objects pushBack _object;
 } forEach _entries;
 
-// Set down after all objects exist, so something standing on a table finds the table
+// Set down after all objects exist, so something standing on a table finds the table. Measured at the contact
+// point, as Eden placed them: an object that stands right is not moved
 {
-    [_x, COIN_templateSnapMax] call COIN_fnc_snapToFloor;
+    [_x, COIN_templateSnapMax, true] call COIN_fnc_snapToFloor;
 } forEach _objects;
 
 // Core object and vehicles get their simulation back (they can be destroyed), props stay without
 {
-    if (_x isEqualTo _core || {_x isKindOf "AllVehicles"}) then {
-        _x enableSimulationGlobal true;
-    };
-} forEach _objects;
+    _x enableSimulationGlobal true;
+} forEach ([_core] + _vehicles);
 
 private _outlines = _objects apply {[getPosATL _x, selectMax ([_x] call COIN_fnc_halfSize)]};
 
-[_objects, _core, _outlines, format [", template with %1 objects (%2 props, %3 vehicles)", count _objects, count _objects - 1 - _vehicles, _vehicles]]
+[_objects, _core, _outlines, format [", template with %1 objects (%2 props, %3 vehicles)", count _objects, count _objects - 1 - count _vehicles, count _vehicles]]

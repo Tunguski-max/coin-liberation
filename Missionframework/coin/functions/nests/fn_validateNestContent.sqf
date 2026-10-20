@@ -54,10 +54,15 @@ COIN_nestValidProps = createHashMap;
 
 COIN_nestValidTemplates = [];
 {
-    _x params ["_type", "_houseClass", "_objects"];
+    _x params [["_type", ""], ["_houseClass", ""], ["_objects", []]];
     private _label = format ["template %1 of %2 in %3", _forEachIndex, _type, _houseClass];
+    // Entries must be [class, [x, y, z], direction, role]
+    private _wellFormed = _objects select {_x isEqualTypeParams ["", [], 0, ""] && {count (_x select 1) == 3}};
+    if (count _wellFormed < count _objects) then {
+        diag_log format ["[COIN] nests: ERROR - %1: malformed entries left out: %2", _label, _objects - _wellFormed];
+    };
     // Deep copy, so a replaced core class does not change the config list
-    private _valid = +(_objects select {isClass (configFile >> "CfgVehicles" >> (_x select 0))});
+    private _valid = +(_wellFormed select {isClass (configFile >> "CfgVehicles" >> (_x select 0))});
     if (count _valid < count _objects) then {
         diag_log format ["[COIN] nests: %1: classes not found and left out: %2", _label, (_objects - _valid) apply {_x select 0}];
     };

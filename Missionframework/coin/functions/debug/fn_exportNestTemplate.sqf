@@ -5,17 +5,21 @@
     Description:
         Export of a building template (ADR 0019, ticket #44): takes the house the player looks at (or the nearest
         building) and every placed object inside its outline, and writes them with class, position in the house model,
-        direction relative to the house and role to the clipboard, in the format of coin_templates.sqf.
+        direction relative to the house and role as one line "COIN_nestBuildingTemplates pushBack [...];" to the
+        clipboard and the RPT, ready to paste into coin_templates.sqf.
         Role: "core" for the object with the variable name "core" (Eden) or, if there is none, the first object of the
-        type's class in COIN_nestCores; "vehicle" for land vehicles; "prop" for the rest. Units and the player are left out.
-        For the debug console of the mission (local host); the test guide of #44 has the same code for an Eden scenario.
+        type's class in COIN_nestCores; "vehicle" for land vehicles; "prop" for the rest.
+        Only objects placed in the editor or by Zeus count: no terrain objects, units, logics, weapon holders or the
+        player's vehicle. Positions are taken at the object's contact point (getPosASL), as the spawn sets them.
+        For the debug console of the mission; docs/templates.md has the same export for a plain Eden scenario.
+        The clipboard works in single player and on the local host only.
 
     Parameter(s):
         _type  - Nest type the template is for, e.g. "vbiedGarage" [STRING]
         _house - House, objNull for the one the player looks at [OBJECT, defaults to objNull]
 
     Returns:
-        Template as text, "" if there is no house [STRING]
+        Template line, "" if there is no house [STRING]
 */
 
 params [
@@ -36,11 +40,15 @@ private _margin = 3;
 ([_house] call COIN_fnc_halfSize) params ["_halfX", "_halfY"];
 private _coreClass = ([COIN_nestCores, _type] call COIN_fnc_findByType) param [1, ""];
 
-private _objects = (nearestObjects [_house, [], (_halfX max _halfY) + _margin]) select {
+// Search radius reaches the corners of the outline, the rectangle check below does the rest
+private _objects = (nearestObjects [_house, [], vectorMagnitude [_halfX + _margin, _halfY + _margin, 0]]) select {
     private _local = _house worldToModel (ASLToAGL (getPosASL _x));
     !(_x isEqualTo _house)
-    && {getObjectType _x >= 8}
+    && {getObjectType _x == 8}
     && {!(_x isKindOf "CAManBase")}
+    && {!(_x isKindOf "Logic")}
+    && {!(_x isKindOf "WeaponHolder")}
+    && {!(_x isEqualTo (vehicle player))}
     && {abs (_local select 0) <= _halfX + _margin}
     && {abs (_local select 1) <= _halfY + _margin}
 };
@@ -50,7 +58,7 @@ if (_coreIndex < 0) then {
     _coreIndex = _objects findIf {(typeOf _x) isEqualTo _coreClass};
 };
 
-private _lines = [];
+private _entries = [];
 {
     private _local = _house worldToModel (ASLToAGL (getPosASL _x));
     private _dir = ((getDir _x) - (getDir _house) + 360) mod 360;
@@ -59,16 +67,20 @@ private _lines = [];
         case (_x isKindOf "LandVehicle"): {"vehicle"};
         default {"prop"};
     };
-    _lines pushBack format [
-        "        [""%1"", [%2, %3, %4], %5, ""%6""]",
+    _entries pushBack format [
+        "[""%1"",[%2,%3,%4],%5,""%6""]",
         typeOf _x, (_local select 0) toFixed 3, (_local select 1) toFixed 3, (_local select 2) toFixed 3, _dir toFixed 1, _role
     ];
 } forEach _objects;
 
-private _text = format ["    [""%1"", ""%2"", [%3%4%3    ]],", _type, typeOf _house, toString [10], _lines joinString ("," + toString [10])];
+private _text = format ["COIN_nestBuildingTemplates pushBack [""%1"",""%2"",[%3]];", _type, typeOf _house, _entries joinString ","];
 copyToClipboard _text;
 diag_log format ["[COIN] debug: template of %1 in %2 with %3 objects%4", _type, typeOf _house, count _objects, ["", ", no core object found"] select (_coreIndex < 0)];
 diag_log _text;
-hint format ["Template %1 in %2: %3 objects%4, copied to the clipboard", _type, typeOf _house, count _objects, ["", ", NO core object"] select (_coreIndex < 0)];
+hint format [
+    "Template %1 in %2: %3 objects%4, %5",
+    _type, typeOf _house, count _objects, ["", ", NO core object"] select (_coreIndex < 0),
+    ["text in the RPT only (no clipboard on a dedicated server)", "copied to the clipboard and in the RPT"] select isServer
+];
 
 _text
