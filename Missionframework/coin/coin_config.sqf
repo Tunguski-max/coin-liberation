@@ -201,7 +201,7 @@ COIN_nestPropsCount         = [2, 4];   // [min, max] props next to the core obj
 // Core object per type: destroying it destroys the nest (Phase 2, ticket 2.4). Only classes Arma can destroy,
 // checked on server start (destrType, armor); a class that fails is replaced by COIN_nestCoreFallback (one log line)
 COIN_nestCores = [
-    ["command",      "Land_SatelliteAntenna_01_F"],     // Satellite dish
+    ["command",      "Box_East_AmmoOrd_F"],             // Explosives crate (satellite dish cannot be destroyed, test 2026-10-20); a template core wins
     ["iedWorkshop",  "Box_East_AmmoOrd_F"],             // Explosives crate
     ["cache",        "Box_East_Wps_F"],                 // Weapons crate
     ["vbiedGarage",  "Box_IED_Exp_F"],                  // IED crate
