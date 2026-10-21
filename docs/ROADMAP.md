@@ -101,7 +101,8 @@ Ziel: Nester existieren, sind persistent und schwächen bei Zerstörung das Netz
   Template-Klassen. Alle 15 Gebäude-Templates (#32) eingetragen und am 2026-10-21 getestet: alle 15 nutzbar, Nester
   spawnen stabil nach Template; offen: Gelände-Nest (#31), Gelände- und Camp-Templates (#32), Mine entschärfen nicht getestet
 - [ ] 2.3a Template-Mechanik für Gelände-Nester und Camps: Platzhalter-Templates von Claude,
-  danach je 2–3 Templates pro Nest-Typ und für Camps von Niklas (Eden, `BIS_fnc_objectsGrabber`)
+  danach je 2–3 Templates pro Nest-Typ und für Camps von Niklas (Eden, Export um einen Richtungspfeil, ADR 0020).
+  Gelände-Nest spawnen mit Platzhalter-Templates (#31): implementiert, ungetestet
 - [ ] 2.4 Zerstörung erkennen, Zustand speichern, Ereignis auslösen
 - [x] 2.5 (#28) Debug-Anzeige (Parameter): Nester und Radien auf der Karte (Lobby-Parameter „COIN Debug“; getestet: an zeigt 11 Nester
   mit Farbe und Radius nach Typ, aus zeigt keine Marker; noch offen: später beitretender Spieler)

@@ -176,7 +176,7 @@ COIN_nestGuardsInHouseShare = 0.5;      // Share of the guards inside the house 
 COIN_nestPatrolRadius       = 100;      // m around the nest the patrol walks, smaller near a sector (below)
 COIN_nestPatrolSectorMargin = 25;       // m the patrol keeps outside Liberation's capture radius of the nearest sector
 COIN_capitalCaptureFactor   = 1.4;      // Liberation's capture radius of the capital = GRLIB_capture_size x this (fn_getBluforRatio.sqf)
-COIN_nestPatrolStart        = [10, 40]; // [min, max] m from the house where the patrol starts
+COIN_nestPatrolStart        = [10, 40]; // [min, max] m from the house or camp centre where the patrol starts
 COIN_nestHouseTolerance     = 5;        // m between the saved nest position and the house when it is found again
 COIN_nestPropSpacing        = [1.5, 3]; // [min, max] m from the core object for props without a free building position
 // Clean placement (ticket #44): objects stand on the floor below their spot, need free space around them and keep doors free
@@ -193,6 +193,15 @@ COIN_templateSnapMax        = 0;        // m a template prop is moved at most to
 COIN_templateVehicleSnapMax = 0.3;      // m a template vehicle is moved at most to stand on the floor
 COIN_spawnVehicleProtection = 5;        // s a spawned vehicle cannot be damaged, so a jolt when its physics starts cannot wreck it
 COIN_enableNestMines        = true;     // Mines in templates spawn live (createMine, ACE can defuse them). Off: left out
+// Terrain nests (ticket #31, ADR 0020): a terrain template is built around a direction arrow, the seed picks it and
+// turns it around the nest position; objects keep their height above the terrain and tilt with the slope
+COIN_terrainTemplateCentreClass  = "Sign_Arrow_Direction_F"; // Arrow that marks centre and front of a terrain template in Eden
+COIN_terrainTemplateCentreSearch = 50;  // m around the player the export looks for the arrow (without variable name "centre")
+COIN_terrainTemplateRadius  = 15;       // m around the arrow the export takes objects from (= COIN_nestTerrainFlatRadius)
+COIN_nestTerrainGuardShare  = 0.5;      // Share of the guards standing in a ring around the camp, the others patrol
+COIN_nestTerrainGuardRing   = [6, 12];  // [min, max] m from the centre where they stand, looking outwards
+COIN_nestTerrainGuardClearance = 1;     // m they keep from the outline of placed objects
+COIN_nestTerrainGuardTries  = 8;        // Spots tried per guard before it patrols instead
 // VBIED garage: a civilian vehicle as a prop (not the core object, decoration only, locked for players)
 COIN_enableNestVehicle      = true;     // Off: VBIED garages without vehicle
 COIN_vbiedGarageVehicles    = ["C_Offroad_01_F", "C_Hatchback_01_F", "C_SUV_01_F", "C_Van_01_transport_F"];

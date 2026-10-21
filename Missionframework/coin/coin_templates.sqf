@@ -4,7 +4,7 @@
     Building templates (ADR 0019, ticket #44): how a nest of a type is set up in a house of a class.
     Built by Niklas in Eden or in the mission with Zeus and read out with the export command
     (COIN_fnc_exportNestTemplate in the mission, the snippet in docs/templates.md in Eden).
-    Its output is one complete line "COIN_nestBuildingTemplates pushBack [...];", paste it below the list.
+    Its output is one complete line "COIN_nestBuildingTemplates pushBack [...];", paste it under "Building templates".
 
     [nest type, house class, [[class, position in the house model, direction relative to the house, role], ...]]
       role  "core"     the core object, exactly one (destroying it destroys the nest)
@@ -14,12 +14,21 @@
     Several templates for the same type and house class: the nest's seed picks one.
     At most 3 house classes per nest type (ADR 0019). A type without template keeps the free placement.
 
+    Terrain templates (ADR 0020, ticket #31): how a terrain nest or a camp is set up, built around a direction arrow
+    (COIN_terrainTemplateCentreClass) and read out with COIN_fnc_exportTerrainTemplate or the Eden snippet in
+    docs/templates.md. Output: one line "COIN_terrainTemplates pushBack [...];", paste it under "Terrain templates" at the end.
+
+    [nest type or "camp", [[class, [right, front, height above the terrain], direction relative to the arrow, role], ...]]
+      roles as above; a nest template needs exactly one "core", a camp template none
+    The seed picks one template of the type and turns it around the nest position. A nest type without terrain
+    template cannot spawn as a terrain nest (one ERROR line on spawn).
+
     Loaded on every machine by COIN_fnc_init right after coin_config.sqf.
 */
 
 COIN_nestBuildingTemplates = [];
 
-// Templates (paste exported lines here)
+// Building templates (paste exported lines here)
 // VBIED garage in Land_i_Shed_Ind_F (Niklas, 2026-10-20; ambient effects taken out)
 COIN_nestBuildingTemplates pushBack ["vbiedGarage","Land_i_Shed_Ind_F",[["CUP_C_Volha_Gray_TKCIV",[-1.168,1.011,-1.504],0.9,"vehicle"],["jbad_crates_02",[0.974,-0.178,-1.495],207.3,"prop"],["Box_IED_Exp_F",[2.045,-0.992,-0.636],16.0,"core"],["jbad_Kitchen_Chair_a",[2.479,-0.208,-1.498],358.3,"prop"],["Land_WoodenTable_large_F",[2.457,-1.123,-1.494],269.1,"prop"],["Land_WeldingTrolley_01_F",[0.581,3.261,-1.495],327.6,"prop"],["Land_MetalWire_F",[3.984,-0.932,-0.645],207.3,"prop"],["Land_File_F",[4.337,-0.840,-0.640],312.8,"prop"],["ATMine_Range_Ammo",[4.410,-1.133,-0.643],207.3,"mine"],["Land_Screwdriver_V2_F",[4.549,-0.789,-0.613],159.9,"prop"],["Land_WoodenTable_large_F",[4.666,-1.068,-1.495],269.1,"prop"],["ATMine_Range_Ammo",[4.825,-1.134,-0.641],207.3,"mine"],["jbad_Tv_a",[-5.160,0.366,-0.628],89.7,"prop"],["jbad_water_pipe",[-5.291,-0.407,-0.627],207.3,"prop"],["Land_WoodenTable_large_F",[-5.237,0.353,-1.490],1.1,"prop"],["Land_CanisterFuel_F",[5.334,-0.459,-1.495],228.9,"prop"],["Land_Bucket_painted_F",[5.900,-0.653,-1.495],207.3,"prop"],["CUP_C_Lada_GreenTK_CIV",[8.177,1.151,-1.506],1.0,"vehicle"],["GunrackTK_EP1",[3.139,7.876,-1.497],179.1,"prop"],["Land_Metal_rack_Tall_F",[1.797,8.335,-1.495],181.0,"prop"],["Land_Metal_rack_Tall_F",[2.758,8.340,-1.495],181.0,"prop"],["jbad_opx2_pronapane",[9.453,2.854,-1.604],207.3,"prop"],["Land_PortableLight_single_F",[-8.420,8.417,-1.500],325.3,"prop"],["Land_PortableLight_double_F",[15.130,7.971,-1.490],49.7,"prop"]]];
 // VBIED garage in Land_CarService_F (Niklas, 2026-10-20)
@@ -59,3 +68,19 @@ COIN_nestBuildingTemplates pushBack ["recruitment","Land_jbad_terrace",[["jbad_m
 
 // Recruitment post in Land_jbad_House_c_11 (Niklas, 2026-10-21)
 COIN_nestBuildingTemplates pushBack ["recruitment","Land_jbad_House_c_11",[["jbad_Tv_a",[3.446,-3.996,-1.214],182.3,"prop"],["Land_RattanTable_01_F",[-0.508,5.090,-2.451],93.7,"prop"],["dmpBottleFull_V",[-0.781,5.286,-1.656],128.2,"prop"],["Land_FoodSacks_01_small_brown_idap_F",[0.805,5.068,-2.460],181.6,"prop"],["dmpBottleFull_V",[-0.710,5.375,-1.653],128.2,"prop"],["dmpBottleFull_V",[-0.832,5.381,-1.652],128.2,"prop"],["Land_FoodSacks_01_small_brown_idap_F",[1.729,5.088,-2.466],180.6,"prop"],["Box_IED_Exp_F",[4.893,5.062,0.971],179.3,"core"],["Lantern_01_green_F",[5.562,4.927,1.785],128.2,"prop"],["Lantern_01_red_F",[7.426,-1.762,-1.239],128.2,"prop"],["Land_CampingTable_small_F",[5.869,4.936,0.973],2.3,"prop"]]];
+
+// ---------------------------------------------------------------------------
+// Terrain templates
+// ---------------------------------------------------------------------------
+
+COIN_terrainTemplates = [];
+
+// Placeholders (Claude, 2026-10-21) until Niklas has built real ones (#32): camouflage net or tents, core object, a few props
+COIN_terrainTemplates pushBack ["command",[["CamoNet_OPFOR_open_F",[0,0,0],0,"prop"],["Box_East_AmmoOrd_F",[1.5,1,0],90,"core"],["Land_CampingTable_F",[-1.2,1.2,0],0,"prop"],["Land_CampingChair_V2_F",[-1.2,0.3,0],180,"prop"],["Land_SatelliteAntenna_01_F",[-3,-2.5,0],45,"prop"],["Land_TentA_F",[5.5,-3,0],270,"prop"],["Land_BagFence_Round_F",[0,7,0],180,"prop"]]];
+COIN_terrainTemplates pushBack ["iedWorkshop",[["CamoNet_OPFOR_open_F",[0,0,0],0,"prop"],["Box_East_AmmoOrd_F",[1,1.5,0],0,"core"],["Land_Workbench_01_F",[-1.5,1.5,0],0,"prop"],["Land_MetalBarrel_F",[2.2,-1.5,0],0,"prop"],["Land_CanisterPlastic_F",[2.8,-0.8,0],30,"prop"],["Land_Sack_F",[-2.5,-1.5,0],0,"prop"],["Land_TentA_F",[-6,2,0],90,"prop"]]];
+COIN_terrainTemplates pushBack ["cache",[["CamoNet_OPFOR_open_F",[0,0,0],0,"prop"],["Box_East_Wps_F",[0,1,0],0,"core"],["Land_WoodenCrate_01_F",[1.5,0.8,0],10,"prop"],["Land_Sacks_heap_F",[-1.8,0.5,0],0,"prop"],["Land_PaperBox_closed_F",[1,-1.2,0],30,"prop"],["Box_East_Ammo_F",[-0.8,-1.5,0],90,"prop"],["Land_BagFence_Short_F",[0,-6,0],0,"prop"]]];
+COIN_terrainTemplates pushBack ["vbiedGarage",[["CamoNet_OPFOR_big_F",[0,0,0],0,"prop"],["C_Offroad_01_F",[0,0,0],0,"vehicle"],["Box_IED_Exp_F",[3.5,1,0],0,"core"],["Land_CanisterFuel_F",[3.5,-1,0],0,"prop"],["Land_ToolTrolley_02_F",[-3,1.5,0],90,"prop"],["Land_GasTank_01_blue_F",[-3,-1,0],0,"prop"]]];
+COIN_terrainTemplates pushBack ["recruitment",[["Land_TentA_F",[-3,2,0],0,"prop"],["Land_TentA_F",[3,2,0],0,"prop"],["Box_East_Support_F",[0,-1,0],90,"core"],["Land_Sleeping_bag_F",[-1.5,-2.5,0],0,"prop"],["Land_Ground_sheet_F",[1.5,-2.5,0],0,"prop"],["Land_FirePlace_F",[0,-5,0],0,"prop"],["Land_CampingChair_V1_F",[1,-5.8,0],300,"prop"]]];
+COIN_terrainTemplates pushBack ["camp",[["Land_TentA_F",[-2.5,1.5,0],20,"prop"],["Land_TentA_F",[2.5,1.5,0],340,"prop"],["Land_FirePlace_F",[0,-1.5,0],0,"prop"],["Land_CampingChair_V1_F",[1.2,-2.5,0],300,"prop"],["Land_WoodPile_F",[-2,-2.5,0],0,"prop"]]];
+
+// Terrain templates (paste exported lines here)

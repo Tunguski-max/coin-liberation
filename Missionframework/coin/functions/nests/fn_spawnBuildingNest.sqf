@@ -9,11 +9,8 @@
           (COIN_fnc_placeNestFree).
         - guards, complete on every spawn (number from the seed, COIN_nestGuardsMin to Max): about half of them stay
           at the free building positions closest to the core object (none under a placed object), the others patrol
-          around the nest as one group. The patrol keeps outside Liberation's capture radius of the nearest sector,
-          so it never blocks a capture (ADR 0018). A house without free positions keeps all guards outside.
-          On contact they fight as normal AI.
-        Guards are militia (preset militia_squad), managed by Liberation's kill manager, marked as COIN units for the
-        AI budget. Objects are excluded from Liberation's save near FOBs. Everything goes to Zeus.
+          around the nest (COIN_fnc_spawnNestGuards). A house without free positions keeps all guards outside.
+        Objects are excluded from Liberation's save near FOBs. Everything goes to Zeus.
         The core object carries COIN_nestId for the destruction check (ticket 2.4). Server only.
 
     Parameter(s):
@@ -70,7 +67,7 @@ private _templates = COIN_nestValidTemplates select {(_x select 0) isEqualTo _ty
 private _placement = if (_templates isEqualTo []) then {
     [_house, _type, _id, _seed, _positions, _order] call COIN_fnc_placeNestFree
 } else {
-    [_house, _id, _templates select ([_streamTemplate, count _templates] call _seededIndex)] call COIN_fnc_placeNestTemplate
+    [_house, _id, (_templates select ([_streamTemplate, count _templates] call _seededIndex)) select 2] call COIN_fnc_placeNestTemplate
 };
 _placement params ["_objects", "_core", "_placedOutlines", "_layout"];
 private _corePos = getPosATL _core;
@@ -87,48 +84,8 @@ private _free = (_order apply {_positions select _x}) select {
     }) < 0
 };
 _free = [_free, [], {_x distance _corePos}, "ASCEND"] call BIS_fnc_sortBy;
-private _inHouse = (round (_guardCount * COIN_nestGuardsInHouseShare)) min (count _free);
-private _patrolling = _guardCount - _inHouse;
-private _guards = [];
-
-if (_inHouse > 0) then {
-    private _group = createGroup [GRLIB_side_enemy, true];
-    for "_i" from 0 to (_inHouse - 1) do {
-        private _guardPos = _free select _i;
-        private _unit = [selectRandom militia_squad, _guardPos, _group] call KPLIB_fnc_createManagedUnit;
-        _unit setPosATL _guardPos;
-        _unit setDir (random 360);
-        _unit setUnitPos "UP";
-        // Stays at its position until there is shooting nearby, then it fights as normal AI
-        _unit disableAI "PATH";
-        _unit addEventHandler ["FiredNear", {
-            params ["_unit"];
-            _unit enableAI "PATH";
-            _unit removeEventHandler [_thisEvent, _thisEventHandler];
-        }];
-        _guards pushBack _unit;
-    };
-};
-
-private _patrolRadius = 0;
-if (_patrolling > 0) then {
-    // Keep the patrol outside the capture radius of the nearest sector (the capital's radius is larger)
-    private _sector = [sectors_allSectors, _pos] call BIS_fnc_nearestPosition;
-    private _captureSize = GRLIB_capture_size * ([1, COIN_capitalCaptureFactor] select (_sector in sectors_bigtown));
-    _patrolRadius = COIN_nestPatrolRadius min ((_pos distance2D (markerPos _sector)) - _captureSize - COIN_nestPatrolSectorMargin);
-    _patrolRadius = _patrolRadius max 0;
-
-    private _group = createGroup [GRLIB_side_enemy, true];
-    COIN_nestPatrolStart params ["_startMin", "_startMax"];
-    // Free spot next to the house, the house position itself if there is none
-    private _start = [_pos, _startMin, _startMin max (_startMax min _patrolRadius), 2, 0, 0.5, 0, [], [_pos, _pos]] call BIS_fnc_findSafePos;
-    for "_i" from 1 to _patrolling do {
-        _guards pushBack ([selectRandom militia_squad, _start, _group, "PRIVATE", _startMin] call KPLIB_fnc_createManagedUnit);
-    };
-    [_group, _pos, _patrolRadius] call BIS_fnc_taskPatrol;
-};
-
-[_guards] call COIN_fnc_markCoinUnits;
+([_pos, _guardCount, _free apply {[_x, random 360]}, COIN_nestGuardsInHouseShare] call COIN_fnc_spawnNestGuards)
+    params ["_guards", "_inHouse", "_patrolling", "_patrolRadius"];
 _objects append _guards;
 [_objects] call COIN_fnc_addToCurators;
 
