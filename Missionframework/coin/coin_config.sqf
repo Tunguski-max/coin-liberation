@@ -237,6 +237,7 @@ COIN_documentDropChance     = 0.5;      // Chance a destroyed nest yields docume
 // ---------------------------------------------------------------------------
 COIN_enableCamps            = true;     // Off: no camps are created (ticket 2.7)
 COIN_campMax                = 10;       // Hard cap of simultaneous camps
+COIN_campSeedRange          = 1e6;      // Seeds of camps are below this (not saved, only for a repeatable look within one session)
 // Weight per nest type: [type, weight]. It counts in the camp capacity (decision E8) and is the most camps one nest of the type supplies
 COIN_campsPerNest = [
     ["command",      2],
@@ -262,6 +263,12 @@ COIN_campCoverMin           = 3;
 COIN_campGuardsMin          = 3;
 COIN_campGuardsMax          = 6;
 COIN_campTechnicalChance    = 0.3;
+COIN_enableCampSpawn        = true;     // Off: camps stay data (ticket 2.9), no content spawns
+COIN_enableCampTechnical    = true;     // Off: no camp gets a technical
+COIN_campTechnicalCrew      = 3;        // Fighters a technical counts for in the camp budget (KPLIB_fnc_spawnMilitiaCrew seats up to 3)
+COIN_campTechnicalDist      = [8, 15];  // [min, max] m from the camp centre where the technical stands
+COIN_campTechnicalClearance = 5;        // m it keeps from objects (BIS_fnc_findSafePos)
+COIN_campTechnicalLeash     = 50;       // m: an empty technical farther from its camp than this was taken and is not deleted with the camp
 COIN_campReplaceMinutes     = [30, 60]; // Delay before a destroyed camp is replaced
 COIN_campRelocateMinutes    = [120, 180]; // Undiscovered camps move after this time
 COIN_campIntelChance        = 0.4;      // Chance a cleared camp yields intel on its nest

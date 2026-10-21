@@ -204,7 +204,19 @@ class COIN {
         // Server: global debug markers for the camps, with a line to their nest (ticket 2.11)
         class drawCampMarkers {};
 
-        // Server loop: spawns nests near players and removes them again (ticket 2.3)
+        // What a camp looks like when it spawns: template, direction, fighters, technical (ticket 2.9)
+        class planCamp {};
+
+        // Server: template objects, guards and perhaps a technical of a camp (ticket 2.9)
+        class spawnCamp {};
+
+        // Server: deletes a camp's content, a technical a player took stays (ticket 2.9)
+        class removeCamp {};
+
+        // Server: spots of the stationary guards in a ring around a terrain nest or a camp
+        class findGuardRingSpots {};
+
+        // Server loop: spawns nests and camps near players and removes them again (ticket 2.3 and 2.9)
         class nestSpawnLoop {};
 
         // Server: nest destroyed for good, saved at once, event COIN_nestDestroyed (ticket 2.4)
