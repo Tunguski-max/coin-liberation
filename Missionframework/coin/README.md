@@ -68,7 +68,8 @@ coin/
         ├── fn_placeNestTemplate.sqf    COIN_fnc_placeNestTemplate: Objekte nach Gebäude- oder Gelände-Template (ADR 0019, ADR 0020)
         ├── fn_placeNestFree.sqf        COIN_fnc_placeNestFree: freie Platzierung für Häuser ohne Template
         ├── fn_placeNestVehicle.sqf     COIN_fnc_placeNestVehicle: ziviles Fahrzeug der VBIED-Garage bei freier Platzierung
-        └── fn_nestSpawnLoop.sqf        COIN_fnc_nestSpawnLoop: Server-Schleife, Spawn ab 1000 m, Abbau nach 2 min außerhalb 1300 m
+        ├── fn_nestSpawnLoop.sqf        COIN_fnc_nestSpawnLoop: Server-Schleife, Spawn ab 1000 m, Abbau nach 2 min außerhalb 1300 m, Zerstörung prüfen
+        └── fn_destroyNest.sqf          COIN_fnc_destroyNest: Nest endgültig zerstört, sofort gespeichert, Ereignis COIN_nestDestroyed
 ```
 
 Geplante weitere Kategorien unter `functions/` (anlegen, wenn sie gebraucht werden):

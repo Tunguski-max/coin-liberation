@@ -105,7 +105,10 @@ Ziel: Nester existieren, sind persistent und schwächen bei Zerstörung das Netz
   Gelände-Nest (#31) am 2026-10-21 getestet: jeder Typ als Gelände-Nest gesehen (auch per `COIN_fnc_debugTerrainNest`),
   gleicher Seed gleiches Template und gleiche Drehung, etwa die Hälfte der Wachen im Ring, Spawn und Abbau wie beim
   Gebäude-Nest. Niklas übernimmt die Gelände-Templates von Claude (je eines pro Typ); offen: Camp-Templates
-- [ ] 2.4 Zerstörung erkennen, Zustand speichern, Ereignis auslösen
+- [x] 2.4 Zerstörung erkennen, Zustand speichern, Ereignis auslösen
+  (#33: Kernobjekt zerstört oder Haus eingestürzt, sofort gespeichert, Ereignis `COIN_nestDestroyed`. Am 2026-10-21 getestet:
+  Kernobjekt gesprengt bei Gebäude- und Gelände-Nest, Marker grau, Ereignis je Nest einmal, kein Respawn, nach Neustart
+  weiter zerstört, Zeus-Löschen ist keine Zerstörung, eingestürzte Halle zerstört das Nest sofort)
 - [x] 2.5 (#28) Debug-Anzeige (Parameter): Nester und Radien auf der Karte (Lobby-Parameter „COIN Debug“; getestet: an zeigt 11 Nester
   mit Farbe und Radius nach Typ, aus zeigt keine Marker; noch offen: später beitretender Spieler)
 - [ ] 2.6 Netzwerkstärke berechnen und im Debug anzeigen

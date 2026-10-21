@@ -77,6 +77,11 @@ if (_created) then {
 
 if (COIN_debug) then {
     [] call COIN_fnc_drawNestMarkers;
+    // One line per event, so the test can see it comes exactly once per nest
+    ["COIN_nestDestroyed", {
+        params ["_id", "_type", "_pos"];
+        diag_log format ["[COIN] nests: event COIN_nestDestroyed for nest %1 (%2) at %3", _id, _type, _pos];
+    }] call CBA_fnc_addEventHandler;
 };
 
 // Content near players (ticket 2.3)

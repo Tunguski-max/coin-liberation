@@ -218,6 +218,10 @@ COIN_nestCores = [
     ["recruitment",  "Box_East_Support_F"]              // Support crate
 ];
 COIN_nestCoreFallback       = "Box_East_Ammo_F";
+// Destruction (ticket 2.4): a destroyed core object or a collapsed house destroys the nest for good, saved at once,
+// server event "COIN_nestDestroyed" [id, type, position]. Zeus deleting the core object is no destruction
+COIN_enableNestDestruction  = true;     // Off: destruction is not recognised, the nest spawns again next time
+COIN_nestSaveRetryDelay     = 5;        // s until a destroyed nest is saved again when Liberation was saving already
 // Props per type, may be indestructible (e.g. workbench). Missing classes are left out (one log line on server start)
 COIN_nestProps = [
     ["command",      ["Land_CampingTable_F", "Land_CampingChair_V2_F", "Land_Laptop_unfolded_F", "Land_PortableLongRangeRadio_F", "Land_SatellitePhone_F", "Land_Map_unfolded_F"]],
