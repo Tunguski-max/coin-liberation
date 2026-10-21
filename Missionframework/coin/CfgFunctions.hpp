@@ -117,6 +117,12 @@ class COIN {
 
         // Debug console: building template of the house the player looks at, to the clipboard
         class exportNestTemplate {};
+
+        // Debug console: terrain template around the centre arrow, to the clipboard (ADR 0020)
+        class exportTerrainTemplate {};
+
+        // Debug console: terrain nest of a type in front of the player, as a real one spawns
+        class debugTerrainNest {};
     };
 
     class persistence {
@@ -159,7 +165,13 @@ class COIN {
         // Server: core object, props and guards of a building nest
         class spawnBuildingNest {};
 
-        // Server: core object, props and vehicle after a building template (ADR 0019)
+        // Server: core object, props and guards of a terrain nest after a terrain template (ADR 0020)
+        class spawnTerrainNest {};
+
+        // Server: stationary and patrolling guards of a nest
+        class spawnNestGuards {};
+
+        // Server: core object, props and vehicle after a building or terrain template (ADR 0019, ADR 0020)
         class placeNestTemplate {};
 
         // Server: free placement for houses without a template

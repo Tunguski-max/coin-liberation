@@ -6,8 +6,9 @@
         Server loop that spawns and removes the content of nests near players (ticket 2.3, DESIGN 5):
         - spawn when the nearest player or drone (COIN_fnc_getPresence) is at most COIN_spawnDistance away,
         - remove when nobody was within COIN_despawnDistance for COIN_despawnDelay seconds.
-        Only active building nests spawn for now, terrain nests follow with the template mechanics (ticket 2.3, part 2).
-        A nest whose house is gone is not tried again until the next server start.
+        Active building nests spawn with COIN_fnc_spawnBuildingNest, terrain nests with COIN_fnc_spawnTerrainNest
+        (only while COIN_enableTerrainNests is true).
+        A nest that could not be spawned (house gone, no terrain template) is not tried again until the next server start.
         Runs every COIN_spawnCheckInterval seconds as long as COIN_enableNestSpawn is true; switched off, all
         spawned content is removed. Started by COIN_fnc_initNests once the nests are known. Must be spawned.
 
@@ -55,11 +56,15 @@ while {COIN_enableNestSpawn} do {
             if (
                 _hasPresence
                 && {_distance <= COIN_spawnDistance}
-                && {_kind isEqualTo "building"}
                 && {_state isEqualTo "active"}
+                && {_kind isEqualTo "building" || COIN_enableTerrainNests}
                 && {!(_id in _failed)}
             ) then {
-                private _content = [_x, _distance] call COIN_fnc_spawnBuildingNest;
+                private _content = if (_kind isEqualTo "building") then {
+                    [_x, _distance] call COIN_fnc_spawnBuildingNest
+                } else {
+                    [_x, _distance] call COIN_fnc_spawnTerrainNest
+                };
                 if (_content isEqualTo []) then {
                     _failed pushBack _id;
                 } else {

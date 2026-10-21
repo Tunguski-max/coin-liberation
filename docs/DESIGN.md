@@ -1,6 +1,6 @@
 # Design: COIN Liberation (Arbeitstitel)
 
-> Status: **Entwurf v0.4.3** – Grundlage für die Umsetzung mit Claude Code.
+> Status: **Entwurf v0.4.4** – Grundlage für die Umsetzung mit Claude Code.
 > v0.2: Entscheidungen aus Phase 0 eingearbeitet (ADR 0008–0015, `docs/kp-liberation-map.md`).
 > v0.3: Spielfeld und Ausrüstung für Phase 1 festgelegt (ADR 0007, 0016), Abgleich mit Hearts and Minds.
 > v0.3.1: Sektorauswahl von Hand ergänzt (ADR 0016), Ressourcen-Wirtschaft (ADR 0017).
@@ -8,6 +8,7 @@
 > v0.4.1: Verteilung der Nester nach dem Prinzip „bester Kandidat“ mit Randabstand (Test 2026-10-20).
 > v0.4.2: Mindestens 2 Nester pro Typ, Häuser passend zum Typ (Fläche, Gebäudepositionen, Klassenliste der VBIED-Garage).
 > v0.4.3: Gebäude-Nester nach Templates pro Hausklasse und Nest-Typ (ADR 0019).
+> v0.4.4: Gelände-Nester nach Templates mit Richtungspfeil, Hangneigung und Wachenring (ADR 0020).
 > Offene Entscheidungen stehen gesammelt in [Abschnitt 12](#12-offene-entscheidungen).
 > Begriffe sind in [`CONTEXT.md`](../CONTEXT.md) definiert.
 
@@ -133,7 +134,9 @@ die jeweils einen **Einflussradius** haben und dort einen konkreten Effekt erzeu
   - **Gelände-Nest:** 2–3 Templates pro Nest-Typ (Zelte, Tarnnetz, Kisten, Kernobjekt), platziert an einer
     ebenen, freien Stelle mit denselben Abständen wie Camps (Abschnitt 5.1). Niklas baut die Templates im Eden-Editor
     und liest sie mit demselben Export-Befehl wie die Gebäude-Templates aus (ADR 0019); für den ersten Test gibt es je
-    ein einfaches Platzhalter-Template.
+    ein einfaches Template von Claude, das Niklas am 2026-10-21 übernommen hat. Ein Richtungspfeil markiert Mitte und „vorne“, der Seed wählt das Template und
+    dreht es um die Nest-Position, jedes Objekt behält seine Höhe über dem Boden und kippt mit dem Hang. Etwa die Hälfte
+    der Wachen steht in einem Ring um das Lager, der Rest patrouilliert (ADR 0020).
 - Ein Gebäude-Nest bleibt aktiv, wenn die Armee seine Ortschaft einnimmt. Das Nest hängt nicht am Sektor.
 - Beim Kampagnenstart entstehen nur Daten, gespeichert im Spielstand. Objekte und Wachen spawnen erst, wenn Spieler
   in der Nähe sind, und werden wieder abgebaut, wenn niemand mehr da ist:

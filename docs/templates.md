@@ -1,7 +1,9 @@
 # Templates bauen
 
-Anleitung für Niklas (ADR 0019, Tickets #44 und #32). Ein Gebäude-Template legt fest, wie ein Nest eines Typs
-in einem Haus einer Klasse aussieht. Es gilt für jedes Haus dieser Klasse auf der Karte, egal wie das Haus gedreht ist.
+Anleitung für Niklas (ADR 0019, ADR 0020, Tickets #44, #31 und #32). Ein Gebäude-Template legt fest, wie ein Nest
+eines Typs in einem Haus einer Klasse aussieht. Es gilt für jedes Haus dieser Klasse auf der Karte, egal wie das Haus
+gedreht ist. Ein Gelände-Template legt fest, wie ein Gelände-Nest oder ein Camp aussieht (Abschnitt
+[Gelände-Templates](#gelände-templates)).
 
 ## Hausklassen pro Nest-Typ
 
@@ -38,7 +40,7 @@ Ein Beispielhaus jeder Klasse findest du im Katalog im RPT (COIN Debug an, neue 
 3. Szenario starten (Vorschau), zum Haus schauen, Esc, Debug-Konsole, den Befehl unten einfügen,
    in der ersten Zeile den Nest-Typ eintragen, **Lokal ausführen**.
 4. Der Hint nennt die Zahl der Objekte und ob ein Kernobjekt dabei ist. Die fertige Zeile liegt in der Zwischenablage.
-5. Die Zeile in `Missionframework/coin/coin_templates.sqf` unter `// Templates` einfügen oder an Claude schicken.
+5. Die Zeile in `Missionframework/coin/coin_templates.sqf` unter `// Building templates` einfügen oder an Claude schicken.
 
 ```sqf
 private _type = "vbiedGarage"; private _house = [nearestBuilding player, cursorObject] select (cursorObject isKindOf "House"); (boundingBoxReal _house) params ["_c1", "_c2"]; private _hx = abs ((_c2 select 0) - (_c1 select 0)) / 2 + 3; private _hy = abs ((_c2 select 1) - (_c1 select 1)) / 2 + 3; private _in = { private _l = _house worldToModel (ASLToAGL (getPosASL _x)); abs (_l select 0) <= _hx && {abs (_l select 1) <= _hy} }; private _objs = (nearestObjects [_house, [], vectorMagnitude [_hx, _hy, 0]]) select { !(_x isEqualTo _house) && {getObjectType _x == 8} && {!(_x isKindOf "CAManBase")} && {!(_x isKindOf "Logic")} && {!(_x isKindOf "WeaponHolder")} && {isClass (configFile >> "CfgVehicles" >> typeOf _x)} && {((typeOf _x) find "Fx") != 0} && {!(_x isEqualTo (vehicle player))} && _in }; _objs append (allMines select _in); private _e = _objs apply { private _l = _house worldToModel (ASLToAGL (getPosASL _x)); private _r = ["prop", "vehicle"] select (_x isKindOf "LandVehicle"); if (_x in allMines) then {_r = "mine"}; if ((vehicleVarName _x) isEqualTo "core") then {_r = "core"}; format ["[""%1"",[%2,%3,%4],%5,""%6""]", typeOf _x, (_l select 0) toFixed 3, (_l select 1) toFixed 3, (_l select 2) toFixed 3, (((getDir _x) - (getDir _house) + 360) mod 360) toFixed 1, _r] }; private _t = format ["COIN_nestBuildingTemplates pushBack [""%1"",""%2"",[%3]];", _type, typeOf _house, _e joinString ","]; copyToClipboard _t; hint format ["%1 in %2: %3 objects, %4 core object(s), copied", _type, typeOf _house, count _objs, {(vehicleVarName _x) isEqualTo "core"} count _objs];
@@ -54,11 +56,66 @@ private _type = "vbiedGarage"; private _house = [nearestBuilding player, cursorO
    Kernobjekt ist das Objekt mit der Klasse aus `COIN_nestCores` für diesen Typ.
 3. Die Zeile liegt in der Zwischenablage und steht im RPT (`[COIN] debug: template …`).
 
+## Gelände-Templates
+
+Ein Gelände-Template gilt für jedes Gelände-Nest seines Typs (oder für Camps, Typ `camp`). Der Seed des Nests wählt
+eines der Templates des Typs und dreht es beliebig um die Nest-Position. Jedes Objekt behält seine Höhe über dem Boden
+und kippt mit dem Gelände unter ihm (ADR 0020). Pro Nest-Typ gibt es bisher eines (von Claude, übernommen 2026-10-21), weitere sind jederzeit möglich. Camps bekommen 2–3.
+
+- **Richtungspfeil als Mitte:** einen `Sign_Arrow_Direction_F` in die Mitte des Lagers setzen, die Spitze zeigt nach
+  „vorne“. Er wird nicht exportiert. Variablenname `centre` ist optional; ohne ihn nimmt der Export den nächsten Pfeil
+  im Umkreis von 50 m um den Spieler.
+- **Umkreis:** erfasst wird alles bis 15 m um den Pfeil. So groß ist die freie, ebene Fläche, die ein Gelände-Nest
+  bekommt (höchstens 15 % Steigung).
+- **Kernobjekt** wie bei Gebäuden mit Variablenname `core`, genau eines. **Camps haben kein Kernobjekt.**
+- **Keine Wachen**, die stehen dynamisch in einem Ring 6–12 m um die Mitte, der Rest patrouilliert.
+- Am besten auf einer ebenen Stelle bauen. Gestapeltes (Dinge auf Tischen) geht, es kippt am Hang mit.
+- Weil das Lager beliebig gedreht wird, nichts bauen, was nur zu einer bestimmten Himmelsrichtung passt.
+
+### In Eden
+
+1. Leeres Szenario auf Lythium, freie ebene Stelle, spielbare Einheit daneben, Pfeil in die Mitte, Objekte drumherum.
+2. Vorschau starten, Esc, Debug-Konsole, den Befehl unten einfügen, in der ersten Zeile den Typ eintragen
+   (`command`, `iedWorkshop`, `cache`, `vbiedGarage`, `recruitment` oder `camp`), **Lokal ausführen**.
+3. Der Hint nennt die Zahl der Objekte und Kernobjekte. Die Zeile liegt in der Zwischenablage.
+4. Die Zeile an Claude schicken oder in `coin_templates.sqf` unter `// Terrain templates` (am Ende) einfügen.
+
+```sqf
+private _type = "cache"; private _c = missionNamespace getVariable ["centre", objNull]; if (isNull _c) then {_c = (nearestObjects [player, ["Sign_Arrow_Direction_F"], 50]) param [0, objNull]}; if (isNull _c) exitWith {hint "No centre arrow (Sign_Arrow_Direction_F) within 50 m"}; private _d = getDir _c; private _objs = (nearestObjects [_c, [], 15]) select { !(_x isEqualTo _c) && {getObjectType _x == 8} && {!(_x isKindOf "CAManBase")} && {!(_x isKindOf "Logic")} && {!(_x isKindOf "WeaponHolder")} && {isClass (configFile >> "CfgVehicles" >> typeOf _x)} && {((typeOf _x) find "Fx") != 0} && {!(_x isEqualTo (vehicle player))} }; _objs append (allMines select {(_x distance2D _c) <= 15}); private _e = _objs apply { ((getPosASL _x) vectorDiff (getPosASL _c)) params ["_dx", "_dy"]; private _r = ["prop", "vehicle"] select (_x isKindOf "LandVehicle"); if (_x in allMines) then {_r = "mine"}; if ((vehicleVarName _x) isEqualTo "core" && {_type != "camp"}) then {_r = "core"}; format ["[""%1"",[%2,%3,%4],%5,""%6""]", typeOf _x, (_dx * cos _d - _dy * sin _d) toFixed 3, (_dx * sin _d + _dy * cos _d) toFixed 3, ((getPosATL _x) select 2) toFixed 3, (((getDir _x) - _d + 360) mod 360) toFixed 1, _r] }; private _t = format ["COIN_terrainTemplates pushBack [""%1"",[%2]];", _type, _e joinString ","]; copyToClipboard _t; hint format ["Terrain %1: %2 objects, %3 core object(s), copied", _type, count _objs, {_type != "camp" && {(vehicleVarName _x) isEqualTo "core"}} count _objs];
+```
+
+Die Zahlen im Befehl (15 m Umkreis, 50 m Suche, Pfeilklasse) entsprechen `COIN_terrainTemplateRadius`,
+`COIN_terrainTemplateCentreSearch` und `COIN_terrainTemplateCentreClass` in `coin_config.sqf`. Ändert sich dort
+etwas, muss der Befehl mit.
+
+### In der Mission mit Zeus
+
+Pfeil und Objekte mit Zeus setzen, neben den Pfeil stellen, Debug-Konsole, **Lokal ausführen**:
+```sqf
+["cache"] call COIN_fnc_exportTerrainTemplate;
+```
+Kernobjekt ist das Objekt mit dem Variablennamen `core`, ohne ihn das Objekt mit der Klasse aus `COIN_nestCores`
+für diesen Typ.
+
+### Ansehen im Spiel
+
+Jedes Gelände-Template lässt sich auf dem lokalen Host ansehen, auch für Typen, die selten Gelände-Nester werden.
+Debug-Konsole, **Lokal ausführen**, das Nest entsteht 30 m vor dir, wie ein echtes (Template, Drehung, Wachen):
+```sqf
+["vbiedGarage"] call COIN_fnc_debugTerrainNest;          // zufälliger Seed, steht im Hint
+["vbiedGarage", 4711] call COIN_fnc_debugTerrainNest;    // fester Seed: gleiches Template, gleiche Drehung
+[""] call COIN_fnc_debugTerrainNest;                     // wieder entfernen
+```
+
 ## Prüfen
 
 Nach dem Einfügen und einem neuen Build meldet der Server beim Start
-`[COIN] nests: N of N building templates usable`. Fehler stehen darüber (fehlende Klassen, kein oder mehrere
-Kernobjekte). Ein Nest mit Template meldet beim Spawn `… template with N objects …`, eines ohne `… free placement …`.
+`[COIN] nests: N of N building templates usable` und
+`[COIN] nests: N of N terrain templates usable (M for camps), nest types without one: []`. Fehler stehen darüber
+(fehlende Klassen, falsche Zahl an Kernobjekten). Ein Gebäude-Nest mit Template meldet beim Spawn
+`… template with N objects …`, eines ohne `… free placement …`. Ein Gelände-Nest meldet
+`… spawned in the terrain … terrain template 1 of 1 turned to … degrees …`.
+Camp-Templates werden schon geprüft, spawnen aber erst mit dem Camp-Ticket.
 
 ## Hinweise
 

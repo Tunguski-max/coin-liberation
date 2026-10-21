@@ -7,10 +7,12 @@
         - core objects (COIN_nestCores) must be classes Arma can destroy (COIN_fnc_isDestructible), otherwise the type
           gets COIN_nestCoreFallback. Every core class is logged with destrType and armor.
         - props (COIN_nestProps) only have to exist, missing ones are left out.
-        - building templates (COIN_nestBuildingTemplates): objects of missing classes are left out, a template needs
-          exactly one core object; a core class that cannot be destroyed is replaced by the type's core object.
-        Fills COIN_nestValidCores (type -> class), COIN_nestValidProps (type -> classes) and
-        COIN_nestValidTemplates ([type, house class in lower case, objects]).
+        - building templates (COIN_nestBuildingTemplates) and terrain templates (COIN_terrainTemplates): objects of
+          missing classes are left out, a nest template needs exactly one core object, a camp template none; a core
+          class that cannot be destroyed is replaced by the type's core object.
+        Fills COIN_nestValidCores (type -> class), COIN_nestValidProps (type -> classes),
+        COIN_nestValidTemplates ([type, house class in lower case, objects]) and
+        COIN_validTerrainTemplates ([type or "camp", objects]).
 
     Parameter(s):
         NONE
@@ -69,10 +71,11 @@ private _mineClassOf = {
     _mineClasses get _ammo
 };
 
-COIN_nestValidTemplates = [];
-{
-    _x params [["_type", ""], ["_houseClass", ""], ["_objects", []]];
-    private _label = format ["template %1 of %2 in %3", _forEachIndex, _type, _houseClass];
+// Usable objects of one template, [] if the template is not used: malformed entries and missing classes are left out,
+// mines get their mine class, the template needs exactly _coresWanted core objects (1 for a nest, 0 for a camp),
+// a core class that cannot be destroyed is replaced by the type's core object
+private _checkObjects = {
+    params ["_label", "_type", "_objects", "_coresWanted"];
     // Entries must be [class, [x, y, z], direction, role]
     private _wellFormed = _objects select {_x isEqualTypeParams ["", [], 0, ""] && {count (_x select 1) == 3}};
     if (count _wellFormed < count _objects) then {
@@ -92,18 +95,53 @@ COIN_nestValidTemplates = [];
         diag_log format ["[COIN] nests: %1: classes not found and left out: %2", _label, (_wellFormed - _valid) apply {_x select 0}];
     };
     private _cores = _valid select {(_x select 3) isEqualTo "core"};
-    if (count _cores != 1) then {
-        diag_log format ["[COIN] nests: ERROR - %1 has %2 core objects instead of 1, not used", _label, count _cores];
-    } else {
-        private _core = _cores select 0;
-        if !(([_core select 0] call COIN_fnc_isDestructible) select 0) then {
+    if (count _cores != _coresWanted) exitWith {
+        diag_log format ["[COIN] nests: ERROR - %1 has %2 core objects instead of %3, not used", _label, count _cores, _coresWanted];
+        []
+    };
+    {
+        if !(([_x select 0] call COIN_fnc_isDestructible) select 0) then {
             private _class = COIN_nestValidCores getOrDefault [_type, COIN_nestCoreFallback];
-            diag_log format ["[COIN] nests: %1: core %2 cannot be destroyed, using %3", _label, _core select 0, _class];
-            _core set [0, _class];
+            diag_log format ["[COIN] nests: %1: core %2 cannot be destroyed, using %3", _label, _x select 0, _class];
+            _x set [0, _class];
         };
+    } forEach _cores;
+    _valid
+};
+
+COIN_nestValidTemplates = [];
+{
+    _x params [["_type", ""], ["_houseClass", ""], ["_objects", []]];
+    private _valid = [format ["template %1 of %2 in %3", _forEachIndex, _type, _houseClass], _type, _objects, 1] call _checkObjects;
+    if !(_valid isEqualTo []) then {
         COIN_nestValidTemplates pushBack [_type, toLower _houseClass, _valid];
     };
 } forEach COIN_nestBuildingTemplates;
 diag_log format ["[COIN] nests: %1 of %2 building templates usable", count COIN_nestValidTemplates, count COIN_nestBuildingTemplates];
+
+// Terrain templates: nest types need one core object, camps none
+COIN_validTerrainTemplates = [];
+{
+    _x params [["_type", ""], ["_objects", []]];
+    private _label = format ["terrain template %1 of %2", _forEachIndex, _type];
+    private _isCamp = _type isEqualTo "camp";
+    if (!_isCamp && {([COIN_nestCores, _type] call COIN_fnc_findByType) isEqualTo []}) then {
+        diag_log format ["[COIN] nests: ERROR - %1: unknown type (nest type or ""camp""), not used", _label];
+        continue;
+    };
+    private _valid = [_label, _type, _objects, [1, 0] select _isCamp] call _checkObjects;
+    if !(_valid isEqualTo []) then {
+        COIN_validTerrainTemplates pushBack [_type, _valid];
+    };
+} forEach COIN_terrainTemplates;
+diag_log format [
+    "[COIN] nests: %1 of %2 terrain templates usable (%3 for camps), nest types without one: %4",
+    count COIN_validTerrainTemplates, count COIN_terrainTemplates,
+    {(_x select 0) isEqualTo "camp"} count COIN_validTerrainTemplates,
+    (COIN_nestCores apply {_x select 0}) select {
+        private _type = _x;
+        (COIN_validTerrainTemplates findIf {(_x select 0) isEqualTo _type}) < 0
+    }
+];
 
 _replaced
