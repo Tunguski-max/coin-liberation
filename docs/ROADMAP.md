@@ -119,8 +119,11 @@ Ziel: Nester existieren, sind persistent und schwächen bei Zerstörung das Netz
   7 von 7 Camps mit Straße ≥ 164 m, Ort ≥ 935 m, Startbasis ≥ 5841 m, Deckung ≥ 4, eingenommener Sektor und FOB kommen aus dem
   Spielstand, kein Camp unter 1 km. Die Regel unmittelbar neben einem Sektor oder FOB wurde nicht gesondert erzwungen;
   mit 500 Versuchen blieben 2 von 7 Camps ohne Platz, daher 1000. Gelände-Nester teilen die Prüfung für Ort, Straße und Ebene)
-- [ ] 2.9 Camp-Inhalt spawnen bei Spielernähe (Zelte, Feuer, 3–6 Kämpfer, optional Technical);
-  Waffenlager bekommen 1–2 Altfahrzeuge, die mit dem Lager verschwinden
+- [x] 2.9 (#38) Camp-Inhalt spawnen bei Spielernähe (Zelte, Feuer, 3–6 Kämpfer, optional Technical; am 2026-10-21 getestet:
+  Spawn bei Annäherung mit Platzhalter-Template, Kämpfer im Ring und auf Patrouille, Technical erzwungen und erbeutet
+  (bleibt beim Abbau, kommt nicht wieder), Abbau nach 2 Minuten, Budget: Camp wartet mit `COIN_maxCampAI = 1` und
+  erscheint danach, Zeus sieht alles, Gelände-Nester unverändert)
+- [ ] 2.9a (#35) Waffenlager bekommen 1–2 Altfahrzeuge, die mit dem Lager verschwinden
 - [ ] 2.10 Nachschub nach Zerstörung und Wechsel unentdeckter Camps
 - [x] 2.11 (#36) Debug-Anzeige für Camps und ihr zugehöriges Nest (getestet: Dreieck mit Linie zum Eigentümer-Nest,
   Camps eines zerstörten Nests werden grau)
