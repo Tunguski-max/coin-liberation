@@ -25,7 +25,7 @@ private _edge = COIN_campMinDistMapEdge;
 private _range = worldSize - 2 * _edge;
 
 // Positions that keep camps away: captured sectors and FOBs
-private _exclusion = ((missionNamespace getVariable ["blufor_sectors", []]) apply {markerPos _x}) + (missionNamespace getVariable ["GRLIB_all_fobs", []]);
+private _exclusion = [] call COIN_fnc_getCampExclusion;
 
 private _spot = [];
 private _rejected = createHashMap;

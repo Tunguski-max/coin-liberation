@@ -269,8 +269,11 @@ COIN_campTechnicalCrew      = 3;        // Fighters a technical counts for in th
 COIN_campTechnicalDist      = [8, 15];  // [min, max] m from the camp centre where the technical stands
 COIN_campTechnicalClearance = 5;        // m it keeps from objects (BIS_fnc_findSafePos)
 COIN_campTechnicalLeash     = 50;       // m: an empty technical farther from its camp than this was taken and is not deleted with the camp
-COIN_campReplaceMinutes     = [30, 60]; // Delay before a destroyed camp is replaced
-COIN_campRelocateMinutes    = [120, 180]; // Undiscovered camps move after this time
+// Life of the camps (ticket 2.10); for tests shorten the times in the debug console, e.g. COIN_campReplaceMinutes = [0.5, 1]
+COIN_enableCampLifecycle    = true;     // Off: camps stay as created, no replacement, no moving, no retiring
+COIN_campReplaceMinutes     = [30, 60]; // [min, max] minutes before a cleared camp is replaced (the lower value is also the delay before a failed try is repeated)
+COIN_campRelocateMinutes    = [120, 180]; // [min, max] minutes after which an undiscovered camp moves (taken when the camp is created)
+COIN_campFleeDistance       = 200;      // m: a fighter farther from its camp than this no longer counts, it fled (the patrol walks within COIN_nestPatrolRadius)
 COIN_campIntelChance        = 0.4;      // Chance a cleared camp yields intel on its nest
 
 // Capital garrison = base * (1 + factor * active nests) - Phase 6

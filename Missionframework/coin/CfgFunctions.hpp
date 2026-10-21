@@ -204,6 +204,21 @@ class COIN {
         // Server: global debug markers for the camps, with a line to their nest (ticket 2.11)
         class drawCampMarkers {};
 
+        // Server: one camp as data, place and owner nest (tickets 2.7, 2.8 and 2.10)
+        class createCamp {};
+
+        // Server, once per check: replaces, moves and retires camps (ticket 2.10)
+        class manageCamps {};
+
+        // Server: is a spawned camp cleared (ausgehoben)? Plans its replacement (ticket 2.10)
+        class checkCampCleared {};
+
+        // Camps that count against the capacity: active and moving
+        class getActiveCamps {};
+
+        // Centres of the exclusion zones: captured sectors and FOBs
+        class getCampExclusion {};
+
         // What a camp looks like when it spawns: template, direction, fighters, technical (ticket 2.9)
         class planCamp {};
 

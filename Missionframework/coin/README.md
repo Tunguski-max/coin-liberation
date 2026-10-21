@@ -75,6 +75,11 @@ coin/
         ├── fn_checkTerrainSpot.sqf     COIN_fnc_checkTerrainSpot: gemeinsame Prüfung für Gelände-Nester und Camps (Ort, Straße, eben)
         ├── fn_getCampCover.sqf         COIN_fnc_getCampCover: Bäume, Büsche und Felsen um einen Campplatz
         ├── fn_describeCampSpot.sqf     COIN_fnc_describeCampSpot: Abstände eines Camps für die RPT-Zeile
+        ├── fn_createCamp.sqf           COIN_fnc_createCamp: ein Camp als Daten (Platz, Eigentümer-Nest, Zustand)
+        ├── fn_manageCamps.sqf          COIN_fnc_manageCamps: Ersatz, Wechsel und Auflösen der Camps (Ticket 2.10)
+        ├── fn_checkCampCleared.sqf     COIN_fnc_checkCampCleared: Camp ausgehoben? plant den Ersatz
+        ├── fn_getActiveCamps.sqf       COIN_fnc_getActiveCamps: Camps, die zur Kapazität zählen
+        ├── fn_getCampExclusion.sqf     COIN_fnc_getCampExclusion: Mittelpunkte der Sperrzonen (Sektoren, FOBs)
         ├── fn_planCamp.sqf             COIN_fnc_planCamp: Camp-Template, Richtung, Kämpfer und Technical aus dem Seed des Camps
         ├── fn_spawnCamp.sqf            COIN_fnc_spawnCamp: Template-Objekte, Wachen und Technical eines Camps (Ticket 2.9)
         ├── fn_removeCamp.sqf           COIN_fnc_removeCamp: Camp abbauen, ein erbeuteter Technical bleibt
