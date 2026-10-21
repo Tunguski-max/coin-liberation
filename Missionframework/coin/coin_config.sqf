@@ -70,7 +70,7 @@ COIN_maxActiveIEDs          = 25;       // COIN IEDs at the same time
 COIN_spawnDistance          = 1000;     // m: content spawns when the nearest player is this close
 COIN_despawnDistance        = 1300;     // m: content is removed when no player was this close ...
 COIN_despawnDelay           = 120;      // ... for this many seconds
-COIN_spawnCheckInterval     = 5;        // s between two checks of all nests
+COIN_spawnCheckInterval     = 10;       // s between two checks of all nests; spawn and removal distance differ by 300 m, a helicopter at 60 m/s covers 600 m in 10 s, so no more
 COIN_presenceMaxAirHeight   = 100;      // m above ground: manned aircraft higher up do not spawn anything
 COIN_presenceMaxDroneHeight = 500;      // m above ground: drones higher up do not either (as Liberation's sectors, fn_getUnitsCount.sqf)
 COIN_curatorSyncInterval    = 10;       // s: objects given to Zeus are added again to curators created later, 0 = off
