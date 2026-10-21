@@ -63,6 +63,7 @@ Kernobjekte). Ein Nest mit Template meldet beim Spawn `… template with N objec
 ## Hinweise
 
 - Umgebungseffekte (`FxWindGrass…`, `HouseFly`) nimmt der Export nicht mit.
+- **Keine ACE-Sanitätskisten** (`ACE_medicalSupplyCrate…`): Liberation zeigt sie auf der Karte an, das verrät das Nest.
 - **Minen** übernimmt der Export mit der Rolle `mine`. Sie spawnen scharf (entschieden 2026-10-20): Spieler können
   sie mit ACE entschärfen, ein Schuss kann sie auslösen. Liberation speichert jede Mine nahe einer FOB mit, eine FOB
   näher als etwa 150 m an so einem Nest verdoppelt sie nach einem Neustart.
