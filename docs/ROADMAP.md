@@ -112,12 +112,15 @@ Ziel: Nester existieren, sind persistent und schwächen bei Zerstörung das Netz
 - [x] 2.5 (#28) Debug-Anzeige (Parameter): Nester und Radien auf der Karte (Lobby-Parameter „COIN Debug“; getestet: an zeigt 11 Nester
   mit Farbe und Radius nach Typ, aus zeigt keine Marker; noch offen: später beitretender Spieler)
 - [ ] 2.6 Netzwerkstärke berechnen und im Debug anzeigen
-- [ ] 2.7 Camps: Kapazität aus aktiven Nestern berechnen (Entscheidung E8)
+- [x] 2.7 (#36) Camps: Kapazität aus aktiven Nestern berechnen (Entscheidung E8; am 2026-10-21 getestet: neue Kampagne 10 Camps,
+  Kommandoposten zerstört ergibt 8, mit zusätzlich zerstörter Rekrutierungsstelle nach Neustart 7, kein Nest über seinem Gewicht;
+  Waffenlager → 9 nicht einzeln getestet, gleiche Rechnung). Camps sind erst Daten, der Inhalt kommt mit 2.9
 - [ ] 2.8 Camps zufällig platzieren (ganze Karte, Abstandsregeln, Sperrzone um befreites Gebiet)
 - [ ] 2.9 Camp-Inhalt spawnen bei Spielernähe (Zelte, Feuer, 3–6 Kämpfer, optional Technical);
   Waffenlager bekommen 1–2 Altfahrzeuge, die mit dem Lager verschwinden
 - [ ] 2.10 Nachschub nach Zerstörung und Wechsel unentdeckter Camps
-- [ ] 2.11 Debug-Anzeige für Camps und ihr zugehöriges Nest
+- [x] 2.11 (#36) Debug-Anzeige für Camps und ihr zugehöriges Nest (getestet: Dreieck mit Linie zum Eigentümer-Nest,
+  Camps eines zerstörten Nests werden grau)
 - [x] 2.12 (#26) Liberation-Nebenmission „FOB Hunting“ abschalten (ADR 0011; getestet: Hooks 15 und 16,
   `COIN_fnc_secondaryMissionStatus`, Start per Debug-Konsole vom Server abgelehnt)
 - [x] 2.13 (#27) KI-Budget: Liberations Obergrenzen auf 100, COIN-Einheiten obendrauf, Nester immer vollständig, Camps nur bis
