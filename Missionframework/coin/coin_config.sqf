@@ -245,6 +245,10 @@ COIN_campsPerNest = [
     ["vbiedGarage",  1],
     ["recruitment",  2]
 ];
+// Simple placement of the first camp ticket (2.7), replaced by the rules below in ticket 2.8
+COIN_campMinDistStartBase   = 2000;     // m between camps and the start base
+COIN_campMinDistMapEdge     = 1000;     // m between camps and the map edge
+COIN_campPlaceAttempts      = 100;      // Random positions tried per camp
 COIN_campExclusionRadius    = 1000;     // m around captured sectors and FOBs without camps
 COIN_campMinDistRoad        = 150;      // m
 COIN_campMinDistTown        = 500;      // m
