@@ -10,7 +10,7 @@
         not there when the camp spawns again (camp entry "technical gone"). Server only.
 
     Parameter(s):
-        _camp   - Camp [ARRAY: id, nest id, position, discovered, seed, technical gone]
+        _camp   - Camp [ARRAY, layout in COIN_fnc_createCamp]
         _entry  - What the spawn loop kept: [spawned objects and units, last time a player was near, technical] [ARRAY]
         _reason - Why, for the log [STRING]
 

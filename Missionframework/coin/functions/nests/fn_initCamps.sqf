@@ -23,10 +23,10 @@
 
 if (!isServer) exitWith {0};
 
+COIN_spawnedCamps = createHashMap;
 COIN_camps = [];
 COIN_campNextId = 1;
 COIN_campReplacements = [];
-COIN_spawnedCamps = createHashMap;
 ([] call COIN_fnc_getCampCapacity) params ["_capacity", "_active", "_total"];
 COIN_campCapacity = _capacity;
 diag_log format ["[COIN] camps: capacity %1 (weight of the active nests %2 of %3, at most %4)", _capacity, _active, _total, COIN_campMax];

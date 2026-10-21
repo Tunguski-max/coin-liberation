@@ -5,13 +5,14 @@
     Description:
         Has a spawned camp been cleared ("ausgehoben", ticket 2.10, DESIGN 5.1)? It is when none of its fighters, the
         crew of the technical included, can still fight: dead, captive (vanilla or ACE handcuffed or surrendering),
-        no longer on the enemy side, or farther than COIN_campFleeDistance from the camp. Then the camp is set to
+        no longer on the enemy side, or farther than COIN_campFleeDistance from the camp. An unconscious fighter still
+        counts, it may wake up. Then the camp is set to
         "cleared" (it stays in COIN_camps until it is removed, COIN_fnc_manageCamps drops it then), one log line is
         written and a replacement is planned after COIN_campReplaceMinutes. Called by the spawn loop on every check
         of a spawned camp. Server only.
 
     Parameter(s):
-        _camp  - Camp [ARRAY: id, nest id, position, discovered, seed, technical gone, state, relocate at]
+        _camp  - Camp [ARRAY, layout in COIN_fnc_createCamp]
         _entry - What the spawn loop kept: [spawned objects and units, last time a player was near, technical] [ARRAY]
 
     Returns:
