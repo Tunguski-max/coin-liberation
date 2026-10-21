@@ -43,7 +43,7 @@ for "_i" from 1 to _capacity do {
         diag_log format ["[COIN] camps: ERROR - no place found in %1 tries, %2 of %3 camps created", COIN_campPlaceAttempts, count COIN_camps, _capacity];
     };
 
-    _owners = [_owners, [], {_x distance2D _pos}, "ASCEND"] call BIS_fnc_sortBy;
+    _owners = [_owners, [], {(_x select 3) distance2D _pos}, "ASCEND"] call BIS_fnc_sortBy;
     private _owner = _owners select 0;
     _owner params ["_nestId", "_nestType", "", "_nestPos"];
     _used set [_nestId, (_used getOrDefault [_nestId, 0]) + 1];
