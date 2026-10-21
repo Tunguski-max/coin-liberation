@@ -56,3 +56,6 @@ COIN_nestBuildingTemplates pushBack ["recruitment","Land_jbad_House8",[["Jbad_po
 
 // Recruitment post in Land_jbad_terrace (Niklas, 2026-10-21)
 COIN_nestBuildingTemplates pushBack ["recruitment","Land_jbad_terrace",[["jbad_market_stalls_02",[-1.762,1.630,4.580],266.1,"prop"],["Land_TablePlastic_01_F",[-5.945,3.752,4.727],269.8,"prop"],["Box_IED_Exp_F",[-3.644,8.438,4.784],149.5,"core"],["jbad_water_pipe",[-15.229,3.450,13.940],54.0,"prop"]]];
+
+// Recruitment post in Land_jbad_House_c_11 (Niklas, 2026-10-21)
+COIN_nestBuildingTemplates pushBack ["recruitment","Land_jbad_House_c_11",[["jbad_Tv_a",[3.446,-3.996,-1.214],182.3,"prop"],["Land_RattanTable_01_F",[-0.508,5.090,-2.451],93.7,"prop"],["dmpBottleFull_V",[-0.781,5.286,-1.656],128.2,"prop"],["Land_FoodSacks_01_small_brown_idap_F",[0.805,5.068,-2.460],181.6,"prop"],["dmpBottleFull_V",[-0.710,5.375,-1.653],128.2,"prop"],["dmpBottleFull_V",[-0.832,5.381,-1.652],128.2,"prop"],["Land_FoodSacks_01_small_brown_idap_F",[1.729,5.088,-2.466],180.6,"prop"],["Box_IED_Exp_F",[4.893,5.062,0.971],179.3,"core"],["Lantern_01_green_F",[5.562,4.927,1.785],128.2,"prop"],["Lantern_01_red_F",[7.426,-1.762,-1.239],128.2,"prop"],["Land_CampingTable_small_F",[5.869,4.936,0.973],2.3,"prop"]]];
