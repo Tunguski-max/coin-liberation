@@ -98,7 +98,8 @@ Ziel: Nester existieren, sind persistent und schwächen bei Zerstörung das Netz
   spawnen nichts, gesteuerte Drohne darunter schon, Kisten als Kernobjekt zerstörbar.
   Gebäude-Templates (#44, ADR 0019) getestet: Template aus Eden spawnt in anders gedrehten Häusern derselben Klasse
   an anderer Stelle wie gebaut, erneuter Besuch gleich, Autos stehen, scharfe Minen auslösbar, neue Kampagne nur in
-  Template-Klassen; offen: Gelände-Nest (#31), übrige Templates (#32), Mine entschärfen nicht getestet
+  Template-Klassen. Alle 15 Gebäude-Templates (#32) eingetragen und am 2026-10-21 getestet: alle 15 nutzbar, Nester
+  spawnen stabil nach Template; offen: Gelände-Nest (#31), Gelände- und Camp-Templates (#32), Mine entschärfen nicht getestet
 - [ ] 2.3a Template-Mechanik für Gelände-Nester und Camps: Platzhalter-Templates von Claude,
   danach je 2–3 Templates pro Nest-Typ und für Camps von Niklas (Eden, `BIS_fnc_objectsGrabber`)
 - [ ] 2.4 Zerstörung erkennen, Zustand speichern, Ereignis auslösen
