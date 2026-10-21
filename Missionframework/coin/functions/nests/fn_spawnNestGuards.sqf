@@ -3,7 +3,7 @@
     Author: COIN Liberation
 
     Description:
-        Guards of a nest, complete on every spawn (ticket 2.3, ADR 0019, ADR 0020):
+        Guards of a nest or camp, complete on every spawn (ticket 2.3, ADR 0019, ADR 0020):
         - stationary guards stand at the given spots and stay there until there is shooting nearby, then they fight
           as normal AI,
         - the others patrol around the nest as one group. The patrol keeps outside Liberation's capture radius of the
@@ -12,7 +12,7 @@
         the AI budget. The caller hands them to Zeus together with the nest's objects. Server only.
 
     Parameter(s):
-        _pos   - Nest position, centre of the patrol [POSITION]
+        _pos   - Nest or camp position, centre of the patrol [POSITION]
         _count - Number of guards [NUMBER]
         _spots - Spots for stationary guards, best first [ARRAY of [position ATL, direction]]
         _share - Share of the guards that stand at the spots, at most one per spot [NUMBER]

@@ -9,7 +9,8 @@
         - that many camps at places that keep the placement rules (COIN_fnc_findCampSpot, ticket 2.8), each belonging
           to the nearest active nest that still has a free slot (a nest supplies at most as many camps as its weight,
           COIN_fnc_getCampWeight). A camp without a place is left out with an error line.
-        - COIN_camps = [[id, nest id, position], ...].
+        - COIN_camps = [[id, nest id, position, discovered, seed, technical gone], ...]. The spawn loop sets
+          "discovered" when the camp spawns for the first time (ticket 2.9), COIN_fnc_removeCamp sets "technical gone".
         Logs every camp with its distances (COIN_fnc_describeCampSpot) and the camps per nest. Listens to COIN_nestDestroyed: the capacity is calculated and logged
         again, camps are not removed yet. Draws the debug map when COIN_debug is on.
 
@@ -58,7 +59,8 @@ for "_i" from 1 to _capacity do {
     _used set [_nestId, (_used getOrDefault [_nestId, 0]) + 1];
 
     private _id = count COIN_camps + 1;
-    COIN_camps pushBack [_id, _nestId, _pos];
+    // Seed: the camp looks the same on every visit of this session. Discovered: spawned once. Technical gone: taken or destroyed
+    COIN_camps pushBack [_id, _nestId, _pos, false, floor random COIN_campSeedRange, false];
     diag_log format [
         "[COIN] camps: camp %1 at %2 belongs to nest %3 (%4), %5 m away; %6; %7 tries",
         _id, _pos, _nestId, _nestType, round (_pos distance2D _nestPos), [_pos] call COIN_fnc_describeCampSpot, _tries

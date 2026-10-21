@@ -46,29 +46,9 @@ private _dir = round ([_seed, _streamDir, 360] call COIN_fnc_seededRandom);
 ([[_pos, _dir], _id, (_templates select _templateIndex) select 1] call COIN_fnc_placeNestTemplate)
     params ["_objects", "_core", "_placedOutlines", "_layout"];
 
-// Guards: complete on every spawn, the stationary ones spread evenly around the ring and looking outwards.
-// Their spots are not from the seed on purpose, guards are dynamic (ADR 0020)
+// Guards: complete on every spawn, the stationary ones spread evenly around the ring and looking outwards
 private _guardCount = COIN_nestGuardsMin + floor ([_seed, _streamGuards, COIN_nestGuardsMax - COIN_nestGuardsMin + 1] call COIN_fnc_seededRandom);
-private _ringCount = round (_guardCount * COIN_nestTerrainGuardShare);
-COIN_nestTerrainGuardRing params ["_ringMin", "_ringMax"];
-// Objects reaching beyond the inner ring (camouflage nets) cannot be kept clear of, guards may stand below them
-// (test 2026-10-21: the net's outline left almost no ring spots)
-private _blockers = _placedOutlines select {(_x select 1) < _ringMin};
-private _spots = [];
-private _startAngle = random 360;
-for "_i" from 0 to (_ringCount - 1) do {
-    for "_try" from 1 to COIN_nestTerrainGuardTries do {
-        // Within its own share of the ring, so the guards do not bunch up
-        private _angle = _startAngle + (_i + random 1) * 360 / _ringCount;
-        private _spot = _pos getPos [_ringMin + random (_ringMax - _ringMin), _angle];
-        if (
-            !surfaceIsWater _spot
-            && {(_blockers findIf {(_spot distance2D (_x select 0)) < (_x select 1) + COIN_nestTerrainGuardClearance}) < 0}
-        ) exitWith {
-            _spots pushBack [[_spot select 0, _spot select 1, 0], _angle];
-        };
-    };
-};
+private _spots = [_pos, _guardCount, _placedOutlines] call COIN_fnc_findGuardRingSpots;
 ([_pos, _guardCount, _spots, 1] call COIN_fnc_spawnNestGuards)
     params ["_guards", "_inRing", "_patrolling", "_patrolRadius"];
 _objects append _guards;

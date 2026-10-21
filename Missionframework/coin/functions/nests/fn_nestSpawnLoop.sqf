@@ -9,6 +9,9 @@
         Active building nests spawn with COIN_fnc_spawnBuildingNest, terrain nests with COIN_fnc_spawnTerrainNest
         (only while COIN_enableTerrainNests is true).
         A nest that could not be spawned (house gone, no terrain template) is not tried again until the next server start.
+        Camps (ticket 2.9, COIN_enableCampSpawn) use the same distances and delay: a camp spawns after COIN_fnc_planCamp
+        only while the AI budget has room for all its fighters (COIN_fnc_campFitsBudget, ADR 0015), otherwise it waits and
+        the RPT says so once. The first spawn marks it discovered. COIN_fnc_removeCamp takes the content away.
         Destruction (ticket 2.4, COIN_fnc_destroyNest): a Killed handler on the core object and a BuildingChanged
         handler for the house (swap to a ruin) report it at once, and every check also looks at the core object and
         the house: a dead core object or a collapsed house destroys the nest. A core object deleted by Zeus is no destruction, the nest spawns again
@@ -33,6 +36,12 @@ diag_log format [
 // Nest id -> [objects and units, time a player was last within COIN_despawnDistance, core object]
 private _spawned = createHashMap;
 private _failed = [];
+
+// Camp id -> [objects and units, time a player was last within COIN_despawnDistance, technical]; camps that cannot be
+// spawned (no camp template, not tried again); camps that wait for room in the AI budget (logged once)
+private _spawnedCamps = createHashMap;
+private _failedCamps = [];
+private _waitingCamps = [];
 
 // Nest id -> house of a spawned building nest. Follows the house when Arma swaps it for a damaged version,
 // a swap to a ruin destroys the nest
@@ -129,12 +138,73 @@ while {COIN_enableNestSpawn} do {
         };
     } forEach COIN_nests;
 
+    // Camps (ticket 2.9): the same distances and delay as nests; spawn only while the budget has room for the whole camp
+    if (COIN_enableCampSpawn && {!isNil "COIN_camps"}) then {
+        {
+            private _camp = _x;
+            _camp params ["_id", "", "_pos", "_discovered"];
+            private _hasPresence = !(_present isEqualTo []);
+            private _distance = if (_hasPresence) then {selectMin (_present apply {_x distance2D _pos})} else {-1};
+            private _entry = _spawnedCamps getOrDefault [_id, []];
+
+            if (_entry isEqualTo []) then {
+                if (_hasPresence && {_distance <= COIN_spawnDistance} && {!(_id in _failedCamps)}) then {
+                    private _plan = [_camp] call COIN_fnc_planCamp;
+                    if (_plan isEqualTo []) then {
+                        _failedCamps pushBack _id;
+                    } else {
+                        private _fighters = _plan select 4;
+                        if ([_fighters] call COIN_fnc_campFitsBudget) then {
+                            if (_id in _waitingCamps) then {
+                                _waitingCamps deleteAt (_waitingCamps find _id);
+                                diag_log format ["[COIN] camps: camp %1 fits the budget now", _id];
+                            };
+                            private _content = [_camp, _plan, _distance] call COIN_fnc_spawnCamp;
+                            if (_content isEqualTo []) then {
+                                _failedCamps pushBack _id;
+                            } else {
+                                if (!_discovered) then {
+                                    _camp set [3, true];
+                                    diag_log format ["[COIN] camps: camp %1 discovered", _id];
+                                };
+                                private _technical = (_content select {_x getVariable ["COIN_campTechnical", false]}) param [0, objNull];
+                                _spawnedCamps set [_id, [_content, time, _technical]];
+                            };
+                        } else {
+                            // One line per wait, not one per check
+                            if !(_id in _waitingCamps) then {
+                                _waitingCamps pushBack _id;
+                                diag_log format [
+                                    "[COIN] camps: camp %1 waits, budget: %2 COIN units + %3 fighters of the camp > %4",
+                                    _id, [] call COIN_fnc_countCoinUnits, _fighters, COIN_maxCampAI
+                                ];
+                            };
+                        };
+                    };
+                };
+            } else {
+                if (_hasPresence && {_distance <= COIN_despawnDistance}) then {
+                    _entry set [1, time];
+                } else {
+                    if ((time - (_entry select 1)) >= COIN_despawnDelay) then {
+                        [_camp, _entry, format ["no player within %1 m for %2 s", COIN_despawnDistance, COIN_despawnDelay]] call COIN_fnc_removeCamp;
+                        _spawnedCamps deleteAt _id;
+                    };
+                };
+            };
+        } forEach COIN_camps;
+    };
+
     sleep COIN_spawnCheckInterval;
 };
 
 {
     [_x, _y, "spawning switched off"] call _despawn;
 } forEach _spawned;
+{
+    private _campId = _x;
+    [COIN_camps select (COIN_camps findIf {(_x select 0) isEqualTo _campId}), _y, "spawning switched off"] call COIN_fnc_removeCamp;
+} forEach _spawnedCamps;
 diag_log "[COIN] nests: spawn loop off";
 
 true

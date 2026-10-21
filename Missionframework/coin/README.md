@@ -75,8 +75,12 @@ coin/
         ├── fn_checkTerrainSpot.sqf     COIN_fnc_checkTerrainSpot: gemeinsame Prüfung für Gelände-Nester und Camps (Ort, Straße, eben)
         ├── fn_getCampCover.sqf         COIN_fnc_getCampCover: Bäume, Büsche und Felsen um einen Campplatz
         ├── fn_describeCampSpot.sqf     COIN_fnc_describeCampSpot: Abstände eines Camps für die RPT-Zeile
+        ├── fn_planCamp.sqf             COIN_fnc_planCamp: Camp-Template, Richtung, Kämpfer und Technical aus dem Seed des Camps
+        ├── fn_spawnCamp.sqf            COIN_fnc_spawnCamp: Template-Objekte, Wachen und Technical eines Camps (Ticket 2.9)
+        ├── fn_removeCamp.sqf           COIN_fnc_removeCamp: Camp abbauen, ein erbeuteter Technical bleibt
+        ├── fn_findGuardRingSpots.sqf   COIN_fnc_findGuardRingSpots: Plätze der stehenden Wachen im Ring (Gelände-Nester und Camps)
         ├── fn_drawCampMarkers.sqf      COIN_fnc_drawCampMarkers: globale Debug-Marker der Camps mit Linie zu ihrem Nest
-        ├── fn_nestSpawnLoop.sqf        COIN_fnc_nestSpawnLoop: Server-Schleife, Spawn ab 1000 m, Abbau nach 2 min außerhalb 1300 m, Zerstörung prüfen
+        ├── fn_nestSpawnLoop.sqf        COIN_fnc_nestSpawnLoop: Server-Schleife für Nester und Camps, Spawn ab 1000 m, Abbau nach 2 min außerhalb 1300 m, Zerstörung prüfen
         └── fn_destroyNest.sqf          COIN_fnc_destroyNest: Nest endgültig zerstört, sofort gespeichert, Ereignis COIN_nestDestroyed
 ```
 
