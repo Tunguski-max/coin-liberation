@@ -235,9 +235,9 @@ COIN_documentDropChance     = 0.5;      // Chance a destroyed nest yields docume
 // ---------------------------------------------------------------------------
 // Camps (Phase 2) - not persisted, redistributed on every server start
 // ---------------------------------------------------------------------------
-COIN_enableCamps            = true;
+COIN_enableCamps            = true;     // Off: no camps are created (ticket 2.7)
 COIN_campMax                = 10;       // Hard cap of simultaneous camps
-// Camps supported per active nest type: [type, camps]
+// Weight per nest type: [type, weight]. It counts in the camp capacity (decision E8) and is the most camps one nest of the type supplies
 COIN_campsPerNest = [
     ["command",      2],
     ["iedWorkshop",  1],

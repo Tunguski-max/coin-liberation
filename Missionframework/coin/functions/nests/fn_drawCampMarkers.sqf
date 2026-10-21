@@ -20,7 +20,9 @@ if (!isServer || {isNil "COIN_camps"}) exitWith {0};
 {
     _x params ["_id", "_nestId", "_pos"];
 
-    private _nest = COIN_nests select (COIN_nests findIf {(_x select 0) isEqualTo _nestId});
+    private _nestIndex = COIN_nests findIf {(_x select 0) isEqualTo _nestId};
+    if (_nestIndex < 0) then {continue};
+    private _nest = COIN_nests select _nestIndex;
     _nest params ["", "_nestType", "", "_nestPos", "", "_nestState"];
 
     private _color = if (_nestState isEqualTo "destroyed") then {
@@ -33,8 +35,8 @@ if (!isServer || {isNil "COIN_camps"}) exitWith {0};
     private _line = format ["COIN_camp_%1_line", _id];
     deleteMarker _line;
     createMarkerLocal [_line, _pos];
-    _line setMarkerColorLocal _color;
-    _line setMarkerPolyline [_pos select 0, _pos select 1, _nestPos select 0, _nestPos select 1];
+    _line setMarkerPolylineLocal [_pos select 0, _pos select 1, _nestPos select 0, _nestPos select 1];
+    _line setMarkerColor _color;
 
     private _icon = format ["COIN_camp_%1", _id];
     deleteMarker _icon;
