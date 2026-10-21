@@ -134,7 +134,7 @@ die jeweils einen **Einflussradius** haben und dort einen konkreten Effekt erzeu
   - **Gelände-Nest:** 2–3 Templates pro Nest-Typ (Zelte, Tarnnetz, Kisten, Kernobjekt), platziert an einer
     ebenen, freien Stelle mit denselben Abständen wie Camps (Abschnitt 5.1). Niklas baut die Templates im Eden-Editor
     und liest sie mit demselben Export-Befehl wie die Gebäude-Templates aus (ADR 0019); für den ersten Test gibt es je
-    ein einfaches Platzhalter-Template. Ein Richtungspfeil markiert Mitte und „vorne“, der Seed wählt das Template und
+    ein einfaches Template von Claude, das Niklas am 2026-10-21 übernommen hat. Ein Richtungspfeil markiert Mitte und „vorne“, der Seed wählt das Template und
     dreht es um die Nest-Position, jedes Objekt behält seine Höhe über dem Boden und kippt mit dem Hang. Etwa die Hälfte
     der Wachen steht in einem Ring um das Lager, der Rest patrouilliert (ADR 0020).
 - Ein Gebäude-Nest bleibt aktiv, wenn die Armee seine Ortschaft einnimmt. Das Nest hängt nicht am Sektor.

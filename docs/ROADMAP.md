@@ -90,7 +90,7 @@ Ziel: Nester existieren, sind persistent und schwächen bei Zerstörung das Netz
   ohne Lockerung, kleinster Abstand 3,4–4 km, Gebäude-Nester 250–600 m vom Ortsmittelpunkt, Gelände-Nester abseits
   von Straßen und Orten auf ebenem Boden, Häuser passend zum Typ (Mindestfläche, VBIED-Garage nur in Hallen und
   Garagen aus einer Klassenliste, in Zeus ausgewählt), mindestens 2 Nester pro Typ)
-- [ ] 2.3 Nest-Objekte und Bewachung spawnen, wenn Spieler in der Nähe sind
+- [x] 2.3 Nest-Objekte und Bewachung spawnen, wenn Spieler in der Nähe sind
   (Gebäude-Nest: Kernobjekt und Requisiten auf freie Gebäudeplätze; Gelände-Nest: Template;
   Kernobjekte pro Typ im Spec festlegen)
   Gebäude-Nest (#30) getestet: Spawn bei etwa 1000 m, Abbau nach 2 min außerhalb 1300 m, erneuter Besuch gleich,
@@ -99,10 +99,12 @@ Ziel: Nester existieren, sind persistent und schwächen bei Zerstörung das Netz
   Gebäude-Templates (#44, ADR 0019) getestet: Template aus Eden spawnt in anders gedrehten Häusern derselben Klasse
   an anderer Stelle wie gebaut, erneuter Besuch gleich, Autos stehen, scharfe Minen auslösbar, neue Kampagne nur in
   Template-Klassen. Alle 15 Gebäude-Templates (#32) eingetragen und am 2026-10-21 getestet: alle 15 nutzbar, Nester
-  spawnen stabil nach Template; offen: Gelände-Nest (#31), Gelände- und Camp-Templates (#32), Mine entschärfen nicht getestet
+  spawnen stabil nach Template. Gelände-Nest siehe 2.3a; nicht getestet: Mine entschärfen
 - [ ] 2.3a Template-Mechanik für Gelände-Nester und Camps: Platzhalter-Templates von Claude,
   danach je 2–3 Templates pro Nest-Typ und für Camps von Niklas (Eden, Export um einen Richtungspfeil, ADR 0020).
-  Gelände-Nest spawnen mit Platzhalter-Templates (#31): implementiert, ungetestet
+  Gelände-Nest (#31) am 2026-10-21 getestet: jeder Typ als Gelände-Nest gesehen (auch per `COIN_fnc_debugTerrainNest`),
+  gleicher Seed gleiches Template und gleiche Drehung, etwa die Hälfte der Wachen im Ring, Spawn und Abbau wie beim
+  Gebäude-Nest. Niklas übernimmt die Gelände-Templates von Claude (je eines pro Typ); offen: Camp-Templates
 - [ ] 2.4 Zerstörung erkennen, Zustand speichern, Ereignis auslösen
 - [x] 2.5 (#28) Debug-Anzeige (Parameter): Nester und Radien auf der Karte (Lobby-Parameter „COIN Debug“; getestet: an zeigt 11 Nester
   mit Farbe und Radius nach Typ, aus zeigt keine Marker; noch offen: später beitretender Spieler)

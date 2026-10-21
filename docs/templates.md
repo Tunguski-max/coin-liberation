@@ -60,7 +60,7 @@ private _type = "vbiedGarage"; private _house = [nearestBuilding player, cursorO
 
 Ein Gelände-Template gilt für jedes Gelände-Nest seines Typs (oder für Camps, Typ `camp`). Der Seed des Nests wählt
 eines der Templates des Typs und dreht es beliebig um die Nest-Position. Jedes Objekt behält seine Höhe über dem Boden
-und kippt mit dem Gelände unter ihm (ADR 0020). Pro Nest-Typ sind 2–3 Templates geplant, dazu 2–3 für Camps.
+und kippt mit dem Gelände unter ihm (ADR 0020). Pro Nest-Typ gibt es bisher eines (von Claude, übernommen 2026-10-21), weitere sind jederzeit möglich. Camps bekommen 2–3.
 
 - **Richtungspfeil als Mitte:** einen `Sign_Arrow_Direction_F` in die Mitte des Lagers setzen, die Spitze zeigt nach
   „vorne“. Er wird nicht exportiert. Variablenname `centre` ist optional; ohne ihn nimmt der Export den nächsten Pfeil

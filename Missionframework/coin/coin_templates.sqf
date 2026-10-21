@@ -75,7 +75,8 @@ COIN_nestBuildingTemplates pushBack ["recruitment","Land_jbad_House_c_11",[["jba
 
 COIN_terrainTemplates = [];
 
-// Placeholders (Claude, 2026-10-21) until Niklas has built real ones (#32): camouflage net or tents, core object, a few props
+// Built by Claude, adopted by Niklas as the terrain templates (2026-10-21, #32): camouflage net or tents, core object, a few props.
+// The camp template stays a placeholder until camps spawn
 COIN_terrainTemplates pushBack ["command",[["CamoNet_OPFOR_open_F",[0,0,0],0,"prop"],["Box_East_AmmoOrd_F",[1.5,1,0],90,"core"],["Land_CampingTable_F",[-1.2,1.2,0],0,"prop"],["Land_CampingChair_V2_F",[-1.2,0.3,0],180,"prop"],["Land_SatelliteAntenna_01_F",[-3,-2.5,0],45,"prop"],["Land_TentA_F",[5.5,-3,0],270,"prop"],["Land_BagFence_Round_F",[0,7,0],180,"prop"]]];
 COIN_terrainTemplates pushBack ["iedWorkshop",[["CamoNet_OPFOR_open_F",[0,0,0],0,"prop"],["Box_East_AmmoOrd_F",[1,1.5,0],0,"core"],["Land_Workbench_01_F",[-1.5,1.5,0],0,"prop"],["Land_MetalBarrel_F",[2.2,-1.5,0],0,"prop"],["Land_CanisterPlastic_F",[2.8,-0.8,0],30,"prop"],["Land_Sack_F",[-2.5,-1.5,0],0,"prop"],["Land_TentA_F",[-6,2,0],90,"prop"]]];
 COIN_terrainTemplates pushBack ["cache",[["CamoNet_OPFOR_open_F",[0,0,0],0,"prop"],["Box_East_Wps_F",[0,1,0],0,"core"],["Land_WoodenCrate_01_F",[1.5,0.8,0],10,"prop"],["Land_Sacks_heap_F",[-1.8,0.5,0],0,"prop"],["Land_PaperBox_closed_F",[1,-1.2,0],30,"prop"],["Box_East_Ammo_F",[-0.8,-1.5,0],90,"prop"],["Land_BagFence_Short_F",[0,-6,0],0,"prop"]]];
