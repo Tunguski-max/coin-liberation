@@ -34,27 +34,32 @@ if (_index < 0) exitWith {
 };
 
 private _nest = COIN_nests select _index;
-_nest params ["", "_type", "_kind", "_pos", "", "_state"];
-if (_state isEqualTo "destroyed") exitWith {false};
+_nest params ["", "_type", "_kind", "_pos"];
 
-_nest set [5, "destroyed"];
-
-// Saved right away; Liberation skips a save while another one runs, then the nest is saved a moment later
-private _saved = [] call KPLIB_fnc_doSave;
-diag_log format [
-    "[COIN] nests: nest %1 (%2, %3) at %4 destroyed (%5), %6",
-    _id, _type, _kind, _pos, _reason,
-    ["save busy, saving again in a moment", "saved"] select _saved
-];
-if (!_saved) then {
-    [_id] spawn {
-        params ["_id"];
-        sleep COIN_nestSaveRetryDelay;
-        diag_log format [
-            "[COIN] nests: destroyed nest %1 %2",
-            _id, ["saved with Liberation's next save", "saved"] select ([] call KPLIB_fnc_doSave)
-        ];
+// Check and set in one unscheduled step, so the Killed handler and the spawn loop cannot both get through
+private _first = false;
+isNil {
+    if !((_nest select 5) isEqualTo "destroyed") then {
+        _nest set [5, "destroyed"];     // state
+        _first = true;
     };
+};
+if (!_first) exitWith {false};
+
+diag_log format ["[COIN] nests: nest %1 (%2, %3) at %4 destroyed (%5)", _id, _type, _kind, _pos, _reason];
+
+// Saved right away, outside the event handler; Liberation skips a save while another one runs, then once more later
+[_id] spawn {
+    params ["_id"];
+    private _saved = [] call KPLIB_fnc_doSave;
+    if (!_saved) then {
+        sleep COIN_nestSaveRetryDelay;
+        _saved = [] call KPLIB_fnc_doSave;
+    };
+    diag_log format [
+        "[COIN] nests: destroyed nest %1 %2",
+        _id, ["not saved yet (Liberation was saving twice), goes into Liberation's next save", "saved"] select _saved
+    ];
 };
 
 if (COIN_debug) then {
