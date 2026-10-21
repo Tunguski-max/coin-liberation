@@ -5,7 +5,6 @@
     Description:
         Text for the RPT line of a camp (ticket 2.8): distances to the nearest road, town, FOB, captured sector and
         the start base, and the cover around it. Roads are searched within COIN_campExclusionRadius.
-        Server only.
 
     Parameter(s):
         _pos - Camp position [ARRAY]
@@ -21,8 +20,9 @@ params [
 private _roads = (_pos nearRoads COIN_campExclusionRadius) apply {_pos distance2D _x};
 private _road = if (_roads isEqualTo []) then {format ["none within %1 m", COIN_campExclusionRadius]} else {format ["%1 m", round selectMin _roads]};
 
-private _towns = [sectors_capture + sectors_bigtown, [], {_pos distance2D (markerPos _x)}, "ASCEND"] call BIS_fnc_sortBy;
-private _town = format ["%1 %2 m", markerText (_towns select 0), round (_pos distance2D (markerPos (_towns select 0)))];
+private _towns = (sectors_capture + sectors_bigtown) apply {[_pos distance2D (markerPos _x), markerText _x]};
+_towns sort true;
+private _town = if (_towns isEqualTo []) then {"none"} else {format ["%1 %2 m", (_towns select 0) select 1, round ((_towns select 0) select 0)]};
 
 private _fobs = (missionNamespace getVariable ["GRLIB_all_fobs", []]) apply {_pos distance2D _x};
 private _fob = if (_fobs isEqualTo []) then {"none"} else {format ["%1 m", round selectMin _fobs]};

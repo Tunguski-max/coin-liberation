@@ -251,8 +251,8 @@ COIN_campMinDistMapEdge     = 1000;     // m between camps and the map edge
 COIN_campMinDistSector      = COIN_nestMinDistSector; // m between camps and every sector centre (Liberation's 175 m evaluation)
 COIN_campPlaceAttempts      = 500;      // Random positions tried per camp, fewer camps with an error line if none fits
 COIN_campExclusionRadius    = 1000;     // m around captured sectors and FOBs without camps (also the search radius for roads in the log)
-COIN_campMinDistRoad        = 150;      // m
-COIN_campMinDistTown        = 500;      // m
+COIN_campMinDistRoad        = COIN_nestTerrainMinDistRoad; // m, the same rule as for terrain nests (COIN_fnc_checkTerrainSpot) ...
+COIN_campMinDistTown        = COIN_nestTerrainMinDistTown; // m ... so the two cannot drift apart; give the camps their own number here if they should
 COIN_campFlatRadius         = COIN_terrainTemplateRadius; // m around a camp that must be flat and free: room for a camp template ...
 COIN_campMaxGradient        = COIN_nestTerrainMaxGradient; // ... with at most this terrain gradient (isFlatEmpty)
 // Cover: at least COIN_campCoverMin terrain objects of these types within COIN_campCoverRadius (nearestTerrainObjects)

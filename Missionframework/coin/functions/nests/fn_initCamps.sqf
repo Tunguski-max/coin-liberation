@@ -42,8 +42,8 @@ for "_i" from 1 to _capacity do {
     ([] call COIN_fnc_findCampSpot) params ["_pos", "_rejected"];
     if (_pos isEqualTo []) then {
         diag_log format [
-            "[COIN] camps: ERROR - no place for a camp in %1 tries, rejected by %2, camp left out",
-            COIN_campPlaceAttempts, (keys _rejected) apply {format ["%1 %2x", _x, _rejected get _x]}
+            "[COIN] camps: ERROR - no place for a camp in %1 tries, rejected by: %2, camp left out",
+            COIN_campPlaceAttempts, ((keys _rejected) apply {format ["%1 %2x", _x, _rejected get _x]}) joinString ", "
         ];
         continue
     };
