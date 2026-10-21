@@ -53,6 +53,7 @@ if !(_technicalClass isEqualTo "") then {
         diag_log format ["[COIN] camps: camp %1 got no technical, %2 could not be spawned", _id, _technicalClass];
     } else {
         _technical setDir (_pos getDir _spot);
+        _technical setVectorUp surfaceNormal (position _technical);
         _technical setVariable ["COIN_campTechnical", true];
         [crew _technical] call COIN_fnc_markCoinUnits;
         _objects pushBack _technical;

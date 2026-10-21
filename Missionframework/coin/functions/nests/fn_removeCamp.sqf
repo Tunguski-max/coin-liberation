@@ -5,8 +5,8 @@
     Description:
         Removes the content of a camp that nobody is near any more (ticket 2.9, DESIGN 5.1): objects, guards and the
         technical are deleted. The technical is the exception when a player took it, so a vehicle someone is driving
-        is never deleted under them: it stays if a player or a unit that is no longer enemy sits in it, or if it
-        stands empty farther than COIN_campTechnicalLeash from the camp. A technical that was taken or destroyed is
+        is never deleted under them: it stays if a living player or a unit that is no longer enemy sits in it, or if it
+        has no living crew and stands farther than COIN_campTechnicalLeash from the camp. A technical that was taken or destroyed is
         not there when the camp spawns again (camp entry "technical gone"). Server only.
 
     Parameter(s):
@@ -32,7 +32,8 @@ if (!isNull _technical) then {
     if (!alive _technical) then {
         _technicalState = "destroyed";
     } else {
-        private _crew = crew _technical;
+        // Dead crew belongs to no side, only the living count
+        private _crew = (crew _technical) select {alive _x};
         private _taken = (_crew findIf {isPlayer _x || {!((side group _x) isEqualTo GRLIB_side_enemy)}}) >= 0;
         private _left = _crew isEqualTo [] && {(_technical distance2D _pos) > COIN_campTechnicalLeash};
         if (_taken || _left) then {

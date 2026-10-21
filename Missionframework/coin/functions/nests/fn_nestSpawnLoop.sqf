@@ -203,7 +203,10 @@ while {COIN_enableNestSpawn} do {
 } forEach _spawned;
 {
     private _campId = _x;
-    [COIN_camps select (COIN_camps findIf {(_x select 0) isEqualTo _campId}), _y, "spawning switched off"] call COIN_fnc_removeCamp;
+    private _index = COIN_camps findIf {(_x select 0) isEqualTo _campId};
+    if (_index >= 0) then {
+        [COIN_camps select _index, _y, "spawning switched off"] call COIN_fnc_removeCamp;
+    };
 } forEach _spawnedCamps;
 diag_log "[COIN] nests: spawn loop off";
 
