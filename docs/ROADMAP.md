@@ -115,7 +115,10 @@ Ziel: Nester existieren, sind persistent und schwächen bei Zerstörung das Netz
 - [x] 2.7 (#36) Camps: Kapazität aus aktiven Nestern berechnen (Entscheidung E8; am 2026-10-21 getestet: neue Kampagne 10 Camps,
   Kommandoposten zerstört ergibt 8, mit zusätzlich zerstörter Rekrutierungsstelle nach Neustart 7, kein Nest über seinem Gewicht;
   Waffenlager → 9 nicht einzeln getestet, gleiche Rechnung). Camps sind erst Daten, der Inhalt kommt mit 2.9
-- [ ] 2.8 Camps zufällig platzieren (ganze Karte, Abstandsregeln, Sperrzone um befreites Gebiet)
+- [x] 2.8 (#37) Camps zufällig platzieren (ganze Karte, Abstandsregeln, Sperrzone um befreites Gebiet; am 2026-10-21 getestet:
+  7 von 7 Camps mit Straße ≥ 164 m, Ort ≥ 935 m, Startbasis ≥ 5841 m, Deckung ≥ 4, eingenommener Sektor und FOB kommen aus dem
+  Spielstand, kein Camp unter 1 km. Die Regel unmittelbar neben einem Sektor oder FOB wurde nicht gesondert erzwungen;
+  mit 500 Versuchen blieben 2 von 7 Camps ohne Platz, daher 1000. Gelände-Nester teilen die Prüfung für Ort, Straße und Ebene)
 - [ ] 2.9 Camp-Inhalt spawnen bei Spielernähe (Zelte, Feuer, 3–6 Kämpfer, optional Technical);
   Waffenlager bekommen 1–2 Altfahrzeuge, die mit dem Lager verschwinden
 - [ ] 2.10 Nachschub nach Zerstörung und Wechsel unentdeckter Camps
