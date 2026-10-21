@@ -70,7 +70,7 @@ COIN_maxActiveIEDs          = 25;       // COIN IEDs at the same time
 COIN_spawnDistance          = 1000;     // m: content spawns when the nearest player is this close
 COIN_despawnDistance        = 1300;     // m: content is removed when no player was this close ...
 COIN_despawnDelay           = 120;      // ... for this many seconds
-COIN_spawnCheckInterval     = 5;        // s between two checks of all nests
+COIN_spawnCheckInterval     = 10;       // s between two checks of all nests; spawn and removal distance differ by 300 m, a helicopter at 60 m/s covers 600 m in 10 s, so no more
 COIN_presenceMaxAirHeight   = 100;      // m above ground: manned aircraft higher up do not spawn anything
 COIN_presenceMaxDroneHeight = 500;      // m above ground: drones higher up do not either (as Liberation's sectors, fn_getUnitsCount.sqf)
 COIN_curatorSyncInterval    = 10;       // s: objects given to Zeus are added again to curators created later, 0 = off
@@ -235,9 +235,9 @@ COIN_documentDropChance     = 0.5;      // Chance a destroyed nest yields docume
 // ---------------------------------------------------------------------------
 // Camps (Phase 2) - not persisted, redistributed on every server start
 // ---------------------------------------------------------------------------
-COIN_enableCamps            = true;
+COIN_enableCamps            = true;     // Off: no camps are created (ticket 2.7)
 COIN_campMax                = 10;       // Hard cap of simultaneous camps
-// Camps supported per active nest type: [type, camps]
+// Weight per nest type: [type, weight]. It counts in the camp capacity (decision E8) and is the most camps one nest of the type supplies
 COIN_campsPerNest = [
     ["command",      2],
     ["iedWorkshop",  1],
@@ -245,6 +245,10 @@ COIN_campsPerNest = [
     ["vbiedGarage",  1],
     ["recruitment",  2]
 ];
+// Simple placement of the first camp ticket (2.7), replaced by the rules below in ticket 2.8
+COIN_campMinDistStartBase   = 2000;     // m between camps and the start base
+COIN_campMinDistMapEdge     = 1000;     // m between camps and the map edge
+COIN_campPlaceAttempts      = 100;      // Random positions tried per camp
 COIN_campExclusionRadius    = 1000;     // m around captured sectors and FOBs without camps
 COIN_campMinDistRoad        = 150;      // m
 COIN_campMinDistTown        = 500;      // m

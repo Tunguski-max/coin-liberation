@@ -7,7 +7,8 @@
         loaded its save, then takes the nests from entry 22. A new campaign or a save without entry 22 (e.g. from
         phase 1) gets new nests (COIN_fnc_createNests), which are saved right away. A block with an unknown save
         version is kept unchanged and no nests are active. Sets COIN_nests, logs every nest (state of the campaign,
-        once per start) and draws the debug map when COIN_debug is on.
+        once per start) and draws the debug map when COIN_debug is on. Then creates the camps (COIN_fnc_initCamps,
+        ticket 2.7, while COIN_enableCamps is true) and starts the spawn loop.
         Must be spawned (waits for save_is_loaded).
 
     Parameter(s):
@@ -82,6 +83,13 @@ if (COIN_debug) then {
         params ["_id", "_type", "_pos"];
         diag_log format ["[COIN] nests: event COIN_nestDestroyed for nest %1 (%2) at %3", _id, _type, _pos];
     }] call CBA_fnc_addEventHandler;
+};
+
+// Camps as data (ticket 2.7), not saved: new places on every start
+if (COIN_enableCamps) then {
+    [] call COIN_fnc_initCamps;
+} else {
+    diag_log "[COIN] camps: camps off, none are created";
 };
 
 // Content near players (ticket 2.3)

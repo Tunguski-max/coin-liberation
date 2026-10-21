@@ -180,6 +180,21 @@ class COIN {
         // Server: civilian vehicle of a VBIED garage (free placement), inside the hall or next to it
         class placeNestVehicle {};
 
+        // Server: camps as data after the nests are known, capacity and owner nest (ticket 2.7, decision E8)
+        class initCamps {};
+
+        // Camp capacity from the weight of the active nests (decision E8)
+        class getCampCapacity {};
+
+        // Weight of a nest type for the camps (COIN_campsPerNest)
+        class getCampWeight {};
+
+        // Simple random place on land for a camp (replaced by the placement rules of ticket 2.8)
+        class findCampSpot {};
+
+        // Server: global debug markers for the camps, with a line to their nest (ticket 2.11)
+        class drawCampMarkers {};
+
         // Server loop: spawns nests near players and removes them again (ticket 2.3)
         class nestSpawnLoop {};
 
