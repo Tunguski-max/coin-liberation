@@ -6,10 +6,11 @@
         Server start of the camps (ticket 2.7, DESIGN 5.1, decision E8). Called by COIN_fnc_initNests once the nests
         are known. Camps are not saved, so every start creates them anew:
         - COIN_campCapacity from COIN_fnc_getCampCapacity,
-        - that many camps at random places (COIN_fnc_findCampSpot), each belonging to the nearest active nest that
-          still has a free slot (a nest supplies at most as many camps as its weight, COIN_fnc_getCampWeight),
+        - that many camps at places that keep the placement rules (COIN_fnc_findCampSpot, ticket 2.8), each belonging
+          to the nearest active nest that still has a free slot (a nest supplies at most as many camps as its weight,
+          COIN_fnc_getCampWeight). A camp without a place is left out with an error line.
         - COIN_camps = [[id, nest id, position], ...].
-        Logs every camp and the camps per nest. Listens to COIN_nestDestroyed: the capacity is calculated and logged
+        Logs every camp with its distances (COIN_fnc_describeCampSpot) and the camps per nest. Listens to COIN_nestDestroyed: the capacity is calculated and logged
         again, camps are not removed yet. Draws the debug map when COIN_debug is on.
 
     Parameter(s):
@@ -38,10 +39,18 @@ for "_i" from 1 to _capacity do {
         diag_log format ["[COIN] camps: no active nest has a free slot left, %1 of %2 camps created", count COIN_camps, _capacity];
     };
 
-    private _pos = [] call COIN_fnc_findCampSpot;
-    if (_pos isEqualTo []) exitWith {
-        diag_log format ["[COIN] camps: ERROR - no place found in %1 tries, %2 of %3 camps created", COIN_campPlaceAttempts, count COIN_camps, _capacity];
+    ([] call COIN_fnc_findCampSpot) params ["_pos", "_rejected"];
+    if (_pos isEqualTo []) then {
+        diag_log format [
+            "[COIN] camps: ERROR - no place for a camp in %1 tries, rejected by: %2, camp left out",
+            COIN_campPlaceAttempts, ((keys _rejected) apply {format ["%1 %2x", _x, _rejected get _x]}) joinString ", "
+        ];
+        continue
     };
+    private _tries = 1;
+    {
+        _tries = _tries + _x;
+    } forEach (values _rejected);
 
     _owners = [_owners, [], {(_x select 3) distance2D _pos}, "ASCEND"] call BIS_fnc_sortBy;
     private _owner = _owners select 0;
@@ -51,8 +60,8 @@ for "_i" from 1 to _capacity do {
     private _id = count COIN_camps + 1;
     COIN_camps pushBack [_id, _nestId, _pos];
     diag_log format [
-        "[COIN] camps: camp %1 at %2 belongs to nest %3 (%4), %5 m away, start base %6 m",
-        _id, _pos, _nestId, _nestType, round (_pos distance2D _nestPos), round (_pos distance2D startbase)
+        "[COIN] camps: camp %1 at %2 belongs to nest %3 (%4), %5 m away; %6; %7 tries",
+        _id, _pos, _nestId, _nestType, round (_pos distance2D _nestPos), [_pos] call COIN_fnc_describeCampSpot, _tries
     ];
 };
 
@@ -62,7 +71,7 @@ for "_i" from 1 to _capacity do {
     private _weight = [_nestType] call COIN_fnc_getCampWeight;
     diag_log format ["[COIN] camps: nest %1 (%2, %3) supplies %4 of %5 camps", _nestId, _nestType, _state, _used getOrDefault [_nestId, 0], _weight];
 } forEach COIN_nests;
-diag_log format ["[COIN] camps: %1 camps created", count COIN_camps];
+diag_log format ["[COIN] camps: %1 of %2 camps created", count COIN_camps, _capacity];
 
 // A destroyed nest lowers the capacity; its camps go with the replacement ticket (2.10)
 ["COIN_nestDestroyed", {

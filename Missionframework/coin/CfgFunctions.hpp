@@ -189,8 +189,17 @@ class COIN {
         // Weight of a nest type for the camps (COIN_campsPerNest)
         class getCampWeight {};
 
-        // Simple random place on land for a camp (replaced by the placement rules of ticket 2.8)
+        // Place for a camp that keeps the placement rules (ticket 2.8)
         class findCampSpot {};
+
+        // Open-ground rules terrain nests and camps share: away from towns and roads, flat and free
+        class checkTerrainSpot {};
+
+        // Cover objects (trees, bushes, rocks) around a camp spot
+        class getCampCover {};
+
+        // Server: distances of a camp for the RPT line (road, town, FOB, captured sector, start base, cover)
+        class describeCampSpot {};
 
         // Server: global debug markers for the camps, with a line to their nest (ticket 2.11)
         class drawCampMarkers {};
