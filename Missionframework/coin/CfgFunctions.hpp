@@ -182,5 +182,8 @@ class COIN {
 
         // Server loop: spawns nests near players and removes them again (ticket 2.3)
         class nestSpawnLoop {};
+
+        // Server: nest destroyed for good, saved at once, event COIN_nestDestroyed (ticket 2.4)
+        class destroyNest {};
     };
 };

@@ -11,7 +11,7 @@
           at the free building positions closest to the core object (none under a placed object), the others patrol
           around the nest (COIN_fnc_spawnNestGuards). A house without free positions keeps all guards outside.
         Objects are excluded from Liberation's save near FOBs. Everything goes to Zeus.
-        The core object carries COIN_nestId for the destruction check (ticket 2.4). Server only.
+        The core object carries COIN_nestId and COIN_nestHouse for the destruction check (ticket 2.4). Server only.
 
     Parameter(s):
         _nest     - Nest [ARRAY: id, type, kind, pos, seed, state]
@@ -70,6 +70,8 @@ private _placement = if (_templates isEqualTo []) then {
     [_house, _id, (_templates select ([_streamTemplate, count _templates] call _seededIndex)) select 2] call COIN_fnc_placeNestTemplate
 };
 _placement params ["_objects", "_core", "_placedOutlines", "_layout"];
+// For the destruction check: a collapsing house destroys the nest (ticket 2.4)
+_core setVariable ["COIN_nestHouse", _house];
 private _corePos = getPosATL _core;
 
 // Guards: complete on every spawn
