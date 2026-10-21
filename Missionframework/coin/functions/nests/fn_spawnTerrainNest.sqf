@@ -28,7 +28,7 @@ params [
 
 if (!isServer) exitWith {[]};
 
-_nest params ["_id", "_type", "_kind", "_pos", "_seed"];
+_nest params ["_id", "_type", "", "_pos", "_seed"];
 
 // Value streams of the seed (COIN_fnc_seededRandom index), the same as building nests use where they mean the same
 private _streamGuards = 5000;
@@ -46,7 +46,8 @@ private _dir = round ([_seed, _streamDir, 360] call COIN_fnc_seededRandom);
 ([[_pos, _dir], _id, (_templates select _templateIndex) select 1] call COIN_fnc_placeNestTemplate)
     params ["_objects", "_core", "_placedOutlines", "_layout"];
 
-// Guards: complete on every spawn, the stationary ones spread evenly around the ring and looking outwards
+// Guards: complete on every spawn, the stationary ones spread evenly around the ring and looking outwards.
+// Their spots are not from the seed on purpose, guards are dynamic (ADR 0020)
 private _guardCount = COIN_nestGuardsMin + floor ([_seed, _streamGuards, COIN_nestGuardsMax - COIN_nestGuardsMin + 1] call COIN_fnc_seededRandom);
 private _ringCount = round (_guardCount * COIN_nestTerrainGuardShare);
 COIN_nestTerrainGuardRing params ["_ringMin", "_ringMax"];

@@ -81,8 +81,12 @@ und kippt mit dem Gelände unter ihm (ADR 0020). Pro Nest-Typ sind 2–3 Templat
 4. Die Zeile an Claude schicken oder in `coin_templates.sqf` unter `// Terrain templates` (am Ende) einfügen.
 
 ```sqf
-private _type = "cache"; private _c = missionNamespace getVariable ["centre", objNull]; if (isNull _c) then {_c = (nearestObjects [player, ["Sign_Arrow_Direction_F"], 50]) param [0, objNull]}; if (isNull _c) exitWith {hint "No centre arrow (Sign_Arrow_Direction_F) within 50 m"}; private _d = getDir _c; private _objs = (nearestObjects [_c, [], 15]) select { !(_x isEqualTo _c) && {getObjectType _x == 8} && {!(_x isKindOf "CAManBase")} && {!(_x isKindOf "Logic")} && {!(_x isKindOf "WeaponHolder")} && {isClass (configFile >> "CfgVehicles" >> typeOf _x)} && {((typeOf _x) find "Fx") != 0} && {!(_x isEqualTo (vehicle player))} }; _objs append (allMines select {(_x distance2D _c) <= 15}); private _e = _objs apply { ((getPosASL _x) vectorDiff (getPosASL _c)) params ["_dx", "_dy"]; private _r = ["prop", "vehicle"] select (_x isKindOf "LandVehicle"); if (_x in allMines) then {_r = "mine"}; if ((vehicleVarName _x) isEqualTo "core" && {_type != "camp"}) then {_r = "core"}; format ["[""%1"",[%2,%3,%4],%5,""%6""]", typeOf _x, (_dx * cos _d - _dy * sin _d) toFixed 3, (_dx * sin _d + _dy * cos _d) toFixed 3, ((getPosATL _x) select 2) toFixed 3, (((getDir _x) - _d + 360) mod 360) toFixed 1, _r] }; private _t = format ["COIN_terrainTemplates pushBack [""%1"",[%2]];", _type, _e joinString ","]; copyToClipboard _t; hint format ["Terrain %1: %2 objects, %3 core object(s), copied", _type, count _objs, {(vehicleVarName _x) isEqualTo "core"} count _objs];
+private _type = "cache"; private _c = missionNamespace getVariable ["centre", objNull]; if (isNull _c) then {_c = (nearestObjects [player, ["Sign_Arrow_Direction_F"], 50]) param [0, objNull]}; if (isNull _c) exitWith {hint "No centre arrow (Sign_Arrow_Direction_F) within 50 m"}; private _d = getDir _c; private _objs = (nearestObjects [_c, [], 15]) select { !(_x isEqualTo _c) && {getObjectType _x == 8} && {!(_x isKindOf "CAManBase")} && {!(_x isKindOf "Logic")} && {!(_x isKindOf "WeaponHolder")} && {isClass (configFile >> "CfgVehicles" >> typeOf _x)} && {((typeOf _x) find "Fx") != 0} && {!(_x isEqualTo (vehicle player))} }; _objs append (allMines select {(_x distance2D _c) <= 15}); private _e = _objs apply { ((getPosASL _x) vectorDiff (getPosASL _c)) params ["_dx", "_dy"]; private _r = ["prop", "vehicle"] select (_x isKindOf "LandVehicle"); if (_x in allMines) then {_r = "mine"}; if ((vehicleVarName _x) isEqualTo "core" && {_type != "camp"}) then {_r = "core"}; format ["[""%1"",[%2,%3,%4],%5,""%6""]", typeOf _x, (_dx * cos _d - _dy * sin _d) toFixed 3, (_dx * sin _d + _dy * cos _d) toFixed 3, ((getPosATL _x) select 2) toFixed 3, (((getDir _x) - _d + 360) mod 360) toFixed 1, _r] }; private _t = format ["COIN_terrainTemplates pushBack [""%1"",[%2]];", _type, _e joinString ","]; copyToClipboard _t; hint format ["Terrain %1: %2 objects, %3 core object(s), copied", _type, count _objs, {_type != "camp" && {(vehicleVarName _x) isEqualTo "core"}} count _objs];
 ```
+
+Die Zahlen im Befehl (15 m Umkreis, 50 m Suche, Pfeilklasse) entsprechen `COIN_terrainTemplateRadius`,
+`COIN_terrainTemplateCentreSearch` und `COIN_terrainTemplateCentreClass` in `coin_config.sqf`. Ändert sich dort
+etwas, muss der Befehl mit.
 
 ### In der Mission mit Zeus
 
@@ -90,7 +94,18 @@ Pfeil und Objekte mit Zeus setzen, neben den Pfeil stellen, Debug-Konsole, **Lok
 ```sqf
 ["cache"] call COIN_fnc_exportTerrainTemplate;
 ```
-Kernobjekt ist dort das Objekt mit der Klasse aus `COIN_nestCores` für diesen Typ.
+Kernobjekt ist das Objekt mit dem Variablennamen `core`, ohne ihn das Objekt mit der Klasse aus `COIN_nestCores`
+für diesen Typ.
+
+### Ansehen im Spiel
+
+Jedes Gelände-Template lässt sich auf dem lokalen Host ansehen, auch für Typen, die selten Gelände-Nester werden.
+Debug-Konsole, **Lokal ausführen**, das Nest entsteht 30 m vor dir, wie ein echtes (Template, Drehung, Wachen):
+```sqf
+["vbiedGarage"] call COIN_fnc_debugTerrainNest;          // zufälliger Seed, steht im Hint
+["vbiedGarage", 4711] call COIN_fnc_debugTerrainNest;    // fester Seed: gleiches Template, gleiche Drehung
+[""] call COIN_fnc_debugTerrainNest;                     // wieder entfernen
+```
 
 ## Prüfen
 

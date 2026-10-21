@@ -197,7 +197,8 @@ COIN_enableNestMines        = true;     // Mines in templates spawn live (create
 // turns it around the nest position; objects keep their height above the terrain and tilt with the slope
 COIN_terrainTemplateCentreClass  = "Sign_Arrow_Direction_F"; // Arrow that marks centre and front of a terrain template in Eden
 COIN_terrainTemplateCentreSearch = 50;  // m around the player the export looks for the arrow (without variable name "centre")
-COIN_terrainTemplateRadius  = 15;       // m around the arrow the export takes objects from (= COIN_nestTerrainFlatRadius)
+COIN_enableTerrainNests     = true;     // Off: terrain nests stay data only, building nests still spawn
+COIN_terrainTemplateRadius  = COIN_nestTerrainFlatRadius; // m around the arrow the export takes objects from
 COIN_nestTerrainGuardShare  = 0.5;      // Share of the guards standing in a ring around the camp, the others patrol
 COIN_nestTerrainGuardRing   = [6, 12];  // [min, max] m from the centre where they stand, looking outwards
 COIN_nestTerrainGuardClearance = 1;     // m they keep from the outline of placed objects

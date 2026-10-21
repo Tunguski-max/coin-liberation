@@ -120,6 +120,9 @@ class COIN {
 
         // Debug console: terrain template around the centre arrow, to the clipboard (ADR 0020)
         class exportTerrainTemplate {};
+
+        // Debug console: terrain nest of a type in front of the player, as a real one spawns
+        class debugTerrainNest {};
     };
 
     class persistence {
