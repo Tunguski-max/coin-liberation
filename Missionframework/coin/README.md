@@ -71,7 +71,10 @@ coin/
         ├── fn_initCamps.sqf            COIN_fnc_initCamps: Server, Camps als Daten (Kapazität, Eigentümer-Nest), nicht gespeichert (Entscheidung E8)
         ├── fn_getCampCapacity.sqf      COIN_fnc_getCampCapacity: Kapazität aus dem Gewicht der aktiven Nester
         ├── fn_getCampWeight.sqf        COIN_fnc_getCampWeight: Gewicht eines Nest-Typs für die Camps (COIN_campsPerNest)
-        ├── fn_findCampSpot.sqf         COIN_fnc_findCampSpot: einfacher zufälliger Platz an Land (ersetzt durch die Regeln aus 2.8)
+        ├── fn_findCampSpot.sqf         COIN_fnc_findCampSpot: Platz für ein Camp nach den Platzierungsregeln (Sperrzone, Deckung, Abstände)
+        ├── fn_checkTerrainSpot.sqf     COIN_fnc_checkTerrainSpot: gemeinsame Prüfung für Gelände-Nester und Camps (Ort, Straße, eben)
+        ├── fn_getCampCover.sqf         COIN_fnc_getCampCover: Bäume, Büsche und Felsen um einen Campplatz
+        ├── fn_describeCampSpot.sqf     COIN_fnc_describeCampSpot: Abstände eines Camps für die RPT-Zeile
         ├── fn_drawCampMarkers.sqf      COIN_fnc_drawCampMarkers: globale Debug-Marker der Camps mit Linie zu ihrem Nest
         ├── fn_nestSpawnLoop.sqf        COIN_fnc_nestSpawnLoop: Server-Schleife, Spawn ab 1000 m, Abbau nach 2 min außerhalb 1300 m, Zerstörung prüfen
         └── fn_destroyNest.sqf          COIN_fnc_destroyNest: Nest endgültig zerstört, sofort gespeichert, Ereignis COIN_nestDestroyed

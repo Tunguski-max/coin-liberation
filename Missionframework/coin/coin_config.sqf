@@ -245,13 +245,20 @@ COIN_campsPerNest = [
     ["vbiedGarage",  1],
     ["recruitment",  2]
 ];
-// Simple placement of the first camp ticket (2.7), replaced by the rules below in ticket 2.8
+// Placement rules (ticket 2.8, DESIGN 5.1); the open-ground rules are shared with the terrain nests
 COIN_campMinDistStartBase   = 2000;     // m between camps and the start base
 COIN_campMinDistMapEdge     = 1000;     // m between camps and the map edge
-COIN_campPlaceAttempts      = 100;      // Random positions tried per camp
-COIN_campExclusionRadius    = 1000;     // m around captured sectors and FOBs without camps
+COIN_campMinDistSector      = COIN_nestMinDistSector; // m between camps and every sector centre (Liberation's 175 m evaluation)
+COIN_campPlaceAttempts      = 500;      // Random positions tried per camp, fewer camps with an error line if none fits
+COIN_campExclusionRadius    = 1000;     // m around captured sectors and FOBs without camps (also the search radius for roads in the log)
 COIN_campMinDistRoad        = 150;      // m
 COIN_campMinDistTown        = 500;      // m
+COIN_campFlatRadius         = COIN_terrainTemplateRadius; // m around a camp that must be flat and free: room for a camp template ...
+COIN_campMaxGradient        = COIN_nestTerrainMaxGradient; // ... with at most this terrain gradient (isFlatEmpty)
+// Cover: at least COIN_campCoverMin terrain objects of these types within COIN_campCoverRadius (nearestTerrainObjects)
+COIN_campCoverTypes         = ["TREE", "SMALL TREE", "BUSH", "ROCK", "ROCKS"];
+COIN_campCoverRadius        = 40;       // m
+COIN_campCoverMin           = 3;
 COIN_campGuardsMin          = 3;
 COIN_campGuardsMax          = 6;
 COIN_campTechnicalChance    = 0.3;
