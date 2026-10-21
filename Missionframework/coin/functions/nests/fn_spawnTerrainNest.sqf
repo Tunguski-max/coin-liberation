@@ -51,6 +51,9 @@ private _dir = round ([_seed, _streamDir, 360] call COIN_fnc_seededRandom);
 private _guardCount = COIN_nestGuardsMin + floor ([_seed, _streamGuards, COIN_nestGuardsMax - COIN_nestGuardsMin + 1] call COIN_fnc_seededRandom);
 private _ringCount = round (_guardCount * COIN_nestTerrainGuardShare);
 COIN_nestTerrainGuardRing params ["_ringMin", "_ringMax"];
+// Objects reaching beyond the inner ring (camouflage nets) cannot be kept clear of, guards may stand below them
+// (test 2026-10-21: the net's outline left almost no ring spots)
+private _blockers = _placedOutlines select {(_x select 1) < _ringMin};
 private _spots = [];
 private _startAngle = random 360;
 for "_i" from 0 to (_ringCount - 1) do {
@@ -60,7 +63,7 @@ for "_i" from 0 to (_ringCount - 1) do {
         private _spot = _pos getPos [_ringMin + random (_ringMax - _ringMin), _angle];
         if (
             !surfaceIsWater _spot
-            && {(_placedOutlines findIf {(_spot distance2D (_x select 0)) < (_x select 1) + COIN_nestTerrainGuardClearance}) < 0}
+            && {(_blockers findIf {(_spot distance2D (_x select 0)) < (_x select 1) + COIN_nestTerrainGuardClearance}) < 0}
         ) exitWith {
             _spots pushBack [[_spot select 0, _spot select 1, 0], _angle];
         };
