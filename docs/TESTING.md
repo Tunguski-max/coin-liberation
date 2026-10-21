@@ -13,6 +13,7 @@ Ein eigenes Preset „COIN Dev“ anlegen mit:
 - Project OPFOR
 - CUP Terrains – Core, CUP Terrains – Maps
 - CUP Vehicles (zivile Fahrzeuge in den Gebäude-Templates, seit 2026-10-20)
+- CUP Weapons (Munitionskisten in den Gebäude-Templates, seit 2026-10-21)
 - **Jbad** und **Lythium**
 - TFAR (optional; für Solo-Tests weglassen spart Ladezeit)
 
