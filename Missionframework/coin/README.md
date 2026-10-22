@@ -99,7 +99,9 @@ coin/
     │   ├── fn_findIEDSpot.sqf          COIN_fnc_findIEDSpot: Platz auf einer Straße im Radius, nicht im Ortskern, nicht nahe Basis, FOB und anderen IEDs
     │   ├── fn_iedTriggered.sqf         COIN_fnc_iedTriggered: löst die Armee das IED aus? (BLUFOR-Fahrzeug oder zwei BLUFOR-Soldaten zu Fuß, Werte in der Config)
     │   ├── fn_iedWatch.sqf             COIN_fnc_iedWatch: genaue Prüfung eines IEDs (0,2 s), nur solange BLUFOR im Radius von 300 m ist, gestartet vom Trigger des IEDs
-    │   ├── fn_removeIED.sqf            COIN_fnc_removeIED: nimmt ein IED aus COIN_ieds und löscht seinen Trigger
+    │   ├── fn_removeIED.sqf            COIN_fnc_removeIED: nimmt ein IED aus COIN_ieds, löscht den Trigger, startet Nachschub und Beuteentfernung
+    │   ├── fn_replaceIED.sqf           COIN_fnc_replaceIED: ersetzt ein verbrauchtes IED nach der Wartezeit, nicht bei zerstörter Werkstatt
+    │   ├── fn_removeIEDLoot.sqf        COIN_fnc_removeIEDLoot: löscht den Gegenstand, den ein entschärftes IED hinterlässt
     │   └── fn_drawIEDMarkers.sqf       COIN_fnc_drawIEDMarkers: globale Debug-Marker der IEDs (Lobby-Parameter „COIN Debug“)
     └── nests/
         ├── fn_initNests.sqf            COIN_fnc_initNests: Server, Nester aus dem Spielstand oder neu, Debug-Karte (ADR 0018)

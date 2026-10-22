@@ -257,7 +257,7 @@ keine IEDs und keine Attentäter, ohne Garage keine VBIEDs, ohne Camp keine Hint
 
 | Bedrohung | Quelle | Ablauf | Hinweise für Spieler | Gegenmaßnahme |
 |---|---|---|---|---|
-| IED (vergraben) | IED-Werkstatt | An Straßen im Radius einer Werkstatt | Auffälliges Objekt daneben (Erdhaufen, Müll, Reifen) | ACE-Minensucher, ACE-Entschärfen |
+| IED (vergraben) | IED-Werkstatt | An Straßen im Radius einer Werkstatt | Keine Hinweise im Gelände, nur Aufmerksamkeit und Minensucher (Hinweis-Objekte verworfen am 2026-10-22) | ACE-Minensucher, ACE-Entschärfen |
 | IED (ferngezündet) | IED-Werkstatt | Mit Auslöser in Sichtweite | Zivilist mit Telefon, der beobachtet | Auslöser ausschalten, dann entschärfen |
 | Attrappe | IED-Werkstatt | Wie IED, harmlos | Wie IED | Kostet Zeit, kein Schaden |
 | VBIED | VBIED-Garage | Ziviles Fahrzeug fährt auf Spieler oder FOB zu | Fahrer allein, ignoriert Warnungen, hält nicht an | Stoppen, Distanz, Feuer |
@@ -280,7 +280,6 @@ schon Gelegtes bleibt liegen. Darüber gilt die globale Obergrenze für IEDs (Ab
   Widerstand und Luftfahrzeuge nie. Beschuss oder Sprengen bringt ein echtes IED zur Explosion (Sprengen an Ort und
   Stelle ist eine Gegenmaßnahme, bringt aber keinen Ruf).
 - Varianten (Startwerte): 60 % vergraben, 25 % ferngezündet, 15 % Attrappen. Alle zählen zum Budget.
-- Ein Hinweis-Objekt liegt mit 60 % Chance 1–4 m neben dem IED (auch bei Attrappen).
 - **Ferngezündet:** Der Auslöser (Kämpfer in Zivil) steht 60–150 m entfernt mit Sichtlinie, bevorzugt an einem Haus
   oder erhöht, und spawnt, wenn ein Spieler 800 m nah ist. Er zündet, sobald die Armee etwa 15 m am IED ist. Ist er
   tot, gefangen oder ergeben, zündet das IED nie mehr, muss aber noch entschärft werden.
@@ -325,7 +324,7 @@ schon Gelegtes bleibt liegen. Darüber gilt die globale Obergrenze für IEDs (Ab
 
 **Allgemein**
 - Budgets, Chancen, Abstände und Wartezeiten stehen in `coin_config.sqf`, jede Bedrohung hat einen eigenen Schalter.
-- Im Debug-Modus erscheinen IEDs (Farbe nach Variante) und Auslöser auf der Karte. IEDs, Hinweis-Objekte und alle
+- Im Debug-Modus erscheinen IEDs (Farbe nach Variante) und Auslöser auf der Karte. IEDs und alle
   Einheiten gehen an Zeus.
 - Liberations eigene IEDs (in feindlichen Sektoren bei negativem Ruf) und Guerilla-Hinterhalte
   (in befreiten Ortschaften bei Ruf ≤ −25) werden **ersetzt** und sind per Schalter abschaltbar.
