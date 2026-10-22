@@ -179,6 +179,7 @@ Schnitt in dünne, einzeln testbare Durchstiche (Grilling 2026-10-22, DESIGN 7 v
 - [ ] 3.9 (#66) Dokumente als ACE Intel Items (E13): bei toten Anführern, in zerstörten Nestern (anderes Nest) und ausgehobenen
   Camps (Nest des Camps), Auswertung beim Dolmetscher, nie gelogen
 - [ ] 3.10 (#67) Liberation-Informant liefert bei Ablieferung zusätzlich einen Konkreten Tipp zu einem aktiven Nest (Hook, ADR 0011)
+  (implementiert, ungetestet: zwei Hooks in Liberation, siehe docs/hooks.md Nr. 21; Test per Konsole, Anleitung im Ticket-Chat)
 
 **DoD:** Ohne Debug-Anzeige allein über Befragungen ein Nest finden und zerstören.
 

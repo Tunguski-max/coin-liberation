@@ -191,6 +191,9 @@ class COIN {
         // Server loop: a warning disappears with its camp
         class warningLoop {};
 
+        // Server: the concrete tip of Liberation's informant at the FOB (ticket 3.10, hook in civinfo_delivered.sqf)
+        class informantTip {};
+
         // Server: an interpreter interrogates a prisoner (called by the client, ticket 3.8)
         class interrogatePrisoner {};
 

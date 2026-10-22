@@ -68,6 +68,7 @@ coin/
     │   ├── fn_intelSearchLoop.sqf      COIN_fnc_intelSearchLoop: Server-Schleife, eine Lüge verschwindet, wenn ein Spieler zu Fuß am Ersatzpunkt war
     │   ├── fn_createWarning.sqf        COIN_fnc_createWarning: Warnung, Kreis um ein aktives Camp in der Nähe, nicht gespeichert (Ticket 3.6)
     │   ├── fn_warningLoop.sqf          COIN_fnc_warningLoop: Server-Schleife, eine Warnung verschwindet mit ihrem Camp (ausgehoben, umgezogen, entfernt)
+    │   ├── fn_informantTip.sqf         COIN_fnc_informantTip: Server, Konkreter Tipp des Informanten bei der Ablieferung an der FOB (Ticket 3.10)
     │   ├── fn_removeIntel.sqf          COIN_fnc_removeIntel: entfernt ein Intel samt Markern
     │   ├── fn_getIntelRadius.sqf       COIN_fnc_getIntelRadius: Start-Radius nach Stufe
     │   ├── fn_offsetCenter.sqf         COIN_fnc_offsetCenter: Mitte eines Kreises um Nest oder Ersatzpunkt, nie auf dem Punkt
