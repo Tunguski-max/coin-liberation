@@ -112,7 +112,7 @@ Ziel: Nester existieren, sind persistent und schwächen bei Zerstörung das Netz
   weiter zerstört, Zeus-Löschen ist keine Zerstörung, eingestürzte Halle zerstört das Nest sofort)
 - [x] 2.5 (#28) Debug-Anzeige (Parameter): Nester und Radien auf der Karte (Lobby-Parameter „COIN Debug“; getestet: an zeigt 11 Nester
   mit Farbe und Radius nach Typ, aus zeigt keine Marker; noch offen: später beitretender Spieler)
-- [ ] 2.6 Netzwerkstärke berechnen und im Debug anzeigen
+- [ ] 2.6 (#34) Netzwerkstärke berechnen und im Debug anzeigen (implementiert, ungetestet: aktive / alle Nester, Server verteilt `COIN_networkStrength` und `COIN_networkCounts`, Debug-Eintrag im Karten-Tagebuch „COIN Debug“)
 - [x] 2.7 (#36) Camps: Kapazität aus aktiven Nestern berechnen (Entscheidung E8; am 2026-10-21 getestet: neue Kampagne 10 Camps,
   Kommandoposten zerstört ergibt 8, mit zusätzlich zerstörter Rekrutierungsstelle nach Neustart 7, kein Nest über seinem Gewicht;
   Waffenlager → 9 nicht einzeln getestet, gleiche Rechnung). Camps sind erst Daten, der Inhalt kommt mit 2.9

@@ -159,6 +159,12 @@ class COIN {
         // Server: global debug markers for all nests (lobby parameter "COIN Debug")
         class drawNestMarkers {};
 
+        // Server: network strength = active / all nests, published to the clients (ticket 2.6)
+        class updateNetworkStrength {};
+
+        // Client: debug record "Netzwerkstärke" in the map diary (ticket 2.6)
+        class showNetworkStrength {};
+
         // Server: checks core and prop classes once (core objects must be destructible)
         class validateNestContent {};
 
