@@ -190,19 +190,21 @@ Schnitt in dünne, einzeln testbare Durchstiche (Grilling 2026-10-22, DESIGN 7 v
 ## Phase 4 – Asymmetrische Bedrohungen
 
 Ziel: IEDs, VBIEDs, Attentäter und Hinterhalte, gespeist aus den Nestern.
-Festgelegt beim Grilling am 2026-10-22 (DESIGN 6, ADR 0022). Reihenfolge: 4.7, 4.1, 4.2, 4.8, 4.3, 4.4, 4.5.
+Festgelegt beim Grilling am 2026-10-22 (DESIGN 6, ADR 0022). Reihenfolge: 4.7, 4.1a, 4.1b, 4.2a, 4.2b, 4.8, 4.3, 4.4, 4.5.
 
-- [ ] 4.7 Liberations IEDs und Hinterhalte in Ortschaften per Schalter abschalten (ADR 0008); Konvoi-Überfall und
+- [ ] 4.7 (#79) Liberations IEDs und Hinterhalte in Ortschaften per Schalter abschalten (ADR 0008); Konvoi-Überfall und
   Sektor-Guerilla bleiben
-- [ ] 4.1 IED-Budget pro Werkstatt, IED-Platzierung an Straßen im Radius, Auslösung nur durch die Armee,
-  Hinweis-Objekte; Werkstatt zerstört → kein Nachschub (früher 4.6)
-- [ ] 4.2 IED-Varianten: vergraben, ferngezündet mit Auslöser, Attrappe; ACE-Entschärfen bringt Ruf
-- [ ] 4.8 Warnung vor IED: Zivilist warnt mit Kreis wie beim Camp (DESIGN 7)
-- [ ] 4.3 VBIED-Ereignis (nur mit aktiver Garage); Garage zerstört → keine VBIEDs mehr (früher 4.6)
-- [ ] 4.4 Selbstmordattentäter unter Zivilisten (Häufigkeit nach Ruf-Band); Befehle an Zivilisten: ACE „Get Down“/„Go Away“
-  und eigenes „Stehen bleiben“
-- [ ] 4.5 Hinterhalte an Straßen, ausgehend von Camps, mit Warnung
-- [-] 4.6 Werkstatt/Garage zerstört → Budgets und Ereignisse im Radius versiegen: aufgegangen in 4.1 und 4.3
+- [ ] 4.1a (#80) Durchstich IED: Budget pro Werkstatt, Platzierung an Straßen im Radius, Auslösung nur durch die Armee
+- [ ] 4.1b (#81) Nachschub, Werkstatt zerstört → kein Nachschub (früher 4.6), Hinweis-Objekte, keine IED-Beute
+- [ ] 4.2a (#82) Attrappe; ACE-Entschärfen bringt Ruf
+- [ ] 4.2b (#83) Ferngezündetes IED mit Auslöser (erster Kämpfer in Zivil)
+- [ ] 4.8 (#84) Warnung vor IED: Zivilist warnt mit Kreis wie beim Camp (DESIGN 7)
+- [ ] 4.3 (#85) VBIED-Ereignis (nur mit aktiver Garage); Garage zerstört → keine VBIEDs mehr (früher 4.6)
+- [ ] 4.4 (#86) Selbstmordattentäter unter Zivilisten (Häufigkeit nach Ruf-Band); gegen ihn helfen Distanz und frühes
+  Ausschalten, ACE „Get Down“/„Go Away“ ignoriert er. Eigenes „Stehen bleiben“ verworfen am 2026-10-22 (Niklas):
+  ACE-Aktionen an der Person brauchen zu viel Nähe
+- [ ] 4.5 (#87) Hinterhalte an Straßen, ausgehend von Camps, mit Warnung
+- [-] 4.6 Werkstatt/Garage zerstört → Budgets und Ereignisse im Radius versiegen: aufgegangen in 4.1b und 4.3
 
 **DoD:** Fahrt durch eine Region mit Werkstatt trifft auf IEDs; nach Zerstörung der Werkstatt
 kommen dort keine neuen mehr hinzu.

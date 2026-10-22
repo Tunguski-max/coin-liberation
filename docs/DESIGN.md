@@ -260,7 +260,7 @@ keine IEDs und keine Attentäter, ohne Garage keine VBIEDs, ohne Camp keine Hint
 | IED (ferngezündet) | IED-Werkstatt | Mit Auslöser in Sichtweite | Zivilist mit Telefon, der beobachtet | Auslöser ausschalten, dann entschärfen |
 | Attrappe | IED-Werkstatt | Wie IED, harmlos | Wie IED | Kostet Zeit, kein Schaden |
 | VBIED | VBIED-Garage | Ziviles Fahrzeug fährt auf Spieler oder FOB zu | Fahrer allein, ignoriert Warnungen, hält nicht an | Stoppen, Distanz, Feuer |
-| Selbstmordattentäter | IED-Werkstatt, Häufigkeit nach Ruf | Zivilist nähert sich einer Spielergruppe zu Fuß | Ignoriert Befehle, Kleidung mit Weste oder dickem Mantel, zielstrebig, Ruf kurz vor der Explosion | Befehl an Zivilisten, Distanz, früh ausschalten |
+| Selbstmordattentäter | IED-Werkstatt, Häufigkeit nach Ruf | Zivilist nähert sich einer Spielergruppe zu Fuß | Ignoriert Befehle, Kleidung mit Weste oder dickem Mantel, zielstrebig, Ruf kurz vor der Explosion | Distanz, früh ausschalten |
 | Hinterhalt | Camp | Miliz-Gruppe in Deckung an einer Straße nahe einem Camp | Warnung von Zivilisten | Aufklärung, Routen wechseln |
 
 **Budget:** Obergrenze, wie viele Bedrohungen eines aktiven Nests gleichzeitig im Feld sind. Was verbraucht ist
@@ -305,10 +305,11 @@ schon Gelegtes bleibt liegen. Darüber gilt die globale Obergrenze für IEDs (Ab
 - Erschossen zündet er mit 30 % Chance: Früh erkennen lohnt sich, Erschießen auf kurze Distanz ist nicht sicher.
 
 **Befehle an Zivilisten**
-- Kann jeder Spieler geben, ohne Dolmetscher (Gesten), im ACE-Interaktionsmenü an der Person: ACEs „Get Down!“ und
-  „Go Away!“ und ein eigener Eintrag „Stehen bleiben!“. Echte Zivilisten folgen mit ACEs Chancen (50 %, mit Waffe in der
-  Hand 80 %), wer „Stehen bleiben!“ folgt, bleibt eine Weile stehen und schaut den Spieler an. Der Attentäter folgt nie.
-  Nicht-Folgen allein verrät ihn also nicht.
+- Kann jeder Spieler geben, ohne Dolmetscher (Gesten): ACEs „Get Down!“ und „Go Away!“ im ACE-Interaktionsmenü an der
+  Person. Echte Zivilisten folgen mit ACEs Chancen (50 %, mit Waffe in der Hand 80 %), der Attentäter nie. Nicht-Folgen
+  allein verrät ihn also nicht.
+- Kein eigener Befehl „Stehen bleiben!“ (verworfen am 2026-10-22): ACE-Aktionen an einer Person brauchen so viel Nähe,
+  dass sie gegen einen Attentäter nicht helfen. Gegenmaßnahmen sind Distanz und frühes Ausschalten.
 
 **Hinterhalt**
 - Ein aktives Camp hat mit 50 % Chance einen Hinterhalt an der nächsten Straße, 200–800 m vom Camp, festgelegt beim
