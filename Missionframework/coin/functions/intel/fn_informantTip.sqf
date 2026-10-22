@@ -21,7 +21,11 @@ params [
     ["_informant", objNull, [objNull]]
 ];
 
-if (!isServer || {!COIN_enableInformantTip} || {isNil "COIN_nests"} || {isNil "COIN_intel"}) exitWith {[]};
+if (!isServer || {!COIN_enableInformantTip}) exitWith {[]};
+if (isNil "COIN_nests" || {isNil "COIN_intel"}) exitWith {
+    diag_log "[COIN] intel: informant delivered, but nests or questioning are off, no tip";
+    []
+};
 
 // Without the hook in civinfo_loop.sqf he has no home: his position (the FOB) is the best there is
 private _home = _informant getVariable ["COIN_home", getPosATL _informant];
@@ -34,7 +38,9 @@ if (_active isEqualTo []) exitWith {
 
 private _marked = COIN_intel apply {_x select 1};
 private _unmarked = _active select {!((_x select 0) in _marked)};
-private _pool = [_active, _unmarked] select !(_unmarked isEqualTo []);
+// Every active nest has a circle: the nearest one gets a smaller one
+private _pool = _unmarked;
+if (_pool isEqualTo []) then {_pool = _active};
 private _nest = ([_pool, [], {(_x select 3) distance2D _home}, "ASCEND"] call BIS_fnc_sortBy) select 0;
 
 private _intel = [_nest, "tip"] call COIN_fnc_createIntel;
