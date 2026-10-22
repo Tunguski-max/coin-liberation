@@ -51,17 +51,18 @@ Code-Bezeichner stehen in Klammern.
 | **Camp-Kapazität** (`campCapacity`) | Maximale Zahl gleichzeitiger Camps, berechnet aus den aktiven Nestern. |
 | **Sperrzone** (`campExclusionRadius`) | Bereich um befreite Sektoren und FOBs, in dem keine Camps entstehen. |
 | **Altfahrzeug** | Erbeuteter, veralteter Schützen- oder Transportpanzer der Miliz (z. B. BTR-60, M113). Kein Kampfpanzer. |
-| **Budget** (`budget`) | Vorrat, aus dem Bedrohungen entstehen (z. B. IED-Budget einer Werkstatt). |
+| **Budget** (`budget`) | Obergrenze, wie viele Bedrohungen eines aktiven Nests gleichzeitig im Feld sein dürfen. Was verbraucht ist (ausgelöst, entschärft), ersetzt das Nest nach einer Wartezeit (z. B. IED-Budget einer Werkstatt). Ein zerstörtes Nest ersetzt nichts mehr. _Nicht:_ ein endlicher Vorrat für die ganze Kampagne. |
 
 ## Bedrohungen
 
 | Begriff | Bedeutung |
 |---|---|
-| **IED** | Improvisierte Sprengfalle. Varianten: vergraben, ferngezündet, Attrappe. |
-| **Auslöser** (`triggerman`) | Miliz-Kämpfer (oft in Zivil), der ein ferngezündetes IED auslöst. |
+| **IED** | Improvisierte Sprengfalle an einer Straße, gelegt von einer IED-Werkstatt. Nur die Armee löst sie aus. Varianten: vergraben, ferngezündet, Attrappe. |
+| **Auslöser** (`triggerman`) | Kämpfer in Zivil, der ein ferngezündetes IED aus Sichtweite zündet. Ist er ausgeschaltet, zündet das IED nicht mehr, muss aber noch entschärft werden. |
+| **Attrappe** (`decoy`) | IED, das wie ein echtes aussieht und gefunden und entschärft werden kann, aber nie explodiert. Kostet Zeit, bringt beim Entschärfen keinen Ruf. |
 | **VBIED** | Autobombe in einem zivilen Fahrzeug. |
-| **Attentäter** (`suicideBomber`) | Zivilist mit Sprengweste. |
-| **Hinterhalt** (`ambush`) | Vorbereiteter Überfall an einer Straße. |
+| **Attentäter** (`suicideBomber`) | Zivilist mit Sprengweste. Kommt nur im Einflussradius einer IED-Werkstatt vor, wie oft, hängt am Ruf. |
+| **Hinterhalt** (`ambush`) | Vorbereiteter Überfall an einer Straße, ausgehend von einem aktiven Camp. |
 | **Kämpfer in Zivil** | Miliz-Einheit ohne sichtbare Waffe, bis es zum Kontakt kommt. |
 
 ## Intel und Bevölkerung
