@@ -155,6 +155,9 @@ class COIN {
         // Server: makes the intel record and its circle for a nest
         class createIntel {};
 
+        // Server: a further true hit on a nest makes its circle smaller, sets the type symbol (ticket 3.3)
+        class shrinkIntel {};
+
         // Server: draws the global map markers of one intel
         class drawIntelMarker {};
 

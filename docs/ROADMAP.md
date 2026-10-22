@@ -162,7 +162,8 @@ Schnitt in dünne, einzeln testbare Durchstiche (Grilling 2026-10-22, DESIGN 7 v
   (am 2026-10-22 getestet: Dolmetscher-Slot per Rollenbeschreibung erkannt, Eintrag im Aktionsmenü aus 5 m, Zivilist bleibt stehen, Untertitel und Kreis um das Nest (Mitte 20–80 % des Radius daneben), zweite Frage derselbe Zivilist nicht, Gefangener und ergebener Ex-Gegner ohne Eintrag, Zivilist im Fahrzeug ohne Eintrag, Eintrag nach dem Respawn wieder da; nicht getestet: Bewusstlose, Dolmetscher im Fahrzeug; Mehrspieler: siehe 7.5)
 - [x] 3.2 (#59) Intel speichern: `COIN_saveVersion` 2 mit Umwandlung von Version 1, Marker verschwinden mit ihrem zerstörten Nest (ADR 0021)
   (am 2026-10-22 getestet: Stand aus Phase 2 wird umgewandelt, zwei Marker überstehen den Neustart mit gleicher Lage und Größe, Marker verschwindet mit seinem zerstörten Nest und bleibt nach dem Neustart weg, Wipe ohne Marker; Mehrspieler: siehe 7.5)
-- [ ] 3.3 (#60) Triangulation: ein Kreis pro Nest, jeder wahre Treffer verkleinert ihn; Symbol pro Nest-Typ ab Hinweis, Gerücht neutral
+- [x] 3.3 (#60) Triangulation: ein Kreis pro Nest, jeder wahre Treffer verkleinert ihn; Symbol pro Nest-Typ ab Hinweis, Gerücht neutral
+  (am 2026-10-22 mit Befehlen in der Debug-Konsole getestet und von Niklas bestätigt; ein Gerücht nach einem Tipp verkleinert den Kreis weiter, nach der Formel, vergrößert ihn nie)
 - [ ] 3.4 (#61) Ruf-Gewichte und Lügen: alle Ergebnisse nach Ruf-Band, Lüge mit Ersatzpunkt, zufälligem Typ und Größe;
   Spieler zu Fuß nahe am Ersatzpunkt entfernt sie ohne Meldung (ADR 0011, 0021); Debug zeigt wahr oder gelogen
 - [ ] 3.5 (#62) Abklingzeit pro Dolmetscher nach jedem Marker (auch Lüge), Dolmetscher bremst selbst, Zivilist bleibt unbefragt

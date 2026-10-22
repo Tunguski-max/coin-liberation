@@ -61,6 +61,7 @@ coin/
     │   ├── fn_questionCivilian.sqf     COIN_fnc_questionCivilian: Server, prüft die Regeln, wählt Nest und Stufe, antwortet nur dem Dolmetscher
     │   ├── fn_pickIntelNest.sqf        COIN_fnc_pickIntelNest: zufälliges aktives Nest im Umkreis, sonst das nächste
     │   ├── fn_createIntel.sqf          COIN_fnc_createIntel: Intel-Datensatz (Format von ADR 0021) und Kreis um das Nest, nicht in der Mitte
+    │   ├── fn_shrinkIntel.sqf          COIN_fnc_shrinkIntel: Triangulation, weiterer wahrer Treffer verkleinert den Kreis des Nests (Ticket 3.3)
     │   ├── fn_drawIntelMarker.sqf      COIN_fnc_drawIntelMarker: globale Kartenmarker eines Intels
     │   ├── fn_loadIntel.sqf            COIN_fnc_loadIntel: Server, Intel aus dem Spielstand (Version 1: leere Liste), Marker neu zeichnen (Ticket 3.2)
     │   ├── fn_removeIntelOfNest.sqf    COIN_fnc_removeIntelOfNest: wahres Intel verschwindet mit dem zerstörten Nest (Ticket 3.2)
