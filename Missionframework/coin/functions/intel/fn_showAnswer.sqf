@@ -49,16 +49,4 @@ if (_texts isEqualTo []) then {
 };
 if (_texts isEqualTo []) exitWith {false};
 
-"COIN_subtitle" cutText [
-    format ["<t size='1.1' color='#e0c070'>%1</t><br/>%2", _name, selectRandom (_texts select _index)],
-    "PLAIN DOWN", 0.3, true, true
-];
-
-// A newer answer must not be faded out by the timer of an older one
-if (!isNil "COIN_subtitleTimer") then {terminate COIN_subtitleTimer};
-COIN_subtitleTimer = [] spawn {
-    sleep COIN_answerShowSeconds;
-    "COIN_subtitle" cutFadeOut 1;
-};
-
-true
+[_name, [selectRandom (_texts select _index)]] call COIN_fnc_showSubtitle

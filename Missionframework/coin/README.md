@@ -53,8 +53,8 @@ coin/
     │   ├── fn_exportTerrainTemplate.sqf COIN_fnc_exportTerrainTemplate: Gelände-Template um den Richtungspfeil in die Zwischenablage
     │   └── fn_debugTerrainNest.sqf     COIN_fnc_debugTerrainNest: Gelände-Nest eines Typs vor dem Spieler, wie ein echtes
     ├── intel/
-    │   ├── fn_initQuestioning.sqf      COIN_fnc_initQuestioning: Client, Dolmetscher-Slot erkennen, Aktionsmenü „Nach der Miliz fragen“ einrichten (Ticket 3.1)
-    │   ├── fn_addTalkAction.sqf        COIN_fnc_addTalkAction: Eintrag im normalen Aktionsmenü (Scrollrad), nach jedem Respawn neu
+    │   ├── fn_initQuestioning.sqf      COIN_fnc_initQuestioning: Client, Dolmetscher-Slot erkennen, Aktionsmenü „Nach der Miliz fragen“ und „Verhören“ einrichten (Tickets 3.1, 3.8)
+    │   ├── fn_addTalkAction.sqf        COIN_fnc_addTalkAction: Einträge im normalen Aktionsmenü (Scrollrad), nach jedem Respawn neu
     │   ├── fn_talkTargetLoop.sqf       COIN_fnc_talkTargetLoop: Client-Schleife, der Zivilist, den der Dolmetscher ansieht, bleibt stehen
     │   ├── fn_applyInterpreter.sqf     COIN_fnc_applyInterpreter: markiert die Einheit als Dolmetscher, nach jedem Respawn neu
     │   ├── fn_canQuestion.sqf          COIN_fnc_canQuestion: darf dieser Dolmetscher diesen Zivilisten jetzt befragen? (Menü und Server)
@@ -75,6 +75,15 @@ coin/
     │   ├── fn_drawIntelMarker.sqf      COIN_fnc_drawIntelMarker: globale Kartenmarker eines Intels
     │   ├── fn_loadIntel.sqf            COIN_fnc_loadIntel: Server, Intel aus dem Spielstand (Version 1: leere Liste), Marker neu zeichnen (Ticket 3.2)
     │   ├── fn_removeIntelOfNest.sqf    COIN_fnc_removeIntelOfNest: wahres Intel verschwindet mit dem zerstörten Nest (Ticket 3.2)
+    │   ├── fn_interrogatePrisoner.sqf  COIN_fnc_interrogatePrisoner: Server, Verhör eines Gefangenen, 1–2 Ergebnisse mit eigenen Gewichten (Ticket 3.8)
+    │   ├── fn_canInterrogate.sqf       COIN_fnc_canInterrogate: darf dieser Dolmetscher diesen Gefangenen jetzt verhören? (Menü und Server)
+    │   ├── fn_pickInterrogationNest.sqf COIN_fnc_pickInterrogationNest: Camp-Kämpfer nennt das Nest seines Camps, Nest-Wache ein anderes
+    │   ├── fn_rollOutcome.sqf          COIN_fnc_rollOutcome: würfelt ein Ergebnis nach Gewichten (Befragung und Verhör)
+    │   ├── fn_resolveOutcome.sqf       COIN_fnc_resolveOutcome: macht das Intel zu einem Ergebnis (wahre Stufe, Lüge, Warnung)
+    │   ├── fn_reserveAsking.sqf        COIN_fnc_reserveAsking: prüft die Abklingzeit des Dolmetschers, reserviert seine Beschäftigung
+    │   ├── fn_finishAsking.sqf         COIN_fnc_finishAsking: startet die Abklingzeit nach einem Marker, sonst beendet die Beschäftigung
+    │   ├── fn_showInterrogation.sqf    COIN_fnc_showInterrogation: Client, Antwort des Gefangenen, ein Satz je Ergebnis
+    │   ├── fn_showSubtitle.sqf         COIN_fnc_showSubtitle: Client, Name und Sätze als Untertitel
     │   └── fn_showAnswer.sqf           COIN_fnc_showAnswer: Client, Antwort des Zivilisten als Untertitel
     ├── persistence/
     │   ├── fn_receiveSaveBlock.sqf     COIN_fnc_receiveSaveBlock: merkt sich Eintrag 22 beim Laden des Spielstands (Hook 18)
@@ -95,7 +104,7 @@ coin/
         ├── fn_spawnBuildingNest.sqf    COIN_fnc_spawnBuildingNest: Kernobjekt, Requisiten und Wachen eines Gebäude-Nests
         ├── fn_spawnTerrainNest.sqf     COIN_fnc_spawnTerrainNest: Kernobjekt, Requisiten und Wachen eines Gelände-Nests (ADR 0020)
         ├── fn_spawnOldVehicles.sqf     COIN_fnc_spawnOldVehicles: 1–2 besetzte, für Spieler gesperrte Altfahrzeuge eines Waffenlagers (ADR 0014)
-        ├── fn_spawnNestGuards.sqf      COIN_fnc_spawnNestGuards: stehende und patrouillierende Wachen eines Nests
+        ├── fn_spawnNestGuards.sqf      COIN_fnc_spawnNestGuards: stehende und patrouillierende Wachen eines Nests, mit Herkunft (Nest oder Camp) für das Verhör
         ├── fn_placeNestTemplate.sqf    COIN_fnc_placeNestTemplate: Objekte nach Gebäude- oder Gelände-Template (ADR 0019, ADR 0020)
         ├── fn_placeNestFree.sqf        COIN_fnc_placeNestFree: freie Platzierung für Häuser ohne Template
         ├── fn_placeNestVehicle.sqf     COIN_fnc_placeNestVehicle: ziviles Fahrzeug der VBIED-Garage bei freier Platzierung

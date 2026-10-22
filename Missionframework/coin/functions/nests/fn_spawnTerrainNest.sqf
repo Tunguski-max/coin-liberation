@@ -50,7 +50,7 @@ private _dir = round ([_seed, _streamDir, 360] call COIN_fnc_seededRandom);
 // Guards: complete on every spawn, the stationary ones spread evenly around the ring and looking outwards
 private _guardCount = COIN_nestGuardsMin + floor ([_seed, _streamGuards, COIN_nestGuardsMax - COIN_nestGuardsMin + 1] call COIN_fnc_seededRandom);
 private _spots = [_pos, _guardCount, _placedOutlines] call COIN_fnc_findGuardRingSpots;
-([_pos, _guardCount, _spots, 1] call COIN_fnc_spawnNestGuards)
+([_pos, _guardCount, _spots, 1, ["nest", _id]] call COIN_fnc_spawnNestGuards)
     params ["_guards", "_inRing", "_patrolling", "_patrolRadius"];
 _objects append _guards;
 // A weapons cache also guards old vehicles (ticket 2.9a)

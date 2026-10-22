@@ -27,6 +27,7 @@ COIN_enableQuestioning      = true;     // Phase 3
 COIN_enableLies             = true;     // Phase 3, ticket 3.4: off = the weight of the lie counts as "nothing"; lies already on the map stay
 COIN_enableUnsafeRefusal    = true;     // Phase 3, ticket 3.4: off = a civilian answers even with armed enemies close
 COIN_enableWarnings         = true;     // Phase 3, ticket 3.6: off = the weight of the warning counts as "nothing"; warnings already on the map stay until their camp is gone
+COIN_enableInterrogation    = true;     // Phase 3, ticket 3.8: off = no entry "Interrogate" at prisoners
 COIN_enableIEDs             = true;     // Phase 4
 COIN_enableVBIEDs           = true;     // Phase 4
 COIN_enableSuicideBombers   = true;     // Phase 4
@@ -344,6 +345,7 @@ COIN_enableCooldown         = true;     // Ticket 3.5: after a question that mad
 COIN_questionCooldown       = 300;      // s the interpreter waits after a marker; "I know nothing" starts no cooldown
 // Entry in the action menu (mouse wheel / space bar): [German, English]
 COIN_askMilitiaLabel = ["Nach der Miliz fragen", "Ask about the militia"];
+COIN_interrogateLabel = ["Verhören", "Interrogate"];
 // Answer sentences of a civilian (tickets 3.1 and 3.4): [result, [German sentences, English sentences]], one is picked at random.
 // A civilian does not name the nest type: a hint or a tip knows the place better, not the word for it (see COIN_questionAnswersByType).
 // "unsafe" is the refusal while enemies are close (COIN_enableUnsafeRefusal): no answer, no marker.
@@ -569,6 +571,106 @@ COIN_cooldownAnswers = [
         "Give me a little time. I need to see first whether anyone is watching us.",
         "Word has got around that you're asking questions. Give it a moment, then we'll talk.",
         "Not now. Move along for a bit and ask me again later."
+    ]
+];
+
+// Interrogation of prisoners (ticket 3.8, ADR 0011)
+// Weights [nothing, rumor, hint, tip, warning, lie] of the first and of the second result: they do not depend on the reputation.
+// The first result is never "nothing" while there is a nest to tell of, so its weight for "nothing" is 0.
+COIN_interrogationWeights = [
+    [ 0, 15, 30, 40,  7,  8],
+    [25, 20, 25, 20,  5,  5]
+];
+COIN_interrogationSecondChance = 0.5;   // Chance of a second result
+
+// What a prisoner says: [result, [German sentences, English sentences]], one is picked at random per result.
+// A prisoner never names the nest type. "nothing" is the first result that could not be made (no nest, no camp to warn of)
+COIN_interrogationAnswers = [
+    ["nothing", [
+        [
+            "Ich sage nichts. Da könnt ihr fragen, solange ihr wollt.",
+            "Ich weiß nichts, was euch weiterhilft. Ich habe nur Befehle befolgt.",
+            "Mich hat niemand eingeweiht. Ich bin nur mitgelaufen.",
+            "Ihr verschwendet eure Zeit. Von mir erfahrt ihr nichts."
+        ],
+        [
+            "I'm not saying anything. Ask as long as you like.",
+            "I don't know anything that would help you. I only followed orders.",
+            "Nobody told me anything. I just went along.",
+            "You're wasting your time. You won't get anything out of me."
+        ]
+    ]],
+    ["rumor", [
+        [
+            "Ich bin nur ein kleines Licht. Irgendwo hier in der Gegend gibt es einen Treffpunkt. Mehr weiß ich nicht.",
+            "Man hat uns gesagt, wohin wir gehen, nicht warum. Irgendwo hier draußen ist ein Versteck.",
+            "Die Befehle kamen immer von weiter weg. Ich kenne die Richtung, nicht den Ort.",
+            "Fragt die anderen. Ich weiß nur, dass wir nachts manchmal in diese Gegend gefahren sind."
+        ],
+        [
+            "I'm just a small fish. There's a meeting place somewhere around here. That's all I know.",
+            "They told us where to go, not why. There's a hideout somewhere out here.",
+            "The orders always came from further away. I know the direction, not the place.",
+            "Ask the others. All I know is that we sometimes drove out to this area at night."
+        ]
+    ]],
+    ["hint", [
+        [
+            "Wir haben dort Nachschub abgeholt. Ein Gebäude, ein paar Wachen. Mehr hab ich nicht gesehen.",
+            "Da draußen gibt es einen Ort, an dem sich unsere Leute sammeln. Ich kann ungefähr sagen, wo.",
+            "Wenn ihr mich ordentlich behandelt: Es ist nicht weit von hier. Sucht in dieser Richtung.",
+            "Ich war zweimal dort. Ich habe nicht darauf geachtet, wie wir gefahren sind, aber es war in dieser Gegend."
+        ],
+        [
+            "We picked up supplies there. A building, a few guards. That's all I saw.",
+            "There's a place out there where our people gather. I can tell you roughly where.",
+            "If you treat me properly: it isn't far from here. Look in that direction.",
+            "I was there twice. I didn't pay attention to how we drove, but it was in this area."
+        ]
+    ]],
+    ["tip", [
+        [
+            "Gut, ich zeig's euch auf der Karte. Genau dort, wo die Straße abknickt. Ich war oft genug da.",
+            "Ich hatte dort letzte Woche Wache. Ich kann euch den Platz fast auf den Meter zeigen.",
+            "Ihr habt gewonnen. Es liegt ganz in der Nähe, und ich war dort. Ich sag euch, wo.",
+            "Ich hab diese Nacht schon zu viel gesehen. Dort ist es, ganz genau dort."
+        ],
+        [
+            "Fine, I'll show you on the map. Right where the road bends. I've been there often enough.",
+            "I stood guard there last week. I can show you the spot almost to the meter.",
+            "You've won. It's very close, and I was there. I'll tell you where.",
+            "I've seen too much tonight already. It's there, right there."
+        ]
+    ]],
+    ["warning", [
+        [
+            "Passt auf, da draußen sitzt noch eine Gruppe von uns. Die warten nur darauf, dass jemand vorbeikommt.",
+            "In der Nähe lagert noch eine Einheit. Ihr lauft ihnen in die Arme, wenn ihr dem Weg folgt.",
+            "Ihr seid nicht die Ersten, die hier suchen. Die anderen sind nicht weit und bewaffnet.",
+            "Eine Gruppe hat sich dort eingegraben. Geht nicht zu nah ran, die schießen zuerst."
+        ],
+        [
+            "Watch out, another group of ours is sitting out there. They're just waiting for someone to come by.",
+            "Another unit is camped nearby. You'll walk right into them if you follow the road.",
+            "You're not the first to search around here. The others aren't far, and they're armed.",
+            "A group has dug in over there. Don't get too close, they shoot first."
+        ]
+    ]]
+];
+
+// What the prisoner says when the interpreter asks while his cooldown runs (ticket 3.5): [German sentences, English sentences]
+COIN_interrogationCooldownAnswers = [
+    [
+        "Nicht so schnell. Ich muss erst nachdenken.",
+        "Zu viele Fragen auf einmal. Kommt später wieder.",
+        "Gebt mir einen Moment. Ich rede, aber nicht jetzt.",
+        "Mir fällt gerade nichts ein. Lasst mich in Ruhe, dann reden wir später."
+    ],
+    [
+        "Not so fast. I need to think first.",
+        "Too many questions at once. Come back later.",
+        "Give me a moment. I'll talk, but not now.",
+        "Nothing comes to mind right now. Leave me be, then we'll talk later."
     ]
 ];
 

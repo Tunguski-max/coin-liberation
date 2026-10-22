@@ -22,6 +22,7 @@ if (!hasInterface) exitWith {false};
 private _role = roleDescription player;
 COIN_isInterpreterSlot = (_role find COIN_interpreterRole) isEqualTo 0;
 COIN_talkTarget = objNull;
+COIN_interrogateTarget = objNull;
 [player] call COIN_fnc_applyInterpreter;
 [player] call COIN_fnc_addTalkAction;
 player addEventHandler ["Respawn", {

@@ -87,7 +87,7 @@ private _free = (_order apply {_positions select _x}) select {
     }) < 0
 };
 _free = [_free, [], {_x distance _corePos}, "ASCEND"] call BIS_fnc_sortBy;
-([_pos, _guardCount, _free apply {[_x, random 360]}, COIN_nestGuardsInHouseShare] call COIN_fnc_spawnNestGuards)
+([_pos, _guardCount, _free apply {[_x, random 360]}, COIN_nestGuardsInHouseShare, ["nest", _id]] call COIN_fnc_spawnNestGuards)
     params ["_guards", "_inHouse", "_patrolling", "_patrolRadius"];
 _objects append _guards;
 // A weapons cache also guards old vehicles (ticket 2.9a)

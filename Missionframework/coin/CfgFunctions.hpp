@@ -191,6 +191,27 @@ class COIN {
         // Server loop: a warning disappears with its camp
         class warningLoop {};
 
+        // Server: an interpreter interrogates a prisoner (called by the client, ticket 3.8)
+        class interrogatePrisoner {};
+
+        // May this interpreter interrogate this prisoner now?
+        class canInterrogate {};
+
+        // Server: the nest a prisoner names, by where he comes from
+        class pickInterrogationNest {};
+
+        // Server: rolls one outcome by weights, with the gates for no nest and switched off lies and warnings
+        class rollOutcome {};
+
+        // Server: makes the intel of one outcome (true level, lie or warning)
+        class resolveOutcome {};
+
+        // Server: checks the cooldown of the interpreter and reserves his busy time before an answer
+        class reserveAsking {};
+
+        // Server: starts the cooldown after a marker, or ends the busy time
+        class finishAsking {};
+
         // Start radius of an intel circle by its level
         class getIntelRadius {};
 
@@ -199,6 +220,12 @@ class COIN {
 
         // Client: the civilian's answer as a subtitle for the interpreter
         class showAnswer {};
+
+        // Client: what a prisoner says, one sentence per result (ticket 3.8)
+        class showInterrogation {};
+
+        // Client: name and sentences as a subtitle
+        class showSubtitle {};
     };
 
     class persistence {

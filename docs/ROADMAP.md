@@ -175,6 +175,7 @@ Schnitt in dünne, einzeln testbare Durchstiche (Grilling 2026-10-22, DESIGN 7 v
   (ADR 0011, 0015); der Älteste kommt in Phase 5
 - [ ] 3.8 (#65) Verhör: Aktionsmenü „Verhören“ an Gefangenen, einmal pro Gefangenem, 1–2 Ergebnisse mit eigenen Gewichten;
   Camp-Kämpfer nennt sein Nest, Nest-Wache ein anderes (ADR 0011)
+  (implementiert, ungetestet: Gewichte 1. Ergebnis [0, 15, 30, 40, 7, 8], 2. Ergebnis [25, 20, 25, 20, 5, 5] mit 50 % Chance, Texte von Niklas; Befragung und Verhör teilen jetzt Ergebnis, Abklingzeit und Untertitel, daher Befragung und Abklingzeit (3.1, 3.5) einmal nachtesten; Mehrspieler: siehe 7.5)
 - [ ] 3.9 (#66) Dokumente als ACE Intel Items (E13): bei toten Anführern, in zerstörten Nestern (anderes Nest) und ausgehobenen
   Camps (Nest des Camps), Auswertung beim Dolmetscher, nie gelogen
 - [ ] 3.10 (#67) Liberation-Informant liefert bei Ablieferung zusätzlich einen Konkreten Tipp zu einem aktiven Nest (Hook, ADR 0011)

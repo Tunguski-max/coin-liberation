@@ -8,7 +8,8 @@
         When the interpreter gets a new civilian in his sights, the civilian is told to stand still and watch him for
         COIN_talkHoldSeconds (COIN_fnc_holdCivilian, run where the civilian is local), so he does not walk away while the
         interpreter reaches for the menu. Looking away keeps the hold, it ends by itself or when the question is asked.
-        Runs as long as questioning is switched on. Only a player marked as interpreter does any work.
+        The same for a prisoner (ticket 3.8, COIN_fnc_canInterrogate) in COIN_interrogateTarget; a prisoner is bound,
+        so he is not held. Runs as long as questioning is switched on. Only a player marked as interpreter does any work.
 
     Parameter(s):
         NONE
@@ -19,13 +20,18 @@
 
 while {COIN_enableQuestioning} do {
     private _target = objNull;
+    private _prisoner = objNull;
 
     if (alive player && {player getVariable ["COIN_interpreter", false]}) then {
         private _seen = cursorObject;
         if ([_seen, player] call COIN_fnc_canQuestion) then {
             _target = _seen;
         };
+        if ([_seen, player] call COIN_fnc_canInterrogate) then {
+            _prisoner = _seen;
+        };
     };
+    COIN_interrogateTarget = _prisoner;
 
     if !(_target isEqualTo COIN_talkTarget) then {
         COIN_talkTarget = _target;
