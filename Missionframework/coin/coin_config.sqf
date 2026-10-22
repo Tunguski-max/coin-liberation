@@ -524,27 +524,27 @@ COIN_questionAnswersByType = [
     ]]
 ];
 
-// What the interpreter says himself while his cooldown runs (ticket 3.5): [German sentences, English sentences]
+// What the civilian says when the interpreter asks while his cooldown runs (ticket 3.5): he puts the interpreter off, [German sentences, English sentences]
 COIN_cooldownAnswers = [
     [
-        "Wir fallen zu sehr auf. Warten wir ein bisschen.",
-        "Nicht gleich den Nächsten. Die Leute werden schon misstrauisch.",
-        "Gebt mir kurz Zeit. Wenn wir jeden ansprechen, macht bald keiner mehr den Mund auf.",
-        "Langsam. Wir sollten erst mal abwarten, bevor wir wieder jemanden fragen.",
-        "Die beobachten uns schon. Noch eine Befragung wäre keine gute Idee.",
-        "Lasst uns erst mal weitergehen. Wir können später wieder mit den Leuten reden.",
-        "Ich hab gerade erst jemanden ausgefragt. Lasst etwas Gras über die Sache wachsen.",
-        "Wenn ich jetzt schon wieder Fragen stelle, spricht sich das schneller herum, als uns lieb ist."
+        "Ich hab gesehen, wie ihr die anderen ausfragt. Kommt später wieder, dann reden wir vielleicht.",
+        "Nicht jetzt. Hier sind zu viele Augen. Wartet ein bisschen.",
+        "Gerade geht das nicht. Die Leute tuscheln schon über euch. Versucht es in ein paar Minuten noch mal.",
+        "Mit mir redet ihr später. Wenn man uns jetzt zusammen sieht, merken sich das die Falschen.",
+        "Ich will nicht der Nächste sein, den ihr hier vor allen ausfragt. Kommt später wieder.",
+        "Lasst mir etwas Zeit. Ich muss erst sehen, ob uns jemand beobachtet.",
+        "Es hat sich herumgesprochen, dass ihr Fragen stellt. Gebt der Sache einen Moment, dann reden wir.",
+        "Jetzt nicht. Geht erst mal weiter und fragt mich später noch mal."
     ],
     [
-        "We're drawing too much attention. Let's give it a moment.",
-        "Not the next one already. People are getting suspicious.",
-        "Give me a little time. If we question everyone, soon nobody will talk to us.",
-        "Easy. We should wait a bit before questioning anyone else.",
-        "They're already watching us. Another round of questions isn't a good idea.",
-        "Let's move on for now. We can talk to the locals again later.",
-        "I just questioned someone. Let's let things settle down a bit.",
-        "If I start asking questions again now, word will spread faster than we'd like."
+        "I saw you questioning the others. Come back later, then maybe we'll talk.",
+        "Not now. There are too many eyes here. Wait a little.",
+        "I can't right now. People are already whispering about you. Try again in a few minutes.",
+        "Talk to me later. If we're seen together now, the wrong people will remember it.",
+        "I don't want to be the next one you question in front of everybody. Come back later.",
+        "Give me a little time. I need to see first whether anyone is watching us.",
+        "Word has got around that you're asking questions. Give it a moment, then we'll talk.",
+        "Not now. Move along for a bit and ask me again later."
     ]
 ];
 
