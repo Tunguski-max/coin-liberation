@@ -9,6 +9,7 @@ Der Build (`build.bat`) kopiert den Ordner automatisch mit in die Mission.
 coin/
 ├── CfgFunctions.hpp       Registrierung aller COIN_fnc_* (in description.ext eingebunden, Hook #1)
 ├── coin_config.sqf        Balancing und Feature-Schalter, auf jeder Maschine geladen
+├── CfgNotifications.hpp   Meldungen an die Spieler, eingebunden in ui\liberation_notifications.hpp (Hook 20)
 ├── coin_templates.sqf     Gebäude- und Gelände-Templates (ADR 0019, ADR 0020), nach coin_config.sqf geladen
 ├── init_server.sqf        Server-Teil des Moduls
 ├── init_client.sqf        Client-Teil des Moduls (Maschinen mit Interface)
@@ -61,6 +62,8 @@ coin/
         ├── fn_findTerrainNestSpots.sqf COIN_fnc_findTerrainNestSpots: Kandidaten für Gelände-Nester (abseits von Orten und Straßen, eben)
         ├── fn_getNestRadius.sqf        COIN_fnc_getNestRadius: Einflussradius eines Nest-Typs aus COIN_nestSetup
         ├── fn_drawNestMarkers.sqf      COIN_fnc_drawNestMarkers: globale Debug-Marker der Nester (Lobby-Parameter „COIN Debug“)
+        ├── fn_initMessages.sqf         COIN_fnc_initMessages: Server, Meldung an alle Spieler bei zerstörtem Nest und ausgehobenem Camp (Ticket 2.14)
+        ├── fn_showNotification.sqf     COIN_fnc_showNotification: Client, zeigt die Meldung in der Spielsprache (CfgNotifications.hpp)
         ├── fn_updateNetworkStrength.sqf COIN_fnc_updateNetworkStrength: Server, Netzwerkstärke = aktive / alle Nester, an die Clients verteilt (Ticket 2.6)
         ├── fn_showNetworkStrength.sqf  COIN_fnc_showNetworkStrength: Client, Debug-Eintrag „Netzwerkstärke“ im Karten-Tagebuch
         ├── fn_validateNestContent.sqf  COIN_fnc_validateNestContent: prüft Kernobjekte (zerstörbar) und Requisiten beim Start

@@ -229,6 +229,16 @@ COIN_enableNetworkStrength  = true;     // Off: no network strength is calculate
 // server event "COIN_nestDestroyed" [id, type, position]. Zeus deleting the core object is no destruction
 COIN_enableNestDestruction = true;     // Off: destruction is not recognised, the nest spawns again next time
 COIN_nestSaveRetryDelay     = 5;        // s until a destroyed nest is saved again when Liberation was saving already
+// Messages to all players (ticket 2.14): a nest destroyed (names the type, no position), a camp cleared (nothing else)
+COIN_enableNestMessage      = true;     // Off: no message when a nest is destroyed
+COIN_enableCampMessage      = true;     // Off: no message when a camp is cleared
+COIN_nestTypeNames = [                  // Nest type as the message names it: [type, [German, English]]
+    ["command",      ["Kommandoposten",     "Command post"]],
+    ["iedWorkshop",  ["IED-Werkstatt",      "IED workshop"]],
+    ["cache",        ["Waffenlager",        "Weapons cache"]],
+    ["vbiedGarage",  ["VBIED-Garage",       "VBIED garage"]],
+    ["recruitment",  ["Rekrutierungsstelle", "Recruitment point"]]
+];
 // Props per type, may be indestructible (e.g. workbench). Missing classes are left out (one log line on server start)
 COIN_nestProps = [
     ["command",      ["Land_CampingTable_F", "Land_CampingChair_V2_F", "Land_Laptop_unfolded_F", "Land_PortableLongRangeRadio_F", "Land_SatellitePhone_F", "Land_Map_unfolded_F"]],

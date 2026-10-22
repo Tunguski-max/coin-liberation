@@ -191,4 +191,6 @@ class CfgNotifications {
         color[] = {0, 0.5, 0, 1};
         sound = "taskUpdated";
     };
+    // COIN: notification classes of the COIN module (ticket 2.14, hook 20)
+    #include "..\coin\CfgNotifications.hpp"
 };

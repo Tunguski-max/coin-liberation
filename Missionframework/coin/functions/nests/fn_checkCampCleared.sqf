@@ -8,7 +8,9 @@
         no longer on the enemy side, or farther than COIN_campFleeDistance from the camp. An unconscious fighter still
         counts, it may wake up. Then the camp is set to
         "cleared" (it stays in COIN_camps until it is removed, COIN_fnc_manageCamps drops it then), one log line is
-        written and a replacement is planned after COIN_campReplaceMinutes. Called by the spawn loop on every check
+        written, the server event "COIN_campCleared" [camp id, nest id, position] is raised (CBA local event, once per
+        camp; the message to the players and in Phase 3 the documents hang on it) and a replacement is planned after
+        COIN_campReplaceMinutes. Called by the spawn loop on every check
         of a spawned camp. Server only.
 
     Parameter(s):
@@ -52,5 +54,8 @@ diag_log format [
 if (COIN_debug) then {
     [] call COIN_fnc_drawCampMarkers;
 };
+
+// Once per camp: only a camp that was active or moving gets here and is cleared by this call
+["COIN_campCleared", [_id, _nestId, _pos]] call CBA_fnc_localEvent;
 
 true

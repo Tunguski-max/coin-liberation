@@ -60,6 +60,9 @@ if (COIN_enableNests) then {
     diag_log "[COIN] init: nests off, none are created, a COIN block in the save is kept unchanged";
 };
 
+// Messages to all players when a nest is destroyed or a camp cleared (ticket 2.14)
+[] call COIN_fnc_initMessages;
+
 // Colored shemag per faction (ticket #9): runs as long as COIN_enableFactionMarkers is true
 if (COIN_enableFactionMarkers) then {
     diag_log format ["[COIN] init: faction markers militia=%1 resistanceHostile=%2 resistanceFriendly=%3 interval=%4", COIN_markerMilitia, COIN_markerResistanceHostile, COIN_markerResistanceFriendly, COIN_markerInterval];

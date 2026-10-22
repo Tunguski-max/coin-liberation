@@ -138,8 +138,8 @@ Ziel: Nester existieren, sind persistent und schwächen bei Zerstörung das Netz
   30 COIN-Einheiten insgesamt (ADR 0015; getestet: `COIN_fnc_aiBudget` 100 → 105 → 110 mit Test-Einheiten, nach dem Löschen wieder 100,
   Abschalten zur Laufzeit stellt 180/150/150 wieder her, `COIN_fnc_campFitsBudget` 25 ja / 26 nein;
   Unitcap ×1,5 beim Wipe: 270/225/225 → 150, auch nach Neustart; später beitretender Client: siehe 7.5)
-- [ ] 2.14 (#54) Meldung an alle Spieler bei zerstörtem Nest (Typ, ohne Position) und ausgehobenem Camp (ohne Position, ohne Nest),
-  analog zur FOB-Meldung von Liberation; Ereignis `COIN_campCleared` dazu
+- [x] 2.14 (#54) Meldung an alle Spieler bei zerstörtem Nest (Typ, ohne Position) und ausgehobenem Camp (ohne Position, ohne Nest),
+  analog zur FOB-Meldung von Liberation; Ereignis `COIN_campCleared` dazu (am 2026-10-22 getestet: Einblendung bei zerstörtem Waffenlager mit Typ und bei zwei ausgehobenen Camps, je Ereignis genau eine Meldung, keine bei Camp-Umzug, Zeus-Löschen des Kernobjekts meldet nichts, beide Schalter einzeln abschaltbar; Texte nur auf Englisch gesehen, Deutsch und Sicht aller Spieler: siehe 7.5)
 
 **DoD:** Mit Debug-Anzeige ein Nest finden und zerstören, Neustart, Nest bleibt zerstört,
 Netzwerkstärke ist gesunken. Nach dem Neustart gibt es entsprechend weniger Camps,
@@ -232,6 +232,6 @@ Je ein Hilfs- und ein Aufklärungsauftrag lassen sich annehmen und abschließen;
 - [ ] 7.2 Persistenz über Server-Neustart testen
 - [ ] 7.3 Performance unter Last messen (Server-FPS bei 5–10 Spielern)
 - [ ] 7.4 Balancing-Werte in `coin_config.sqf` nach Testabenden anpassen
-- [ ] 7.5 Tests mit einem zweiten Spieler auf dem Dedicated Server (lokal reicht ein Spieler): später beitretender Spieler sieht die Debug-Marker (2.5), die Gegner-Grenzen des Servers (`COIN_enemyAICaps`, 2.13) und die Netzwerkstärke im Tagebuch „COIN Debug“ (2.6); Zeus-Kurator, der erst später entsteht, sieht COIN-Inhalte; Meldungen an alle Spieler (2.14)
+- [ ] 7.5 Tests mit einem zweiten Spieler auf dem Dedicated Server (lokal reicht ein Spieler): später beitretender Spieler sieht die Debug-Marker (2.5), die Gegner-Grenzen des Servers (`COIN_enemyAICaps`, 2.13) und die Netzwerkstärke im Tagebuch „COIN Debug“ (2.6); Zeus-Kurator, der erst später entsteht, sieht COIN-Inhalte; Meldungen an alle Spieler (2.14): sehen alle Spieler sie, auch weit vom Camp oder Nest entfernt, und der deutsche Text (Spielsprache Deutsch, Titel mit Umlaut)
 
 **DoD:** Ein echter Spielabend mit der Gruppe ohne Abstürze, Save übersteht Neustart.
