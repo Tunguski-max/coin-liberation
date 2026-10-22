@@ -170,7 +170,7 @@ Schnitt in dünne, einzeln testbare Durchstiche (Grilling 2026-10-22, DESIGN 7 v
 - [x] 3.5 (#62) Abklingzeit pro Dolmetscher nach jedem Marker (auch Lüge), Dolmetscher bremst selbst, Zivilist bleibt unbefragt
   (am 2026-10-22 von Niklas im Spiel getestet und bestätigt: pro Spieler-UID auf dem Server, 300 s, nicht gespeichert; „Ich weiß nichts“ und Verweigerung starten nichts; der Satz erscheint unter dem Namen des angesprochenen Zivilisten; Mehrspieler: siehe 7.5)
 - [ ] 3.6 (#63) Warnung: Kreis um ein Camp in der Nähe, nicht gespeichert (IED und Hinterhalt ab Phase 4)
-  (implementiert, ungetestet: Höchstabstand 1500 m, Kreis 150 m, rotes Warnsymbol, eigene Meldung „WARNUNG“, Texte von Niklas; Warnung verschwindet, wenn das Camp nicht mehr „active“ ist)
+  (implementiert, ungetestet: Höchstabstand 1500 m, Kreis 150 m, ein Camp bekommt nur einen Warnkreis, rotes Warnsymbol, eigene Meldung „WARNUNG“, Texte von Niklas; Warnung verschwindet, wenn das Camp nicht mehr „active“ ist)
 - [ ] 3.7 (#64) Eigene Bevölkerung: 4–8 Zivilisten im Kern befreiter Ortschaften bei Spielernähe, im Zivilisten-Budget
   (ADR 0011, 0015); der Älteste kommt in Phase 5
 - [ ] 3.8 (#65) Verhör: Aktionsmenü „Verhören“ an Gefangenen, einmal pro Gefangenem, 1–2 Ergebnisse mit eigenen Gewichten;
