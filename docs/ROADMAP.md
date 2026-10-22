@@ -198,7 +198,8 @@ Festgelegt beim Grilling am 2026-10-22 (DESIGN 6, ADR 0022). Reihenfolge: 4.7, 4
 - [x] 4.1a (#80) Durchstich IED: Budget pro Werkstatt, Platzierung an Straßen im Radius, Auslösung nur durch die Armee
   (Fahrzeug 8 m, zu Fuß erst ab zwei Soldaten in 6 m; Prüfung über 300-m-Trigger je IED, ohne BLUFOR läuft kein Skript;
   am 2026-10-22 im Spiel getestet, Zeus kann IEDs nicht löschen: wie bei Liberation akzeptiert)
-- [ ] 4.1b (#81) Nachschub, Werkstatt zerstört → kein Nachschub (früher 4.6), Hinweis-Objekte, keine IED-Beute
+- [x] 4.1b (#81) Nachschub (20 min, anderer Ort), Werkstatt zerstört → kein Nachschub (früher 4.6), keine IED-Beute
+  (am 2026-10-22 im Spiel getestet; Hinweis-Objekte neben IEDs verworfen, DESIGN 6 angepasst)
 - [ ] 4.2a (#82) Attrappe; ACE-Entschärfen bringt Ruf
 - [ ] 4.2b (#83) Ferngezündetes IED mit Auslöser (erster Kämpfer in Zivil)
 - [ ] 4.8 (#84) Warnung vor IED: Zivilist warnt mit Kreis wie beim Camp (DESIGN 7)
