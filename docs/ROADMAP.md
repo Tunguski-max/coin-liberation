@@ -145,7 +145,7 @@ Ziel: Nester existieren, sind persistent und schwächen bei Zerstörung das Netz
 Netzwerkstärke ist gesunken. Nach dem Neustart gibt es entsprechend weniger Camps,
 und keines liegt näher als die Sperrzone an einem befreiten Sektor.
 
-> Die Spur vom Camp zum Nest (Dokumente, Gefangene) kommt in Phase 3 (Tickets 3.8 und 3.9),
+> Die Spur vom Camp zum Nest (Gefangene) kommt in Phase 3 (Ticket 3.8),
 > weil sie das Intel-System braucht.
 
 ## Phase 3 – Dolmetscher und Intel
@@ -177,8 +177,9 @@ Schnitt in dünne, einzeln testbare Durchstiche (Grilling 2026-10-22, DESIGN 7 v
   Camp-Kämpfer nennt sein Nest, Nest-Wache ein anderes (ADR 0011); beide Ergebnisse eines Verhörs betreffen dasselbe Nest
   (nachträglich geändert am 2026-10-22, implementiert, ungetestet)
   (am 2026-10-22 von Niklas im Spiel getestet und bestätigt: Camp-Kämpfer nennt das Nest seines Camps, Nest-Wache ein anderes Nest, zwei Ergebnisse zum selben Nest lassen den Kreis nicht größer werden, Abklingzeit 300 s gilt auch für Gefangene; Gewichte 1. Ergebnis [0, 15, 30, 40, 7, 8], 2. Ergebnis [25, 20, 25, 20, 5, 5] mit 50 % Chance, Texte von Niklas; Befragung und Abklingzeit (3.1, 3.5) laufen nach dem Umbau unverändert; nicht gesehen: zweites Verhör desselben Gefangenen, Lüge und Warnung im Verhör, ergebener Kämpfer (Variable ace_captives_isSurrendering); Liberations Intel-Punkte an der FOB gibt es nur für Gefangene, die durch Liberations Ergeben-Skript laufen und über „Gefangen nehmen“ zur FOB gebracht werden, nicht für nur gefesselte Camp-Wachen; Mehrspieler: siehe 7.5)
-- [ ] 3.9 (#66) Dokumente als ACE Intel Items (E13): bei toten Anführern, in zerstörten Nestern (anderes Nest) und ausgehobenen
-  Camps (Nest des Camps), Auswertung beim Dolmetscher, nie gelogen
+- [-] 3.9 (#66) Dokumente als ACE Intel Items (E13): verworfen am 2026-10-22 (Niklas), Ticket geschlossen. Gründe: zu viele Hinweise ohne Bremse
+  (Nest 50 %, Camp 40 %, Anführer 30 % ohne Abklingzeit bei nur 11 Nestern), ACE-Index geht beim Weitergeben des Gegenstands verloren;
+  die Spur vom Camp zum Nest läuft über das Verhör (3.8)
 - [x] 3.10 (#67) Liberation-Informant liefert bei Ablieferung zusätzlich einen Konkreten Tipp zu einem aktiven Nest (Hook, ADR 0011)
   (am 2026-10-22 von Niklas im Spiel getestet und bestätigt: Tipp (100 m) zum nächsten aktiven Nest ohne Kreis, Test per Konsole mit gesetztem COIN_home; zwei Hooks in Liberation, siehe docs/hooks.md Nr. 21; nicht gesehen: Kreis schrumpft, wenn alle Nester schon einen haben, Schalter aus, Liberations Belohnung im RPT nicht geprüft; echter Informant ab Ruf 25 und Mehrspieler: siehe 7.5)
 
@@ -251,7 +252,6 @@ Je ein Hilfs- und ein Aufklärungsauftrag lassen sich annehmen und abschließen;
 - [ ] 7.4 Balancing-Werte in `coin_config.sqf` nach Testabenden anpassen
 - [ ] 7.5 Tests mit einem zweiten Spieler auf dem Dedicated Server (lokal reicht ein Spieler): später beitretender Spieler sieht die Debug-Marker (2.5), die Gegner-Grenzen des Servers (`COIN_enemyAICaps`, 2.13) und die Netzwerkstärke im Tagebuch „COIN Debug“ (2.6); Zeus-Kurator, der erst später entsteht, sieht COIN-Inhalte; Meldungen an alle Spieler (2.14): sehen alle Spieler sie, auch weit vom Camp oder Nest entfernt, und der deutsche Text (Spielsprache Deutsch, Titel mit Umlaut);
   Intel (Phase 3): andere Spieler sehen den Menüeintrag und keinen Untertitel, alle sehen Marker und Hinweis „Neue Intel“ (3.1),
-  später beitretender Spieler sieht geladene Marker (3.2), Abklingzeit des einen Dolmetschers bremst den zweiten nicht (3.5),
-  ein Schütze sammelt ein Dokument ein und gibt es dem Dolmetscher, ein Dokument lässt sich nur einmal auswerten (3.9)
+  später beitretender Spieler sieht geladene Marker (3.2), Abklingzeit des einen Dolmetschers bremst den zweiten nicht (3.5)
 
 **DoD:** Ein echter Spielabend mit der Gruppe ohne Abstürze, Save übersteht Neustart.
