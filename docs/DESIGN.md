@@ -329,7 +329,8 @@ Festgelegt beim Grilling für Phase 3 (2026-10-22). Speicherformat, Triangulatio
 - **Gefangene verhören** (Aktionsmenü „Verhören“): überall möglich, einmal pro Gefangenem. Ein Verhör bringt 1–2 Ergebnisse
   mit eigenen Gewichten, die nicht vom Ruf abhängen (ein Gefangener gehört nicht zur Bevölkerung): mehr Tipps, wenig
   Lügen, beim ersten Ergebnis nie „Ich weiß nichts“. Ein Kämpfer aus einem Camp nennt das Nest seines Camps, eine
-  Nest-Wache ein anderes Nest, alle anderen folgen der Regel „Welches Nest“. Die Abklingzeit gilt auch hier.
+  Nest-Wache ein anderes Nest, alle anderen folgen der Regel „Welches Nest“. Beide Ergebnisse eines Verhörs betreffen dasselbe
+  Nest: ein zweites wahres Ergebnis verkleinert nur den Kreis. Die Abklingzeit gilt auch hier.
   Liberations Belohnung für das Abliefern an der FOB (Intel-Punkte) bleibt zusätzlich.
 - *Später/optional:* Für Gebäude-Nester ein Foto des Hauses im Tagebuch statt eines Kreises (braucht ein Bild pro Hausklasse).
 - **Informanten** (Liberation-Funktion): Ab Ruf +25 meldet sich gelegentlich ein Zivilist, der zu einer FOB gebracht werden
@@ -340,7 +341,9 @@ Festgelegt beim Grilling für Phase 3 (2026-10-22). Speicherformat, Triangulatio
 **Eigene Bevölkerung** (ADR 0011)
 - Liberation hat in befreiten Ortschaften keine Zivilisten. Die Mission spawnt dort bei Spielernähe 4–8 eigene Zivilisten im
   Ortskern, mit denselben Abständen für Spawn und Abbau wie bei Nestern, innerhalb des gemeinsamen Zivilisten-Budgets
-  (ADR 0015). Weil sie bei jedem Besuch neu entstehen, verhindert die Abklingzeit das Abgrasen.
+  (ADR 0015). Im Budget zählen nur die eigenen Zivilisten, nicht die von Liberation; eine Ortschaft bekommt ihre Bevölkerung ganz
+  oder gar nicht (Entscheidung 2026-10-22). Sie entsteht erst, wenn Liberation mit der Ortschaft fertig ist (Sektor nicht aktiv).
+  Weil sie bei jedem Besuch neu entstehen, verhindert die Abklingzeit das Abgrasen.
 - Der **Älteste** kommt erst in Phase 5 dazu, vorher hat er keine Aufgabe.
 
 **Intel und Intel-Punkte**
@@ -509,11 +512,11 @@ Infanterie, Technicals, Motorräder, zivile Fahrzeuge, leichte statische Waffen 
 **Performance (kein Headless Client)**
 - **Budget für Gegner-KI** (ADR 0015): Liberations drei Obergrenzen bekommen einen gemeinsamen Wert (100 mal
   Unitcap-Faktor), die COIN-Einheiten kommen obendrauf. Nester spawnen immer vollständig, Camps nur innerhalb eines
-  eigenen COIN-Budgets. Für Zivilisten gilt ein gemeinsamer Wert, geregelt ab Phase 3.
+  eigenen COIN-Budgets. Für Zivilisten zählen nur die eigenen der Bevölkerung (Ticket 3.7), nicht Liberations.
 - Dazu eine Obergrenze für gleichzeitige IEDs.
 - Spawnen nur im Umkreis von Spielern, wie bei Liberation.
 - Startwerte (in Tests anpassen): Liberation ~100 Gegner-KI, Camps nur bis ~30 COIN-Einheiten insgesamt
-  (Nest-Wachen eingerechnet), ~30 Zivilisten, ~25 IEDs.
+  (Nest-Wachen eingerechnet), ~30 eigene Zivilisten, ~25 IEDs.
 
 **Persistenz**
 - Alle neuen Zustände (Nester, Intel-Marker, Budgets) werden über den

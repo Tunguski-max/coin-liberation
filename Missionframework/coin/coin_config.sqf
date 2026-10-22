@@ -65,7 +65,7 @@ COIN_enableAIBudget         = true;     // Phase 2, ticket 2.13. Off: Liberation
 COIN_maxEnemyAI             = 100;      // Liberation's caps at Unitcap "normal" (original 180/150/150)
 COIN_maxCampAI              = 30;       // A camp spawns if afterwards at most this many COIN units live (nest guards and crews included)
 COIN_aiBudgetInterval       = 5;        // s between two updates of Liberation's caps
-COIN_maxCivilians           = 30;       // All civilians on the map
+COIN_maxCivilians           = 30;       // Own civilians of the liberated towns (ticket 3.7): a town gets its population complete or not at all. Liberation's civilians do not count
 COIN_maxActiveIEDs          = 25;       // COIN IEDs at the same time
 
 // ---------------------------------------------------------------------------
@@ -80,6 +80,16 @@ COIN_spawnCheckInterval     = 10;       // s between two checks of all nests; sp
 COIN_presenceMaxAirHeight   = 100;      // m above ground: manned aircraft higher up do not spawn anything
 COIN_presenceMaxDroneHeight = 500;      // m above ground: drones higher up do not either (as Liberation's sectors, fn_getUnitsCount.sqf)
 COIN_curatorSyncInterval    = 10;       // s: objects given to Zeus are added again to curators created later, 0 = off
+
+// ---------------------------------------------------------------------------
+// Own population of liberated towns (Phase 3, ticket 3.7, ADR 0011): Liberation has no civilians where the army holds
+// the town. Spawn and removal use the distances above; the budget is COIN_maxCivilians
+// ---------------------------------------------------------------------------
+COIN_enablePopulation       = true;     // Off: no own civilians in liberated towns, the loop removes those that exist
+COIN_populationCount        = [4, 8];   // [min, max] civilians per town, rolled at every spawn
+COIN_populationRadius       = 80;       // m around the centre of the town (sector marker) where they appear
+COIN_populationSpotClearance = 2;       // m a civilian keeps from objects when he is placed (BIS_fnc_findSafePos)
+COIN_populationMaxGradient  = 0.5;      // Steepest ground he is placed on (BIS_fnc_findSafePos)
 
 // ---------------------------------------------------------------------------
 // Militia network (Phase 2) - whole map is the area of operations (ADR 0016)
