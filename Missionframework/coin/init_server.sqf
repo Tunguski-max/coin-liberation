@@ -78,6 +78,13 @@ if (COIN_enableQuestioning) then {
     diag_log "[COIN] init: questioning off";
 };
 
+// Own population of liberated towns (ticket 3.7, DESIGN 7, ADR 0011): Liberation has no civilians there
+if (COIN_enablePopulation) then {
+    [] spawn COIN_fnc_populationLoop;
+} else {
+    diag_log "[COIN] init: population off";
+};
+
 // Messages to all players when a nest is destroyed or a camp cleared (ticket 2.14)
 [] call COIN_fnc_initMessages;
 

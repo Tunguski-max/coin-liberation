@@ -231,6 +231,16 @@ class COIN {
         class showSubtitle {};
     };
 
+    class population {
+        file = "coin\functions\population";
+
+        // Server loop: the own civilians of liberated towns, spawn near players, budget, removal (ticket 3.7)
+        class populationLoop {};
+
+        // Server: spawns the civilians of one town, like Liberation's own, handed to Zeus
+        class spawnPopulation {};
+    };
+
     class persistence {
         file = "coin\functions\persistence";
 

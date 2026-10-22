@@ -21,7 +21,9 @@ Liberation prüft seine Grenzen **vor** dem Spawn: Ein Sektor, der startet, spaw
   Gezählt werden **alle** COIN-Einheiten zusammen, also auch Nest-Wachen und Besatzungen der Altfahrzeuge.
   Ist kein Platz, entsteht das Camp, sobald wieder Platz ist.
 - Ist der Schalter `COIN_enableAIBudget` aus, behält Liberation seine Originalwerte und Camps sind nicht begrenzt.
-- **Zivilisten:** gemeinsamer Wert in `coin_config.sqf`, geregelt mit dem eigenen Zivilisten-Spawner in Phase 3.
+- **Zivilisten:** `COIN_maxCivilians` (30) in `coin_config.sqf`. Es zählen nur die Zivilisten des eigenen Bevölkerungs-Spawners (Phase 3), nicht Liberations; eine Ortschaft bekommt ihre Bevölkerung ganz oder gar nicht, wie ein Camp.
+
+Geändert am 2026-10-22 (Phase 3, Grilling): Zivilisten-Budget zählt nur die eigenen Zivilisten, ganz oder gar nicht (Ticket 3.7).
 
 Geändert am 2026-10-19 (Phase 2, Grilling): vorher ein Gesamtwert, unter dem auch COIN bleiben musste. Weil Liberation
 über seine Grenzen schießt, hätte COIN in solchen Momenten nichts spawnen dürfen. Ein Nest ohne Wachen soll es nicht geben.

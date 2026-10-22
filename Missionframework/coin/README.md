@@ -52,6 +52,9 @@ coin/
     │   ├── fn_exportNestTemplate.sqf   COIN_fnc_exportNestTemplate: Gebäude-Template des angeschauten Hauses in die Zwischenablage
     │   ├── fn_exportTerrainTemplate.sqf COIN_fnc_exportTerrainTemplate: Gelände-Template um den Richtungspfeil in die Zwischenablage
     │   └── fn_debugTerrainNest.sqf     COIN_fnc_debugTerrainNest: Gelände-Nest eines Typs vor dem Spieler, wie ein echtes
+    ├── population/
+    │   ├── fn_populationLoop.sqf       COIN_fnc_populationLoop: Server-Schleife, eigene Zivilisten in befreiten Ortschaften bei Spielernähe, Budget COIN_maxCivilians (Ticket 3.7)
+    │   └── fn_spawnPopulation.sqf      COIN_fnc_spawnPopulation: die Zivilisten einer Ortschaft, wie Liberations, laufen im Ort umher
     ├── intel/
     │   ├── fn_initQuestioning.sqf      COIN_fnc_initQuestioning: Client, Dolmetscher-Slot erkennen, Aktionsmenü „Nach der Miliz fragen“ und „Verhören“ einrichten (Tickets 3.1, 3.8)
     │   ├── fn_addTalkAction.sqf        COIN_fnc_addTalkAction: Einträge im normalen Aktionsmenü (Scrollrad), nach jedem Respawn neu
