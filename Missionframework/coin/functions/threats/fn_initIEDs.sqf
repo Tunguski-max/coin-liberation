@@ -6,9 +6,10 @@
         Server start of the IEDs (ticket 4.1a, DESIGN 6, ADR 0022). Called by COIN_fnc_initNests once the nests are
         known. IEDs are not saved, so every start lays them anew: every active IED workshop lays its full budget
         (COIN_iedBudgetPerWorkshop) with COIN_fnc_createIED, together at most COIN_maxActiveIEDs. Then starts the
-        loop that lets the army set them off (COIN_fnc_iedLoop) and draws the debug map when COIN_debug is on.
+        draws the debug map when COIN_debug is on. No loop runs here: every IED has an engine trigger that starts its
+        exact check when BLUFOR comes near (COIN_fnc_createIED, COIN_fnc_iedWatch).
         Sets COIN_ieds (layout in COIN_fnc_createIED) and COIN_iedNextId. Logs the IEDs per workshop.
-        Called, not spawned: the loop it starts is spawned inside.
+        Called, not spawned.
 
     Parameter(s):
         NONE
@@ -39,7 +40,5 @@ diag_log format ["[COIN] ieds: %1 IEDs laid (at most %2)", count COIN_ieds, COIN
 if (COIN_debug) then {
     [] call COIN_fnc_drawIEDMarkers;
 };
-
-[] spawn COIN_fnc_iedLoop;
 
 count COIN_ieds

@@ -387,8 +387,11 @@ class COIN {
         // Server: does the army set an IED off here? (BLUFOR vehicle, or two BLUFOR soldiers on foot, close by)
         class iedTriggered {};
 
-        // Server loop: lets the army set IEDs off, drops IEDs that are gone
-        class iedLoop {};
+        // Server: exact check of one IED while BLUFOR is within 300 m, spawned by the IED's engine trigger
+        class iedWatch {};
+
+        // Server: takes an IED out of COIN_ieds and deletes its trigger (object deleted, defused, blown up)
+        class removeIED {};
 
         // Server: global debug markers of the IEDs
         class drawIEDMarkers {};

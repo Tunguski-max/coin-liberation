@@ -6,7 +6,7 @@
         Lays one IED for a workshop (ticket 4.1a, DESIGN 6, ADR 0022): a real mine object (one of COIN_iedTypes,
         createMine, so ACE mine detectors find it and ACE can defuse it) at a place from COIN_fnc_findIEDSpot. Not saved.
         The IED belongs to the workshop that laid it. Added to Zeus. Refused while COIN_maxActiveIEDs IEDs exist.
-        IED = [id, nest id, object, position, variant]; appended to COIN_ieds. Variant is "buried" for now, the
+        IED = [id, nest id, object, position, variant, trigger]; appended to COIN_ieds. Variant is "buried" for now, the
         remote-triggered one and the decoy come with tickets 4.2a and 4.2b. Server only.
 
     Parameter(s):
@@ -49,7 +49,28 @@ _object setDir random 360;
 
 private _id = COIN_iedNextId;
 COIN_iedNextId = _id + 1;
-private _ied = [_id, _nestId, _object, _pos, "buried"];
+
+// Engine trigger: BLUFOR within COIN_iedAlertDistance starts the exact check of this IED (COIN_fnc_iedWatch), nothing
+// runs in script while nobody is near. The flag keeps one watch per trigger.
+private _trigger = createTrigger ["EmptyDetector", _pos, false];
+_trigger setTriggerArea [COIN_iedAlertDistance, COIN_iedAlertDistance, 0, false];
+_trigger setTriggerActivation [str GRLIB_side_friendly, "PRESENT", true];
+_trigger setTriggerInterval COIN_iedTriggerCheckInterval;
+_trigger setTriggerStatements [
+    "this",
+    "if !(thisTrigger getVariable ['COIN_watching', false]) then {thisTrigger setVariable ['COIN_watching', true]; [thisTrigger] spawn COIN_fnc_iedWatch}",
+    ""
+];
+_trigger setVariable ["COIN_iedId", _id];
+
+// The IED is removed from the list whenever the object is deleted (ACE defusing, Zeus, after the blast)
+_object setVariable ["COIN_iedId", _id];
+_object addEventHandler ["Deleted", {
+    params ["_entity"];
+    [_entity getVariable ["COIN_iedId", -1]] call COIN_fnc_removeIED;
+}];
+
+private _ied = [_id, _nestId, _object, _pos, "buried", _trigger];
 COIN_ieds pushBack _ied;
 
 diag_log format [
