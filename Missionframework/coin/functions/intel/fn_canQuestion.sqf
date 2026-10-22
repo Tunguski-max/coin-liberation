@@ -3,7 +3,7 @@
     Author: COIN Liberation
 
     Description:
-        May this interpreter question this civilian now? (ticket 3.1, DESIGN 7). Used for the ACE menu on the client and
+        May this interpreter question this civilian now? (ticket 3.1, DESIGN 7). Used by the action menu entry on the client and
         again on the server before an answer is given, so the client cannot talk its way past the rules.
         The civilian must be alive, on foot, conscious, of the civilian side, not a player, not captive (ACE surrendered or
         handcuffed: that covers prisoners, who are interrogated instead, and Liberation's informant while he waits to be
@@ -29,6 +29,7 @@ if (!COIN_enableQuestioning || {isNull _civ} || {isNull _asker}) exitWith {false
 
 (_asker getVariable ["COIN_interpreter", false])
 && {alive _asker}
+&& {(vehicle _asker) isEqualTo _asker}
 && {lifeState _asker != "INCAPACITATED"}
 && {!(_asker getVariable ["ACE_isUnconscious", false])}
 && {_asker distance _civ <= _range}

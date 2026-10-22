@@ -128,8 +128,14 @@ class COIN {
     class intel {
         file = "coin\functions\intel";
 
-        // Client: finds out whether this player started in an interpreter slot, adds the ACE entries "Talk" and "Ask about the militia" (ticket 3.1)
+        // Client: finds out whether this player started in an interpreter slot, adds the action menu entry "Ask about the militia" (ticket 3.1)
         class initQuestioning {};
+
+        // Client: the action menu entry "Ask about the militia", again after every respawn
+        class addTalkAction {};
+
+        // Client loop: the civilian the interpreter looks at and may question, stops him for a while
+        class talkTargetLoop {};
 
         // Marks a player unit as interpreter from its slot, at start and after every respawn
         class applyInterpreter {};

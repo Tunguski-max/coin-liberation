@@ -323,10 +323,11 @@ COIN_enableResourceGuarantee = true;
 // Interpreter and intel (Phase 3)
 // ---------------------------------------------------------------------------
 COIN_interpreterRole        = "Dolmetscher"; // Role description of the interpreter slots (Eden "Dolmetscher@Führungsgruppe"); the slot class is the riflemen's
-COIN_talkRange              = 3;        // m between the interpreter and the civilian for "Talk"
+COIN_talkRange              = 3;        // m between the interpreter and the civilian he looks at for "Ask about the militia"
 COIN_talkRangeMargin        = 2;        // m more the server allows (the civilian may drift while he is held)
-COIN_talkHoldSeconds        = 30;       // s a civilian waits for a question after the interpreter opened "Talk"
-COIN_talkHoldResend         = 5;        // s between two hold orders while "Talk" stays hovered
+COIN_talkHoldSeconds        = 30;       // s a civilian waits for a question once the interpreter has him in his sights
+COIN_talkScanInterval       = 0.3;      // s between two looks at what the interpreter is aiming at
+COIN_talkActionPriority     = 6;        // Place of the entry in the action menu (higher = further up; Liberation's own entries are negative)
 COIN_questionDelay          = [1, 2];   // [min, max] s between the question and the answer
 COIN_answerReadSeconds      = 5;        // s the civilian stays after his answer, and the time it takes to read
 COIN_answerShowSeconds      = 8;        // s the subtitle stays on screen
@@ -334,11 +335,8 @@ COIN_intelNestRange         = 4000;     // m: a civilian knows a random active n
 COIN_intelCenterOffset      = [0.2, 0.8]; // Share of the radius between the nest and the middle of its circle (so the nest is never in the middle, always inside)
 COIN_intelMarkerColor       = "ColorOrange";
 COIN_intelMarkerAlpha       = 0.35;
-// Menu texts: [German, English]
-COIN_talkLabels = [
-    ["Gespräch",                "Talk"],
-    ["Nach der Miliz fragen",   "Ask about the militia"]
-];
+// Entry in the action menu (mouse wheel / space bar): [German, English]
+COIN_askMilitiaLabel = ["Nach der Miliz fragen", "Ask about the militia"];
 // Answer sentences per result: [result, [German sentences, English sentences]]; %1 is the nest type (hint and tip)
 COIN_questionAnswers = [
     ["nothing", [

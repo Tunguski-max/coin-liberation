@@ -281,11 +281,11 @@ Festgelegt beim Grilling für Phase 3 (2026-10-22). Speicherformat, Triangulatio
   keine Antwort.
 - Fällt der Dolmetscher aus, gibt es keine Gespräche. Das macht ihn zu einem Schutzobjekt.
 
-**Gespräch (ACE-Interaktion)**
-- An jedem befragbaren Zivilisten und an Gefangenen gibt es den Eintrag **„Gespräch“**, nur für den Dolmetscher und nur
-  aus der Nähe (etwa 3 m). Darunter liegen die Fragen: in Phase 3 **„Nach der Miliz fragen“** (Zivilist) und
-  **„Verhören“** (Gefangener), ab Phase 5 **„Wie steht ihr zu uns?“**.
-- Öffnet der Dolmetscher das Gespräch, bleibt der Zivilist stehen und dreht sich zu ihm. Nach der Antwort oder nach etwa
+**Gespräch (normales Aktionsmenü)**
+- Wie bei Liberations eigenen Aktionen läuft das Gespräch über das normale Aktionsmenü (Scrollrad oder Leertaste), nicht über ACE.
+  Der Eintrag erscheint nur für den Dolmetscher, wenn er einen Befragbaren aus der Nähe (etwa 3 m) ansieht. Es gibt je Frage
+  einen eigenen Eintrag: in Phase 3 **„Nach der Miliz fragen“** (Zivilist) und **„Verhören“** (Gefangener), ab Phase 5 **„Wie steht ihr zu uns?“**.
+- Nimmt der Dolmetscher einen Zivilisten ins Visier, bleibt dieser stehen und schaut ihn an. Nach der Antwort oder nach etwa
   30 s ohne Frage geht er weiter. Kein Fortschrittsbalken.
 - Die Antwort kommt nach 1–2 s als Untertitel (Name und Satz), nur beim Dolmetscher, mit einigen Satzvarianten pro
   Ergebnis auf Deutsch und Englisch. Entsteht ein Marker, bekommt die Seite einen kurzen Hinweis „Neue Intel auf der Karte“
@@ -324,7 +324,7 @@ Festgelegt beim Grilling für Phase 3 (2026-10-22). Speicherformat, Triangulatio
   Spieler zu Fuß nahe an diesem Punkt (etwa 50 m), gilt das Gebiet als durchsucht und der Marker verschwindet ohne Meldung.
 
 **Weitere Intel-Quellen**
-- **Gefangene verhören** („Gespräch“ → „Verhören“): überall möglich, einmal pro Gefangenem. Ein Verhör bringt 1–2 Ergebnisse
+- **Gefangene verhören** (Aktionsmenü „Verhören“): überall möglich, einmal pro Gefangenem. Ein Verhör bringt 1–2 Ergebnisse
   mit eigenen Gewichten, die nicht vom Ruf abhängen (ein Gefangener gehört nicht zur Bevölkerung): mehr Tipps, wenig
   Lügen, beim ersten Ergebnis nie „Ich weiß nichts“. Ein Kämpfer aus einem Camp nennt das Nest seines Camps, eine
   Nest-Wache ein anderes Nest, alle anderen folgen der Regel „Welches Nest“. Die Abklingzeit gilt auch hier.
@@ -398,7 +398,7 @@ Wer die Bevölkerung wirklich auf seiner Seite hat, bekommt mehr als nur Informa
 **Gefälligkeiten**
 - Ab einer hohen Ruf-Schwelle (etwa +50, final im Spec zu Phase 5) sammelt die Armee **Gefälligkeiten**, z. B. 1 pro 2 Stunden Spielzeit.
 - Höchstens 2 auf Vorrat. Fällt der Ruf unter die Schwelle, wächst nichts nach.
-- Angefordert wird über den **Dolmetscher** beim Ältesten einer befreiten Ortschaft (ACE-Interaktion).
+- Angefordert wird über den **Dolmetscher** beim Ältesten einer befreiten Ortschaft (Aktionsmenü).
   Das hält die Rolle bis zum Ende der Kampagne wichtig.
 
 | Gefälligkeit | Ablauf | Wirkung |
