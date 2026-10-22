@@ -77,8 +77,6 @@ Code-Bezeichner stehen in Klammern.
 | **Intel-Stufen** | Gerücht (groß) → Hinweis (mittel) → Konkreter Tipp (klein). Dazu: Warnung, Lüge. |
 | **Lüge** | Intel-Marker, der wie ein echter aussieht, aber auf kein Nest zeigt. Verschwindet erst, wenn Spieler die Stelle durchsucht haben, an der das angebliche Nest liegen soll. |
 | **Triangulation** | Mehrere wahre Hinweise auf dasselbe Nest verkleinern dessen einen Markerkreis. Lügen schrumpfen nie. |
-| **Dokumente** | Intel-Gegenstand bei toten Anführern, in zerstörten Nestern und ausgehobenen Camps. Wird eingesammelt und erst beim Dolmetscher zu Intel. Lügt nie. |
-| **Anführer** | Gruppenführer der Nest-Wachen oder eines Camps. Liberations Sektorgruppen zählen nicht. |
 | **Ruf** (`reputation`) | Globales Ansehen der Armee bei der Bevölkerung, Skala −100 bis +100. Ist Liberations „Civil Reputation“. |
 | **Ruf-Band** | Einteilung des Rufs in niedrig, mittel und hoch, an der sich ruf-abhängige Regeln orientieren (ADR 0009). |
 | **Gefälligkeit** (`favor`) | Unterstützung durch die Bevölkerung, die ab sehr hohem Ruf gesammelt und beim Ältesten eingelöst wird. |

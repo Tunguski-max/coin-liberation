@@ -11,6 +11,7 @@
 > v0.4.4: Gelände-Nester nach Templates mit Richtungspfeil, Hangneigung und Wachenring (ADR 0020).
 > v0.4.5: Meldung an alle Spieler bei zerstörtem Nest und ausgehobenem Camp (Ticket 2.14).
 > v0.5: Dolmetscher und Intel für Phase 3 festgelegt (Gespräch, Abklingzeit, Triangulation, Lügen, Verhör, Dokumente, ADR 0021).
+> v0.5.1: Dokumente als ACE Intel Items verworfen (E13).
 > Offene Entscheidungen stehen gesammelt in [Abschnitt 12](#12-offene-entscheidungen).
 > Begriffe sind in [`CONTEXT.md`](../CONTEXT.md) definiert.
 
@@ -159,10 +160,9 @@ die jeweils einen **Einflussradius** haben und dort einen konkreten Effekt erzeu
   Gebäude-Nests einstürzt. Kernobjekte sind nur Objekte, die Arma zerstören kann; passende, aber unzerstörbare Objekte
   (z. B. Werkbank) stehen nur als Requisite daneben. Löscht Zeus das Kernobjekt, ist das keine Zerstörung.
 - Die Zerstörung wird sofort gespeichert und löst ein Ereignis aus. Daran hängen sich spätere Phasen:
-  Ruf (Phase 5), Readiness-Abzug (Phase 6, ADR 0013) und Dokumente (Phase 3).
+  Ruf (Phase 5), Readiness-Abzug (Phase 6, ADR 0013).
 - **Meldung an die Spieler:** Wird ein Nest zerstört, sehen es alle Spieler als Einblendung wie bei einem verlorenen FOB:
   Nest-Typ, keine Position (Entscheidung 2026-10-22). Ticket 2.14.
-- Beim Zerstören besteht eine Chance auf **Intel-Gegenstände** (Dokumente), die auf ein anderes Nest zeigen.
 - *Später/optional:* Bei niedrigem Ruf kann die Miliz in Regionen ohne Spielerpräsenz langsam
   neue Nester aufbauen. Das hält das Netzwerk lebendig.
 
@@ -209,8 +209,7 @@ und sind die zweite Intel-Quelle neben dem Dolmetscher.
   Ortschaften, FOBs und der Startbasis.
 - Nicht persistent. Beim Serverstart wird die aktuelle Kapazität (siehe unten) neu verteilt.
 - Jedes Camp **gehört zu einem Nest**: dem nächstgelegenen aktiven Nest, das noch Kapazität frei hat.
-  Ausgehobene Camps liefern mit einer gewissen Chance Dokumente oder einen Gefangenen, die als Intel auf das
-  zugehörige Nest zeigen.
+  Ausgehobene Camps haben keine eigene Intel-Quelle: Die Spur vom Camp zum Nest läuft über das Verhör ihrer Kämpfer.
 - Ein Camp ist **ausgehoben**, wenn in seiner Nähe kein Kämpfer des Camps mehr kampffähig ist (tot, gefangen,
   ergeben oder geflohen), die Besatzung des Technicals eingeschlossen.
 - KI und Objekte spawnen erst, wenn Spieler in der Nähe sind (gleiche Regeln wie bei Nestern). Ein Camp spawnt ganz
@@ -332,18 +331,7 @@ Festgelegt beim Grilling für Phase 3 (2026-10-22). Speicherformat, Triangulatio
   Lügen, beim ersten Ergebnis nie „Ich weiß nichts“. Ein Kämpfer aus einem Camp nennt das Nest seines Camps, eine
   Nest-Wache ein anderes Nest, alle anderen folgen der Regel „Welches Nest“. Die Abklingzeit gilt auch hier.
   Liberations Belohnung für das Abliefern an der FOB (Intel-Punkte) bleibt zusätzlich.
-- **Dokumente** (Entscheidung E13): echte **ACE Intel Items** im Inventar. Sie werden eingesammelt und zum Dolmetscher
-  gebracht, der sie über eine Selbst-Interaktion „Dokumente auswerten“ auswertet. Erst dann entsteht der Marker (Hinweis oder
-  Konkreter Tipp, nie eine Lüge). Stirbt der Träger, liegt das Dokument bei seiner Leiche.
-  Hinweis: ACE Intel Items lassen sich laut ACE-Issues nur mit einer Karte im Inventar öffnen.
-
-  | Quelle | Chance | Zeigt auf |
-  |---|---|---|
-  | Zerstörtes Nest | `COIN_documentDropChance` | ein anderes aktives Nest |
-  | Ausgehobenes Camp | `COIN_campIntelChance` | das Nest des Camps |
-  | Toter Anführer (Gruppenführer von Nest-Wachen oder Camp) | Wert in der Config | Regel „Welches Nest“ |
-
-  *Später/optional:* Für Gebäude-Nester ein Foto des Hauses im Tagebuch statt eines Kreises (braucht ein Bild pro Hausklasse).
+- *Später/optional:* Für Gebäude-Nester ein Foto des Hauses im Tagebuch statt eines Kreises (braucht ein Bild pro Hausklasse).
 - **Informanten** (Liberation-Funktion): Ab Ruf +25 meldet sich gelegentlich ein Zivilist, der zu einer FOB gebracht werden
   muss. Liberation gibt dafür Intel-Punkte. Zusätzlich liefert er einen **Konkreten Tipp** (nie eine Lüge) zum aktiven Nest,
   das seiner Ortschaft am nächsten liegt und noch keinen Marker hat; haben alle einen, zum nächsten aktiven Nest. Der Tipp
@@ -563,4 +551,4 @@ Infanterie, Technicals, Motorräder, zivile Fahrzeuge, leichte statische Waffen 
 | E10 | Welches schwere Gerät darf die Miliz haben? | Technicals überall, Altfahrzeuge bei Waffenlagern und max. 1 pro Gegenangriff, 2 T-72 + 1 ZSU-23-4 in der Hauptstadt (ADR 0014) | **entschieden** |
 | E11 | Mörser und Hubschrauber für die Spieler? | Mörser ja, Hubschrauber außer AH-64D ja, AH-1Z/AH-6M nur als Elite mit Limit (ADR 0007) | **entschieden** |
 | E12 | Unterstützung bei sehr hohem Ruf (Abschnitt 8.1) | Gefälligkeiten über den Ältesten: Ablenkungsangriff und Verstärkung | vorgeschlagen |
-| E13 | Dokumente als ACE Intel Items, die zum Dolmetscher gebracht werden müssen? | Ja: ACE Intel Items, Auswertung beim Dolmetscher, nie gelogen (Grilling Phase 3, 2026-10-22) | **entschieden** |
+| E13 | Dokumente als ACE Intel Items, die zum Dolmetscher gebracht werden müssen? | Nein, verworfen (2026-10-22): zu viele Hinweise ohne Bremse, dazu technische Risiken mit ACE (Index geht beim Weitergeben verloren). Die Spur vom Camp zum Nest läuft über das Verhör (Ticket 3.9, #66 geschlossen) | **entschieden** |
