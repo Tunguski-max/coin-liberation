@@ -39,6 +39,6 @@ class coin_intel_new_en: coin_nest_destroyed_en {
     sound = "taskCreated";
 };
 class coin_intel_new_de: coin_intel_new_en {
-    title = "NEUER HINWEIS";
-    description = "Ein neuer Hinweis wurde auf der Karte eingetragen.";
+    title = "NEUE SPUR";
+    description = "Eine neue Spur wurde auf der Karte eingetragen.";
 };
