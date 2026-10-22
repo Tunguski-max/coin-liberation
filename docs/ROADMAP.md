@@ -195,7 +195,9 @@ Festgelegt beim Grilling am 2026-10-22 (DESIGN 6, ADR 0022). Reihenfolge: 4.7, 4
 - [x] 4.7 (#79) Liberations IEDs und Hinterhalte in Ortschaften per Schalter abschalten (ADR 0008); Konvoi-Überfall und
   Sektor-Guerilla bleiben (Hooks 22 und 23; am 2026-10-22 im Spiel getestet: Schalter an → `Count: 0` und keine Schleife,
   Schalter aus → IEDs wieder da; Konvoi-Überfall nicht getestet)
-- [ ] 4.1a (#80) Durchstich IED: Budget pro Werkstatt, Platzierung an Straßen im Radius, Auslösung nur durch die Armee
+- [x] 4.1a (#80) Durchstich IED: Budget pro Werkstatt, Platzierung an Straßen im Radius, Auslösung nur durch die Armee
+  (Fahrzeug 8 m, zu Fuß erst ab zwei Soldaten in 6 m; Prüfung über 300-m-Trigger je IED, ohne BLUFOR läuft kein Skript;
+  am 2026-10-22 im Spiel getestet, Zeus kann IEDs nicht löschen: wie bei Liberation akzeptiert)
 - [ ] 4.1b (#81) Nachschub, Werkstatt zerstört → kein Nachschub (früher 4.6), Hinweis-Objekte, keine IED-Beute
 - [ ] 4.2a (#82) Attrappe; ACE-Entschärfen bringt Ruf
 - [ ] 4.2b (#83) Ferngezündetes IED mit Auslöser (erster Kämpfer in Zivil)

@@ -93,6 +93,14 @@ coin/
     ├── persistence/
     │   ├── fn_receiveSaveBlock.sqf     COIN_fnc_receiveSaveBlock: merkt sich Eintrag 22 beim Laden des Spielstands (Hook 18)
     │   └── fn_getSaveBlock.sqf         COIN_fnc_getSaveBlock: baut Eintrag 22 beim Speichern, [COIN_saveVersion, Nester, Intel] (Hook 17)
+    ├── threats/
+    │   ├── fn_initIEDs.sqf             COIN_fnc_initIEDs: Server, jede aktive Werkstatt legt ihr IED-Budget, startet die Schleife (Ticket 4.1a)
+    │   ├── fn_createIED.sqf            COIN_fnc_createIED: Server, legt ein IED für eine Werkstatt (Mine, Zeus, COIN_ieds)
+    │   ├── fn_findIEDSpot.sqf          COIN_fnc_findIEDSpot: Platz auf einer Straße im Radius, nicht im Ortskern, nicht nahe Basis, FOB und anderen IEDs
+    │   ├── fn_iedTriggered.sqf         COIN_fnc_iedTriggered: löst die Armee das IED aus? (BLUFOR-Fahrzeug oder zwei BLUFOR-Soldaten zu Fuß, Werte in der Config)
+    │   ├── fn_iedWatch.sqf             COIN_fnc_iedWatch: genaue Prüfung eines IEDs (0,2 s), nur solange BLUFOR im Radius von 300 m ist, gestartet vom Trigger des IEDs
+    │   ├── fn_removeIED.sqf            COIN_fnc_removeIED: nimmt ein IED aus COIN_ieds und löscht seinen Trigger
+    │   └── fn_drawIEDMarkers.sqf       COIN_fnc_drawIEDMarkers: globale Debug-Marker der IEDs (Lobby-Parameter „COIN Debug“)
     └── nests/
         ├── fn_initNests.sqf            COIN_fnc_initNests: Server, Nester aus dem Spielstand oder neu, Debug-Karte (ADR 0018)
         ├── fn_createNests.sqf          COIN_fnc_createNests: Nester einer neuen Kampagne als Daten, Art pro Typ, „bester Kandidat“, Lockerung

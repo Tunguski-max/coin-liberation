@@ -724,6 +724,20 @@ COIN_lieSearchInterval      = 3;        // s between two checks for searchers
 // Asymmetric threats (Phase 4)
 // ---------------------------------------------------------------------------
 COIN_iedBudgetPerWorkshop   = 6;        // IEDs a workshop can keep active in its radius
+COIN_iedTypes               = ["IEDLandBig_F", "IEDLandSmall_F", "IEDUrbanBig_F", "IEDUrbanSmall_F"]; // Vanilla IEDs, one at random (no "ultra strong" Bomb_04_F)
+COIN_iedMaxRoadOffset       = 4;        // m: an IED lies on the road or at most this far beside it
+COIN_iedRoadSearchRadius    = 50;       // m around a random point in the workshop's radius in which a road is looked for
+COIN_iedPlaceAttempts       = 300;      // Random points tried per IED, none fits: error line, the IED is left out
+COIN_iedMinDistBase         = 500;      // m between an IED and the start base or a FOB
+COIN_iedMinDistSector       = COIN_nestMinDistSector; // m between an IED and every sector centre (the town core, Liberation's 175 m evaluation)
+COIN_iedMinDistIED          = 300;      // m between two IEDs (of all workshops)
+COIN_iedTriggerVehicleRadius = 8;       // m: a ground vehicle with a BLUFOR crew member this close sets an IED off
+COIN_iedTriggerFootRadius   = 6;        // m: BLUFOR soldiers on foot this close set it off, if there are COIN_iedTriggerFootCount of them (civilians, militia, resistance and aircraft never do)
+COIN_iedTriggerFootCount    = 2;        // Soldiers on foot needed within the radius. As in Liberation (2 or 3 there): a lone defuser can step up to a IED, a group cannot. ACE defusing needs a few metres, one soldier alone must stay safe
+COIN_iedAlertDistance       = 300;      // m: an engine trigger around every IED; BLUFOR inside starts the exact check of this IED, nothing runs while there is none (as Liberation checks its IEDs only in active sectors)
+COIN_iedTriggerCheckInterval = 2;       // s between two evaluations of that trigger by the engine (a vehicle at 100 km/h covers 56 m meanwhile, the radius is 300 m)
+COIN_iedAlertInterval       = 0.2;      // s between two exact checks while the army is within the alert distance. A vehicle at 100 km/h (28 m/s) needs about 0.5 s through the trigger area of one IED, 1 s let fast ones pass (first test)
+COIN_iedDebugColor          = "ColorRed"; // Debug map, one colour per variant from ticket 4.2 on
 COIN_iedBudgetRegenMinutes  = 30;       // Minutes per regenerated IED
 COIN_iedDecoyChance         = 0.3;
 COIN_iedRemoteChance        = 0.25;     // Share of remote-triggered IEDs (with triggerman)
