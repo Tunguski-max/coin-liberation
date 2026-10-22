@@ -15,7 +15,7 @@
         asking client only, a new intel is announced to everybody (COIN_fnc_showNotification, "Neue Intel"). The
         civilian is released after the answer has been read.
         Cooldown (ticket 3.5): a marker (also a lie) makes the interpreter wait COIN_questionCooldown s. If he asks before
-        that, he answers himself (result "cooldown") and the civilian stays unquestioned. "I know nothing" and a refusal
+        that, the civilian puts him off (result "cooldown") and stays unquestioned. "I know nothing" and a refusal
         start no cooldown. Kept per player UID in COIN_cooldownEnds, not saved.
 
     Parameter(s):
@@ -45,7 +45,7 @@ if !([_civ, _asker, COIN_talkRange + COIN_talkRangeMargin] call COIN_fnc_canQues
     false
 };
 
-// Cooldown (ticket 3.5): the interpreter answers himself and the civilian stays unquestioned. The key is the player, not
+// Cooldown (ticket 3.5): the civilian puts the interpreter off and stays unquestioned. The key is the player, not
 // his unit, so the respawn does not end it, and a second interpreter has his own
 private _key = getPlayerUID _asker;
 private _cooldownEnd = if (COIN_enableCooldown) then {COIN_cooldownEnds getOrDefault [_key, 0]} else {0};
