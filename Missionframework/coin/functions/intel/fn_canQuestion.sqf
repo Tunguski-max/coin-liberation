@@ -5,9 +5,12 @@
     Description:
         May this interpreter question this civilian now? (ticket 3.1, DESIGN 7). Used by the action menu entry on the client and
         again on the server before an answer is given, so the client cannot talk its way past the rules.
-        The civilian must be alive, on foot, conscious, of the civilian side, not a player, not captive (ACE surrendered or
-        handcuffed: that covers prisoners, who are interrogated instead, and Liberation's informant while he waits to be
-        picked up), not questioned before and not in a conversation. The asker must be an interpreter, alive, conscious
+        The civilian must be alive, on foot, conscious, of the civilian side, not a player, not a former enemy (Liberation
+        puts a surrendering fighter into a civilian group at once, but sets him ACE surrendered a moment later, and an
+        unconscious enemy becomes a civilian when a town is taken: such a unit has an enemy infantry class, the test
+        Liberation's own prisoner script uses), not captive (ACE surrendered or handcuffed: that covers Liberation's
+        informant while he waits to be picked up), not questioned before and not in a conversation.
+        Prisoners are interrogated instead (ticket 3.8). The asker must be an interpreter, alive, conscious
         and close enough.
 
     Parameter(s):
@@ -40,6 +43,7 @@ if (!COIN_enableQuestioning || {isNull _civ} || {isNull _asker}) exitWith {false
 && {(vehicle _civ) isEqualTo _civ}
 && {lifeState _civ != "INCAPACITATED"}
 && {!(_civ getVariable ["ACE_isUnconscious", false])}
+&& {!((toLower typeOf _civ) in KPLIB_o_inf_classes) && {!(typeOf _civ in militia_squad)}}
 && {!(_civ getVariable ["ace_captives_isHandcuffed", false])}
 && {!(_civ getVariable ["ace_captives_isSurrendered", false])}
 && {!(_civ getVariable ["COIN_questioned", false])}
