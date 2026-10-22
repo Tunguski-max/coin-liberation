@@ -154,11 +154,12 @@ Ziel: Zivilisten befragen liefert brauchbare (oder gelogene) Hinweise auf Nester
 Schnitt in dünne, einzeln testbare Durchstiche (Grilling 2026-10-22, DESIGN 7 v0.5, ADR 0021).
 3.1 bis 3.4 sind der Kern, danach ist die DoD im Prinzip spielbar.
 
-- [ ] 3.1 (#58) Durchstich Befragung: Dolmetscher-Rolle am Slot (übersteht Respawn), Aktionsmenü „Nach der Miliz fragen“
+- [x] 3.1 (#58) Durchstich Befragung: Dolmetscher-Rolle am Slot (übersteht Respawn), Aktionsmenü „Nach der Miliz fragen“
   nur für den Dolmetscher an befragbaren Zivilisten (zu Fuß, ansprechbar, kein Gefangener, kein Informant), Zivilist bleibt
   stehen, Antwort als Untertitel nur beim Dolmetscher; Ergebnis vorerst immer wahr (Gerücht, Hinweis oder Tipp, Nest im
   Umkreis von etwa 4 km, sonst das nächste), Marker für die Seite, einmal pro Zivilist, noch nicht gespeichert;
   Debug zeigt die Nest-ID
+  (am 2026-10-22 getestet: Dolmetscher-Slot per Rollenbeschreibung erkannt, Eintrag im Aktionsmenü aus 5 m, Zivilist bleibt stehen, Untertitel und Kreis um das Nest (Mitte 20–80 % des Radius daneben), zweite Frage derselbe Zivilist nicht, Gefangener ohne Eintrag; nicht getestet: Respawn, Bewusstlose, Fahrzeug, ergebener Ex-Gegner vor dem Fesseln, Schalter aus; Mehrspieler: siehe 7.5)
 - [ ] 3.2 (#59) Intel speichern: `COIN_saveVersion` 2 mit Umwandlung von Version 1, Marker verschwinden mit ihrem zerstörten Nest (ADR 0021)
 - [ ] 3.3 (#60) Triangulation: ein Kreis pro Nest, jeder wahre Treffer verkleinert ihn; Symbol pro Nest-Typ ab Hinweis, Gerücht neutral
 - [ ] 3.4 (#61) Ruf-Gewichte und Lügen: alle Ergebnisse nach Ruf-Band, Lüge mit Ersatzpunkt, zufälligem Typ und Größe;
