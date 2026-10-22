@@ -330,7 +330,8 @@ Festgelegt beim Grilling für Phase 3 (2026-10-22). Speicherformat, Triangulatio
 - **Gefangene verhören** (Aktionsmenü „Verhören“): überall möglich, einmal pro Gefangenem. Ein Verhör bringt 1–2 Ergebnisse
   mit eigenen Gewichten, die nicht vom Ruf abhängen (ein Gefangener gehört nicht zur Bevölkerung): mehr Tipps, wenig
   Lügen, beim ersten Ergebnis nie „Ich weiß nichts“. Ein Kämpfer aus einem Camp nennt das Nest seines Camps, eine
-  Nest-Wache ein anderes Nest, alle anderen folgen der Regel „Welches Nest“. Die Abklingzeit gilt auch hier.
+  Nest-Wache ein anderes Nest, alle anderen folgen der Regel „Welches Nest“. Beide Ergebnisse eines Verhörs betreffen dasselbe
+  Nest: ein zweites wahres Ergebnis verkleinert nur den Kreis. Die Abklingzeit gilt auch hier.
   Liberations Belohnung für das Abliefern an der FOB (Intel-Punkte) bleibt zusätzlich.
 - **Dokumente** (Entscheidung E13): echte **ACE Intel Items** im Inventar. Sie werden eingesammelt und zum Dolmetscher
   gebracht, der sie über eine Selbst-Interaktion „Dokumente auswerten“ auswertet. Erst dann entsteht der Marker (Hinweis oder

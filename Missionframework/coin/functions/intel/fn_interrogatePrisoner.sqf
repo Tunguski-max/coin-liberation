@@ -8,8 +8,9 @@
         keeps him in the conversation until the answer has been read. After a short pause (COIN_questionDelay) there are
         one or two results (the second with the chance COIN_interrogationSecondChance), each rolled by its own weights
         (COIN_interrogationWeights, they do not depend on the reputation). The first result is never "I know nothing" as
-        long as there is a nest to tell of. The nest a result is about: COIN_fnc_pickInterrogationNest. Each result is
-        made as for a civilian (COIN_fnc_resolveOutcome), a second true hit on the same nest makes its circle smaller. The
+        long as there is a nest to tell of. The nest the results are about: COIN_fnc_pickInterrogationNest, one for both
+        results. Each result is made as for a civilian (COIN_fnc_resolveOutcome), a second true hit on the same nest makes
+        its circle smaller. The
         answer goes to the asking client only, new intel is announced to everybody once. The cooldown (ticket 3.5) is
         checked before and started by a marker, as for a civilian (COIN_fnc_reserveAsking, COIN_fnc_finishAsking).
         Liberation's intel points for handing him in at the FOB stay as they are.
@@ -62,10 +63,11 @@ _prisoner setVariable ["COIN_talking", true, true];
             name _asker, _name, typeOf _prisoner, _prisoner getVariable ["COIN_origin", []], _count
         ];
 
+        // One nest for all results: a second true result only shrinks its circle, a prisoner never names two nests
+        private _nest = [_prisoner] call COIN_fnc_pickInterrogationNest;
         private _levels = [];
         private _notifications = [];
         for "_i" from 0 to (_count - 1) do {
-            private _nest = [_prisoner] call COIN_fnc_pickInterrogationNest;
             private _weights = COIN_interrogationWeights select _i;
             private _outcome = [_weights, _nest] call COIN_fnc_rollOutcome;
             diag_log format ["[COIN] intel: interrogation result %1: weights %2 -> %3", _i + 1, _weights, _outcome];
