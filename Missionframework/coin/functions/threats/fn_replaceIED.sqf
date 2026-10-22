@@ -11,14 +11,16 @@
         polling: one sleeping thread per replacement. Must be spawned. Server only.
 
     Parameter(s):
-        _nestId - Id of the workshop [NUMBER]
+        _nestId  - Id of the workshop [NUMBER]
+        _variant - Variant of the used IED: its replacement is of the same kind, so the share of decoys stays as laid out [STRING]
 
     Returns:
         Nothing
 */
 
 params [
-    ["_nestId", -1, [0]]
+    ["_nestId", -1, [0]],
+    ["_variant", "", [""]]
 ];
 
 if (!isServer) exitWith {};
@@ -41,11 +43,11 @@ while {GRLIB_endgame == 0} do {
     sleep (COIN_iedBudgetRegenMinutes * 60);
     if !(call _mayReplace) exitWith {};
 
-    private _ied = [_nestId] call COIN_fnc_createIED;
+    private _ied = [_nestId, _variant] call COIN_fnc_createIED;
     if (_ied isNotEqualTo []) exitWith {
         diag_log format [
-            "[COIN] ieds: workshop %1 replaced a used IED with IED %2, %3 of %4 IEDs now",
-            _nestId, _ied select 0, {(_x select 1) isEqualTo _nestId} count COIN_ieds, COIN_iedBudgetPerWorkshop
+            "[COIN] ieds: workshop %1 replaced a used IED with IED %2 (%5), %3 of %4 IEDs now",
+            _nestId, _ied select 0, {(_x select 1) isEqualTo _nestId} count COIN_ieds, COIN_iedBudgetPerWorkshop, _ied select 4
         ];
         if (COIN_debug) then {
             [] call COIN_fnc_drawIEDMarkers;
