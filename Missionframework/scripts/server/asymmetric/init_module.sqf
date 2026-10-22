@@ -14,4 +14,8 @@ asymm_blocked_sectors = [];
 publicVariable "asymm_blocked_sectors";
 
 // Start module loop
-execVM "scripts\server\asymmetric\asymmetric_loop.sqf";
+// COIN: the loop only spawns IEDs and guerilla ambushes in liberated towns; replaced by the nest-fed threats (ticket 4.7, ADR 0008).
+// Convoy ambush and sector guerilla above are not started by the loop and stay.
+if !([] call COIN_fnc_replacesLiberationThreats) then {
+    execVM "scripts\server\asymmetric\asymmetric_loop.sqf";
+};

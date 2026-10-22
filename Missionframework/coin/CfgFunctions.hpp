@@ -54,6 +54,9 @@ class COIN {
         // May this secondary mission be started? FOB hunting is switched off (ticket 2.12, hooks 15 and 16)
         class secondaryMissionStatus {};
 
+        // Are Liberation's IEDs and town ambushes switched off? (ticket 4.7, hooks 22 and 23)
+        class replacesLiberationThreats {};
+
         // Server loop: Liberation's enemy AI caps = COIN_maxEnemyAI x Unitcap + COIN units (ticket 2.13, ADR 0015)
         class aiBudget {};
 

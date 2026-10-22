@@ -192,8 +192,9 @@ Schnitt in dünne, einzeln testbare Durchstiche (Grilling 2026-10-22, DESIGN 7 v
 Ziel: IEDs, VBIEDs, Attentäter und Hinterhalte, gespeist aus den Nestern.
 Festgelegt beim Grilling am 2026-10-22 (DESIGN 6, ADR 0022). Reihenfolge: 4.7, 4.1a, 4.1b, 4.2a, 4.2b, 4.8, 4.3, 4.4, 4.5.
 
-- [ ] 4.7 (#79) Liberations IEDs und Hinterhalte in Ortschaften per Schalter abschalten (ADR 0008); Konvoi-Überfall und
-  Sektor-Guerilla bleiben
+- [x] 4.7 (#79) Liberations IEDs und Hinterhalte in Ortschaften per Schalter abschalten (ADR 0008); Konvoi-Überfall und
+  Sektor-Guerilla bleiben (Hooks 22 und 23; am 2026-10-22 im Spiel getestet: Schalter an → `Count: 0` und keine Schleife,
+  Schalter aus → IEDs wieder da; Konvoi-Überfall nicht getestet)
 - [ ] 4.1a (#80) Durchstich IED: Budget pro Werkstatt, Platzierung an Straßen im Radius, Auslösung nur durch die Armee
 - [ ] 4.1b (#81) Nachschub, Werkstatt zerstört → kein Nachschub (früher 4.6), Hinweis-Objekte, keine IED-Beute
 - [ ] 4.2a (#82) Attrappe; ACE-Entschärfen bringt Ruf
