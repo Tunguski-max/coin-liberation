@@ -7,11 +7,11 @@
         else English by the game language. The sentences come from COIN_questionAnswers by the result; a hint or a tip
         has them by nest type (COIN_questionAnswersByType), but the civilian never says the type itself. A result without
         sentences gets the rumor sentences. While the cooldown of the interpreter runs (ticket 3.5) the result is "cooldown"
-        and the interpreter says it himself (COIN_cooldownAnswers), the given name is his. Sent by COIN_fnc_questionCivilian
-        to the asking client only.
+        and the interpreter says it himself (COIN_cooldownAnswers), under the name of the civilian he addressed. Sent by
+        COIN_fnc_questionCivilian to the asking client only.
 
     Parameter(s):
-        _name  - Name of the civilian, of the interpreter for "cooldown" [STRING, defaults to ""]
+        _name  - Name of the civilian [STRING, defaults to ""]
         _level - "nothing", "unsafe", "cooldown", "rumor", "hint" or "tip" [STRING, defaults to "nothing"]
         _type  - Nest type, for "hint" and "tip" [STRING, defaults to ""]
 

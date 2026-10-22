@@ -50,7 +50,7 @@ private _key = getPlayerUID _asker;
 private _cooldownEnd = if (COIN_enableCooldown) then {COIN_cooldownEnds getOrDefault [_key, 0]} else {0};
 if (_cooldownEnd > time) exitWith {
     diag_log format ["[COIN] intel: %1 may not ask yet, cooldown runs for %2 s more (%3 stays unquestioned)", name _asker, round (_cooldownEnd - time), name _civ];
-    [name _asker, "cooldown", ""] remoteExecCall ["COIN_fnc_showAnswer", owner _asker];
+    [name _civ, "cooldown", ""] remoteExecCall ["COIN_fnc_showAnswer", owner _asker];
     false
 };
 // Until the answer is known the interpreter counts as busy, so a second civilian cannot be asked within the delay.
