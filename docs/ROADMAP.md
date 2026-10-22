@@ -100,11 +100,12 @@ Ziel: Nester existieren, sind persistent und schwächen bei Zerstörung das Netz
   an anderer Stelle wie gebaut, erneuter Besuch gleich, Autos stehen, scharfe Minen auslösbar, neue Kampagne nur in
   Template-Klassen. Alle 15 Gebäude-Templates (#32) eingetragen und am 2026-10-21 getestet: alle 15 nutzbar, Nester
   spawnen stabil nach Template. Gelände-Nest siehe 2.3a; nicht getestet: Mine entschärfen
-- [ ] 2.3a Template-Mechanik für Gelände-Nester und Camps: Platzhalter-Templates von Claude,
+- [x] 2.3a Template-Mechanik für Gelände-Nester und Camps: Platzhalter-Templates von Claude,
   danach je 2–3 Templates pro Nest-Typ und für Camps von Niklas (Eden, Export um einen Richtungspfeil, ADR 0020).
   Gelände-Nest (#31) am 2026-10-21 getestet: jeder Typ als Gelände-Nest gesehen (auch per `COIN_fnc_debugTerrainNest`),
   gleicher Seed gleiches Template und gleiche Drehung, etwa die Hälfte der Wachen im Ring, Spawn und Abbau wie beim
-  Gebäude-Nest. Niklas übernimmt die Gelände-Templates von Claude (je eines pro Typ); offen: Camp-Templates
+  Gebäude-Nest. Niklas übernimmt die Gelände-Templates von Claude (je eines pro Typ). Drei Camp-Templates von Niklas (#32)
+  am 2026-10-22 getestet: `3 for camps` nutzbar, Templates 1 bis 3 im Spiel gesehen, gleicher Seed gleiches Template
 - [x] 2.4 Zerstörung erkennen, Zustand speichern, Ereignis auslösen
   (#33: Kernobjekt zerstört oder Haus eingestürzt, sofort gespeichert, Ereignis `COIN_nestDestroyed`. Am 2026-10-21 getestet:
   Kernobjekt gesprengt bei Gebäude- und Gelände-Nest, Marker grau, Ereignis je Nest einmal, kein Respawn, nach Neustart
@@ -124,7 +125,11 @@ Ziel: Nester existieren, sind persistent und schwächen bei Zerstörung das Netz
   (bleibt beim Abbau, kommt nicht wieder), Abbau nach 2 Minuten, Budget: Camp wartet mit `COIN_maxCampAI = 1` und
   erscheint danach, Zeus sieht alles, Gelände-Nester unverändert)
 - [ ] 2.9a (#35) Waffenlager bekommen 1–2 Altfahrzeuge, die mit dem Lager verschwinden
-- [ ] 2.10 Nachschub nach Zerstörung und Wechsel unentdeckter Camps
+- [x] 2.10 (#39) Nachschub nach Zerstörung und Wechsel unentdeckter Camps (am 2026-10-22 getestet: ausgehobenes Camp wird nach
+  `COIN_campReplaceMinutes` an anderer Stelle ersetzt, ein weggeteleportierter Wächter verhindert das Ausheben nicht, unentdeckte
+  Camps ziehen um und ein entdecktes bleibt, ein Camp in einer neuen Sperrzone (Sektor Kandar) wird beim Abbau versetzt, Camps
+  eines zerstörten Nests verschwinden ohne Ersatz und die Gesamtzahl folgt der Kapazität, nach Neustart 6 von 6 Camps bei
+  Kapazität 6. Netzwerkstärke der DoD: siehe 2.6, noch offen)
 - [x] 2.11 (#36) Debug-Anzeige für Camps und ihr zugehöriges Nest (getestet: Dreieck mit Linie zum Eigentümer-Nest,
   Camps eines zerstörten Nests werden grau)
 - [x] 2.12 (#26) Liberation-Nebenmission „FOB Hunting“ abschalten (ADR 0011; getestet: Hooks 15 und 16,
