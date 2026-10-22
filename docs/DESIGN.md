@@ -13,6 +13,7 @@
 > v0.5: Dolmetscher und Intel für Phase 3 festgelegt (Gespräch, Abklingzeit, Triangulation, Lügen, Verhör, Dokumente, ADR 0021).
 > v0.5.1: Dokumente als ACE Intel Items verworfen (E13).
 > v0.6: Asymmetrische Bedrohungen für Phase 4 festgelegt (Budget, IED-Varianten, VBIED, Attentäter, Hinterhalt, Warnung vor IED, ADR 0022).
+> v0.6.1: IED löst zu Fuß erst ab zwei Soldaten in etwa 6 m aus, sonst wäre Entschärfen nicht möglich (Ticket 4.1a, Test am 2026-10-22).
 > Offene Entscheidungen stehen gesammelt in [Abschnitt 12](#12-offene-entscheidungen).
 > Begriffe sind in [`CONTEXT.md`](../CONTEXT.md) definiert.
 
@@ -275,7 +276,7 @@ schon Gelegtes bleibt liegen. Darüber gilt die globale Obergrenze für IEDs (Ab
 - Platz: auf Straßen jeder Art im Einflussradius, auf der Fahrbahn oder bis etwa 4 m daneben; nicht im Ortskern
   (Sektorradius), nicht näher als 500 m an Startbasis und FOB, mindestens 300 m zwischen zwei IEDs. Engstellen werden
   nicht gesondert gesucht. Unentdeckte IEDs ziehen nicht um.
-- **Nur die Armee löst aus:** ein Fahrzeug in etwa 8 m oder ein Soldat zu Fuß in etwa 3 m. Zivilisten, Miliz,
+- **Nur die Armee löst aus:** ein Fahrzeug in etwa 8 m oder zwei Soldaten zu Fuß in etwa 6 m (wie bei Liberation: ein Einzelner kann herantreten und entschärfen). Zivilisten, Miliz,
   Widerstand und Luftfahrzeuge nie. Beschuss oder Sprengen bringt ein echtes IED zur Explosion (Sprengen an Ort und
   Stelle ist eine Gegenmaßnahme, bringt aber keinen Ruf).
 - Varianten (Startwerte): 60 % vergraben, 25 % ferngezündet, 15 % Attrappen. Alle zählen zum Budget.
