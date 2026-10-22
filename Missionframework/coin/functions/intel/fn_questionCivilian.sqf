@@ -9,7 +9,8 @@
         the answer is chosen by the weights of the reputation band (COIN_fnc_getReputationBand, COIN_intelWeightsByBand,
         ticket 3.4): nothing, a true level (rumor, hint, tip) about a nest as COIN_fnc_pickIntelNest says, or a lie
         (COIN_fnc_createLie), which the player cannot tell from a true answer. The warning comes with ticket 3.6, until
-        then its weight counts as "nothing". Without an active nest the civilian knows nothing. The answer goes to the
+        then its weight counts as "nothing". Without an active nest the civilian knows nothing. With armed enemies close
+        (COIN_fnc_isUnsafe) he refuses instead, gives no intel and can be asked again later. The answer goes to the
         asking client only, a new intel is announced to everybody (COIN_fnc_showNotification, "Neue Intel"). The
         civilian is released after the answer has been read.
 
@@ -63,12 +64,18 @@ _civ setVariable ["COIN_talking", true, true];
         private _outcome = ["nothing", "rumor", "hint", "tip", "nothing", "lie"] selectRandomWeighted _weights;
         // Without an active nest there is nothing to tell and nothing to lie about
         if (_nest isEqualTo [] || {_outcome isEqualTo "lie" && {!COIN_enableLies}}) then {_outcome = "nothing"};
+        // Armed enemies close: he refuses before any result counts. He is not used up, the interpreter may ask again later
+        if ([_civ] call COIN_fnc_isUnsafe) then {
+            _outcome = "unsafe";
+            _civ setVariable ["COIN_questioned", false, true];
+        };
         diag_log format [
             "[COIN] intel: %1 asked %2 (%3): reputation %4, band %5, weights %6 -> %7",
             name _asker, _name, typeOf _civ, missionNamespace getVariable ["KP_liberation_civ_rep", 0], _band, _weights, _outcome
         ];
 
         private _intel = [];
+        if (_outcome isEqualTo "unsafe") then {_level = "unsafe"};
         switch (_outcome) do {
             case "lie": {_intel = [getPosATL _civ] call COIN_fnc_createLie;};
             case "rumor";

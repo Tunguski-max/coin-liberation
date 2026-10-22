@@ -173,6 +173,9 @@ class COIN {
         // Server: removes one intel and its map markers
         class removeIntel {};
 
+        // Server: armed enemies close to a civilian, so he refuses to talk (ticket 3.4)
+        class isUnsafe {};
+
         // Server: makes a lie, a circle around a hidden fake point that looks like a true one (ticket 3.4)
         class createLie {};
 
