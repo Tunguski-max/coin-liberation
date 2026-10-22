@@ -44,10 +44,11 @@ if (COIN_enableVehicleLimits) then {
 diag_log format ["[COIN] init: FOB hunting switched off=%1", COIN_disableFobHunting];
 
 // Liberation's IEDs and town ambushes (ticket 4.7, ADR 0008): decided in hooks 22 and 23, no loop
-diag_log format [
-    "[COIN] init: Liberation threats replaced=%1 (sector IEDs off, town IEDs and ambush off; convoy raid and sector guerilla stay)",
-    [] call COIN_fnc_replacesLiberationThreats
-];
+if ([] call COIN_fnc_replacesLiberationThreats) then {
+    diag_log "[COIN] init: Liberation threats replaced=true (sector IEDs off, town IEDs and ambush off; convoy raid and sector guerilla stay)";
+} else {
+    diag_log "[COIN] init: Liberation threats replaced=false (Liberation IEDs and ambushes run as before)";
+};
 
 // AI budget (ticket 2.13, ADR 0015): Liberation's caps = COIN_maxEnemyAI x Unitcap, COIN units on top
 if (COIN_enableAIBudget) then {
