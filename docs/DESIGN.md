@@ -297,8 +297,8 @@ Festgelegt beim Grilling für Phase 3 (2026-10-22). Speicherformat, Triangulatio
 - Jeder Zivilist kann nur **einmal** befragt werden.
 - **Abklingzeit pro Dolmetscher:** Erzeugt eine Befragung oder ein Verhör einen Marker (auch eine Lüge), muss der Dolmetscher
   etwa 5 Minuten warten. Fragt er vorher, antwortet er selbst („Wir fallen zu sehr auf, warten wir etwas.“) und der
-  Zivilist bleibt unbefragt. Nach „Ich weiß nichts“ gibt es keine Abklingzeit. Sie gilt pro Slot, übersteht den Respawn und
-  wird nicht gespeichert. Grund: Liberation spawnt bei jeder Aktivierung eines Sektors neue Zivilisten, „einmal pro
+  Zivilist bleibt unbefragt. Nach „Ich weiß nichts“ gibt es keine Abklingzeit. Sie gilt pro Spieler (Spieler-ID), übersteht den Respawn und
+  wird nicht gespeichert. Der Satz erscheint unter dem Namen des angesprochenen Zivilisten. Grund: Liberation spawnt bei jeder Aktivierung eines Sektors neue Zivilisten, „einmal pro
   Zivilist“ allein ließe eine Ortschaft abgrasen.
 - Mögliche Ergebnisse, gewichtet nach Ruf-Band (Gewichte in `coin_config.sqf`):
   - „Ich weiß nichts.“
