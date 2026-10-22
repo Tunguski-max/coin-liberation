@@ -175,6 +175,9 @@ while {COIN_enableNestSpawn} do {
                                 if (!_discovered) then {
                                     _camp set [3, true];
                                     diag_log format ["[COIN] camps: camp %1 discovered", _id];
+                                    if (COIN_debug) then {
+                                        [] call COIN_fnc_drawCampMarkers;
+                                    };
                                 };
                                 private _technical = (_content select {_x getVariable ["COIN_campTechnical", false]}) param [0, objNull];
                                 _spawnedCamps set [_id, [_content, time, _technical]];
