@@ -28,7 +28,8 @@ private _nextId = 1;
 
 if !(_block isEqualTo []) then {
     private _version = _block select 0;
-    if (_version < COIN_saveVersion) then {
+    // Version 1 (phase 2) has nests only. A later version needs its own conversion here, not this branch
+    if (_version isEqualTo 1) then {
         diag_log format ["[COIN] intel: save version %1 has no intel, converted to version %2 with an empty list", _version, COIN_saveVersion];
     } else {
         {

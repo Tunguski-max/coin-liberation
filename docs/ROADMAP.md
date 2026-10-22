@@ -157,7 +157,7 @@ Schnitt in dünne, einzeln testbare Durchstiche (Grilling 2026-10-22, DESIGN 7 v
 - [x] 3.1 (#58) Durchstich Befragung: Dolmetscher-Rolle am Slot (übersteht Respawn), Aktionsmenü „Nach der Miliz fragen“
   nur für den Dolmetscher an befragbaren Zivilisten (zu Fuß, ansprechbar, kein Gefangener, kein Informant), Zivilist bleibt
   stehen, Antwort als Untertitel nur beim Dolmetscher; Ergebnis vorerst immer wahr (Gerücht, Hinweis oder Tipp, Nest im
-  Umkreis von etwa 4 km, sonst das nächste), Marker für die Seite, einmal pro Zivilist, noch nicht gespeichert;
+  Umkreis von etwa 4 km, sonst das nächste), Marker für die Seite, einmal pro Zivilist (Speichern: 3.2);
   Debug zeigt die Nest-ID
   (am 2026-10-22 getestet: Dolmetscher-Slot per Rollenbeschreibung erkannt, Eintrag im Aktionsmenü aus 5 m, Zivilist bleibt stehen, Untertitel und Kreis um das Nest (Mitte 20–80 % des Radius daneben), zweite Frage derselbe Zivilist nicht, Gefangener und ergebener Ex-Gegner ohne Eintrag, Zivilist im Fahrzeug ohne Eintrag, Eintrag nach dem Respawn wieder da; nicht getestet: Bewusstlose, Dolmetscher im Fahrzeug; Mehrspieler: siehe 7.5)
 - [ ] 3.2 (#59) Intel speichern: `COIN_saveVersion` 2 mit Umwandlung von Version 1, Marker verschwinden mit ihrem zerstörten Nest (ADR 0021)
