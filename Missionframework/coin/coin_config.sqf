@@ -383,6 +383,13 @@ COIN_documentsAsAceItems    = false;
 COIN_intelWeightsLow        = [40, 15,  5,  0,  5, 35];
 COIN_intelWeightsMid        = [30, 25, 20,  5, 10, 10];
 COIN_intelWeightsHigh       = [20, 20, 30, 15, 12,  3];
+COIN_intelWeightsByBand     = [["low", COIN_intelWeightsLow], ["mid", COIN_intelWeightsMid], ["high", COIN_intelWeightsHigh]];
+
+// Lies (ticket 3.4, ADR 0021): the circle is built around a hidden fake point, the lie goes when it has been searched on foot
+COIN_lieTownShare           = 0.5;      // Share of the fake points at the edge of a town (COIN_nestBuildingRing), the rest is open ground
+COIN_lieSpotTries           = 40;       // Tries to find a fake point; without one the civilian knows nothing
+COIN_lieSearchDistance      = 50;       // m: a player on foot this close to the fake point has searched the area
+COIN_lieSearchInterval      = 3;        // s between two checks for searchers
 
 // ---------------------------------------------------------------------------
 // Asymmetric threats (Phase 4)

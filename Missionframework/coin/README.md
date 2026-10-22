@@ -37,6 +37,7 @@ coin/
     │   └── fn_campFitsBudget.sqf       COIN_fnc_campFitsBudget: darf ein Camp mit N Kämpfern jetzt spawnen? Ganz oder gar nicht (COIN_maxCampAI)
     ├── common/
     │   ├── fn_findByType.sqf           COIN_fnc_findByType: Zeile einer Config-Tabelle nach Nest-Typ
+    │   ├── fn_getReputationBand.sqf    COIN_fnc_getReputationBand: Ruf-Band „low“, „mid“ oder „high“ (Ticket 3.4)
     │   ├── fn_addToCurators.sqf        COIN_fnc_addToCurators: alles, was COIN erzeugt, für jeden Zeus bearbeitbar
     │   ├── fn_curatorSync.sqf          COIN_fnc_curatorSync: Server-Schleife, auch für später erzeugte Kuratoren
     │   ├── fn_seededRandom.sqf         COIN_fnc_seededRandom: wiederholbarer Zufall aus dem gespeicherten Seed
@@ -61,6 +62,12 @@ coin/
     │   ├── fn_questionCivilian.sqf     COIN_fnc_questionCivilian: Server, prüft die Regeln, wählt Nest und Stufe, antwortet nur dem Dolmetscher
     │   ├── fn_pickIntelNest.sqf        COIN_fnc_pickIntelNest: zufälliges aktives Nest im Umkreis, sonst das nächste
     │   ├── fn_createIntel.sqf          COIN_fnc_createIntel: Intel-Datensatz (Format von ADR 0021) und Kreis um das Nest, nicht in der Mitte
+    │   ├── fn_createLie.sqf            COIN_fnc_createLie: Lüge, Kreis um einen verborgenen Ersatzpunkt, sieht aus wie ein wahrer Marker (Ticket 3.4)
+    │   ├── fn_findFakeSpot.sqf         COIN_fnc_findFakeSpot: glaubhafter Ersatzpunkt (Ortsrand oder freies Gelände, Regeln der Nester)
+    │   ├── fn_intelSearchLoop.sqf      COIN_fnc_intelSearchLoop: Server-Schleife, eine Lüge verschwindet, wenn ein Spieler zu Fuß am Ersatzpunkt war
+    │   ├── fn_removeIntel.sqf          COIN_fnc_removeIntel: entfernt ein Intel samt Markern
+    │   ├── fn_getIntelRadius.sqf       COIN_fnc_getIntelRadius: Start-Radius nach Stufe
+    │   ├── fn_offsetCenter.sqf         COIN_fnc_offsetCenter: Mitte eines Kreises um Nest oder Ersatzpunkt, nie auf dem Punkt
     │   ├── fn_shrinkIntel.sqf          COIN_fnc_shrinkIntel: Triangulation, weiterer wahrer Treffer verkleinert den Kreis des Nests (Ticket 3.3)
     │   ├── fn_drawIntelMarker.sqf      COIN_fnc_drawIntelMarker: globale Kartenmarker eines Intels
     │   ├── fn_loadIntel.sqf            COIN_fnc_loadIntel: Server, Intel aus dem Spielstand (Version 1: leere Liste), Marker neu zeichnen (Ticket 3.2)

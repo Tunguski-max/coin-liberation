@@ -66,6 +66,8 @@ if (COIN_enableQuestioning) then {
     COIN_intel = [];
     COIN_intelNextId = 1;
     diag_log format ["[COIN] init: questioning on, nest range %1 m, talk range %2 m", COIN_intelNestRange, COIN_talkRange];
+    // Lies (ticket 3.4): a player on foot at the fake point removes the lie
+    [] spawn COIN_fnc_intelSearchLoop;
 } else {
     diag_log "[COIN] init: questioning off";
 };

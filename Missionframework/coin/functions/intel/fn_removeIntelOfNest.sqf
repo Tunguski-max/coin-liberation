@@ -22,11 +22,7 @@ params [
 if (!isServer || {_nestId < 0}) exitWith {0};
 
 private _removed = COIN_intel select {(_x select 1) isEqualTo _nestId};
-{
-    deleteMarker format ["COIN_intel_%1_area", _x select 0];
-    deleteMarker format ["COIN_intel_%1", _x select 0];
-} forEach _removed;
-COIN_intel = COIN_intel select {!((_x select 1) isEqualTo _nestId)};
+{[_x] call COIN_fnc_removeIntel;} forEach _removed;
 
 if !(_removed isEqualTo []) then {
     diag_log format ["[COIN] intel: nest %1 destroyed, %2 intel removed (ids %3), %4 left", _nestId, count _removed, _removed apply {_x select 0}, count COIN_intel];

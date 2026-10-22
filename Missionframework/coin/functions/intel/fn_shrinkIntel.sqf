@@ -37,13 +37,10 @@ private _changed = false;
 
 private _newRadius = (((_oldRadius * COIN_triangulationFactor) min _levelRadius) max COIN_intelRadiusMin) min _oldRadius;
 if (_newRadius < _oldRadius) then {
-    private _minShare = COIN_intelCenterOffset select 0;
-    private _maxShare = COIN_intelCenterOffset select 1;
     private _bestCenter = _center;
     private _bestExcess = 1e10;     // m the new circle sticks out of the old one
     for "_i" from 1 to COIN_intelCenterTries do {
-        private _offset = _newRadius * (_minShare + random (_maxShare - _minShare));
-        private _candidate = _nestPos getPos [_offset, random 360];
+        private _candidate = [_nestPos, _newRadius] call COIN_fnc_offsetCenter;
         private _excess = (_candidate distance2D _center) + _newRadius - _oldRadius;
         if (_excess < _bestExcess) then {
             _bestExcess = _excess;

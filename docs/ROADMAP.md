@@ -166,6 +166,7 @@ Schnitt in dünne, einzeln testbare Durchstiche (Grilling 2026-10-22, DESIGN 7 v
   (am 2026-10-22 mit Befehlen in der Debug-Konsole getestet und von Niklas bestätigt; ein Gerücht nach einem Tipp verkleinert den Kreis weiter, nach der Formel, vergrößert ihn nie)
 - [ ] 3.4 (#61) Ruf-Gewichte und Lügen: alle Ergebnisse nach Ruf-Band, Lüge mit Ersatzpunkt, zufälligem Typ und Größe;
   Spieler zu Fuß nahe am Ersatzpunkt entfernt sie ohne Meldung (ADR 0011, 0021); Debug zeigt wahr oder gelogen
+  (implementiert, ungetestet; die Warnung zählt bis 3.6 als „Ich weiß nichts“)
 - [ ] 3.5 (#62) Abklingzeit pro Dolmetscher nach jedem Marker (auch Lüge), Dolmetscher bremst selbst, Zivilist bleibt unbefragt
 - [ ] 3.6 (#63) Warnung: Kreis um ein Camp in der Nähe, nicht gespeichert (IED und Hinterhalt ab Phase 4)
 - [ ] 3.7 (#64) Eigene Bevölkerung: 4–8 Zivilisten im Kern befreiter Ortschaften bei Spielernähe, im Zivilisten-Budget
