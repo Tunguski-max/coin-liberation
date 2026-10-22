@@ -9,6 +9,8 @@
         Active building nests spawn with COIN_fnc_spawnBuildingNest, terrain nests with COIN_fnc_spawnTerrainNest
         (only while COIN_enableTerrainNests is true).
         A nest that could not be spawned (house gone, no terrain template) is not tried again until the next server start.
+        Every check also calls COIN_fnc_manageCamps (ticket 2.10: replace, move and retire camps) and looks whether a
+        spawned camp was cleared (COIN_fnc_checkCampCleared).
         Camps (ticket 2.9, COIN_enableCampSpawn) use the same distances and delay: a camp spawns after COIN_fnc_planCamp
         only while the AI budget has room for all its fighters (COIN_fnc_campFitsBudget, ADR 0015), otherwise it waits and
         the RPT says so once. The first spawn marks it discovered. COIN_fnc_removeCamp takes the content away.
@@ -39,7 +41,7 @@ private _failed = [];
 
 // Camp id -> [objects and units, time a player was last within COIN_despawnDistance, technical]; camps that cannot be
 // spawned (no camp template, not tried again); camps that wait for room in the AI budget (logged once)
-private _spawnedCamps = createHashMap;
+private _spawnedCamps = missionNamespace getVariable ["COIN_spawnedCamps", createHashMap];   // Shared with COIN_fnc_manageCamps
 private _failedCamps = [];
 private _waitingCamps = [];
 
@@ -138,7 +140,9 @@ while {COIN_enableNestSpawn} do {
         };
     } forEach COIN_nests;
 
-    // Camps (ticket 2.9): the same distances and delay as nests; spawn only while the budget has room for the whole camp
+    // Camps: first their life (replace, move, retire; ticket 2.10), then spawn and removal like nests (ticket 2.9)
+    [] call COIN_fnc_manageCamps;
+
     if (COIN_enableCampSpawn && {!isNil "COIN_camps"}) then {
         {
             private _camp = _x;
@@ -148,7 +152,12 @@ while {COIN_enableNestSpawn} do {
             private _entry = _spawnedCamps getOrDefault [_id, []];
 
             if (_entry isEqualTo []) then {
-                if (_hasPresence && {_distance <= COIN_spawnDistance} && {!(_id in _failedCamps)}) then {
+                if (
+                    _hasPresence
+                    && {_distance <= COIN_spawnDistance}
+                    && {(_camp select 6) isEqualTo "active"}
+                    && {!(_id in _failedCamps)}
+                ) then {
                     private _plan = [_camp] call COIN_fnc_planCamp;
                     if (_plan isEqualTo []) then {
                         _failedCamps pushBack _id;
@@ -166,6 +175,9 @@ while {COIN_enableNestSpawn} do {
                                 if (!_discovered) then {
                                     _camp set [3, true];
                                     diag_log format ["[COIN] camps: camp %1 discovered", _id];
+                                    if (COIN_debug) then {
+                                        [] call COIN_fnc_drawCampMarkers;
+                                    };
                                 };
                                 private _technical = (_content select {_x getVariable ["COIN_campTechnical", false]}) param [0, objNull];
                                 _spawnedCamps set [_id, [_content, time, _technical]];
@@ -183,6 +195,10 @@ while {COIN_enableNestSpawn} do {
                     };
                 };
             } else {
+                // Cleared: no fighter of the camp can fight any more (replacement planned by COIN_fnc_checkCampCleared)
+                if (COIN_enableCampLifecycle) then {
+                    [_camp, _entry] call COIN_fnc_checkCampCleared;
+                };
                 if (_hasPresence && {_distance <= COIN_despawnDistance}) then {
                     _entry set [1, time];
                 } else {
@@ -192,7 +208,7 @@ while {COIN_enableNestSpawn} do {
                     };
                 };
             };
-        } forEach COIN_camps;
+        } forEach (COIN_camps apply {_x});
     };
 
     sleep COIN_spawnCheckInterval;

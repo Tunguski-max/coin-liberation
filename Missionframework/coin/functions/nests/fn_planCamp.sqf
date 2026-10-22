@@ -10,7 +10,7 @@
         Server only.
 
     Parameter(s):
-        _camp - Camp [ARRAY: id, nest id, position, discovered, seed, technical gone]
+        _camp - Camp [ARRAY, layout in COIN_fnc_createCamp]
 
     Returns:
         [guards, camp template index, direction, technical class ("" if none), fighters in all], [] if there is no

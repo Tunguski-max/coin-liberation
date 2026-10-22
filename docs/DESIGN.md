@@ -1,6 +1,6 @@
 # Design: COIN Liberation (Arbeitstitel)
 
-> Status: **Entwurf v0.4.4** – Grundlage für die Umsetzung mit Claude Code.
+> Status: **Entwurf v0.4.5** – Grundlage für die Umsetzung mit Claude Code.
 > v0.2: Entscheidungen aus Phase 0 eingearbeitet (ADR 0008–0015, `docs/kp-liberation-map.md`).
 > v0.3: Spielfeld und Ausrüstung für Phase 1 festgelegt (ADR 0007, 0016), Abgleich mit Hearts and Minds.
 > v0.3.1: Sektorauswahl von Hand ergänzt (ADR 0016), Ressourcen-Wirtschaft (ADR 0017).
@@ -9,6 +9,7 @@
 > v0.4.2: Mindestens 2 Nester pro Typ, Häuser passend zum Typ (Fläche, Gebäudepositionen, Klassenliste der VBIED-Garage).
 > v0.4.3: Gebäude-Nester nach Templates pro Hausklasse und Nest-Typ (ADR 0019).
 > v0.4.4: Gelände-Nester nach Templates mit Richtungspfeil, Hangneigung und Wachenring (ADR 0020).
+> v0.4.5: Meldung an alle Spieler bei zerstörtem Nest und ausgehobenem Camp (Ticket 2.14).
 > Offene Entscheidungen stehen gesammelt in [Abschnitt 12](#12-offene-entscheidungen).
 > Begriffe sind in [`CONTEXT.md`](../CONTEXT.md) definiert.
 
@@ -158,6 +159,8 @@ die jeweils einen **Einflussradius** haben und dort einen konkreten Effekt erzeu
   (z. B. Werkbank) stehen nur als Requisite daneben. Löscht Zeus das Kernobjekt, ist das keine Zerstörung.
 - Die Zerstörung wird sofort gespeichert und löst ein Ereignis aus. Daran hängen sich spätere Phasen:
   Ruf (Phase 5), Readiness-Abzug (Phase 6, ADR 0013) und Dokumente (Phase 3).
+- **Meldung an die Spieler:** Wird ein Nest zerstört, sehen es alle Spieler als Einblendung wie bei einem verlorenen FOB:
+  Nest-Typ, keine Position (Entscheidung 2026-10-22). Ticket 2.14.
 - Beim Zerstören besteht eine Chance auf **Intel-Gegenstände** (Dokumente), die auf ein anderes Nest zeigen.
 - *Später/optional:* Bei niedrigem Ruf kann die Miliz in Regionen ohne Spielerpräsenz langsam
   neue Nester aufbauen. Das hält das Netzwerk lebendig.
@@ -204,6 +207,8 @@ und sind die zweite Intel-Quelle neben dem Dolmetscher.
   Platz, entsteht es, sobald wieder Platz ist.
 - Der Technical eines Camps ist nicht gesperrt und kann erbeutet werden.
 - Camps nutzen dieselbe Template-Mechanik wie Gelände-Nester, mit eigenen 2–3 Camp-Templates (ohne Kernobjekt).
+- Wird ein Camp ausgehoben, sehen es **alle** Spieler als Einblendung, ohne Position und ohne Nest (Entscheidung 2026-10-22: eine
+  Sitzung dauert Stunden und Spieler begegnen Camps selten; die Spur zum Nest bleibt Intel, Phase 3). Ticket 2.14.
 
 **Wie viele Camps es gibt (Entscheidung E8)**
 

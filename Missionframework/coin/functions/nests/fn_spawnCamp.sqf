@@ -15,7 +15,7 @@
         must run scheduled (the vehicle spawn waits).
 
     Parameter(s):
-        _camp     - Camp [ARRAY: id, nest id, position, discovered, seed, technical gone]
+        _camp     - Camp [ARRAY, layout in COIN_fnc_createCamp]
         _plan     - Result of COIN_fnc_planCamp [ARRAY]
         _distance - Distance of the nearest player, for the log [NUMBER]
 
