@@ -24,6 +24,7 @@ COIN_initTimeout            = 300;      // s to wait for Liberation's init befor
 // ---------------------------------------------------------------------------
 COIN_enableNests            = true;     // Phase 2
 COIN_enableQuestioning      = true;     // Phase 3
+COIN_enableLies             = true;     // Phase 3, ticket 3.4: off = the weight of the lie counts as "nothing"; lies already on the map stay
 COIN_enableIEDs             = true;     // Phase 4
 COIN_enableVBIEDs           = true;     // Phase 4
 COIN_enableSuicideBombers   = true;     // Phase 4

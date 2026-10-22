@@ -21,9 +21,10 @@ if (!isServer) exitWith {};
 while {COIN_enableQuestioning} do {
     sleep COIN_lieSearchInterval;
 
-    private _lies = COIN_intel select {(_x select 1) < 0};
+    // A lie without a fake point (damaged save) can never be searched
+    private _lies = COIN_intel select {(_x select 1) < 0 && {count (_x select 6) >= 2}};
     if !(_lies isEqualTo []) then {
-        private _walkers = allPlayers select {alive _x && {isNull objectParent _x}};
+        private _walkers = allPlayers select {alive _x && {isNull objectParent _x} && {!(_x isKindOf "HeadlessClient_F")}};
         private _searched = false;
 
         {

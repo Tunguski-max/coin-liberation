@@ -62,7 +62,7 @@ _civ setVariable ["COIN_talking", true, true];
         // Weights: [nothing, rumor, hint, tip, warning, lie]; the warning counts as "nothing" until ticket 3.6
         private _outcome = ["nothing", "rumor", "hint", "tip", "nothing", "lie"] selectRandomWeighted _weights;
         // Without an active nest there is nothing to tell and nothing to lie about
-        if (_nest isEqualTo []) then {_outcome = "nothing"};
+        if (_nest isEqualTo [] || {_outcome isEqualTo "lie" && {!COIN_enableLies}}) then {_outcome = "nothing"};
         diag_log format [
             "[COIN] intel: %1 asked %2 (%3): reputation %4, band %5, weights %6 -> %7",
             name _asker, _name, typeOf _civ, missionNamespace getVariable ["KP_liberation_civ_rep", 0], _band, _weights, _outcome
