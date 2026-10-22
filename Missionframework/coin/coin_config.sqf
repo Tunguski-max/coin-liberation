@@ -364,6 +364,16 @@ COIN_intelRadiusHint        = 300;
 COIN_intelRadiusTip         = 100;
 COIN_triangulationFactor    = 0.5;      // Each further true intel multiplies radius by this
 COIN_intelRadiusMin         = 50;
+COIN_intelCenterTries       = 24;       // Tries to place the smaller circle of a further true hit inside the old one
+// Map symbol per nest type from a hint on: [type, marker type]. A rumor shows the neutral symbol
+COIN_intelMarkerTypes = [
+    ["command",      "o_hq"],
+    ["iedWorkshop",  "o_maint"],
+    ["cache",        "o_installation"],
+    ["vbiedGarage",  "o_motor_inf"],
+    ["recruitment",  "o_inf"]
+];
+COIN_intelMarkerNeutral     = "hd_unknown";
 
 // Documents as ACE Intel Items that must be brought to the interpreter (decision E13)
 COIN_documentsAsAceItems    = false;
