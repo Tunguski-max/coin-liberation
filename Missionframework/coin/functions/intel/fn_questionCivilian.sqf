@@ -6,10 +6,13 @@
         Server: an interpreter asks a civilian about the militia (ticket 3.1, DESIGN 7). Called by the client with
         remoteExecCall. Checks the rules again (COIN_fnc_canQuestion, a little more range as the civilian is held but may
         have drifted), marks the civilian as questioned for good and holds him. After a short pause (COIN_questionDelay)
-        the answer is chosen: a nest as COIN_fnc_pickIntelNest says, a true level (rumor, hint, tip) by the weights of
-        COIN_intelWeightsMid; lies and the reputation weights come with ticket 3.4. Without an active nest the civilian
-        knows nothing. The answer goes to the asking client only, a new intel is announced to everybody
-        (COIN_fnc_showNotification, "Neue Intel"). The civilian is released after the answer has been read.
+        the answer is chosen by the weights of the reputation band (COIN_fnc_getReputationBand, COIN_intelWeightsByBand,
+        ticket 3.4): nothing, a true level (rumor, hint, tip) about a nest as COIN_fnc_pickIntelNest says, or a lie
+        (COIN_fnc_createLie), which the player cannot tell from a true answer. The warning comes with ticket 3.6, until
+        then its weight counts as "nothing". Without an active nest the civilian knows nothing. With armed enemies close
+        (COIN_fnc_isUnsafe) he refuses instead, gives no intel and can be asked again later. The answer goes to the
+        asking client only, a new intel is announced to everybody (COIN_fnc_showNotification, "Neue Intel"). The
+        civilian is released after the answer has been read.
 
     Parameter(s):
         _civ   - Civilian [OBJECT, defaults to objNull]
@@ -55,23 +58,48 @@ _civ setVariable ["COIN_talking", true, true];
         private _type = "";
         private _nest = [getPosATL _civ] call COIN_fnc_pickIntelNest;
 
-        if !(_nest isEqualTo []) then {
-            private _weights = COIN_intelWeightsMid;
-            _level = ["rumor", "hint", "tip"] selectRandomWeighted [_weights select 1, _weights select 2, _weights select 3];
-            private _intel = [_nest, _level] call COIN_fnc_createIntel;
-            if !(_intel isEqualTo []) then {
-                _type = _intel select 5;
+        private _band = [] call COIN_fnc_getReputationBand;
+        private _weights = ([COIN_intelWeightsByBand, _band] call COIN_fnc_findByType) param [1, COIN_intelWeightsMid];
+        // Weights: [nothing, rumor, hint, tip, warning, lie]; the warning counts as "nothing" until ticket 3.6
+        private _outcome = ["nothing", "rumor", "hint", "tip", "nothing", "lie"] selectRandomWeighted _weights;
+        // Without an active nest there is nothing to tell and nothing to lie about
+        if (_nest isEqualTo [] || {_outcome isEqualTo "lie" && {!COIN_enableLies}}) then {_outcome = "nothing"};
+        // Armed enemies close: he refuses before any result counts. He is not used up, the interpreter may ask again later
+        if ([_civ] call COIN_fnc_isUnsafe) then {
+            _outcome = "unsafe";
+            _civ setVariable ["COIN_questioned", false, true];
+        };
+        diag_log format [
+            "[COIN] intel: %1 asked %2 (%3): reputation %4, band %5, weights %6 -> %7",
+            name _asker, _name, typeOf _civ, missionNamespace getVariable ["KP_liberation_civ_rep", 0], _band, _weights, _outcome
+        ];
+
+        private _intel = [];
+        if (_outcome isEqualTo "unsafe") then {_level = "unsafe"};
+        switch (_outcome) do {
+            case "lie": {_intel = [getPosATL _civ] call COIN_fnc_createLie;};
+            case "rumor";
+            case "hint";
+            case "tip": {_intel = [_nest, _outcome] call COIN_fnc_createIntel;};
+        };
+
+        if !(_intel isEqualTo []) then {
+            // A lie is shown with the level and type it was made with, so it reads like a true answer
+            _level = [_outcome, _intel select 4] select (_outcome isEqualTo "lie");
+            _type = _intel select 5;
+            if (_outcome isEqualTo "lie") then {
                 diag_log format [
-                    "[COIN] intel: %1 asked %2 (%3): %4 about nest %5 (%6), %7 m away, circle of %8 m at %9 (intel %10)",
-                    name _asker, _name, typeOf _civ, _level, _nest select 0, _nest select 1,
+                    "[COIN] intel: LIE shown as %1 %2, circle of %3 m at %4, fake point %5 (intel %6)",
+                    _level, _type, _intel select 3, _intel select 2, _intel select 6, _intel select 0
+                ];
+            } else {
+                diag_log format [
+                    "[COIN] intel: %1 about nest %2 (%3), %4 m away, circle of %5 m at %6 (intel %7)",
+                    _level, _nest select 0, _nest select 1,
                     round ((_nest select 3) distance2D _civ), _intel select 3, _intel select 2, _intel select 0
                 ];
-                ["intel"] remoteExecCall ["COIN_fnc_showNotification", 0];
-            } else {
-                _level = "nothing";
             };
-        } else {
-            diag_log format ["[COIN] intel: %1 asked %2 (%3): no active nest, he knows nothing", name _asker, _name, typeOf _civ];
+            ["intel"] remoteExecCall ["COIN_fnc_showNotification", 0];
         };
 
         [_name, _level, _type] remoteExecCall ["COIN_fnc_showAnswer", owner _asker];

@@ -81,6 +81,9 @@ class COIN {
         // Row of a config table keyed by nest type (COIN_nestSetup, COIN_nestBuildingShare, ...)
         class findByType {};
 
+        // Reputation band of the population: "low", "mid" or "high" (ticket 3.4, ADR 0009)
+        class getReputationBand {};
+
         // Server: makes COIN objects and units editable for every curator (Zeus)
         class addToCurators {};
 
@@ -166,6 +169,27 @@ class COIN {
 
         // Server: a true intel disappears with its destroyed nest (ticket 3.2)
         class removeIntelOfNest {};
+
+        // Server: removes one intel and its map markers
+        class removeIntel {};
+
+        // Server: armed enemies close to a civilian, so he refuses to talk (ticket 3.4)
+        class isUnsafe {};
+
+        // Server: makes a lie, a circle around a hidden fake point that looks like a true one (ticket 3.4)
+        class createLie {};
+
+        // Server: a place where a nest could plausibly be, for a lie
+        class findFakeSpot {};
+
+        // Server loop: a lie disappears when a player on foot has searched its fake point
+        class intelSearchLoop {};
+
+        // Start radius of an intel circle by its level
+        class getIntelRadius {};
+
+        // Middle of an intel circle around a nest or a fake point, never the point itself
+        class offsetCenter {};
 
         // Client: the civilian's answer as a subtitle for the interpreter
         class showAnswer {};

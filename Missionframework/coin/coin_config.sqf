@@ -24,6 +24,8 @@ COIN_initTimeout            = 300;      // s to wait for Liberation's init befor
 // ---------------------------------------------------------------------------
 COIN_enableNests            = true;     // Phase 2
 COIN_enableQuestioning      = true;     // Phase 3
+COIN_enableLies             = true;     // Phase 3, ticket 3.4: off = the weight of the lie counts as "nothing"; lies already on the map stay
+COIN_enableUnsafeRefusal    = true;     // Phase 3, ticket 3.4: off = a civilian answers even with armed enemies close
 COIN_enableIEDs             = true;     // Phase 4
 COIN_enableVBIEDs           = true;     // Phase 4
 COIN_enableSuicideBombers   = true;     // Phase 4
@@ -336,26 +338,212 @@ COIN_intelNestRange         = 4000;     // m: a civilian knows a random active n
 COIN_intelCenterOffset      = [0.2, 0.8]; // Share of the radius between the nest and the middle of its circle (so the nest is never in the middle, always inside)
 COIN_intelMarkerColor       = "ColorOrange";
 COIN_intelMarkerAlpha       = 0.35;
+COIN_unsafeRadius           = 100;      // m: a civilian refuses to talk while an armed enemy is this close; he can be asked again later
 // Entry in the action menu (mouse wheel / space bar): [German, English]
 COIN_askMilitiaLabel = ["Nach der Miliz fragen", "Ask about the militia"];
-// Answer sentences per result: [result, [German sentences, English sentences]]; %1 is the nest type (hint and tip)
+// Answer sentences of a civilian (tickets 3.1 and 3.4): [result, [German sentences, English sentences]], one is picked at random.
+// A civilian does not name the nest type: a hint or a tip knows the place better, not the word for it (see COIN_questionAnswersByType).
+// "unsafe" is the refusal while enemies are close (COIN_enableUnsafeRefusal): no answer, no marker.
 COIN_questionAnswers = [
     ["nothing", [
-        ["Ich weiß nichts. Fragt jemand anderen.", "Ich will keinen Ärger. Ich habe nichts gesehen.", "Tut mir leid, dazu kann ich nichts sagen."],
-        ["I don't know anything. Ask somebody else.", "I don't want any trouble. I haven't seen a thing.", "I'm sorry, I can't tell you anything."]
+        [
+            "Keine Ahnung, was ihr meint. Ich halte mich aus so was raus.",
+            "Fragt mich nicht. Ich habe schon genug Ärger am Hals.",
+            "Ich hab nichts mitbekommen. Wirklich nicht.",
+            "Hier redet keiner gern über solche Dinge. Ich auch nicht.",
+            "Wenn ich irgendwas wüsste, würde ich's mir gut überlegen, wem ich es erzähle.",
+            "Tut mir leid. Ich kümmere mich um meine Familie, nicht um bewaffnete Männer.",
+            "Ich bin die meiste Zeit zu Hause. Von mir erfahrt ihr nichts Neues.",
+            "Lasst mich bitte einfach weitergehen. Ich weiß nichts, was euch hilft."
+        ],
+        [
+            "No idea what you're talking about. I stay out of that stuff.",
+            "Don't ask me. I've got enough trouble as it is.",
+            "I haven't noticed anything. I mean it.",
+            "Nobody around here likes talking about that sort of thing. Neither do I.",
+            "If I knew anything, I'd think twice about who I told.",
+            "Sorry. I look after my family, not armed men.",
+            "I'm home most of the time. I can't tell you anything new.",
+            "Please just let me go. I don't know anything that would help you."
+        ]
+    ]],
+    ["unsafe", [
+        [
+            "Nicht hier. Die hören doch alles mit.",
+            "Seid ihr verrückt? Die stehen doch gleich da drüben!",
+            "Ich hab Familie. Bitte geht einfach weiter.",
+            "Ihr könnt wieder gehen. Ich will nicht, dass die uns zusammen sehen.",
+            "Psst! Nicht so laut. Wollt ihr, dass ich Ärger kriege?",
+            "Ich sag kein Wort, solange die hier herumlaufen.",
+            "Bitte. Wenn die merken, dass ich mit euch rede, bin ich dran.",
+            "Lasst mich in Ruhe. Ich hab schon gesehen, was mit Leuten passiert, die reden."
+        ],
+        [
+            "Not here. They can hear everything.",
+            "Are you crazy? They're right over there!",
+            "I've got a family. Please, just move along.",
+            "You need to leave. I don't want them seeing us together.",
+            "Shh! Keep your voice down. Are you trying to get me in trouble?",
+            "I'm not saying a word while they're still around.",
+            "Please. If they see me talking to you, I'm the one who'll pay for it.",
+            "Leave me alone. I've seen what happens to people who talk."
+        ]
     ]],
     ["rumor", [
-        ["Man erzählt sich, die Miliz hätte sich hier in der Gegend versteckt. Genaueres weiß ich nicht.", "Die Leute tuscheln. Irgendwo hier in der Nähe soll die Miliz etwas haben.", "Ich habe nur Gerüchte gehört. In dieser Gegend treiben sich Bewaffnete herum."],
-        ["They say the militia is hiding somewhere around here. I don't know more.", "People whisper. The militia is supposed to have something close by.", "I've only heard rumors. Armed men hang around in this area."]
-    ]],
+        [
+            "In der Gegend sollen nachts öfter fremde Männer unterwegs sein. Mehr hab ich nicht gehört.",
+            "Ein paar Leute reden von bewaffneten Männern irgendwo hier draußen. Ob das stimmt? Keine Ahnung.",
+            "In letzter Zeit ist hier irgendwas los. Sobald man nachfragt, werden die Leute still.",
+            "Mein Nachbar meint, er hätte nachts Fahrzeuge gehört. Hier draußen fährt sonst kaum jemand um die Zeit.",
+            "Man erzählt sich, dass einige Männer in der Gegend ein und aus gehen. Niemand will wissen, warum.",
+            "Ich würde mich hier draußen nicht zu lange aufhalten. Es gibt Gerüchte über Leute mit Waffen.",
+            "Seit ein paar Tagen sind manche Leute ziemlich nervös. Irgendetwas stimmt hier nicht.",
+            "Ein Händler hat erzählt, er hätte fremde Männer gesehen. Er wollte aber nicht sagen, wo genau."
+        ],
+        [
+            "They say strange men have been moving around here at night. That's all I've heard.",
+            "Some people are talking about armed men somewhere around here. No idea if it's true.",
+            "Something's been going on around here lately. Ask about it and people go quiet.",
+            "My neighbor says he heard vehicles at night. Hardly anyone drives around here that late.",
+            "Word is some men have been coming and going around here. Nobody wants to know why.",
+            "I wouldn't hang around out here too long. There are rumors about people carrying guns.",
+            "People have been on edge these past few days. Something isn't right around here.",
+            "A trader said he'd seen some unfamiliar men. Wouldn't say exactly where, though."
+        ]
+    ]]
+];
+
+// Answer sentences of a hint and of a tip by nest type: [level, [[nest type, [German sentences, English sentences]], ...]].
+// The type only picks the sentences, the civilian never says it. The map symbol still shows it (COIN_intelMarkerTypes)
+COIN_questionAnswersByType = [
     ["hint", [
-        ["Ich habe gehört, hier in der Gegend gibt es einen Ort der Miliz: %1. Mehr weiß ich nicht.", "Die Miliz hat hier etwas: %1. Es soll irgendwo in der Nähe sein.", "Man sagt, in dieser Gegend betreibt die Miliz Folgendes: %1."],
-        ["I heard there is a militia place around here: %1. That's all I know.", "The militia has something here: %1. It's supposed to be somewhere close.", "They say the militia runs this in the area: %1."]
+        ["command", [
+            [
+                "Da treffen sich immer wieder dieselben bewaffneten Männer. Einer gibt die Anweisungen, die anderen hören zu.",
+                "Ich habe da Leute mit Funkgeräten gesehen. Ständig kommen welche, melden sich und verschwinden wieder."
+            ],
+            [
+                "The same armed men keep meeting there. One gives the orders, the others listen.",
+                "I've seen men with radios around there. People keep showing up, reporting in, then leaving again."
+            ]
+        ]],
+        ["iedWorkshop", [
+            [
+                "Wenn ihr mich fragt, basteln die da irgendwas zusammen. Überall liegen Kabel und alte Metallteile herum.",
+                "Von dort hört man manchmal Hämmern und Sägen. Komisch nur, dass keiner sagen kann, was die eigentlich bauen."
+            ],
+            [
+                "If you ask me, they're putting something together over there. Cables and scrap metal all over the place.",
+                "Sometimes you can hear hammering and sawing from there. Funny thing is, nobody knows what they're building."
+            ]
+        ]],
+        ["cache", [
+            [
+                "Da stehen immer wieder Männer mit schwerem Geschütz herum. Viel mehr, als man zum Bewachen von ein paar Häusern braucht.",
+                "Ich hab gesehen, wie sie schwere Kisten abgeladen haben. Als einer zu nah kam, haben sie ihn sofort weggeschickt."
+            ],
+            [
+                "There are always men around there carrying some serious firepower. More than you'd need to guard a few houses.",
+                "I saw them unloading heavy crates. When someone got too close, they sent him away straight off."
+            ]
+        ]],
+        ["vbiedGarage", [
+            [
+                "Die schrauben dort ständig an alten Autos herum. Die Wagen sehen danach aber nicht gerade fahrtüchtiger aus.",
+                "Da verschwinden Fahrzeuge für Stunden hinter verschlossenen Türen. Nachts hört man oft Motoren laufen."
+            ],
+            [
+                "They're always working on old cars over there. Can't say the cars look any more roadworthy afterward.",
+                "Vehicles disappear behind closed doors for hours. You can often hear engines running at night."
+            ]
+        ]],
+        ["recruitment", [
+            [
+                "Da tauchen ständig junge Kerle auf, die man vorher noch nie gesehen hat. Ein paar Tage später tragen sie Waffen.",
+                "Ein paar Männer versprechen den Jungs dort Geld und eine Aufgabe. Manche kommen danach tagelang nicht nach Hause."
+            ],
+            [
+                "Young lads nobody's seen before keep turning up there. A few days later, they're carrying guns.",
+                "Some men there promise the young lads money and something to do. Some don't come home for days afterward."
+            ]
+        ]]
     ]],
     ["tip", [
-        ["Ich weiß genau, wo das ist: %1. Ich habe es selbst gesehen, es ist nicht weit von hier.", "Ich zeige es euch auf der Karte: %1. Geht aber vorsichtig hin.", "Ich habe Männer dort ein- und ausgehen sehen: %1. Ihr findet es auf der Karte."],
-        ["I know exactly where it is: %1. I saw it myself, it's not far from here.", "I'll show you on the map: %1. But be careful.", "I saw men go in and out there: %1. You'll find it on the map."]
+        ["command", [
+            [
+                "Ich weiß, wo die Männer ihre Besprechungen abhalten. Ich hab sie dort schon mehrmals mit Karten und Funkgeräten gesehen.",
+                "Ich kann euch die Gegend zeigen, wo ständig Boten ein und aus gehen. Einer scheint dort das Sagen zu haben."
+            ],
+            [
+                "I know where those men hold their meetings. I've seen them there more than once with maps and radios.",
+                "I can point you to the area where messengers keep coming and going. One man seems to be in charge there."
+            ]
+        ]],
+        ["iedWorkshop", [
+            [
+                "Ich kenne die Stelle. Da tragen sie regelmäßig Kabel, Kanister und Metallstücke hinein. Das ist keine normale Werkstatt.",
+                "Ich hab den Ort selbst gesehen. Die arbeiten dort hinter verschlossenen Türen und lassen niemanden in die Nähe."
+            ],
+            [
+                "I know the spot. They regularly carry wires, canisters and bits of metal inside. That's no ordinary workshop.",
+                "I've seen the place myself. They work behind closed doors and won't let anyone get close."
+            ]
+        ]],
+        ["cache", [
+            [
+                "Ich hab gesehen, wo sie die schweren Kisten hinbringen. Bewaffnete stehen dort Wache, selbst wenn sonst niemand da ist.",
+                "Ich kann euch zeigen, in welcher Gegend sie nachts ihre Ladung abladen. Da wird mehr bewacht als nur Essen und Wasser."
+            ],
+            [
+                "I've seen where they take those heavy crates. Armed men guard the place even when nobody else is around.",
+                "I can show you the area where they unload their cargo at night. They're guarding more than food and water."
+            ]
+        ]],
+        ["vbiedGarage", [
+            [
+                "Ich weiß, wo die Autos hingebracht werden. Da wird stundenlang daran gearbeitet, und hinterher fährt ein anderer damit weg.",
+                "Die Stelle kenne ich. Erst fahren kaputte Wagen hinein, später kommen sie mit verhängten Scheiben wieder raus."
+            ],
+            [
+                "I know where they take the cars. They work on them for hours, then someone else drives them away.",
+                "I know the place. Battered cars go in, then come back out with their windows covered."
+            ]
+        ]],
+        ["recruitment", [
+            [
+                "Ich kann euch zeigen, wo sich die jungen Männer versammeln. Dort werden sie von Bewaffneten abgeholt.",
+                "Ich weiß, wo sie die Neuen hinbestellen. Wer dort auftaucht, ist ein paar Tage später oft mit einer Waffe unterwegs."
+            ],
+            [
+                "I can show you where the young men gather. Armed men come to collect them there.",
+                "I know where they tell the new lads to show up. A few days later, most of them are walking around with guns."
+            ]
+        ]]
     ]]
+];
+
+// What the interpreter says himself while his cooldown runs (ticket 3.5): [German sentences, English sentences]
+COIN_cooldownAnswers = [
+    [
+        "Wir fallen zu sehr auf. Warten wir ein bisschen.",
+        "Nicht gleich den Nächsten. Die Leute werden schon misstrauisch.",
+        "Gebt mir kurz Zeit. Wenn wir jeden ansprechen, macht bald keiner mehr den Mund auf.",
+        "Langsam. Wir sollten erst mal abwarten, bevor wir wieder jemanden fragen.",
+        "Die beobachten uns schon. Noch eine Befragung wäre keine gute Idee.",
+        "Lasst uns erst mal weitergehen. Wir können später wieder mit den Leuten reden.",
+        "Ich hab gerade erst jemanden ausgefragt. Lasst etwas Gras über die Sache wachsen.",
+        "Wenn ich jetzt schon wieder Fragen stelle, spricht sich das schneller herum, als uns lieb ist."
+    ],
+    [
+        "We're drawing too much attention. Let's give it a moment.",
+        "Not the next one already. People are getting suspicious.",
+        "Give me a little time. If we question everyone, soon nobody will talk to us.",
+        "Easy. We should wait a bit before questioning anyone else.",
+        "They're already watching us. Another round of questions isn't a good idea.",
+        "Let's move on for now. We can talk to the locals again later.",
+        "I just questioned someone. Let's let things settle down a bit.",
+        "If I start asking questions again now, word will spread faster than we'd like."
+    ]
 ];
 
 // Marker radius per intel level in m
@@ -383,6 +571,13 @@ COIN_documentsAsAceItems    = false;
 COIN_intelWeightsLow        = [40, 15,  5,  0,  5, 35];
 COIN_intelWeightsMid        = [30, 25, 20,  5, 10, 10];
 COIN_intelWeightsHigh       = [20, 20, 30, 15, 12,  3];
+COIN_intelWeightsByBand     = [["low", COIN_intelWeightsLow], ["mid", COIN_intelWeightsMid], ["high", COIN_intelWeightsHigh]];
+
+// Lies (ticket 3.4, ADR 0021): the circle is built around a hidden fake point, the lie goes when it has been searched on foot
+COIN_lieTownShare           = 0.5;      // Share of the fake points at the edge of a town (COIN_nestBuildingRing), the rest is open ground
+COIN_lieSpotTries           = 40;       // Tries to find a fake point; without one the civilian knows nothing
+COIN_lieSearchDistance      = 50;       // m: a player on foot this close to the fake point has searched the area
+COIN_lieSearchInterval      = 3;        // s between two checks for searchers
 
 // ---------------------------------------------------------------------------
 // Asymmetric threats (Phase 4)

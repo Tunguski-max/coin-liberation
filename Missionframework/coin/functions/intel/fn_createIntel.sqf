@@ -27,12 +27,7 @@ if (!isServer || {count _nest < 6}) exitWith {[]};
 
 _nest params ["_nestId", "_type", "", "_nestPos"];
 
-private _radius = switch (_level) do {
-    case "rumor": {COIN_intelRadiusRumor};
-    case "hint": {COIN_intelRadiusHint};
-    case "tip": {COIN_intelRadiusTip};
-    default {0};
-};
+private _radius = [_level] call COIN_fnc_getIntelRadius;
 if (_radius <= 0) exitWith {
     diag_log format ["[COIN] intel: ERROR - unknown level %1, no intel made", _level];
     []
@@ -44,10 +39,7 @@ if (_existing >= 0) exitWith {
     [COIN_intel select _existing, _level, _radius, _nest] call COIN_fnc_shrinkIntel
 };
 
-private _minShare = COIN_intelCenterOffset select 0;
-private _maxShare = COIN_intelCenterOffset select 1;
-private _offset = _radius * (_minShare + random (_maxShare - _minShare));
-private _center = _nestPos getPos [_offset, random 360];
+private _center = [_nestPos, _radius] call COIN_fnc_offsetCenter;
 
 private _id = COIN_intelNextId;
 COIN_intelNextId = COIN_intelNextId + 1;
