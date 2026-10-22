@@ -162,6 +162,12 @@ class COIN {
         // Server: global debug markers for all nests (lobby parameter "COIN Debug")
         class drawNestMarkers {};
 
+        // Server: listens to COIN_nestDestroyed and COIN_campCleared and messages all players (ticket 2.14)
+        class initMessages {};
+
+        // Client: shows one of these messages as a notification, in the game language (ticket 2.14)
+        class showNotification {};
+
         // Server: network strength = active / all nests, published to the clients (ticket 2.6)
         class updateNetworkStrength {};
 

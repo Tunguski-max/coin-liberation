@@ -138,7 +138,7 @@ Ziel: Nester existieren, sind persistent und schwächen bei Zerstörung das Netz
   30 COIN-Einheiten insgesamt (ADR 0015; getestet: `COIN_fnc_aiBudget` 100 → 105 → 110 mit Test-Einheiten, nach dem Löschen wieder 100,
   Abschalten zur Laufzeit stellt 180/150/150 wieder her, `COIN_fnc_campFitsBudget` 25 ja / 26 nein;
   Unitcap ×1,5 beim Wipe: 270/225/225 → 150, auch nach Neustart; später beitretender Client: siehe 7.5)
-- [ ] 2.14 (#54) Meldung an alle Spieler bei zerstörtem Nest (Typ, ohne Position) und ausgehobenem Camp (ohne Position, ohne Nest),
+- [ ] 2.14 (#54) Meldung an alle Spieler bei zerstörtem Nest (Typ, ohne Position) und ausgehobenem Camp (ohne Position, ohne Nest), (implementiert, ungetestet: `COIN_fnc_initMessages`, `COIN_fnc_showNotification`, Hook 20)
   analog zur FOB-Meldung von Liberation; Ereignis `COIN_campCleared` dazu
 
 **DoD:** Mit Debug-Anzeige ein Nest finden und zerstören, Neustart, Nest bleibt zerstört,
