@@ -26,6 +26,7 @@ COIN_enableNests            = true;     // Phase 2
 COIN_enableQuestioning      = true;     // Phase 3
 COIN_enableLies             = true;     // Phase 3, ticket 3.4: off = the weight of the lie counts as "nothing"; lies already on the map stay
 COIN_enableUnsafeRefusal    = true;     // Phase 3, ticket 3.4: off = a civilian answers even with armed enemies close
+COIN_enableWarnings         = true;     // Phase 3, ticket 3.6: off = the weight of the warning counts as "nothing"; warnings already on the map stay until their camp is gone
 COIN_enableIEDs             = true;     // Phase 4
 COIN_enableVBIEDs           = true;     // Phase 4
 COIN_enableSuicideBombers   = true;     // Phase 4
@@ -412,6 +413,29 @@ COIN_questionAnswers = [
             "People have been on edge these past few days. Something isn't right around here.",
             "A trader said he'd seen some unfamiliar men. Wouldn't say exactly where, though."
         ]
+    ]],
+    // A warning of a camp close by (ticket 3.6): the civilian describes what he saw, he does not say "camp"
+    ["warning", [
+        [
+            "Fahrt da draußen nicht einfach weiter. Seit ein paar Tagen sitzen dort Bewaffnete, die nicht von hier sind.",
+            "Ich war gestern am Feldrand. Da stehen Zelte und Männer mit Gewehren. Haltet euch fern, wenn euch euer Leben lieb ist.",
+            "Passt auf, wo ihr hintretet. Ganz in der Nähe hat sich eine Gruppe Bewaffneter eingerichtet.",
+            "Keiner von uns geht mehr in die Richtung. Dort haben sich Männer mit Waffen festgesetzt.",
+            "Nachts sieht man dort Feuer. Das sind keine Hirten, das sind Bewaffnete. Ich an eurer Stelle würde einen Bogen machen.",
+            "Ich sag's euch nur einmal: Hier in der Nähe lagern bewaffnete Männer. Sie beobachten die Straße.",
+            "Meine Ziegen traue ich da nicht mehr hin. Seit die Fremden dort lagern, kommt keiner mehr zurück, der zu nah ran ist.",
+            "Ihr seid nicht die Ersten, die hier vorbeikommen. Wenn ihr in diese Richtung geht, wartet dort jemand auf euch."
+        ],
+        [
+            "Don't just keep driving out there. Armed men who aren't from here have been sitting out there for a few days.",
+            "I was at the edge of the fields yesterday. There are tents and men with rifles. Stay away if you value your life.",
+            "Watch where you step. A group of armed men has settled in very close to here.",
+            "None of us go that way anymore. Men with guns have dug in over there.",
+            "You can see fires there at night. Those aren't shepherds, they're armed men. I'd steer clear if I were you.",
+            "I'll only say this once: there are armed men camped near here. They're watching the road.",
+            "I won't take my goats there anymore. Since the strangers set up camp, nobody who goes too close comes back.",
+            "You're not the first to come through here. If you go that way, someone will be waiting for you."
+        ]
     ]]
 ];
 
@@ -574,6 +598,13 @@ COIN_intelWeightsLow        = [40, 15,  5,  0,  5, 35];
 COIN_intelWeightsMid        = [30, 25, 20,  5, 10, 10];
 COIN_intelWeightsHigh       = [20, 20, 30, 15, 12,  3];
 COIN_intelWeightsByBand     = [["low", COIN_intelWeightsLow], ["mid", COIN_intelWeightsMid], ["high", COIN_intelWeightsHigh]];
+
+// Warning of a camp (ticket 3.6): circle around an active camp, not saved, gone with the camp
+COIN_warningRange           = 1500;     // m: a civilian warns of a camp within this distance of him, else he knows nothing
+COIN_warningRadius          = 150;      // m radius of the circle; the camp lies inside, not in the middle (COIN_intelCenterOffset)
+COIN_warningCheckInterval   = 10;       // s between two checks whether the camp of a warning is still there
+COIN_warningMarkerType      = "hd_warning";
+COIN_warningMarkerColor     = "ColorRed";   // Not the orange of the intel circles
 
 // Lies (ticket 3.4, ADR 0021): the circle is built around a hidden fake point, the lie goes when it has been searched on foot
 COIN_lieTownShare           = 0.5;      // Share of the fake points at the edge of a town (COIN_nestBuildingRing), the rest is open ground
