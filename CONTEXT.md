@@ -13,7 +13,7 @@ Code-Bezeichner stehen in Klammern.
 | **Zivilisten** (`civ`) | Bevölkerung. Quelle von Intel, aber auch Tarnung für Attentäter. |
 | **Widerstand** (`resistance`) | Bewaffnete Einheimische (Liberation-Fraktion, im Code auch „Guerilla“). Ihre Haltung zur Armee und zur Miliz hängt vom Ruf ab. Erkennbar am Kopftuch: grün feindlich, blau neutral oder freundlich. |
 | **Erkennungstuch** (`COIN_marker*`) | Farbiges Kopftuch (Shemag) der KI-Kämpfer: rot Miliz, grün feindlicher Widerstand, blau neutraler oder freundlicher Widerstand. |
-| **Dolmetscher** (`interpreter`) | Spielerrolle. Ohne ihn keine Befragungen. |
+| **Dolmetscher** (`interpreter`) | Spielerrolle (zwei Slots in der Führungsgruppe). Nur der Dolmetscher selbst befragt Zivilisten, andere Spieler bekommen keine Antwort. |
 | **Trupp** | Spielergruppe der Armee aus Truppführer, Sanitäter, EOD und zwei Schützen. |
 | **Kommandant** (`commandant`) | Spieler-Slot „Kommandant (Zeus)“ in der Führungsgruppe. Führt die Armee und ist zugleich Zeus. |
 | **Zeus** | Spielleiter-Rolle (Kurator), liegt beim Kommandanten. Darf alles sehen, ändern, löschen. |
@@ -68,12 +68,17 @@ Code-Bezeichner stehen in Klammern.
 
 | Begriff | Bedeutung |
 |---|---|
-| **Befragung** (`interrogation` bei Gefangenen, `questioning` bei Zivilisten) | ACE-Interaktion mit Dolmetscher. |
-| **Intel** | Hinweis auf ein Nest oder eine Bedrohung. Erscheint als Kartenmarker. |
+| **Gespräch** | Eintrag im ACE-Menü an Zivilisten und Gefangenen, nur für den Dolmetscher. Darunter liegen die Fragen (z. B. „Nach der Miliz fragen“, „Verhören“). |
+| **Befragung** (`questioning`) | Gespräch des Dolmetschers mit einem Zivilisten. _Nicht:_ bei Gefangenen, das ist ein Verhör. |
+| **Verhör** (`interrogation`) | Gespräch mit einem Gefangenen. _Nicht:_ „Befragung“. |
+| **Gefangener** (`prisoner`) | Kämpfer der Miliz, der sich ergeben hat oder gefesselt ist. Gilt nicht als Zivilist, auch wenn Liberation ihn intern so führt. |
+| **Intel** | Hinweis auf ein Nest oder eine Bedrohung (Camp, ab Phase 4 auch IED und Hinterhalt). Erscheint als Kartenmarker. |
 | **Intel-Punkte** (`resources_intel`) | Liberation-Ressource, mit der Nebenmissionen bezahlt werden. Nicht mit Intel verwechseln. |
 | **Intel-Stufen** | Gerücht (groß) → Hinweis (mittel) → Konkreter Tipp (klein). Dazu: Warnung, Lüge. |
-| **Triangulation** | Mehrere wahre Hinweise auf dasselbe Nest verkleinern den Markerkreis. |
-| **Dokumente** | Intel-Gegenstand bei toten Anführern oder in zerstörten Nestern. |
+| **Lüge** | Intel-Marker, der wie ein echter aussieht, aber auf kein Nest zeigt. Verschwindet erst, wenn Spieler die Stelle durchsucht haben, an der das angebliche Nest liegen soll. |
+| **Triangulation** | Mehrere wahre Hinweise auf dasselbe Nest verkleinern dessen einen Markerkreis. Lügen schrumpfen nie. |
+| **Dokumente** | Intel-Gegenstand bei toten Anführern, in zerstörten Nestern und ausgehobenen Camps. Wird eingesammelt und erst beim Dolmetscher zu Intel. Lügt nie. |
+| **Anführer** | Gruppenführer der Nest-Wachen oder eines Camps. Liberations Sektorgruppen zählen nicht. |
 | **Ruf** (`reputation`) | Globales Ansehen der Armee bei der Bevölkerung, Skala −100 bis +100. Ist Liberations „Civil Reputation“. |
 | **Ruf-Band** | Einteilung des Rufs in niedrig, mittel und hoch, an der sich ruf-abhängige Regeln orientieren (ADR 0009). |
 | **Gefälligkeit** (`favor`) | Unterstützung durch die Bevölkerung, die ab sehr hohem Ruf gesammelt und beim Ältesten eingelöst wird. |
