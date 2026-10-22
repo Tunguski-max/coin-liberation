@@ -23,12 +23,18 @@ params [
 if (!isServer || {isNil "COIN_camps"} || {isNil "COIN_warnings"}) exitWith {[]};
 
 private _warnedCampIds = COIN_warnings apply {_x select 1};
-private _candidates = COIN_camps select {
-    (_x select 6) isEqualTo "active"
-    && {((_x select 2) distance2D _pos) <= COIN_warningRange}
-    && {!((_x select 0) in _warnedCampIds)}
+private _inRange = COIN_camps select {
+    (_x select 6) isEqualTo "active" && {((_x select 2) distance2D _pos) <= COIN_warningRange}
 };
-if (_candidates isEqualTo []) exitWith {[]};
+private _candidates = _inRange select {!((_x select 0) in _warnedCampIds)};
+if (_candidates isEqualTo []) exitWith {
+    diag_log format [
+        "[COIN] intel: no warning, %1 within %2 m of the civilian",
+        ["no active camp", format ["%1 active camps, all with a warning already", count _inRange]] select (count _inRange > 0),
+        COIN_warningRange
+    ];
+    []
+};
 
 private _camp = selectRandom _candidates;
 _camp params ["_campId", "_nestId", "_campPos"];

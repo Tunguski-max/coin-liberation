@@ -144,7 +144,7 @@ _civ setVariable ["COIN_talking", true, true];
             };
         } else {
             if (_outcome isEqualTo "warning") then {
-                diag_log format ["[COIN] intel: %1 knows of no camp within %2 m, he knows nothing", _name, COIN_warningRange];
+                diag_log format ["[COIN] intel: %1 has no new camp to warn of, he knows nothing", _name];
             };
         };
 
