@@ -167,8 +167,8 @@ Schnitt in dünne, einzeln testbare Durchstiche (Grilling 2026-10-22, DESIGN 7 v
 - [x] 3.4 (#61) Ruf-Gewichte und Lügen: alle Ergebnisse nach Ruf-Band, Lüge mit Ersatzpunkt, zufälligem Typ und Größe;
   Spieler zu Fuß nahe am Ersatzpunkt entfernt sie ohne Meldung (ADR 0011, 0021); Debug zeigt wahr oder gelogen
   (am 2026-10-22 getestet: Ruf-Bänder über die RPT-Zeile je Befragung, Lügen bei Ruf −50, Lüge verschwindet ohne Meldung zu Fuß am Ersatzpunkt (23 bis 38 m) und der Stand wird gespeichert, Verweigerung bei bewaffneten Gegnern in der Nähe; nicht getestet: Fahrzeug am Ersatzpunkt, Neustart mit Lüge im Spielstand, Lage der Ersatzpunkte (Wasser, Startbasis, Hauptstadt), Mehrspieler: siehe 7.5; die Warnung zählt bis 3.6 als „Ich weiß nichts“; überarbeitete Antworttexte von Niklas übernommen: Sätze nach Nest-Typ ohne Typ-Nennung, Verweigerung bei bewaffneten Gegnern in der Nähe, Sätze für die Abklingzeit liegen schon in der Config für 3.5)
-- [ ] 3.5 (#62) Abklingzeit pro Dolmetscher nach jedem Marker (auch Lüge), Dolmetscher bremst selbst, Zivilist bleibt unbefragt
-  (implementiert, ungetestet: pro Spieler-UID auf dem Server, 300 s, nicht gespeichert; „Ich weiß nichts“ und Verweigerung starten nichts)
+- [x] 3.5 (#62) Abklingzeit pro Dolmetscher nach jedem Marker (auch Lüge), Dolmetscher bremst selbst, Zivilist bleibt unbefragt
+  (am 2026-10-22 von Niklas im Spiel getestet und bestätigt: pro Spieler-UID auf dem Server, 300 s, nicht gespeichert; „Ich weiß nichts“ und Verweigerung starten nichts; der Satz erscheint unter dem Namen des angesprochenen Zivilisten; Mehrspieler: siehe 7.5)
 - [ ] 3.6 (#63) Warnung: Kreis um ein Camp in der Nähe, nicht gespeichert (IED und Hinterhalt ab Phase 4)
 - [ ] 3.7 (#64) Eigene Bevölkerung: 4–8 Zivilisten im Kern befreiter Ortschaften bei Spielernähe, im Zivilisten-Budget
   (ADR 0011, 0015); der Älteste kommt in Phase 5
