@@ -12,6 +12,7 @@
 > v0.4.5: Meldung an alle Spieler bei zerstörtem Nest und ausgehobenem Camp (Ticket 2.14).
 > v0.5: Dolmetscher und Intel für Phase 3 festgelegt (Gespräch, Abklingzeit, Triangulation, Lügen, Verhör, Dokumente, ADR 0021).
 > v0.5.1: Dokumente als ACE Intel Items verworfen (E13).
+> v0.6: Asymmetrische Bedrohungen für Phase 4 festgelegt (Budget, IED-Varianten, VBIED, Attentäter, Hinterhalt, Warnung vor IED, ADR 0022).
 > Offene Entscheidungen stehen gesammelt in [Abschnitt 12](#12-offene-entscheidungen).
 > Begriffe sind in [`CONTEXT.md`](../CONTEXT.md) definiert.
 
@@ -248,26 +249,88 @@ Die Anzahl hängt von zwei Dingen ab, die beide den Spielfortschritt abbilden:
 
 ## 6. System B: Asymmetrische Bedrohungen
 
+Festgelegt beim Grilling für Phase 4 (2026-10-22), Grundsätze in ADR 0022.
+
 Alle Bedrohungen werden aus Budgets gespeist, die an Nester gekoppelt sind. Ohne Werkstatt
-keine IEDs, ohne Garage keine VBIEDs.
+keine IEDs und keine Attentäter, ohne Garage keine VBIEDs, ohne Camp keine Hinterhalte.
 
-| Bedrohung | Ablauf | Hinweise für Spieler | Gegenmaßnahme |
-|---|---|---|---|
-| IED (vergraben) | An Straßen und Engstellen im Radius einer Werkstatt | Frisch aufgewühlte Erde, Müllhaufen, auffällig leere Straße | ACE-Minensucher, ACE-Entschärfen |
-| IED (ferngezündet) | Mit Auslöser in Sichtweite | Zivilist mit Telefon, der beobachtet | Auslöser ausschalten, dann entschärfen |
-| Attrappe | Wie IED, harmlos | – | Kostet Zeit, kein Schaden |
-| VBIED | Ziviles Fahrzeug fährt auf Konvoi/FOB zu | Fahrer allein, ignoriert Warnungen, hält nicht an | Stoppen, Distanz, Feuer |
-| Selbstmordattentäter | Zivilist nähert sich Gruppe | Ignoriert Aufforderungen, Hände verdeckt, zielstrebig | Befehl an Zivilisten (ACE „Get Down“/„Go Away“, ggf. eigenes „Stehen bleiben“), Distanz |
-| Hinterhalt | Miliz-Gruppe an Straße mit vorbereiteter Stellung | Plötzlich keine Zivilisten mehr | Aufklärung, Routen wechseln |
-| Kämpfer in Zivil | Unbewaffnet, bis Kontakt | Verhalten, Nähe zu Nestern | Vorsicht, Durchsuchen (ACE) |
+| Bedrohung | Quelle | Ablauf | Hinweise für Spieler | Gegenmaßnahme |
+|---|---|---|---|---|
+| IED (vergraben) | IED-Werkstatt | An Straßen im Radius einer Werkstatt | Auffälliges Objekt daneben (Erdhaufen, Müll, Reifen) | ACE-Minensucher, ACE-Entschärfen |
+| IED (ferngezündet) | IED-Werkstatt | Mit Auslöser in Sichtweite | Zivilist mit Telefon, der beobachtet | Auslöser ausschalten, dann entschärfen |
+| Attrappe | IED-Werkstatt | Wie IED, harmlos | Wie IED | Kostet Zeit, kein Schaden |
+| VBIED | VBIED-Garage | Ziviles Fahrzeug fährt auf Spieler oder FOB zu | Fahrer allein, ignoriert Warnungen, hält nicht an | Stoppen, Distanz, Feuer |
+| Selbstmordattentäter | IED-Werkstatt, Häufigkeit nach Ruf | Zivilist nähert sich einer Spielergruppe zu Fuß | Ignoriert Befehle, Kleidung mit Weste oder dickem Mantel, zielstrebig, Ruf kurz vor der Explosion | Distanz, früh ausschalten |
+| Hinterhalt | Camp | Miliz-Gruppe in Deckung an einer Straße nahe einem Camp | Warnung von Zivilisten | Aufklärung, Routen wechseln |
 
-- Das **Entschärfen** eines IEDs erhöht den Ruf.
-- Befehle an Zivilisten kann jeder Spieler geben, ohne Dolmetscher (Gesten). Sie müssen im Interaktionsmenü
-  für Spieler logisch auffindbar sein; reichen die ACE-Einträge dafür nicht, bauen wir eigene, einheitliche.
-- Budgets und Häufigkeiten stehen in `coin_config.sqf` und sind ohne Code-Änderung anpassbar.
+**Budget:** Obergrenze, wie viele Bedrohungen eines aktiven Nests gleichzeitig im Feld sind. Was verbraucht ist
+(ausgelöst, entschärft, verschwunden), ersetzt das Nest nach einer Wartezeit. Ein zerstörtes Nest ersetzt nichts mehr,
+schon Gelegtes bleibt liegen. Darüber gilt die globale Obergrenze für IEDs (Abschnitt 11).
+
+**IEDs**
+- Echte Objekte auf der Karte (die vier Vanilla-IEDs, kein „ultra strong“), **nicht gespeichert**. Beim Missionsstart
+  legt jede aktive Werkstatt ihr volles Budget (Startwert 6), nach einem Verbrauch kommt nach 20 min ein neues an
+  anderer Stelle. Wie bei Camps bleibt der Fortschritt über die Nester erhalten (ADR 0022). Jedes IED gehört der
+  Werkstatt, die es gelegt hat, auch wenn sich Radien überlappen.
+- Platz: auf Straßen jeder Art im Einflussradius, auf der Fahrbahn oder bis etwa 4 m daneben; nicht im Ortskern
+  (Sektorradius), nicht näher als 500 m an Startbasis und FOB, mindestens 300 m zwischen zwei IEDs. Engstellen werden
+  nicht gesondert gesucht. Unentdeckte IEDs ziehen nicht um.
+- **Nur die Armee löst aus:** ein Fahrzeug in etwa 8 m oder ein Soldat zu Fuß in etwa 3 m. Zivilisten, Miliz,
+  Widerstand und Luftfahrzeuge nie. Beschuss oder Sprengen bringt ein echtes IED zur Explosion (Sprengen an Ort und
+  Stelle ist eine Gegenmaßnahme, bringt aber keinen Ruf).
+- Varianten (Startwerte): 60 % vergraben, 25 % ferngezündet, 15 % Attrappen. Alle zählen zum Budget.
+- Ein Hinweis-Objekt liegt mit 60 % Chance 1–4 m neben dem IED (auch bei Attrappen).
+- **Ferngezündet:** Der Auslöser (Kämpfer in Zivil) steht 60–150 m entfernt mit Sichtlinie, bevorzugt an einem Haus
+  oder erhöht, und spawnt, wenn ein Spieler 800 m nah ist. Er zündet, sobald die Armee etwa 15 m am IED ist. Ist er
+  tot, gefangen oder ergeben, zündet das IED nie mehr, muss aber noch entschärft werden.
+- **Attrappe:** dasselbe Objekt, vom Minensucher gefunden und entschärfbar, aber unzerstörbar und explodiert nie.
+- **Entschärfen** eines echten IEDs bringt +2 Ruf, eine Attrappe nichts. Den IED-Gegenstand, den das Spiel beim
+  Entschärfen ablegt, entfernen wir: Die Armee sammelt keine Sprengsätze.
+
+**VBIED**
+- Jede aktive Garage hat ein Budget von 1, danach 30 min Wartezeit. Alle 5 min eine Chance (Startwert 25 %), wenn
+  eine FOB oder Spieler (zu Fuß oder im Fahrzeug) im Radius sind.
+- Ein ziviles Fahrzeug aus der Liste der Garage mit nur einem Fahrer spawnt 800–1200 m vom Ziel außer Sicht auf einer
+  Straße, fährt hin, folgt einem fahrenden Ziel und zündet in 10 m (stärker als ein IED).
+- Fahrer tot oder Fahrzeug fahrunfähig: Es geht nichts hoch. Wird das Fahrzeug zerstört, explodiert die Ladung.
+  Erreicht er sein Ziel nicht innerhalb von 15 min, verschwindet er und zählt als verbraucht.
+
+**Selbstmordattentäter**
+- Nur im Radius einer aktiven Werkstatt, in einer Ortschaft (Sektorradius), wenn Spieler zu Fuß dort sind. Alle 5 min
+  eine Chance nach Ruf-Band (Startwerte niedrig 15 %, mittel 7 %, hoch 2 %), höchstens einer pro Werkstatt, danach
+  30 min Wartezeit.
+- Spawnt neu, 100–200 m entfernt außer Sicht, geht zielstrebig auf die nächste Spielergruppe zu und zündet in 5 m.
+- Erkennungszeichen: Kleidung aus einer eigenen Liste (Weste, dicker Mantel). Vor der Explosion ruft er mit 50 % Chance
+  (Sound aus Drongos Map Population; ohne die Mod still, ohne Fehler). Keine sichtbaren Sprengladungen.
+- Erschossen zündet er mit 30 % Chance: Früh erkennen lohnt sich, Erschießen auf kurze Distanz ist nicht sicher.
+
+**Befehle an Zivilisten**
+- Kann jeder Spieler geben, ohne Dolmetscher (Gesten): ACEs „Get Down!“ und „Go Away!“ im ACE-Interaktionsmenü an der
+  Person. Echte Zivilisten folgen mit ACEs Chancen (50 %, mit Waffe in der Hand 80 %), der Attentäter nie. Nicht-Folgen
+  allein verrät ihn also nicht.
+- Kein eigener Befehl „Stehen bleiben!“ (verworfen am 2026-10-22): ACE-Aktionen an einer Person brauchen so viel Nähe,
+  dass sie gegen einen Attentäter nicht helfen. Gegenmaßnahmen sind Distanz und frühes Ausschalten.
+
+**Hinterhalt**
+- Ein aktives Camp hat mit 50 % Chance einen Hinterhalt an der nächsten Straße, 200–800 m vom Camp, festgelegt beim
+  Entstehen des Camps. Er spawnt wie ein Camp bei Spielernähe: 4–6 Kämpfer in Deckung neben der Straße und ein paar
+  Deckungsobjekte, ganz oder gar nicht im Camp-Budget (ADR 0015). Feuer eröffnen sie bei etwa 150 m.
+- Ausgehoben verschwindet er. Zieht das Camp um, zieht er mit. Wird das Camp ausgehoben, bleibt er bis zum Abbau.
+
+**Kämpfer in Zivil** (Auslöser, VBIED-Fahrer, Attentäter)
+- Stehen technisch auf der Zivilisten-Seite, damit sie sich im Menü nicht von echten Zivilisten unterscheiden. Ihr Tod
+  kostet keinen Ruf, sie zählen als COIN-Einheiten und spawnen immer, auch bei vollem Budget (ADR 0022).
+- Einen eigenständigen „Kämpfer in Zivil“, der bei Kontakt die Waffe zieht, gibt es in Phase 4 nicht.
+
+**Allgemein**
+- Budgets, Chancen, Abstände und Wartezeiten stehen in `coin_config.sqf`, jede Bedrohung hat einen eigenen Schalter.
+- Im Debug-Modus erscheinen IEDs (Farbe nach Variante) und Auslöser auf der Karte. IEDs, Hinweis-Objekte und alle
+  Einheiten gehen an Zeus.
 - Liberations eigene IEDs (in feindlichen Sektoren bei negativem Ruf) und Guerilla-Hinterhalte
   (in befreiten Ortschaften bei Ruf ≤ −25) werden **ersetzt** und sind per Schalter abschaltbar.
-  Liberations Überfälle auf KI-Logistikkonvois bleiben (ADR 0008).
+  Liberations Überfälle auf KI-Logistikkonvois und die Guerilla bei Sektorkämpfen bleiben (ADR 0008).
+- Wir bauen alles selbst, auch Attentäter und VBIED. Die Module von Drongos Map Population passen nicht (feindliche
+  Seite, interner Skriptpfad), nur dessen Sounddatei wird genutzt (ADR 0022).
 
 ## 7. System C: Dolmetscher und Intel
 
@@ -308,7 +371,11 @@ Festgelegt beim Grilling für Phase 3 (2026-10-22). Speicherformat, Triangulatio
     Camps nicht gespeichert werden); ab Phase 4 auch IED und Hinterhalt. Der Zivilist warnt vor einem Camp im Umkreis von
     1500 m, der Kreis hat 150 m Radius (das Camp liegt darin, nicht in der Mitte) und hat ein eigenes rotes Symbol. Ein Camp
     bekommt höchstens einen Kreis, auch ein bereits entdecktes Camp darf einen bekommen. Der Kreis verschwindet, wenn das
-    Camp ausgehoben, umgezogen oder entfernt wird. Gibt es kein Camp ohne Kreis in Reichweite, bleibt es bei „Ich weiß nichts“
+    Camp ausgehoben, umgezogen oder entfernt wird. Gibt es kein Camp ohne Kreis in Reichweite, bleibt es bei „Ich weiß nichts“.
+    Ab Phase 4 (Ticket 4.8, 4.5) warnt er ebenso vor einem IED im Umkreis von 1000 m (Kreis 100 m, auch vor Attrappen, er
+    weiß es nicht besser) und vor einem Hinterhalt. Jede Bedrohung bekommt höchstens einen Kreis, der mit ihr verschwindet;
+    unter allen Bedrohungen ohne Kreis in Reichweite entscheidet der Zufall. Symbol, Farbe und Meldung wie beim Camp,
+    nicht gespeichert
   - **Lüge**: Kreis an einer falschen Stelle. Häufig bei niedrigem Ruf.
 - **Welches Nest:** ein zufälliges aktives Nest im Umkreis von etwa 4 km um den Zivilisten; gibt es dort keins, das nächste
   aktive Nest überhaupt. So zählt die Geografie, und am Ende sind auch die letzten Nester noch zu finden.
@@ -501,7 +568,7 @@ Infanterie, Technicals, Motorräder, zivile Fahrzeuge, leichte statische Waffen 
   Kuratoren als bearbeitbar hinzugefügt (gesammelte Funktion, nicht pro Skript).
 - Debug-Modus (Lobby-Parameter „COIN Debug“, Standard aus): zeigt allen Spielern Nester (Farbe nach Typ, zerstörte
   ausgegraut), Einflussradien, Camps mit Linie zu ihrem Nest, die Netzwerkstärke, bei Intel-Markern wahr oder gelogen,
-  die Nest-ID und den Ersatzpunkt einer Lüge, später IEDs auf der Karte.
+  die Nest-ID und den Ersatzpunkt einer Lüge, ab Phase 4 IEDs (Farbe nach Variante) und Auslöser auf der Karte.
   Schaltet zugleich die ausführlichen `[COIN]`-Logs ein.
 
 **Slots (15)**
@@ -513,7 +580,8 @@ Infanterie, Technicals, Motorräder, zivile Fahrzeuge, leichte statische Waffen 
 - **Budget für Gegner-KI** (ADR 0015): Liberations drei Obergrenzen bekommen einen gemeinsamen Wert (100 mal
   Unitcap-Faktor), die COIN-Einheiten kommen obendrauf. Nester spawnen immer vollständig, Camps nur innerhalb eines
   eigenen COIN-Budgets. Für Zivilisten zählen nur die eigenen der Bevölkerung (Ticket 3.7), nicht Liberations.
-- Dazu eine Obergrenze für gleichzeitige IEDs.
+- Dazu eine Obergrenze für gleichzeitige IEDs. Auslöser, VBIED-Fahrer und Attentäter sind einzelne Einheiten, zählen als
+  COIN-Einheiten und spawnen immer; die Kämpfer eines Hinterhalts zählen zum Camp-Budget.
 - Spawnen nur im Umkreis von Spielern, wie bei Liberation.
 - Startwerte (in Tests anpassen): Liberation ~100 Gegner-KI, Camps nur bis ~30 COIN-Einheiten insgesamt
   (Nest-Wachen eingerechnet), ~30 eigene Zivilisten, ~25 IEDs.
@@ -524,7 +592,8 @@ Infanterie, Technicals, Motorräder, zivile Fahrzeuge, leichte statische Waffen 
   Kein eigenes zweites Speichersystem (ADR 0005). Der Ruf wird von Liberation selbst gespeichert.
 - Die Mission speichert unter einem eigenen Namen, damit sie sich nicht mit dem normalen
   KP Liberation auf Lythium in die Quere kommt.
-- Ausnahme: **Camps** werden bewusst nicht gespeichert (siehe Abschnitt 5.1).
+- Ausnahme: **Camps** werden bewusst nicht gespeichert (siehe Abschnitt 5.1), ebenso die Bedrohungen aus Abschnitt 6
+  (IEDs, VBIEDs, Attentäter, Hinterhalte) und ihre Wartezeiten. Nach einem Neustart legen die aktiven Nester neu (ADR 0022).
 
 **Fraktionen**
 - Armee: RHS USAF Desert (Liberation-Lythium-Standard).

@@ -185,19 +185,26 @@ Schnitt in dünne, einzeln testbare Durchstiche (Grilling 2026-10-22, DESIGN 7 v
   (am 2026-10-22 von Niklas im Spiel getestet und bestätigt: Tipp (100 m) zum nächsten aktiven Nest ohne Kreis, Test per Konsole mit gesetztem COIN_home; zwei Hooks in Liberation, siehe docs/hooks.md Nr. 21; nicht gesehen: Kreis schrumpft, wenn alle Nester schon einen haben, Schalter aus, Liberations Belohnung im RPT nicht geprüft; echter Informant ab Ruf 25 und Mehrspieler: siehe 7.5)
 
 **DoD:** Ohne Debug-Anzeige allein über Befragungen ein Nest finden und zerstören.
+(Phase 3 am 2026-10-22 abgeschlossen. Die DoD wurde nicht als ein Durchlauf gespielt, nur in Einzelteilen getestet: Befragen, Verhör, Triangulation, Lügen, Warnung, Abklingzeit, Bevölkerung, Informanten-Tipp. Mehrspieler: siehe 7.5.)
 
 ## Phase 4 – Asymmetrische Bedrohungen
 
 Ziel: IEDs, VBIEDs, Attentäter und Hinterhalte, gespeist aus den Nestern.
+Festgelegt beim Grilling am 2026-10-22 (DESIGN 6, ADR 0022). Reihenfolge: 4.7, 4.1a, 4.1b, 4.2a, 4.2b, 4.8, 4.3, 4.4, 4.5.
 
-- [ ] 4.1 IED-Budget pro Werkstatt, IED-Platzierung an Straßen im Radius
-- [ ] 4.2 IED-Varianten: vergraben, ferngezündet mit Auslöser, Attrappe; ACE-Entschärfen
-- [ ] 4.3 VBIED-Ereignis (nur mit aktiver Garage)
-- [ ] 4.4 Selbstmordattentäter unter Zivilisten (abhängig vom Ruf); Befehle an Zivilisten prüfen
-  (ACE „Get Down“/„Go Away“ für Spieler logisch auffindbar? sonst eigene Einträge inkl. „Stehen bleiben“)
-- [ ] 4.5 Hinterhalte an Straßen
-- [ ] 4.6 Werkstatt/Garage zerstört → Budgets und Ereignisse im Radius versiegen
-- [ ] 4.7 Liberations IEDs und Hinterhalte in Ortschaften per Schalter abschalten (ADR 0008)
+- [ ] 4.7 (#79) Liberations IEDs und Hinterhalte in Ortschaften per Schalter abschalten (ADR 0008); Konvoi-Überfall und
+  Sektor-Guerilla bleiben
+- [ ] 4.1a (#80) Durchstich IED: Budget pro Werkstatt, Platzierung an Straßen im Radius, Auslösung nur durch die Armee
+- [ ] 4.1b (#81) Nachschub, Werkstatt zerstört → kein Nachschub (früher 4.6), Hinweis-Objekte, keine IED-Beute
+- [ ] 4.2a (#82) Attrappe; ACE-Entschärfen bringt Ruf
+- [ ] 4.2b (#83) Ferngezündetes IED mit Auslöser (erster Kämpfer in Zivil)
+- [ ] 4.8 (#84) Warnung vor IED: Zivilist warnt mit Kreis wie beim Camp (DESIGN 7)
+- [ ] 4.3 (#85) VBIED-Ereignis (nur mit aktiver Garage); Garage zerstört → keine VBIEDs mehr (früher 4.6)
+- [ ] 4.4 (#86) Selbstmordattentäter unter Zivilisten (Häufigkeit nach Ruf-Band); gegen ihn helfen Distanz und frühes
+  Ausschalten, ACE „Get Down“/„Go Away“ ignoriert er. Eigenes „Stehen bleiben“ verworfen am 2026-10-22 (Niklas):
+  ACE-Aktionen an der Person brauchen zu viel Nähe
+- [ ] 4.5 (#87) Hinterhalte an Straßen, ausgehend von Camps, mit Warnung
+- [-] 4.6 Werkstatt/Garage zerstört → Budgets und Ereignisse im Radius versiegen: aufgegangen in 4.1b und 4.3
 
 **DoD:** Fahrt durch eine Region mit Werkstatt trifft auf IEDs; nach Zerstörung der Werkstatt
 kommen dort keine neuen mehr hinzu.
@@ -207,7 +214,7 @@ kommen dort keine neuen mehr hinzu.
 Ziel: Verhalten der Spieler verändert die Welt spürbar.
 
 - [ ] 5.1 Liberation-Ruf um die Aktionen aus `DESIGN.md` Abschnitt 8 erweitern
-- [ ] 5.2 Ruf wirkt auf Intel-Qualität, Informanten-Häufigkeit (über Liberations Informanten-Werte) und Attentäter-Häufigkeit
+- [ ] 5.2 Ruf wirkt auf Intel-Qualität und Informanten-Häufigkeit (über Liberations Informanten-Werte); die Attentäter-Häufigkeit nach Ruf-Band kommt schon mit 4.4
 - [ ] 5.3 Ruf-Anzeige: Zahl im Liberation-Overlay ausblenden (Hook), Dolmetscher kann Zivilisten nach ihrer
   Haltung fragen und erfährt das Ruf-Band in Worten (ADR 0009)
 - [ ] 5.4 Gefälligkeiten: Zähler ab Ruf-Schwelle, Vorrat, Anforderung beim Ältesten über den Dolmetscher (E12)
