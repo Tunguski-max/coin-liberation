@@ -53,9 +53,11 @@ if (_cooldownEnd > time) exitWith {
     [name _asker, "cooldown", ""] remoteExecCall ["COIN_fnc_showAnswer", owner _asker];
     false
 };
-// Until the answer is known the interpreter counts as busy, so a second civilian cannot be asked within the delay
+// Until the answer is known the interpreter counts as busy, so a second civilian cannot be asked within the delay.
+// The spawn below ends this at once; the time only covers a spawn that never gets there
+private _pending = time + (COIN_questionDelay select 1) + COIN_answerReadSeconds;
 if (COIN_enableCooldown) then {
-    COIN_cooldownEnds set [_key, time + (COIN_questionDelay select 1) + 1];
+    COIN_cooldownEnds set [_key, _pending];
 };
 
 // Once per civilian, also when he knows nothing
@@ -63,8 +65,15 @@ _civ setVariable ["COIN_questioned", true, true];
 _civ setVariable ["COIN_talking", true, true];
 [_civ, _asker, COIN_talkHoldSeconds] remoteExecCall ["COIN_fnc_holdCivilian", _civ];
 
-[_civ, _asker, _key] spawn {
-    params ["_civ", "_asker", "_key"];
+[_civ, _asker, _key, _pending] spawn {
+    params ["_civ", "_asker", "_key", "_pending"];
+
+    // Ends the busy time again, but only if it is still the one set above (a later question may have set its own)
+    private _endPending = {
+        if (COIN_enableCooldown && {(COIN_cooldownEnds getOrDefault [_key, 0]) isEqualTo _pending}) then {
+            COIN_cooldownEnds deleteAt _key;
+        };
+    };
 
     private _minDelay = COIN_questionDelay select 0;
     sleep (_minDelay + random ((COIN_questionDelay select 1) - _minDelay));
@@ -120,17 +129,17 @@ _civ setVariable ["COIN_talking", true, true];
         };
 
         // A marker (also a lie) starts the cooldown, "I know nothing" and a refusal do not
-        if (COIN_enableCooldown) then {
-            if (_intel isEqualTo []) then {
-                COIN_cooldownEnds deleteAt _key;
-            } else {
-                COIN_cooldownEnds set [_key, time + COIN_questionCooldown];
-                diag_log format ["[COIN] intel: cooldown of %1 started for %2 s", name _asker, COIN_questionCooldown];
-            };
+        if (COIN_enableCooldown && {!(_intel isEqualTo [])}) then {
+            COIN_cooldownEnds set [_key, time + COIN_questionCooldown];
+            diag_log format ["[COIN] intel: cooldown of %1 started for %2 s", name _asker, COIN_questionCooldown];
+        } else {
+            call _endPending;
         };
 
         [_name, _level, _type] remoteExecCall ["COIN_fnc_showAnswer", owner _asker];
         sleep COIN_answerReadSeconds;
+    } else {
+        call _endPending;
     };
 
     [_civ, objNull, 0] remoteExecCall ["COIN_fnc_holdCivilian", _civ];

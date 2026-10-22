@@ -38,6 +38,11 @@ private _texts = switch (true) do {
     };
     default {([COIN_questionAnswers, _level] call COIN_fnc_findByType) param [1, []]};
 };
+// The interpreter must never speak a civilian's rumor sentence in his own name
+if (_texts isEqualTo [] && {_level isEqualTo "cooldown"}) exitWith {
+    diag_log "[COIN] intel: ERROR - no cooldown texts in COIN_cooldownAnswers";
+    false
+};
 if (_texts isEqualTo []) then {
     diag_log format ["[COIN] intel: ERROR - no answer texts for result %1 (type %2), rumor texts used", _level, _type];
     _texts = ([COIN_questionAnswers, "rumor"] call COIN_fnc_findByType) param [1, []];
