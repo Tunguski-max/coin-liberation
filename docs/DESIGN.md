@@ -10,6 +10,7 @@
 > v0.4.3: Gebäude-Nester nach Templates pro Hausklasse und Nest-Typ (ADR 0019).
 > v0.4.4: Gelände-Nester nach Templates mit Richtungspfeil, Hangneigung und Wachenring (ADR 0020).
 > v0.4.5: Meldung an alle Spieler bei zerstörtem Nest und ausgehobenem Camp (Ticket 2.14).
+> v0.5: Dolmetscher und Intel für Phase 3 festgelegt (Gespräch, Abklingzeit, Triangulation, Lügen, Verhör, Dokumente, ADR 0021).
 > Offene Entscheidungen stehen gesammelt in [Abschnitt 12](#12-offene-entscheidungen).
 > Begriffe sind in [`CONTEXT.md`](../CONTEXT.md) definiert.
 
@@ -177,7 +178,17 @@ nest = [id, type, kind, pos, seed, state]
   state  "active" | "destroyed"
 ```
 Einflussradius und Bewachung stehen nicht im Spielstand, sie kommen nach Typ aus `coin_config.sqf`. So wirken
-Balancing-Änderungen auch in laufenden Kampagnen. Intel-Felder kommen in Phase 3 mit einer neuen `COIN_saveVersion`.
+Balancing-Änderungen auch in laufenden Kampagnen. Ab Phase 3 (`COIN_saveVersion` 2, ADR 0021) lautet der Block
+`[2, [nest, ...], [intel, ...]]`, ein älterer Stand bekommt beim Laden eine leere Intel-Liste:
+```
+intel = [id, nestId, center, radius, level, shownType, fakePos]
+  nestId     Nest, auf das der Marker zeigt; -1 bei einer Lüge
+  center     Mittelpunkt des Kreises (das Nest liegt darin, aber nicht in der Mitte)
+  radius     aktueller Radius, schrumpft mit jedem weiteren wahren Treffer
+  level      "rumor" | "hint" | "tip"
+  shownType  angezeigter Nest-Typ (bei einer Lüge zufällig, beim Gerücht leer)
+  fakePos    Ersatzpunkt einer Lüge, sonst leer
+```
 
 ### 5.1 Camps
 
@@ -261,40 +272,85 @@ keine IEDs, ohne Garage keine VBIEDs.
 
 ## 7. System C: Dolmetscher und Intel
 
+Festgelegt beim Grilling für Phase 3 (2026-10-22). Speicherformat, Triangulation und Lügen: ADR 0021.
+
 **Dolmetscher**
-- Zwei Slots in der Führungsgruppe beim Kommandanten.
-- Befragen geht nur, wenn der Dolmetscher **selbst fragt oder höchstens ~5 m entfernt** steht.
+- Zwei Slots in der Führungsgruppe beim Kommandanten. Die Rolle hängt am Slot und bleibt nach einem Respawn erhalten
+  (Dolmetscher und Schütze haben dieselbe Einheitenklasse).
+- **Nur der Dolmetscher selbst** spricht mit Zivilisten und Gefangenen. Andere Spieler sehen kein Gespräch und bekommen
+  keine Antwort.
 - Fällt der Dolmetscher aus, gibt es keine Gespräche. Das macht ihn zu einem Schutzobjekt.
 
-**Befragung (ACE-Interaktion „Befragen“ am Zivilisten)**
-- **Jeder** Zivilist ist befragbar, auch die von Liberation in umkämpften Orten und auf Patrouille.
-  Damit befreite Ortschaften nicht leer sind, spawnt die Mission dort bei Spielernähe eine eigene
-  Bevölkerung, darunter den Ältesten (ADR 0011).
+**Gespräch (ACE-Interaktion)**
+- An jedem befragbaren Zivilisten und an Gefangenen gibt es den Eintrag **„Gespräch“**, nur für den Dolmetscher und nur
+  aus der Nähe (etwa 3 m). Darunter liegen die Fragen: in Phase 3 **„Nach der Miliz fragen“** (Zivilist) und
+  **„Verhören“** (Gefangener), ab Phase 5 **„Wie steht ihr zu uns?“**.
+- Öffnet der Dolmetscher das Gespräch, bleibt der Zivilist stehen und dreht sich zu ihm. Nach der Antwort oder nach etwa
+  30 s ohne Frage geht er weiter. Kein Fortschrittsbalken.
+- Die Antwort kommt nach 1–2 s als Untertitel (Name und Satz), nur beim Dolmetscher, mit einigen Satzvarianten pro
+  Ergebnis auf Deutsch und Englisch. Entsteht ein Marker, bekommt die Seite einen kurzen Hinweis „Neue Intel auf der Karte“
+  ohne Inhalt.
+
+**Befragung („Nach der Miliz fragen“)**
+- Befragbar ist jeder lebende, ansprechbare Zivilist zu Fuß, auch Liberations Zivilisten in umkämpften Orten und auf
+  Patrouille. Nicht befragbar: Gefangene (Verhör), der Informant (eigener Ablauf), Bewusstlose, Insassen von Fahrzeugen.
 - Jeder Zivilist kann nur **einmal** befragt werden.
-- Mögliche Ergebnisse, gewichtet nach Ruf:
+- **Abklingzeit pro Dolmetscher:** Erzeugt eine Befragung oder ein Verhör einen Marker (auch eine Lüge), muss der Dolmetscher
+  etwa 5 Minuten warten. Fragt er vorher, antwortet er selbst („Wir fallen zu sehr auf, warten wir etwas.“) und der
+  Zivilist bleibt unbefragt. Nach „Ich weiß nichts“ gibt es keine Abklingzeit. Sie gilt pro Slot, übersteht den Respawn und
+  wird nicht gespeichert. Grund: Liberation spawnt bei jeder Aktivierung eines Sektors neue Zivilisten, „einmal pro
+  Zivilist“ allein ließe eine Ortschaft abgrasen.
+- Mögliche Ergebnisse, gewichtet nach Ruf-Band (Gewichte in `coin_config.sqf`):
   - „Ich weiß nichts.“
-  - **Gerücht**: großer Kreis (z. B. 600 m) um ein Nest
-  - **Hinweis**: mittlerer Kreis (z. B. 300 m)
-  - **Konkreter Tipp**: kleiner Kreis (z. B. 100 m)
-  - **Warnung**: IED oder Hinterhalt in der Nähe
+  - **Gerücht**: großer Kreis (Startwert 600 m) um ein Nest
+  - **Hinweis**: mittlerer Kreis (300 m)
+  - **Konkreter Tipp**: kleiner Kreis (100 m)
+  - **Warnung**: Bedrohung in der Nähe. In Phase 3 ein Camp in der Umgebung (Kreis um das Camp, nicht gespeichert, weil
+    Camps nicht gespeichert werden); ab Phase 4 auch IED und Hinterhalt
   - **Lüge**: Kreis an einer falschen Stelle. Häufig bei niedrigem Ruf.
-- Zusätzlich kann der Dolmetscher fragen, **wie die Bevölkerung zur Armee steht**. Die Antwort nennt das
-  Ruf-Band in Worten (der Ruf wird nicht als Zahl angezeigt, siehe Abschnitt 8).
-- **Triangulation:** Mehrere wahre Hinweise auf dasselbe Nest verkleinern den Kreis.
-- Ergebnisse erscheinen als Kartenmarker für die ganze Seite und werden gespeichert.
-- Wahre Marker eines zerstörten Nests verschwinden automatisch. Lügen-Marker bleiben, bis Spieler das
-  Gebiet durchsucht haben, damit ihr Verschwinden nichts verrät.
+- **Welches Nest:** ein zufälliges aktives Nest im Umkreis von etwa 4 km um den Zivilisten; gibt es dort keins, das nächste
+  aktive Nest überhaupt. So zählt die Geografie, und am Ende sind auch die letzten Nester noch zu finden.
+
+**Intel-Marker**
+- Marker gelten für die ganze Seite und werden gespeichert (ADR 0021).
+- **Ein Kreis pro Nest.** Das Nest liegt immer im Kreis, aber nicht in der Mitte.
+- **Triangulation:** Jeder weitere wahre Treffer verkleinert den Kreis (alter Radius × Faktor, nie größer als die Stufe des
+  neuen Treffers, nie kleiner als 50 m), der neue Kreis liegt möglichst im alten. Ein geschrumpfter Kreis ist damit sicher
+  wahr: Zwei Quellen bestätigen sich.
+- Ab Hinweis zeigt der Marker ein **Symbol pro Nest-Typ**, ein Gerücht nur ein neutrales „Miliz-Versteck“.
+- Wahre Marker eines zerstörten Nests verschwinden automatisch.
+- **Lügen** sehen aus wie echte Marker: zufälliger Nest-Typ, zufällige Größe. Sie schrumpfen nie. Jede Lüge hat einen
+  verborgenen Ersatzpunkt auf glaubhaftem Gelände (Ortsrand oder freies Gelände), um den ihr Kreis gebaut ist. War ein
+  Spieler zu Fuß nahe an diesem Punkt (etwa 50 m), gilt das Gebiet als durchsucht und der Marker verschwindet ohne Meldung.
 
 **Weitere Intel-Quellen**
-- **Gefangene verhören** (ACE-Fesseln plus Dolmetscher): überall möglich, einmal pro Gefangenem, höhere
-  Chance auf konkrete Tipps. Liberations Belohnung für das Abliefern an der FOB (Intel-Punkte) bleibt zusätzlich.
-- **Dokumente** bei toten Anführern, in zerstörten Nestern und ausgehobenen Camps.
-  - *Option (E13):* Dokumente sind echte **ACE Intel Items** (Dokument/Foto) im Inventar.
-    Sie müssen eingesammelt und zum **Dolmetscher** gebracht werden. Erst bei der Auswertung
-    entsteht der Intel-Marker. Geht der Träger verloren, liegt das Dokument bei seiner Leiche.
-    Hinweis: ACE Intel Items lassen sich laut ACE-Issues nur mit einer Karte im Inventar öffnen.
-- **Informanten** (Liberation-Funktion): Ab Ruf +25 meldet sich gelegentlich ein Zivilist, der zu einer
-  FOB gebracht werden muss. Liberation gibt dafür Intel-Punkte; wir ergänzen ein Intel zu einem aktiven Nest (ADR 0011).
+- **Gefangene verhören** („Gespräch“ → „Verhören“): überall möglich, einmal pro Gefangenem. Ein Verhör bringt 1–2 Ergebnisse
+  mit eigenen Gewichten, die nicht vom Ruf abhängen (ein Gefangener gehört nicht zur Bevölkerung): mehr Tipps, wenig
+  Lügen, beim ersten Ergebnis nie „Ich weiß nichts“. Ein Kämpfer aus einem Camp nennt das Nest seines Camps, eine
+  Nest-Wache ein anderes Nest, alle anderen folgen der Regel „Welches Nest“. Die Abklingzeit gilt auch hier.
+  Liberations Belohnung für das Abliefern an der FOB (Intel-Punkte) bleibt zusätzlich.
+- **Dokumente** (Entscheidung E13): echte **ACE Intel Items** im Inventar. Sie werden eingesammelt und zum Dolmetscher
+  gebracht, der sie über eine Selbst-Interaktion „Dokumente auswerten“ auswertet. Erst dann entsteht der Marker (Hinweis oder
+  Konkreter Tipp, nie eine Lüge). Stirbt der Träger, liegt das Dokument bei seiner Leiche.
+  Hinweis: ACE Intel Items lassen sich laut ACE-Issues nur mit einer Karte im Inventar öffnen.
+
+  | Quelle | Chance | Zeigt auf |
+  |---|---|---|
+  | Zerstörtes Nest | `COIN_documentDropChance` | ein anderes aktives Nest |
+  | Ausgehobenes Camp | `COIN_campIntelChance` | das Nest des Camps |
+  | Toter Anführer (Gruppenführer von Nest-Wachen oder Camp) | Wert in der Config | Regel „Welches Nest“ |
+
+  *Später/optional:* Für Gebäude-Nester ein Foto des Hauses im Tagebuch statt eines Kreises (braucht ein Bild pro Hausklasse).
+- **Informanten** (Liberation-Funktion): Ab Ruf +25 meldet sich gelegentlich ein Zivilist, der zu einer FOB gebracht werden
+  muss. Liberation gibt dafür Intel-Punkte. Zusätzlich liefert er einen **Konkreten Tipp** (nie eine Lüge) zum aktiven Nest,
+  das seiner Ortschaft am nächsten liegt und noch keinen Marker hat; haben alle einen, zum nächsten aktiven Nest. Der Tipp
+  zählt als wahrer Treffer (ADR 0011).
+
+**Eigene Bevölkerung** (ADR 0011)
+- Liberation hat in befreiten Ortschaften keine Zivilisten. Die Mission spawnt dort bei Spielernähe 4–8 eigene Zivilisten im
+  Ortskern, mit denselben Abständen für Spawn und Abbau wie bei Nestern, innerhalb des gemeinsamen Zivilisten-Budgets
+  (ADR 0015). Weil sie bei jedem Besuch neu entstehen, verhindert die Abklingzeit das Abgrasen.
+- Der **Älteste** kommt erst in Phase 5 dazu, vorher hat er keine Aufgabe.
 
 **Intel und Intel-Punkte**
 - „Intel“ meint immer unseren Hinweis auf ein Nest oder eine Bedrohung.
@@ -450,7 +506,8 @@ Infanterie, Technicals, Motorräder, zivile Fahrzeuge, leichte statische Waffen 
 - Alle von der Mission erzeugten Einheiten, Fahrzeuge und Objekte werden automatisch allen
   Kuratoren als bearbeitbar hinzugefügt (gesammelte Funktion, nicht pro Skript).
 - Debug-Modus (Lobby-Parameter „COIN Debug“, Standard aus): zeigt allen Spielern Nester (Farbe nach Typ, zerstörte
-  ausgegraut), Einflussradien, Camps mit Linie zu ihrem Nest, die Netzwerkstärke und später IEDs auf der Karte.
+  ausgegraut), Einflussradien, Camps mit Linie zu ihrem Nest, die Netzwerkstärke, bei Intel-Markern wahr oder gelogen,
+  die Nest-ID und den Ersatzpunkt einer Lüge, später IEDs auf der Karte.
   Schaltet zugleich die ausführlichen `[COIN]`-Logs ein.
 
 **Slots (15)**
@@ -503,4 +560,4 @@ Infanterie, Technicals, Motorräder, zivile Fahrzeuge, leichte statische Waffen 
 | E10 | Welches schwere Gerät darf die Miliz haben? | Technicals überall, Altfahrzeuge bei Waffenlagern und max. 1 pro Gegenangriff, 2 T-72 + 1 ZSU-23-4 in der Hauptstadt (ADR 0014) | **entschieden** |
 | E11 | Mörser und Hubschrauber für die Spieler? | Mörser ja, Hubschrauber außer AH-64D ja, AH-1Z/AH-6M nur als Elite mit Limit (ADR 0007) | **entschieden** |
 | E12 | Unterstützung bei sehr hohem Ruf (Abschnitt 8.1) | Gefälligkeiten über den Ältesten: Ablenkungsangriff und Verstärkung | vorgeschlagen |
-| E13 | Dokumente als ACE Intel Items, die zum Dolmetscher gebracht werden müssen? | Option für Phase 3, Entscheidung beim Spec von Ticket 3.6 | offen |
+| E13 | Dokumente als ACE Intel Items, die zum Dolmetscher gebracht werden müssen? | Ja: ACE Intel Items, Auswertung beim Dolmetscher, nie gelogen (Grilling Phase 3, 2026-10-22) | **entschieden** |
