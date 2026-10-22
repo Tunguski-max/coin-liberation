@@ -52,6 +52,7 @@ Skript `tools/dev-sync.ps1`, das nach jeder Änderung baut und in `mpmissions` k
 4. Einen Slot wählen. Zeus ist der Slot „Kommandant (Zeus)“ in der Führungsgruppe (ADR 0010).
 
 Der lokale Host ist gleichzeitig Server und Client. Das deckt die meisten Fehler ab.
+Tests, die einen zweiten Spieler brauchen (später beitretender Spieler, Sicht anderer Spieler), werden gesammelt in Phase 7 (Ticket 7.5) auf dem Dedicated Server gemacht.
 Fehler, die nur auf einem echten Dedicated Server auftreten, fallen erst in Phase 7 oder
 mit einem lokalen Dedicated Server auf (siehe ADR 0006).
 

@@ -111,8 +111,8 @@ Ziel: Nester existieren, sind persistent und schwächen bei Zerstörung das Netz
   Kernobjekt gesprengt bei Gebäude- und Gelände-Nest, Marker grau, Ereignis je Nest einmal, kein Respawn, nach Neustart
   weiter zerstört, Zeus-Löschen ist keine Zerstörung, eingestürzte Halle zerstört das Nest sofort)
 - [x] 2.5 (#28) Debug-Anzeige (Parameter): Nester und Radien auf der Karte (Lobby-Parameter „COIN Debug“; getestet: an zeigt 11 Nester
-  mit Farbe und Radius nach Typ, aus zeigt keine Marker; noch offen: später beitretender Spieler)
-- [ ] 2.6 (#34) Netzwerkstärke berechnen und im Debug anzeigen (implementiert, ungetestet: aktive / alle Nester, Server verteilt `COIN_networkStrength` und `COIN_networkCounts`, Debug-Eintrag im Karten-Tagebuch „COIN Debug“)
+  mit Farbe und Radius nach Typ, aus zeigt keine Marker; später beitretender Spieler: siehe 7.5)
+- [x] 2.6 (#34) Netzwerkstärke berechnen und im Debug anzeigen (am 2026-10-22 getestet: neue Kampagne 1,00 (11 von 11), Haus der Rekrutierungsstelle eingestürzt ergibt 0,91 (10 von 11) mit einer RPT-Zeile, Debug-Eintrag im Karten-Tagebuch „COIN Debug“ folgt dem Wert, nach Neustart bleibt 0,91; später beitretender Client: siehe 7.5)
 - [x] 2.7 (#36) Camps: Kapazität aus aktiven Nestern berechnen (Entscheidung E8; am 2026-10-21 getestet: neue Kampagne 10 Camps,
   Kommandoposten zerstört ergibt 8, mit zusätzlich zerstörter Rekrutierungsstelle nach Neustart 7, kein Nest über seinem Gewicht;
   Waffenlager → 9 nicht einzeln getestet, gleiche Rechnung). Camps sind erst Daten, der Inhalt kommt mit 2.9
@@ -129,7 +129,7 @@ Ziel: Nester existieren, sind persistent und schwächen bei Zerstörung das Netz
   `COIN_campReplaceMinutes` an anderer Stelle ersetzt, ein weggeteleportierter Wächter verhindert das Ausheben nicht, unentdeckte
   Camps ziehen um und ein entdecktes bleibt, ein Camp in einer neuen Sperrzone (Sektor Kandar) wird beim Abbau versetzt, Camps
   eines zerstörten Nests verschwinden ohne Ersatz und die Gesamtzahl folgt der Kapazität, nach Neustart 6 von 6 Camps bei
-  Kapazität 6. Netzwerkstärke der DoD: siehe 2.6, noch offen)
+  Kapazität 6. Netzwerkstärke: siehe 2.6)
 - [x] 2.11 (#36) Debug-Anzeige für Camps und ihr zugehöriges Nest (getestet: Dreieck mit Linie zum Eigentümer-Nest,
   Camps eines zerstörten Nests werden grau)
 - [x] 2.12 (#26) Liberation-Nebenmission „FOB Hunting“ abschalten (ADR 0011; getestet: Hooks 15 und 16,
@@ -137,7 +137,7 @@ Ziel: Nester existieren, sind persistent und schwächen bei Zerstörung das Netz
 - [x] 2.13 (#27) KI-Budget: Liberations Obergrenzen auf 100, COIN-Einheiten obendrauf, Nester immer vollständig, Camps nur bis
   30 COIN-Einheiten insgesamt (ADR 0015; getestet: `COIN_fnc_aiBudget` 100 → 105 → 110 mit Test-Einheiten, nach dem Löschen wieder 100,
   Abschalten zur Laufzeit stellt 180/150/150 wieder her, `COIN_fnc_campFitsBudget` 25 ja / 26 nein;
-  Unitcap ×1,5 beim Wipe: 270/225/225 → 150, auch nach Neustart; noch offen: später beitretender Client)
+  Unitcap ×1,5 beim Wipe: 270/225/225 → 150, auch nach Neustart; später beitretender Client: siehe 7.5)
 - [ ] 2.14 (#54) Meldung an alle Spieler bei zerstörtem Nest (Typ, ohne Position) und ausgehobenem Camp (ohne Position, ohne Nest),
   analog zur FOB-Meldung von Liberation; Ereignis `COIN_campCleared` dazu
 
@@ -232,5 +232,6 @@ Je ein Hilfs- und ein Aufklärungsauftrag lassen sich annehmen und abschließen;
 - [ ] 7.2 Persistenz über Server-Neustart testen
 - [ ] 7.3 Performance unter Last messen (Server-FPS bei 5–10 Spielern)
 - [ ] 7.4 Balancing-Werte in `coin_config.sqf` nach Testabenden anpassen
+- [ ] 7.5 Tests mit einem zweiten Spieler auf dem Dedicated Server (lokal reicht ein Spieler): später beitretender Spieler sieht die Debug-Marker (2.5), die Gegner-Grenzen des Servers (`COIN_enemyAICaps`, 2.13) und die Netzwerkstärke im Tagebuch „COIN Debug“ (2.6); Zeus-Kurator, der erst später entsteht, sieht COIN-Inhalte; Meldungen an alle Spieler (2.14)
 
 **DoD:** Ein echter Spielabend mit der Gruppe ohne Abstürze, Save übersteht Neustart.
