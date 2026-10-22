@@ -60,6 +60,15 @@ if (COIN_enableNests) then {
     diag_log "[COIN] init: nests off, none are created, a COIN block in the save is kept unchanged";
 };
 
+// Intel (ticket 3.1, DESIGN 7): circles on the map from the interpreter's questions. Not saved yet (ticket 3.2)
+if (COIN_enableQuestioning) then {
+    COIN_intel = [];
+    COIN_intelNextId = 1;
+    diag_log format ["[COIN] init: questioning on, nest range %1 m, talk range %2 m", COIN_intelNestRange, COIN_talkRange];
+} else {
+    diag_log "[COIN] init: questioning off";
+};
+
 // Messages to all players when a nest is destroyed or a camp cleared (ticket 2.14)
 [] call COIN_fnc_initMessages;
 

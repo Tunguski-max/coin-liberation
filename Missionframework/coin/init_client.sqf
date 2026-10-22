@@ -16,6 +16,11 @@ if (COIN_enableRoleTraits) then {
     player addEventHandler ["Respawn", {params ["_unit"]; [_unit] call COIN_fnc_applyRoleTraits;}];
 };
 
+// Interpreter (ticket 3.1, DESIGN 7): ACE "Talk" at civilians, only for the interpreter slots
+if (COIN_enableQuestioning) then {
+    [] call COIN_fnc_initQuestioning;
+};
+
 // Player-readable explanations in the map diary (tab "COIN Liberation"), again after every respawn
 if (COIN_enableFactionMarkers) then {
     [player] call COIN_fnc_createDiary;

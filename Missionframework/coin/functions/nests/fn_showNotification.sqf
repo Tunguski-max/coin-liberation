@@ -9,7 +9,7 @@
         a dedicated server has no interface and does nothing. With COIN_debug a client logs one line, so the test can see who got it.
 
     Parameter(s):
-        _kind - "nest" (nest destroyed) or "camp" (camp cleared) [STRING]
+        _kind - "nest" (nest destroyed), "camp" (camp cleared) or "intel" (new intel, ticket 3.1) [STRING]
         _type - Nest type, for "nest" [STRING]
 
     Returns:
@@ -27,6 +27,7 @@ private _german = (language isEqualTo "German");
 private _class = switch (_kind) do {
     case "nest": {"coin_nest_destroyed"};
     case "camp": {"coin_camp_cleared"};
+    case "intel": {"coin_intel_new"};
     default {""};
 };
 if (_class isEqualTo "") exitWith {false};

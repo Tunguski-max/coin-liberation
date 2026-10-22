@@ -51,6 +51,18 @@ coin/
     │   ├── fn_exportNestTemplate.sqf   COIN_fnc_exportNestTemplate: Gebäude-Template des angeschauten Hauses in die Zwischenablage
     │   ├── fn_exportTerrainTemplate.sqf COIN_fnc_exportTerrainTemplate: Gelände-Template um den Richtungspfeil in die Zwischenablage
     │   └── fn_debugTerrainNest.sqf     COIN_fnc_debugTerrainNest: Gelände-Nest eines Typs vor dem Spieler, wie ein echtes
+    ├── intel/
+    │   ├── fn_initQuestioning.sqf      COIN_fnc_initQuestioning: Client, Dolmetscher-Slot erkennen, Aktionsmenü „Nach der Miliz fragen“ einrichten (Ticket 3.1)
+    │   ├── fn_addTalkAction.sqf        COIN_fnc_addTalkAction: Eintrag im normalen Aktionsmenü (Scrollrad), nach jedem Respawn neu
+    │   ├── fn_talkTargetLoop.sqf       COIN_fnc_talkTargetLoop: Client-Schleife, der Zivilist, den der Dolmetscher ansieht, bleibt stehen
+    │   ├── fn_applyInterpreter.sqf     COIN_fnc_applyInterpreter: markiert die Einheit als Dolmetscher, nach jedem Respawn neu
+    │   ├── fn_canQuestion.sqf          COIN_fnc_canQuestion: darf dieser Dolmetscher diesen Zivilisten jetzt befragen? (Menü und Server)
+    │   ├── fn_holdCivilian.sqf         COIN_fnc_holdCivilian: der Zivilist bleibt stehen und schaut den Dolmetscher an (läuft, wo er lokal ist)
+    │   ├── fn_questionCivilian.sqf     COIN_fnc_questionCivilian: Server, prüft die Regeln, wählt Nest und Stufe, antwortet nur dem Dolmetscher
+    │   ├── fn_pickIntelNest.sqf        COIN_fnc_pickIntelNest: zufälliges aktives Nest im Umkreis, sonst das nächste
+    │   ├── fn_createIntel.sqf          COIN_fnc_createIntel: Intel-Datensatz (Format von ADR 0021) und Kreis um das Nest, nicht in der Mitte
+    │   ├── fn_drawIntelMarker.sqf      COIN_fnc_drawIntelMarker: globale Kartenmarker eines Intels
+    │   └── fn_showAnswer.sqf           COIN_fnc_showAnswer: Client, Antwort des Zivilisten als Untertitel
     ├── persistence/
     │   ├── fn_receiveSaveBlock.sqf     COIN_fnc_receiveSaveBlock: merkt sich Eintrag 22 beim Laden des Spielstands (Hook 18)
     │   └── fn_getSaveBlock.sqf         COIN_fnc_getSaveBlock: baut Eintrag 22 beim Speichern, [COIN_saveVersion, Nester] (Hook 17)
@@ -96,7 +108,7 @@ coin/
 ```
 
 Geplante weitere Kategorien unter `functions/` (anlegen, wenn sie gebraucht werden):
-`intel/` (Phase 3), `threats/` (Phase 4), `reputation/` (Phase 5).
+`threats/` (Phase 4), `reputation/` (Phase 5).
 
 ## Ablauf beim Missionsstart
 

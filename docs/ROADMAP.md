@@ -154,11 +154,12 @@ Ziel: Zivilisten befragen liefert brauchbare (oder gelogene) Hinweise auf Nester
 Schnitt in dünne, einzeln testbare Durchstiche (Grilling 2026-10-22, DESIGN 7 v0.5, ADR 0021).
 3.1 bis 3.4 sind der Kern, danach ist die DoD im Prinzip spielbar.
 
-- [ ] 3.1 (#58) Durchstich Befragung: Dolmetscher-Rolle am Slot (übersteht Respawn), ACE „Gespräch“ → „Nach der Miliz fragen“
+- [x] 3.1 (#58) Durchstich Befragung: Dolmetscher-Rolle am Slot (übersteht Respawn), Aktionsmenü „Nach der Miliz fragen“
   nur für den Dolmetscher an befragbaren Zivilisten (zu Fuß, ansprechbar, kein Gefangener, kein Informant), Zivilist bleibt
   stehen, Antwort als Untertitel nur beim Dolmetscher; Ergebnis vorerst immer wahr (Gerücht, Hinweis oder Tipp, Nest im
   Umkreis von etwa 4 km, sonst das nächste), Marker für die Seite, einmal pro Zivilist, noch nicht gespeichert;
   Debug zeigt die Nest-ID
+  (am 2026-10-22 getestet: Dolmetscher-Slot per Rollenbeschreibung erkannt, Eintrag im Aktionsmenü aus 5 m, Zivilist bleibt stehen, Untertitel und Kreis um das Nest (Mitte 20–80 % des Radius daneben), zweite Frage derselbe Zivilist nicht, Gefangener und ergebener Ex-Gegner ohne Eintrag, Zivilist im Fahrzeug ohne Eintrag, Eintrag nach dem Respawn wieder da; nicht getestet: Bewusstlose, Dolmetscher im Fahrzeug; Mehrspieler: siehe 7.5)
 - [ ] 3.2 (#59) Intel speichern: `COIN_saveVersion` 2 mit Umwandlung von Version 1, Marker verschwinden mit ihrem zerstörten Nest (ADR 0021)
 - [ ] 3.3 (#60) Triangulation: ein Kreis pro Nest, jeder wahre Treffer verkleinert ihn; Symbol pro Nest-Typ ab Hinweis, Gerücht neutral
 - [ ] 3.4 (#61) Ruf-Gewichte und Lügen: alle Ergebnisse nach Ruf-Band, Lüge mit Ersatzpunkt, zufälligem Typ und Größe;
@@ -167,7 +168,7 @@ Schnitt in dünne, einzeln testbare Durchstiche (Grilling 2026-10-22, DESIGN 7 v
 - [ ] 3.6 (#63) Warnung: Kreis um ein Camp in der Nähe, nicht gespeichert (IED und Hinterhalt ab Phase 4)
 - [ ] 3.7 (#64) Eigene Bevölkerung: 4–8 Zivilisten im Kern befreiter Ortschaften bei Spielernähe, im Zivilisten-Budget
   (ADR 0011, 0015); der Älteste kommt in Phase 5
-- [ ] 3.8 (#65) Verhör: „Gespräch“ → „Verhören“ an Gefangenen, einmal pro Gefangenem, 1–2 Ergebnisse mit eigenen Gewichten;
+- [ ] 3.8 (#65) Verhör: Aktionsmenü „Verhören“ an Gefangenen, einmal pro Gefangenem, 1–2 Ergebnisse mit eigenen Gewichten;
   Camp-Kämpfer nennt sein Nest, Nest-Wache ein anderes (ADR 0011)
 - [ ] 3.9 (#66) Dokumente als ACE Intel Items (E13): bei toten Anführern, in zerstörten Nestern (anderes Nest) und ausgehobenen
   Camps (Nest des Camps), Auswertung beim Dolmetscher, nie gelogen
@@ -241,7 +242,7 @@ Je ein Hilfs- und ein Aufklärungsauftrag lassen sich annehmen und abschließen;
 - [ ] 7.3 Performance unter Last messen (Server-FPS bei 5–10 Spielern)
 - [ ] 7.4 Balancing-Werte in `coin_config.sqf` nach Testabenden anpassen
 - [ ] 7.5 Tests mit einem zweiten Spieler auf dem Dedicated Server (lokal reicht ein Spieler): später beitretender Spieler sieht die Debug-Marker (2.5), die Gegner-Grenzen des Servers (`COIN_enemyAICaps`, 2.13) und die Netzwerkstärke im Tagebuch „COIN Debug“ (2.6); Zeus-Kurator, der erst später entsteht, sieht COIN-Inhalte; Meldungen an alle Spieler (2.14): sehen alle Spieler sie, auch weit vom Camp oder Nest entfernt, und der deutsche Text (Spielsprache Deutsch, Titel mit Umlaut);
-  Intel (Phase 3): andere Spieler sehen kein „Gespräch“ und keinen Untertitel, alle sehen Marker und Hinweis „Neue Intel“ (3.1),
+  Intel (Phase 3): andere Spieler sehen den Menüeintrag und keinen Untertitel, alle sehen Marker und Hinweis „Neue Intel“ (3.1),
   später beitretender Spieler sieht geladene Marker (3.2), Abklingzeit des einen Dolmetschers bremst den zweiten nicht (3.5),
   ein Schütze sammelt ein Dokument ein und gibt es dem Dolmetscher, ein Dokument lässt sich nur einmal auswerten (3.9)
 
