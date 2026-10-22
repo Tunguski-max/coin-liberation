@@ -172,6 +172,7 @@ COIN_oldVehicleDist         = [20, 40]; // [min, max] m from the nest position (
 COIN_oldVehicleTries        = 10;       // Spots tried per vehicle before it is left out
 COIN_oldVehicleSearch       = 10;       // m around a tried spot searched for free room (findEmptyPosition)
 COIN_oldVehicleMaxGradient  = COIN_nestTerrainMaxGradient; // Largest terrain gradient under a vehicle (isFlatEmpty)
+COIN_oldVehicleFlatRadius   = 5;        // m around a vehicle spot that must have that gradient (isFlatEmpty)
 COIN_nestGuardsMin          = 3;
 COIN_nestGuardsMax          = 8;
 // Content of a nest when players come near (ticket 2.3). Guards come from the preset's militia_squad.

@@ -29,6 +29,11 @@ params [
 ];
 
 if (!isServer || {!COIN_enableOldVehicles}) exitWith {[]};
+// KPLIB_fnc_spawnVehicle waits; unscheduled it would hand back a script instead of a vehicle (the debug console runs unscheduled)
+if (!canSuspend) exitWith {
+    diag_log "[COIN] nests: old vehicles need a scheduled call, none spawned";
+    []
+};
 
 _nest params ["_id", "", "", "_pos", "_seed"];
 
@@ -61,7 +66,7 @@ for "_n" from 0 to (_count - 1) do {
         if (
             !(_candidate isEqualTo [])
             && {!surfaceIsWater _candidate}
-            && {!(((AGLToASL _candidate) isFlatEmpty [-1, -1, COIN_oldVehicleMaxGradient, 5, 0, false]) isEqualTo [])}
+            && {!(((AGLToASL _candidate) isFlatEmpty [-1, -1, COIN_oldVehicleMaxGradient, COIN_oldVehicleFlatRadius, 0, false]) isEqualTo [])}
         ) exitWith {
             _spot = _candidate;
         };
