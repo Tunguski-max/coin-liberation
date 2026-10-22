@@ -253,7 +253,6 @@ COIN_nestProps = [
     ["vbiedGarage",  ["Land_CanisterFuel_F", "Land_GasTank_01_blue_F", "Land_ToolTrolley_02_F", "Land_EngineCrane_01_F", "Land_WeldingTrolley_01_F", "Land_Workbench_01_F"]],
     ["recruitment",  ["Land_Sleeping_bag_F", "Land_Ground_sheet_F", "Land_WaterBottle_01_stack_F", "Land_Pallet_MilBoxes_F", "Land_CampingChair_V1_F", "Land_FoodSacks_01_cargo_brown_F"]]
 ];
-COIN_documentDropChance     = 0.5;      // Chance a destroyed nest yields documents
 
 // ---------------------------------------------------------------------------
 // Camps (Phase 2) - not persisted, redistributed on every server start
@@ -297,7 +296,6 @@ COIN_enableCampLifecycle    = true;     // Off: camps stay as created, no replac
 COIN_campReplaceMinutes     = [30, 60]; // [min, max] minutes before a cleared camp is replaced (the lower value is also the delay before a failed try is repeated)
 COIN_campRelocateMinutes    = [120, 180]; // [min, max] minutes after which an undiscovered camp moves (taken when the camp is created)
 COIN_campFleeDistance       = 200;      // m: a fighter farther from its camp than this no longer counts, it fled (the patrol walks within COIN_nestPatrolRadius)
-COIN_campIntelChance        = 0.4;      // Chance a cleared camp yields intel on its nest
 
 // Capital garrison = base * (1 + factor * active nests) - Phase 6
 COIN_capitalGarrisonBase    = 1.0;
@@ -691,9 +689,6 @@ COIN_intelMarkerTypes = [
     ["recruitment",  "o_inf"]
 ];
 COIN_intelMarkerNeutral     = "hd_unknown";
-
-// Documents as ACE Intel Items that must be brought to the interpreter (decision E13)
-COIN_documentsAsAceItems    = false;
 
 // Outcome weights per reputation band: [nothing, rumor, hint, tip, warning, lie]
 // Bands: see COIN_repBandMid / COIN_repBandHigh below.

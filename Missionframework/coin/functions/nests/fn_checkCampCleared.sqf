@@ -9,7 +9,7 @@
         counts, it may wake up. Then the camp is set to
         "cleared" (it stays in COIN_camps until it is removed, COIN_fnc_manageCamps drops it then), one log line is
         written, the server event "COIN_campCleared" [camp id, nest id, position] is raised (CBA local event, once per
-        camp; the message to the players and in Phase 3 the documents hang on it) and a replacement is planned after
+        camp; the message to the players hangs on it) and a replacement is planned after
         COIN_campReplaceMinutes. Called by the spawn loop on every check
         of a spawned camp. Server only.
 

@@ -10,7 +10,7 @@
 - Design: Miliz-Camps (zufällig, nicht persistent, an Nester gekoppelt)
 - Design: Ausrüstung als leichte Brigade (ADR 0007)
 - Design: Gefälligkeiten bei sehr hohem Ruf (Ablenkungsangriff, Verstärkung) – Vorschlag
-- Design: Option für Dokumente als ACE Intel Items (E13)
+- Design: Dokumente als ACE Intel Items (E13) vorgeschlagen und später verworfen
 - Code-Landkarte `docs/kp-liberation-map.md` (Phase 0, Tickets 0.4/0.5)
 - ADRs 0008–0015 (Phase-0-Entscheidungen), ADR 0003 und 0005 akzeptiert, DESIGN.md v0.2
 - Modul `coin/` eingebunden: `COIN_fnc_init` (postInit) lädt `coin_config.sqf` und startet `init_server.sqf` / `init_client.sqf` (Ticket 0.6)
