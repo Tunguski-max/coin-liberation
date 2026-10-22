@@ -66,6 +66,7 @@ coin/
         ├── fn_validateNestContent.sqf  COIN_fnc_validateNestContent: prüft Kernobjekte (zerstörbar) und Requisiten beim Start
         ├── fn_spawnBuildingNest.sqf    COIN_fnc_spawnBuildingNest: Kernobjekt, Requisiten und Wachen eines Gebäude-Nests
         ├── fn_spawnTerrainNest.sqf     COIN_fnc_spawnTerrainNest: Kernobjekt, Requisiten und Wachen eines Gelände-Nests (ADR 0020)
+        ├── fn_spawnOldVehicles.sqf     COIN_fnc_spawnOldVehicles: 1–2 besetzte, für Spieler gesperrte Altfahrzeuge eines Waffenlagers (ADR 0014)
         ├── fn_spawnNestGuards.sqf      COIN_fnc_spawnNestGuards: stehende und patrouillierende Wachen eines Nests
         ├── fn_placeNestTemplate.sqf    COIN_fnc_placeNestTemplate: Objekte nach Gebäude- oder Gelände-Template (ADR 0019, ADR 0020)
         ├── fn_placeNestFree.sqf        COIN_fnc_placeNestFree: freie Platzierung für Häuser ohne Template

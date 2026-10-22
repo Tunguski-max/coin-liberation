@@ -124,7 +124,7 @@ Ziel: Nester existieren, sind persistent und schwächen bei Zerstörung das Netz
   Spawn bei Annäherung mit Platzhalter-Template, Kämpfer im Ring und auf Patrouille, Technical erzwungen und erbeutet
   (bleibt beim Abbau, kommt nicht wieder), Abbau nach 2 Minuten, Budget: Camp wartet mit `COIN_maxCampAI = 1` und
   erscheint danach, Zeus sieht alles, Gelände-Nester unverändert)
-- [ ] 2.9a (#35) Waffenlager bekommen 1–2 Altfahrzeuge, die mit dem Lager verschwinden
+- [x] 2.9a (#35) Waffenlager bekommen 1–2 Altfahrzeuge, die mit dem Lager verschwinden (am 2026-10-22 getestet: Waffenlager besucht, 2 besetzte Altfahrzeuge (BTR-60, M113) neben dem Nest, für Spieler gesperrt, nach Abbau und Rückkehr wieder da an gleicher Stelle, zerstörtes Lager spawnt keine mehr)
 - [x] 2.10 (#39) Nachschub nach Zerstörung und Wechsel unentdeckter Camps (am 2026-10-22 getestet: ausgehobenes Camp wird nach
   `COIN_campReplaceMinutes` an anderer Stelle ersetzt, ein weggeteleportierter Wächter verhindert das Ausheben nicht, unentdeckte
   Camps ziehen um und ein entdecktes bleibt, ein Camp in einer neuen Sperrzone (Sektor Kandar) wird beim Abbau versetzt, Camps

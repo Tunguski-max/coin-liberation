@@ -156,6 +156,9 @@ class COIN {
         // Influence radius of a nest type from COIN_nestSetup
         class getNestRadius {};
 
+        // Server: manned, player-locked old vehicles of a weapons cache (ticket 2.9a, ADR 0014)
+        class spawnOldVehicles {};
+
         // Server: global debug markers for all nests (lobby parameter "COIN Debug")
         class drawNestMarkers {};
 

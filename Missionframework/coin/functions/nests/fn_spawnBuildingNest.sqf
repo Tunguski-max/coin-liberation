@@ -10,6 +10,7 @@
         - guards, complete on every spawn (number from the seed, COIN_nestGuardsMin to Max): about half of them stay
           at the free building positions closest to the core object (none under a placed object), the others patrol
           around the nest (COIN_fnc_spawnNestGuards). A house without free positions keeps all guards outside.
+        - a weapons cache also gets its old vehicles (COIN_fnc_spawnOldVehicles).
         Objects are excluded from Liberation's save near FOBs. Everything goes to Zeus.
         The core object carries COIN_nestId and COIN_nestHouse for the destruction check (ticket 2.4). Server only.
 
@@ -89,6 +90,10 @@ _free = [_free, [], {_x distance _corePos}, "ASCEND"] call BIS_fnc_sortBy;
 ([_pos, _guardCount, _free apply {[_x, random 360]}, COIN_nestGuardsInHouseShare] call COIN_fnc_spawnNestGuards)
     params ["_guards", "_inHouse", "_patrolling", "_patrolRadius"];
 _objects append _guards;
+// A weapons cache also guards old vehicles (ticket 2.9a)
+if (_type isEqualTo "cache") then {
+    _objects append ([_nest] call COIN_fnc_spawnOldVehicles);
+};
 [_objects] call COIN_fnc_addToCurators;
 
 diag_log format [
