@@ -5,8 +5,8 @@
     Description:
         Triangulation (ticket 3.3, DESIGN 7, ADR 0021): a further true hit on a nest that already has a circle makes
         this circle smaller, no new one. New radius = old radius x COIN_triangulationFactor, never bigger than the radius
-        of the new level, never smaller than COIN_intelRadiusMin and never bigger than the old radius (a rumor after a
-        tip changes nothing). The nest stays inside the new circle but not in its middle (COIN_intelCenterOffset), and the
+        of the new level, never smaller than COIN_intelRadiusMin and never bigger than the old radius (every further true
+        hit shrinks, even a rumor after a tip, but nothing enlarges). The nest stays inside the new circle but not in its middle (COIN_intelCenterOffset), and the
         new circle lies inside the old one if a place is found in COIN_intelCenterTries tries, else the one that sticks
         out least. The shown type is set by the first hint or tip, the level only gets better. The circle is drawn again.
         Server only.
