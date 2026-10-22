@@ -393,6 +393,15 @@ class COIN {
         // Server: takes an IED out of COIN_ieds and deletes its trigger (object deleted, defused, blown up)
         class removeIED {};
 
+        // Server: hint object (dirt mound, litter, tyres) next to an IED, with a chance (ticket 4.1b)
+        class createIEDHint {};
+
+        // Server: a used IED is replaced by its workshop after a wait, a destroyed workshop lays nothing (ticket 4.1b)
+        class replaceIED {};
+
+        // Server: deletes the item a defused IED leaves on the ground (ticket 4.1b)
+        class removeIEDLoot {};
+
         // Server: global debug markers of the IEDs
         class drawIEDMarkers {};
     };

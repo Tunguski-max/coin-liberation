@@ -738,7 +738,22 @@ COIN_iedAlertDistance       = 300;      // m: an engine trigger around every IED
 COIN_iedTriggerCheckInterval = 2;       // s between two evaluations of that trigger by the engine (a vehicle at 100 km/h covers 56 m meanwhile, the radius is 300 m)
 COIN_iedAlertInterval       = 0.2;      // s between two exact checks while the army is within the alert distance. A vehicle at 100 km/h (28 m/s) needs about 0.5 s through the trigger area of one IED, 1 s let fast ones pass (first test)
 COIN_iedDebugColor          = "ColorRed"; // Debug map, one colour per variant from ticket 4.2 on
-COIN_iedBudgetRegenMinutes  = 30;       // Minutes per regenerated IED
+COIN_enableIEDRegen         = true;     // Off: a used IED is not replaced
+COIN_iedBudgetRegenMinutes  = 20;       // Minutes until a used IED (blown up, defused, deleted) is replaced by its workshop elsewhere. Not saved. No place or the cap reached: one more try after the same time
+COIN_enableIEDHints         = true;     // Off: no hint objects next to IEDs
+COIN_iedHintChance          = 0.6;      // Chance of a hint object next to an IED
+COIN_iedHintMinDist         = 1;        // m between the IED and its hint object
+COIN_iedHintMaxDist         = 4;
+COIN_iedHintAttempts        = 5;        // Spots tried for a hint object (water is skipped), none fits: no hint
+COIN_iedHintClasses         = [         // Conspicuous objects (dirt mound, litter, tyres, rubble), one at random; classes missing in the game are left out with a log line. To be checked in Zeus
+    "Land_Grave_dirt_F", "Land_Grave_forest_F",
+    "Land_GarbageBags_F", "Land_GarbageHeap_01_F", "Land_GarbageHeap_02_F", "Land_Garbage_square3_F", "Land_Garbage_line_F",
+    "Land_Tyre_F", "Land_Tyres_F",
+    "Land_Rubble_01_F", "Land_Rubble_02_F"
+];
+COIN_enableIEDLootRemoval   = true;     // Off: the item the game leaves when an IED is defused stays
+COIN_iedLootRadius          = 5;        // m around the IED in which that item is looked for
+COIN_iedLootDelays          = [1, 4];   // s after the IED is gone (ascending): when the item is looked for, it appears a moment after the defusing. Runs after every removal, a blast leaves nothing to find
 COIN_iedDecoyChance         = 0.3;
 COIN_iedRemoteChance        = 0.25;     // Share of remote-triggered IEDs (with triggerman)
 

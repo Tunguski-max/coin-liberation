@@ -6,8 +6,9 @@
         Lays one IED for a workshop (ticket 4.1a, DESIGN 6, ADR 0022): a real mine object (one of COIN_iedTypes,
         createMine, so ACE mine detectors find it and ACE can defuse it) at a place from COIN_fnc_findIEDSpot. Not saved.
         The IED belongs to the workshop that laid it. Added to Zeus. Refused while COIN_maxActiveIEDs IEDs exist.
-        IED = [id, nest id, object, position, variant, trigger]; appended to COIN_ieds. Variant is "buried" for now, the
-        remote-triggered one and the decoy come with tickets 4.2a and 4.2b. Server only.
+        IED = [id, nest id, object, position, variant, trigger, hint object or objNull]; appended to COIN_ieds. Variant is
+        "buried" for now, the remote-triggered one and the decoy come with tickets 4.2a and 4.2b. A hint object may lie
+        next to it (COIN_fnc_createIEDHint, ticket 4.1b). Server only.
 
     Parameter(s):
         _nestId - Id of the workshop [NUMBER]
@@ -70,12 +71,15 @@ _object addEventHandler ["Deleted", {
     [_entity getVariable ["COIN_iedId", -1]] call COIN_fnc_removeIED;
 }];
 
-private _ied = [_id, _nestId, _object, _pos, "buried", _trigger];
+// Hint object next to it, with a chance (COIN_fnc_removeIED deletes it with the IED)
+private _hint = [_pos] call COIN_fnc_createIEDHint;
+
+private _ied = [_id, _nestId, _object, _pos, "buried", _trigger, _hint];
 COIN_ieds pushBack _ied;
 
 diag_log format [
-    "[COIN] ieds: IED %1 (%2) at %3 belongs to nest %4, %5 m away from it",
-    _id, typeOf _object, _pos, _nestId, round (_pos distance2D _nestPos)
+    "[COIN] ieds: IED %1 (%2) at %3 belongs to nest %4, %5 m away from it, hint %6",
+    _id, typeOf _object, _pos, _nestId, round (_pos distance2D _nestPos), [typeOf _hint, "none"] select isNull _hint
 ];
 
 _ied
