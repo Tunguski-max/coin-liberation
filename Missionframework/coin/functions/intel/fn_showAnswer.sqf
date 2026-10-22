@@ -6,11 +6,13 @@
         Shows the answer of a civilian to the interpreter as a subtitle (ticket 3.1): his name and a sentence, German or
         else English by the game language. The sentences come from COIN_questionAnswers by the result; a hint or a tip
         has them by nest type (COIN_questionAnswersByType), but the civilian never says the type itself. A result without
-        sentences gets the rumor sentences. Sent by COIN_fnc_questionCivilian to the asking client only.
+        sentences gets the rumor sentences. While the cooldown of the interpreter runs (ticket 3.5) the result is "cooldown"
+        and the interpreter says it himself (COIN_cooldownAnswers), the given name is his. Sent by COIN_fnc_questionCivilian
+        to the asking client only.
 
     Parameter(s):
-        _name  - Name of the civilian [STRING, defaults to ""]
-        _level - "nothing", "unsafe", "rumor", "hint" or "tip" [STRING, defaults to "nothing"]
+        _name  - Name of the civilian, of the interpreter for "cooldown" [STRING, defaults to ""]
+        _level - "nothing", "unsafe", "cooldown", "rumor", "hint" or "tip" [STRING, defaults to "nothing"]
         _type  - Nest type, for "hint" and "tip" [STRING, defaults to ""]
 
     Returns:
@@ -28,11 +30,13 @@ if (!hasInterface) exitWith {false};
 private _index = [1, 0] select (language isEqualTo "German");
 
 // [German sentences, English sentences] of this result, [] if there are none
-private _texts = if (_level in ["hint", "tip"]) then {
-    private _byType = ([COIN_questionAnswersByType, _level] call COIN_fnc_findByType) param [1, []];
-    ([_byType, _type] call COIN_fnc_findByType) param [1, []]
-} else {
-    ([COIN_questionAnswers, _level] call COIN_fnc_findByType) param [1, []]
+private _texts = switch (true) do {
+    case (_level isEqualTo "cooldown"): {COIN_cooldownAnswers};
+    case (_level in ["hint", "tip"]): {
+        private _byType = ([COIN_questionAnswersByType, _level] call COIN_fnc_findByType) param [1, []];
+        ([_byType, _type] call COIN_fnc_findByType) param [1, []]
+    };
+    default {([COIN_questionAnswers, _level] call COIN_fnc_findByType) param [1, []]};
 };
 if (_texts isEqualTo []) then {
     diag_log format ["[COIN] intel: ERROR - no answer texts for result %1 (type %2), rumor texts used", _level, _type];

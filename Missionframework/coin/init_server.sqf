@@ -65,7 +65,9 @@ if (COIN_enableNests) then {
 if (COIN_enableQuestioning) then {
     COIN_intel = [];
     COIN_intelNextId = 1;
-    diag_log format ["[COIN] init: questioning on, nest range %1 m, talk range %2 m", COIN_intelNestRange, COIN_talkRange];
+    // Cooldown of each interpreter (ticket 3.5): player UID -> end time, not saved, survives the respawn of the unit
+    COIN_cooldownEnds = createHashMap;
+    diag_log format ["[COIN] init: questioning on, nest range %1 m, talk range %2 m, cooldown %3 (%4 s)", COIN_intelNestRange, COIN_talkRange, COIN_enableCooldown, COIN_questionCooldown];
     // Lies (ticket 3.4): a player on foot at the fake point removes the lie
     [] spawn COIN_fnc_intelSearchLoop;
 } else {

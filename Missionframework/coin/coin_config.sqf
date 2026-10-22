@@ -339,6 +339,8 @@ COIN_intelCenterOffset      = [0.2, 0.8]; // Share of the radius between the nes
 COIN_intelMarkerColor       = "ColorOrange";
 COIN_intelMarkerAlpha       = 0.35;
 COIN_unsafeRadius           = 100;      // m: a civilian refuses to talk while an armed enemy is this close; he can be asked again later
+COIN_enableCooldown         = true;     // Ticket 3.5: after a question that made a marker (also a lie) the interpreter has to wait
+COIN_questionCooldown       = 300;      // s the interpreter waits after a marker; "I know nothing" starts no cooldown
 // Entry in the action menu (mouse wheel / space bar): [German, English]
 COIN_askMilitiaLabel = ["Nach der Miliz fragen", "Ask about the militia"];
 // Answer sentences of a civilian (tickets 3.1 and 3.4): [result, [German sentences, English sentences]], one is picked at random.

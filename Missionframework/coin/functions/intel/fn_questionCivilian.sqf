@@ -13,6 +13,9 @@
         (COIN_fnc_isUnsafe) he refuses instead, gives no intel and can be asked again later. The answer goes to the
         asking client only, a new intel is announced to everybody (COIN_fnc_showNotification, "Neue Intel"). The
         civilian is released after the answer has been read.
+        Cooldown (ticket 3.5): a marker (also a lie) makes the interpreter wait COIN_questionCooldown s. If he asks before
+        that, he answers himself (result "cooldown") and the civilian stays unquestioned. "I know nothing" and a refusal
+        start no cooldown. Kept per player UID in COIN_cooldownEnds, not saved.
 
     Parameter(s):
         _civ   - Civilian [OBJECT, defaults to objNull]
@@ -41,13 +44,27 @@ if !([_civ, _asker, COIN_talkRange + COIN_talkRangeMargin] call COIN_fnc_canQues
     false
 };
 
+// Cooldown (ticket 3.5): the interpreter answers himself and the civilian stays unquestioned. The key is the player, not
+// his unit, so the respawn does not end it, and a second interpreter has his own
+private _key = getPlayerUID _asker;
+private _cooldownEnd = if (COIN_enableCooldown) then {COIN_cooldownEnds getOrDefault [_key, 0]} else {0};
+if (_cooldownEnd > time) exitWith {
+    diag_log format ["[COIN] intel: %1 may not ask yet, cooldown runs for %2 s more (%3 stays unquestioned)", name _asker, round (_cooldownEnd - time), name _civ];
+    [name _asker, "cooldown", ""] remoteExecCall ["COIN_fnc_showAnswer", owner _asker];
+    false
+};
+// Until the answer is known the interpreter counts as busy, so a second civilian cannot be asked within the delay
+if (COIN_enableCooldown) then {
+    COIN_cooldownEnds set [_key, time + (COIN_questionDelay select 1) + 1];
+};
+
 // Once per civilian, also when he knows nothing
 _civ setVariable ["COIN_questioned", true, true];
 _civ setVariable ["COIN_talking", true, true];
 [_civ, _asker, COIN_talkHoldSeconds] remoteExecCall ["COIN_fnc_holdCivilian", _civ];
 
-[_civ, _asker] spawn {
-    params ["_civ", "_asker"];
+[_civ, _asker, _key] spawn {
+    params ["_civ", "_asker", "_key"];
 
     private _minDelay = COIN_questionDelay select 0;
     sleep (_minDelay + random ((COIN_questionDelay select 1) - _minDelay));
@@ -100,6 +117,16 @@ _civ setVariable ["COIN_talking", true, true];
                 ];
             };
             ["intel"] remoteExecCall ["COIN_fnc_showNotification", 0];
+        };
+
+        // A marker (also a lie) starts the cooldown, "I know nothing" and a refusal do not
+        if (COIN_enableCooldown) then {
+            if (_intel isEqualTo []) then {
+                COIN_cooldownEnds deleteAt _key;
+            } else {
+                COIN_cooldownEnds set [_key, time + COIN_questionCooldown];
+                diag_log format ["[COIN] intel: cooldown of %1 started for %2 s", name _asker, COIN_questionCooldown];
+            };
         };
 
         [_name, _level, _type] remoteExecCall ["COIN_fnc_showAnswer", owner _asker];
