@@ -30,6 +30,7 @@ coin/
     │   ├── fn_vehicleLimitCancel.sqf   COIN_fnc_vehicleLimitCancel: Client meldet einen abgebrochenen Kauf (Hook 13)
     │   ├── fn_guaranteeResources.sqf   COIN_fnc_guaranteeResources: gleicht die Sorten der Supply Points aus, bei 8 immer 3-3-2 (Hook 14)
     │   ├── fn_secondaryMissionStatus.sqf COIN_fnc_secondaryMissionStatus: darf diese Nebenmission starten? FOB Hunting ist abgeschaltet (Hooks 15 und 16)
+    │   ├── fn_replacesLiberationThreats.sqf COIN_fnc_replacesLiberationThreats: sind Liberations IEDs und Ortschafts-Hinterhalte abgeschaltet? (Hooks 22 und 23)
     │   ├── fn_aiBudget.sqf             COIN_fnc_aiBudget: Server-Schleife, Liberations Gegner-Grenzen = 100 × Unitcap + COIN-Einheiten (ADR 0015)
     │   ├── fn_applyEnemyAICaps.sqf     COIN_fnc_applyEnemyAICaps: setzt Liberations drei Grenzen auf dieser Maschine (Server und Clients)
     │   ├── fn_markCoinUnits.sqf        COIN_fnc_markCoinUnits: kennzeichnet von COIN gespawnte Einheiten für das Budget

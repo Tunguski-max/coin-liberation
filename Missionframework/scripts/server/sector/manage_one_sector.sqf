@@ -224,6 +224,9 @@ if ((!(_sector in blufor_sectors)) && (([markerPos _sector, [_opforcount] call K
         _managed_units = _managed_units + ([_sector] call KPLIB_fnc_spawnCivilians);
     };
 
+    // COIN: Liberation's sector IEDs are replaced by the nest-fed ones (ticket 4.7, ADR 0008); guerilla below stays
+    if ([] call COIN_fnc_replacesLiberationThreats) then {_iedcount = 0};
+
     if (KP_liberation_asymmetric_debug > 0) then {[format ["Sector %1 (%2) - Range: %3 - Count: %4", (markerText _sector), _sector, _building_range, _iedcount], "ASYMMETRIC"] remoteExecCall ["KPLIB_fnc_log", 2];};
     [_sector, _building_range, _iedcount] spawn ied_manager;
 

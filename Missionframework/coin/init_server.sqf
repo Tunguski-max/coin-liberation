@@ -43,6 +43,12 @@ if (COIN_enableVehicleLimits) then {
 // Secondary mission FOB hunting (ticket 2.12, ADR 0011): checked on start in hooks 15 and 16, no loop
 diag_log format ["[COIN] init: FOB hunting switched off=%1", COIN_disableFobHunting];
 
+// Liberation's IEDs and town ambushes (ticket 4.7, ADR 0008): decided in hooks 22 and 23, no loop
+diag_log format [
+    "[COIN] init: Liberation threats replaced=%1 (sector IEDs off, town IEDs and ambush off; convoy raid and sector guerilla stay)",
+    [] call COIN_fnc_replacesLiberationThreats
+];
+
 // AI budget (ticket 2.13, ADR 0015): Liberation's caps = COIN_maxEnemyAI x Unitcap, COIN units on top
 if (COIN_enableAIBudget) then {
     [] spawn COIN_fnc_aiBudget;
