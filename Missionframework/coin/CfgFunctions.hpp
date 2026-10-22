@@ -158,6 +158,12 @@ class COIN {
         // Server: draws the global map markers of one intel
         class drawIntelMarker {};
 
+        // Server: takes the intel from the save (version 1 gets an empty list), draws it again (ticket 3.2)
+        class loadIntel {};
+
+        // Server: a true intel disappears with its destroyed nest (ticket 3.2)
+        class removeIntelOfNest {};
+
         // Client: the civilian's answer as a subtitle for the interpreter
         class showAnswer {};
     };
@@ -168,7 +174,7 @@ class COIN {
         // Stores entry 22 of Liberation's save while it loads (hook in save_manager.sqf, ADR 0005)
         class receiveSaveBlock {};
 
-        // Builds entry 22 of Liberation's save: [COIN_saveVersion, nests] (hook in KPLIB_fnc_getSaveData)
+        // Builds entry 22 of Liberation's save: [COIN_saveVersion, nests, intel] (hook in KPLIB_fnc_getSaveData)
         class getSaveBlock {};
     };
 
