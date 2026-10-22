@@ -724,6 +724,17 @@ COIN_lieSearchInterval      = 3;        // s between two checks for searchers
 // Asymmetric threats (Phase 4)
 // ---------------------------------------------------------------------------
 COIN_iedBudgetPerWorkshop   = 6;        // IEDs a workshop can keep active in its radius
+COIN_iedTypes               = ["IEDLandBig_F", "IEDLandSmall_F", "IEDUrbanBig_F", "IEDUrbanSmall_F"]; // Vanilla IEDs, one at random (no "ultra strong" Bomb_04_F)
+COIN_iedMaxRoadOffset       = 4;        // m: an IED lies on the road or at most this far beside it
+COIN_iedRoadSearchRadius    = 50;       // m around a random point in the workshop's radius in which a road is looked for
+COIN_iedPlaceAttempts       = 300;      // Random points tried per IED, none fits: error line, the IED is left out
+COIN_iedMinDistBase         = 500;      // m between an IED and the start base or a FOB
+COIN_iedMinDistSector       = COIN_nestMinDistSector; // m between an IED and every sector centre (the town core, Liberation's 175 m evaluation)
+COIN_iedMinDistIED          = 300;      // m between two IEDs (of all workshops)
+COIN_iedTriggerVehicleRadius = 8;       // m: a ground vehicle with a BLUFOR crew member this close sets an IED off
+COIN_iedTriggerFootRadius   = 3;        // m: a BLUFOR soldier on foot this close sets it off (civilians, militia, resistance and aircraft never do)
+COIN_iedCheckInterval       = 1;        // s between two checks of all IEDs
+COIN_iedDebugColor          = "ColorRed"; // Debug map, one colour per variant from ticket 4.2 on
 COIN_iedBudgetRegenMinutes  = 30;       // Minutes per regenerated IED
 COIN_iedDecoyChance         = 0.3;
 COIN_iedRemoteChance        = 0.25;     // Share of remote-triggered IEDs (with triggerman)

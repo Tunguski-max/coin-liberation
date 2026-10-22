@@ -371,4 +371,26 @@ class COIN {
         // Server: nest destroyed for good, saved at once, event COIN_nestDestroyed (ticket 2.4)
         class destroyNest {};
     };
+
+    class threats {
+        file = "coin\functions\threats";
+
+        // Server: every active IED workshop lays its budget, starts the IED loop (ticket 4.1a)
+        class initIEDs {};
+
+        // Server: lays one IED for a workshop (mine object, Zeus, COIN_ieds)
+        class createIED {};
+
+        // Server: place on a road in the radius of the workshop, away from towns, bases and other IEDs
+        class findIEDSpot {};
+
+        // Server: does the army set an IED off here? (BLUFOR vehicle in 8 m, BLUFOR soldier on foot in 3 m)
+        class iedTriggered {};
+
+        // Server loop: lets the army set IEDs off, drops IEDs that are gone
+        class iedLoop {};
+
+        // Server: global debug markers of the IEDs
+        class drawIEDMarkers {};
+    };
 };

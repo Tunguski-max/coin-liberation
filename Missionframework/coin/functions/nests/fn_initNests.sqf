@@ -10,7 +10,8 @@
         COIN_fnc_loadIntel (ticket 3.2). Sets COIN_nests, logs every nest (state of the campaign,
         once per start) and draws the debug map when COIN_debug is on. Calculates the network strength
         (COIN_fnc_updateNetworkStrength, ticket 2.6). Then creates the camps (COIN_fnc_initCamps,
-        ticket 2.7, while COIN_enableCamps is true) and starts the spawn loop.
+        ticket 2.7, while COIN_enableCamps is true), lays the IEDs (COIN_fnc_initIEDs, ticket 4.1a, while COIN_enableIEDs
+        is true) and starts the spawn loop.
         Must be spawned (waits for save_is_loaded).
 
     Parameter(s):
@@ -105,6 +106,13 @@ if (COIN_enableCamps) then {
     [] call COIN_fnc_initCamps;
 } else {
     diag_log "[COIN] camps: camps off, none are created";
+};
+
+// IEDs as real objects (ticket 4.1a), not saved: every workshop lays its budget anew on every start
+if (COIN_enableIEDs) then {
+    [] call COIN_fnc_initIEDs;
+} else {
+    diag_log "[COIN] ieds: IEDs off, none are laid";
 };
 
 // Content near players (ticket 2.3)
