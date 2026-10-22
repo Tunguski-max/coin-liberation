@@ -185,6 +185,7 @@ Schnitt in dünne, einzeln testbare Durchstiche (Grilling 2026-10-22, DESIGN 7 v
   (am 2026-10-22 von Niklas im Spiel getestet und bestätigt: Tipp (100 m) zum nächsten aktiven Nest ohne Kreis, Test per Konsole mit gesetztem COIN_home; zwei Hooks in Liberation, siehe docs/hooks.md Nr. 21; nicht gesehen: Kreis schrumpft, wenn alle Nester schon einen haben, Schalter aus, Liberations Belohnung im RPT nicht geprüft; echter Informant ab Ruf 25 und Mehrspieler: siehe 7.5)
 
 **DoD:** Ohne Debug-Anzeige allein über Befragungen ein Nest finden und zerstören.
+(Phase 3 am 2026-10-22 abgeschlossen. Die DoD wurde nicht als ein Durchlauf gespielt, nur in Einzelteilen getestet: Befragen, Verhör, Triangulation, Lügen, Warnung, Abklingzeit, Bevölkerung, Informanten-Tipp. Mehrspieler: siehe 7.5.)
 
 ## Phase 4 – Asymmetrische Bedrohungen
 
