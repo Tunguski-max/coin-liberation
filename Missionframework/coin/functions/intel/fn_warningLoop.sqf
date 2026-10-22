@@ -27,10 +27,11 @@ while {COIN_enableQuestioning} do {
             _index < 0 || {!(((COIN_camps select _index) select 6) isEqualTo "active")}
         };
         {
-            deleteMarker format ["COIN_warning_%1_area", _x select 0];
-            deleteMarker format ["COIN_warning_%1", _x select 0];
-            COIN_warnings = COIN_warnings - [_x];
-            diag_log format ["[COIN] intel: warning %1 removed, camp %2 is gone, %3 warnings left", _x select 0, _x select 1, count COIN_warnings];
+            private _warningId = _x select 0;
+            deleteMarker format ["COIN_warning_%1_area", _warningId];
+            deleteMarker format ["COIN_warning_%1", _warningId];
+            COIN_warnings = COIN_warnings select {(_x select 0) != _warningId};
+            diag_log format ["[COIN] intel: warning %1 removed, camp %2 is gone, %3 warnings left", _warningId, _x select 1, count COIN_warnings];
         } forEach _gone;
     };
 };

@@ -22,11 +22,11 @@ params [
 
 if (!isServer || {isNil "COIN_camps"} || {isNil "COIN_warnings"}) exitWith {[]};
 
-private _warned = COIN_warnings apply {_x select 1};
+private _warnedCampIds = COIN_warnings apply {_x select 1};
 private _candidates = COIN_camps select {
     (_x select 6) isEqualTo "active"
     && {((_x select 2) distance2D _pos) <= COIN_warningRange}
-    && {!((_x select 0) in _warned)}
+    && {!((_x select 0) in _warnedCampIds)}
 };
 if (_candidates isEqualTo []) exitWith {[]};
 

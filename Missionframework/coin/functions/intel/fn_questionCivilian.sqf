@@ -117,7 +117,7 @@ _civ setVariable ["COIN_talking", true, true];
 
         if !(_intel isEqualTo []) then {
             if (_outcome isEqualTo "warning") then {
-                // [id, campId, center, radius]: no level, no type, no cooldown difference
+                // [id, campId, center, radius]: no level and no type
                 _level = "warning";
                 diag_log format [
                     "[COIN] intel: warning about camp %1, circle of %2 m at %3 (warning %4)",
