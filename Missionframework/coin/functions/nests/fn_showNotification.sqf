@@ -6,7 +6,7 @@
         Shows a COIN message on this client (ticket 2.14): BIS_fnc_showNotification with the class of
         CfgNotifications (coin\CfgNotifications.hpp) in the game language, German or else English. A nest message
         names the nest type (COIN_nestTypeNames). Sent by COIN_fnc_initMessages with remoteExecCall to all machines;
-        a dedicated server has no interface and does nothing. A client logs one line, so the test can see who got it.
+        a dedicated server has no interface and does nothing. With COIN_debug a client logs one line, so the test can see who got it.
 
     Parameter(s):
         _kind - "nest" (nest destroyed) or "camp" (camp cleared) [STRING]
@@ -39,6 +39,8 @@ if (_kind isEqualTo "nest") then {
 };
 
 [format ["%1_%2", _class, ["en", "de"] select _german], _args] call BIS_fnc_showNotification;
-diag_log format ["[COIN] messages: shown %1 message %2", _kind, _args];
+if (COIN_debug) then {
+    diag_log format ["[COIN] messages: shown %1 message %2", _kind, _args];
+};
 
 true

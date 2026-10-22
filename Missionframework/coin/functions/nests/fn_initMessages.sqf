@@ -10,8 +10,8 @@
         - Camp cleared (server event COIN_campCleared, once per camp): no position and no hint to its nest, because
           the trail from camp to nest is intel (Phase 3). Switch COIN_enableCampMessage.
         A camp that moves, is replaced or retired raises no event, a core object deleted by Zeus no destruction, so
-        none of these send a message. Players who join later get nothing (no JIP). With COIN_debug each event is
-        also written to the RPT. Called once at the server start. Server only.
+        none of these send a message. Players who join later get nothing (no JIP). With COIN_debug each camp event is
+        also written to the RPT, and each client logs the message it shows. Called once at the server start. Server only.
 
     Parameter(s):
         NONE
@@ -26,21 +26,23 @@ private _on = 0;
 
 if (COIN_enableNestMessage) then {
     ["COIN_nestDestroyed", {
-        params ["_id", "_type"];
-        if (COIN_debug) then {
-            diag_log format ["[COIN] messages: nest %1 (%2) destroyed, message to all players", _id, _type];
-        };
+        params ["", "_type"];
         ["nest", _type] remoteExecCall ["COIN_fnc_showNotification", 0];
     }] call CBA_fnc_addEventHandler;
     _on = _on + 1;
 };
 
+// One line per event, independent of the message switch, so the test can see it comes exactly once per camp
+// (the nest event has its line in COIN_fnc_initNests)
+if (COIN_debug) then {
+    ["COIN_campCleared", {
+        params ["_id", "_nestId", "_pos"];
+        diag_log format ["[COIN] camps: event COIN_campCleared for camp %1 (nest %2) at %3", _id, _nestId, _pos];
+    }] call CBA_fnc_addEventHandler;
+};
+
 if (COIN_enableCampMessage) then {
     ["COIN_campCleared", {
-        params ["_id"];
-        if (COIN_debug) then {
-            diag_log format ["[COIN] messages: camp %1 cleared, message to all players", _id];
-        };
         ["camp"] remoteExecCall ["COIN_fnc_showNotification", 0];
     }] call CBA_fnc_addEventHandler;
     _on = _on + 1;

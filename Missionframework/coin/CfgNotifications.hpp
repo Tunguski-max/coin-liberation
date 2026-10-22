@@ -27,7 +27,7 @@ class coin_camp_cleared_en: coin_nest_destroyed_en {
     title = "MILITIA CAMP CLEARED";
     description = "A militia camp has been cleared.";
 };
-class coin_camp_cleared_de: coin_nest_destroyed_en {
+class coin_camp_cleared_de: coin_camp_cleared_en {
     title = "MILIZ-CAMP AUSGEHOBEN";
     description = "Ein Miliz-Camp wurde ausgehoben.";
 };
