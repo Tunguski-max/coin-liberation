@@ -10,6 +10,7 @@
         - guards, complete on every spawn (number from the seed, COIN_nestGuardsMin to Max): about
           COIN_nestTerrainGuardShare of them stand in a ring around the camp (COIN_nestTerrainGuardRing, not on a
           placed object) and look outwards, the others patrol around the nest (COIN_fnc_spawnNestGuards).
+        - a weapons cache also gets its old vehicles (COIN_fnc_spawnOldVehicles).
         Objects are excluded from Liberation's save near FOBs. Everything goes to Zeus.
         The core object carries COIN_nestId for the destruction check (ticket 2.4). Server only.
 
@@ -52,6 +53,10 @@ private _spots = [_pos, _guardCount, _placedOutlines] call COIN_fnc_findGuardRin
 ([_pos, _guardCount, _spots, 1] call COIN_fnc_spawnNestGuards)
     params ["_guards", "_inRing", "_patrolling", "_patrolRadius"];
 _objects append _guards;
+// A weapons cache also guards old vehicles (ticket 2.9a)
+if (_type isEqualTo "cache") then {
+    _objects append ([_nest] call COIN_fnc_spawnOldVehicles);
+};
 [_objects] call COIN_fnc_addToCurators;
 
 diag_log format [

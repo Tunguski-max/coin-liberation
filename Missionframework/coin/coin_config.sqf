@@ -167,6 +167,11 @@ COIN_nestReadinessDrop = [
 ];
 COIN_cacheOldVehicles       = [1, 2];   // [min, max] old vehicles guarded by a weapons cache
 COIN_oldVehicleClasses      = ["LOP_AM_OPF_BTR60", "LOP_AM_OPF_M113_W"];
+COIN_enableOldVehicles      = true;     // Off: weapons caches get no old vehicles (ticket 2.9a)
+COIN_oldVehicleDist         = [20, 40]; // [min, max] m from the nest position (beyond the house or the template)
+COIN_oldVehicleTries        = 10;       // Spots tried per vehicle before it is left out
+COIN_oldVehicleSearch       = 10;       // m around a tried spot searched for free room (findEmptyPosition)
+COIN_oldVehicleMaxGradient  = COIN_nestTerrainMaxGradient; // Largest terrain gradient under a vehicle (isFlatEmpty)
 COIN_nestGuardsMin          = 3;
 COIN_nestGuardsMax          = 8;
 // Content of a nest when players come near (ticket 2.3). Guards come from the preset's militia_squad.
