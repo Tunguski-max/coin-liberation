@@ -524,11 +524,11 @@ Infanterie, Technicals, Motorräder, zivile Fahrzeuge, leichte statische Waffen 
 **Performance (kein Headless Client)**
 - **Budget für Gegner-KI** (ADR 0015): Liberations drei Obergrenzen bekommen einen gemeinsamen Wert (100 mal
   Unitcap-Faktor), die COIN-Einheiten kommen obendrauf. Nester spawnen immer vollständig, Camps nur innerhalb eines
-  eigenen COIN-Budgets. Für Zivilisten gilt ein gemeinsamer Wert, geregelt ab Phase 3.
+  eigenen COIN-Budgets. Für Zivilisten zählen nur die eigenen der Bevölkerung (Ticket 3.7), nicht Liberations.
 - Dazu eine Obergrenze für gleichzeitige IEDs.
 - Spawnen nur im Umkreis von Spielern, wie bei Liberation.
 - Startwerte (in Tests anpassen): Liberation ~100 Gegner-KI, Camps nur bis ~30 COIN-Einheiten insgesamt
-  (Nest-Wachen eingerechnet), ~30 Zivilisten, ~25 IEDs.
+  (Nest-Wachen eingerechnet), ~30 eigene Zivilisten, ~25 IEDs.
 
 **Persistenz**
 - Alle neuen Zustände (Nester, Intel-Marker, Budgets) werden über den

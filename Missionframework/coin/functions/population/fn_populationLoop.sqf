@@ -77,6 +77,11 @@ while {COIN_enablePopulation} do {
         };
     } forEach (keys _spawned);
 
+    // A town that waited for room and is not free any more has nothing to wait for
+    {
+        if !(_x in _free) then {_waiting deleteAt _x};
+    } forEach (keys _waiting);
+
     {
         private _sector = _x;
         if (_sector in _spawned) then {continue};
@@ -103,7 +108,10 @@ while {COIN_enablePopulation} do {
             continue;
         };
 
-        _waiting deleteAt _sector;
+        if (_sector in _waiting) then {
+            _waiting deleteAt _sector;
+            diag_log format ["[COIN] population: %1 (%2) fits the budget now", markerText _sector, _sector];
+        };
         private _civs = [_sector, _count] call COIN_fnc_spawnPopulation;
         _spawned set [_sector, [_civs, time]];
         diag_log format [

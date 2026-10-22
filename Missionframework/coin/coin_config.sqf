@@ -88,6 +88,8 @@ COIN_curatorSyncInterval    = 10;       // s: objects given to Zeus are added ag
 COIN_enablePopulation       = true;     // Off: no own civilians in liberated towns, the loop removes those that exist
 COIN_populationCount        = [4, 8];   // [min, max] civilians per town, rolled at every spawn
 COIN_populationRadius       = 80;       // m around the centre of the town (sector marker) where they appear
+COIN_populationSpotClearance = 2;       // m a civilian keeps from objects when he is placed (BIS_fnc_findSafePos)
+COIN_populationMaxGradient  = 0.5;      // Steepest ground he is placed on (BIS_fnc_findSafePos)
 
 // ---------------------------------------------------------------------------
 // Militia network (Phase 2) - whole map is the area of operations (ADR 0016)
