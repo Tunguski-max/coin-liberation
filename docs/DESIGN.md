@@ -283,7 +283,7 @@ Festgelegt beim Grilling für Phase 3 (2026-10-22). Speicherformat, Triangulatio
 
 **Gespräch (normales Aktionsmenü)**
 - Wie bei Liberations eigenen Aktionen läuft das Gespräch über das normale Aktionsmenü (Scrollrad oder Leertaste), nicht über ACE.
-  Der Eintrag erscheint nur für den Dolmetscher, wenn er einen Befragbaren aus der Nähe (etwa 3 m) ansieht. Es gibt je Frage
+  Der Eintrag erscheint nur für den Dolmetscher, wenn er einen Befragbaren aus der Nähe (etwa 5 m) ansieht. Es gibt je Frage
   einen eigenen Eintrag: in Phase 3 **„Nach der Miliz fragen“** (Zivilist) und **„Verhören“** (Gefangener), ab Phase 5 **„Wie steht ihr zu uns?“**.
 - Nimmt der Dolmetscher einen Zivilisten ins Visier, bleibt dieser stehen und schaut ihn an. Nach der Antwort oder nach etwa
   30 s ohne Frage geht er weiter. Kein Fortschrittsbalken.

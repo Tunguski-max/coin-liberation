@@ -323,11 +323,11 @@ COIN_enableResourceGuarantee = true;
 // Interpreter and intel (Phase 3)
 // ---------------------------------------------------------------------------
 COIN_interpreterRole        = "Dolmetscher"; // Role description of the interpreter slots (Eden "Dolmetscher@Führungsgruppe"); the slot class is the riflemen's
-COIN_talkRange              = 3;        // m between the interpreter and the civilian he looks at for "Ask about the militia"
+COIN_talkRange              = 5;      // m between the interpreter and the civilian he looks at for "Ask about the militia"
 COIN_talkRangeMargin        = 2;        // m more the server allows (the civilian may drift while he is held)
 COIN_talkHoldSeconds        = 30;       // s a civilian waits for a question once the interpreter has him in his sights
 COIN_talkScanInterval       = 0.3;      // s between two looks at what the interpreter is aiming at
-COIN_talkActionPriority     = 6;        // Place of the entry in the action menu (higher = further up; Liberation's own entries are negative)
+COIN_talkActionPriority     = -690;     // Place of the entry in the action menu (higher = further up): just above Liberation's own player entries (-700 and below)
 COIN_questionDelay          = [1, 2];   // [min, max] s between the question and the answer
 COIN_answerReadSeconds      = 5;        // s the civilian stays after his answer, and the time it takes to read
 COIN_answerShowSeconds      = 8;        // s the subtitle stays on screen
