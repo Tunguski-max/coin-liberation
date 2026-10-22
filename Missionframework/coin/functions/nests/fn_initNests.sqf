@@ -6,7 +6,8 @@
         Server start of the militia network (tickets 2.1 and 2.5, ADR 0005, ADR 0018). Waits until Liberation has
         loaded its save, then takes the nests from entry 22. A new campaign or a save without entry 22 (e.g. from
         phase 1) gets new nests (COIN_fnc_createNests), which are saved right away. A block with an unknown save
-        version is kept unchanged and no nests are active. Sets COIN_nests, logs every nest (state of the campaign,
+        version is kept unchanged and no nests are active. A block of version 1 is converted, the intel comes with
+        COIN_fnc_loadIntel (ticket 3.2). Sets COIN_nests, logs every nest (state of the campaign,
         once per start) and draws the debug map when COIN_debug is on. Calculates the network strength
         (COIN_fnc_updateNetworkStrength, ticket 2.6). Then creates the camps (COIN_fnc_initCamps,
         ticket 2.7, while COIN_enableCamps is true) and starts the spawn loop.
@@ -39,8 +40,9 @@ private _block = missionNamespace getVariable ["COIN_loadedSaveBlock", []];
 
 // Unknown format or save version: keep the block untouched (COIN_fnc_getSaveBlock writes it back) instead of
 // replacing it, a conversion has to be written first (ADR 0018)
-if !(_block isEqualTo [] || {_block isEqualTypeParams [0, []] && {(_block select 0) isEqualTo COIN_saveVersion}}) exitWith {
-    diag_log format ["[COIN] nests: ERROR - COIN block with unknown format or save version %1 (expected %2), no nests, the block is kept unchanged", _block select 0, COIN_saveVersion];
+// Version 1 (phase 2, nests only) is converted: the intel list is empty (COIN_fnc_loadIntel), the next save writes version 2
+if !(_block isEqualTo [] || {_block isEqualTypeParams [0, []] && {(_block select 0) in COIN_loadableSaveVersions}}) exitWith {
+    diag_log format ["[COIN] nests: ERROR - COIN block with unknown format or save version %1 (expected %2), no nests, the block is kept unchanged", _block select 0, COIN_loadableSaveVersions];
     0
 };
 
@@ -61,6 +63,8 @@ if (_created) then {
     diag_log format ["[COIN] nests: %1 nests loaded from the save (save version %2)", count _nests, _block select 0];
 };
 
+// Intel before COIN_nests: a save in between still writes the loaded block back unchanged (ticket 3.2)
+[_block] call COIN_fnc_loadIntel;
 COIN_nests = _nests;
 
 {

@@ -60,7 +60,8 @@ if (COIN_enableNests) then {
     diag_log "[COIN] init: nests off, none are created, a COIN block in the save is kept unchanged";
 };
 
-// Intel (ticket 3.1, DESIGN 7): circles on the map from the interpreter's questions. Not saved yet (ticket 3.2)
+// Intel (ticket 3.1, DESIGN 7): circles on the map from the interpreter's questions. Empty until COIN_fnc_initNests
+// has loaded the save (ticket 3.2, COIN_fnc_loadIntel)
 if (COIN_enableQuestioning) then {
     COIN_intel = [];
     COIN_intelNextId = 1;

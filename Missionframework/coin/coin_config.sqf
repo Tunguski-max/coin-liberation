@@ -15,7 +15,8 @@
 // General
 // ---------------------------------------------------------------------------
 COIN_debug                  = false;    // Show nests, radii, IEDs on map; verbose [COIN] logs
-COIN_saveVersion            = 1;        // Bump when the persisted data format changes
+COIN_saveVersion            = 2;        // Bump when the persisted data format changes (2: intel, ADR 0021)
+COIN_loadableSaveVersions   = [1, 2];   // Versions that load; older ones are converted (1 -> 2: empty intel list)
 COIN_initTimeout            = 300;      // s to wait for Liberation's init before giving up
 
 // ---------------------------------------------------------------------------

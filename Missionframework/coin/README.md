@@ -62,10 +62,12 @@ coin/
     │   ├── fn_pickIntelNest.sqf        COIN_fnc_pickIntelNest: zufälliges aktives Nest im Umkreis, sonst das nächste
     │   ├── fn_createIntel.sqf          COIN_fnc_createIntel: Intel-Datensatz (Format von ADR 0021) und Kreis um das Nest, nicht in der Mitte
     │   ├── fn_drawIntelMarker.sqf      COIN_fnc_drawIntelMarker: globale Kartenmarker eines Intels
+    │   ├── fn_loadIntel.sqf            COIN_fnc_loadIntel: Server, Intel aus dem Spielstand (Version 1: leere Liste), Marker neu zeichnen (Ticket 3.2)
+    │   ├── fn_removeIntelOfNest.sqf    COIN_fnc_removeIntelOfNest: wahres Intel verschwindet mit dem zerstörten Nest (Ticket 3.2)
     │   └── fn_showAnswer.sqf           COIN_fnc_showAnswer: Client, Antwort des Zivilisten als Untertitel
     ├── persistence/
     │   ├── fn_receiveSaveBlock.sqf     COIN_fnc_receiveSaveBlock: merkt sich Eintrag 22 beim Laden des Spielstands (Hook 18)
-    │   └── fn_getSaveBlock.sqf         COIN_fnc_getSaveBlock: baut Eintrag 22 beim Speichern, [COIN_saveVersion, Nester] (Hook 17)
+    │   └── fn_getSaveBlock.sqf         COIN_fnc_getSaveBlock: baut Eintrag 22 beim Speichern, [COIN_saveVersion, Nester, Intel] (Hook 17)
     └── nests/
         ├── fn_initNests.sqf            COIN_fnc_initNests: Server, Nester aus dem Spielstand oder neu, Debug-Karte (ADR 0018)
         ├── fn_createNests.sqf          COIN_fnc_createNests: Nester einer neuen Kampagne als Daten, Art pro Typ, „bester Kandidat“, Lockerung
