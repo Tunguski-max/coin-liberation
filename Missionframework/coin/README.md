@@ -61,6 +61,8 @@ coin/
         ├── fn_findTerrainNestSpots.sqf COIN_fnc_findTerrainNestSpots: Kandidaten für Gelände-Nester (abseits von Orten und Straßen, eben)
         ├── fn_getNestRadius.sqf        COIN_fnc_getNestRadius: Einflussradius eines Nest-Typs aus COIN_nestSetup
         ├── fn_drawNestMarkers.sqf      COIN_fnc_drawNestMarkers: globale Debug-Marker der Nester (Lobby-Parameter „COIN Debug“)
+        ├── fn_updateNetworkStrength.sqf COIN_fnc_updateNetworkStrength: Server, Netzwerkstärke = aktive / alle Nester, an die Clients verteilt (Ticket 2.6)
+        ├── fn_showNetworkStrength.sqf  COIN_fnc_showNetworkStrength: Client, Debug-Eintrag „Netzwerkstärke“ im Karten-Tagebuch
         ├── fn_validateNestContent.sqf  COIN_fnc_validateNestContent: prüft Kernobjekte (zerstörbar) und Requisiten beim Start
         ├── fn_spawnBuildingNest.sqf    COIN_fnc_spawnBuildingNest: Kernobjekt, Requisiten und Wachen eines Gebäude-Nests
         ├── fn_spawnTerrainNest.sqf     COIN_fnc_spawnTerrainNest: Kernobjekt, Requisiten und Wachen eines Gelände-Nests (ADR 0020)
