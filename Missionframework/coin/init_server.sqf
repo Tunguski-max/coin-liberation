@@ -67,6 +67,10 @@ if (COIN_enableQuestioning) then {
     COIN_intelNextId = 1;
     // Cooldown of each interpreter (ticket 3.5): player UID -> end time, not saved, survives the respawn of the unit
     COIN_cooldownEnds = createHashMap;
+    // Warnings of camps (ticket 3.6): [id, campId, center, radius], not saved
+    COIN_warnings = [];
+    COIN_warningNextId = 1;
+    [] spawn COIN_fnc_warningLoop;
     diag_log format ["[COIN] init: questioning on, nest range %1 m, talk range %2 m, cooldown %3 (%4 s)", COIN_intelNestRange, COIN_talkRange, COIN_enableCooldown, COIN_questionCooldown];
     // Lies (ticket 3.4): a player on foot at the fake point removes the lie
     [] spawn COIN_fnc_intelSearchLoop;

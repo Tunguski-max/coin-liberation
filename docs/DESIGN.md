@@ -296,9 +296,9 @@ Festgelegt beim Grilling für Phase 3 (2026-10-22). Speicherformat, Triangulatio
   Patrouille. Nicht befragbar: Gefangene (Verhör), der Informant (eigener Ablauf), Bewusstlose, Insassen von Fahrzeugen.
 - Jeder Zivilist kann nur **einmal** befragt werden.
 - **Abklingzeit pro Dolmetscher:** Erzeugt eine Befragung oder ein Verhör einen Marker (auch eine Lüge), muss der Dolmetscher
-  etwa 5 Minuten warten. Fragt er vorher, antwortet er selbst („Wir fallen zu sehr auf, warten wir etwas.“) und der
+  etwa 5 Minuten warten. Fragt er vorher, vertröstet ihn der Zivilist („Nicht jetzt. Hier sind zu viele Augen.“) und der
   Zivilist bleibt unbefragt. Nach „Ich weiß nichts“ gibt es keine Abklingzeit. Sie gilt pro Spieler (Spieler-ID), übersteht den Respawn und
-  wird nicht gespeichert. Der Satz erscheint unter dem Namen des angesprochenen Zivilisten. Grund: Liberation spawnt bei jeder Aktivierung eines Sektors neue Zivilisten, „einmal pro
+  wird nicht gespeichert. Der Satz kommt vom Zivilisten und erscheint unter seinem Namen. Grund: Liberation spawnt bei jeder Aktivierung eines Sektors neue Zivilisten, „einmal pro
   Zivilist“ allein ließe eine Ortschaft abgrasen.
 - Mögliche Ergebnisse, gewichtet nach Ruf-Band (Gewichte in `coin_config.sqf`):
   - „Ich weiß nichts.“
@@ -306,7 +306,10 @@ Festgelegt beim Grilling für Phase 3 (2026-10-22). Speicherformat, Triangulatio
   - **Hinweis**: mittlerer Kreis (300 m)
   - **Konkreter Tipp**: kleiner Kreis (100 m)
   - **Warnung**: Bedrohung in der Nähe. In Phase 3 ein Camp in der Umgebung (Kreis um das Camp, nicht gespeichert, weil
-    Camps nicht gespeichert werden); ab Phase 4 auch IED und Hinterhalt
+    Camps nicht gespeichert werden); ab Phase 4 auch IED und Hinterhalt. Der Zivilist warnt vor einem Camp im Umkreis von
+    1500 m, der Kreis hat 150 m Radius (das Camp liegt darin, nicht in der Mitte) und hat ein eigenes rotes Symbol. Ein Camp
+    bekommt höchstens einen Kreis, auch ein bereits entdecktes Camp darf einen bekommen. Der Kreis verschwindet, wenn das
+    Camp ausgehoben, umgezogen oder entfernt wird. Gibt es kein Camp ohne Kreis in Reichweite, bleibt es bei „Ich weiß nichts“
   - **Lüge**: Kreis an einer falschen Stelle. Häufig bei niedrigem Ruf.
 - **Welches Nest:** ein zufälliges aktives Nest im Umkreis von etwa 4 km um den Zivilisten; gibt es dort keins, das nächste
   aktive Nest überhaupt. So zählt die Geografie, und am Ende sind auch die letzten Nester noch zu finden.

@@ -66,6 +66,8 @@ coin/
     │   ├── fn_createLie.sqf            COIN_fnc_createLie: Lüge, Kreis um einen verborgenen Ersatzpunkt, sieht aus wie ein wahrer Marker (Ticket 3.4)
     │   ├── fn_findFakeSpot.sqf         COIN_fnc_findFakeSpot: glaubhafter Ersatzpunkt (Ortsrand oder freies Gelände, Regeln der Nester)
     │   ├── fn_intelSearchLoop.sqf      COIN_fnc_intelSearchLoop: Server-Schleife, eine Lüge verschwindet, wenn ein Spieler zu Fuß am Ersatzpunkt war
+    │   ├── fn_createWarning.sqf        COIN_fnc_createWarning: Warnung, Kreis um ein aktives Camp in der Nähe, nicht gespeichert (Ticket 3.6)
+    │   ├── fn_warningLoop.sqf          COIN_fnc_warningLoop: Server-Schleife, eine Warnung verschwindet mit ihrem Camp (ausgehoben, umgezogen, entfernt)
     │   ├── fn_removeIntel.sqf          COIN_fnc_removeIntel: entfernt ein Intel samt Markern
     │   ├── fn_getIntelRadius.sqf       COIN_fnc_getIntelRadius: Start-Radius nach Stufe
     │   ├── fn_offsetCenter.sqf         COIN_fnc_offsetCenter: Mitte eines Kreises um Nest oder Ersatzpunkt, nie auf dem Punkt

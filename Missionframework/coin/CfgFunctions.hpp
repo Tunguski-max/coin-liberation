@@ -185,6 +185,12 @@ class COIN {
         // Server loop: a lie disappears when a player on foot has searched its fake point
         class intelSearchLoop {};
 
+        // Server: a warning, a circle around an active camp close to the civilian (ticket 3.6)
+        class createWarning {};
+
+        // Server loop: a warning disappears with its camp
+        class warningLoop {};
+
         // Start radius of an intel circle by its level
         class getIntelRadius {};
 

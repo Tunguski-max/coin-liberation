@@ -42,3 +42,13 @@ class coin_intel_new_de: coin_intel_new_en {
     title = "NEUE SPUR";
     description = "Eine neue Spur wurde auf der Karte eingetragen.";
 };
+// Warning of a camp (ticket 3.6)
+class coin_intel_warning_en: coin_intel_new_en {
+    title = "WARNING";
+    description = "A danger nearby has been marked on the map.";
+    color[] = { 1, 0.2, 0.2, 1 };
+};
+class coin_intel_warning_de: coin_intel_warning_en {
+    title = "WARNUNG";
+    description = "Eine Gefahr in der Nähe wurde auf der Karte eingetragen.";
+};

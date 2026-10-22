@@ -26,6 +26,7 @@ COIN_enableNests            = true;     // Phase 2
 COIN_enableQuestioning      = true;     // Phase 3
 COIN_enableLies             = true;     // Phase 3, ticket 3.4: off = the weight of the lie counts as "nothing"; lies already on the map stay
 COIN_enableUnsafeRefusal    = true;     // Phase 3, ticket 3.4: off = a civilian answers even with armed enemies close
+COIN_enableWarnings         = true;     // Phase 3, ticket 3.6: off = the weight of the warning counts as "nothing"; warnings already on the map stay until their camp is gone
 COIN_enableIEDs             = true;     // Phase 4
 COIN_enableVBIEDs           = true;     // Phase 4
 COIN_enableSuicideBombers   = true;     // Phase 4
@@ -412,6 +413,29 @@ COIN_questionAnswers = [
             "People have been on edge these past few days. Something isn't right around here.",
             "A trader said he'd seen some unfamiliar men. Wouldn't say exactly where, though."
         ]
+    ]],
+    // A warning of a camp close by (ticket 3.6): the civilian describes what he saw, he does not say "camp"
+    ["warning", [
+        [
+            "Fahrt da draußen nicht einfach weiter. Seit ein paar Tagen sitzen dort Bewaffnete, die nicht von hier sind.",
+            "Ich war gestern am Feldrand. Da stehen Zelte und Männer mit Gewehren. Haltet euch fern, wenn euch euer Leben lieb ist.",
+            "Passt auf, wo ihr hintretet. Ganz in der Nähe hat sich eine Gruppe Bewaffneter eingerichtet.",
+            "Keiner von uns geht mehr in die Richtung. Dort haben sich Männer mit Waffen festgesetzt.",
+            "Nachts sieht man dort Feuer. Das sind keine Hirten, das sind Bewaffnete. Ich an eurer Stelle würde einen Bogen machen.",
+            "Ich sag's euch nur einmal: Hier in der Nähe lagern bewaffnete Männer. Sie beobachten die Straße.",
+            "Meine Ziegen traue ich da nicht mehr hin. Seit die Fremden dort lagern, kommt keiner mehr zurück, der zu nah ran ist.",
+            "Ihr seid nicht die Ersten, die hier vorbeikommen. Wenn ihr in diese Richtung geht, wartet dort jemand auf euch."
+        ],
+        [
+            "Don't just keep driving out there. Armed men who aren't from here have been sitting out there for a few days.",
+            "I was at the edge of the fields yesterday. There are tents and men with rifles. Stay away if you value your life.",
+            "Watch where you step. A group of armed men has settled in very close to here.",
+            "None of us go that way anymore. Men with guns have dug in over there.",
+            "You can see fires there at night. Those aren't shepherds, they're armed men. I'd steer clear if I were you.",
+            "I'll only say this once: there are armed men camped near here. They're watching the road.",
+            "I won't take my goats there anymore. Since the strangers set up camp, nobody who goes too close comes back.",
+            "You're not the first to come through here. If you go that way, someone will be waiting for you."
+        ]
     ]]
 ];
 
@@ -524,27 +548,27 @@ COIN_questionAnswersByType = [
     ]]
 ];
 
-// What the interpreter says himself while his cooldown runs (ticket 3.5): [German sentences, English sentences]
+// What the civilian says when the interpreter asks while his cooldown runs (ticket 3.5): he puts the interpreter off, [German sentences, English sentences]
 COIN_cooldownAnswers = [
     [
-        "Wir fallen zu sehr auf. Warten wir ein bisschen.",
-        "Nicht gleich den Nächsten. Die Leute werden schon misstrauisch.",
-        "Gebt mir kurz Zeit. Wenn wir jeden ansprechen, macht bald keiner mehr den Mund auf.",
-        "Langsam. Wir sollten erst mal abwarten, bevor wir wieder jemanden fragen.",
-        "Die beobachten uns schon. Noch eine Befragung wäre keine gute Idee.",
-        "Lasst uns erst mal weitergehen. Wir können später wieder mit den Leuten reden.",
-        "Ich hab gerade erst jemanden ausgefragt. Lasst etwas Gras über die Sache wachsen.",
-        "Wenn ich jetzt schon wieder Fragen stelle, spricht sich das schneller herum, als uns lieb ist."
+        "Ich hab gesehen, wie ihr die anderen ausfragt. Kommt später wieder, dann reden wir vielleicht.",
+        "Nicht jetzt. Hier sind zu viele Augen. Wartet ein bisschen.",
+        "Gerade geht das nicht. Die Leute tuscheln schon über euch. Versucht es in ein paar Minuten noch mal.",
+        "Mit mir redet ihr später. Wenn man uns jetzt zusammen sieht, merken sich das die Falschen.",
+        "Ich will nicht der Nächste sein, den ihr hier vor allen ausfragt. Kommt später wieder.",
+        "Lasst mir etwas Zeit. Ich muss erst sehen, ob uns jemand beobachtet.",
+        "Es hat sich herumgesprochen, dass ihr Fragen stellt. Gebt der Sache einen Moment, dann reden wir.",
+        "Jetzt nicht. Geht erst mal weiter und fragt mich später noch mal."
     ],
     [
-        "We're drawing too much attention. Let's give it a moment.",
-        "Not the next one already. People are getting suspicious.",
-        "Give me a little time. If we question everyone, soon nobody will talk to us.",
-        "Easy. We should wait a bit before questioning anyone else.",
-        "They're already watching us. Another round of questions isn't a good idea.",
-        "Let's move on for now. We can talk to the locals again later.",
-        "I just questioned someone. Let's let things settle down a bit.",
-        "If I start asking questions again now, word will spread faster than we'd like."
+        "I saw you questioning the others. Come back later, then maybe we'll talk.",
+        "Not now. There are too many eyes here. Wait a little.",
+        "I can't right now. People are already whispering about you. Try again in a few minutes.",
+        "Talk to me later. If we're seen together now, the wrong people will remember it.",
+        "I don't want to be the next one you question in front of everybody. Come back later.",
+        "Give me a little time. I need to see first whether anyone is watching us.",
+        "Word has got around that you're asking questions. Give it a moment, then we'll talk.",
+        "Not now. Move along for a bit and ask me again later."
     ]
 ];
 
@@ -574,6 +598,13 @@ COIN_intelWeightsLow        = [40, 15,  5,  0,  5, 35];
 COIN_intelWeightsMid        = [30, 25, 20,  5, 10, 10];
 COIN_intelWeightsHigh       = [20, 20, 30, 15, 12,  3];
 COIN_intelWeightsByBand     = [["low", COIN_intelWeightsLow], ["mid", COIN_intelWeightsMid], ["high", COIN_intelWeightsHigh]];
+
+// Warning of a camp (ticket 3.6): circle around an active camp, not saved, gone with the camp
+COIN_warningRange           = 1500;     // m: a civilian warns of a camp within this distance of him, else he knows nothing
+COIN_warningRadius          = 150;      // m radius of the circle; the camp lies inside, not in the middle (COIN_intelCenterOffset)
+COIN_warningCheckInterval   = 10;       // s between two checks whether the camp of a warning is still there
+COIN_warningMarkerType      = "hd_warning";
+COIN_warningMarkerColor     = "ColorRed";   // Not the orange of the intel circles
 
 // Lies (ticket 3.4, ADR 0021): the circle is built around a hidden fake point, the lie goes when it has been searched on foot
 COIN_lieTownShare           = 0.5;      // Share of the fake points at the edge of a town (COIN_nestBuildingRing), the rest is open ground
