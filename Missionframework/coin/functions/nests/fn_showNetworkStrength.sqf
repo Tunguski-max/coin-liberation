@@ -37,7 +37,7 @@ private _text = "Noch nicht vom Server berechnet.";
 if (!isNil "COIN_networkStrength" && {!isNil "COIN_networkCounts"}) then {
     COIN_networkCounts params ["_active", "_total"];
     // German decimal comma, two digits
-    private _share = str ((round (COIN_networkStrength * 100)) / 100) regexReplace ["\.", ","];
+    private _share = (COIN_networkStrength toFixed 2) regexReplace ["\.", ","];
     _text = format [
         "<font size='18'>Netzwerkstärke: %1</font><br/>%2 von %3 Nestern aktiv<br/><br/>Alle Nest-Typen zählen gleich. Der Wert sinkt mit jedem zerstörten Nest.",
         _share, _active, _total

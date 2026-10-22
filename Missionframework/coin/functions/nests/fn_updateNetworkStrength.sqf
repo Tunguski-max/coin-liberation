@@ -24,7 +24,7 @@ if (!isServer || {isNil "COIN_nests"} || {!COIN_enableNetworkStrength}) exitWith
 
 private _total = count COIN_nests;
 private _active = {(_x select 5) isEqualTo "active"} count COIN_nests;
-private _strength = [0, _active / _total] select (_total > 0);
+private _strength = if (_total > 0) then {_active / _total} else {0};
 
 private _previous = missionNamespace getVariable ["COIN_networkCounts", []];
 COIN_networkCounts = [_active, _total];
@@ -35,7 +35,7 @@ publicVariable "COIN_networkStrength";
 if !(_previous isEqualTo COIN_networkCounts) then {
     diag_log format [
         "[COIN] network: strength %1 (%2 of %3 nests active)",
-        (round (_strength * 100)) / 100, _active, _total
+        _strength toFixed 2, _active, _total
     ];
 };
 
