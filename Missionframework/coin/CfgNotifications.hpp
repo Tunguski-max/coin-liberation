@@ -31,3 +31,14 @@ class coin_camp_cleared_de: coin_camp_cleared_en {
     title = "MILIZ-CAMP AUSGEHOBEN";
     description = "Ein Miliz-Camp wurde ausgehoben.";
 };
+// New intel on the map (ticket 3.1): tells nothing about its content
+class coin_intel_new_en: coin_nest_destroyed_en {
+    title = "NEW INTEL";
+    description = "New intel on the map.";
+    color[] = { 1, 0.6, 0, 1 };
+    sound = "taskCreated";
+};
+class coin_intel_new_de: coin_intel_new_en {
+    title = "NEUE INTEL";
+    description = "Neue Intel auf der Karte.";
+};

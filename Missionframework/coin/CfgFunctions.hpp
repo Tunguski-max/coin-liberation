@@ -125,6 +125,37 @@ class COIN {
         class debugTerrainNest {};
     };
 
+    class intel {
+        file = "coin\functions\intel";
+
+        // Client: finds out whether this player started in an interpreter slot, adds the ACE entries "Talk" and "Ask about the militia" (ticket 3.1)
+        class initQuestioning {};
+
+        // Marks a player unit as interpreter from its slot, at start and after every respawn
+        class applyInterpreter {};
+
+        // May this interpreter question this civilian now? Client menu and server check
+        class canQuestion {};
+
+        // Where the civilian is local: stands still and watches the interpreter for a while
+        class holdCivilian {};
+
+        // Server: an interpreter asks a civilian about the militia (called by the client)
+        class questionCivilian {};
+
+        // Server: the active nest a civilian knows something about
+        class pickIntelNest {};
+
+        // Server: makes the intel record and its circle for a nest
+        class createIntel {};
+
+        // Server: draws the global map markers of one intel
+        class drawIntelMarker {};
+
+        // Client: the civilian's answer as a subtitle for the interpreter
+        class showAnswer {};
+    };
+
     class persistence {
         file = "coin\functions\persistence";
 

@@ -322,7 +322,42 @@ COIN_enableResourceGuarantee = true;
 // ---------------------------------------------------------------------------
 // Interpreter and intel (Phase 3)
 // ---------------------------------------------------------------------------
-COIN_interpreterRange       = 5;        // m between asking player and interpreter
+COIN_interpreterRole        = "Dolmetscher"; // Role description of the interpreter slots (Eden "Dolmetscher@Führungsgruppe"); the slot class is the riflemen's
+COIN_talkRange              = 3;        // m between the interpreter and the civilian for "Talk"
+COIN_talkRangeMargin        = 2;        // m more the server allows (the civilian may drift while he is held)
+COIN_talkHoldSeconds        = 30;       // s a civilian waits for a question after the interpreter opened "Talk"
+COIN_talkHoldResend         = 5;        // s between two hold orders while "Talk" stays hovered
+COIN_questionDelay          = [1, 2];   // [min, max] s between the question and the answer
+COIN_answerReadSeconds      = 5;        // s the civilian stays after his answer, and the time it takes to read
+COIN_answerShowSeconds      = 8;        // s the subtitle stays on screen
+COIN_intelNestRange         = 4000;     // m: a civilian knows a random active nest within this range, else the nearest one
+COIN_intelCenterOffset      = [0.2, 0.8]; // Share of the radius between the nest and the middle of its circle (so the nest is never in the middle, always inside)
+COIN_intelMarkerColor       = "ColorOrange";
+COIN_intelMarkerAlpha       = 0.35;
+// Menu texts: [German, English]
+COIN_talkLabels = [
+    ["Gespräch",                "Talk"],
+    ["Nach der Miliz fragen",   "Ask about the militia"]
+];
+// Answer sentences per result: [result, [German sentences, English sentences]]; %1 is the nest type (hint and tip)
+COIN_questionAnswers = [
+    ["nothing", [
+        ["Ich weiß nichts. Fragt jemand anderen.", "Ich will keinen Ärger. Ich habe nichts gesehen.", "Tut mir leid, dazu kann ich nichts sagen."],
+        ["I don't know anything. Ask somebody else.", "I don't want any trouble. I haven't seen a thing.", "I'm sorry, I can't tell you anything."]
+    ]],
+    ["rumor", [
+        ["Man erzählt sich, die Miliz hätte sich hier in der Gegend versteckt. Genaueres weiß ich nicht.", "Die Leute tuscheln. Irgendwo hier in der Nähe soll die Miliz etwas haben.", "Ich habe nur Gerüchte gehört. In dieser Gegend treiben sich Bewaffnete herum."],
+        ["They say the militia is hiding somewhere around here. I don't know more.", "People whisper. The militia is supposed to have something close by.", "I've only heard rumors. Armed men hang around in this area."]
+    ]],
+    ["hint", [
+        ["Ich habe gehört, hier in der Gegend gibt es einen Ort der Miliz: %1. Mehr weiß ich nicht.", "Die Miliz hat hier etwas: %1. Es soll irgendwo in der Nähe sein.", "Man sagt, in dieser Gegend betreibt die Miliz Folgendes: %1."],
+        ["I heard there is a militia place around here: %1. That's all I know.", "The militia has something here: %1. It's supposed to be somewhere close.", "They say the militia runs this in the area: %1."]
+    ]],
+    ["tip", [
+        ["Ich weiß genau, wo das ist: %1. Ich habe es selbst gesehen, es ist nicht weit von hier.", "Ich zeige es euch auf der Karte: %1. Geht aber vorsichtig hin.", "Ich habe Männer dort ein- und ausgehen sehen: %1. Ihr findet es auf der Karte."],
+        ["I know exactly where it is: %1. I saw it myself, it's not far from here.", "I'll show you on the map: %1. But be careful.", "I saw men go in and out there: %1. You'll find it on the map."]
+    ]]
+];
 
 // Marker radius per intel level in m
 COIN_intelRadiusRumor       = 600;
