@@ -24,6 +24,8 @@ while {true} do {
         private _waiting_time = KP_liberation_civinfo_duration;
 
         _informant setPos (selectRandom (_house buildingPos -1));
+        // COIN: remember his town for the tip at the FOB, where his position is no longer his own (ticket 3.10, docs/hooks.md)
+        _informant setVariable ["COIN_home", getPosATL _informant, true];
         _informant setUnitPos "UP";
         sleep 1;
         if (KP_liberation_ace) then {

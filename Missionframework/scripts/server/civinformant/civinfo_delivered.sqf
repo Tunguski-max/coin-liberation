@@ -4,6 +4,8 @@ if (isServer && alive _informant) then {
     resources_intel = resources_intel + KP_liberation_civinfo_intel;
     [2] spawn F_cr_changeCR;
     [1] remoteExec ["civinfo_notifications"];
+    // COIN: a concrete tip about a nest near the informant's town as well (ticket 3.10, docs/hooks.md)
+    [_informant] call COIN_fnc_informantTip;
 
     sleep 6;
 

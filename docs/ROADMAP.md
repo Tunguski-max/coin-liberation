@@ -178,7 +178,8 @@ Schnitt in dünne, einzeln testbare Durchstiche (Grilling 2026-10-22, DESIGN 7 v
   (am 2026-10-22 von Niklas im Spiel getestet und bestätigt: Camp-Kämpfer nennt das Nest seines Camps, Nest-Wache ein anderes Nest, zwei Ergebnisse zum selben Nest lassen den Kreis nicht größer werden, Abklingzeit 300 s gilt auch für Gefangene; Gewichte 1. Ergebnis [0, 15, 30, 40, 7, 8], 2. Ergebnis [25, 20, 25, 20, 5, 5] mit 50 % Chance, Texte von Niklas; Befragung und Abklingzeit (3.1, 3.5) laufen nach dem Umbau unverändert; nicht gesehen: zweites Verhör desselben Gefangenen, Lüge und Warnung im Verhör, ergebener Kämpfer (Variable ace_captives_isSurrendering); Liberations Intel-Punkte an der FOB gibt es nur für Gefangene, die durch Liberations Ergeben-Skript laufen und über „Gefangen nehmen“ zur FOB gebracht werden, nicht für nur gefesselte Camp-Wachen; Mehrspieler: siehe 7.5)
 - [ ] 3.9 (#66) Dokumente als ACE Intel Items (E13): bei toten Anführern, in zerstörten Nestern (anderes Nest) und ausgehobenen
   Camps (Nest des Camps), Auswertung beim Dolmetscher, nie gelogen
-- [ ] 3.10 (#67) Liberation-Informant liefert bei Ablieferung zusätzlich einen Konkreten Tipp zu einem aktiven Nest (Hook, ADR 0011)
+- [x] 3.10 (#67) Liberation-Informant liefert bei Ablieferung zusätzlich einen Konkreten Tipp zu einem aktiven Nest (Hook, ADR 0011)
+  (am 2026-10-22 von Niklas im Spiel getestet und bestätigt: Tipp (100 m) zum nächsten aktiven Nest ohne Kreis, Test per Konsole mit gesetztem COIN_home; zwei Hooks in Liberation, siehe docs/hooks.md Nr. 21; nicht gesehen: Kreis schrumpft, wenn alle Nester schon einen haben, Schalter aus, Liberations Belohnung im RPT nicht geprüft; echter Informant ab Ruf 25 und Mehrspieler: siehe 7.5)
 
 **DoD:** Ohne Debug-Anzeige allein über Befragungen ein Nest finden und zerstören.
 
