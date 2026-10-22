@@ -39,7 +39,7 @@ private _templates = COIN_validTerrainTemplates select {(_x select 0) isEqualTo 
     params ["_objects", "", "_placedOutlines", "_layout"];
 
 private _spots = [_pos, _guardCount, _placedOutlines] call COIN_fnc_findGuardRingSpots;
-([_pos, _guardCount, _spots, 1] call COIN_fnc_spawnNestGuards)
+([_pos, _guardCount, _spots, 1, ["camp", _nestId, _id]] call COIN_fnc_spawnNestGuards)
     params ["_guards", "_inRing", "_patrolling", "_patrolRadius"];
 _objects append _guards;
 

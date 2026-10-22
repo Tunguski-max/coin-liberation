@@ -12,10 +12,11 @@
         the AI budget. The caller hands them to Zeus together with the nest's objects. Server only.
 
     Parameter(s):
-        _pos   - Nest or camp position, centre of the patrol [POSITION]
-        _count - Number of guards [NUMBER]
-        _spots - Spots for stationary guards, best first [ARRAY of [position ATL, direction]]
-        _share - Share of the guards that stand at the spots, at most one per spot [NUMBER]
+        _pos    - Nest or camp position, centre of the patrol [POSITION]
+        _count  - Number of guards [NUMBER]
+        _spots  - Spots for stationary guards, best first [ARRAY of [position ATL, direction]]
+        _share  - Share of the guards that stand at the spots, at most one per spot [NUMBER]
+        _origin - Where the guards belong, [kind "nest" or "camp", nest id, camp id] (the camp id only for "camp"); the prisoner they may become tells it (ticket 3.8) [ARRAY, defaults to []]
 
     Returns:
         [guards, number stationary, number patrolling, patrol radius in m] [ARRAY]
@@ -25,7 +26,8 @@ params [
     ["_pos", [0, 0, 0], [[]]],
     ["_count", 0, [0]],
     ["_spots", [], [[]]],
-    ["_share", 0, [0]]
+    ["_share", 0, [0]],
+    ["_origin", [], [[]]]
 ];
 
 private _stationary = (round (_count * _share)) min (count _spots);
@@ -70,5 +72,7 @@ if (_patrolling > 0) then {
 };
 
 [_guards] call COIN_fnc_markCoinUnits;
+// A guard who surrenders keeps this, so an interrogation can tell where he comes from (COIN_fnc_pickInterrogationNest)
+{_x setVariable ["COIN_origin", _origin]} forEach _guards;
 
 [_guards, _stationary, _patrolling, _patrolRadius]

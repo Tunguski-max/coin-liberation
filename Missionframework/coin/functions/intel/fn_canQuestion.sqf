@@ -45,6 +45,6 @@ if (!COIN_enableQuestioning || {isNull _civ} || {isNull _asker}) exitWith {false
 && {!(_civ getVariable ["ACE_isUnconscious", false])}
 && {!((toLower typeOf _civ) in KPLIB_o_inf_classes) && {!(typeOf _civ in militia_squad)}}
 && {!(_civ getVariable ["ace_captives_isHandcuffed", false])}
-&& {!(_civ getVariable ["ace_captives_isSurrendered", false])}
+&& {!(_civ getVariable ["ace_captives_isSurrendering", false])}
 && {!(_civ getVariable ["COIN_questioned", false])}
 && {!(_civ getVariable ["COIN_talking", false])}
