@@ -384,7 +384,7 @@ class COIN {
         // Server: place on a road in the radius of the workshop, away from towns, bases and other IEDs
         class findIEDSpot {};
 
-        // Server: does the army set an IED off here? (BLUFOR vehicle in 8 m, BLUFOR soldier on foot in 3 m)
+        // Server: does the army set an IED off here? (BLUFOR vehicle, or two BLUFOR soldiers on foot, close by)
         class iedTriggered {};
 
         // Server loop: lets the army set IEDs off, drops IEDs that are gone

@@ -97,8 +97,8 @@ coin/
     │   ├── fn_initIEDs.sqf             COIN_fnc_initIEDs: Server, jede aktive Werkstatt legt ihr IED-Budget, startet die Schleife (Ticket 4.1a)
     │   ├── fn_createIED.sqf            COIN_fnc_createIED: Server, legt ein IED für eine Werkstatt (Mine, Zeus, COIN_ieds)
     │   ├── fn_findIEDSpot.sqf          COIN_fnc_findIEDSpot: Platz auf einer Straße im Radius, nicht im Ortskern, nicht nahe Basis, FOB und anderen IEDs
-    │   ├── fn_iedTriggered.sqf         COIN_fnc_iedTriggered: löst die Armee das IED aus? (BLUFOR-Fahrzeug in 8 m, BLUFOR zu Fuß in 3 m)
-    │   ├── fn_iedLoop.sqf              COIN_fnc_iedLoop: Server-Schleife, zündet bei der Armee, entfernt vergangene IEDs aus der Liste
+    │   ├── fn_iedTriggered.sqf         COIN_fnc_iedTriggered: löst die Armee das IED aus? (BLUFOR-Fahrzeug oder zwei BLUFOR-Soldaten zu Fuß, Werte in der Config)
+    │   ├── fn_iedLoop.sqf              COIN_fnc_iedLoop: Server-Schleife, 1 s ruhig, 0,2 s nur wenn BLUFOR nahe ist; zündet bei der Armee, entfernt vergangene IEDs
     │   └── fn_drawIEDMarkers.sqf       COIN_fnc_drawIEDMarkers: globale Debug-Marker der IEDs (Lobby-Parameter „COIN Debug“)
     └── nests/
         ├── fn_initNests.sqf            COIN_fnc_initNests: Server, Nester aus dem Spielstand oder neu, Debug-Karte (ADR 0018)
