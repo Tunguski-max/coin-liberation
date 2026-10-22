@@ -44,7 +44,7 @@ private _center = _nestPos getPos [_offset, random 360];
 
 private _id = COIN_intelNextId;
 COIN_intelNextId = COIN_intelNextId + 1;
-private _shownType = ["", _type] select (_level isNotEqualTo "rumor");
+private _shownType = ["", _type] select !(_level isEqualTo "rumor");
 private _intel = [_id, _nestId, _center, _radius, _level, _shownType, []];
 COIN_intel pushBack _intel;
 

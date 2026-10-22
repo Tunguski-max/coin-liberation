@@ -7,7 +7,7 @@
         remoteExecCall. Checks the rules again (COIN_fnc_canQuestion, a little more range as the civilian is held but may
         have drifted), marks the civilian as questioned for good and holds him. After a short pause (COIN_questionDelay)
         the answer is chosen: a nest as COIN_fnc_pickIntelNest says, a true level (rumor, hint, tip) by the weights of
-        COIN_intelWeightsMid; liars and the reputation weights come with ticket 3.4. Without an active nest the civilian
+        COIN_intelWeightsMid; lies and the reputation weights come with ticket 3.4. Without an active nest the civilian
         knows nothing. The answer goes to the asking client only, a new intel is announced to everybody
         (COIN_fnc_showNotification, "Neue Intel"). The civilian is released after the answer has been read.
 
@@ -41,7 +41,7 @@ if !([_civ, _asker, COIN_talkRange + COIN_talkRangeMargin] call COIN_fnc_canQues
 // Once per civilian, also when he knows nothing
 _civ setVariable ["COIN_questioned", true, true];
 _civ setVariable ["COIN_talking", true, true];
-[_civ, _asker, (COIN_questionDelay select 1) + COIN_answerReadSeconds + 1] remoteExecCall ["COIN_fnc_holdCivilian", _civ];
+[_civ, _asker, COIN_talkHoldSeconds] remoteExecCall ["COIN_fnc_holdCivilian", _civ];
 
 [_civ, _asker] spawn {
     params ["_civ", "_asker"];
@@ -55,11 +55,11 @@ _civ setVariable ["COIN_talking", true, true];
         private _type = "";
         private _nest = [getPosATL _civ] call COIN_fnc_pickIntelNest;
 
-        if (_nest isNotEqualTo []) then {
+        if !(_nest isEqualTo []) then {
             private _weights = COIN_intelWeightsMid;
-            _level = selectRandomWeighted ["rumor", _weights select 1, "hint", _weights select 2, "tip", _weights select 3];
+            _level = ["rumor", "hint", "tip"] selectRandomWeighted [_weights select 1, _weights select 2, _weights select 3];
             private _intel = [_nest, _level] call COIN_fnc_createIntel;
-            if (_intel isNotEqualTo []) then {
+            if !(_intel isEqualTo []) then {
                 _type = _intel select 5;
                 diag_log format [
                     "[COIN] intel: %1 asked %2 (%3): %4 about nest %5 (%6), %7 m away, circle of %8 m at %9 (intel %10)",
