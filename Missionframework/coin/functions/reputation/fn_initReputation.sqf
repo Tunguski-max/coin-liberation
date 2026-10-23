@@ -10,9 +10,6 @@
         (hostile below -25, friendly from +25, neutral between), which Liberation otherwise sets only on a save load
         or the first change.
         Switch COIN_enableReputationStart: off = a new campaign starts at 0 as in Liberation.
-        Also registers the reputation changes that hang on a COIN event: a destroyed nest (COIN_nestDestroyed) gives
-        COIN_repNestDestroyed, once per nest (COIN_fnc_destroyNest raises the event once). Registered first, before
-        the wait, so no event is missed. Value 0 switches it off.
         Must be spawned (waits for save_is_loaded).
 
     Parameter(s):
@@ -23,14 +20,6 @@
 */
 
 if (!isServer) exitWith {false};
-
-// Ticket 5.1: a nest of any type that is destroyed gives reputation
-if (COIN_repNestDestroyed != 0) then {
-    ["COIN_nestDestroyed", {
-        params ["_id", "_type"];
-        [COIN_repNestDestroyed, format ["nest %1 (%2) destroyed", _id, _type]] call COIN_fnc_changeReputation;
-    }] call CBA_fnc_addEventHandler;
-};
 
 private _timeout = diag_tickTime + COIN_initTimeout;
 waitUntil {

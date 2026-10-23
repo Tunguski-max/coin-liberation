@@ -271,6 +271,9 @@ class COIN {
 
         // Server: the one way to change the reputation, goes through F_cr_changeCR, logs reason, amount and new value (ticket 5.1)
         class changeReputation {};
+
+        // Server: registers the reputation changes that follow a COIN event, e.g. nest destroyed (ticket 5.1)
+        class initReputationEvents {};
     };
 
     class nests {
