@@ -3,8 +3,8 @@
     Author: COIN Liberation
 
     Description:
-        Creates a fighter in civilian clothes (ticket 4.2b, DESIGN 6, ADR 0022): the triggerman, later the VBIED driver
-        and the assassin. Technically a civilian (civilian side, a class of Liberation's civilian preset, so ACE shows
+        Creates a fighter in civilian clothes (ticket 4.2b, DESIGN 6, ADR 0022): the triggerman, the VBIED driver
+        (ticket 4.3), later the assassin. Technically a civilian (civilian side, a class of Liberation's civilian preset, so ACE shows
         "Get Down!" and "Go Away!" at him like at every civilian) in a group of his own, but
         - made without Liberation's kill manager, so his death costs no reputation,
         - unarmed,
@@ -16,7 +16,7 @@
         Server only.
 
     Parameter(s):
-        _role - What he is, kept in COIN_role ("triggerman") [STRING]
+        _role - What he is, kept in COIN_role ("triggerman", "vbiedDriver") [STRING]
         _pos  - Where he stands, ATL [ARRAY]
         _dir  - Direction he faces [NUMBER]
 

@@ -812,7 +812,25 @@ COIN_triggermanPhonePoint   = "righthand"; // Memory point of his body the phone
 COIN_triggermanMarkerType   = "mil_dot"; // Debug map: him and a line to his IED
 COIN_triggermanMarkerColor  = "ColorPink";
 
-COIN_vbiedIntervalMinutes   = [45, 90]; // Random interval [min, max] per active garage
+// VBIED (ticket 4.3, DESIGN 6): a civilian vehicle with a lone driver (fighter in civilian clothes) of an active garage
+COIN_vbiedBudgetPerGarage   = 1;        // VBIEDs one garage has under way at the same time
+COIN_vbiedCooldownMinutes   = 30;       // Minutes after a VBIED is used up (blown up, driver out, vehicle disabled, gone) until its garage sends the next. Not saved
+COIN_vbiedCheckInterval     = 300;      // s between two rolls of a garage that is ready (target in its influence radius: a FOB or a player on foot or in a vehicle)
+COIN_vbiedChance            = 0.25;     // Chance of a VBIED per roll (100 % for tests)
+COIN_vbiedSpawnDistance     = [800, 1200]; // [min, max] m between the spawn point on a road and the target
+COIN_vbiedSpawnTries        = 60;       // Points tried for the spawn point; none fits: log line, the garage tries again at the next roll
+COIN_vbiedRoadSearchRadius  = 100;      // m around a tried point in which a road is looked for
+COIN_vbiedMinPlayerDistance = 500;      // m: no player closer than this to the spawn point
+COIN_vbiedSightDistance     = 1500;     // m: a player within this distance with a clear line of sight to the spawn point sees it (rejected)
+COIN_vbiedSightHeight       = 1.5;      // m above the road where that line of sight ends (roof of a car)
+COIN_vbiedTriggerDistance   = 10;       // m: the driver sets the charge off when his vehicle is this close to the target
+COIN_vbiedCharge            = "Bomb_03_F"; // Ammo class of the charge (stronger than a COIN_iedTypes IED), created at the vehicle when it goes off
+COIN_vbiedTimeoutMinutes    = 15;       // Minutes after which a driver who has not reached the target disappears; he counts as used up
+COIN_vbiedWatchInterval     = 0.25;     // s between two checks of a VBIED under way (a car at 100 km/h covers 7 m meanwhile, the trigger distance is 10 m)
+COIN_vbiedRetargetDistance  = 30;       // m the target must have moved from the last destination before the driver is sent to its new position
+COIN_vbiedMarkerInterval    = 2;        // s between two moves of its debug marker
+COIN_vbiedMarkerType        = "mil_triangle"; // Debug map: the VBIED under way
+COIN_vbiedMarkerColor       = "ColorRed";
 COIN_suicideBomberChanceLow = 0.05;     // Per eligible civilian spawn at low reputation
 COIN_suicideBomberChanceHigh= 0.01;     // ... at high reputation
 COIN_ambushIntervalMinutes  = [30, 60];

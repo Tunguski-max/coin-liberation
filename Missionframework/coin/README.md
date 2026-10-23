@@ -108,6 +108,12 @@ coin/
     │   ├── fn_findTriggermanSpot.sqf   COIN_fnc_findTriggermanSpot: Platz des Auslösers, 60–150 m vom IED mit Sichtlinie, am Haus oder erhöht
     │   ├── fn_createTriggerman.sqf     COIN_fnc_createTriggerman: stellt den Auslöser eines ferngezündeten IEDs hin (Telefon, Debug-Marker)
     │   ├── fn_triggermanLoop.sqf       COIN_fnc_triggermanLoop: Server-Schleife, Auslöser kommen bei 800 m und gehen wie Nest-Wachen
+    │   ├── fn_getVBIEDTargets.sqf      COIN_fnc_getVBIEDTargets: FOBs und Spieler im Radius einer Garage (Ticket 4.3)
+    │   ├── fn_findVBIEDSpot.sqf        COIN_fnc_findVBIEDSpot: Straße 800–1200 m vom Ziel, außer Sicht der Spieler
+    │   ├── fn_createVBIED.sqf          COIN_fnc_createVBIED: ziviles Fahrzeug der Garage mit Fahrer (Kämpfer in Zivil), Zeus, Killed-Handler
+    │   ├── fn_vbiedDrive.sqf           COIN_fnc_vbiedDrive: Fahrt eines VBIEDs zum Ziel, Zündung in 10 m, Ende, Aufräumen
+    │   ├── fn_explodeVBIED.sqf         COIN_fnc_explodeVBIED: zündet die Ladung (nur einmal), zerstört das Fahrzeug
+    │   ├── fn_vbiedLoop.sqf            COIN_fnc_vbiedLoop: Server-Schleife, alle 5 min Chance je bereiter aktiver Garage
     │   └── fn_drawIEDMarkers.sqf       COIN_fnc_drawIEDMarkers: globale Debug-Marker der IEDs (Lobby-Parameter „COIN Debug“)
     └── nests/
         ├── fn_initNests.sqf            COIN_fnc_initNests: Server, Nester aus dem Spielstand oder neu, Debug-Karte (ADR 0018)

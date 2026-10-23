@@ -11,7 +11,8 @@
         once per start) and draws the debug map when COIN_debug is on. Calculates the network strength
         (COIN_fnc_updateNetworkStrength, ticket 2.6). Then creates the camps (COIN_fnc_initCamps,
         ticket 2.7, while COIN_enableCamps is true), lays the IEDs (COIN_fnc_initIEDs, ticket 4.1a, while COIN_enableIEDs
-        is true) and starts the spawn loop.
+        is true), starts the VBIED loop (COIN_fnc_vbiedLoop, ticket 4.3, while COIN_enableVBIEDs is true) and starts
+        the spawn loop.
         Must be spawned (waits for save_is_loaded).
 
     Parameter(s):
@@ -113,6 +114,13 @@ if (COIN_enableIEDs) then {
     [] call COIN_fnc_initIEDs;
 } else {
     diag_log "[COIN] ieds: IEDs off, none are laid";
+};
+
+// VBIEDs of the active garages (ticket 4.3), not saved: every garage starts ready on every start
+if (COIN_enableVBIEDs) then {
+    [] spawn COIN_fnc_vbiedLoop;
+} else {
+    diag_log "[COIN] vbieds: VBIEDs off, no garage sends one";
 };
 
 // Content near players (ticket 2.3)
