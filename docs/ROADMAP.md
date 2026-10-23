@@ -219,7 +219,7 @@ Festgelegt beim Grilling am 2026-10-23 (DESIGN 8, ADR 0023, Änderungen an ADR 0
 Vier Blöcke, nacheinander umgesetzt und getestet: 5A → 5B → 5C → 5D.
 
 **5A Ruf (DESIGN 8)** – Reihenfolge: 5.7, 5.1, 5.8, 5.3, 5.2
-- [ ] 5.7 Start-Ruf −20 bei neuer Kampagne (Hook, ADR 0009)
+- [x] 5.7 Start-Ruf −20 bei neuer Kampagne (Hook, ADR 0009)
 - [ ] 5.1 Neue Ruf-Änderungen: Nest zerstört +5; Gefangener getötet insgesamt −10 (Liberation-Gefangene −5 zusätzlich,
   nur mit ACE gefesselte/ergebene −10, Kämpfer in Zivil nie); Zivilfahrzeug von der Armee zerstört −2 (von COIN erzeugte
   Fahrzeuge ausgenommen). Unsere Änderungen ohne Meldung, im Debug mit Betrag und Wert im Systemchat
