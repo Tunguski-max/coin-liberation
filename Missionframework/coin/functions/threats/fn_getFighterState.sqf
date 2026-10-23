@@ -3,8 +3,8 @@
     Author: COIN Liberation
 
     Description:
-        Can a fighter in civilian clothes (triggerman, VBIED driver, later assassin) still act? (tickets 4.2b and
-        4.3, DESIGN 6) Three states:
+        Can a fighter in civilian clothes (triggerman, VBIED driver, suicide bomber, later assassin) still act? (tickets 4.2b,
+        4.3 and 4.4, DESIGN 6) Three states:
         - "free": alive, conscious, not captured,
         - "down": unconscious (ACE or the engine), he may wake up,
         - "out": dead, gone (deleted), or captured (ACE handcuffed or surrendering, or captive). Not coming back.

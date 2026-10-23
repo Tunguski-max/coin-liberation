@@ -4,7 +4,8 @@
 
     Description:
         Row of a config table that is keyed by a type or kind (nest type, warning kind) in its first column
-        (COIN_nestSetup, COIN_nestBuildingShare, COIN_nestDebugColors, COIN_campsPerNest, COIN_nestReadinessDrop, COIN_warningKinds).
+        (COIN_nestSetup, COIN_nestBuildingShare, COIN_nestDebugColors, COIN_campsPerNest, COIN_nestReadinessDrop, COIN_warningKinds,
+        COIN_suicideBomberChances: keyed by reputation band).
 
     Parameter(s):
         _table - Config table [ARRAY of ARRAYs]

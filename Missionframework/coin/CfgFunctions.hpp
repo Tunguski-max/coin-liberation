@@ -437,5 +437,23 @@ class COIN {
 
         // Server loop: every ready garage rolls for a VBIED (ticket 4.3)
         class vbiedLoop {};
+
+        // Server: players on foot in a town within the radius of an IED workshop (ticket 4.4)
+        class getSuicideBomberTargets {};
+
+        // Server: spawn point of a suicide bomber, 100-200 m from the target, out of sight
+        class findSuicideBomberSpot {};
+
+        // Server: sends one suicide bomber (fighter in civilian clothes) from a workshop to a player
+        class createSuicideBomber {};
+
+        // Server: the run of one suicide bomber, spawned by createSuicideBomber
+        class suicideBomberDrive {};
+
+        // Server: sets the vest of a suicide bomber off, once
+        class explodeSuicideBomber {};
+
+        // Server loop: every ready workshop rolls for a suicide bomber by reputation band (ticket 4.4)
+        class suicideBomberLoop {};
     };
 };
