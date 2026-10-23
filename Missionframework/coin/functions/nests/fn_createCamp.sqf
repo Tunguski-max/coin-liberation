@@ -75,7 +75,11 @@ if (COIN_enableAmbushes) then {
     } else {
         ([_pos] call COIN_fnc_findAmbushSpot) params ["_spot", "_ambushRejected"];
         if (_spot isEqualTo []) then {
-            _ambushNote = format ["no ambush, no place on a road (rejected: %1)", ((keys _ambushRejected) apply {format ["%1 %2x", _x, _ambushRejected get _x]}) joinString ", "];
+            _ambushNote = if (count _ambushRejected == 0) then {
+                format ["no ambush, no road within %1 m", COIN_ambushDistance select 1]
+            } else {
+                format ["no ambush, no place on a road (rejected: %1)", ((keys _ambushRejected) apply {format ["%1 %2x", _x, _ambushRejected get _x]}) joinString ", "]
+            };
         } else {
             _ambush = [_spot select 0, _spot select 1, false];
             _ambushNote = format ["ambush at %1, %2 m away, road at %3", _spot select 0, round (_pos distance2D (_spot select 0)), _spot select 2];
