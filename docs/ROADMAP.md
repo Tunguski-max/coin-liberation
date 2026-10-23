@@ -200,7 +200,8 @@ Festgelegt beim Grilling am 2026-10-22 (DESIGN 6, ADR 0022). Reihenfolge: 4.7, 4
   am 2026-10-22 im Spiel getestet, Zeus kann IEDs nicht löschen: wie bei Liberation akzeptiert)
 - [x] 4.1b (#81) Nachschub (20 min, anderer Ort), Werkstatt zerstört → kein Nachschub (früher 4.6), keine IED-Beute
   (am 2026-10-22 im Spiel getestet; Hinweis-Objekte neben IEDs verworfen, DESIGN 6 angepasst)
-- [ ] 4.2a (#82) Attrappe; ACE-Entschärfen bringt Ruf
+- [x] 4.2a (#82) Attrappe (unzerstörbar, ohne Trigger, gelb auf der Debug-Karte); ACE-Entschärfen eines echten IEDs bringt +2 Ruf
+  (erkannt am hinterlassenen Gegenstand; am 2026-10-23 im Spiel getestet, Anteil der Attrappen über mehrere Starts nicht gezählt)
 - [ ] 4.2b (#83) Ferngezündetes IED mit Auslöser (erster Kämpfer in Zivil)
 - [ ] 4.8 (#84) Warnung vor IED: Zivilist warnt mit Kreis wie beim Camp (DESIGN 7)
 - [ ] 4.3 (#85) VBIED-Ereignis (nur mit aktiver Garage); Garage zerstört → keine VBIEDs mehr (früher 4.6)

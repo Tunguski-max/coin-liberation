@@ -4,7 +4,7 @@
 
     Description:
         Debug map for the IEDs (ticket 4.1a, lobby parameter "COIN Debug"): one icon per IED with id and workshop,
-        colour COIN_iedDebugColor, and a line to its workshop in the colour of the nest type (COIN_nestDebugColors).
+        colour per variant (COIN_iedDebugColors), and a line to its workshop in the colour of the nest type (COIN_nestDebugColors).
         Runs on the server with global markers, so every player sees them, late joiners too.
         Draws again on every call, markers of IEDs that are gone are deleted.
 
@@ -26,7 +26,7 @@ private _present = COIN_ieds apply {_x select 0};
 COIN_iedMarkerIds = _present;
 
 {
-    _x params ["_id", "_nestId", "", "_pos"];
+    _x params ["_id", "_nestId", "", "_pos", "_variant"];
 
     private _nestIndex = COIN_nests findIf {(_x select 0) isEqualTo _nestId};
     if (_nestIndex < 0) then {continue};
@@ -45,9 +45,9 @@ COIN_iedMarkerIds = _present;
     deleteMarker _icon;
     createMarkerLocal [_icon, _pos];
     _icon setMarkerTypeLocal "mil_destroy";
-    _icon setMarkerColorLocal COIN_iedDebugColor;
+    _icon setMarkerColorLocal (([COIN_iedDebugColors, _variant] call COIN_fnc_findByType) param [1, "ColorBlack"]);
     _icon setMarkerSizeLocal [0.6, 0.6];
-    _icon setMarkerText format ["IED %1 (Nest %2)", _id, _nestId];
+    _icon setMarkerText format ["IED %1 (Nest %2, %3)", _id, _nestId, _variant];
 } forEach COIN_ieds;
 
 if (COIN_debug) then {

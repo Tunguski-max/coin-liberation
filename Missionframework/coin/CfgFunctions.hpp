@@ -396,8 +396,8 @@ class COIN {
         // Server: a used IED is replaced by its workshop after a wait, a destroyed workshop lays nothing (ticket 4.1b)
         class replaceIED {};
 
-        // Server: deletes the item a defused IED leaves on the ground (ticket 4.1b)
-        class removeIEDLoot {};
+        // Server: was the IED defused? Reputation for a real one, deletes the item a defusing leaves (ticket 4.2a, 4.1b)
+        class checkDefused {};
 
         // Server: global debug markers of the IEDs
         class drawIEDMarkers {};

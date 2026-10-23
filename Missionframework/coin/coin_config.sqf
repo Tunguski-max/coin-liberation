@@ -737,13 +737,17 @@ COIN_iedTriggerFootCount    = 2;        // Soldiers on foot needed within the ra
 COIN_iedAlertDistance       = 300;      // m: an engine trigger around every IED; BLUFOR inside starts the exact check of this IED, nothing runs while there is none (as Liberation checks its IEDs only in active sectors)
 COIN_iedTriggerCheckInterval = 2;       // s between two evaluations of that trigger by the engine (a vehicle at 100 km/h covers 56 m meanwhile, the radius is 300 m)
 COIN_iedAlertInterval       = 0.2;      // s between two exact checks while the army is within the alert distance. A vehicle at 100 km/h (28 m/s) needs about 0.5 s through the trigger area of one IED, 1 s let fast ones pass (first test)
-COIN_iedDebugColor          = "ColorRed"; // Debug map, one colour per variant from ticket 4.2 on
+COIN_iedDebugColors         = [         // Debug map: icon colour per IED variant
+    ["buried",       "ColorRed"],
+    ["decoy",        "ColorYellow"]
+];
 COIN_enableIEDRegen         = true;     // Off: a used IED is not replaced
 COIN_iedBudgetRegenMinutes  = 20;       // Minutes until a used IED (blown up, defused, deleted) is replaced by its workshop elsewhere. Not saved. No place or the cap reached: one more try after the same time
-COIN_enableIEDLootRemoval   = true;     // Off: the item the game leaves when an IED is defused stays
+COIN_enableIEDLootRemoval   = true;     // Off: the item the game leaves when an IED is defused stays (a defusing is still recognised by it)
 COIN_iedLootRadius          = 5;        // m around the IED in which that item is looked for
-COIN_iedLootDelays          = [1, 4];   // s after the IED is gone (ascending): when the item is looked for, it appears a moment after the defusing. Runs after every removal, a blast leaves nothing to find
-COIN_iedDecoyChance         = 0.3;
+COIN_iedLootDelays          = [1, 4];   // s after the IED is gone (ascending): when the item is looked for, it appears a moment after the defusing. Runs after every removal, a blast leaves nothing to find (no item = not defused = no reputation)
+COIN_enableIEDDecoys        = true;     // Off: all IEDs are real
+COIN_iedDecoyChance         = 0.15;     // Share of decoys among all IEDs (DESIGN 6: 60 % buried, 25 % remote, 15 % decoy). A decoy counts to the budget, looks and is found like a real one, never goes off, defusing it gives no reputation
 COIN_iedRemoteChance        = 0.25;     // Share of remote-triggered IEDs (with triggerman)
 
 COIN_vbiedIntervalMinutes   = [45, 90]; // Random interval [min, max] per active garage
@@ -764,7 +768,7 @@ COIN_reputationStart        = -20;      // Value for a new campaign
 COIN_repBandMid             = 0;        // Band "mid" starts here (below: "low")
 COIN_repBandHigh            = 25;       // Band "high" starts here (= Liberation informants, friendly resistance)
 
-COIN_repIEDDefused          = 2;
+COIN_repIEDDefused          = 2;        // Ticket 4.2a: a real IED defused (not a decoy, not one blown up), 0 = off
 COIN_repNestDestroyed       = 5;
 COIN_repCivilianHelped      = 1;
 COIN_repCaptiveKilled       = -10;
