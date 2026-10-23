@@ -15,6 +15,7 @@
 > v0.6: Asymmetrische Bedrohungen für Phase 4 festgelegt (Budget, IED-Varianten, VBIED, Attentäter, Hinterhalt, Warnung vor IED, ADR 0022).
 > v0.6.1: IED löst zu Fuß erst ab zwei Soldaten in etwa 6 m aus, sonst wäre Entschärfen nicht möglich (Ticket 4.1a, Test am 2026-10-22).
 > v0.6.2: Attentäter wirkt im ganzen Radius der Werkstatt (keine Ortschaft nötig) und kontert ACEs „Get Down!“/„Go Away!“ nicht (Ticket 4.4, Test am 2026-10-23, Niklas).
+> v0.6.3: Hinterhalt: Platz neben der nächsten Straße, Kämpfer halten Feuer bis 150 m, Ersatzcamp nach Umzug bekommt garantiert einen Hinterhalt (Ticket 4.5, Test am 2026-10-23, Niklas).
 > Offene Entscheidungen stehen gesammelt in [Abschnitt 12](#12-offene-entscheidungen).
 > Begriffe sind in [`CONTEXT.md`](../CONTEXT.md) definiert.
 
@@ -320,10 +321,18 @@ schon Gelegtes bleibt liegen. Darüber gilt die globale Obergrenze für IEDs (Ab
   dass sie gegen einen Attentäter nicht helfen. Gegenmaßnahmen sind Distanz und frühes Ausschalten.
 
 **Hinterhalt**
-- Ein aktives Camp hat mit 50 % Chance einen Hinterhalt an der nächsten Straße, 200–800 m vom Camp, festgelegt beim
-  Entstehen des Camps. Er spawnt wie ein Camp bei Spielernähe: 4–6 Kämpfer in Deckung neben der Straße und ein paar
-  Deckungsobjekte, ganz oder gar nicht im Camp-Budget (ADR 0015). Feuer eröffnen sie bei etwa 150 m.
-- Ausgehoben verschwindet er. Zieht das Camp um, zieht er mit. Wird das Camp ausgehoben, bleibt er bis zum Abbau.
+- Ein aktives Camp hat mit 50 % Chance einen Hinterhalt, festgelegt beim Entstehen des Camps. Er liegt neben der
+  nächsten Straße, deren Abschnitt 200–800 m vom Camp entfernt ist (kein Fußweg, keine Brücke; nicht im Ortskern, nicht
+  nahe Startbasis und FOB, 300 m zu einem anderen Hinterhalt). Camps ohne Straße in dieser Entfernung (gut ein Viertel
+  im ersten Test) haben keinen.
+- Er spawnt wie ein Camp bei Spielernähe: 4–6 Kämpfer in Deckung neben der Straße (knieend, Blick zur Straße, Feuer
+  halten) und 2–4 Deckungsobjekte (Sandsäcke, Betonbarriere, Reifen, Kiste), ganz oder gar nicht im Camp-Budget
+  (ADR 0015). Feuer eröffnen sie, sobald die Armee (auch Fahrzeuge und Luftfahrzeuge) etwa 150 m nah ist oder einer von
+  ihnen getroffen wird. Die Kämpfer nennen im Verhör das Nest ihres Camps.
+- Ausgehoben (kein Kämpfer kann mehr kämpfen) spawnt er nicht mehr und niemand warnt mehr vor ihm; Leichen und Objekte
+  bleiben, bis niemand in der Nähe ist. Zieht das Camp um, bekommt das Ersatzcamp einen Hinterhalt ohne Würfeln (an
+  einer neuen Straße), sofern der alte nicht ausgehoben war und das Ersatzcamp eine Straße in Reichweite hat. Wird das
+  Camp ausgehoben, bleibt ein gespawnter Hinterhalt bis zum Abbau.
 
 **Kämpfer in Zivil** (Auslöser, VBIED-Fahrer, Attentäter)
 - Stehen technisch auf der Zivilisten-Seite, damit sie sich im Menü nicht von echten Zivilisten unterscheiden. Ihr Tod
@@ -381,7 +390,7 @@ Festgelegt beim Grilling für Phase 3 (2026-10-22). Speicherformat, Triangulatio
     bekommt höchstens einen Kreis, auch ein bereits entdecktes Camp darf einen bekommen. Der Kreis verschwindet, wenn das
     Camp ausgehoben, umgezogen oder entfernt wird. Gibt es kein Camp ohne Kreis in Reichweite, bleibt es bei „Ich weiß nichts“.
     Ab Phase 4 (Ticket 4.8, 4.5) warnt er ebenso vor einem IED im Umkreis von 1000 m (Kreis 100 m, auch vor Attrappen, er
-    weiß es nicht besser) und vor einem Hinterhalt. Jede Bedrohung bekommt höchstens einen Kreis, der mit ihr verschwindet;
+    weiß es nicht besser) und vor einem Hinterhalt im Umkreis von 1000 m (Kreis 150 m). Jede Bedrohung bekommt höchstens einen Kreis, der mit ihr verschwindet;
     unter allen Bedrohungen ohne Kreis in Reichweite entscheidet der Zufall. Symbol, Farbe und Meldung wie beim Camp,
     nicht gespeichert
   - **Lüge**: Kreis an einer falschen Stelle. Häufig bei niedrigem Ruf.

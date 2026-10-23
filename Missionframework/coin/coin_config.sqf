@@ -304,7 +304,7 @@ COIN_campTechnicalLeash     = 50;       // m: an empty technical farther from it
 // Life of the camps (ticket 2.10); for tests shorten the times in the debug console, e.g. COIN_campReplaceMinutes = [0.5, 1]
 COIN_enableCampLifecycle    = true;     // Off: camps stay as created, no replacement, no moving, no retiring
 COIN_campReplaceMinutes     = [30, 60]; // [min, max] minutes before a cleared camp is replaced (the lower value is also the delay before a failed try is repeated)
-COIN_campRelocateMinutes    = [3, 4]; // [min, max] minutes after which an undiscovered camp moves (taken when the camp is created)
+COIN_campRelocateMinutes    = [120, 180]; // [min, max] minutes after which an undiscovered camp moves (taken when the camp is created)
 COIN_campFleeDistance       = 200;      // m: a fighter farther from its camp than this no longer counts, it fled (the patrol walks within COIN_nestPatrolRadius)
 
 // Capital garrison = base * (1 + factor * active nests) - Phase 6
@@ -914,7 +914,7 @@ COIN_suicideBomberMarkerColor = "ColorRed";
 
 // Ambushes (ticket 4.5, DESIGN 6, ADR 0022): a camp can have one on the nearest road, fixed when the camp is created.
 // Not saved, like the camps. The ambush spawns like a camp when a player comes near and its fighters count to the camp budget, all or none.
-COIN_ambushChance           = 1;      // TEST (default 0.5): Chance that a new camp has an ambush
+COIN_ambushChance           = 0.5;      // Chance that a new camp has an ambush
 COIN_ambushDistance         = [200, 800]; // [min, max] m between the camp and its ambush (distance of the road segment to the camp)
 COIN_ambushMinDistSector    = COIN_nestMinDistSector; // m between an ambush and every sector centre (not in the town core)
 COIN_ambushMinDistBase      = 500;      // m between an ambush and the start base or a FOB
