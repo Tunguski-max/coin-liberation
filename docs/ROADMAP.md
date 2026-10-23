@@ -215,32 +215,56 @@ kommen dort keine neuen mehr hinzu.
 ## Phase 5 – Ruf und Konsequenzen
 
 Ziel: Verhalten der Spieler verändert die Welt spürbar.
+Festgelegt beim Grilling am 2026-10-23 (DESIGN 8, ADR 0023, Änderungen an ADR 0009 und 0012).
+Vier Blöcke, nacheinander umgesetzt und getestet: 5A → 5B → 5C → 5D.
 
-- [ ] 5.1 Liberation-Ruf um die Aktionen aus `DESIGN.md` Abschnitt 8 erweitern
-- [ ] 5.2 Ruf wirkt auf Intel-Qualität und Informanten-Häufigkeit (über Liberations Informanten-Werte); die Attentäter-Häufigkeit nach Ruf-Band kommt schon mit 4.4
-- [ ] 5.3 Ruf-Anzeige: Zahl im Liberation-Overlay ausblenden (Hook), Dolmetscher kann Zivilisten nach ihrer
-  Haltung fragen und erfährt das Ruf-Band in Worten (ADR 0009)
-- [ ] 5.4 Gefälligkeiten: Zähler ab Ruf-Schwelle, Vorrat, Anforderung beim Ältesten über den Dolmetscher (E12)
-- [ ] 5.5 Gefälligkeit „Ablenkungsangriff“: Ziel und Zeitpunkt wählen, Miliz-Kräfte abziehen
-- [ ] 5.6 Gefälligkeit „Verstärkung“: Gruppe lokaler Kämpfer, die einem Spieler-Gruppenführer folgt
-  (Liberation-Widerstand; fällt der Ruf unter +25, ziehen aktive lokale Kämpfer ab, ADR 0012)
-- [ ] 5.7 Start-Ruf −20 bei neuer Kampagne (ADR 0009)
-- [ ] 5.8 Ruf-Abzug für Gebäude, die die Armee in befreiten Ortschaften zerstört (ADR 0009)
+**5A Ruf (DESIGN 8)** – Reihenfolge: 5.7, 5.1, 5.8, 5.3, 5.2
+- [ ] 5.7 Start-Ruf −20 bei neuer Kampagne (Hook, ADR 0009)
+- [ ] 5.1 Neue Ruf-Änderungen: Nest zerstört +5; Gefangener getötet insgesamt −10 (Liberation-Gefangene −5 zusätzlich,
+  nur mit ACE gefesselte/ergebene −10, Kämpfer in Zivil nie); Zivilfahrzeug von der Armee zerstört −2 (von COIN erzeugte
+  Fahrzeuge ausgenommen). Unsere Änderungen ohne Meldung, im Debug mit Betrag und Wert im Systemchat
+- [ ] 5.8 Haus in befreiter Ortschaft von der Armee zerstört −3 (nur Häuser mit Gebäudepositionen, wird zur Ruine,
+  kein Abzug solange Miliz im Ortschaftsradius ist)
+- [ ] 5.3 Ganze Ruf-Anzeige im Overlay ausblenden (Hook, Zahl und Symbol); „Wie steht ihr zu uns?“ für den Dolmetscher:
+  Stimmung in fünf Stufen, immer wahr, keine Abklingzeit
+- [ ] 5.2 Informanten-Häufigkeit nach Ruf: unter +25 keine, ab +25 Liberations Werte, ab +50 doppelt so oft (Server-Loop
+  setzt `KP_liberation_civinfo_*`, kein Hook). Intel-Gewichte und Attentäter nach Ruf-Band gibt es schon (3.4, 4.4)
 
-**Aufträge (DESIGN 8.2)**
-- [ ] 5.9 Ältester-Dialog über den Dolmetscher: Hilfsauftrag anbieten, „Kommt später wieder“, Wartezeit pro Ortschaft
-- [ ] 5.10 Hilfsauftrag „Hilfsgüter liefern“ (Liberation-Supply-Kiste)
-- [ ] 5.11 Hilfsauftrag „Arzt-Einsatz“ (unsterbliche Patienten, Aktion „Behandeln“ nur für Sanitäter)
-- [ ] 5.12 Hilfsauftrag „Infrastruktur reparieren“
-- [ ] 5.13 Aufklärungsauftrag entsteht aus Befragung/Verhör (Chance, Zeitfenster, max. 1 gleichzeitig)
-- [ ] 5.14 Aufklärungsauftrag „Kurier abfangen“
-- [ ] 5.15 Aufklärungsauftrag „Anführer festnehmen“ (lebend, Readiness −10 %)
-- [ ] 5.16 Aufklärungsauftrag „Waffentransport abfangen“ (Readiness −10 %, Hinweis auf Ziel-Lager)
+**5B Ältester und Hilfsaufträge (DESIGN 8, 8.2)** – Reihenfolge: 5.9a, 5.9b, 5.10, 5.11, 5.12, 5.17
+- [ ] 5.9a Ältester in jeder befreiten Ortschaft (Teil der Bevölkerung, fester Platz am Ortskern, eigene Kleidung, Name
+  „Ältester …“, nicht nach der Miliz befragbar; getötet → 60 min kein Ältester)
+- [ ] 5.9b Dialog des Ältesten („Können wir helfen?“, nur Dolmetscher) nach Vorbild von Liberations Nebenmissions-Dialog:
+  Abschnitte, graue Einträge mit Grund, „Kommt später wieder“ bei wartender Ortschaft, 1 Auftrag pro Ortschaft, 60 min
+  Wartezeit ab Ende, höchstens 2 gleichzeitig, Arma-Aufgabe für die Seite, 60 min Zeitlimit
+- [ ] 5.10 Hilfsauftrag „Hilfsgüter liefern“: Supply-Kiste am Boden bis 20 m vom Ältesten, +5
+- [ ] 5.11 Hilfsauftrag „Arzt-Einsatz“: 3–5 unverwundbare Patienten mit Liberations Verwundeten-Funktion, jeder Spieler mit
+  Bandage, +1 pro Patient, +2 für alle in der Zeit
+- [ ] 5.12 Hilfsauftrag „Infrastruktur reparieren“: rauchender Generator oder Wasserpumpe, nur ACE-Pionier mit
+  Werkzeugkasten, 20 s, +4
+- [ ] 5.17 Liberations Nebenmissionen (Konvoi-Überfall, Rettung) im Dialog des Ältesten; Eintrag an der FOB entfällt
+  (Hook mit Schalter)
 
-**DoD:** Zwei Testläufe (absichtlich „gut“ und „schlecht“ spielen) zeigen deutlich
-unterschiedliche Intel-Qualität. Mit Ruf im Debug hochgesetzt lassen sich beide
-Gefälligkeiten anfordern, und die Miliz reagiert sichtbar auf den Ablenkungsangriff.
-Je ein Hilfs- und ein Aufklärungsauftrag lassen sich annehmen und abschließen; die Belohnung erscheint im Log.
+**5C Zugriffsaufträge (DESIGN 8.2)** – Reihenfolge: 5.13, 5.14, 5.15, 5.16, 5.18
+- [ ] 5.13 Zugriffsauftrag entsteht aus Befragung/Verhör: 15 %, nur ab Ruf +25, höchstens 1 gleichzeitig, Dialog mit
+  einem Eintrag, Beginn 15–25 min nach Annehmen, Fenster 30–60 min, Einheiten spawnen immer
+- [ ] 5.14 Zugriffsauftrag „Kurier abfangen“ (Zivilauto A → B, „Dokumente durchsuchen“, Konkreter Tipp)
+- [ ] 5.15 Zugriffsauftrag „Anführer festnehmen“ (lebend, Readiness −10 Punkte, Verhör bringt Tipp zum Kommandoposten)
+- [ ] 5.16 Zugriffsauftrag „Waffentransport abfangen“ (Lkw mit zwei Technicals, Readiness −10 Punkte, Tipp zum Ziel-Lager)
+- [ ] 5.18 Zugriffsauftrag „Export“ (Cessna an einem Flugplatz nahe einer Ortschaft der Miliz zerstören, Readiness −10 Punkte)
+
+**5D Gefälligkeit „Verstärkung“ (DESIGN 8.1)** – Reihenfolge: 5.4, 5.6, 5.19
+- [ ] 5.4 Gefälligkeiten: ab +50 eine je 120 min mit Spieler online, höchstens 2, gespeichert (`COIN_saveVersion` 3);
+  Eintrag „Verstärkung“ im Dialog des Ältesten, kostet eine Gefälligkeit und 10 Intel-Punkte, ab Ruf +25, höchstens eine gleichzeitig
+- [ ] 5.6 Verstärkung: 10 lokale Kämpfer (Widerstand, eigene Gruppe, ADR 0012) entstehen am Ältesten und laufen zu einem
+  Punkt, den der Dolmetscher auf der Karte anklickt; Abzug nach 30 min, unter Ruf +25 oder aufgerieben (dann nächste
+  Gefälligkeit 60 min später)
+- [ ] 5.19 Funk (Kommunikationsmenü) für Kommandant, Truppführer und Dolmetscher: „Folgt uns“, „Geht dorthin“, „Greift an“
+- [-] 5.5 Gefälligkeit „Ablenkungsangriff“: gestrichen am 2026-10-23 (ADR 0023), Liberations Guerilla-Einsätze leisten Ähnliches
+
+**DoD:** Zwei Testläufe (absichtlich „gut“ und „schlecht“ spielen) zeigen deutlich unterschiedliche Intel-Qualität, und
+der Dolmetscher nennt jeweils die passende Stimmung. Je ein Hilfs- und ein Zugriffsauftrag lassen sich annehmen und
+abschließen; die Belohnung erscheint im Log. Eine Nebenmission lässt sich beim Ältesten starten. Mit Ruf im Debug
+hochgesetzt lässt sich die Verstärkung anfordern und per Funk führen.
 
 ## Phase 6 – Gegenangriffe und Hauptstadt
 

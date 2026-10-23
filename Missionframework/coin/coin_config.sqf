@@ -40,7 +40,8 @@ COIN_enableRoleTraits       = true;     // Phase 1, ticket 1.5: ACE abilities pe
 COIN_disableFobHunting      = true;     // Phase 2, ADR 0011: no enemy bases besides nests
 COIN_replaceLiberationThreats = true;   // Phase 4, ADR 0008: Liberation IEDs and town ambushes off
 COIN_capReadinessByNetwork  = true;     // Phase 6, ADR 0013: active nests cap combat_readiness
-COIN_hideReputationNumber   = true;     // Phase 5, ADR 0009: no reputation number in the Liberation overlay
+COIN_hideReputationNumber   = true;     // Phase 5, ADR 0009: no reputation display (number and icon) in the Liberation overlay
+COIN_secondaryAtElder       = true;     // Phase 5, ADR 0023: Liberation's secondary missions start at the elder, not at a FOB
 
 // ---------------------------------------------------------------------------
 // Slot roles (Phase 1, ticket 1.5)
@@ -943,9 +944,9 @@ COIN_ambushMarkerColor      = "ColorRed";
 COIN_enableAmbushWarnings   = true;     // Off: no warning of an ambush is made, those on the map go at the next check
 
 // ---------------------------------------------------------------------------
-// Reputation (Phase 5), ADR 0009
+// Reputation (Phase 5), ADR 0009, ADR 0023, DESIGN 8
 // Uses Liberation's civil reputation KP_liberation_civ_rep, scale -100 .. +100.
-// Changes go through Liberation's F_cr_changeCR.
+// Changes go through Liberation's F_cr_changeCR, without a message (in debug mode: system chat).
 // Liberation already handles: civilian killed (-5), civilian vehicle seized (-2),
 // friendly resistance killed (-3), sector liberated (+5 / capital +10),
 // wounded civilian treated (+2), informant delivered (+2),
@@ -954,51 +955,60 @@ COIN_enableAmbushWarnings   = true;     // Off: no warning of an ambush is made,
 COIN_reputationStart        = -20;      // Value for a new campaign
 COIN_repBandMid             = 0;        // Band "mid" starts here (below: "low")
 COIN_repBandHigh            = 25;       // Band "high" starts here (= Liberation informants, friendly resistance)
+COIN_moodThresholds         = [-25, 0, 25, 50]; // Mood (ticket 5.3): below the first hostile, then suspicious, waiting, friendly, from the last very friendly
 
 COIN_repIEDDefused          = 2;        // Ticket 4.2a: a real IED defused (not a decoy, not one blown up), 0 = off
-COIN_repNestDestroyed       = 5;
-COIN_repCivilianHelped      = 1;
-COIN_repCaptiveKilled       = -10;
-COIN_repShootingNearCivs    = -1;
-COIN_repBuildingDestroyed   = -3;       // Per building destroyed by BLUFOR in a liberated town
+COIN_repNestDestroyed       = 5;        // Any nest type
+COIN_repCaptiveKilled       = -10;      // Total for a prisoner; for Liberation's prisoners (civilian group) Liberation already takes -5, we take the rest
+COIN_repCivVehicleDestroyed = -2;       // Destroyed by the army; vehicles COIN made (VBIED, task vehicles) do not count
+COIN_repBuildingDestroyed   = -3;       // Per house destroyed by the army in a liberated town; none while militia is inside the town radius
+
+// Informants (ticket 5.2): Liberation's KP_liberation_civinfo_* by reputation; below COIN_repBandHigh Liberation sends none
+COIN_informantHighRep       = 50;       // From here the faster values apply
+COIN_informantFastMinMax    = [2700, 5400]; // [min, max] s between two tries from COIN_informantHighRep (Liberation: 5400, 10800)
+COIN_informantFastChance    = 100;      // Chance 0-100 from COIN_informantHighRep (Liberation: 75)
 
 // ---------------------------------------------------------------------------
-// Favors at very high reputation (Phase 5, decision E12)
+// Favors at very high reputation (Phase 5, E12, ADR 0023): the only favor is the reinforcement
 // ---------------------------------------------------------------------------
 COIN_enableFavors           = true;
-COIN_favorRepThreshold      = 50;       // Provisional, final value in the phase 5 spec
-COIN_favorGainMinutes       = 120;      // One favor per this many minutes above threshold
+COIN_favorRepThreshold      = 50;       // Favors grow from here on
+COIN_favorGainMinutes       = 120;      // One favor per this many minutes above the threshold, with at least one player online
 COIN_favorMaxStored         = 2;
 COIN_favorLossCooldownMin   = 60;       // Extra wait if local fighters were wiped out
+COIN_favorIntelCost         = 10;       // Liberation intel points to redeem a favor (on top of the favor itself)
+COIN_favorMinRep            = 25;       // A stored favor can be redeemed from here on (friendly resistance)
 
-COIN_diversionDurationMin   = [15, 20]; // Militia pulled toward diversion target
-COIN_diversionPullRadius    = 2000;     // m around target from which militia groups are pulled
-COIN_diversionFighters      = [6, 10];
-
-COIN_reinforcementSize      = [4, 6];
-COIN_reinforcementMaxMin    = 60;       // Group leaves after this time
+COIN_reinforcementSize      = 10;       // Local fighters per reinforcement
+COIN_reinforcementMaxMin    = 30;       // Group leaves after this time
 
 // ---------------------------------------------------------------------------
-// Tasks (Phase 5, DESIGN 8.2) - not persisted, abort or failure costs nothing
+// Elder and tasks (Phase 5, DESIGN 8, 8.2) - not persisted, failure costs nothing
 // ---------------------------------------------------------------------------
+COIN_elderAbsenceMinutes    = 60;       // A killed elder is replaced after this time, at the next visit
+
 COIN_enableAidTasks         = true;
-COIN_enableReconTasks       = true;
+COIN_enableStrikeTasks      = true;
 
-// Aid tasks, offered by the elder of a liberated town (any reputation band)
+// Aid tasks, from the elder's dialog of a liberated town (any reputation band)
 COIN_aidTaskMaxActive       = 2;        // Aid tasks active at the same time
-COIN_aidTaskCooldownMin     = 60;       // Minutes before a town offers its next aid task
+COIN_aidTaskCooldownMin     = 60;       // Minutes a town waits after its aid task has ended
 COIN_aidTaskTimeoutMin      = 60;       // Minutes to complete an accepted aid task
-COIN_repAidSupplies         = 4;        // Reputation for delivering a supply crate
+COIN_repAidSupplies         = 5;        // Reputation for delivering a supply crate
+COIN_aidSupplyDistance      = 20;       // m from the elder the crate has to stand
 COIN_repAidPatient          = 1;        // Reputation per treated patient
 COIN_repAidMedicalBonus     = 2;        // Bonus when all patients are treated in time
 COIN_aidMedicalPatients     = [3, 5];   // [min, max] patients in a medical task
-COIN_repAidRepair           = 3;        // Reputation for repairing infrastructure
+COIN_repAidRepair           = 4;        // Reputation for repairing infrastructure
+COIN_aidRepairSeconds       = 20;       // Duration of the repair
 
-// Recon tasks, created as a result of questioning or interrogation
-COIN_reconTaskChance        = 0.15;     // Chance per questioning/interrogation result
-COIN_reconTaskMaxActive     = 1;
-COIN_reconTaskWindowMin     = [30, 60]; // Time window in minutes
-COIN_reconReadinessFactor   = 0.9;      // combat_readiness multiplier for leader capture and arms transport
+// Strike tasks, created as a result of questioning or interrogation
+COIN_strikeTaskChance       = 0.15;     // Chance per questioning (result other than "nothing") or interrogation
+COIN_strikeTaskMinRep       = 25;       // No strike task below this reputation, interrogation too
+COIN_strikeTaskMaxActive    = 1;
+COIN_strikeTaskDelayMin     = [15, 25]; // Minutes from accepting until the event starts
+COIN_strikeTaskWindowMin    = [30, 60]; // Time window in minutes, from accepting
+COIN_strikeReadinessLoss    = 10;       // Points of combat_readiness (0-100) for leader, arms transport and export
 
 // ---------------------------------------------------------------------------
 // Faction markers (Phase 1, ticket 1.6 / #9, ADR 0012, ADR 0014)

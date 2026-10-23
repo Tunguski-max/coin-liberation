@@ -15,7 +15,7 @@
 - Unser Server-Code begrenzt `combat_readiness` regelmäßig auf einen Höchstwert, der von den aktiven
   Nestern abhängt (Phase 6, kein Hook).
 - Zusätzlich senkt ein **zerstörtes Nest die Readiness sofort** um einen Wert je Nest-Typ (z. B. 10,
-  Kommandoposten 20; ergänzt 2026-10-18). Einige Aufklärungsaufträge senken sie um 10 %.
+  Kommandoposten 20; ergänzt 2026-10-18). Einige Zugriffsaufträge senken sie um 10 Punkte (umbenannt 2026-10-23, ADR 0023).
   Die Readiness bleibt im Overlay sichtbar.
 
 ## Begründung

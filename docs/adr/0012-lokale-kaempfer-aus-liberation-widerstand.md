@@ -1,6 +1,6 @@
 # ADR 0012: Lokale Kämpfer bauen auf Liberations Widerstand auf
 
-**Status:** Akzeptiert (2026-10-18)
+**Status:** Akzeptiert (2026-10-18, geändert am 2026-10-23)
 
 ## Kontext
 Liberation hat eine Widerstandsfraktion (Seite RESISTANCE) mit Ausrüstungsstufen
@@ -9,7 +9,8 @@ zwischen −25 und +25 neutral, unter −25 auf Seiten der Miliz. Liberation sch
 Guerilla-Gruppen in Sektorkämpfe (`sector_guerilla.sqf`, 35 % bei |Ruf| ≥ 25).
 
 ## Entscheidung
-- Lokale Kämpfer (Gefälligkeiten, DESIGN 8.1) werden als Liberation-Widerstand gespawnt.
+- Lokale Kämpfer (Gefälligkeiten, DESIGN 8.1) werden als Liberation-Widerstand gespawnt, in einer eigenen Gruppe.
+  Sie treten keiner Spielergruppe bei, gesteuert werden sie per Funk (Kommunikationsmenü; 2026-10-23, ADR 0023).
 - Fällt der Ruf unter 25, ziehen aktive lokale Kämpfer ab.
 - Liberations spontane Guerilla-Einsätze bleiben: Hilfe bei gutem Ruf, Gegner bei schlechtem.
 

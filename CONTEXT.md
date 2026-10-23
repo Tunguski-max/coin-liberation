@@ -80,15 +80,15 @@ Code-Bezeichner stehen in Klammern.
 | **Triangulation** | Mehrere wahre Hinweise auf dasselbe Nest verkleinern dessen einen Markerkreis. Lügen schrumpfen nie. |
 | **Ruf** (`reputation`) | Globales Ansehen der Armee bei der Bevölkerung, Skala −100 bis +100. Ist Liberations „Civil Reputation“. |
 | **Ruf-Band** | Einteilung des Rufs in niedrig, mittel und hoch, an der sich ruf-abhängige Regeln orientieren (ADR 0009). |
-| **Gefälligkeit** (`favor`) | Unterstützung durch die Bevölkerung, die ab sehr hohem Ruf gesammelt und beim Ältesten eingelöst wird. |
+| **Stimmung** (`mood`) | Wie die Bevölkerung zur Armee steht, in Worten, abgeleitet aus dem Ruf in fünf Stufen: feindselig, misstrauisch, abwartend, freundlich, sehr freundlich. Erfährt nur der Dolmetscher mit „Wie steht ihr zu uns?“. _Nicht:_ „Haltung“ (das ist die Haltung des Widerstands), nicht dasselbe wie das Ruf-Band. |
+| **Gefälligkeit** (`favor`) | Unterstützung durch die Bevölkerung, die ab sehr hohem Ruf (+50) gesammelt und beim Ältesten gegen Intel-Punkte eingelöst wird. Einzige Art: Verstärkung. |
 | **Ältester** (`elder`) | Ansprechpartner in einer befreiten Ortschaft, bei dem über den Dolmetscher Gefälligkeiten angefordert und Hilfsaufträge angenommen werden. |
-| **Auftrag** (`task`) | Zeitlich begrenzte Aufgabe der COIN-Schicht für die Armee. Arten: Hilfsauftrag, Aufklärungsauftrag. _Nicht:_ „Sidequest“. |
+| **Auftrag** (`task`) | Zeitlich begrenzte Aufgabe der COIN-Schicht für die Armee. Arten: Hilfsauftrag, Zugriffsauftrag. _Nicht:_ „Sidequest“. |
 | **Hilfsauftrag** (`aidTask`) | Auftrag des Ältesten zur Unterstützung der Bevölkerung (z. B. Hilfsgüter, Arzt-Einsatz). Belohnung: Ruf. |
-| **Aufklärungsauftrag** (`reconTask`) | Auftrag, der aus Befragung oder Verhör entsteht (z. B. Kurier abfangen). Belohnung: Intel, teils sinkende Readiness. |
-| **Nebenmission** | Liberations eigene, mit Intel-Punkten gekaufte Missionen (Konvoi-Überfall, Rettung). Kein Auftrag im Sinne der COIN-Schicht. |
-| **Lokale Kämpfer** (`localFighters`) | Freundliche Dorfwachen und Stammeskämpfer aus dem Widerstand, die über eine Gefälligkeit kommen. Führen Ablenkungsangriffe durch oder stoßen als Verstärkung dazu. |
-| **Ablenkungsangriff** (`diversion`) | Angriff lokaler Kämpfer auf ein Ziel, der Miliz-Kräfte für eine Zeit dorthin abzieht. |
-| **Verstärkung** (`reinforcement`) | Gruppe lokaler Kämpfer, die einem Spieler-Gruppenführer für begrenzte Zeit folgt. |
+| **Zugriffsauftrag** (`strikeTask`) | Auftrag, der aus Befragung oder Verhör entsteht und auf diese Information hin zugreift (z. B. Kurier abfangen, Anführer festnehmen). Belohnung: Intel, teils sinkende Readiness. _Nicht:_ „Aufklärungsauftrag“ (man klärt nicht auf, man greift zu). |
+| **Nebenmission** | Liberations eigene, mit Intel-Punkten gekaufte Missionen (Konvoi-Überfall, Rettung), die der Dolmetscher beim Ältesten startet. Kein Auftrag im Sinne der COIN-Schicht. |
+| **Lokale Kämpfer** (`localFighters`) | Freundliche Dorfwachen und Stammeskämpfer aus dem Widerstand, die über eine Gefälligkeit kommen und als Verstärkung zur Armee stoßen. _Nicht:_ Liberations spontane Guerilla-Einsätze in Sektorkämpfen. |
+| **Verstärkung** (`reinforcement`) | Gruppe lokaler Kämpfer, die über eine Gefälligkeit kommt und für begrenzte Zeit per Funk geführt wird (folgen, hingehen, angreifen). Bleibt Widerstand, tritt keiner Spielergruppe bei. |
 | **Informant** | Zivilist, der sich bei hohem Ruf von sich aus meldet und zu einer FOB gebracht werden muss (Liberation-Funktion). Liefert Intel-Punkte und Intel. |
 
 ## Technik
