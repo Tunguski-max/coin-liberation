@@ -9,7 +9,7 @@
         that cannot be made (no threat without a warning in range, no fake point): he then knows nothing. The caller
         announces the intel and starts the cooldown. A lie is shown with the level and type it was made with, so it
         reads like a true answer. A warning is shown with the answer key of its kind (COIN_warningKinds: "warning" for a
-        camp, "warningIED" for an IED), so the sentences differ by kind. Server only.
+        camp, "warningIED" for an IED, "warningAmbush" for an ambush), so the sentences differ by kind. Server only.
 
     Parameter(s):
         _outcome - "nothing", "rumor", "hint", "tip", "warning" or "lie" [STRING, defaults to "nothing"]

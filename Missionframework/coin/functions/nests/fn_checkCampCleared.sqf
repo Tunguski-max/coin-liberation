@@ -32,15 +32,7 @@ _entry params ["_objects"];
 // A cleared or retired camp is already on its way out
 if !(_state in ["active", "moving"]) exitWith {false};
 
-private _capable = (_objects select {_x isKindOf "CAManBase"}) select {
-    alive _x
-    && {!captive _x}
-    && {!(_x getVariable ["ace_captives_isHandcuffed", false])}
-    && {!(_x getVariable ["ace_captives_isSurrendering", false])}
-    && {(side group _x) isEqualTo GRLIB_side_enemy}
-    && {(_x distance2D _pos) <= COIN_campFleeDistance}
-};
-if !(_capable isEqualTo []) exitWith {false};
+if !(([_objects, _pos] call COIN_fnc_getCapableFighters) isEqualTo []) exitWith {false};
 
 _camp set [6, "cleared"];
 COIN_campReplaceMinutes params ["_replaceMin", "_replaceMax"];

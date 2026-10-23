@@ -8,7 +8,7 @@
         - COIN_campCapacity from COIN_fnc_getCampCapacity,
         - that many camps (COIN_fnc_createCamp): at places that keep the placement rules, each belonging to the nearest
           active nest that still has a free slot. A camp without a place is left out with an error line.
-        - COIN_camps (layout in COIN_fnc_createCamp), COIN_spawnedCamps (camp id -> what the spawn loop keeps),
+        - COIN_camps (layout in COIN_fnc_createCamp), COIN_spawnedCamps and COIN_spawnedAmbushes (camp id -> what the spawn loop keeps of the camp and of its ambush),
           COIN_campReplacements (mission times at which a cleared camp is replaced), COIN_campNextId.
         During the session COIN_fnc_manageCamps replaces, moves and retires camps (ticket 2.10).
         Logs every camp with its distances and the camps per nest. Listens to COIN_nestDestroyed: the capacity is
@@ -24,6 +24,7 @@
 if (!isServer) exitWith {0};
 
 COIN_spawnedCamps = createHashMap;
+COIN_spawnedAmbushes = createHashMap;
 COIN_camps = [];
 COIN_campNextId = 1;
 COIN_campReplacements = [];

@@ -6,6 +6,7 @@
         Debug map for the camps (ticket 2.11, lobby parameter "COIN Debug"): one icon per camp with id, nest, whether it
         was discovered and, if it is not active, its state (moving, cleared, retired), and a line to its nest.
         Color of the nest type (COIN_nestDebugColors), grey if the nest is destroyed or the camp is cleared or retired.
+        The ambushes of the camps are drawn with it (COIN_fnc_drawAmbushMarkers, ticket 4.5).
         Runs on the server with global markers, so every player sees them, late joiners too.
         Draws again on every call, existing markers of a camp are replaced, markers of camps that are gone are deleted.
 
@@ -66,6 +67,10 @@ COIN_campMarkerIds = _present;
 
 if (COIN_debug) then {
     diag_log format ["[COIN] camps: debug markers drawn for %1 camps", count COIN_camps];
+};
+
+if (COIN_enableAmbushes) then {
+    [] call COIN_fnc_drawAmbushMarkers;
 };
 
 count COIN_camps
