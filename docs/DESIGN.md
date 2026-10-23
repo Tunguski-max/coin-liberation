@@ -14,6 +14,7 @@
 > v0.5.1: Dokumente als ACE Intel Items verworfen (E13).
 > v0.6: Asymmetrische Bedrohungen für Phase 4 festgelegt (Budget, IED-Varianten, VBIED, Attentäter, Hinterhalt, Warnung vor IED, ADR 0022).
 > v0.6.1: IED löst zu Fuß erst ab zwei Soldaten in etwa 6 m aus, sonst wäre Entschärfen nicht möglich (Ticket 4.1a, Test am 2026-10-22).
+> v0.6.2: Attentäter wirkt im ganzen Radius der Werkstatt (keine Ortschaft nötig) und kontert ACEs „Get Down!“/„Go Away!“ nicht (Ticket 4.4, Test am 2026-10-23, Niklas).
 > Offene Entscheidungen stehen gesammelt in [Abschnitt 12](#12-offene-entscheidungen).
 > Begriffe sind in [`CONTEXT.md`](../CONTEXT.md) definiert.
 
@@ -261,7 +262,7 @@ keine IEDs und keine Attentäter, ohne Garage keine VBIEDs, ohne Camp keine Hint
 | IED (ferngezündet) | IED-Werkstatt | Mit Auslöser in Sichtweite | Zivilist mit Telefon, der beobachtet | Auslöser ausschalten, dann entschärfen |
 | Attrappe | IED-Werkstatt | Wie IED, harmlos | Wie IED | Kostet Zeit, kein Schaden |
 | VBIED | VBIED-Garage | Ziviles Fahrzeug fährt auf Spieler oder FOB zu | Fahrer allein, ignoriert Warnungen, hält nicht an | Stoppen, Distanz, Feuer |
-| Selbstmordattentäter | IED-Werkstatt, Häufigkeit nach Ruf | Zivilist nähert sich einer Spielergruppe zu Fuß | Ignoriert Befehle, Kleidung mit Weste oder dickem Mantel, zielstrebig, Ruf kurz vor der Explosion | Distanz, früh ausschalten |
+| Selbstmordattentäter | IED-Werkstatt, Häufigkeit nach Ruf | Zivilist nähert sich einer Spielergruppe zu Fuß | Kleidung mit Weste oder dickem Mantel, zielstrebig, Ruf kurz vor der Explosion | Distanz, früh ausschalten |
 | Hinterhalt | Camp | Miliz-Gruppe in Deckung an einer Straße nahe einem Camp | Warnung von Zivilisten | Aufklärung, Routen wechseln |
 
 **Budget:** Obergrenze, wie viele Bedrohungen eines aktiven Nests gleichzeitig im Feld sind. Was verbraucht ist
@@ -303,18 +304,18 @@ schon Gelegtes bleibt liegen. Darüber gilt die globale Obergrenze für IEDs (Ab
   Drongos Map Population wie beim Selbstmordattentäter, ohne die Mod still).
 
 **Selbstmordattentäter**
-- Nur im Radius einer aktiven Werkstatt, in einer Ortschaft (Sektorradius), wenn Spieler zu Fuß dort sind. Alle 5 min
+- Nur im Radius einer aktiven Werkstatt, wenn Spieler zu Fuß dort sind (keine Ortschaft nötig: oft liegt nur eine im Radius). Alle 5 min
   eine Chance nach Ruf-Band (Startwerte niedrig 15 %, mittel 7 %, hoch 2 %), höchstens einer pro Werkstatt, danach
   30 min Wartezeit.
-- Spawnt neu, 100–200 m entfernt außer Sicht, geht zielstrebig auf die nächste Spielergruppe zu und zündet in 5 m.
+- Spawnt neu, 100–200 m entfernt außer Sicht, geht zielstrebig auf den nächsten Spieler zu (wechselt, wenn ein anderer näher ist) und zündet in 5 m.
 - Erkennungszeichen: Kleidung aus einer eigenen Liste (Weste, dicker Mantel). Vor der Explosion ruft er mit 50 % Chance
   (Sound aus Drongos Map Population; ohne die Mod still, ohne Fehler). Keine sichtbaren Sprengladungen.
 - Erschossen zündet er mit 30 % Chance: Früh erkennen lohnt sich, Erschießen auf kurze Distanz ist nicht sicher.
 
 **Befehle an Zivilisten**
 - Kann jeder Spieler geben, ohne Dolmetscher (Gesten): ACEs „Get Down!“ und „Go Away!“ im ACE-Interaktionsmenü an der
-  Person. Echte Zivilisten folgen mit ACEs Chancen (50 %, mit Waffe in der Hand 80 %), der Attentäter nie. Nicht-Folgen
-  allein verrät ihn also nicht.
+  Person. Echte Zivilisten folgen mit ACEs Chancen (50 %, mit Waffe in der Hand 80 %). Der Attentäter kontert sie nicht
+  eigens: Nach Niklas' Erfahrung kommt niemand nah genug heran, um sie zu geben, bevor er zündet (2026-10-23).
 - Kein eigener Befehl „Stehen bleiben!“ (verworfen am 2026-10-22): ACE-Aktionen an einer Person brauchen so viel Nähe,
   dass sie gegen einen Attentäter nicht helfen. Gegenmaßnahmen sind Distanz und frühes Ausschalten.
 

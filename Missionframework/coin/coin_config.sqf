@@ -841,7 +841,7 @@ COIN_vbiedMarkerColor       = "ColorRed";
 // Suicide bomber (ticket 4.4, DESIGN 6): a fighter in civilian clothes of an active IED workshop, who walks up to the nearest player
 COIN_suicideBomberBudgetPerWorkshop = 1; // Bombers one workshop has under way at the same time
 COIN_suicideBomberCooldownMinutes = 30; // Minutes after a bomber is used up (blown up, shot, captured, gone) until his workshop sends the next. Not saved
-COIN_suicideBomberCheckInterval = 300;  // s between two rolls of a workshop that is ready (players on foot in a town of its influence radius)
+COIN_suicideBomberCheckInterval = 300;  // s between two rolls of a workshop that is ready (players on foot in its influence radius)
 COIN_suicideBomberChances   = [         // Chance of a bomber per roll by reputation band (COIN_repBandMid, COIN_repBandHigh); 1 for tests
     ["low",  0.15],
     ["mid",  0.07],
@@ -871,7 +871,7 @@ COIN_suicideBomberYellChance = 0.5;     // Chance that he shouts at all
 COIN_suicideBomberYellRange = 150;      // m: how far the shout can be heard
 COIN_suicideBomberTimeoutMinutes = 10;  // Minutes after which a bomber who has not reached a player disappears; he counts as used up
 COIN_suicideBomberWatchInterval = 0.25; // s between two checks of a bomber under way (a man at 7 m/s covers 1.75 m meanwhile, the trigger distance is 5 m)
-COIN_suicideBomberOrderInterval = 1;    // s between two orders (stand up, walk to the nearest player): ACE's "Get Down!" and "Go Away!" act for at most this long
+COIN_suicideBomberRetargetDistance = 10; // m the nearest player must have moved from the last destination before the bomber is sent to the new position (a doMove every second keeps an AI from starting to walk)
 COIN_suicideBomberMarkerInterval = 2;   // s between two moves of his debug marker
 COIN_suicideBomberProgressInterval = 10; // s between two log lines of a bomber under way (position, distance, speed)
 COIN_suicideBomberMarkerType = "mil_dot"; // Debug map: the bomber under way
