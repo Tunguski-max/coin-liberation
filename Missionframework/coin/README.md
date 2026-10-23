@@ -114,6 +114,12 @@ coin/
     │   ├── fn_vbiedDrive.sqf           COIN_fnc_vbiedDrive: Fahrt eines VBIEDs zum Ziel, Zündung in 10 m, Ende, Aufräumen
     │   ├── fn_explodeVBIED.sqf         COIN_fnc_explodeVBIED: zündet die Ladung (nur einmal), zerstört das Fahrzeug
     │   ├── fn_vbiedLoop.sqf            COIN_fnc_vbiedLoop: Server-Schleife, alle 5 min Chance je bereiter aktiver Garage
+    │   ├── fn_getSuicideBomberTargets.sqf COIN_fnc_getSuicideBomberTargets: Spieler zu Fuß im Radius einer Werkstatt (Ticket 4.4)
+    │   ├── fn_findSuicideBomberSpot.sqf COIN_fnc_findSuicideBomberSpot: Punkt 100–200 m vom Ziel, außer Sicht der Spieler
+    │   ├── fn_createSuicideBomber.sqf  COIN_fnc_createSuicideBomber: Kämpfer in Zivil mit Kleidung aus der Liste, Killed-Handler
+    │   ├── fn_suicideBomberDrive.sqf   COIN_fnc_suicideBomberDrive: Weg zum nächsten Spieler, Schrei, Zündung in 5 m, Ende, Aufräumen
+    │   ├── fn_explodeSuicideBomber.sqf COIN_fnc_explodeSuicideBomber: zündet die Weste (nur einmal)
+    │   ├── fn_suicideBomberLoop.sqf    COIN_fnc_suicideBomberLoop: Server-Schleife, alle 5 min Chance je bereiter Werkstatt nach Ruf-Band
     │   └── fn_drawIEDMarkers.sqf       COIN_fnc_drawIEDMarkers: globale Debug-Marker der IEDs (Lobby-Parameter „COIN Debug“)
     └── nests/
         ├── fn_initNests.sqf            COIN_fnc_initNests: Server, Nester aus dem Spielstand oder neu, Debug-Karte (ADR 0018)

@@ -11,7 +11,8 @@
         once per start) and draws the debug map when COIN_debug is on. Calculates the network strength
         (COIN_fnc_updateNetworkStrength, ticket 2.6). Then creates the camps (COIN_fnc_initCamps,
         ticket 2.7, while COIN_enableCamps is true), lays the IEDs (COIN_fnc_initIEDs, ticket 4.1a, while COIN_enableIEDs
-        is true), starts the VBIED loop (COIN_fnc_vbiedLoop, ticket 4.3, while COIN_enableVBIEDs is true) and starts
+        is true), starts the VBIED loop (COIN_fnc_vbiedLoop, ticket 4.3, while COIN_enableVBIEDs is true), the suicide
+        bomber loop (COIN_fnc_suicideBomberLoop, ticket 4.4, while COIN_enableSuicideBombers is true) and starts
         the spawn loop.
         Must be spawned (waits for save_is_loaded).
 
@@ -121,6 +122,13 @@ if (COIN_enableVBIEDs) then {
     [] spawn COIN_fnc_vbiedLoop;
 } else {
     diag_log "[COIN] vbieds: VBIEDs off, no garage sends one";
+};
+
+// Suicide bombers of the active IED workshops (ticket 4.4), not saved: every workshop starts ready on every start
+if (COIN_enableSuicideBombers) then {
+    [] spawn COIN_fnc_suicideBomberLoop;
+} else {
+    diag_log "[COIN] suicideBombers: suicide bombers off, no workshop sends one";
 };
 
 // Content near players (ticket 2.3)

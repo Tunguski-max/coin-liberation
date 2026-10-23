@@ -837,8 +837,46 @@ COIN_vbiedMarkerInterval    = 2;        // s between two moves of its debug mark
 COIN_vbiedProgressInterval  = 20;       // s between two log lines of a VBIED under way (position, distance, speed, engine): shows a car that does not drive
 COIN_vbiedMarkerType        = "mil_triangle"; // Debug map: the VBIED under way
 COIN_vbiedMarkerColor       = "ColorRed";
-COIN_suicideBomberChanceLow = 0.05;     // Per eligible civilian spawn at low reputation
-COIN_suicideBomberChanceHigh= 0.01;     // ... at high reputation
+
+// Suicide bomber (ticket 4.4, DESIGN 6): a fighter in civilian clothes of an active IED workshop, who walks up to the nearest player
+COIN_suicideBomberBudgetPerWorkshop = 1; // Bombers one workshop has under way at the same time
+COIN_suicideBomberCooldownMinutes = 30; // Minutes after a bomber is used up (blown up, shot, captured, gone) until his workshop sends the next. Not saved
+COIN_suicideBomberCheckInterval = 300;  // s between two rolls of a workshop that is ready (players on foot in its influence radius)
+COIN_suicideBomberChances   = [         // Chance of a bomber per roll by reputation band (COIN_repBandMid, COIN_repBandHigh); 1 for tests
+    ["low",  0.15],
+    ["mid",  0.07],
+    ["high", 0.02]
+];
+COIN_suicideBomberClasses   = [         // Clothing: coat and waistcoat variants of the Takistani civilians (CUP_TakiCivs); one at random, a class that does not exist is skipped
+    "CUP_C_TK_Man_01_Coat", "CUP_C_TK_Man_03_Coat", "CUP_C_TK_Man_05_Coat", "CUP_C_TK_Man_06_Coat", "CUP_C_TK_Man_07_Coat",
+    "CUP_C_TK_Man_01_Waist", "CUP_C_TK_Man_02_Waist", "CUP_C_TK_Man_03_Waist", "CUP_C_TK_Man_04_Waist",
+    "CUP_C_TK_Man_05_Waist", "CUP_C_TK_Man_06_Waist", "CUP_C_TK_Man_07_Waist", "CUP_C_TK_Man_08_Waist"
+];
+COIN_suicideBomberSpawnDistance = [100, 200]; // [min, max] m between the spawn point and the target
+COIN_suicideBomberSpawnTries = 60;      // Points tried for the spawn point; none fits: log line, the workshop tries again at the next roll
+COIN_suicideBomberMinPlayerDistance = 80; // m: no player closer than this to the spawn point
+COIN_suicideBomberSightDistance = 300;  // m: a player within this distance with a clear line of sight to the spawn point sees it (rejected)
+COIN_suicideBomberSightHeight = 1.7;    // m above the ground where that line of sight ends (head of a man)
+COIN_suicideBomberMaxSlope  = 0.9;      // Spawn point: z of the surface normal at least this (1 = flat)
+COIN_suicideBomberHeadroom  = 6;        // m above the spawn point that must be free (no roof, no building over it)
+COIN_suicideBomberGroundClearance = 0.3; // m above the ground where the check for a roof over the spawn point starts
+COIN_suicideBomberBehaviour = "AWARE";  // Behaviour on his way (a "CARELESS" civilian only strolls)
+COIN_suicideBomberSpeedMode = "FULL";   // Speed mode on his way
+COIN_suicideBomberTriggerDistance = 5;  // m: the vest goes off when the nearest player is this close
+COIN_suicideBomberShotChance = 0.3;     // Chance that the vest goes off when he is killed (0 and 1 for tests)
+COIN_suicideBomberCharge    = "SatchelCharge_Remote_Ammo"; // Ammo class of the vest, created at the man when it goes off
+COIN_suicideBomberYellSound = "dmpYell2"; // CfgSounds class he shouts shortly before the blast: "Allahu Akbar" of Drongos Map Population ("dmpYell1" is the generic yell; without the mod or a class that does not exist he stays silent, no error)
+COIN_suicideBomberYellDistance = 20;    // m from the nearest player at which he shouts, once
+COIN_suicideBomberYellChance = 0.5;     // Chance that he shouts at all
+COIN_suicideBomberYellRange = 150;      // m: how far the shout can be heard
+COIN_suicideBomberTimeoutMinutes = 10;  // Minutes after which a bomber who has not reached a player disappears; he counts as used up
+COIN_suicideBomberWatchInterval = 0.25; // s between two checks of a bomber under way (a man at 7 m/s covers 1.75 m meanwhile, the trigger distance is 5 m)
+COIN_suicideBomberRetargetDistance = 10; // m the nearest player must have moved from the last destination before the bomber is sent to the new position (a doMove every second keeps an AI from starting to walk)
+COIN_suicideBomberMarkerInterval = 2;   // s between two moves of his debug marker
+COIN_suicideBomberProgressInterval = 10; // s between two log lines of a bomber under way (position, distance, speed)
+COIN_suicideBomberMarkerType = "mil_dot"; // Debug map: the bomber under way
+COIN_suicideBomberMarkerColor = "ColorRed";
+
 COIN_ambushIntervalMinutes  = [30, 60];
 
 // ---------------------------------------------------------------------------
