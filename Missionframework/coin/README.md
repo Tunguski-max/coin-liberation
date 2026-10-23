@@ -97,7 +97,9 @@ coin/
     │   ├── fn_getSaveBlock.sqf         COIN_fnc_getSaveBlock: baut Eintrag 22 beim Speichern, [COIN_saveVersion, Nester, Intel] (Hook 17)
     │   └── fn_markNewCampaign.sqf      COIN_fnc_markNewCampaign: merkt sich beim Laden, dass es keinen Spielstand gibt (Hook 24)
     ├── reputation/
-    │   └── fn_initReputation.sqf       COIN_fnc_initReputation: Server, Start-Ruf einer neuen Kampagne nach dem Laden (Ticket 5.7)
+    │   ├── fn_initReputation.sqf       COIN_fnc_initReputation: Server, Start-Ruf einer neuen Kampagne nach dem Laden (Ticket 5.7)
+    │   ├── fn_changeReputation.sqf     COIN_fnc_changeReputation: Server, die eine Stelle für Ruf-Änderungen (Logzeile, im Debug Systemchat), Ticket 5.1
+    │   └── fn_initReputationEvents.sqf COIN_fnc_initReputationEvents: Server, Ruf-Änderungen nach COIN-Ereignissen, z. B. Nest zerstört (Ticket 5.1)
     ├── threats/
     │   ├── fn_initIEDs.sqf             COIN_fnc_initIEDs: Server, jede aktive Werkstatt legt ihr IED-Budget, startet die Schleife (Ticket 4.1a)
     │   ├── fn_createIED.sqf            COIN_fnc_createIED: Server, legt ein IED für eine Werkstatt (Mine, Zeus, COIN_ieds)

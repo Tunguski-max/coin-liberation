@@ -52,6 +52,7 @@ if ([] call COIN_fnc_replacesLiberationThreats) then {
 
 // Reputation (ticket 5.7, ADR 0009): start value of a new campaign, logs the value of a loaded save
 [] spawn COIN_fnc_initReputation;
+[] call COIN_fnc_initReputationEvents;
 
 // AI budget (ticket 2.13, ADR 0015): Liberation's caps = COIN_maxEnemyAI x Unitcap, COIN units on top
 if (COIN_enableAIBudget) then {
