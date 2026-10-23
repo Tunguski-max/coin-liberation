@@ -7,6 +7,7 @@
         COIN_vbiedWatchInterval seconds:
         - the driver is sent to the target, to its new position when a moving one went further than
           COIN_vbiedRetargetDistance (a player who is dead or gone: the nearest player, none left: the driver gives up),
+        - within COIN_vbiedYellDistance of the target the driver shouts once (COIN_vbiedYellSound, COIN_vbiedYellChance),
         - within COIN_vbiedTriggerDistance of the target the charge goes off (COIN_fnc_explodeVBIED).
         The run ends when
         - the vehicle is destroyed (the charge goes off) or deleted,
@@ -56,6 +57,7 @@ private _deadline = time + COIN_vbiedTimeoutMinutes * 60;
 private _destination = [0, 0, 0];
 private _nextMarker = 0;
 private _nextProgress = 0;
+private _yelled = false;
 private _outcome = "";
 
 while {_outcome isEqualTo ""} do {
@@ -92,6 +94,16 @@ while {_outcome isEqualTo ""} do {
     if (_outcome isNotEqualTo "") exitWith {};
 
     private _pos = call _targetPos;
+
+    // Shortly before the blast the driver shouts (sound of Drongos Map Population, silent without the mod)
+    if (!_yelled && {(_vehicle distance2D _pos) <= COIN_vbiedYellDistance}) then {
+        _yelled = true;
+        if (random 1 < COIN_vbiedYellChance && {isClass (configFile >> "CfgSounds" >> COIN_vbiedYellSound)}) then {
+            [_driver, [COIN_vbiedYellSound, COIN_vbiedYellRange]] remoteExec ["say3D", 0];
+            diag_log format ["[COIN] vbieds: the driver of VBIED %1 shouts (%2), %3 m from its target", _id, COIN_vbiedYellSound, round (_vehicle distance2D _pos)];
+        };
+    };
+
     if ((_vehicle distance2D _pos) <= COIN_vbiedTriggerDistance) then {
         [_vehicle, format ["reached its target (%1 m)", round (_vehicle distance2D _pos)]] call COIN_fnc_explodeVBIED;
         _outcome = "exploded";

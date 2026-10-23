@@ -299,7 +299,8 @@ schon Gelegtes bleibt liegen. Darüber gilt die globale Obergrenze für IEDs (Ab
 - Das Ziel wird zufällig unter allen FOBs und Spielern im Radius gewählt, ohne Gewichtung; KI-Einheiten der Armee sind
   weder Ziel noch Auslöser. Das Fahrzeug stammt aus den zivilen Autos des Presets „Civilian Takistanis“ und hat nur
   die Ladung (ein IED-Magazin) im Inventar, damit eine Durchsuchung zeigt, was es war. Der Fahrer zählt wie der
-  Auslöser nicht im COIN-Einheiten-Budget (Zivilisten-Seite).
+  Auslöser nicht im COIN-Einheiten-Budget (Zivilisten-Seite). Etwa 60 m vor dem Ziel ruft der Fahrer einmal (Sound aus
+  Drongos Map Population wie beim Selbstmordattentäter, ohne die Mod still).
 
 **Selbstmordattentäter**
 - Nur im Radius einer aktiven Werkstatt, in einer Ortschaft (Sektorradius), wenn Spieler zu Fuß dort sind. Alle 5 min
