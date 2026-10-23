@@ -282,7 +282,9 @@ schon Gelegtes bleibt liegen. Darüber gilt die globale Obergrenze für IEDs (Ab
 - Varianten (Startwerte): 60 % vergraben, 25 % ferngezündet, 15 % Attrappen. Alle zählen zum Budget.
 - **Ferngezündet:** Der Auslöser (Kämpfer in Zivil) steht 60–150 m entfernt mit Sichtlinie, bevorzugt an einem Haus
   oder erhöht, und spawnt, wenn ein Spieler 800 m nah ist. Er zündet, sobald die Armee etwa 15 m am IED ist. Ist er
-  tot, gefangen oder ergeben, zündet das IED nie mehr, muss aber noch entschärft werden.
+  tot, gefangen oder ergeben, zündet das IED nie mehr (auch nicht, wenn er wieder befreit wird), muss aber noch
+  entschärft werden. Er hält ein Telefon, geht ein paar Schritte hin und her (Radius 4 m) und läuft weg, sobald sein
+  IED weg ist (Explosion oder Entschärfen); ein gefangener Auslöser bleibt stehen.
 - **Attrappe:** dasselbe Objekt, vom Minensucher gefunden und entschärfbar, aber unzerstörbar und explodiert nie.
 - **Entschärfen** eines echten IEDs bringt +2 Ruf, eine Attrappe nichts. Den IED-Gegenstand, den das Spiel beim
   Entschärfen ablegt, entfernen wir: Die Armee sammelt keine Sprengsätze.
