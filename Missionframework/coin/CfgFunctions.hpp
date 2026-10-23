@@ -419,5 +419,23 @@ class COIN {
 
         // Server loop: triggermen appear at 800 m, leave like nest guards, note who is out (ticket 4.2b)
         class triggermanLoop {};
+
+        // Server: FOBs and players within the radius of a VBIED garage (ticket 4.3)
+        class getVBIEDTargets {};
+
+        // Server: spawn point of a VBIED on a road, 800-1200 m from the target, out of sight
+        class findVBIEDSpot {};
+
+        // Server: sends one VBIED (civilian vehicle with a lone driver) from a garage to a target
+        class createVBIED {};
+
+        // Server: the run of one VBIED, spawned by createVBIED
+        class vbiedDrive {};
+
+        // Server: sets the charge of a VBIED off, once
+        class explodeVBIED {};
+
+        // Server loop: every ready garage rolls for a VBIED (ticket 4.3)
+        class vbiedLoop {};
     };
 };
