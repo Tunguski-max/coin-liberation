@@ -7,8 +7,9 @@
         COIN_suicideBomberWatchInterval seconds:
         - the nearest player (COIN_fnc_getPresence) is his target, so he goes for the nearest group and changes when
           another one is closer (BLUFOR AI is neither target nor trigger),
-        - every COIN_suicideBomberOrderInterval seconds he gets his order again (stand up, walk to the target). That
-          is how he ignores ACE's "Get Down!" (setUnitPos "DOWN") and "Go Away!" (doMove away), which only act at once,
+        - he is sent to the target again when it moved more than COIN_suicideBomberRetargetDistance from his last
+          destination, and at once when his stance is not "UP" any more. That is how he ignores ACE's "Get Down!"
+          (setUnitPos "DOWN") and "Go Away!" (setUnitPos "AUTO", doMove away), which act only once,
         - within COIN_suicideBomberYellDistance of the target he shouts once (COIN_suicideBomberYellSound, chance
           COIN_suicideBomberYellChance),
         - within COIN_suicideBomberTriggerDistance of the target the vest goes off (COIN_fnc_explodeSuicideBomber).
@@ -53,7 +54,7 @@ if (COIN_debug) then {
 };
 
 private _deadline = time + COIN_suicideBomberTimeoutMinutes * 60;
-private _nextOrder = 0;
+private _destination = [0, 0, 0];
 private _nextMarker = 0;
 private _nextProgress = 0;
 private _yelled = false;
@@ -94,17 +95,20 @@ while {_outcome isEqualTo ""} do {
         [_unit, format ["reached %1 (%2 m)", name _target, round _distance]] call COIN_fnc_explodeSuicideBomber;
         _outcome = "exploded";
     } else {
-        if (time >= _nextOrder) then {
-            _unit setUnitPos "UP";
-            _unit doMove (getPosATL _target);
-            _nextOrder = time + COIN_suicideBomberOrderInterval;
+        // ACE's "Get Down!" and "Go Away!" change his stance: he gets up and his order comes again at once
+        private _touched = (unitPos _unit) isNotEqualTo "UP";
+        if (_touched) then {_unit setUnitPos "UP"};
+        private _targetPos = getPosATL _target;
+        if (_touched || {(_targetPos distance2D _destination) > COIN_suicideBomberRetargetDistance}) then {
+            _destination = _targetPos;
+            _unit doMove _targetPos;
         };
     };
 
     if (time >= _nextProgress) then {
         diag_log format [
-            "[COIN] suicideBombers: suicide bomber %1 at %2, %3 m from %4, %5 km/h",
-            _id, getPosATL _unit, round _distance, name _target, round speed _unit
+            "[COIN] suicideBombers: suicide bomber %1 at %2, %3 m from %4, %5 km/h, %6, ready %7",
+            _id, getPosATL _unit, round _distance, name _target, round speed _unit, animationState _unit, unitReady _unit
         ];
         _nextProgress = time + COIN_suicideBomberProgressInterval;
     };
