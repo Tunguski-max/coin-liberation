@@ -438,7 +438,7 @@ class COIN {
         // Server loop: every ready garage rolls for a VBIED (ticket 4.3)
         class vbiedLoop {};
 
-        // Server: players on foot in a town within the radius of an IED workshop (ticket 4.4)
+        // Server: players on foot within the radius of an IED workshop (ticket 4.4)
         class getSuicideBomberTargets {};
 
         // Server: spawn point of a suicide bomber, 100-200 m from the target, out of sight

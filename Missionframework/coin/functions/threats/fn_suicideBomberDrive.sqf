@@ -8,8 +8,8 @@
         - the nearest player (COIN_fnc_getPresence) is his target, so he goes for the nearest group and changes when
           another one is closer (BLUFOR AI is neither target nor trigger),
         - he is sent to the target again when it moved more than COIN_suicideBomberRetargetDistance from his last
-          destination, and at once when his stance is not "UP" any more. That is how he ignores ACE's "Get Down!"
-          (setUnitPos "DOWN") and "Go Away!" (setUnitPos "AUTO", doMove away), which act only once,
+          destination (a new order every second would keep him from starting to walk). ACE's "Get Down!" and "Go Away!"
+          are not countered: nobody gets close enough to give them before the vest goes off,
         - within COIN_suicideBomberYellDistance of the target he shouts once (COIN_suicideBomberYellSound, chance
           COIN_suicideBomberYellChance),
         - within COIN_suicideBomberTriggerDistance of the target the vest goes off (COIN_fnc_explodeSuicideBomber).
@@ -95,11 +95,8 @@ while {_outcome isEqualTo ""} do {
         [_unit, format ["reached %1 (%2 m)", name _target, round _distance]] call COIN_fnc_explodeSuicideBomber;
         _outcome = "exploded";
     } else {
-        // ACE's "Get Down!" and "Go Away!" change his stance: he gets up and his order comes again at once
-        private _touched = (unitPos _unit) isNotEqualTo "UP";
-        if (_touched) then {_unit setUnitPos "UP"};
         private _targetPos = getPosATL _target;
-        if (_touched || {(_targetPos distance2D _destination) > COIN_suicideBomberRetargetDistance}) then {
+        if ((_targetPos distance2D _destination) > COIN_suicideBomberRetargetDistance) then {
             _destination = _targetPos;
             _unit doMove _targetPos;
         };

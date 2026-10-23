@@ -7,7 +7,7 @@
         COIN_suicideBomberCheckInterval seconds each workshop that is active, has fewer than
         COIN_suicideBomberBudgetPerWorkshop bombers under way and is not waiting out its cooldown
         (COIN_suicideBomberReadyAt, COIN_suicideBomberCooldownMinutes after its last bomber was used up) looks for
-        players on foot in a town of its influence radius (COIN_fnc_getSuicideBomberTargets). With one, a roll against the
+        players on foot in its influence radius (COIN_fnc_getSuicideBomberTargets). With one, a roll against the
         chance of the reputation band (COIN_suicideBomberChances, COIN_fnc_getReputationBand); a hit sends a bomber to a
         random one of them (COIN_fnc_createSuicideBomber). A destroyed workshop sends none (logged once), bombers
         already under way finish their run. Sets COIN_suicideBombers, COIN_suicideBomberNextId and
@@ -57,12 +57,12 @@ while {GRLIB_endgame == 0 && {COIN_enableSuicideBombers}} do {
         private _radius = [_type] call COIN_fnc_getNestRadius;
         private _targets = [_pos, _radius] call COIN_fnc_getSuicideBomberTargets;
         if (_targets isEqualTo []) then {
-            // Players in reach but none qualifies: says why the workshop does not roll
+            // Players in reach but none on foot: says why the workshop does not roll
             private _inReach = ([] call COIN_fnc_getPresence) select {isPlayer _x && {(_x distance2D _pos) <= _radius}};
             if (_inReach isNotEqualTo []) then {
                 diag_log format [
-                    "[COIN] suicideBombers: workshop %1 has %2 players in reach, %3 of them on foot, none of those in a town (no roll)",
-                    _workshopId, count _inReach, {(vehicle _x) isEqualTo _x} count _inReach
+                    "[COIN] suicideBombers: workshop %1 has %2 players in reach, none of them on foot (no roll)",
+                    _workshopId, count _inReach
                 ];
             };
             continue;
@@ -73,7 +73,7 @@ while {GRLIB_endgame == 0 && {COIN_enableSuicideBombers}} do {
         private _chance = if (_row isEqualTo []) then {0} else {_row select 1};
         private _roll = random 1;
         diag_log format [
-            "[COIN] suicideBombers: workshop %1 has %2 players on foot in a town, reputation %3, roll %4 (a bomber below %5)",
+            "[COIN] suicideBombers: workshop %1 has %2 players on foot in reach, reputation %3, roll %4 (a bomber below %5)",
             _workshopId, count _targets, _band, (round (_roll * 100)) / 100, _chance
         ];
         if (_roll >= _chance) then {continue};
