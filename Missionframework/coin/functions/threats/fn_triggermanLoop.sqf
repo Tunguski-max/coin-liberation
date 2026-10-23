@@ -10,6 +10,7 @@
           without a place for him is not tried again until the players were away,
         - removes him (and his phone and marker) when nobody was within COIN_despawnDistance for COIN_despawnDelay
           seconds, the IED being gone or not,
+        - sends a free triggerman away when his IED is gone (COIN_triggermanLeaveDistance),
         - notes when he is out (dead, captured, deleted: COIN_fnc_getFighterState): the IED gets COIN_triggermanOut
           and never has a triggerman again, so it never goes off by remote, but it stays and must be defused. One who is
           alive comes back at the next visit.
@@ -40,6 +41,13 @@ private _distanceTo = {
     if (_present isEqualTo []) then {-1} else {selectMin (_present apply {_x distance2D _pos})}
 };
 
+private _clearWaypoints = {
+    params ["_group"];
+    while {(count waypoints _group) > 0} do {
+        deleteWaypoint ((waypoints _group) select 0);
+    };
+};
+
 private _remove = {
     params ["_id", "_reason"];
     (_spawned deleteAt _id) params ["_man", "_phone"];
@@ -61,14 +69,32 @@ while {GRLIB_endgame == 0 && {COIN_enableIEDs} && {COIN_enableIEDRemote}} do {
         (_spawned get _id) params ["_man", "", "", "_pos"];
 
         private _index = COIN_ieds findIf {(_x select 0) isEqualTo _id};
+        private _state = [_man] call COIN_fnc_getFighterState;
         if (_index >= 0) then {
             private _object = (COIN_ieds select _index) select 2;
-            if (!(_object getVariable ["COIN_triggermanOut", false]) && {([_man] call COIN_fnc_getFighterState) isEqualTo "out"}) then {
+            if (!(_object getVariable ["COIN_triggermanOut", false]) && {_state isEqualTo "out"}) then {
                 _object setVariable ["COIN_triggermanOut", true];
                 diag_log format [
                     "[COIN] ieds: triggerman of IED %1 is out (alive %2, handcuffed %3, surrendering %4, captive %5), the IED will not go off by remote any more",
                     _id, alive _man, _man getVariable ["ace_captives_isHandcuffed", false], _man getVariable ["ace_captives_isSurrendering", false], captive _man
                 ];
+                // A captured man stays where he is (his idle walk would go on otherwise)
+                if (alive _man) then {
+                    [group _man] call _clearWaypoints;
+                    _man disableAI "PATH";
+                    doStop _man;
+                };
+            };
+        } else {
+            // The IED is gone (blast, defused): a free triggerman walks away, away from the IED, instead of standing there
+            if (_state isEqualTo "free" && {COIN_triggermanLeaveDistance > 0} && {!(_man getVariable ["COIN_leaving", false])}) then {
+                _man setVariable ["COIN_leaving", true];
+                [group _man] call _clearWaypoints;
+                _man enableAI "PATH";
+                _man setBehaviour "SAFE";
+                _man setSpeedMode "NORMAL";
+                _man doMove ((getPosATL _man) getPos [COIN_triggermanLeaveDistance, (_pos getDir _man) - 40 + random 80]);
+                diag_log format ["[COIN] ieds: IED %1 is gone, its triggerman walks away", _id];
             };
         };
 

@@ -766,6 +766,8 @@ COIN_triggermanRoadClearance = 5;       // m he keeps from roads
 COIN_triggermanHeadroom     = 6;        // m above him that must be free (no roof, no building over the spot)
 COIN_triggermanGroundClearance = 0.3; // m above the ground where the check for a roof over his spot starts
 COIN_triggermanPhone        = "Land_MobilePhone_smart_F"; // Held in his hand ("" or a class that does not exist: none)
+COIN_triggermanIdleRadius   = 4;        // m: he walks around his spot within this radius, so he does not stand like a pillar (0 = stands still)
+COIN_triggermanLeaveDistance = 250;     // m: once his IED is gone (blast, defused) a free triggerman walks this far away, then goes with the usual removal (0 = stays)
 COIN_triggermanPhonePoint   = "righthand"; // Memory point of his body the phone is attached to
 COIN_triggermanMarkerType   = "mil_dot"; // Debug map: him and a line to his IED
 COIN_triggermanMarkerColor  = "ColorPink";

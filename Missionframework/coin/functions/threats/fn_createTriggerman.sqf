@@ -5,7 +5,8 @@
     Description:
         Puts the triggerman of a remote-triggered IED in place (ticket 4.2b, DESIGN 6): a fighter in civilian clothes
         (COIN_fnc_createCivilianFighter) at a place from COIN_fnc_findTriggermanSpot, facing the IED, with a mobile
-        phone in his hand (COIN_triggermanPhone, attached; deleted with him by COIN_fnc_triggermanLoop). The IED
+        phone in his hand (COIN_triggermanPhone, attached; deleted with him by COIN_fnc_triggermanLoop) who walks around
+        his spot (COIN_triggermanIdleRadius). The IED
         keeps him in COIN_triggerman, he knows its id in COIN_iedId. With COIN_debug a marker and a line to the IED
         show where he stands. No place found: error line, nothing created.
         Server only.
@@ -38,7 +39,12 @@ if (_spot isEqualTo []) exitWith {
 
 private _man = ["triggerman", _spot, _spot getDir _iedPos] call COIN_fnc_createCivilianFighter;
 _man setVariable ["COIN_iedId", _id];
-_man doWatch _iedPos;
+// He does not stare at the IED like a pillar: a few steps back and forth around his spot (the loop sends him away
+// when the IED is gone, and stops him when he is captured)
+if (COIN_triggermanIdleRadius > 0) then {
+    _man enableAI "PATH";
+    [group _man, _spot, COIN_triggermanIdleRadius] call BIS_fnc_taskPatrol;
+};
 _object setVariable ["COIN_triggerman", _man];
 
 private _phone = objNull;
