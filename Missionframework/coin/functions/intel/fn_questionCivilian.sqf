@@ -8,8 +8,8 @@
         have drifted), marks the civilian as questioned for good and holds him. After a short pause (COIN_questionDelay)
         the answer is chosen by the weights of the reputation band (COIN_fnc_getReputationBand, COIN_intelWeightsByBand,
         ticket 3.4): nothing, a true level (rumor, hint, tip) about a nest as COIN_fnc_pickIntelNest says, or a lie
-        (COIN_fnc_createLie), which the player cannot tell from a true answer, or a warning of an active camp close by
-        (COIN_fnc_createWarning, ticket 3.6; no camp in range = he knows nothing). Without an active nest the civilian
+        (COIN_fnc_createLie), which the player cannot tell from a true answer, or a warning of a camp or an IED close by
+        (COIN_fnc_createWarning, tickets 3.6 and 4.8; no threat in range = he knows nothing). Without an active nest the civilian
         knows nothing. With armed enemies close
         (COIN_fnc_isUnsafe) he refuses instead, gives no intel and can be asked again later. The answer goes to the
         asking client only, a new intel is announced to everybody (COIN_fnc_showNotification, "Neue Intel"). The

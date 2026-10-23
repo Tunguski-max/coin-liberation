@@ -12,7 +12,7 @@
 
     Parameter(s):
         _name  - Name of the civilian [STRING, defaults to ""]
-        _level - "nothing", "unsafe", "cooldown", "rumor", "hint", "tip" or "warning" [STRING, defaults to "nothing"]
+        _level - "nothing", "unsafe", "cooldown", "rumor", "hint", "tip" or a warning key of COIN_warningKinds ("warning", "warningIED") [STRING, defaults to "nothing"]
         _type  - Nest type, for "hint" and "tip" [STRING, defaults to ""]
 
     Returns:
