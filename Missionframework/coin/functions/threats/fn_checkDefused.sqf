@@ -7,7 +7,7 @@
         (a ground holder with nothing but IED magazines, class name starts with "IED"), a blast or a deletion does not.
         Looks twice (COIN_iedLootDelays, the item appears a moment after the defusing) within COIN_iedLootRadius of
         the IED. Finding the item means "defused":
-        - a real IED gives COIN_repIEDDefused reputation (Liberation's F_cr_changeCR), once per IED,
+        - a real IED gives COIN_repIEDDefused reputation (COIN_fnc_changeReputation), once per IED,
         - a decoy gives nothing,
         - the item is deleted (the army does not collect explosives), unless COIN_enableIEDLootRemoval is off.
         A holder with anything else in it is left alone. One log line per defusing and per deleted holder.
@@ -54,15 +54,7 @@ private _waited = 0;
                 if (_reward == 0) then {
                     diag_log format ["[COIN] ieds: IED %1 (%2, nest %3) defused, no reputation", _id, _variant, _nestId];
                 } else {
-                    if (isNil "F_cr_changeCR") then {
-                        diag_log format ["[COIN] ieds: ERROR - IED %1 defused, but Liberation's F_cr_changeCR is missing", _id];
-                    } else {
-                        [_reward] call F_cr_changeCR;
-                        diag_log format [
-                            "[COIN] ieds: IED %1 (%2, nest %3) defused, reputation %4%5 now %6",
-                            _id, _variant, _nestId, ["", "+"] select (_reward > 0), _reward, KP_liberation_civ_rep
-                        ];
-                    };
+                    [_reward, format ["IED %1 (%2, nest %3) defused", _id, _variant, _nestId]] call COIN_fnc_changeReputation;
                 };
             };
 
