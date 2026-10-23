@@ -756,7 +756,6 @@ COIN_iedRemoteCount         = 1;        // BLUFOR soldiers on foot within that r
 COIN_triggermanSpawnDistance = 800;     // m: his triggerman appears when the nearest player is this close to a remote IED; he leaves like a nest guard (COIN_despawnDistance, COIN_despawnDelay)
 COIN_triggermanDistance     = [60, 150]; // [min, max] m between the triggerman and his IED
 COIN_triggermanSpotTries    = 60;       // Points tried for his place; none fits: error line, that IED has no triggerman (until the players were away)
-COIN_triggermanMinVisibility = 0.5;     // Line of sight from his eyes to the IED needed (0-1, vegetation counts)
 COIN_triggermanTargetHeight = 0.5;      // m above the ground: where the line of sight to the IED ends
 COIN_triggermanEyeHeight    = 1.6;      // m above the ground: where it starts (standing)
 COIN_triggermanHouseShare   = 0.5;      // Share of the tries that look beside a house (he prefers one: DESIGN 6)

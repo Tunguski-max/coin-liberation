@@ -4,7 +4,7 @@
 
     Description:
         Place for the triggerman of a remote-triggered IED (ticket 4.2b, DESIGN 6): COIN_triggermanDistance (60-150 m)
-        from the IED, with line of sight to it (COIN_triggermanMinVisibility, vegetation counts), on dry land, not on a
+        from the IED, with a clear line of sight to it (nothing of the terrain or an object in between: trees and houses block it), on dry land, not on a
         road and not under a roof. Tries COIN_triggermanSpotTries points, part of them beside a house
         (COIN_triggermanHouseShare), and takes the best one: beside a house (within COIN_triggermanHouseRadius of its
         wall, the house taken as a circle) is worth 2,
@@ -13,13 +13,15 @@
 
     Parameter(s):
         _iedPos - Position of the IED [ARRAY]
+        _ignore - The IED object, the line of sight does not stop at it [OBJECT, defaults to objNull]
 
     Returns:
         [position ATL or [] if none was found, rejected points per rule (HASHMAP rule -> number), score (0-3)] [ARRAY]
 */
 
 params [
-    ["_iedPos", [], [[]]]
+    ["_iedPos", [], [[]]],
+    ["_ignore", objNull, [objNull]]
 ];
 
 if (!isServer) exitWith {[[], createHashMap, 0]};
@@ -51,7 +53,7 @@ for "_i" from 1 to COIN_triggermanSpotTries do {
         case (surfaceIsWater _candidate): {"water"};
         case ((_candidate nearRoads COIN_triggermanRoadClearance) isNotEqualTo []): {"road"};
         case (lineIntersects [ATLToASL [_candidate select 0, _candidate select 1, COIN_triggermanGroundClearance], ATLToASL [_candidate select 0, _candidate select 1, COIN_triggermanHeadroom]]): {"covered"};
-        case ((checkVisibility [_target, ATLToASL [_candidate select 0, _candidate select 1, COIN_triggermanEyeHeight]]) < COIN_triggermanMinVisibility): {"noSight"};
+        case ((lineIntersectsSurfaces [ATLToASL [_candidate select 0, _candidate select 1, COIN_triggermanEyeHeight], _target, _ignore, objNull, true, 1, "VIEW", "FIRE"]) isNotEqualTo []): {"noSight"};
         default {""};
     };
 

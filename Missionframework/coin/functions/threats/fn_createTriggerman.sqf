@@ -27,7 +27,7 @@ private _index = COIN_ieds findIf {(_x select 0) isEqualTo _id};
 if (_index < 0) exitWith {[]};
 (COIN_ieds select _index) params ["", "_nestId", "_object", "_iedPos"];
 
-([_iedPos] call COIN_fnc_findTriggermanSpot) params ["_spot", "_rejected", "_score"];
+([_iedPos, _object] call COIN_fnc_findTriggermanSpot) params ["_spot", "_rejected", "_score"];
 if (_spot isEqualTo []) exitWith {
     diag_log format [
         "[COIN] ieds: ERROR - no place for the triggerman of IED %1 at %2 in %3 tries, rejected by: %4, the IED has none",
@@ -63,10 +63,9 @@ if (COIN_debug) then {
 };
 
 diag_log format [
-    "[COIN] ieds: triggerman of IED %1 (nest %2) stands at %3, %4 m from it, %5, sight %6",
+    "[COIN] ieds: triggerman of IED %1 (nest %2) stands at %3, %4 m from it, %5",
     _id, _nestId, _spot, round (_spot distance2D _iedPos),
-    ["in the open", "elevated", "beside a house", "beside a house, elevated"] select _score,
-    (checkVisibility [ATLToASL [_iedPos select 0, _iedPos select 1, COIN_triggermanTargetHeight], eyePos _man]) toFixed 2
+    ["in the open", "elevated", "beside a house", "beside a house, elevated"] select _score
 ];
 
 [_man, _phone]
