@@ -14,6 +14,9 @@
         Camps (ticket 2.9, COIN_enableCampSpawn) use the same distances and delay: a camp spawns after COIN_fnc_planCamp
         only while the AI budget has room for all its fighters (COIN_fnc_campFitsBudget, ADR 0015), otherwise it waits and
         the RPT says so once. The first spawn marks it discovered. COIN_fnc_removeCamp takes the content away.
+        Ambushes of camps (ticket 4.5, COIN_enableAmbushes) spawn and go the same way at their own place, after
+        COIN_fnc_planAmbush and the same budget (COIN_fnc_spawnAmbush, COIN_fnc_removeAmbush); a spawned one is watched by
+        COIN_fnc_ambushWatch.
         Destruction (ticket 2.4, COIN_fnc_destroyNest): a Killed handler on the core object and a BuildingChanged
         handler for the house (swap to a ruin) report it at once, and every check also looks at the core object and
         the house: a dead core object or a collapsed house destroys the nest. A core object deleted by Zeus is no destruction, the nest spawns again
@@ -44,6 +47,7 @@ private _failed = [];
 private _spawnedCamps = missionNamespace getVariable ["COIN_spawnedCamps", createHashMap];   // Shared with COIN_fnc_manageCamps
 private _failedCamps = [];
 private _waitingCamps = [];
+private _waitingAmbushes = [];     // Camp ids whose ambush waits for room in the budget (logged once)
 
 // Nest id -> house of a spawned building nest. Follows the house when Arma swaps it for a damaged version,
 // a swap to a ruin destroys the nest
@@ -211,6 +215,56 @@ while {COIN_enableNestSpawn} do {
         } forEach (COIN_camps apply {_x});
     };
 
+    // Ambushes (ticket 4.5): spawn and removal like their camp, but at their own place. The fighters count to the camp
+    // budget, all or none. A camp that is not active (cleared, moving, retired) spawns no ambush, one that is spawned stays
+    // until nobody is near. COIN_fnc_ambushWatch lets them open fire and notes that the ambush is cleared
+    if (COIN_enableAmbushes && {COIN_enableCampSpawn} && {!isNil "COIN_camps"}) then {
+        {
+            private _camp = _x;
+            _camp params ["_id", "", "", "", "", "", "_state"];
+            private _ambush = _camp param [8, []];
+            if (_ambush isEqualTo []) then {continue};
+            _ambush params ["_pos", "", "_cleared"];
+            private _hasPresence = !(_present isEqualTo []);
+            private _distance = if (_hasPresence) then {selectMin (_present apply {_x distance2D _pos})} else {-1};
+            private _entry = COIN_spawnedAmbushes getOrDefault [_id, []];
+
+            if (_entry isEqualTo []) then {
+                if (_hasPresence && {_distance <= COIN_spawnDistance} && {_state isEqualTo "active"} && {!_cleared}) then {
+                    private _plan = [_camp] call COIN_fnc_planAmbush;
+                    if ([_plan select 0] call COIN_fnc_campFitsBudget) then {
+                        if (_id in _waitingAmbushes) then {
+                            _waitingAmbushes deleteAt (_waitingAmbushes find _id);
+                            diag_log format ["[COIN] ambushes: ambush of camp %1 fits the budget now", _id];
+                        };
+                        ([_camp, _plan, _distance] call COIN_fnc_spawnAmbush) params ["_content", "_fighters"];
+                        COIN_spawnedAmbushes set [_id, [_content, time]];
+                        [_id, _fighters, _pos] spawn COIN_fnc_ambushWatch;
+                    } else {
+                        // One line per wait, not one per check
+                        if !(_id in _waitingAmbushes) then {
+                            _waitingAmbushes pushBack _id;
+                            diag_log format [
+                                "[COIN] ambushes: ambush of camp %1 waits, budget: %2 COIN units + %3 fighters of the ambush > %4",
+                                _id, [] call COIN_fnc_countCoinUnits, _plan select 0, COIN_maxCampAI
+                            ];
+                        };
+                    };
+                };
+            } else {
+                if (_hasPresence && {_distance <= COIN_despawnDistance}) then {
+                    _entry set [1, time];
+                } else {
+                    if ((time - (_entry select 1)) >= COIN_despawnDelay) then {
+                        // Out of the list first: COIN_fnc_ambushWatch takes the removal for no clearing
+                        COIN_spawnedAmbushes deleteAt _id;
+                        [_id, _entry select 0, format ["no player within %1 m for %2 s", COIN_despawnDistance, COIN_despawnDelay]] call COIN_fnc_removeAmbush;
+                    };
+                };
+            };
+        } forEach (COIN_camps apply {_x});
+    };
+
     sleep COIN_spawnCheckInterval;
 };
 
@@ -224,6 +278,10 @@ while {COIN_enableNestSpawn} do {
         [COIN_camps select _index, _y, "spawning switched off"] call COIN_fnc_removeCamp;
     };
 } forEach _spawnedCamps;
+{
+    [_x, _y select 0, "spawning switched off"] call COIN_fnc_removeAmbush;
+} forEach (missionNamespace getVariable ["COIN_spawnedAmbushes", createHashMap]);
+COIN_spawnedAmbushes = createHashMap;
 diag_log "[COIN] nests: spawn loop off";
 
 true

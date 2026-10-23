@@ -10,8 +10,9 @@
            the nests): first camps that are not spawned and not discovered, last spawned ones,
         2. active camps inside a new exclusion zone (captured sector, FOB, COIN_fnc_getCampExclusion) and undiscovered
            camps whose COIN_campRelocateMinutes are over move: "moving",
-        3. a camp that is not spawned and not "active" is dropped at once; a moving one is set up again elsewhere. A
-           spawned one stays until the spawn loop removes its content (nobody sees it vanish),
+        3. a camp that is not spawned and not "active" is dropped at once, its ambush (ticket 4.5) with it; a moving one is set up
+           again elsewhere, with an ambush if it had one that was not cleared. A spawned one stays until the spawn loop removes its content (nobody sees it vanish), the
+           same goes for a camp whose ambush is spawned,
         4. replacements that are due (COIN_campReplacements, mission times) create a camp while the capacity has room;
            where no camp can be created, one more try follows after the shortest replacement delay.
         Switched off by COIN_enableCampLifecycle. Redraws the debug map when something changed. Server only.
@@ -72,12 +73,15 @@ private _zones = [] call COIN_fnc_getCampExclusion;
 // 3. Camps that are not spawned leave now, moving ones are set up elsewhere
 {
     _x params ["_id", "", "", "", "", "", "_state"];
-    if (_state != "active" && {!(_id in _spawned)}) then {
+    private _ambush = _x param [8, []];
+    private _hadAmbush = _ambush isNotEqualTo [] && {!(_ambush select 2)};
+    if (_state != "active" && {!(_id in _spawned)} && {!(_id in COIN_spawnedAmbushes)}) then {
         COIN_camps = COIN_camps select {(_x select 0) != _id};
         _changed = true;
         diag_log format ["[COIN] camps: camp %1 removed from the list (%2)", _id, _state];
         if (_state isEqualTo "moving") then {
-            if (([] call COIN_fnc_createCamp) isEqualTo []) then {
+            // A camp that moves takes its ambush along: the new camp gets one without a roll (not after a failed try that is repeated later)
+            if (([_hadAmbush] call COIN_fnc_createCamp) isEqualTo []) then {
                 COIN_campReplacements pushBack (time + _retryMinutes * 60);
             };
         };

@@ -4,11 +4,11 @@
 
     Description:
         Makes a warning for a civilian (tickets 3.6 and 4.8, DESIGN 7): a circle on the map around a threat close to
-        him (COIN_fnc_getWarnableThreats: an active camp, an IED), within the range of its kind and with the radius of
+        him (COIN_fnc_getWarnableThreats: an active camp, an IED, an ambush), within the range of its kind and with the radius of
         its kind (COIN_warningKinds). The threat lies in the circle, but not in its middle (COIN_fnc_offsetCenter).
         A threat that already has a warning is not chosen again; among all threats in range without one chance decides,
         whatever their kind. Without one there is no warning (the civilian then knows nothing). The warning is not
-        saved, camps and IEDs are not saved either. It goes with its threat (COIN_fnc_warningLoop). Warnings have their
+        saved, camps, IEDs and ambushes are not saved either. It goes with its threat (COIN_fnc_warningLoop). Warnings have their
         own symbol, color and id. Server only.
 
     Parameter(s):

@@ -11,7 +11,7 @@
 
     Parameter(s):
         _name   - Name of the prisoner [STRING, defaults to ""]
-        _levels - Level of each result: "nothing", "cooldown", "rumor", "hint", "tip" or a warning key of COIN_warningKinds ("warning", "warningIED") [ARRAY of STRINGs, defaults to []]
+        _levels - Level of each result: "nothing", "cooldown", "rumor", "hint", "tip" or a warning key of COIN_warningKinds ("warning", "warningIED", "warningAmbush") [ARRAY of STRINGs, defaults to []]
 
     Returns:
         Answer was shown [BOOL]

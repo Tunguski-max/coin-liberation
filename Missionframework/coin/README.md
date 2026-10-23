@@ -38,6 +38,7 @@ coin/
     │   └── fn_campFitsBudget.sqf       COIN_fnc_campFitsBudget: darf ein Camp mit N Kämpfern jetzt spawnen? Ganz oder gar nicht (COIN_maxCampAI)
     ├── common/
     │   ├── fn_findByType.sqf           COIN_fnc_findByType: Zeile einer Config-Tabelle nach Nest-Typ
+    │   ├── fn_getCapableFighters.sqf   COIN_fnc_getCapableFighters: Kämpfer unter gegebenen Objekten, die noch kämpfen können (Camp und Hinterhalt ausgehoben, Tickets 2.10, 4.5)
     │   ├── fn_getReputationBand.sqf    COIN_fnc_getReputationBand: Ruf-Band „low“, „mid“ oder „high“ (Ticket 3.4)
     │   ├── fn_addToCurators.sqf        COIN_fnc_addToCurators: alles, was COIN erzeugt, für jeden Zeus bearbeitbar
     │   ├── fn_curatorSync.sqf          COIN_fnc_curatorSync: Server-Schleife, auch für später erzeugte Kuratoren
@@ -70,8 +71,8 @@ coin/
     │   ├── fn_createLie.sqf            COIN_fnc_createLie: Lüge, Kreis um einen verborgenen Ersatzpunkt, sieht aus wie ein wahrer Marker (Ticket 3.4)
     │   ├── fn_findFakeSpot.sqf         COIN_fnc_findFakeSpot: glaubhafter Ersatzpunkt (Ortsrand oder freies Gelände, Regeln der Nester)
     │   ├── fn_intelSearchLoop.sqf      COIN_fnc_intelSearchLoop: Server-Schleife, eine Lüge verschwindet, wenn ein Spieler zu Fuß am Ersatzpunkt war
-    │   ├── fn_getWarnableThreats.sqf   COIN_fnc_getWarnableThreats: alles, wovor ein Zivilist warnen kann: aktive Camps, gelegte IEDs (Ticket 4.8)
-    │   ├── fn_createWarning.sqf        COIN_fnc_createWarning: Warnung, Kreis um eine Bedrohung in der Nähe (Camp, IED), nicht gespeichert (Tickets 3.6, 4.8)
+    │   ├── fn_getWarnableThreats.sqf   COIN_fnc_getWarnableThreats: alles, wovor ein Zivilist warnen kann: aktive Camps, gelegte IEDs, Hinterhalte (Tickets 4.8, 4.5)
+    │   ├── fn_createWarning.sqf        COIN_fnc_createWarning: Warnung, Kreis um eine Bedrohung in der Nähe (Camp, IED, Hinterhalt), nicht gespeichert (Tickets 3.6, 4.8)
     │   ├── fn_warningLoop.sqf          COIN_fnc_warningLoop: Server-Schleife, eine Warnung verschwindet mit ihrer Bedrohung (Camp ausgehoben, umgezogen, entfernt; IED ausgelöst, entschärft, gelöscht)
     │   ├── fn_informantTip.sqf         COIN_fnc_informantTip: Server, Konkreter Tipp des Informanten bei der Ablieferung an der FOB (Ticket 3.10)
     │   ├── fn_removeIntel.sqf          COIN_fnc_removeIntel: entfernt ein Intel samt Markern
@@ -120,6 +121,12 @@ coin/
     │   ├── fn_suicideBomberDrive.sqf   COIN_fnc_suicideBomberDrive: Weg zum nächsten Spieler, Schrei, Zündung in 5 m, Ende, Aufräumen
     │   ├── fn_explodeSuicideBomber.sqf COIN_fnc_explodeSuicideBomber: zündet die Weste (nur einmal)
     │   ├── fn_suicideBomberLoop.sqf    COIN_fnc_suicideBomberLoop: Server-Schleife, alle 5 min Chance je bereiter Werkstatt nach Ruf-Band
+    │   ├── fn_findAmbushSpot.sqf       COIN_fnc_findAmbushSpot: Platz neben der nächsten Straße, 200–800 m vom Camp (Ticket 4.5)
+    │   ├── fn_planAmbush.sqf           COIN_fnc_planAmbush: Kämpfer und Deckungsobjekte eines Hinterhalts aus dem Seed des Camps
+    │   ├── fn_spawnAmbush.sqf          COIN_fnc_spawnAmbush: Kämpfer in Deckung neben der Straße und Deckungsobjekte, Feuer halten
+    │   ├── fn_removeAmbush.sqf         COIN_fnc_removeAmbush: Inhalt eines Hinterhalts abbauen, wenn niemand in der Nähe ist
+    │   ├── fn_ambushWatch.sqf          COIN_fnc_ambushWatch: Leben eines gespawnten Hinterhalts: Feuer bei 150 m, ausgehoben
+    │   ├── fn_drawAmbushMarkers.sqf    COIN_fnc_drawAmbushMarkers: globale Debug-Marker der Hinterhalte mit Linie zum Camp
     │   └── fn_drawIEDMarkers.sqf       COIN_fnc_drawIEDMarkers: globale Debug-Marker der IEDs (Lobby-Parameter „COIN Debug“)
     └── nests/
         ├── fn_initNests.sqf            COIN_fnc_initNests: Server, Nester aus dem Spielstand oder neu, Debug-Karte (ADR 0018)

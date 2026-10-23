@@ -467,6 +467,25 @@ COIN_questionAnswers = [
             "My cousin drove down there and barely survived. Search the road before you go on.",
             "Keep your eyes open. There is something by the road very close to here, and the men who put it there are watching."
         ]
+    ]],
+    // A warning of an ambush (ticket 4.5): he saw armed men lie down by the road, he does not say "ambush". Texts to be agreed with Niklas
+    ["warningAmbush", [
+        [
+            "Nehmt diese Straße nicht. Gestern Abend sind Bewaffnete dort in den Graben gekrochen und nicht wieder herausgekommen.",
+            "Auf der Straße da vorn liegen Männer mit Gewehren am Rand. Ich habe sie gesehen, als ich meine Ziegen zurückgetrieben habe.",
+            "Fahrt da nicht einfach durch. Am Straßenrand haben sich Männer eingegraben, und sie warten auf jemanden.",
+            "Seit zwei Tagen bleibt jeder von uns von dieser Straße fern. Dort lauern Bewaffnete hinter Sandsäcken.",
+            "Ich würde mich dort nicht blicken lassen. Wer die Straße entlangfährt, wird beschossen, hat mein Bruder gesagt.",
+            "Dort an der Straße sitzen Männer und schauen jedem nach, der vorbeikommt. Ich weiß, was die vorhaben."
+        ],
+        [
+            "Don't take that road. Armed men crawled into the ditch there yesterday evening and never came out.",
+            "There are men with rifles lying by the side of the road up ahead. I saw them when I was driving my goats back.",
+            "Don't just drive through. Men have dug in beside the road, and they're waiting for someone.",
+            "For two days none of us has gone near that road. Armed men are lurking behind sandbags there.",
+            "I wouldn't show my face there. My brother says anyone driving down that road gets shot at.",
+            "Men are sitting by the road there, watching everyone who passes. I know what they're up to."
+        ]
     ]]
 ];
 
@@ -699,6 +718,21 @@ COIN_interrogationAnswers = [
             "Stay off that road. It isn't safe, there's something in the ground.",
             "If you follow the road, it won't end well. It has been prepared."
         ]
+    ]],
+    // A warning of an ambush (ticket 4.5): a prisoner of the militia was there or knows the plan. Texts to be agreed with Niklas
+    ["warningAmbush", [
+        [
+            "Fahrt nicht die Straße entlang. Dort liegen Männer im Graben und warten auf euch.",
+            "Wir haben die Straße im Auge. Wer dort langkommt, läuft uns direkt vor die Gewehre.",
+            "Bleibt von der Straße weg. Dort liegt eine Gruppe in Deckung, und sie schießen, sobald ihr nah genug seid.",
+            "Ich war letzte Nacht dabei, als wir uns an der Straße eingegraben haben. Es wird kein Spaziergang."
+        ],
+        [
+            "Don't drive along that road. Men are lying in the ditch there, waiting for you.",
+            "We have the road covered. Anyone coming along it walks straight into our rifles.",
+            "Stay off the road. A group is waiting in cover there, and they open fire as soon as you're close enough.",
+            "I was there last night when we dug in by the road. It won't be a walk in the park."
+        ]
     ]]
 ];
 
@@ -744,10 +778,11 @@ COIN_intelWeightsByBand     = [["low", COIN_intelWeightsLow], ["mid", COIN_intel
 
 // Warning of a threat (tickets 3.6, 4.8): [kind, range m, radius m, key of the answer sentences]. A civilian warns of a threat of this kind
 // within the range of him (else he knows nothing); the circle has the radius, the threat lies inside, not in the middle
-// (COIN_intelCenterOffset). Among all threats in range without a circle chance decides. The ambush (ticket 4.5) adds a row
+// (COIN_intelCenterOffset). Among all threats in range without a circle chance decides
 COIN_warningKinds = [
-    ["camp", 1500, 150, "warning"],
-    ["ied",  1000, 100, "warningIED"]
+    ["camp",   1500, 150, "warning"],
+    ["ied",    1000, 100, "warningIED"],
+    ["ambush", 1000, 150, "warningAmbush"]
 ];
 COIN_enableIEDWarnings      = true;     // Phase 4, ticket 4.8: off = no warning of an IED is made, those on the map go at the next check
 COIN_warningCheckInterval   = 10;       // s between two checks whether the threat of a warning is still there
@@ -877,7 +912,35 @@ COIN_suicideBomberProgressInterval = 10; // s between two log lines of a bomber 
 COIN_suicideBomberMarkerType = "mil_dot"; // Debug map: the bomber under way
 COIN_suicideBomberMarkerColor = "ColorRed";
 
-COIN_ambushIntervalMinutes  = [30, 60];
+// Ambushes (ticket 4.5, DESIGN 6, ADR 0022): a camp can have one on the nearest road, fixed when the camp is created.
+// Not saved, like the camps. The ambush spawns like a camp when a player comes near and its fighters count to the camp budget, all or none.
+COIN_ambushChance           = 0.5;      // Chance that a new camp has an ambush
+COIN_ambushDistance         = [200, 800]; // [min, max] m between the camp and its ambush (distance of the road segment to the camp)
+COIN_ambushMinDistSector    = COIN_nestMinDistSector; // m between an ambush and every sector centre (not in the town core)
+COIN_ambushMinDistBase      = 500;      // m between an ambush and the start base or a FOB
+COIN_ambushMinDistAmbush    = 300;      // m between two ambushes
+COIN_ambushRoadOffset       = [6, 12];  // [min, max] m between the edge of the road and the middle of the ambush
+COIN_ambushMaxSlope         = 0.9;      // Z of the surface normal at least (1 = flat)
+COIN_ambushFighters         = [4, 6];   // [min, max] fighters, fixed by the seed of the camp
+COIN_ambushSpacing          = 4;        // m between two fighters along the road
+COIN_ambushDepthJitter      = 3;        // m a fighter may stand nearer to or farther from the road than the middle line
+COIN_ambushCoverCount       = [2, 4];   // [min, max] cover objects, each in front of a fighter (the road side), fixed by the seed
+COIN_ambushCoverDistance    = 2;        // m between a fighter and the cover object in front of him
+COIN_ambushCoverClasses     = [         // Cover objects, one at random each; a class that does not exist is left out (one log line)
+    "Land_BagFence_Long_F", "Land_BagFence_Short_F", "Land_BagFence_Round_F", "Land_CncBarrierMedium_F", "Land_Tyres_F", "Land_WoodenBox_F"
+];
+COIN_ambushFireDistance     = 150;      // m: the fighters open fire when the army (BLUFOR, a vehicle counts by its crew) is this close
+COIN_ambushWatchInterval    = 1;        // s between two checks of a spawned ambush (a vehicle at 100 km/h covers 28 m meanwhile)
+COIN_ambushHoldFire         = "GREEN";  // Combat mode until they open fire: only defend themselves (a man shot at fires back at once)
+COIN_ambushHideBehaviour    = "STEALTH"; // Behaviour of the group until they open fire
+COIN_ambushHideStance       = "MIDDLE"; // Stance of a fighter until then (kneeling)
+COIN_ambushFireBehaviour    = "COMBAT"; // Behaviour of the group after
+COIN_ambushFireStance       = "AUTO";   // Stance of a fighter after (he chooses)
+COIN_ambushFireMode         = "RED";    // Combat mode after: open fire at will
+COIN_ambushMarkerType       = "mil_ambush"; // Debug map: the ambush (a line leads to its camp)
+COIN_ambushMarkerSize       = 0.7;      // Size of the icon
+COIN_ambushMarkerColor      = "ColorRed";
+COIN_enableAmbushWarnings   = true;     // Off: no warning of an ambush is made, those on the map go at the next check
 
 // ---------------------------------------------------------------------------
 // Reputation (Phase 5), ADR 0009

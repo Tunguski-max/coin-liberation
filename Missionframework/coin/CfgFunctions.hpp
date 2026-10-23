@@ -84,6 +84,9 @@ class COIN {
         // Row of a config table keyed by nest type (COIN_nestSetup, COIN_nestBuildingShare, ...)
         class findByType {};
 
+        // Fighters among given objects who can still fight (tickets 2.10, 4.5): a camp or an ambush is cleared when none is left
+        class getCapableFighters {};
+
         // Reputation band of the population: "low", "mid" or "high" (ticket 3.4, ADR 0009)
         class getReputationBand {};
 
@@ -455,5 +458,23 @@ class COIN {
 
         // Server loop: every ready workshop rolls for a suicide bomber by reputation band (ticket 4.4)
         class suicideBomberLoop {};
+
+        // Server: place for the ambush of a camp, beside the nearest road 200-800 m away (ticket 4.5)
+        class findAmbushSpot {};
+
+        // What an ambush looks like when it spawns: fighters and cover objects from the seed of its camp
+        class planAmbush {};
+
+        // Server: spawns the fighters and cover objects of an ambush beside the road
+        class spawnAmbush {};
+
+        // Server: removes the content of an ambush that nobody is near
+        class removeAmbush {};
+
+        // Server: life of a spawned ambush, opens fire at 150 m, notes when it is cleared
+        class ambushWatch {};
+
+        // Server: global debug markers of the ambushes with a line to their camp
+        class drawAmbushMarkers {};
     };
 };
