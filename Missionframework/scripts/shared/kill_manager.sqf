@@ -20,6 +20,8 @@ if (isServer) then {
         };
     };
 
+    [_unit, _killer] call COIN_fnc_captiveKilled; // COIN: reputation for a prisoner killed by the army, with the killer worked out above (ADR 0023)
+
     // Failsafe if something gets killed before the save manager is finished
     if (isNil "infantry_weight") then {infantry_weight = 33};
     if (isNil "armor_weight") then {armor_weight = 33};
