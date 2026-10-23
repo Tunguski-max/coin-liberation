@@ -54,8 +54,19 @@ while {GRLIB_endgame == 0 && {COIN_enableSuicideBombers}} do {
         if (({(_x select 1) isEqualTo _workshopId} count COIN_suicideBombers) >= COIN_suicideBomberBudgetPerWorkshop) then {continue};
         if (time < (COIN_suicideBomberReadyAt getOrDefault [_workshopId, 0])) then {continue};
 
-        private _targets = [_pos, [_type] call COIN_fnc_getNestRadius] call COIN_fnc_getSuicideBomberTargets;
-        if (_targets isEqualTo []) then {continue};
+        private _radius = [_type] call COIN_fnc_getNestRadius;
+        private _targets = [_pos, _radius] call COIN_fnc_getSuicideBomberTargets;
+        if (_targets isEqualTo []) then {
+            // Players in reach but none qualifies: says why the workshop does not roll
+            private _inReach = ([] call COIN_fnc_getPresence) select {isPlayer _x && {(_x distance2D _pos) <= _radius}};
+            if (_inReach isNotEqualTo []) then {
+                diag_log format [
+                    "[COIN] suicideBombers: workshop %1 has %2 players in reach, %3 of them on foot, none of those in a town (no roll)",
+                    _workshopId, count _inReach, {(vehicle _x) isEqualTo _x} count _inReach
+                ];
+            };
+            continue;
+        };
 
         private _band = [] call COIN_fnc_getReputationBand;
         private _row = [COIN_suicideBomberChances, _band] call COIN_fnc_findByType;
