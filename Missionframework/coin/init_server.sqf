@@ -50,6 +50,9 @@ if ([] call COIN_fnc_replacesLiberationThreats) then {
     diag_log "[COIN] init: Liberation threats replaced=false (Liberation IEDs and ambushes run as before)";
 };
 
+// Reputation (ticket 5.7, ADR 0009): start value of a new campaign, logs the value of a loaded save
+[] spawn COIN_fnc_initReputation;
+
 // AI budget (ticket 2.13, ADR 0015): Liberation's caps = COIN_maxEnemyAI x Unitcap, COIN units on top
 if (COIN_enableAIBudget) then {
     [] spawn COIN_fnc_aiBudget;

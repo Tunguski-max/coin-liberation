@@ -11,7 +11,8 @@
         The color follows the live civil reputation with the same rule Liberation uses for the resistance standing
         (f_kp_cr_changeCR.sqf), so already living resistance fighters change their shemag when the reputation
         crosses the threshold. The rule is applied directly because Liberation calls setFriend only after the first
-        reputation change or a save load, so getFriend is not reliable on a fresh campaign.
+        reputation change or a save load (COIN_fnc_initReputation adds a new campaign, only while
+        COIN_enableReputationStart), so getFriend is not reliable on every fresh campaign.
         Units are found by scanning allUnits, so no Liberation spawn script has to be touched. A unit that has left
         its faction (e.g. a captured militia fighter) loses the shemag again. Militia fighters that wear a helmet keep it.
         Runs as long as COIN_enableFactionMarkers is true. Must run on the server only.

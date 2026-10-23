@@ -94,7 +94,10 @@ coin/
     │   └── fn_showAnswer.sqf           COIN_fnc_showAnswer: Client, Antwort des Zivilisten als Untertitel
     ├── persistence/
     │   ├── fn_receiveSaveBlock.sqf     COIN_fnc_receiveSaveBlock: merkt sich Eintrag 22 beim Laden des Spielstands (Hook 18)
-    │   └── fn_getSaveBlock.sqf         COIN_fnc_getSaveBlock: baut Eintrag 22 beim Speichern, [COIN_saveVersion, Nester, Intel] (Hook 17)
+    │   ├── fn_getSaveBlock.sqf         COIN_fnc_getSaveBlock: baut Eintrag 22 beim Speichern, [COIN_saveVersion, Nester, Intel] (Hook 17)
+    │   └── fn_markNewCampaign.sqf      COIN_fnc_markNewCampaign: merkt sich beim Laden, dass es keinen Spielstand gibt (Hook 24)
+    ├── reputation/
+    │   └── fn_initReputation.sqf       COIN_fnc_initReputation: Server, Start-Ruf einer neuen Kampagne nach dem Laden (Ticket 5.7)
     ├── threats/
     │   ├── fn_initIEDs.sqf             COIN_fnc_initIEDs: Server, jede aktive Werkstatt legt ihr IED-Budget, startet die Schleife (Ticket 4.1a)
     │   ├── fn_createIED.sqf            COIN_fnc_createIED: Server, legt ein IED für eine Werkstatt (Mine, Zeus, COIN_ieds)
@@ -168,9 +171,6 @@ coin/
         ├── fn_nestSpawnLoop.sqf        COIN_fnc_nestSpawnLoop: Server-Schleife für Nester und Camps, Spawn ab 1000 m, Abbau nach 2 min außerhalb 1300 m, Zerstörung prüfen
         └── fn_destroyNest.sqf          COIN_fnc_destroyNest: Nest endgültig zerstört, sofort gespeichert, Ereignis COIN_nestDestroyed
 ```
-
-Geplante weitere Kategorien unter `functions/` (anlegen, wenn sie gebraucht werden):
-`threats/` (Phase 4), `reputation/` (Phase 5).
 
 ## Ablauf beim Missionsstart
 
