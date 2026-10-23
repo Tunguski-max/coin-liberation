@@ -28,7 +28,15 @@ params [
 
 // The kill manager can run before the COIN config is loaded
 if (!isServer || {isNil "COIN_repCaptiveKilled"} || {COIN_repCaptiveKilled == 0}) exitWith {false};
-if (isNull _unit || {isNull _killer} || {!((side _killer) isEqualTo GRLIB_side_friendly)}) exitWith {false};
+if (isNull _unit) exitWith {false};
+if (COIN_debug && {_unit isKindOf "CAManBase"}) then {
+    diag_log format [
+        "[COIN] reputation: kill check %1, killer %2 (side %3), group side %4, handcuffed %5, surrendering %6, remembered %7 -> prisoner %8",
+        typeOf _unit, typeOf _killer, side _killer, side group _unit, _unit getVariable ["ace_captives_isHandcuffed", false], _unit getVariable ["ace_captives_isSurrendering", false],
+        _unit getVariable ["COIN_prisonerState", false], [_unit] call COIN_fnc_isPrisoner
+    ];
+};
+if (isNull _killer || {!((side _killer) isEqualTo GRLIB_side_friendly)}) exitWith {false};
 if !([_unit] call COIN_fnc_isPrisoner) exitWith {false};
 
 // Liberation's penalty for a unit in a civilian group (kill_manager.sqf), a positive number

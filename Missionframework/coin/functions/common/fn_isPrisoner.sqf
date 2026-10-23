@@ -7,7 +7,9 @@
         enemy preset) who has surrendered or is handcuffed (ACE). The side of his group does not matter: a fighter
         handcuffed by a player is still on the enemy side, one made by Liberation's surrender script is in a civilian group.
         A fighter in civilian clothes (triggerman, VBIED driver, suicide bomber) is never a prisoner (ADR 0022), he
-        has civilian classes anyway. Alive or dead: the ACE state stays on the body. Used by the interrogation (ticket
+        has civilian classes anyway. ACE sets isHandcuffed back to false when the unit dies (ace_captives_fnc_handleKilled)
+        and handcuffing ends the surrender, so COIN_fnc_initReputationEvents remembers the state while the unit lives
+        (COIN_prisonerState) and a dead unit counts by that. Used by the interrogation (ticket
         3.8) and the reputation for a prisoner who is killed (ticket 5.1).
 
     Parameter(s):
@@ -25,4 +27,8 @@ params [
 && {_unit isKindOf "CAManBase"}
 && {!(_unit getVariable ["COIN_civilianFighter", false])}
 && {(toLower typeOf _unit) in KPLIB_o_inf_classes || {typeOf _unit in militia_squad}}
-&& {_unit getVariable ["ace_captives_isHandcuffed", false] || {_unit getVariable ["ace_captives_isSurrendering", false]}}
+&& {
+    _unit getVariable ["ace_captives_isHandcuffed", false]
+    || {_unit getVariable ["ace_captives_isSurrendering", false]}
+    || {!alive _unit && {_unit getVariable ["COIN_prisonerState", false]}}
+}
