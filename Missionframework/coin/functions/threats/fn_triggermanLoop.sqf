@@ -65,7 +65,10 @@ while {GRLIB_endgame == 0 && {COIN_enableIEDs} && {COIN_enableIEDRemote}} do {
             private _object = (COIN_ieds select _index) select 2;
             if (!(_object getVariable ["COIN_triggermanOut", false]) && {([_man] call COIN_fnc_getFighterState) isEqualTo "out"}) then {
                 _object setVariable ["COIN_triggermanOut", true];
-                diag_log format ["[COIN] ieds: triggerman of IED %1 is out (dead, captured or gone), the IED will not go off by remote any more", _id];
+                diag_log format [
+                    "[COIN] ieds: triggerman of IED %1 is out (alive %2, handcuffed %3, surrendering %4, captive %5), the IED will not go off by remote any more",
+                    _id, alive _man, _man getVariable ["ace_captives_isHandcuffed", false], _man getVariable ["ace_captives_isSurrendering", false], captive _man
+                ];
             };
         };
 

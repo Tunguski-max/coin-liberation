@@ -43,7 +43,8 @@ while {GRLIB_endgame == 0 && {COIN_enableIEDs} && {triggerActivated _trigger}} d
         private _by = "";
         if (_variant isEqualTo "remote") then {
             if (
-                (([_object getVariable ["COIN_triggerman", objNull]] call COIN_fnc_getFighterState) isEqualTo "free")
+                !(_object getVariable ["COIN_triggermanOut", false])
+                && {([_object getVariable ["COIN_triggerman", objNull]] call COIN_fnc_getFighterState) isEqualTo "free"}
                 && {[_pos, COIN_iedRemoteRadius, COIN_iedRemoteRadius, COIN_iedRemoteCount] call COIN_fnc_iedTriggered}
             ) then {_by = "its triggerman"};
         } else {
