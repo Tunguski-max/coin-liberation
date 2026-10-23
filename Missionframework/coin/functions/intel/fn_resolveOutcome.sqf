@@ -3,11 +3,13 @@
     Author: COIN Liberation
 
     Description:
-        Turns one rolled outcome of a question or an interrogation into its intel (tickets 3.1, 3.4, 3.6, 3.8): a true
-        level (rumor, hint, tip) about the nest, a lie (COIN_fnc_createLie) or a warning of a camp close to the one who
-        speaks (COIN_fnc_createWarning). The outcome "nothing" makes nothing, and so does one that cannot be made (no camp
-        without a warning in range, no fake point): he then knows nothing. The caller announces the intel and starts the
-        cooldown. A lie is shown with the level and type it was made with, so it reads like a true answer. Server only.
+        Turns one rolled outcome of a question or an interrogation into its intel (tickets 3.1, 3.4, 3.6, 3.8, 4.8): a
+        true level (rumor, hint, tip) about the nest, a lie (COIN_fnc_createLie) or a warning of a threat close to the
+        one who speaks (COIN_fnc_createWarning: a camp, an IED). The outcome "nothing" makes nothing, and so does one
+        that cannot be made (no threat without a warning in range, no fake point): he then knows nothing. The caller
+        announces the intel and starts the cooldown. A lie is shown with the level and type it was made with, so it
+        reads like a true answer. A warning is shown with the answer key of its kind (COIN_warningKinds: "warning" for a
+        camp, "warningIED" for an IED), so the sentences differ by kind. Server only.
 
     Parameter(s):
         _outcome - "nothing", "rumor", "hint", "tip", "warning" or "lie" [STRING, defaults to "nothing"]
@@ -37,18 +39,19 @@ switch (_outcome) do {
 
 if (_intel isEqualTo []) exitWith {
     if (_outcome isEqualTo "warning") then {
-        diag_log format ["[COIN] intel: %1 has no new camp to warn of, he knows nothing", name _source];
+        diag_log format ["[COIN] intel: %1 has no new threat to warn of, he knows nothing", name _source];
     };
     ["nothing", "", ""]
 };
 
 if (_outcome isEqualTo "warning") exitWith {
-    // [id, campId, center, radius]: no level and no type
+    // [id, kind, threat id, center, radius]: no type
+    _intel params ["_warningId", "_kind", "_threatId", "_center", "_radius"];
     diag_log format [
-        "[COIN] intel: warning about camp %1, circle of %2 m at %3 (warning %4)",
-        _intel select 1, _intel select 3, _intel select 2, _intel select 0
+        "[COIN] intel: warning about %1 %2, circle of %3 m at %4 (warning %5)",
+        _kind, _threatId, _radius, _center, _warningId
     ];
-    ["warning", "", "warning"]
+    [(([COIN_warningKinds, _kind] call COIN_fnc_findByType) param [3, "warning"]), "", "warning"]
 };
 
 private _level = [_outcome, _intel select 4] select (_outcome isEqualTo "lie");

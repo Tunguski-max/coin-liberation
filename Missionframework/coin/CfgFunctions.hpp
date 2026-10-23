@@ -188,10 +188,13 @@ class COIN {
         // Server loop: a lie disappears when a player on foot has searched its fake point
         class intelSearchLoop {};
 
-        // Server: a warning, a circle around an active camp close to the civilian (ticket 3.6)
+        // Server: everything a civilian can warn of: active camps, laid IEDs (ticket 4.8)
+        class getWarnableThreats {};
+
+        // Server: a warning, a circle around a threat close to the civilian: a camp or an IED (tickets 3.6, 4.8)
         class createWarning {};
 
-        // Server loop: a warning disappears with its camp
+        // Server loop: a warning disappears with its threat
         class warningLoop {};
 
         // Server: the concrete tip of Liberation's informant at the FOB (ticket 3.10, hook in civinfo_delivered.sqf)

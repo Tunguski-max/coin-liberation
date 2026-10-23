@@ -74,7 +74,7 @@ if (COIN_enableQuestioning) then {
     COIN_intelNextId = 1;
     // Cooldown of each interpreter (ticket 3.5): player UID -> end time, not saved, survives the respawn of the unit
     COIN_cooldownEnds = createHashMap;
-    // Warnings of camps (ticket 3.6): [id, campId, center, radius], not saved
+    // Warnings of camps and IEDs (tickets 3.6, 4.8): [id, kind, threat id, center, radius], not saved
     COIN_warnings = [];
     COIN_warningNextId = 1;
     [] spawn COIN_fnc_warningLoop;

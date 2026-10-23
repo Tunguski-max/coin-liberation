@@ -3,12 +3,12 @@
     Author: COIN Liberation
 
     Description:
-        Row of a config table that is keyed by nest type in its first column
-        (COIN_nestSetup, COIN_nestBuildingShare, COIN_nestDebugColors, later COIN_campsPerNest, COIN_nestReadinessDrop).
+        Row of a config table that is keyed by a type or kind (nest type, warning kind) in its first column
+        (COIN_nestSetup, COIN_nestBuildingShare, COIN_nestDebugColors, COIN_campsPerNest, COIN_nestReadinessDrop, COIN_warningKinds).
 
     Parameter(s):
         _table - Config table [ARRAY of ARRAYs]
-        _type  - Nest type, e.g. "command" [STRING]
+        _type  - Nest type, e.g. "command", or kind, e.g. "ied" [STRING]
 
     Returns:
         Row of the type, [] if the table has no row for it [ARRAY]

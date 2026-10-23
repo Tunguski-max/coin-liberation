@@ -70,8 +70,9 @@ coin/
     │   ├── fn_createLie.sqf            COIN_fnc_createLie: Lüge, Kreis um einen verborgenen Ersatzpunkt, sieht aus wie ein wahrer Marker (Ticket 3.4)
     │   ├── fn_findFakeSpot.sqf         COIN_fnc_findFakeSpot: glaubhafter Ersatzpunkt (Ortsrand oder freies Gelände, Regeln der Nester)
     │   ├── fn_intelSearchLoop.sqf      COIN_fnc_intelSearchLoop: Server-Schleife, eine Lüge verschwindet, wenn ein Spieler zu Fuß am Ersatzpunkt war
-    │   ├── fn_createWarning.sqf        COIN_fnc_createWarning: Warnung, Kreis um ein aktives Camp in der Nähe, nicht gespeichert (Ticket 3.6)
-    │   ├── fn_warningLoop.sqf          COIN_fnc_warningLoop: Server-Schleife, eine Warnung verschwindet mit ihrem Camp (ausgehoben, umgezogen, entfernt)
+    │   ├── fn_getWarnableThreats.sqf   COIN_fnc_getWarnableThreats: alles, wovor ein Zivilist warnen kann: aktive Camps, gelegte IEDs (Ticket 4.8)
+    │   ├── fn_createWarning.sqf        COIN_fnc_createWarning: Warnung, Kreis um eine Bedrohung in der Nähe (Camp, IED), nicht gespeichert (Tickets 3.6, 4.8)
+    │   ├── fn_warningLoop.sqf          COIN_fnc_warningLoop: Server-Schleife, eine Warnung verschwindet mit ihrer Bedrohung (Camp ausgehoben, umgezogen, entfernt; IED ausgelöst, entschärft, gelöscht)
     │   ├── fn_informantTip.sqf         COIN_fnc_informantTip: Server, Konkreter Tipp des Informanten bei der Ablieferung an der FOB (Ticket 3.10)
     │   ├── fn_removeIntel.sqf          COIN_fnc_removeIntel: entfernt ein Intel samt Markern
     │   ├── fn_getIntelRadius.sqf       COIN_fnc_getIntelRadius: Start-Radius nach Stufe

@@ -26,7 +26,7 @@ COIN_enableNests            = true;     // Phase 2
 COIN_enableQuestioning      = true;     // Phase 3
 COIN_enableLies             = true;     // Phase 3, ticket 3.4: off = the weight of the lie counts as "nothing"; lies already on the map stay
 COIN_enableUnsafeRefusal    = true;     // Phase 3, ticket 3.4: off = a civilian answers even with armed enemies close
-COIN_enableWarnings         = true;     // Phase 3, ticket 3.6: off = the weight of the warning counts as "nothing"; warnings already on the map stay until their camp is gone
+COIN_enableWarnings         = true;     // Phase 3, ticket 3.6: off = the weight of the warning counts as "nothing"; warnings already on the map stay until their threat is gone
 COIN_enableInformantTip     = true;     // Phase 3, ticket 3.10: off = Liberation's informant gives only his own reward, no tip (needs COIN_enableNests and COIN_enableQuestioning)
 COIN_enableInterrogation    = true;     // Phase 3, ticket 3.8: off = no entry "Interrogate" at prisoners (needs COIN_enableQuestioning, its loop finds the prisoner)
 COIN_enableIEDs             = true;     // Phase 4
@@ -447,6 +447,26 @@ COIN_questionAnswers = [
             "I won't take my goats there anymore. Since the strangers set up camp, nobody who goes too close comes back.",
             "You're not the first to come through here. If you go that way, someone will be waiting for you."
         ]
+    ]],
+    // A warning of an IED close by (ticket 4.8): he saw men dig by the road or heard a blast, he does not say "bomb" or "IED".
+    // The same sentences for a real IED and a decoy, he cannot tell them apart. Texts to be agreed with Niklas
+    ["warningIED", [
+        [
+            "Ich würde die Straße da vorn nicht nehmen. Letzte Nacht haben dort Männer etwas im Boden vergraben.",
+            "Fahrt da nicht blind lang. Ich habe gesehen, wie jemand am Straßenrand gegraben hat, mitten in der Nacht.",
+            "Seit ein paar Tagen ist die Erde an der Straße dort aufgewühlt. Mich bringt keiner mehr dorthin.",
+            "Passt auf, wo ihr hinfahrt. Dort an der Straße ist etwas versteckt, das nicht für uns gedacht ist.",
+            "Mein Cousin ist dort langgefahren und hat es gerade so überlebt. Sucht die Straße ab, bevor ihr weiterfahrt.",
+            "Haltet die Augen offen. An der Straße ganz in der Nähe liegt etwas, und die Männer, die es gelegt haben, schauen zu."
+        ],
+        [
+            "I wouldn't take the road up ahead. Men buried something in the ground there last night.",
+            "Don't drive down there blind. I saw someone digging by the roadside in the middle of the night.",
+            "The earth by the road over there has been churned up for a few days. Nobody gets me to go there anymore.",
+            "Watch where you drive. Something is hidden by the road there, and it wasn't meant for us.",
+            "My cousin drove down there and barely survived. Search the road before you go on.",
+            "Keep your eyes open. There is something by the road very close to here, and the men who put it there are watching."
+        ]
     ]]
 ];
 
@@ -664,6 +684,21 @@ COIN_interrogationAnswers = [
             "You're not the first to search around here. The others aren't far, and they're armed.",
             "A group has dug in over there. Don't get too close, they shoot first."
         ]
+    ]],
+    // A warning of an IED (ticket 4.8): a prisoner of the militia knows about the roads. Texts to be agreed with Niklas
+    ["warningIED", [
+        [
+            "Fahrt nicht über die Straße da vorn. Wir haben dort etwas für euch hinterlassen.",
+            "Auf dem Weg liegt eine Überraschung. Ich sage nicht, wo genau, aber seid vorsichtig.",
+            "Bleibt von der Straße weg. Es ist nicht sicher, dort liegt etwas im Boden.",
+            "Wenn ihr dem Weg folgt, geht es nicht lange gut. Die Straße ist vorbereitet."
+        ],
+        [
+            "Don't drive down the road up ahead. We left something there for you.",
+            "There's a surprise on the way. I won't say where exactly, but be careful.",
+            "Stay off that road. It isn't safe, there's something in the ground.",
+            "If you follow the road, it won't end well. It has been prepared."
+        ]
     ]]
 ];
 
@@ -707,10 +742,15 @@ COIN_intelWeightsMid        = [30, 25, 20,  5, 10, 10];
 COIN_intelWeightsHigh       = [20, 20, 30, 15, 12,  3];
 COIN_intelWeightsByBand     = [["low", COIN_intelWeightsLow], ["mid", COIN_intelWeightsMid], ["high", COIN_intelWeightsHigh]];
 
-// Warning of a camp (ticket 3.6): circle around an active camp, not saved, gone with the camp
-COIN_warningRange           = 1500;     // m: a civilian warns of a camp within this distance of him, else he knows nothing
-COIN_warningRadius          = 150;      // m radius of the circle; the camp lies inside, not in the middle (COIN_intelCenterOffset)
-COIN_warningCheckInterval   = 10;       // s between two checks whether the camp of a warning is still there
+// Warning of a threat (tickets 3.6, 4.8): [kind, range m, radius m, key of the answer sentences]. A civilian warns of a threat of this kind
+// within the range of him (else he knows nothing); the circle has the radius, the threat lies inside, not in the middle
+// (COIN_intelCenterOffset). Among all threats in range without a circle chance decides. The ambush (ticket 4.5) adds a row
+COIN_warningKinds = [
+    ["camp", 1500, 150, "warning"],
+    ["ied",  1000, 100, "warningIED"]
+];
+COIN_enableIEDWarnings      = true;     // Phase 4, ticket 4.8: off = no warning of an IED is made, those on the map go at the next check
+COIN_warningCheckInterval   = 10;       // s between two checks whether the threat of a warning is still there
 COIN_warningMarkerType      = "hd_warning";
 COIN_warningMarkerColor     = "ColorRed";   // Not the orange of the intel circles
 
