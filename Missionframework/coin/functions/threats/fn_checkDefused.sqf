@@ -17,7 +17,7 @@
         _pos     - Position of the IED that is gone [ARRAY]
         _id      - IED id, for the log [NUMBER]
         _nestId  - Id of the workshop, for the log [NUMBER]
-        _variant - "buried" or "decoy" [STRING]
+        _variant - "buried", "decoy" or "remote" [STRING]
 
     Returns:
         Nothing

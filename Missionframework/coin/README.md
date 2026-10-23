@@ -102,6 +102,11 @@ coin/
     │   ├── fn_removeIED.sqf            COIN_fnc_removeIED: nimmt ein IED aus COIN_ieds, löscht den Trigger, startet Entschärf-Prüfung und Nachschub
     │   ├── fn_replaceIED.sqf           COIN_fnc_replaceIED: ersetzt ein verbrauchtes IED nach der Wartezeit, nicht bei zerstörter Werkstatt
     │   ├── fn_checkDefused.sqf         COIN_fnc_checkDefused: wurde das IED entschärft? Ruf für ein echtes IED, löscht den Gegenstand des Entschärfens
+    │   ├── fn_getFighterState.sqf      COIN_fnc_getFighterState: "free", "down" oder "out" – kann ein Kämpfer in Zivil noch handeln? (Ticket 4.2b)
+    │   ├── fn_createCivilianFighter.sqf COIN_fnc_createCivilianFighter: Kämpfer in Zivil auf der Zivilisten-Seite, ohne Kill-Manager, unbewaffnet, markiert, Zeus
+    │   ├── fn_findTriggermanSpot.sqf   COIN_fnc_findTriggermanSpot: Platz des Auslösers, 60–150 m vom IED mit Sichtlinie, am Haus oder erhöht
+    │   ├── fn_createTriggerman.sqf     COIN_fnc_createTriggerman: stellt den Auslöser eines ferngezündeten IEDs hin (Telefon, Debug-Marker)
+    │   ├── fn_triggermanLoop.sqf       COIN_fnc_triggermanLoop: Server-Schleife, Auslöser kommen bei 800 m und gehen wie Nest-Wachen
     │   └── fn_drawIEDMarkers.sqf       COIN_fnc_drawIEDMarkers: globale Debug-Marker der IEDs (Lobby-Parameter „COIN Debug“)
     └── nests/
         ├── fn_initNests.sqf            COIN_fnc_initNests: Server, Nester aus dem Spielstand oder neu, Debug-Karte (ADR 0018)

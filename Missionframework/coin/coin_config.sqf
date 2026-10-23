@@ -739,7 +739,8 @@ COIN_iedTriggerCheckInterval = 2;       // s between two evaluations of that tri
 COIN_iedAlertInterval       = 0.2;      // s between two exact checks while the army is within the alert distance. A vehicle at 100 km/h (28 m/s) needs about 0.5 s through the trigger area of one IED, 1 s let fast ones pass (first test)
 COIN_iedDebugColors         = [         // Debug map: icon colour per IED variant
     ["buried",       "ColorRed"],
-    ["decoy",        "ColorYellow"]
+    ["decoy",        "ColorYellow"],
+    ["remote",       "ColorPink"]
 ];
 COIN_enableIEDRegen         = true;     // Off: a used IED is not replaced
 COIN_iedBudgetRegenMinutes  = 20;       // Minutes until a used IED (blown up, defused, deleted) is replaced by its workshop elsewhere. Not saved. No place or the cap reached: one more try after the same time
@@ -748,7 +749,27 @@ COIN_iedLootRadius          = 5;        // m around the IED in which that item i
 COIN_iedLootDelays          = [1, 4];   // s after the IED is gone (ascending): when the item is looked for, it appears a moment after the defusing. Runs after every removal, a blast leaves nothing to find (no item = not defused = no reputation)
 COIN_enableIEDDecoys        = true;     // Off: all IEDs are real
 COIN_iedDecoyChance         = 0.15;     // Share of decoys among all IEDs (DESIGN 6: 60 % buried, 25 % remote, 15 % decoy). A decoy counts to the budget, looks and is found like a real one, never goes off, defusing it gives no reputation
-COIN_iedRemoteChance        = 0.25;     // Share of remote-triggered IEDs (with triggerman)
+COIN_enableIEDRemote        = true;     // Off: no remote IEDs are laid (their share becomes buried IEDs), no triggermen. Ticket 4.2b
+COIN_iedRemoteChance        = 0.25;     // Share of remote-triggered IEDs (with triggerman) among all IEDs, the rest of the 100 % is buried
+COIN_iedRemoteRadius        = 15;       // m: the triggerman sets his IED off when BLUFOR (a vehicle or even a single soldier on foot) is this close to it
+COIN_iedRemoteCount         = 1;        // BLUFOR soldiers on foot within that radius needed (one is enough: defusing a remote IED means dealing with its triggerman first)
+COIN_triggermanSpawnDistance = 800;     // m: his triggerman appears when the nearest player is this close to a remote IED; he leaves like a nest guard (COIN_despawnDistance, COIN_despawnDelay)
+COIN_triggermanDistance     = [60, 150]; // [min, max] m between the triggerman and his IED
+COIN_triggermanSpotTries    = 60;       // Points tried for his place; none fits: error line, that IED has no triggerman (until the players were away)
+COIN_triggermanMinVisibility = 0.5;     // Line of sight from his eyes to the IED needed (0-1, vegetation counts)
+COIN_triggermanTargetHeight = 0.5;      // m above the ground: where the line of sight to the IED ends
+COIN_triggermanEyeHeight    = 1.6;      // m above the ground: where it starts (standing)
+COIN_triggermanHouseShare   = 0.5;      // Share of the tries that look beside a house (he prefers one: DESIGN 6)
+COIN_triggermanHouseOffset  = 3;        // m from the wall of the house (house taken as a circle) where such a try stands
+COIN_triggermanHouseRadius  = 8;        // m from the wall: a spot this close counts as "beside a house" (a house or higher ground is worth more than open ground)
+COIN_triggermanHeightGain   = 3;        // m higher than the IED counts as "elevated"
+COIN_triggermanRoadClearance = 5;       // m he keeps from roads
+COIN_triggermanHeadroom     = 6;        // m above him that must be free (no roof, no building over the spot)
+COIN_triggermanGroundClearance = 0.3; // m above the ground where the check for a roof over his spot starts
+COIN_triggermanPhone        = "Land_MobilePhone_smart_F"; // Held in his hand ("" or a class that does not exist: none)
+COIN_triggermanPhonePoint   = "righthand"; // Memory point of his body the phone is attached to
+COIN_triggermanMarkerType   = "mil_dot"; // Debug map: him and a line to his IED
+COIN_triggermanMarkerColor  = "ColorPink";
 
 COIN_vbiedIntervalMinutes   = [45, 90]; // Random interval [min, max] per active garage
 COIN_suicideBomberChanceLow = 0.05;     // Per eligible civilian spawn at low reputation

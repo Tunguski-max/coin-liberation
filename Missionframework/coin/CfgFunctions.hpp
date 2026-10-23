@@ -401,5 +401,20 @@ class COIN {
 
         // Server: global debug markers of the IEDs
         class drawIEDMarkers {};
+
+        // Server: free, down or out? Can a fighter in civilian clothes still act (ticket 4.2b)
+        class getFighterState {};
+
+        // Server: creates a fighter in civilian clothes: civilian side, no kill manager, unarmed, marked, Zeus (ticket 4.2b)
+        class createCivilianFighter {};
+
+        // Server: place for the triggerman of a remote IED, 60-150 m away with line of sight, beside a house or elevated
+        class findTriggermanSpot {};
+
+        // Server: puts the triggerman of a remote IED in place with a phone and a debug marker
+        class createTriggerman {};
+
+        // Server loop: triggermen appear at 800 m, leave like nest guards, note who is out (ticket 4.2b)
+        class triggermanLoop {};
     };
 };
