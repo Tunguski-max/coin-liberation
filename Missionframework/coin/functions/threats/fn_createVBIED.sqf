@@ -6,7 +6,7 @@
         Sends one VBIED from a garage to a target (ticket 4.3, DESIGN 6, ADR 0022): a civilian vehicle of the garage's
         list (COIN_vbiedGarageVehicles) at a spawn point 800-1200 m from the target, out of sight, on a road
         (COIN_fnc_findVBIEDSpot), with a lone driver, a fighter in civilian clothes (COIN_fnc_createCivilianFighter,
-        role "vbiedDriver"). An IED magazine lies in its cargo (COIN_vbiedCargo). He drives to the target, follows a moving one and ignores everything else
+        role "vbiedDriver"). Its cargo is emptied, only the IED magazine lies in it (COIN_vbiedCargo). He drives to the target, follows a moving one and ignores everything else
         (COIN_fnc_vbiedDrive). Destroying the vehicle sets the charge off (Killed event handler). Vehicle and driver
         are added to Zeus. Not saved. VBIED = [id, garage id, vehicle, driver, target]; appended to COIN_vbieds.
         Server only.
@@ -47,7 +47,11 @@ if (isNull _vehicle) exitWith {
 _vehicle setDir _dir;
 _vehicle setPosATL _spot;
 
-// The charge in the cargo: a search of the vehicle shows what it was
+// The cargo holds the charge and nothing else: a search of the vehicle shows what it was
+clearWeaponCargoGlobal _vehicle;
+clearMagazineCargoGlobal _vehicle;
+clearItemCargoGlobal _vehicle;
+clearBackpackCargoGlobal _vehicle;
 {
     _x params ["_magazine", "_count"];
     if (isClass (configFile >> "CfgMagazines" >> _magazine)) then {

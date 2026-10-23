@@ -204,7 +204,7 @@ Festgelegt beim Grilling am 2026-10-22 (DESIGN 6, ADR 0022). Reihenfolge: 4.7, 4
   (erkannt am hinterlassenen Gegenstand; am 2026-10-23 im Spiel getestet, Anteil der Attrappen über mehrere Starts nicht gezählt)
 - [x] 4.2b (#83) Ferngezündetes IED mit Auslöser (erster Kämpfer in Zivil; am 2026-10-23 im Spiel getestet: Auslöser spawnt 68–140 m entfernt am Haus, erhöht oder frei, Zündung bei 15 m, getötet oder gefesselt zündet nie mehr (auch nach dem Befreien nicht), Entschärfen +2 Ruf, verschwindet bei Abstand; Auslöser zählt nicht im COIN-Einheiten-Budget, da auf der Zivilisten-Seite)
 - [x] 4.8 (#84) Warnung vor IED: Zivilist warnt mit Kreis wie beim Camp (DESIGN 7; am 2026-10-23 im Spiel getestet: IED-Kreis 100 m und eigener Satz, verschwindet mit dem IED, Camp-Warnung unverändert, ohne neue Bedrohung „weiß nichts“; Texte nur teilweise abgestimmt, Gefangenen-Warnung und Mischfall Camp + IED nicht getestet)
-- [ ] 4.3 (#85) VBIED-Ereignis (nur mit aktiver Garage); Garage zerstört → keine VBIEDs mehr (früher 4.6)
+- [x] 4.3 (#85) VBIED-Ereignis (nur mit aktiver Garage); Garage zerstört → keine VBIEDs mehr (früher 4.6). Am 2026-10-23 im Spiel getestet: Ziel Spieler und FOB, Zündung bei 9–10 m, Fahrer erschossen → Fahrzeug steht und nichts geht hoch, Fahrzeug zerstört → Explosion, Takistani-Autos, IED allein im Inventar; Garage zerstören, Schalter aus, Ruf bei zivilen Opfern der Explosion und eine Straße, die weit vor dem Ziel endet, nicht getestet
 - [ ] 4.4 (#86) Selbstmordattentäter unter Zivilisten (Häufigkeit nach Ruf-Band); gegen ihn helfen Distanz und frühes
   Ausschalten, ACE „Get Down“/„Go Away“ ignoriert er. Eigenes „Stehen bleiben“ verworfen am 2026-10-22 (Niklas):
   ACE-Aktionen an der Person brauchen zu viel Nähe
