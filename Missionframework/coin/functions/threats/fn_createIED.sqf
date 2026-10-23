@@ -6,14 +6,15 @@
         Lays one IED for a workshop (ticket 4.1a, DESIGN 6, ADR 0022): a real mine object (one of COIN_iedTypes,
         createMine, so ACE mine detectors find it and ACE can defuse it) at a place from COIN_fnc_findIEDSpot. Not saved.
         The IED belongs to the workshop that laid it. Added to Zeus. Refused while COIN_maxActiveIEDs IEDs exist.
-        IED = [id, nest id, object, position, variant, trigger]; appended to COIN_ieds. Variant is "buried" or, with
-        chance COIN_iedDecoyChance, "decoy" (ticket 4.2a): same object, ACE finds and defuses it, but it is invulnerable
-        and has no trigger, so it never goes off. The remote-triggered variant comes with ticket 4.2b. A decoy has no
-        trigger (objNull). Server only.
+        IED = [id, nest id, object, position, variant, trigger]; appended to COIN_ieds. Variant is "buried",
+        "decoy" (chance COIN_iedDecoyChance, ticket 4.2a): same object, ACE finds and defuses it, but it is invulnerable
+        and has no trigger, so it never goes off, or "remote" (chance COIN_iedRemoteChance, ticket 4.2b): the army
+        does not set it off, its triggerman does (COIN_fnc_triggermanLoop). A decoy has no trigger (objNull).
+        Server only.
 
     Parameter(s):
         _nestId  - Id of the workshop [NUMBER]
-        _variant - "buried" or "decoy" to lay exactly that one (a replacement is like for like), "" rolls it with COIN_iedDecoyChance [STRING]
+        _variant - "buried", "decoy" or "remote" to lay exactly that one (a replacement is like for like), "" rolls it with the chances above [STRING]
 
     Returns:
         The IED, [] if the global cap is reached, the workshop is unknown or no place was found [ARRAY]
@@ -51,9 +52,18 @@ private _object = createMine [selectRandom COIN_iedTypes, _pos, [], 0];
 _object setDir random 360;
 [[_object]] call COIN_fnc_addToCurators;
 
-// A decoy looks the same but never goes off: no trigger below, and no damage (shots, blasts nearby) can set it off
+// A decoy looks the same but never goes off: no trigger below, and no damage (shots, blasts nearby) can set it off.
+// A remote IED has no pressure fuse, its triggerman sets it off (COIN_fnc_triggermanLoop, COIN_fnc_iedWatch).
+// The rest are buried. A switch that is off gives its share to the buried ones.
 if (_variant isEqualTo "") then {
-    _variant = ["buried", "decoy"] select (COIN_enableIEDDecoys && {random 1 < COIN_iedDecoyChance});
+    private _decoyShare = [0, COIN_iedDecoyChance] select COIN_enableIEDDecoys;
+    private _remoteShare = [0, COIN_iedRemoteChance] select COIN_enableIEDRemote;
+    private _roll = random 1;
+    _variant = switch (true) do {
+        case (_roll < _decoyShare): {"decoy"};
+        case (_roll < (_decoyShare + _remoteShare)): {"remote"};
+        default {"buried"};
+    };
 };
 if (_variant isEqualTo "decoy") then {
     _object allowDamage false;

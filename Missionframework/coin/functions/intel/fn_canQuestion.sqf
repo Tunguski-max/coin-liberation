@@ -10,7 +10,8 @@
         unconscious enemy becomes a civilian when a town is taken: such a unit has an enemy infantry class, the test
         Liberation's own prisoner script uses), not captive (ACE surrendered or handcuffed: that covers Liberation's
         informant while he waits to be picked up), not questioned before and not in a conversation.
-        Prisoners are interrogated instead (ticket 3.8). The asker must be an interpreter, alive, conscious
+        Not a fighter in civilian clothes (triggerman, ticket 4.2b: COIN_civilianFighter, he looks like a civilian but
+        is not one). Prisoners are interrogated instead (ticket 3.8). The asker must be an interpreter, alive, conscious
         and close enough.
 
     Parameter(s):
@@ -46,5 +47,6 @@ if (!COIN_enableQuestioning || {isNull _civ} || {isNull _asker}) exitWith {false
 && {!((toLower typeOf _civ) in KPLIB_o_inf_classes) && {!(typeOf _civ in militia_squad)}}
 && {!(_civ getVariable ["ace_captives_isHandcuffed", false])}
 && {!(_civ getVariable ["ace_captives_isSurrendering", false])}
+&& {!(_civ getVariable ["COIN_civilianFighter", false])}
 && {!(_civ getVariable ["COIN_questioned", false])}
 && {!(_civ getVariable ["COIN_talking", false])}
