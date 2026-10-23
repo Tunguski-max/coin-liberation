@@ -55,6 +55,7 @@ if (COIN_debug) then {
 private _deadline = time + COIN_vbiedTimeoutMinutes * 60;
 private _destination = [0, 0, 0];
 private _nextMarker = 0;
+private _nextProgress = 0;
 private _outcome = "";
 
 while {_outcome isEqualTo ""} do {
@@ -99,6 +100,15 @@ while {_outcome isEqualTo ""} do {
             _destination = _pos;
             _driver doMove _pos;
         };
+    };
+
+    if (time >= _nextProgress) then {
+        diag_log format [
+            "[COIN] vbieds: VBIED %1 at %2, %3 m from its target, %4 km/h, engine %5, driver %6",
+            _id, getPosATL _vehicle, round (_vehicle distance2D _pos), round speed _vehicle, isEngineOn _vehicle,
+            [_driver] call COIN_fnc_getFighterState
+        ];
+        _nextProgress = time + COIN_vbiedProgressInterval;
     };
 
     if (COIN_debug && {time >= _nextMarker}) then {

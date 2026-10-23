@@ -830,6 +830,7 @@ COIN_vbiedTimeoutMinutes    = 15;       // Minutes after which a driver who has 
 COIN_vbiedWatchInterval     = 0.25;     // s between two checks of a VBIED under way (a car at 100 km/h covers 7 m meanwhile, the trigger distance is 10 m)
 COIN_vbiedRetargetDistance  = 30;       // m the target must have moved from the last destination before the driver is sent to its new position
 COIN_vbiedMarkerInterval    = 2;        // s between two moves of its debug marker
+COIN_vbiedProgressInterval  = 20;       // s between two log lines of a VBIED under way (position, distance, speed, engine): shows a car that does not drive
 COIN_vbiedMarkerType        = "mil_triangle"; // Debug map: the VBIED under way
 COIN_vbiedMarkerColor       = "ColorRed";
 COIN_suicideBomberChanceLow = 0.05;     // Per eligible civilian spawn at low reputation
