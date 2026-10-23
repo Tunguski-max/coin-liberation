@@ -10,6 +10,7 @@
         costs nothing. The total is always COIN_repCaptiveKilled: a prisoner of Liberation's surrender script is in a
         civilian group and Liberation takes KP_liberation_cr_kill_penalty for him already, we take the rest. One that is
         only handcuffed or surrendered with ACE (militia group) costs the whole amount from us.
+        Needs ACE (without it Liberation's prisoners carry no ACE state and only Liberation's part is taken).
         Config value 0 switches it off. Server only.
 
     Parameter(s):
@@ -27,16 +28,16 @@ params [
 
 // The kill manager can run before the COIN config is loaded
 if (!isServer || {isNil "COIN_repCaptiveKilled"} || {COIN_repCaptiveKilled == 0}) exitWith {false};
-if (isNull _unit || {isNull _killer} || {!(side _killer isEqualTo GRLIB_side_friendly)}) exitWith {false};
+if (isNull _unit || {isNull _killer} || {!((side _killer) isEqualTo GRLIB_side_friendly)}) exitWith {false};
 if !([_unit] call COIN_fnc_isPrisoner) exitWith {false};
 
 // Liberation's penalty for a unit in a civilian group (kill_manager.sqf), a positive number
-private _liberation = [0, KP_liberation_cr_kill_penalty] select ((side group _unit) isEqualTo GRLIB_side_civilian);
-private _amount = COIN_repCaptiveKilled + _liberation;
-private _reason = format ["prisoner %1 killed (Liberation takes %2 of %3)", typeOf _unit, _liberation, COIN_repCaptiveKilled];
+private _libPenalty = [0, KP_liberation_cr_kill_penalty] select ((side group _unit) isEqualTo GRLIB_side_civilian);
+private _amount = COIN_repCaptiveKilled + _libPenalty;
+private _reason = format ["prisoner %1 killed (Liberation already takes %2, total %3)", typeOf _unit, _libPenalty, COIN_repCaptiveKilled];
 
 if (_amount >= 0) exitWith {
-    diag_log format ["[COIN] reputation: %1, nothing left for us", _reason];
+    if (COIN_debug) then {diag_log format ["[COIN] reputation: %1, nothing left for us", _reason]};
     false
 };
 
