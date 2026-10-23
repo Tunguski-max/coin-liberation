@@ -1,6 +1,6 @@
 # Design: COIN Liberation (Arbeitstitel)
 
-> Status: **Entwurf v0.4.5** – Grundlage für die Umsetzung mit Claude Code.
+> Status: **Entwurf v0.7** – Grundlage für die Umsetzung mit Claude Code.
 > v0.2: Entscheidungen aus Phase 0 eingearbeitet (ADR 0008–0015, `docs/kp-liberation-map.md`).
 > v0.3: Spielfeld und Ausrüstung für Phase 1 festgelegt (ADR 0007, 0016), Abgleich mit Hearts and Minds.
 > v0.3.1: Sektorauswahl von Hand ergänzt (ADR 0016), Ressourcen-Wirtschaft (ADR 0017).
@@ -16,6 +16,7 @@
 > v0.6.1: IED löst zu Fuß erst ab zwei Soldaten in etwa 6 m aus, sonst wäre Entschärfen nicht möglich (Ticket 4.1a, Test am 2026-10-22).
 > v0.6.2: Attentäter wirkt im ganzen Radius der Werkstatt (keine Ortschaft nötig) und kontert ACEs „Get Down!“/„Go Away!“ nicht (Ticket 4.4, Test am 2026-10-23, Niklas).
 > v0.6.3: Hinterhalt: Platz neben der nächsten Straße, Kämpfer halten Feuer bis 150 m, Ersatzcamp nach Umzug bekommt garantiert einen Hinterhalt (Ticket 4.5, Test am 2026-10-23, Niklas).
+> v0.7: Ruf und Konsequenzen für Phase 5 festgelegt (Ruf-Werte, Stimmung, Ältester mit Dialog, Hilfs- und Zugriffsaufträge, Nebenmissionen beim Ältesten, Verstärkung per Funk, Ablenkungsangriff gestrichen, ADR 0023).
 > Offene Entscheidungen stehen gesammelt in [Abschnitt 12](#12-offene-entscheidungen).
 > Begriffe sind in [`CONTEXT.md`](../CONTEXT.md) definiert.
 
@@ -394,6 +395,8 @@ Festgelegt beim Grilling für Phase 3 (2026-10-22). Speicherformat, Triangulatio
     unter allen Bedrohungen ohne Kreis in Reichweite entscheidet der Zufall. Symbol, Farbe und Meldung wie beim Camp,
     nicht gespeichert
   - **Lüge**: Kreis an einer falschen Stelle. Häufig bei niedrigem Ruf.
+- Ab Ruf +25 kann zusätzlich zum Ergebnis (außer „Ich weiß nichts“) ein **Zugriffsauftrag** entstehen, ebenso beim Verhör
+  (Abschnitt 8.2).
 - **Welches Nest:** ein zufälliges aktives Nest im Umkreis von etwa 4 km um den Zivilisten; gibt es dort keins, das nächste
   aktive Nest überhaupt. So zählt die Geografie, und am Ende sind auch die letzten Nester noch zu finden.
 
@@ -428,30 +431,48 @@ Festgelegt beim Grilling für Phase 3 (2026-10-22). Speicherformat, Triangulatio
   (ADR 0015). Im Budget zählen nur die eigenen Zivilisten, nicht die von Liberation; eine Ortschaft bekommt ihre Bevölkerung ganz
   oder gar nicht (Entscheidung 2026-10-22). Sie entsteht erst, wenn Liberation mit der Ortschaft fertig ist (Sektor nicht aktiv).
   Weil sie bei jedem Besuch neu entstehen, verhindert die Abklingzeit das Abgrasen.
-- Der **Älteste** kommt erst in Phase 5 dazu, vorher hat er keine Aufgabe.
+- Dazu gehört ab Phase 5 der **Älteste** (Abschnitt 8).
 
 **Intel und Intel-Punkte**
 - „Intel“ meint immer unseren Hinweis auf ein Nest oder eine Bedrohung.
 - Liberations Ressource heißt „Intel-Punkte“. Damit werden weiterhin die Nebenmissionen
-  Konvoi-Überfall und Rettung bezahlt. Die Nebenmission „FOB Hunting“ entfällt, weil feindliche Basen
+  Konvoi-Überfall und Rettung bezahlt, ab Phase 5 beim Ältesten gestartet, dazu die Verstärkung (Abschnitt 8). Die Nebenmission „FOB Hunting“ entfällt, weil feindliche Basen
   neben den Nestern das Netzwerk verwässern würden.
 
 ## 8. System D: Bevölkerung und Ruf
 
 Der Ruf **ist** Liberations „Civil Reputation“: ein globaler Wert von **−100 bis +100** (ADR 0009).
 
-| Ruf steigt | Ruf sinkt |
-|---|---|
-| IED entschärfen | Zivilist getötet¹ oder verletzt |
-| Nest zerstören | Gebäude zerstört² |
-| Ortschaft befreien¹ | Grundloses Schießen nahe Zivilisten |
-| Verwundeten Zivilisten helfen (ACE)¹ | Gefangene oder sich ergebende Gegner töten |
-| Informant zur FOB gebracht¹ | Zivilfahrzeug beschlagnahmt¹ oder zerstört |
-| *Später:* Hilfsgüter liefern | Befreundeten Widerstandskämpfer getötet¹ |
+Festgelegt beim Grilling für Phase 5 (2026-10-23, ADR 0023). Werte sind Startwerte in `coin_config.sqf`.
+
+| Ruf steigt | | Ruf sinkt | |
+|---|---|---|---|
+| Ortschaft befreien¹ | +5 (Hauptstadt +10) | Zivilist getötet¹ (auch der Älteste) | −5 |
+| Verwundeten Zivilisten nach der Befreiung behandeln¹ | +2 | Gefangenen getötet³ | −10 |
+| Informant zur FOB gebracht¹ | +2 | Haus in befreiter Ortschaft zerstört² | −3 |
+| Echtes IED entschärft | +2 | Zivilfahrzeug zerstört⁴ | −2 |
+| Nest zerstört (jeder Nest-Typ) | +5 | Zivilfahrzeug beschlagnahmt¹ | −2 |
+| Hilfsauftrag (Abschnitt 8.2) | +4 bis +7 | Befreundeten Widerstandskämpfer getötet¹ | −3 |
 
 ¹ macht Liberation bereits. Wir ziehen dafür nicht doppelt ab.
-² Liberation rechnet Gebäudeschäden nur bei der Einnahme einer Ortschaft ab. Zusätzlich kostet ein Gebäude
-in einer **befreiten** Ortschaft Ruf, wenn die Armee es zerstört hat.
+² Liberation rechnet Gebäudeschäden nur bei der Einnahme einer Ortschaft ab. Zusätzlich kostet ein **Haus**
+(mit Gebäudepositionen, keine Mauer, kein Zaun) im Radius einer **befreiten** Ortschaft Ruf, wenn es zur Ruine wird und
+die Armee es zerstört hat (Spieler, KI, Fahrzeug, Mörser, Hubschrauber). Keine Obergrenze. Kein Abzug, solange
+Miliz-Einheiten im Ortschaftsradius sind (Gegenangriff): Wer die Ortschaft verteidigt, wird nicht bestraft. Was die Miliz
+zerstört (IED, VBIED, Attentäter), kostet nichts.
+³ Gefangener im Sinne des Glossars: gefesselt oder ergeben. Insgesamt immer −10: bei Kämpfern, die nur mit ACE gefesselt
+sind oder sich ergeben, ziehen wir −10 ab; bei Gefangenen aus Liberations Ergeben-Skript zieht Liberation schon −5 ab
+(Zivilisten-Gruppe), wir −5 dazu. Kämpfer in Zivil (Auslöser, VBIED-Fahrer, Attentäter) kosten nie Ruf (ADR 0022).
+⁴ Liberation zählt das nur in der Statistik. Fahrzeuge, die COIN erzeugt (VBIED, Kurier, Export, Waffentransport),
+kosten keinen Ruf.
+
+Nicht umgesetzt (2026-10-23): „Grundloses Schießen nahe Zivilisten“, „Zivilist verletzt“ und ein eigener Bonus für
+geholfene Zivilisten. Liberation bestraft getötete Zivilisten schon, Verletzungen unter ACE und „grundlos“ lassen sich
+nicht fair erkennen.
+
+**Rückmeldung:** Unsere Ruf-Änderungen erzeugen im Spiel keine Meldung, nur eine `[COIN]`-Logzeile. Im Debug-Modus
+erscheinen sie zusätzlich mit Betrag und neuem Wert im Systemchat. Liberations eigene Meldungen (z. B. „Zivilist getötet“)
+bleiben.
 
 **Ruf-Bänder**
 
@@ -463,32 +484,76 @@ in einer **befreiten** Ortschaft Ruf, wenn die Armee es zerstört hat.
 
 - **Start: −20.** Zu Beginn lügen viele Zivilisten. Das zwingt zum Aufbau von Vertrauen.
   Der Widerstand ist bei −20 noch neutral (feindlich erst unter −25).
-- **Keine Zahl im Overlay.** Spieler erfahren den Ruf, indem der Dolmetscher die Bevölkerung fragt (Abschnitt 7).
-- Ruf wirkt auf: Wahrheitsquote und Kreisgröße bei Intel, Häufigkeit der Informanten (steigt mit dem Ruf,
-  unter +25 keine), Häufigkeit von Attentätern unter Zivilisten.
+- **Keine Ruf-Anzeige im Overlay**, weder Zahl noch farbiges Symbol (Hook, Schalter `COIN_hideReputationNumber`).
+  Spieler erfahren die Stimmung, indem der Dolmetscher die Bevölkerung fragt (siehe unten).
+- Ruf wirkt auf: Wahrheitsquote und Kreisgröße bei Intel (Gewichte pro Ruf-Band, seit Phase 3), Häufigkeit der
+  Informanten, Häufigkeit von Attentätern (pro Ruf-Band, seit Phase 4), Zugriffsaufträge (erst ab +25), Gefälligkeiten
+  (erst ab +50).
+- **Informanten** (Liberation-Ablauf, Abschnitt 7): unter +25 keine, von +25 bis unter +50 Liberations Werte
+  (alle 90–180 min ein Versuch, 75 % Chance), ab +50 alle 45–90 min mit 100 %. Ein Server-Loop setzt dafür Liberations
+  `KP_liberation_civinfo_*`-Werte nach dem Ruf, kein Hook.
 - Der Ruf bleibt **global**, wie bei Liberation. Ruf pro Ortschaft wäre eine spätere Erweiterung (E4).
 
-### 8.1 Unterstützung bei sehr hohem Ruf (Vorschlag)
+**Stimmung („Wie steht ihr zu uns?“)**
+- Eigener Eintrag im Aktionsmenü, nur für den Dolmetscher, bei jedem befragbaren Zivilisten und beim Ältesten.
+  Beliebig oft, zählt nicht als Befragung, keine Abklingzeit.
+- Die Antwort nennt die **Stimmung** in fünf Stufen, immer wahr, mit einigen Satzvarianten pro Stufe:
+
+| Ruf | Stimmung | Was das im Spiel heißt |
+|---|---|---|
+| < −25 | feindselig | Der Widerstand kämpft für die Miliz |
+| −25 bis < 0 | misstrauisch | Viele Lügen |
+| 0 bis < 25 | abwartend | Gemischte Intel |
+| 25 bis < 50 | freundlich | Informanten, Zugriffsaufträge, Widerstand auf unserer Seite |
+| ≥ 50 | sehr freundlich | Gefälligkeiten entstehen |
+
+**Der Älteste**
+- Jede befreite Ortschaft hat genau einen Ältesten. Er gehört zur eigenen Bevölkerung (Abschnitt 7), entsteht mit ihr und
+  zählt zu ihrem Budget. Er steht fest an einem Gebäude nahe dem Ortskern (größtes Haus oder Moschee), trägt eigene
+  Kleidung und heißt „Ältester …“.
+- Er wird nicht nach der Miliz befragt. Der Dolmetscher hat bei ihm „Wie steht ihr zu uns?“ und **„Können wir helfen?“**.
+- Wird er getötet, zieht Liberation −5 ab (Zivilist), und die Ortschaft hat 60 min keinen Ältesten; danach entsteht beim
+  nächsten Besuch ein neuer.
+
+**Dialog des Ältesten**
+- „Können wir helfen?“ öffnet einen eigenen Dialog nach dem Vorbild von Liberations Nebenmissions-Dialog: links die Liste,
+  rechts die Erklärung, unten „Annehmen“. Nur der Dolmetscher nimmt an, für die ganze Seite.
+- Drei Abschnitte: **Hilfsaufträge** (8.2), **Nebenmissionen** (Liberations Konvoi-Überfall und Rettung, Kosten in
+  Intel-Punkten wie bei Liberation, Start über Liberations Server-Aufruf) und **Gefälligkeit** (Verstärkung, 8.1).
+- Was gerade nicht geht, ist grau und nennt den Grund. Wartet die Ortschaft noch oder läuft ihr Auftrag, sagt der Älteste
+  beim Öffnen „Wir brauchen gerade nichts. Kommt später wieder.“, die Hilfsaufträge sind grau, der Rest bleibt wählbar.
+- Liberations Eintrag „Nebenmissionen“ an der FOB entfällt (Hook mit Schalter). Vor der ersten befreiten Ortschaft gibt es
+  damit keine Nebenmissionen.
+
+### 8.1 Unterstützung bei sehr hohem Ruf
 
 Wer die Bevölkerung wirklich auf seiner Seite hat, bekommt mehr als nur Informationen:
-**lokale Kämpfer** (dorfeigene Wachen, Stammeskämpfer) helfen aktiv mit.
+**lokale Kämpfer** (dorfeigene Wachen, Stammeskämpfer) helfen aktiv mit. Einzige Gefälligkeit ist die **Verstärkung**.
+Der Ablenkungsangriff ist gestrichen (2026-10-23, ADR 0023): Liberations Guerilla-Einsätze leisten Ähnliches, und das
+Abziehen von Besatzungen würde Liberations Sektor-Logik aushebeln.
 
 **Gefälligkeiten**
-- Ab einer hohen Ruf-Schwelle (etwa +50, final im Spec zu Phase 5) sammelt die Armee **Gefälligkeiten**, z. B. 1 pro 2 Stunden Spielzeit.
-- Höchstens 2 auf Vorrat. Fällt der Ruf unter die Schwelle, wächst nichts nach.
-- Angefordert wird über den **Dolmetscher** beim Ältesten einer befreiten Ortschaft (Aktionsmenü).
-  Das hält die Rolle bis zum Ende der Kampagne wichtig.
+- Solange der Ruf ≥ +50 ist und mindestens ein Spieler online ist, entsteht alle 120 min eine Gefälligkeit, höchstens 2 auf
+  Vorrat. Vorrat und laufender Zähler werden gespeichert.
+- Einlösen beim Ältesten kostet eine Gefälligkeit **und** 10 Intel-Punkte und geht ab Ruf +25. Höchstens eine Verstärkung
+  gleichzeitig.
 
-| Gefälligkeit | Ablauf | Wirkung |
-|---|---|---|
-| **Ablenkungsangriff** | Spieler wählen auf der Karte ein Ziel (Camp, Ortschaft der Miliz) und einen Zeitpunkt. Lokale Kämpfer greifen dort an. | Miliz-Gruppen und Eingreiftruppen der Umgebung werden für 15–20 Min. dorthin abgezogen. Das eigentliche Ziel der Spieler ist in dieser Zeit schwächer besetzt. |
-| **Verstärkung** | Eine Gruppe von 4–6 lokalen Kämpfern stößt am Standort des Ältesten zur Armee. | Die Gruppe folgt einem Spieler-Gruppenführer, bis sie aufgerieben ist, die Region verlassen wird oder 60 Min. vorbei sind. |
-
-- Sterben die lokalen Kämpfer, gibt es keinen Ruf-Abzug, aber eine längere Wartezeit bis zur nächsten Gefälligkeit.
+**Verstärkung**
+- Nach „Annehmen“ klickt der Dolmetscher einen Punkt auf der Karte an (wie beim HALO-Sprung von Liberation). 10 lokale
+  Kämpfer entstehen am Ältesten, laufen dorthin und halten den Punkt. Ausrüstung nach Liberations aktueller
+  Widerstands-Stufe. Sie spawnen immer und zählen in keinem Gegner-Budget.
+- **Funk:** Solange eine Verstärkung unterwegs ist, haben Kommandant, Truppführer und Dolmetscher im Kommunikationsmenü (0-8):
+  - **„Folgt uns“:** Die Gruppe folgt dem Spieler, der den Befehl gibt. Stirbt er, hält sie ihre Stellung.
+  - **„Geht dorthin“:** Klick auf die Karte, die Gruppe läuft hin und hält.
+  - **„Greift an“:** Die Gruppe läuft im Kampfmodus zur Mitte der nächsten Ortschaft der Miliz. Liberation aktiviert eine
+    Ortschaft nur bei Spielern in Reichweite; ohne Spieler trifft die Gruppe dort niemanden. Gedacht als gemeinsamer Angriff.
+- **Ende:** nach 30 min, wenn der Ruf unter +25 fällt oder wenn die Gruppe aufgerieben ist. Die Kämpfer laufen zurück zur
+  Ortschaft ihres Ältesten und verschwinden außer Sicht. Eine laufende Verstärkung wird nicht gespeichert.
+- Wird die Gruppe aufgerieben, kommt die nächste Gefälligkeit 60 min später. Ruf kostet ihr Tod nicht.
   (Tötet die Armee sie selbst, zieht Liberation Ruf ab.)
-- Lokale Kämpfer sind Einheiten von Liberations **Widerstand** (ADR 0012). Dessen Haltung hängt global am Ruf:
-  ab +25 auf unserer Seite, darunter neutral, unter −25 auf Seiten der Miliz.
-  **Fällt der Ruf unter +25, ziehen aktive lokale Kämpfer ab.**
+- Lokale Kämpfer sind Einheiten von Liberations **Widerstand** in einer eigenen Gruppe (ADR 0012), sie treten keiner
+  Spielergruppe bei. Dessen Haltung hängt global am Ruf: ab +25 auf unserer Seite, darunter neutral, unter −25 auf Seiten
+  der Miliz. **Fällt der Ruf unter +25, ziehen aktive lokale Kämpfer ab.**
 - Erkennungszeichen: Alle KI-Kämpfer von Miliz und Widerstand tragen ein farbiges Kopftuch (Shemag): **rot = Miliz**,
   **grün = Widerstand, feindlich** (Ruf unter −25), **blau = Widerstand, neutral oder freundlich**. Die Farbe folgt dem
   Ruf live, auch bei bereits lebenden Kämpfern. Die Spieler lesen das im Karten-Tagebuch „COIN Liberation“ (ADR 0012, 0014).
@@ -497,29 +562,45 @@ Wer die Bevölkerung wirklich auf seiner Seite hat, bekommt mehr als nur Informa
 
 ### 8.2 Aufträge
 
-Neben Liberations **Nebenmissionen** (Konvoi-Überfall, Rettung, mit Intel-Punkten gekauft) gibt es eigene
-**Aufträge** in zwei Arten. Sie werden nicht gespeichert und verfallen beim Serverneustart.
-Scheitern oder Abbruch kosten nichts.
+Neben Liberations **Nebenmissionen** (Konvoi-Überfall, Rettung, mit Intel-Punkten beim Ältesten gekauft) gibt es eigene
+**Aufträge** in zwei Arten. Jeder Auftrag ist eine Arma-Aufgabe für die ganze Seite (Meldung „Neuer Auftrag“), angenommen
+vom Dolmetscher. Aufträge werden nicht gespeichert und verfallen beim Serverneustart. Scheitern oder Ablaufen kostet nichts,
+einen Abbruch gibt es nicht.
 
-| | Hilfsauftrag | Aufklärungsauftrag |
+| | Hilfsauftrag | Zugriffsauftrag |
 |---|---|---|
-| Woher | Der Dolmetscher spricht mit dem Ältesten einer befreiten Ortschaft. Gibt es gerade keinen Auftrag, heißt es „Kommt später wieder“. | Entsteht mit gewisser Chance als Ergebnis einer Befragung oder eines Verhörs. |
-| Verfügbarkeit | In jedem Ruf-Band. Pro Ortschaft 1 Angebot, danach Wartezeit; höchstens 2 gleichzeitig aktiv. | Zeitfenster (z. B. 30–60 Min.); höchstens 1 gleichzeitig aktiv. |
-| Belohnung | Ruf | Intel (Konkreter Tipp), teils sinkende Readiness |
+| Woher | Dialog des Ältesten einer befreiten Ortschaft (Abschnitt 8). | Entsteht mit 15 % Chance zusätzlich bei einer Befragung (Ergebnis außer „Ich weiß nichts“) oder einem Verhör. |
+| Bedingung | Jedes Ruf-Band. Pro Ortschaft 1 Auftrag, danach 60 min Wartezeit ab dessen Ende; höchstens 2 gleichzeitig. | Ruf ≥ +25 (auch beim Verhör); höchstens 1 gleichzeitig. |
+| Zeit | 60 min | Beginn 15–25 min nach dem Annehmen, Fenster insgesamt 30–60 min |
+| Belohnung | Ruf | Intel (Konkreter Tipp) und/oder Readiness −10 (Punkte) |
 
-**Hilfsaufträge (erste Welle)**
-- **Hilfsgüter liefern:** eine Liberation-Supply-Kiste in die Ortschaft bringen (kostet Supplies).
-- **Arzt-Einsatz:** 3–5 kranke oder verletzte Zivilisten versorgen. Die Patienten können nicht sterben,
-  auch nicht durch Querschläger. Behandelt wird über eine eigene Aktion „Behandeln“ (nur Sanitäter, verbraucht
-  Material). Ruf pro Patient, Bonus für den ganzen Einsatz. Läuft die Zeit ab, gibt es nur keinen Bonus.
-- **Infrastruktur reparieren:** einen beschädigten Generator oder Brunnen instand setzen (EOD/Pionier).
-- *Später:* Straße räumen (nach Phase 4), Entführte befreien.
+**Hilfsaufträge**
 
-**Aufklärungsaufträge (erste Welle)**
-- **Kurier abfangen:** Ein Fahrzeug mit Dokumenten fährt in einem Zeitfenster eine bekannte Strecke.
-- **Anführer festnehmen:** Ein Miliz-Anführer ist zu einer Zeit an einem Ort und muss lebend gefangen werden.
-  Zusätzlich sinkt die Readiness um 10 %.
-- **Waffentransport abfangen:** Ein Lkw ist unterwegs zu einem Waffenlager. Readiness −10 %, Hinweis auf das Ziel-Lager.
+Die Objekte eines Hilfsauftrags entstehen beim Annehmen und bleiben bis zu seinem Ende, auch wenn die Bevölkerung
+abgebaut wird.
+
+| Hilfsauftrag | Was zu tun ist | Wer | Belohnung |
+|---|---|---|---|
+| **Hilfsgüter liefern** | Eine Liberation-Supply-Kiste (100 Supplies, aus jeder FOB) am Boden abstellen, höchstens 20 m vom Ältesten entfernt. Die Kiste verschwindet. | jeder Spieler | +5 Ruf |
+| **Arzt-Einsatz** | 3–5 Patienten im Umkreis des Ältesten behandeln. Animation, Aktion und 25-m-Kreise kommen von Liberations Verwundeten-Funktion (`F_cr_woundedAnim`, `KPLIB_fnc_crAddAceAction`). Die Patienten sind unverwundbar, zählen nicht zum Budget und sind nicht befragbar. | jeder Spieler mit einer ACE-Bandage (eine pro Patient) | +1 Ruf pro Patient, +2 extra, wenn alle in der Zeit behandelt sind |
+| **Infrastruktur reparieren** | Ein beschädigtes, rauchendes Objekt nahe dem Ältesten (Generator oder Wasserpumpe, Liste in der Config) reparieren, 20 s mit Fortschrittsbalken. Danach wird das Objekt entfernt. | nur ACE-Pionier (Slot EOD) mit Werkzeugkasten | +4 Ruf |
+
+*Später:* Straße räumen, Entführte befreien.
+
+**Zugriffsaufträge**
+- Der Zivilist oder Gefangene erzählt davon im Untertitel, danach öffnet sich beim Dolmetscher derselbe Dialog wie beim
+  Ältesten mit genau einem Eintrag. Schließt er ihn ohne „Annehmen“, ist die Gelegenheit weg.
+- Die Art wird zufällig aus denen gewählt, deren Voraussetzung erfüllt ist. Die Aufgabe nennt Uhrzeit im Spiel und Ort
+  bzw. Start und Ziel der Strecke.
+- Die Einheiten entstehen zum Beginn, unabhängig vom Abstand der Spieler (damit Fahrzeuge wirklich fahren). Sie zählen als
+  COIN-Einheiten, spawnen aber immer.
+
+| Zugriffsauftrag | Voraussetzung | Ablauf | Erfolg | Scheitern |
+|---|---|---|---|---|
+| **Kurier abfangen** | ein aktives Nest | Zivilauto mit einem Kämpfer in Zivil fährt 2–4 km auf der Straße von Ortschaft A nach B (Marker an Start und Ziel). | Auto gestoppt (Fahrer tot, gefangen oder Auto fahrunfähig) und „Dokumente durchsuchen“ am Auto: Konkreter Tipp zum Nest des Kuriers | Auto erreicht B oder brennt aus |
+| **Anführer festnehmen** | ein aktiver Kommandoposten | Anführer in eigener Kleidung mit 4–6 Wachen an einem Haus, für das Zeitfenster. | Gefesselt oder ergeben (keine Lieferung zur FOB nötig): Readiness −10; sein Verhör bringt als erstes Ergebnis immer einen Konkreten Tipp zu seinem Kommandoposten | Er stirbt |
+| **Waffentransport abfangen** | ein aktives Waffenlager | Lkw mit zwei Technicals als Eskorte fährt auf das Lager zu. | Lkw zerstört oder gestoppt, bevor er ankommt: Readiness −10 und Konkreter Tipp zum Ziel-Lager | Lkw kommt an |
+| **Export** | Die Miliz hält eine Ortschaft (oder die Hauptstadt) im Umkreis von 3 km um einen Flugplatz (Liste in der Config: Kinduf Airport, Kinduf Airfield, Kalae Airport) | Zivilflugzeug (Cessna, Klasse in der Config) auf der Piste, 4–6 Wachen. | Flugzeug zerstört: Readiness −10 | Fenster endet: kein echter KI-Start, das Flugzeug verschwindet außer Sicht |
 
 Liberations HVT-Aufgabe nach Informanten bleibt unverändert daneben bestehen.
 
@@ -532,7 +613,7 @@ Liberations HVT-Aufgabe nach Informanten bleibt unverändert daneben bestehen.
   Quelle für Verstärkung angegriffener Miliz-Sektoren; Liberations Funktürme entfallen (ADR 0013).
 - Die **Netzwerkstärke deckelt Liberations Readiness**: Je weniger Nester aktiv sind, desto niedriger der
   Höchstwert. Zusätzlich **senkt jedes zerstörte Nest die Readiness sofort** (z. B. um 10, Kommandoposten 20),
-  einige Aufklärungsaufträge um 10 %. Die Readiness bleibt im Overlay sichtbar (ADR 0013).
+  einige Zugriffsaufträge um 10 Punkte. Die Readiness bleibt im Overlay sichtbar (ADR 0013).
 - Hohe Readiness bedeutet: mehr Patrouillen, stärkere Besatzungen in den Sektoren, häufigere Gegenangriffe.
 - **Hauptstadt:** Garnisonsstärke skaliert mit dem Restnetzwerk (siehe Abschnitt 5).
   Bei 0 verbleibenden Nestern: Mindestbesetzung. Bei vollem Netzwerk: praktisch nicht einnehmbar.
@@ -604,13 +685,14 @@ Infanterie, Technicals, Motorräder, zivile Fahrzeuge, leichte statische Waffen 
   (Nest-Wachen eingerechnet), ~30 eigene Zivilisten, ~25 IEDs.
 
 **Persistenz**
-- Alle neuen Zustände (Nester, Intel-Marker, Budgets) werden über den
+- Alle neuen Zustände (Nester, Intel-Marker, Budgets, Vorrat an Gefälligkeiten) werden über den
   **Liberation-Speichermechanismus** mitgespeichert, als zusätzlicher Block im Liberation-Spielstand.
   Kein eigenes zweites Speichersystem (ADR 0005). Der Ruf wird von Liberation selbst gespeichert.
 - Die Mission speichert unter einem eigenen Namen, damit sie sich nicht mit dem normalen
   KP Liberation auf Lythium in die Quere kommt.
 - Ausnahme: **Camps** werden bewusst nicht gespeichert (siehe Abschnitt 5.1), ebenso die Bedrohungen aus Abschnitt 6
   (IEDs, VBIEDs, Attentäter, Hinterhalte) und ihre Wartezeiten. Nach einem Neustart legen die aktiven Nester neu (ADR 0022).
+  Auch Aufträge, Wartezeiten der Ortschaften und eine laufende Verstärkung werden nicht gespeichert (ADR 0023).
 
 **Fraktionen**
 - Armee: RHS USAF Desert (Liberation-Lythium-Standard).
@@ -639,5 +721,5 @@ Infanterie, Technicals, Motorräder, zivile Fahrzeuge, leichte statische Waffen 
 | E9 | Panzer für die Spieler? | Keine Kampfpanzer; Stryker M1126/M1134 als Elite-Fahrzeuge (ADR 0007) | **entschieden** |
 | E10 | Welches schwere Gerät darf die Miliz haben? | Technicals überall, Altfahrzeuge bei Waffenlagern und max. 1 pro Gegenangriff, 2 T-72 + 1 ZSU-23-4 in der Hauptstadt (ADR 0014) | **entschieden** |
 | E11 | Mörser und Hubschrauber für die Spieler? | Mörser ja, Hubschrauber außer AH-64D ja, AH-1Z/AH-6M nur als Elite mit Limit (ADR 0007) | **entschieden** |
-| E12 | Unterstützung bei sehr hohem Ruf (Abschnitt 8.1) | Gefälligkeiten über den Ältesten: Ablenkungsangriff und Verstärkung | vorgeschlagen |
+| E12 | Unterstützung bei sehr hohem Ruf (Abschnitt 8.1) | Gefälligkeiten ab +50 über den Ältesten, kosten zusätzlich 10 Intel-Punkte; nur Verstärkung (per Funk gesteuert), Ablenkungsangriff gestrichen (ADR 0023) | **entschieden** |
 | E13 | Dokumente als ACE Intel Items, die zum Dolmetscher gebracht werden müssen? | Nein, verworfen (2026-10-22): zu viele Hinweise ohne Bremse, dazu technische Risiken mit ACE (Index geht beim Weitergeben verloren). Die Spur vom Camp zum Nest läuft über das Verhör (Ticket 3.9, #66 geschlossen) | **entschieden** |
