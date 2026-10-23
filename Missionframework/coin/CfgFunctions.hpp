@@ -258,6 +258,16 @@ class COIN {
 
         // Builds entry 22 of Liberation's save: [COIN_saveVersion, nests, intel] (hook in KPLIB_fnc_getSaveData)
         class getSaveBlock {};
+
+        // Notes a new campaign while Liberation loads (hook in save_manager.sqf, branch without a save)
+        class markNewCampaign {};
+    };
+
+    class reputation {
+        file = "coin\functions\reputation";
+
+        // Server: start reputation of a new campaign, after Liberation has loaded its save (ticket 5.7, ADR 0009)
+        class initReputation {};
     };
 
     class nests {

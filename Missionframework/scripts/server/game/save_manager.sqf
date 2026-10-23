@@ -504,6 +504,7 @@ if (!isNil "_saveData") then {
     ["Saved crates placed", "SAVE"] call KPLIB_fnc_log;
 } else {
     ["Save nil", "SAVE"] call KPLIB_fnc_log;
+    [] call COIN_fnc_markNewCampaign; // COIN: no save = new campaign, COIN_fnc_initReputation sets the start reputation (ADR 0009)
 };
 
 publicVariable "stats_civilian_vehicles_seized";
