@@ -68,6 +68,8 @@ _driver enableAI "PATH";
 private _id = COIN_vbiedNextId;
 COIN_vbiedNextId = _id + 1;
 _vehicle setVariable ["COIN_vbiedId", _id];
+// A COIN vehicle costs no reputation when the army destroys it (COIN_fnc_civVehicleDestroyed)
+_vehicle setVariable ["COIN_isCoinVehicle", true];
 _vehicle setVariable ["COIN_vbiedDriver", _driver];
 // A destroyed vehicle sets the charge off, even long after the driver stopped or died
 _vehicle addEventHandler ["Killed", {

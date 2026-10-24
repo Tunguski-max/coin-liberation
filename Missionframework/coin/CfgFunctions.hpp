@@ -280,6 +280,9 @@ class COIN {
 
         // Server: reputation for a prisoner killed by the army, called from the kill manager (hook, ticket 5.1)
         class captiveKilled {};
+
+        // Server: reputation for a civilian vehicle destroyed by the army, called from the kill manager (hook, ticket 5.1)
+        class civVehicleDestroyed {};
     };
 
     class nests {

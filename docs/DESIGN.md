@@ -465,7 +465,7 @@ immer −10: bei Kämpfern, die nur mit ACE gefesselt sind oder sich ergeben, zi
 Liberations Ergeben-Skript zieht Liberation schon −5 ab (Zivilisten-Gruppe, auch an der FOB), wir −5 dazu; im Squad zieht
 Liberation nichts, wir −10. Kämpfer in Zivil (Auslöser, VBIED-Fahrer, Attentäter) kosten nie Ruf (ADR 0022).
 ⁴ Liberation zählt das nur in der Statistik. Fahrzeuge, die COIN erzeugt (VBIED, Kurier, Export, Waffentransport),
-kosten keinen Ruf.
+kosten keinen Ruf, beschlagnahmte Fahrzeuge auch nicht (dafür zieht Liberation schon −2).
 
 Nicht umgesetzt (2026-10-23): „Grundloses Schießen nahe Zivilisten“, „Zivilist verletzt“ und ein eigener Bonus für
 geholfene Zivilisten. Liberation bestraft getötete Zivilisten schon, Verletzungen unter ACE und „grundlos“ lassen sich
