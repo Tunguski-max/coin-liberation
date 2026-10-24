@@ -87,6 +87,9 @@ class COIN {
         // Fighters among given objects who can still fight (tickets 2.10, 4.5): a camp or an ambush is cleared when none is left
         class getCapableFighters {};
 
+        // Is this unit a prisoner (militia fighter, handcuffed or surrendered)? (tickets 3.8, 5.1)
+        class isPrisoner {};
+
         // Reputation band of the population: "low", "mid" or "high" (ticket 3.4, ADR 0009)
         class getReputationBand {};
 
@@ -274,6 +277,9 @@ class COIN {
 
         // Server: registers the reputation changes that follow a COIN event, e.g. nest destroyed (ticket 5.1)
         class initReputationEvents {};
+
+        // Server: reputation for a prisoner killed by the army, called from the kill manager (hook, ticket 5.1)
+        class captiveKilled {};
     };
 
     class nests {

@@ -8,6 +8,9 @@
         value of 0 switches it off (no handler is registered).
         - Nest destroyed (server event COIN_nestDestroyed, raised once per nest by COIN_fnc_destroyNest, any nest type):
           COIN_repNestDestroyed.
+        - Prisoner (ACE: handcuffed or surrendered): remembers the state of a living unit in COIN_prisonerState, because ACE
+          clears isHandcuffed when the unit dies and COIN_fnc_captiveKilled needs it then. Only while COIN_repCaptiveKilled
+          is not 0.
         Further events of block 5A (tickets 5.1 to 5.8) are added here. Called once at the server start, before
         any nest can be destroyed. Server only.
 
@@ -30,6 +33,17 @@ if (COIN_repNestDestroyed != 0) then {
     _on = _on + 1;
 };
 
-diag_log format ["[COIN] reputation: %1 event handler(s) registered (nest destroyed %2)", _on, COIN_repNestDestroyed];
+if (COIN_repCaptiveKilled != 0) then {
+    // Global event of ACE after every change, [unit, state, reason, caller]; only the server needs the memory
+    ["ace_captiveStatusChanged", {
+        params ["_unit"];
+        if (alive _unit) then {
+            _unit setVariable ["COIN_prisonerState", (_unit getVariable ["ace_captives_isHandcuffed", false]) || {_unit getVariable ["ace_captives_isSurrendering", false]}];
+        };
+    }] call CBA_fnc_addEventHandler;
+    _on = _on + 1;
+};
+
+diag_log format ["[COIN] reputation: %1 event handler(s) registered (nest destroyed %2, prisoner killed %3)", _on, COIN_repNestDestroyed, COIN_repCaptiveKilled];
 
 _on

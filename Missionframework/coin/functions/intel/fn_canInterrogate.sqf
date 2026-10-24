@@ -39,7 +39,6 @@ if (!COIN_enableInterrogation || {isNull _prisoner} || {isNull _asker}) exitWith
 && {(vehicle _prisoner) isEqualTo _prisoner}
 && {lifeState _prisoner != "INCAPACITATED"}
 && {!(_prisoner getVariable ["ACE_isUnconscious", false])}
-&& {(toLower typeOf _prisoner) in KPLIB_o_inf_classes || {typeOf _prisoner in militia_squad}}
-&& {_prisoner getVariable ["ace_captives_isHandcuffed", false] || {_prisoner getVariable ["ace_captives_isSurrendering", false]}}
+&& {[_prisoner] call COIN_fnc_isPrisoner}
 && {!(_prisoner getVariable ["COIN_interrogated", false])}
 && {!(_prisoner getVariable ["COIN_talking", false])}

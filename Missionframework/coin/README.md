@@ -39,6 +39,7 @@ coin/
     ├── common/
     │   ├── fn_findByType.sqf           COIN_fnc_findByType: Zeile einer Config-Tabelle nach Nest-Typ
     │   ├── fn_getCapableFighters.sqf   COIN_fnc_getCapableFighters: Kämpfer unter gegebenen Objekten, die noch kämpfen können (Camp und Hinterhalt ausgehoben, Tickets 2.10, 4.5)
+    │   ├── fn_isPrisoner.sqf           COIN_fnc_isPrisoner: Gefangener? Miliz-Kämpfer, gefesselt, ergeben oder per CAPTURE im Squad (Ticket 3.8, 5.1)
     │   ├── fn_getReputationBand.sqf    COIN_fnc_getReputationBand: Ruf-Band „low“, „mid“ oder „high“ (Ticket 3.4)
     │   ├── fn_addToCurators.sqf        COIN_fnc_addToCurators: alles, was COIN erzeugt, für jeden Zeus bearbeitbar
     │   ├── fn_curatorSync.sqf          COIN_fnc_curatorSync: Server-Schleife, auch für später erzeugte Kuratoren
@@ -99,7 +100,8 @@ coin/
     ├── reputation/
     │   ├── fn_initReputation.sqf       COIN_fnc_initReputation: Server, Start-Ruf einer neuen Kampagne nach dem Laden (Ticket 5.7)
     │   ├── fn_changeReputation.sqf     COIN_fnc_changeReputation: Server, die eine Stelle für Ruf-Änderungen (Logzeile, im Debug Systemchat), Ticket 5.1
-    │   └── fn_initReputationEvents.sqf COIN_fnc_initReputationEvents: Server, Ruf-Änderungen nach COIN-Ereignissen, z. B. Nest zerstört (Ticket 5.1)
+    │   ├── fn_initReputationEvents.sqf COIN_fnc_initReputationEvents: Server, Ruf-Änderungen nach COIN-Ereignissen, z. B. Nest zerstört (Ticket 5.1)
+    │   └── fn_captiveKilled.sqf        COIN_fnc_captiveKilled: Server, Ruf für einen von der Armee getöteten Gefangenen, aufgerufen vom Kill-Manager (Hook 25)
     ├── threats/
     │   ├── fn_initIEDs.sqf             COIN_fnc_initIEDs: Server, jede aktive Werkstatt legt ihr IED-Budget, startet die Schleife (Ticket 4.1a)
     │   ├── fn_createIED.sqf            COIN_fnc_createIED: Server, legt ein IED für eine Werkstatt (Mine, Zeus, COIN_ieds)

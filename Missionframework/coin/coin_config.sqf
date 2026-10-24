@@ -960,7 +960,7 @@ COIN_moodThresholds         = [-25, 0, 25, 50]; // Mood (ticket 5.3): below the 
 
 COIN_repIEDDefused          = 2;        // Ticket 4.2a: a real IED defused (not a decoy, not one blown up), 0 = off
 COIN_repNestDestroyed       = 5;        // Any nest type, once per nest (ticket 5.1), 0 = off
-COIN_repCaptiveKilled       = -10;      // Total for a prisoner; for Liberation's prisoners (civilian group) Liberation already takes -5, we take the rest
+COIN_repCaptiveKilled       = -10;      // Ticket 5.1, 0 = off. Total for a prisoner; for Liberation's prisoners (civilian group) Liberation already takes -5, we take the rest
 COIN_repCivVehicleDestroyed = -2;       // Destroyed by the army; vehicles COIN made (VBIED, task vehicles) do not count
 COIN_repBuildingDestroyed   = -3;       // Per house destroyed by the army in a liberated town; none while militia is inside the town radius
 
