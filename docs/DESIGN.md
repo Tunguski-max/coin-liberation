@@ -460,9 +460,10 @@ Festgelegt beim Grilling für Phase 5 (2026-10-23, ADR 0023). Werte sind Startwe
 die Armee es zerstört hat (Spieler, KI, Fahrzeug, Mörser, Hubschrauber). Keine Obergrenze. Kein Abzug, solange
 Miliz-Einheiten im Ortschaftsradius sind (Gegenangriff): Wer die Ortschaft verteidigt, wird nicht bestraft. Was die Miliz
 zerstört (IED, VBIED, Attentäter), kostet nichts.
-³ Gefangener im Sinne des Glossars: gefesselt oder ergeben. Insgesamt immer −10: bei Kämpfern, die nur mit ACE gefesselt
-sind oder sich ergeben, ziehen wir −10 ab; bei Gefangenen aus Liberations Ergeben-Skript zieht Liberation schon −5 ab
-(Zivilisten-Gruppe), wir −5 dazu. Kämpfer in Zivil (Auslöser, VBIED-Fahrer, Attentäter) kosten nie Ruf (ADR 0022).
+³ Gefangener im Sinne des Glossars: gefesselt, ergeben oder mit Liberations CAPTURE in den Squad aufgenommen. Insgesamt
+immer −10: bei Kämpfern, die nur mit ACE gefesselt sind oder sich ergeben, ziehen wir −10 ab; bei Gefangenen aus
+Liberations Ergeben-Skript zieht Liberation schon −5 ab (Zivilisten-Gruppe, auch an der FOB), wir −5 dazu; im Squad zieht
+Liberation nichts, wir −10. Kämpfer in Zivil (Auslöser, VBIED-Fahrer, Attentäter) kosten nie Ruf (ADR 0022).
 ⁴ Liberation zählt das nur in der Statistik. Fahrzeuge, die COIN erzeugt (VBIED, Kurier, Export, Waffentransport),
 kosten keinen Ruf.
 

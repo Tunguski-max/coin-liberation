@@ -5,11 +5,13 @@
     Description:
         Reputation for a prisoner killed by the army (ticket 5.1, DESIGN 8, ADR 0023). Called from Liberation's kill
         manager (hook in kill_manager.sqf) with the killer it has worked out, ACE included. A prisoner is a militia
-        fighter who is handcuffed or has surrendered (COIN_fnc_isPrisoner), a fighter in civilian clothes never is.
+        fighter who is handcuffed, has surrendered or was taken along with Liberation's CAPTURE (COIN_fnc_isPrisoner), a
+        fighter in civilian clothes never is.
         Only the army counts as killer (side of the killer, like Liberation's own rules); a prisoner shot by the militia
         costs nothing. The total is always COIN_repCaptiveKilled: a prisoner of Liberation's surrender script is in a
         civilian group and Liberation takes KP_liberation_cr_kill_penalty for him already, we take the rest. One that is
-        only handcuffed or surrendered with ACE (militia group) costs the whole amount from us.
+        only handcuffed or surrendered with ACE (militia group) costs the whole amount from us, and so does one taken
+        along into the squad (BLUFOR group, Liberation takes nothing for a squad member).
         Needs ACE (without it Liberation's prisoners carry no ACE state and only Liberation's part is taken).
         Config value 0 switches it off. Server only.
 

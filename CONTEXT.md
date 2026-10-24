@@ -72,7 +72,7 @@ Code-Bezeichner stehen in Klammern.
 | **Gespräch** | Die Fragen des Dolmetschers an Zivilisten und Gefangene. Je Frage ein Eintrag im normalen Aktionsmenü (Scrollrad), nur für den Dolmetscher (z. B. „Nach der Miliz fragen“, „Verhören“). |
 | **Befragung** (`questioning`) | Gespräch des Dolmetschers mit einem Zivilisten. _Nicht:_ bei Gefangenen, das ist ein Verhör. |
 | **Verhör** (`interrogation`) | Gespräch mit einem Gefangenen. _Nicht:_ „Befragung“. |
-| **Gefangener** (`prisoner`) | Kämpfer der Miliz, der sich ergeben hat oder gefesselt ist. Gilt nicht als Zivilist, auch wenn Liberation ihn intern so führt. |
+| **Gefangener** (`prisoner`) | Kämpfer der Miliz, der sich ergeben hat, gefesselt ist oder mit Liberations Aktion CAPTURE in den Squad aufgenommen wurde. Gilt nicht als Zivilist, auch wenn Liberation ihn intern so führt. Läuft er aus dem Squad weg, ist er wieder ein normaler Gegner. |
 | **Intel** | Hinweis auf ein Nest oder eine Bedrohung (Camp, ab Phase 4 auch IED und Hinterhalt). Erscheint als Kartenmarker. |
 | **Intel-Punkte** (`resources_intel`) | Liberation-Ressource, mit der Nebenmissionen bezahlt werden. Nicht mit Intel verwechseln. |
 | **Intel-Stufen** | Gerücht (groß) → Hinweis (mittel) → Konkreter Tipp (klein). Dazu: Warnung, Lüge. |
