@@ -46,7 +46,10 @@ _civ disableAI "PATH";
         !alive _civ || {time >= (_civ getVariable ["COIN_holdEnd", 0])}
     };
     if (alive _civ) then {
-        _civ enableAI "PATH";
+        // The elder of a town stands where he is put (ticket 5.9a)
+        if !(_civ getVariable ["COIN_elder", false]) then {
+            _civ enableAI "PATH";
+        };
         _civ doWatch objNull;
     };
     if (COIN_debug) then {

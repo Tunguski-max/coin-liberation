@@ -257,6 +257,12 @@ class COIN {
 
         // Server: spawns the civilians of one town, like Liberation's own, handed to Zeus
         class spawnPopulation {};
+
+        // Server: the place where the elder of a town stands, at a mosque or the largest house near the centre (ticket 5.9a)
+        class findElderSpot {};
+
+        // Server: the elder of a town, dressed, named, standing at his place, handed to Zeus (ticket 5.9a)
+        class spawnElder {};
     };
 
     class persistence {

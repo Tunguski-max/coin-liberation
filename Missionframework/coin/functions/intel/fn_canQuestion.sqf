@@ -14,13 +14,14 @@
         is not one). Prisoners are interrogated instead (ticket 3.8). The asker must be an interpreter, alive, conscious
         and close enough.
         The question "How do you feel about us?" (ticket 5.3) has the same rules but may be asked of a civilian who
-        was questioned before: it passes _again.
+        was questioned before and of the elder of a town (ticket 5.9a, COIN_elder: nobody asks him about the militia):
+        it passes _mood.
 
     Parameter(s):
         _civ   - Civilian [OBJECT, defaults to objNull]
         _asker - Unit that wants to question him [OBJECT, defaults to objNull]
         _range - Greatest distance between the two in m [NUMBER, defaults to COIN_talkRange]
-        _again - A civilian who was questioned before is allowed too [BOOL, defaults to false]
+        _mood  - It is the question about the mood, so a civilian who was questioned before and the elder are allowed [BOOL, defaults to false]
 
     Returns:
         Questioning is possible [BOOL]
@@ -30,7 +31,7 @@ params [
     ["_civ", objNull, [objNull]],
     ["_asker", objNull, [objNull]],
     ["_range", COIN_talkRange, [0]],
-    ["_again", false, [false]]
+    ["_mood", false, [false]]
 ];
 
 if (!COIN_enableQuestioning || {isNull _civ} || {isNull _asker}) exitWith {false};
@@ -52,5 +53,5 @@ if (!COIN_enableQuestioning || {isNull _civ} || {isNull _asker}) exitWith {false
 && {!(_civ getVariable ["ace_captives_isHandcuffed", false])}
 && {!(_civ getVariable ["ace_captives_isSurrendering", false])}
 && {!(_civ getVariable ["COIN_civilianFighter", false])}
-&& {_again || {!(_civ getVariable ["COIN_questioned", false])}}
+&& {_mood || {!(_civ getVariable ["COIN_questioned", false]) && {!(_civ getVariable ["COIN_elder", false])}}}
 && {!(_civ getVariable ["COIN_talking", false])}

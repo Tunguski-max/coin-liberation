@@ -98,6 +98,22 @@ COIN_populationSpotClearance = 2;       // m a civilian keeps from objects when 
 COIN_populationMaxGradient  = 0.5;      // Steepest ground he is placed on (BIS_fnc_findSafePos)
 
 // ---------------------------------------------------------------------------
+// The elder of a liberated town (Phase 5, ticket 5.9a, DESIGN 8): one per town, part of the own population above
+// (spawns and goes with it, counts against COIN_maxCivilians), stands at a building near the centre
+// ---------------------------------------------------------------------------
+COIN_enableElder           = true;     // Off: no elders (and nothing for them to offer later)
+COIN_elderAbsenceMinutes    = 60;       // min a town has no elder after his death; the first visit after that brings a new one (not saved)
+COIN_elderSearchRadius      = 150;      // m around the centre of the town where his building is searched
+COIN_elderBuildingKeywords  = ["mosque", "masjid"]; // A building whose class name contains one of these is preferred, else the house with the largest ground area
+COIN_elderMinBuildingArea   = 30;       // m2: smaller buildings (sheds, wall pieces) do not count
+COIN_elderMinBuildingHeight = 2.5;      // m: lower ones do not either
+COIN_elderSpotDistance      = [2, 6];   // [min, max] m he stands from the wall of the building
+COIN_elderNameFormat        = "Ältester %1"; // %1 is the name of the town
+// Clothes, one of each is picked; a class of a mod that is not loaded is left out (no error, he keeps his civilian look)
+COIN_elderUniforms          = ["LOP_U_TAK_Civ_Fatigue_01", "LOP_U_TAK_Civ_Fatigue_02"];
+COIN_elderHeadgear          = ["LOP_H_Turban"];
+
+// ---------------------------------------------------------------------------
 // Militia network (Phase 2) - whole map is the area of operations (ADR 0016)
 // [type, count, influence radius in m]
 // ---------------------------------------------------------------------------
