@@ -36,7 +36,7 @@ if (isNull _elder) exitWith {
 
 _elder setVariable ["COIN_elder", true, true];
 _elder setDir _dir;
-_elder setPosATL _pos;
+_elder setPosATL [_pos select 0, _pos select 1, 0];
 _elder disableAI "PATH";
 
 // Clothes from the config, a class without the mod is left out
