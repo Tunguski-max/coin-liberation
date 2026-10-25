@@ -284,6 +284,9 @@ class COIN {
         // The mood of the population in five steps from the reputation, a key of COIN_moodAnswers (ticket 5.3)
         class getMood {};
 
+        // Server loop: sets how often Liberation's informant shows up by the reputation, via KP_liberation_civinfo_* (ticket 5.2)
+        class informantFrequencyLoop {};
+
         // Server: registers the reputation changes that follow a COIN event, e.g. nest destroyed (ticket 5.1)
         class initReputationEvents {};
 

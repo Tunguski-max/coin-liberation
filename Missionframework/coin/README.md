@@ -103,6 +103,7 @@ coin/
     │   ├── fn_initReputation.sqf       COIN_fnc_initReputation: Server, Start-Ruf einer neuen Kampagne nach dem Laden (Ticket 5.7)
     │   ├── fn_changeReputation.sqf     COIN_fnc_changeReputation: Server, die eine Stelle für Ruf-Änderungen (Logzeile, im Debug Systemchat), Ticket 5.1
     │   ├── fn_getMood.sqf              COIN_fnc_getMood: die Stimmung in fünf Stufen aus dem Ruf (Ticket 5.3)
+    │   ├── fn_informantFrequencyLoop.sqf COIN_fnc_informantFrequencyLoop: Server-Schleife, Häufigkeit von Liberations Informanten nach Ruf über KP_liberation_civinfo_* (Ticket 5.2, kein Hook)
     │   ├── fn_initReputationEvents.sqf COIN_fnc_initReputationEvents: Server, Ruf-Änderungen nach COIN-Ereignissen, z. B. Nest zerstört (Ticket 5.1)
     │   ├── fn_captiveKilled.sqf        COIN_fnc_captiveKilled: Server, Ruf für einen von der Armee getöteten Gefangenen, aufgerufen vom Kill-Manager (Hook 25)
     │   ├── fn_civVehicleDestroyed.sqf  COIN_fnc_civVehicleDestroyed: Server, Ruf für ein von der Armee zerstörtes Zivilfahrzeug, aufgerufen vom Kill-Manager (Hook 25)

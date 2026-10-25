@@ -50,7 +50,7 @@ Weniger Bedrohungen, schwächere Miliz, Ruf steigt → bessere Auskunft
 | | Gefangener getötet −10 (#101) | ✅ |
 | | Zivilfahrzeug zerstört −2, Beschlagnahmen ohne Abzug (#102) | ✅ |
 | | Stimmung „Wie steht ihr zu uns?“ (#105) | ✔ implementiert, ungetestet |
-| | Informanten-Häufigkeit | 📋 (Phase 5, Block 5A) |
+| | Informanten-Häufigkeit nach Ruf (#106) | ✔ implementiert, ungetestet |
 | Ältester, Hilfsaufträge, Nebenmissionen | Ansprechpartner in befreiten Ortschaften | 📋 (Phase 5, Block 5B) |
 | Zugriffsaufträge | Aufträge, die aus einer Befragung oder einem Verhör entstehen | 📋 (Phase 5, Block 5C) |
 | Gefälligkeit „Verstärkung“ | Lokale Kämpfer bei sehr hohem Ruf | 📋 (Phase 5, Block 5D) |
@@ -288,7 +288,7 @@ Ruf −20 (niedrig), der Dolmetscher befragt einen Zivilisten in einer Ortschaft
 |---|---|---|---|
 | **Befragung** (Zivilist) | Dolmetscher fragt einen befragbaren Zivilisten, Abschnitt 3 | alle Arten nach Ruf-Band | ✅ |
 | **Verhör** (Gefangener) | Dolmetscher verhört einen Gefangenen, Abschnitt 4 | 1–2 Ergebnisse, Tipps bevorzugt, nie vom Ruf abhängig | ✅ |
-| **Informant** (Liberation) | Ab **Ruf +25** meldet sich gelegentlich ein Zivilist, der zur FOB gebracht werden muss | **immer ein Konkreter Tipp**, nie eine Lüge, zählt als wahrer Treffer; zum aktiven Nest, das der Ortschaft des Informanten am nächsten liegt und noch keinen Kreis hat (sonst das nächste); dazu Liberations Intel-Punkte und Ruf +2 | ✅ (Tipp), 📋 Häufigkeit nach Ruf (5.2) |
+| **Informant** (Liberation) | Ab **Ruf +25** meldet sich gelegentlich ein Zivilist, der zur FOB gebracht werden muss | **immer ein Konkreter Tipp**, nie eine Lüge, zählt als wahrer Treffer; zum aktiven Nest, das der Ortschaft des Informanten am nächsten liegt und noch keinen Kreis hat (sonst das nächste); dazu Liberations Intel-Punkte und Ruf +2 | ✅ (Tipp), ✔ Häufigkeit nach Ruf (5.2) ungetestet |
 | **Zugriffsauftrag „Kurier abfangen“** | Erfolg: Auto gestoppt, „Dokumente durchsuchen“ | Konkreter Tipp zum Nest des Kuriers | 📋 (5.14) |
 | **Zugriffsauftrag „Anführer festnehmen“** | Erfolg: Anführer gefesselt oder ergeben | Readiness −10; sein **Verhör** bringt als erstes Ergebnis immer einen Konkreten Tipp zum Kommandoposten | 📋 (5.15) |
 | **Zugriffsauftrag „Waffentransport abfangen“** | Erfolg: Lkw zerstört oder gestoppt | Konkreter Tipp zum Ziel-Lager, Readiness −10 | 📋 (5.16) |
@@ -319,7 +319,7 @@ Die Intel-Marker gelten für **die ganze Seite** (alle Spieler sehen sie), auch 
 |---|---|---|
 | **Ruf-Änderungen** | Neue Ruf-Quellen: Nest zerstört +5, Gefangener getötet −10, Zivilfahrzeug zerstört −2. Beschlagnahmen und zerstörte Häuser kosten nichts (auch Liberations Abzug bei der Einnahme ist aus). Der Ruf verschiebt die Gewichte aus 5.2 | 5.1 ✅ (Nest, Gefangener, Zivilfahrzeug); 5.8 verworfen |
 | **Stimmung** | „Wie steht ihr zu uns?“ beim Zivilisten (Abschnitt 3.4), beim Ältesten mit 5.9a | 5.3 ✔ ungetestet |
-| **Informanten-Häufigkeit** | Unter +25 keine, ab +25 Liberations Werte (alle 90–180 min ein Versuch, 75 %), ab +50 alle 45–90 min mit 100 % | 5.2 📋 |
+| **Informanten-Häufigkeit** | Unter +25 keine, ab +25 Liberations Werte (alle 90–180 min ein Versuch, 75 %), ab +50 alle 45–90 min mit 100 % | 5.2 ✔ ungetestet. Ein Server-Loop setzt Liberations `KP_liberation_civinfo_*`, es gilt ab dem nächsten Intervall, das Liberation würfelt (`COIN_fnc_informantFrequencyLoop`, Schalter `COIN_enableInformantFrequency`) |
 | **Ältester** | Pro befreiter Ortschaft einer, nicht zur Miliz befragbar; getötet → 60 min kein Ältester | 5.9a 📋 |
 | **Dialog des Ältesten** | „Können wir helfen?“: Hilfsaufträge, Nebenmissionen (Liberations Konvoi-Überfall und Rettung, bezahlt mit Intel-Punkten), Gefälligkeit | 5.9b, 5.10–5.12, 5.17 📋 |
 | **Zugriffsaufträge** | Mit **15 %** zusätzlich bei einer Befragung (Ergebnis außer „Ich weiß nichts“) oder einem Verhör, **nur ab Ruf +25**, höchstens einer gleichzeitig. Der Sprecher erzählt davon, ein Dialog mit einem Eintrag öffnet sich, ohne „Annehmen“ ist die Gelegenheit weg. Beginn 15–25 min nach dem Annehmen, Fenster 30–60 min | 5.13 📋 |
@@ -347,7 +347,7 @@ Alles in `Missionframework/coin/coin_config.sqf`. Wichtige Namen:
 
 | Thema | Variablen |
 |---|---|
-| Ein/Aus | `COIN_enableQuestioning`, `COIN_enableInterrogation`, `COIN_enableMood`, `COIN_enableLies`, `COIN_enableWarnings`, `COIN_enableIEDWarnings`, `COIN_enableAmbushWarnings`, `COIN_enableUnsafeRefusal`, `COIN_enableCooldown`, `COIN_enableInformantTip`, `COIN_enablePopulation` |
+| Ein/Aus | `COIN_enableQuestioning`, `COIN_enableInterrogation`, `COIN_enableMood`, `COIN_enableInformantFrequency`, `COIN_enableLies`, `COIN_enableWarnings`, `COIN_enableIEDWarnings`, `COIN_enableAmbushWarnings`, `COIN_enableUnsafeRefusal`, `COIN_enableCooldown`, `COIN_enableInformantTip`, `COIN_enablePopulation` |
 | Reichweiten und Zeiten | `COIN_talkRange` (5 m), `COIN_talkHoldSeconds` (30 s), `COIN_questionDelay` ([1, 2] s), `COIN_answerReadSeconds`, `COIN_unsafeRadius` (100 m), `COIN_questionCooldown` (300 s), `COIN_intelNestRange` (4000 m) |
 | Kreise | `COIN_intelRadiusRumor` (600), `COIN_intelRadiusHint` (300), `COIN_intelRadiusTip` (100), `COIN_intelRadiusMin` (50), `COIN_triangulationFactor` (0,5), `COIN_intelCenterOffset` ([0,2; 0,8]) |
 | Gewichte | `COIN_intelWeightsLow` / `Mid` / `High`, `COIN_intelWeightsByBand`, `COIN_interrogationWeights`, `COIN_interrogationSecondChance` (0,5) |

@@ -31,6 +31,7 @@ COIN_enableVehicleSeizure    = true;     // Phase 5, ticket 5.1: getting into a 
 COIN_enableInformantTip     = true;     // Phase 3, ticket 3.10: off = Liberation's informant gives only his own reward, no tip (needs COIN_enableNests and COIN_enableQuestioning)
 COIN_enableInterrogation    = true;     // Phase 3, ticket 3.8: off = no entry "Interrogate" at prisoners (needs COIN_enableQuestioning, its loop finds the prisoner)
 COIN_enableMood             = true;     // Phase 5, ticket 5.3: off = no entry "How do you feel about us?" (needs COIN_enableQuestioning, its loop finds the civilian)
+COIN_enableInformantFrequency = true;   // Phase 5, ticket 5.2: off = Liberation's informant values stay (90-180 min, 75 %), whatever the reputation
 COIN_enableIEDs             = true;     // Phase 4
 COIN_enableVBIEDs           = true;     // Phase 4
 COIN_enableSuicideBombers   = true;     // Phase 4
@@ -1044,10 +1045,11 @@ COIN_repCaptiveKilled       = -10;      // Ticket 5.1, 0 = off. Total for a pris
 COIN_repCivVehicleSeized    = 0;        // Ticket 5.1: reputation for seizing a civilian vehicle (getting into it). Liberation means -2 (KP_liberation_cr_vehicle_penalty), COIN sets it to this value. A seized vehicle is ours: destroying it costs nothing
 COIN_repCivVehicleDestroyed = -2;       // Ticket 5.1, 0 = off. Destroyed by the army; vehicles COIN made (COIN_isCoinVehicle: VBIED, garage vehicle, later task vehicles) and seized ones do not count
 
-// Informants (ticket 5.2): Liberation's KP_liberation_civinfo_* by reputation; below COIN_repBandHigh Liberation sends none
+// Informants (ticket 5.2): Liberation's KP_liberation_civinfo_* by reputation; below COIN_repBandHigh Liberation sends none, from COIN_repBandHigh its values, from COIN_informantHighRep the faster ones
 COIN_informantHighRep       = 50;       // From here the faster values apply
 COIN_informantFastMinMax    = [2700, 5400]; // [min, max] s between two tries from COIN_informantHighRep (Liberation: 5400, 10800)
 COIN_informantFastChance    = 100;      // Chance 0-100 from COIN_informantHighRep (Liberation: 75)
+COIN_informantCheckSeconds  = 15;       // s between two looks at the reputation to pick the stage
 
 // ---------------------------------------------------------------------------
 // Favors at very high reputation (Phase 5, E12, ADR 0023): the only favor is the reinforcement
