@@ -53,11 +53,16 @@ if (_offer isEqualTo [] || {!((_offer select 0) select 2)}) exitWith {
 };
 
 private _sector = _elder getVariable ["COIN_sector", ""];
+if (_sector isEqualTo "") exitWith {
+    diag_log format ["[COIN] elder: offer %1 refused, the elder %2 has no town", _id, name _elder];
+    false
+};
 // Where the elder stands; the town may be removed while the task runs, the place stays
 private _pos = (COIN_elderSpots getOrDefault [_sector, [getPosATL _elder]]) select 0;
 
 // Registered before it starts, so a second acceptance in the same moment finds the town busy
-private _taskId = format ["COIN_aid_%1", _sector];
+COIN_aidNextId = COIN_aidNextId + 1;
+private _taskId = format ["COIN_aid_%1", COIN_aidNextId];
 private _endTime = time + (COIN_aidTaskTimeoutMin * 60);
 COIN_aidActive set [_sector, [_id, _taskId, _endTime]];
 

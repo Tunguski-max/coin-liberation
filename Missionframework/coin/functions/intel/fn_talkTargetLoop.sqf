@@ -35,15 +35,17 @@ while {COIN_enableQuestioning} do {
         if ([_seen, player] call COIN_fnc_canQuestion) then {
             _target = _seen;
         };
-        // The mood may be asked of a civilian who was questioned before (ticket 5.3)
-        if (COIN_enableMood && {[_seen, player, COIN_talkRange, true] call COIN_fnc_canQuestion}) then {
-            _moodTarget = _seen;
-            // The same civilian may be asked where the elder is, unless he is the elder (ticket 5.9a)
+        // The questions that may be asked of a civilian who was questioned before: the mood (ticket 5.3), where the
+        // elder is (ticket 5.9a, not of the elder himself) and whether they can help (ticket 5.9b, only of the elder).
+        // Each has its own switch
+        if ([_seen, player, COIN_talkRange, true] call COIN_fnc_canQuestion) then {
             private _isElder = _seen getVariable ["COIN_elder", false];
+            if (COIN_enableMood) then {
+                _moodTarget = _seen;
+            };
             if (COIN_enableElderLocate && {!_isElder}) then {
                 _locateTarget = _seen;
             };
-            // The elder himself is asked whether they can help (ticket 5.9b)
             if (COIN_enableAidTasks && {_isElder}) then {
                 _helpTarget = _seen;
             };
@@ -59,7 +61,10 @@ while {COIN_enableQuestioning} do {
     COIN_helpTarget = _helpTarget;
 
     // Whoever may be asked something stops and watches him once he is in the sights
-    private _held = [_moodTarget, _target] select (isNull _moodTarget);
+    private _held = _target;
+    {
+        if (!isNull _x) exitWith {_held = _x};
+    } forEach [_moodTarget, _locateTarget, _helpTarget];
     if !(_held isEqualTo _lastHeld) then {
         _lastHeld = _held;
         if (!isNull _held) then {

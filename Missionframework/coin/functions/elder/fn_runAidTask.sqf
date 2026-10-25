@@ -61,7 +61,7 @@ while {_result isEqualTo ""} do {
             && {alive _x}
             && {isNull attachedTo _x}
             && {isNull objectParent _x}
-            && {((getPosATL _x) select 2) < 1.5}
+            && {((getPosATL _x) select 2) < COIN_aidSupplyMaxHeight}
             && {(_x getVariable ["KP_liberation_crate_value", 0]) >= COIN_aidSupplyMinValue}
         };
         if (_crates isNotEqualTo []) then {

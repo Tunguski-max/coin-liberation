@@ -18,7 +18,7 @@
         _active - Aid tasks running now, all towns [NUMBER, defaults to 0]
 
     Returns:
-        The dialog was opened [BOOL]
+        The dialog was opened, or will be (the call is moved to the scheduler first) [BOOL]
 */
 
 params [
@@ -43,7 +43,6 @@ if (!createDialog "coin_elder_dialog") exitWith {
     diag_log "[COIN] elder: ERROR - the dialog coin_elder_dialog could not be opened";
     false
 };
-waitUntil {!isNull findDisplay 6843};
 private _display = findDisplay 6843;
 private _list = _display displayCtrl 101;
 private _text = _display displayCtrl 102;
@@ -94,7 +93,7 @@ while {dialog && {alive player} && {alive _elder} && {(player distance _elder) <
         } else {
             (_offer select 0) params ["", "", "_enabled", "_reasonKey", "_reasonValue"];
             private _row = [COIN_aidTaskTexts, _id] call COIN_fnc_findByType;
-            private _explanation = format [(_row select 2) select _index, COIN_aidTaskTimeoutMin, COIN_aidSupplyDistance];
+            private _explanation = format [(_row select 2) select _index, COIN_aidTaskTimeoutMin, COIN_aidSupplyDistance, COIN_aidSupplyMinValue];
             private _reason = "";
             private _shown = format ["<t color='#e0e0e0'>%1</t>", _explanation];
             if (!_enabled) then {

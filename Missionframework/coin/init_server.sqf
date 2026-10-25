@@ -105,6 +105,7 @@ if (COIN_enablePopulation) then {
 if (COIN_enableAidTasks) then {
     COIN_aidActive = createHashMap;
     COIN_aidCooldown = createHashMap;
+    COIN_aidNextId = 0;
     diag_log format ["[COIN] init: aid tasks on, at most %1 at the same time, %2 min limit, %3 min wait per town", COIN_aidTaskMaxActive, COIN_aidTaskTimeoutMin, COIN_aidTaskCooldownMin];
 } else {
     diag_log "[COIN] init: aid tasks off";

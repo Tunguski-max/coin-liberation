@@ -1128,6 +1128,7 @@ COIN_aidTaskTimeoutMin      = 60;       // Minutes to complete an accepted aid t
 COIN_repAidSupplies         = 5;        // Reputation for delivering a supply crate
 COIN_aidSupplyDistance      = 20;       // m from the elder the crate has to stand
 COIN_aidSupplyMinValue      = 100;      // Supplies a crate holds to count (a Liberation supply crate from a FOB holds 100)
+COIN_aidSupplyMaxHeight     = 1.5;      // m: the crate counts as standing on the ground up to this height above it (not carried, not hanging below a helicopter)
 COIN_aidCheckSeconds        = 5;        // s between two looks at a running aid task
 COIN_aidTaskEndShowSeconds  = 120;      // s a finished aid task stays in the task list
 COIN_aidTaskType            = "help";   // Icon of the task in the task list and on the map (BIS_fnc_taskCreate type)
@@ -1146,18 +1147,18 @@ COIN_elderSections = [
     ["aid", ["Hilfsaufträge", "Aid tasks"]]
 ];
 // Aid tasks: [id, [title German, English], [explanation German, English], [task text German, English]]
-// Explanation in the dialog: %1 = time limit in minutes, %2 = distance in m. Task text: %1 = town, %2 = minutes, %3 = distance in m.
+// Explanation in the dialog: %1 = time limit in minutes, %2 = distance in m, %3 = supplies of the crate. Task text: %1 = town, %2 = minutes, %3 = distance in m, %4 = supplies.
 // The reward is named roughly, without a number (the reputation is hidden).
 COIN_aidTaskTexts = [
     ["supplies",
         ["Hilfsgüter liefern", "Deliver supplies"],
         [
-            "Die Ortschaft braucht Nachschub.<br/><br/>Stellt eine Supply-Kiste mit 100 Supplies aus einer FOB am Boden ab, höchstens %2 m vom Ältesten entfernt. Die Kiste verschwindet dann. Jeder Spieler kann sie bringen.<br/><br/>Zeitlimit: %1 Minuten. Läuft die Zeit ab, ist der Auftrag gescheitert. Das kostet nichts.<br/><br/>Belohnung: Die Bevölkerung wird es euch danken.",
-            "The town needs supplies.<br/><br/>Put a supply crate with 100 supplies from a FOB on the ground, at most %2 m from the elder. The crate is then removed. Any player can bring it.<br/><br/>Time limit: %1 minutes. If the time runs out the task has failed. That costs nothing.<br/><br/>Reward: The population will be grateful."
+            "Die Ortschaft braucht Nachschub.<br/><br/>Stellt eine Supply-Kiste mit %3 Supplies aus einer FOB am Boden ab, höchstens %2 m vom Ältesten entfernt. Die Kiste verschwindet dann. Jeder Spieler kann sie bringen.<br/><br/>Zeitlimit: %1 Minuten. Läuft die Zeit ab, ist der Auftrag gescheitert. Das kostet nichts.<br/><br/>Belohnung: Die Bevölkerung wird es euch danken.",
+            "The town needs supplies.<br/><br/>Put a supply crate with %3 supplies from a FOB on the ground, at most %2 m from the elder. The crate is then removed. Any player can bring it.<br/><br/>Time limit: %1 minutes. If the time runs out the task has failed. That costs nothing.<br/><br/>Reward: The population will be grateful."
         ],
         [
-            "Stellt in %1 eine Supply-Kiste mit 100 Supplies am Boden ab, höchstens %3 m vom Ältesten entfernt. Zeitlimit: %2 Minuten.",
-            "Put a supply crate with 100 supplies on the ground in %1, at most %3 m from the elder. Time limit: %2 minutes."
+            "Stellt in %1 eine Supply-Kiste mit %4 Supplies am Boden ab, höchstens %3 m vom Ältesten entfernt. Zeitlimit: %2 Minuten.",
+            "Put a supply crate with %4 supplies on the ground in %1, at most %3 m from the elder. Time limit: %2 minutes."
         ]
     ]
 ];
