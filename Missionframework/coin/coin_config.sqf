@@ -852,9 +852,9 @@ COIN_triggermanMarkerColor  = "ColorPink";
 
 // VBIED (ticket 4.3, DESIGN 6): a civilian vehicle with a lone driver (fighter in civilian clothes) of an active garage
 COIN_vbiedBudgetPerGarage   = 1;        // VBIEDs one garage has under way at the same time
-COIN_vbiedCooldownMinutes   = 30;       // Minutes after a VBIED is used up (blown up, driver out, vehicle disabled, gone) until its garage sends the next. Not saved
-COIN_vbiedCheckInterval     = 300;      // s between two rolls of a garage that is ready (target in its influence radius: a FOB or a player on foot or in a vehicle)
-COIN_vbiedChance            = 0.25;     // Chance of a VBIED per roll (100 % for tests)
+COIN_vbiedCooldownMinutes   = 2;        // TEST (Ausgangswert 30)! Minutes after a VBIED is used up (blown up, driver out, vehicle disabled, gone) until its garage sends the next. Not saved
+COIN_vbiedCheckInterval     = 30;       // TEST (Ausgangswert 300)! s between two rolls of a garage that is ready (target in its influence radius: a FOB or a player on foot or in a vehicle)
+COIN_vbiedChance            = 1;        // TEST (Ausgangswert 0.25)! Chance of a VBIED per roll (100 % for tests)
 COIN_vbiedSpawnDistance     = [800, 1200]; // [min, max] m between the spawn point on a road and the target
 COIN_vbiedSpawnTries        = 60;       // Points tried for the spawn point; none fits: log line, the garage tries again at the next roll
 COIN_vbiedRoadSearchRadius  = 100;      // m around a tried point in which a road is looked for
