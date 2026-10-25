@@ -233,7 +233,7 @@ Vier Blöcke, nacheinander umgesetzt und getestet: 5A → 5B → 5C → 5D.
   setzt `KP_liberation_civinfo_*`, kein Hook). Intel-Gewichte und Attentäter nach Ruf-Band gibt es schon (3.4, 4.4)
 
 **5B Ältester und Hilfsaufträge (DESIGN 8, 8.2)** – Reihenfolge: 5.9a, 5.9b, 5.10, 5.11, 5.12, 5.17
-- [ ] 5.9a Ältester in jeder befreiten Ortschaft (Teil der Bevölkerung, fester Platz am Ortskern, eigene Kleidung, Name
+- [ ] 5.9a (#107, umgesetzt, ungetestet) Ältester in jeder befreiten Ortschaft (Teil der Bevölkerung, fester Platz am Ortskern, eigene Kleidung, Name
   „Ältester …“, nicht nach der Miliz befragbar; getötet → 60 min kein Ältester)
 - [ ] 5.9b Dialog des Ältesten („Können wir helfen?“, nur Dolmetscher) nach Vorbild von Liberations Nebenmissions-Dialog:
   Abschnitte, graue Einträge mit Grund, „Kommt später wieder“ bei wartender Ortschaft, 1 Auftrag pro Ortschaft, 60 min

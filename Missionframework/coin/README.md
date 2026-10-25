@@ -56,8 +56,11 @@ coin/
     │   ├── fn_exportTerrainTemplate.sqf COIN_fnc_exportTerrainTemplate: Gelände-Template um den Richtungspfeil in die Zwischenablage
     │   └── fn_debugTerrainNest.sqf     COIN_fnc_debugTerrainNest: Gelände-Nest eines Typs vor dem Spieler, wie ein echtes
     ├── population/
-    │   ├── fn_populationLoop.sqf       COIN_fnc_populationLoop: Server-Schleife, eigene Zivilisten in befreiten Ortschaften bei Spielernähe, Budget COIN_maxCivilians (Ticket 3.7)
-    │   └── fn_spawnPopulation.sqf      COIN_fnc_spawnPopulation: die Zivilisten einer Ortschaft, wie Liberations, laufen im Ort umher
+    │   ├── fn_populationLoop.sqf       COIN_fnc_populationLoop: Server-Schleife, eigene Zivilisten in befreiten Ortschaften bei Spielernähe, Budget COIN_maxCivilians (Ticket 3.7), dazu der Älteste (Ticket 5.9a)
+    │   ├── fn_spawnPopulation.sqf      COIN_fnc_spawnPopulation: die Zivilisten einer Ortschaft, wie Liberations, laufen im Ort umher
+    │   ├── fn_findElderSpot.sqf        COIN_fnc_findElderSpot: Platz des Ältesten, Moschee oder größtes Haus nahe dem Ortskern (Ticket 5.9a)
+    │   ├── fn_spawnElder.sqf           COIN_fnc_spawnElder: der Älteste einer Ortschaft, eigene Kleidung, Name „Ältester …“, steht fest (Ticket 5.9a)
+    │   └── fn_markElder.sqf            COIN_fnc_markElder: Marker auf der Karte für den Ältesten, 5 min (Ticket 5.9a)
     ├── intel/
     │   ├── fn_initQuestioning.sqf      COIN_fnc_initQuestioning: Client, Dolmetscher-Slot erkennen, Aktionsmenü „Nach der Miliz fragen“ und „Verhören“ einrichten (Tickets 3.1, 3.8)
     │   ├── fn_addTalkAction.sqf        COIN_fnc_addTalkAction: Einträge im normalen Aktionsmenü (Scrollrad), nach jedem Respawn neu
@@ -94,7 +97,9 @@ coin/
     │   ├── fn_showSubtitle.sqf         COIN_fnc_showSubtitle: Client, Name und Sätze als Untertitel
     │   ├── fn_showAnswer.sqf           COIN_fnc_showAnswer: Client, Antwort des Zivilisten als Untertitel
     │   ├── fn_askMood.sqf              COIN_fnc_askMood: Server, „Wie steht ihr zu uns?“, die wahre Stimmung geht an den Dolmetscher (Ticket 5.3)
-    │   └── fn_showMood.sqf             COIN_fnc_showMood: Client, Stimmung als Untertitel
+    │   ├── fn_showMood.sqf             COIN_fnc_showMood: Client, Stimmung als Untertitel
+    │   ├── fn_askElder.sqf             COIN_fnc_askElder: Server, „Wo finde ich den Ältesten?“, der Älteste wird für Minuten markiert (Ticket 5.9a)
+    │   └── fn_showElderLocation.sqf    COIN_fnc_showElderLocation: Client, die Antwort als Untertitel
     ├── persistence/
     │   ├── fn_receiveSaveBlock.sqf     COIN_fnc_receiveSaveBlock: merkt sich Eintrag 22 beim Laden des Spielstands (Hook 18)
     │   ├── fn_getSaveBlock.sqf         COIN_fnc_getSaveBlock: baut Eintrag 22 beim Speichern, [COIN_saveVersion, Nester, Intel] (Hook 17)

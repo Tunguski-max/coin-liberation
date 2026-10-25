@@ -13,6 +13,10 @@
           room is written to the RPT once.
         They are removed when nobody was within COIN_despawnDistance for COIN_despawnDelay seconds, and at once when
         the town is no longer free (lost to the enemy or active again). The civilians are new at every visit.
+        Each town has one elder besides them (ticket 5.9a, COIN_enableElder, DESIGN 8): he spawns and goes with the others
+        and counts against the budget with them (all or none). He stands at the same place at every visit (found once per
+        town, COIN_fnc_findElderSpot, not saved). When he dies the town has no elder for COIN_elderAbsenceMinutes, a new
+        one comes with the first visit after that.
         Checked every COIN_spawnCheckInterval seconds as long as COIN_enablePopulation is true; switched off, all of
         them are removed. Started by init_server.sqf. Must be spawned.
 
@@ -45,12 +49,17 @@ diag_log format [
 private _spawned = createHashMap;
 // Sector -> number of civilians it waits to spawn (logged once), kept so the roll does not change every check
 private _waiting = createHashMap;
+// Sector -> [position, direction, building] where the elder stands, found at the first spawn and kept for the session
+private _elderSpots = createHashMap;
+// Sector -> time from which the town gets an elder again, set when he died
+private _elderAbsent = createHashMap;
 
 private _remove = {
     params ["_sector", "_reason"];
     private _civs = (_spawned deleteAt _sector) select 0;
     private _alive = {alive _x} count _civs;
     {deleteVehicle _x} forEach _civs;
+    deleteMarker format ["COIN_elder_%1", _sector];
     // Groups are created with deleteWhenEmpty, they go with their last unit
     diag_log format ["[COIN] population: %1 (%2) removed (%3), %4 of %5 civilians were alive", markerText _sector, _sector, _reason, _alive, count _civs];
 };
@@ -66,6 +75,17 @@ while {COIN_enablePopulation} do {
         if !(_sector in _free) then {
             [_sector, "town is not free any more"] call _remove;
         } else {
+            // _entry select 2: the elder is there and not known to be dead, select 3: the elder
+            if (_entry select 2 && {!alive (_entry select 3)}) then {
+                _entry set [2, false];
+                _elderAbsent set [_sector, time + (COIN_elderAbsenceMinutes * 60)];
+                deleteMarker format ["COIN_elder_%1", _sector];
+                diag_log format [
+                    "[COIN] population: the elder of %1 (%2) is dead, the town has no elder for %3 min",
+                    markerText _sector, _sector, COIN_elderAbsenceMinutes
+                ];
+            };
+
             private _near = (_present findIf {(_x distance2D (markerPos _sector)) <= COIN_despawnDistance}) >= 0;
             if (_near) then {
                 _entry set [1, time];
@@ -97,12 +117,16 @@ while {COIN_enablePopulation} do {
         private _living = 0;
         {_living = _living + ({alive _x} count (_y select 0))} forEach _spawned;
 
-        if (COIN_enableAIBudget && {(_living + _count) > COIN_maxCivilians}) then {
+        // The elder comes with the town unless he died less than COIN_elderAbsenceMinutes ago; he counts against the budget
+        private _withElder = COIN_enableElder && {(_elderAbsent getOrDefault [_sector, 0]) <= time};
+        private _total = _count + ([0, 1] select _withElder);
+
+        if (COIN_enableAIBudget && {(_living + _total) > COIN_maxCivilians}) then {
             if !(_sector in _waiting) then {
                 _waiting set [_sector, _count];
                 diag_log format [
                     "[COIN] population: %1 (%2) waits, budget: %3 own civilians + %4 > %5",
-                    markerText _sector, _sector, _living, _count, COIN_maxCivilians
+                    markerText _sector, _sector, _living, _total, COIN_maxCivilians
                 ];
             };
             continue;
@@ -113,10 +137,22 @@ while {COIN_enablePopulation} do {
             diag_log format ["[COIN] population: %1 (%2) fits the budget now", markerText _sector, _sector];
         };
         private _civs = [_sector, _count] call COIN_fnc_spawnPopulation;
-        _spawned set [_sector, [_civs, time]];
+        private _elder = objNull;
+        if (_withElder) then {
+            if !(_sector in _elderSpots) then {
+                _elderSpots set [_sector, [_sector] call COIN_fnc_findElderSpot];
+            };
+            _elder = [_sector, _elderSpots get _sector] call COIN_fnc_spawnElder;
+            _elderAbsent deleteAt _sector;
+            if (!isNull _elder) then {
+                _civs pushBack _elder;
+            };
+        };
+        _spawned set [_sector, [_civs, time, !isNull _elder, _elder]];
         diag_log format [
-            "[COIN] population: %1 (%2) spawned %3 civilians, player %4 m away, own civilians now %5 of %6",
-            markerText _sector, _sector, count _civs, round _distance, _living + count _civs, COIN_maxCivilians
+            "[COIN] population: %1 (%2) spawned %3 civilians%7, player %4 m away, own civilians now %5 of %6",
+            markerText _sector, _sector, count _civs, round _distance, _living + count _civs, COIN_maxCivilians,
+            [" (no elder)", " including the elder"] select (!isNull _elder)
         ];
     } forEach _free;
 

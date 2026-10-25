@@ -8,7 +8,8 @@
         When the interpreter gets a new civilian in his sights, the civilian is told to stand still and watch him for
         COIN_talkHoldSeconds (COIN_fnc_holdCivilian, run where the civilian is local), so he does not walk away while the
         interpreter reaches for the menu. Looking away keeps the hold, it ends by itself or when the question is asked.
-        The civilian of "How do you feel about us?" (ticket 5.3, may have been questioned before) is kept in COIN_moodTarget.
+        The civilian of "How do you feel about us?" (ticket 5.3, may have been questioned before) is kept in COIN_moodTarget,
+        the same civilian unless he is the elder of a town in COIN_locateTarget ("Where do I find the elder?", ticket 5.9a).
         The same for a prisoner (ticket 3.8, COIN_fnc_canInterrogate) in COIN_interrogateTarget; a prisoner is bound,
         so he is not held. Runs as long as questioning is switched on. Only a player marked as interpreter does any work.
 
@@ -24,6 +25,7 @@ private _lastHeld = objNull;
 while {COIN_enableQuestioning} do {
     private _target = objNull;
     private _moodTarget = objNull;
+    private _locateTarget = objNull;
     private _prisoner = objNull;
 
     if (alive player && {player getVariable ["COIN_interpreter", false]}) then {
@@ -34,6 +36,10 @@ while {COIN_enableQuestioning} do {
         // The mood may be asked of a civilian who was questioned before (ticket 5.3)
         if (COIN_enableMood && {[_seen, player, COIN_talkRange, true] call COIN_fnc_canQuestion}) then {
             _moodTarget = _seen;
+            // The same civilian may be asked where the elder is, unless he is the elder (ticket 5.9a)
+            if (COIN_enableElderLocate && {!(_seen getVariable ["COIN_elder", false])}) then {
+                _locateTarget = _seen;
+            };
         };
         if ([_seen, player] call COIN_fnc_canInterrogate) then {
             _prisoner = _seen;
@@ -42,6 +48,7 @@ while {COIN_enableQuestioning} do {
     COIN_interrogateTarget = _prisoner;
     COIN_talkTarget = _target;
     COIN_moodTarget = _moodTarget;
+    COIN_locateTarget = _locateTarget;
 
     // Whoever may be asked something stops and watches him once he is in the sights
     private _held = [_moodTarget, _target] select (isNull _moodTarget);
