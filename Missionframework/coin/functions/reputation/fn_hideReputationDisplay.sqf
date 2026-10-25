@@ -26,6 +26,12 @@ private _hide = isNil "COIN_hideReputationNumber" || {COIN_hideReputationNumber 
 
 if (!hasInterface || {isNull _overlay} || {!_hide}) exitWith {false};
 
+// One line in the RPT as proof, the function runs with every UI update
+if (isNil "COIN_reputationDisplayLogged") then {
+    COIN_reputationDisplayLogged = true;
+    diag_log "[COIN] reputation: display in the overlay is hidden (debug off)";
+};
+
 {
     (_overlay displayCtrl _x) ctrlShow false;
 } forEach [
