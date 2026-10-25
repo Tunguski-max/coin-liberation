@@ -49,7 +49,8 @@ Weniger Bedrohungen, schwächere Miliz, Ruf steigt → bessere Auskunft
 | Ruf | Liberations „Civil Reputation“: Start −20, Nest zerstört +5, IED entschärft +2 | ✅ (Phase 5, #99 und #100) |
 | | Gefangener getötet −10 (#101) | ✅ |
 | | Zivilfahrzeug zerstört −2, Beschlagnahmen ohne Abzug (#102) | ✅ |
-| | Stimmung, Informanten-Häufigkeit | 📋 (Phase 5, Block 5A) |
+| | Stimmung „Wie steht ihr zu uns?“ (#105) | ✔ implementiert, ungetestet |
+| | Informanten-Häufigkeit | 📋 (Phase 5, Block 5A) |
 | Ältester, Hilfsaufträge, Nebenmissionen | Ansprechpartner in befreiten Ortschaften | 📋 (Phase 5, Block 5B) |
 | Zugriffsaufträge | Aufträge, die aus einer Befragung oder einem Verhör entstehen | 📋 (Phase 5, Block 5C) |
 | Gefälligkeit „Verstärkung“ | Lokale Kämpfer bei sehr hohem Ruf | 📋 (Phase 5, Block 5D) |
@@ -116,9 +117,9 @@ Befragen kann der Dolmetscher **Zivilisten**. Welche es gibt:
 - Sie gilt pro Spieler (Spieler-ID), übersteht den Respawn und wird nicht gespeichert. Ein zweiter Dolmetscher hat seine eigene.
 - Grund: Liberation erzeugt bei jeder Sektoraktivierung neue Zivilisten. Ohne Bremse ließe sich eine Ortschaft abgrasen.
 
-### 3.4 Geplant: „Wie steht ihr zu uns?“ (Stimmung) 📋 (5.3)
+### 3.4 „Wie steht ihr zu uns?“ (Stimmung) ✔ implementiert, ungetestet (5.3, #105)
 
-Ein zweiter Eintrag im Aktionsmenü, nur für den Dolmetscher, bei befragbaren Zivilisten und beim Ältesten:
+Ein zweiter Eintrag im Aktionsmenü, nur für den Dolmetscher, bei befragbaren Zivilisten (beim Ältesten kommt er mit 5.9a). Es gelten dieselben Regeln wie für „Nach der Miliz fragen“ (zu Fuß, ansprechbar, kein Gefangener, kein Kämpfer in Zivil), nur ohne „einmal pro Zivilist“: auch ein schon befragter Zivilist antwortet. Die Antwort kommt nach 1–2 s als Untertitel beim Dolmetscher (`COIN_fnc_askMood`, Texte in `COIN_moodAnswers`, Schalter `COIN_enableMood`); im RPT steht Ruf und Stufe:
 
 - **beliebig oft**, zählt nicht als Befragung, **keine Abklingzeit**, erzeugt **kein** Intel,
 - die Antwort nennt die **Stimmung** in fünf Stufen und ist **immer wahr**:
@@ -131,7 +132,7 @@ Ein zweiter Eintrag im Aktionsmenü, nur für den Dolmetscher, bei befragbaren Z
 | 25 bis unter 50 | freundlich | Informanten, Zugriffsaufträge, Widerstand auf unserer Seite |
 | ab 50 | sehr freundlich | Gefälligkeiten entstehen |
 
-Dazu wird die **Ruf-Zahl im Overlay ausgeblendet**. Spieler erfahren den Ruf nur noch über die Stimmung.
+Die **Ruf-Zahl im Overlay ist ausgeblendet** (#104, nur mit COIN Debug sichtbar). Spieler erfahren den Ruf nur noch über die Stimmung.
 
 ---
 
@@ -317,7 +318,7 @@ Die Intel-Marker gelten für **die ganze Seite** (alle Spieler sehen sie), auch 
 | Thema | Was sich bei Gesprächen und Intel ändert | Ticket |
 |---|---|---|
 | **Ruf-Änderungen** | Neue Ruf-Quellen: Nest zerstört +5, Gefangener getötet −10, Zivilfahrzeug zerstört −2. Beschlagnahmen und zerstörte Häuser kosten nichts (auch Liberations Abzug bei der Einnahme ist aus). Der Ruf verschiebt die Gewichte aus 5.2 | 5.1 ✅ (Nest, Gefangener, Zivilfahrzeug); 5.8 verworfen |
-| **Stimmung** | „Wie steht ihr zu uns?“ beim Zivilisten und Ältesten (Abschnitt 3.4) | 5.3 📋 |
+| **Stimmung** | „Wie steht ihr zu uns?“ beim Zivilisten (Abschnitt 3.4), beim Ältesten mit 5.9a | 5.3 ✔ ungetestet |
 | **Informanten-Häufigkeit** | Unter +25 keine, ab +25 Liberations Werte (alle 90–180 min ein Versuch, 75 %), ab +50 alle 45–90 min mit 100 % | 5.2 📋 |
 | **Ältester** | Pro befreiter Ortschaft einer, nicht zur Miliz befragbar; getötet → 60 min kein Ältester | 5.9a 📋 |
 | **Dialog des Ältesten** | „Können wir helfen?“: Hilfsaufträge, Nebenmissionen (Liberations Konvoi-Überfall und Rettung, bezahlt mit Intel-Punkten), Gefälligkeit | 5.9b, 5.10–5.12, 5.17 📋 |
@@ -346,7 +347,7 @@ Alles in `Missionframework/coin/coin_config.sqf`. Wichtige Namen:
 
 | Thema | Variablen |
 |---|---|
-| Ein/Aus | `COIN_enableQuestioning`, `COIN_enableInterrogation`, `COIN_enableLies`, `COIN_enableWarnings`, `COIN_enableIEDWarnings`, `COIN_enableAmbushWarnings`, `COIN_enableUnsafeRefusal`, `COIN_enableCooldown`, `COIN_enableInformantTip`, `COIN_enablePopulation` |
+| Ein/Aus | `COIN_enableQuestioning`, `COIN_enableInterrogation`, `COIN_enableMood`, `COIN_enableLies`, `COIN_enableWarnings`, `COIN_enableIEDWarnings`, `COIN_enableAmbushWarnings`, `COIN_enableUnsafeRefusal`, `COIN_enableCooldown`, `COIN_enableInformantTip`, `COIN_enablePopulation` |
 | Reichweiten und Zeiten | `COIN_talkRange` (5 m), `COIN_talkHoldSeconds` (30 s), `COIN_questionDelay` ([1, 2] s), `COIN_answerReadSeconds`, `COIN_unsafeRadius` (100 m), `COIN_questionCooldown` (300 s), `COIN_intelNestRange` (4000 m) |
 | Kreise | `COIN_intelRadiusRumor` (600), `COIN_intelRadiusHint` (300), `COIN_intelRadiusTip` (100), `COIN_intelRadiusMin` (50), `COIN_triangulationFactor` (0,5), `COIN_intelCenterOffset` ([0,2; 0,8]) |
 | Gewichte | `COIN_intelWeightsLow` / `Mid` / `High`, `COIN_intelWeightsByBand`, `COIN_interrogationWeights`, `COIN_interrogationSecondChance` (0,5) |
@@ -362,8 +363,6 @@ Alles in `Missionframework/coin/coin_config.sqf`. Wichtige Namen:
 
 Dinge, die in diesem Dokument noch nicht eindeutig sind und beim Bauen entschieden werden:
 
-- **Stimmung (5.3):** Gelten für „Wie steht ihr zu uns?“ dieselben Voraussetzungen wie für die Befragung, nur ohne „einmal pro
-  Zivilist“? Das Design sagt „bei jedem befragbaren Zivilisten und beim Ältesten“, beliebig oft.
 - **Gefangene und Intel-Punkte:** Mit ACE gefesselte Gefangene bringen heute **keine** Intel-Punkte an der FOB, nur Liberations
   Ergeben-Weg über CAPTURE. Ob das so bleiben soll, ist offen.
 - **Gewichtung nach Art bei Warnungen:** Unter mehreren Bedrohungen entscheidet der reine Zufall. Ein IED-Gebiet drückt dadurch die

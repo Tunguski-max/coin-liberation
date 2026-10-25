@@ -236,6 +236,12 @@ class COIN {
         // Client: the civilian's answer as a subtitle for the interpreter
         class showAnswer {};
 
+        // Server: an interpreter asks a civilian "How do you feel about us?", the true mood goes to him (called by the client, ticket 5.3)
+        class askMood {};
+
+        // Client: the mood as a subtitle for the interpreter (ticket 5.3)
+        class showMood {};
+
         // Client: what a prisoner says, one sentence per result (ticket 3.8)
         class showInterrogation {};
 
@@ -274,6 +280,9 @@ class COIN {
 
         // Server: the one way to change the reputation, goes through F_cr_changeCR, logs reason, amount and new value (ticket 5.1)
         class changeReputation {};
+
+        // The mood of the population in five steps from the reputation, a key of COIN_moodAnswers (ticket 5.3)
+        class getMood {};
 
         // Server: registers the reputation changes that follow a COIN event, e.g. nest destroyed (ticket 5.1)
         class initReputationEvents {};
