@@ -106,7 +106,7 @@ while { GRLIB_endgame == 0 } do {
             if (count ([getpos leader _grp, 4000] call KPLIB_fnc_getNearbyPlayers) == 0) then {
 
                 if ( !(isNull _civveh) ) then {
-                     if ( { ( alive _x ) && (side group _x == GRLIB_side_friendly ) } count (crew _civveh) == 0 ) then {
+                     if ( { ( alive _x ) && (side group _x == GRLIB_side_friendly ) } count (crew _civveh) == 0 && {!(_civveh getVariable ["KPLIB_seized", false])} ) then { // COIN: a seized vehicle is ours, the patrol must not delete it (ticket 5.1, docs/hooks.md)
                         deleteVehicle _civveh
                     };
                 };

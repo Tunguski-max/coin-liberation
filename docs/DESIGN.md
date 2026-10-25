@@ -468,7 +468,7 @@ Liberation nichts, wir −10. Kämpfer in Zivil (Auslöser, VBIED-Fahrer, Attent
 kosten keinen Ruf, beschlagnahmte Fahrzeuge auch nicht (siehe ⁵).
 ⁵ Wer in ein Zivilfahrzeug einsteigt, beschlagnahmt es. Das kostet **keinen** Ruf (`COIN_repCivVehicleSeized`, Liberation sieht −2 vor), und das Fahrzeug gilt
 danach als unseres: Zerstört die Armee es, kostet das nichts. Liberations Handler dafür hat einen Tippfehler (`setVehiclesSeized`, auch im Upstream) und
-beschlagnahmt nie, COIN macht den Handler neu (Schalter `COIN_enableVehicleSeizure`). Beschlagnahmte Fahrzeuge werden mit gespeichert und sind für Zeus sichtbar.
+beschlagnahmt nie, COIN macht den Handler neu (Schalter `COIN_enableVehicleSeizure`). Beschlagnahmte Fahrzeuge werden mit gespeichert, sind für Zeus sichtbar, und die Zivil-Patrouille löscht sie nicht mehr (Hook 26).
 
 Nicht umgesetzt (2026-10-23): „Grundloses Schießen nahe Zivilisten“, „Zivilist verletzt“ und ein eigener Bonus für
 geholfene Zivilisten. Liberation bestraft getötete Zivilisten schon, Verletzungen unter ACE und „grundlos“ lassen sich
