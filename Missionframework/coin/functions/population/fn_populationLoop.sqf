@@ -86,7 +86,7 @@ while {COIN_enablePopulation} do {
                 ];
             };
 
-            private _near =(_present findIf {(_x distance2D (markerPos _sector)) <= COIN_despawnDistance}) >= 0;
+            private _near = (_present findIf {(_x distance2D (markerPos _sector)) <= COIN_despawnDistance}) >= 0;
             if (_near) then {
                 _entry set [1, time];
             } else {

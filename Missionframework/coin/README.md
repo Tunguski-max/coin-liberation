@@ -56,7 +56,7 @@ coin/
     │   ├── fn_exportTerrainTemplate.sqf COIN_fnc_exportTerrainTemplate: Gelände-Template um den Richtungspfeil in die Zwischenablage
     │   └── fn_debugTerrainNest.sqf     COIN_fnc_debugTerrainNest: Gelände-Nest eines Typs vor dem Spieler, wie ein echtes
     ├── population/
-    │   ├── fn_populationLoop.sqf       COIN_fnc_populationLoop: Server-Schleife, eigene Zivilisten in befreiten Ortschaften bei Spielernähe, Budget COIN_maxCivilians (Ticket 3.7)
+    │   ├── fn_populationLoop.sqf       COIN_fnc_populationLoop: Server-Schleife, eigene Zivilisten in befreiten Ortschaften bei Spielernähe, Budget COIN_maxCivilians (Ticket 3.7), dazu der Älteste (Ticket 5.9a)
     │   ├── fn_spawnPopulation.sqf      COIN_fnc_spawnPopulation: die Zivilisten einer Ortschaft, wie Liberations, laufen im Ort umher
     │   ├── fn_findElderSpot.sqf        COIN_fnc_findElderSpot: Platz des Ältesten, Moschee oder größtes Haus nahe dem Ortskern (Ticket 5.9a)
     │   └── fn_spawnElder.sqf           COIN_fnc_spawnElder: der Älteste einer Ortschaft, eigene Kleidung, Name „Ältester …“, steht fest (Ticket 5.9a)
