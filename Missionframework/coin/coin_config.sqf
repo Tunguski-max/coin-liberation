@@ -31,6 +31,7 @@ COIN_enableVehicleSeizure    = true;     // Phase 5, ticket 5.1: getting into a 
 COIN_enableInformantTip     = true;     // Phase 3, ticket 3.10: off = Liberation's informant gives only his own reward, no tip (needs COIN_enableNests and COIN_enableQuestioning)
 COIN_enableInterrogation    = true;     // Phase 3, ticket 3.8: off = no entry "Interrogate" at prisoners (needs COIN_enableQuestioning, its loop finds the prisoner)
 COIN_enableMood             = true;     // Phase 5, ticket 5.3: off = no entry "How do you feel about us?" (needs COIN_enableQuestioning, its loop finds the civilian)
+COIN_enableElderLocate      = true;     // Phase 5, ticket 5.9a: off = no entry "Where do I find the elder?" (needs COIN_enableQuestioning, COIN_enableMood and the elders)
 COIN_enableInformantFrequency = true;   // Phase 5, ticket 5.2: off = Liberation's informant values stay (90-180 min, 75 %), whatever the reputation
 COIN_enableIEDs             = true;     // Phase 4
 COIN_enableVBIEDs           = true;     // Phase 4
@@ -105,6 +106,8 @@ COIN_enableElder            = true;     // Off: no elders (and nothing for them 
 COIN_elderAbsenceMinutes    = 60;       // min a town has no elder after his death; the first visit after that brings a new one (not saved)
 COIN_elderSearchRadius      = 150;      // m around the centre of the town where his building is searched
 COIN_elderBuildingKeywords  = ["mosque", "masjid"]; // A building whose class name contains one of these is preferred, else the house with the largest ground area
+COIN_elderLocateRange       = 600;      // m: a civilian knows the elder of his town if he is within this distance of him
+COIN_elderMarkerSeconds     = 300;      // s the elder is marked on the map for everybody after "Where do I find the elder?", asking again starts the time anew
 COIN_elderMinBuildingArea   = 30;       // m2: smaller buildings (sheds, wall pieces) do not count
 COIN_elderMinBuildingHeight = 2.5;      // m: lower ones do not either
 COIN_elderSpotDistance      = [2, 6];   // [min, max] m he stands beyond half the longer side of the building (about from its wall)
@@ -378,6 +381,35 @@ COIN_questionCooldown       = 300;      // s the interpreter waits after a marke
 COIN_askMilitiaLabel = ["Nach der Miliz fragen", "Ask about the militia"];
 COIN_interrogateLabel = ["Verhören", "Interrogate"];
 COIN_moodLabel = ["Wie steht ihr zu uns?", "How do you feel about us?"];
+COIN_elderLocateLabel = ["Wo finde ich den Ältesten?", "Where do I find the elder?"];
+// Answers to "Where do I find the elder?" (ticket 5.9a): [found or none, [German sentences, English sentences]], one is picked at random.
+// "found" while the elder is marked on the map, "none" if the town has no elder for now or he is too far away
+COIN_elderLocateAnswers = [
+    ["found", [
+        [
+            "Der Älteste? Ich zeige ihn euch, seht auf eure Karte.",
+            "Ihr sucht den Ältesten? Er wartet an seinem Haus, ihr findet ihn.",
+            "Den Ältesten kennt hier jeder. Ich habe euch den Weg eingezeichnet."
+        ],
+        [
+            "The elder? I'll show you, look at your map.",
+            "You're looking for the elder? He waits at his house, you'll find him.",
+            "Everybody here knows the elder. I've marked the way for you."
+        ]
+    ]],
+    ["none", [
+        [
+            "Einen Ältesten haben wir gerade nicht.",
+            "Der Älteste? Der ist nicht mehr da. Fragt später noch einmal.",
+            "Dazu kann ich euch nichts sagen. Hier gibt es im Moment keinen."
+        ],
+        [
+            "We don't have an elder right now.",
+            "The elder? He's gone. Ask again later.",
+            "I can't tell you anything about that. There is none here at the moment."
+        ]
+    ]]
+];
 // Answer sentences of a civilian (tickets 3.1 and 3.4): [result, [German sentences, English sentences]], one is picked at random.
 // A civilian does not name the nest type: a hint or a tip knows the place better, not the word for it (see COIN_questionAnswersByType).
 // "unsafe" is the refusal while enemies are close (COIN_enableUnsafeRefusal): no answer, no marker.

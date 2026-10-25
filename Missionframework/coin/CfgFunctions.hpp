@@ -242,6 +242,12 @@ class COIN {
         // Client: the mood as a subtitle for the interpreter (ticket 5.3)
         class showMood {};
 
+        // Server: an interpreter asks a civilian where the elder is, the elder is marked on the map for a while (ticket 5.9a)
+        class askElder {};
+
+        // Client: the answer to that as a subtitle for the interpreter (ticket 5.9a)
+        class showElderLocation {};
+
         // Client: what a prisoner says, one sentence per result (ticket 3.8)
         class showInterrogation {};
 
@@ -263,6 +269,9 @@ class COIN {
 
         // Server: the elder of a town, dressed, named, standing at his place, handed to Zeus (ticket 5.9a)
         class spawnElder {};
+
+        // Server: marks an elder on the map for COIN_elderMarkerSeconds (ticket 5.9a)
+        class markElder {};
     };
 
     class persistence {

@@ -95,7 +95,7 @@ Befragen kann der Dolmetscher **Zivilisten**. Welche es gibt:
 | Gefesselt oder ergeben (ACE), auch Liberations **Informant**, solange er auf Abholung wartet | nein | Der Informant hat einen eigenen Ablauf (siehe Abschnitt 6) |
 | Miliz-Kämpfer in ziviler Gruppe (z. B. ein Gegner, der sich ergeben hat) | nein | Das ist ein Gefangener, er wird verhört (Abschnitt 4) |
 | **Kämpfer in Zivil** (Auslöser, VBIED-Fahrer, Attentäter) | nein | Er sieht aus wie ein Zivilist, ist aber keiner |
-| **Ältester** | nein, nicht zur Miliz (5.9a, umgesetzt, ungetestet) | Er hat „Wie steht ihr zu uns?“; „Können wir helfen?“ kommt mit 5.9b |
+| **Ältester** | nein, nicht zur Miliz (5.9a, umgesetzt, ungetestet) | Er hat „Wie steht ihr zu uns?“; „Können wir helfen?“ kommt mit 5.9b. Alle anderen Zivilisten fragt man „Wo finde ich den Ältesten?“: Der Älteste (im Umkreis `COIN_elderLocateRange`, 600 m) wird für alle `COIN_elderMarkerSeconds` (5 min) auf der Karte markiert, ohne Befragung, Markierung oder Abklingzeit; ohne Ältesten sagt der Zivilist das (umgesetzt, ungetestet) |
 | **Patienten** des Arzt-Einsatzes | nein 📋 (5.11) | |
 
 ### 3.2 Ablauf einer Befragung
@@ -356,7 +356,7 @@ Alles in `Missionframework/coin/coin_config.sqf`. Wichtige Namen:
 | Ruf-Bänder | `COIN_repBandMid` (0), `COIN_repBandHigh` (25), `COIN_moodThresholds` ([−25, 0, 25, 50]), `COIN_reputationStart` (−20) |
 | Sätze | `COIN_questionAnswers`, `COIN_questionAnswersByType`, `COIN_interrogationAnswers` und die Sätze für die Abklingzeit |
 | Bevölkerung | `COIN_populationCount` ([4, 8]), `COIN_populationRadius` (80 m) |
-| Ältester | `COIN_enableElder`, `COIN_elderAbsenceMinutes` (60), `COIN_elderSearchRadius`, `COIN_elderBuildingKeywords`, `COIN_elderUniforms`, `COIN_elderHeadgear`, `COIN_elderNameFormat` |
+| Ältester | `COIN_enableElder`, `COIN_enableElderLocate`, `COIN_elderLocateRange`, `COIN_elderMarkerSeconds`, `COIN_elderLocateAnswers`, `COIN_elderAbsenceMinutes` (60), `COIN_elderSearchRadius`, `COIN_elderBuildingKeywords`, `COIN_elderUniforms`, `COIN_elderHeadgear`, `COIN_elderNameFormat` |
 
 ---
 

@@ -3,7 +3,8 @@
     Author: COIN Liberation
 
     Description:
-        Adds the entries "Ask about the militia" (ticket 3.1), "Interrogate" (ticket 3.8) and "How do you feel about us?"
+        Adds the entries "Ask about the militia" (ticket 3.1), "Interrogate" (ticket 3.8), "Where do I find the elder?" (ticket
+        5.9a, COIN_locateTarget, COIN_fnc_askElder) and "How do you feel about us?"
         (ticket 5.3, COIN_moodTarget, COIN_fnc_askMood) to the normal action menu of
         a player unit. They look like Liberation's own entries (fn_addActionsPlayer): plain yellow text built the same
         way, no size tag, no on-screen action window, hidden after use. "Ask about the militia" shows while
@@ -29,7 +30,8 @@ private _index = [1, 0] select (language isEqualTo "German");
 [
     [COIN_askMilitiaLabel, "COIN_talkTarget", "COIN_fnc_questionCivilian"],
     [COIN_interrogateLabel, "COIN_interrogateTarget", "COIN_fnc_interrogatePrisoner"],
-    [COIN_moodLabel, "COIN_moodTarget", "COIN_fnc_askMood"]
+    [COIN_moodLabel, "COIN_moodTarget", "COIN_fnc_askMood"],
+    [COIN_elderLocateLabel, "COIN_locateTarget", "COIN_fnc_askElder"]
 ] apply {
     _x params ["_label", "_targetVar", "_serverFunction"];
     _unit addAction [
