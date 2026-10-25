@@ -329,6 +329,13 @@ class Params {
         texts[] = {$STR_PARAMS_ENABLED, $STR_PARAMS_DISABLED};
         default = 1;
     };
+    // COIN: lobby switch for COIN_disableBuildingPenalty, Liberation takes no reputation for houses that are gone when a town is taken (default on)
+    class COINDisableBuildingPenalty {
+        title = "Disable Building Destruction penalty";
+        values[] = {0, 1};
+        texts[] = {$STR_PARAMS_DISABLED, $STR_PARAMS_ENABLED};
+        default = 1;
+    };
     class Spacer3 {
         title = "";
         values[] = {""};

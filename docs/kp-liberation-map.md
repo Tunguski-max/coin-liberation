@@ -557,7 +557,7 @@ erlaubten Liste. Eine Kollision wäre nur möglich, wenn ein Mod eine `CfgFuncti
     aber die Fraktion ist schwer ausgerüstet (T-72, Mi-24, Su-25) und muss für die Miliz deutlich abgespeckt werden.
 11. **Gleiche Optik Miliz/Guerilla** (`LOP_AM_OPF_*` vs. `LOP_AM_*`), siehe 7.4.
 12. **Endlosschleife** in `send_paratroopers.sqf`, wenn `opfor_choppers` keinen Transporter enthält (5.4) – beim Ausdünnen des Presets beachten.
-13. **Gebäudeschäden zählen nur bei Einnahme** und werden mit dem Stand beim Missionsstart verglichen. Zerstörung in bereits befreiten Orten kostet keinen Ruf.
+13. **Gebäudeschäden zählen nur bei Einnahme** und werden mit dem Stand beim Missionsstart verglichen. Zerstörung in bereits befreiten Orten kostet keinen Ruf. COIN setzt `KP_liberation_cr_building_penalty` auf 0 (`COIN_disableBuildingPenalty`), die Abrechnung kostet dann nichts.
     DESIGN 8 („Gebäude zerstört → Ruf sinkt“) braucht dafür eigenen Code.
 14. **Befreite Funktürme zeigen Gegner auf der Karte.** `scripts/client/markers/hostile_groups.sqf` markiert alle 60–120 s
     jede feindliche Gruppe im Umkreis von `GRLIB_radiotower_size = 2500` m um einen BLUFOR-Funkturm als 500×500-m-Quadrat.

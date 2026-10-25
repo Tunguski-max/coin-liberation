@@ -1,6 +1,6 @@
 # ADR 0009: Ruf nutzt Liberations Civil Reputation
 
-**Status:** Akzeptiert (2026-10-18, geändert am 2026-10-23)
+**Status:** Akzeptiert (2026-10-18, geändert am 2026-10-23 und 2026-10-25)
 
 ## Kontext
 Liberation hat einen globalen, gespeicherten Ruf `KP_liberation_civ_rep` mit der Skala −100 … +100,
@@ -15,9 +15,9 @@ Miliz, ab +25 auf unserer Seite und erst dann erscheinen Informanten.
   niedrig < 0 · mittel 0 bis < 25 · hoch ≥ 25.
 - **Start:** Eine neue Kampagne beginnt bei **−20** (Hook, greift nur bei neuer Kampagne).
 - **Gefälligkeiten** entstehen ab **+50** (endgültig seit 2026-10-23, ADR 0023).
-- **Gebäudeschäden:** Liberation rechnet nur bei der Einnahme ab. Zusätzlich kostet ein Gebäude in einer
-  **befreiten** Ortschaft Ruf, wenn **BLUFOR** es zerstört hat (eigener Code, Phase 5). Ausnahme: solange Miliz-Einheiten
-  im Ortschaftsradius sind, z. B. bei einem Gegenangriff (2026-10-23).
+- **Gebäudeschäden:** Kosten keinen Ruf (2026-10-25, Ticket 5.8 verworfen). Liberations Abrechnung bei der Einnahme (3 je
+  fehlendem Haus) schalten wir ab (Lobby-Parameter „Disable Building Destruction penalty“, Standard an): Die KI zerstört solche Häuser oft selbst. Nach der
+  Einnahme lässt sich der Täter nicht sicher zuordnen, ein falscher Abzug wäre schlimmer als keiner.
 - **Informanten:** Ihre Häufigkeit steigt mit dem Ruf. Unser Code setzt Liberations
   `KP_liberation_civinfo_*`-Werte (kein Hook): unter +25 weiterhin keine, von +25 bis unter +50 Liberations Werte,
   ab +50 doppelt so oft (2026-10-23).

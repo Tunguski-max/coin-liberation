@@ -1,6 +1,6 @@
 # ADR 0023: Ruf, Aufträge und Gefälligkeiten: Stimmung, Zugriffsaufträge ab +25, Verstärkung per Funk, alles mit Intel-Punkten beim Ältesten
 
-**Status:** Akzeptiert (2026-10-23)
+**Status:** Akzeptiert (2026-10-23, geändert am 2026-10-25)
 
 ## Kontext
 - Phase 5 macht den Ruf spürbar (DESIGN 8): neue Ruf-Änderungen, Stimmung über den Dolmetscher, Älteste, Hilfs- und
@@ -29,8 +29,8 @@
 - **Stimmung in fünf Stufen** statt der drei Ruf-Bänder für die Antwort auf „Wie steht ihr zu uns?“: Die Stufen liegen auf
   den Schwellen, an denen sich im Spiel etwas ändert (−25, 0, +25, +50). Die Antwort ist immer wahr.
 - **Ruf-Regeln:** Gefangener getötet kostet insgesamt immer −10 (bei Liberations Gefangenen −5 von Liberation und −5
-  von uns). Von COIN erzeugte Fahrzeuge und Kämpfer in Zivil kosten keinen Ruf. Ein Haus in einer befreiten Ortschaft
-  kostet −3, außer solange Miliz-Einheiten im Ortschaftsradius sind (Gegenangriff). Unsere Ruf-Änderungen erscheinen nur
+  von uns). Von COIN erzeugte Fahrzeuge und Kämpfer in Zivil kosten keinen Ruf. Ein Haus, das nach der Einnahme einer
+  Ortschaft zerstört wird, kostet nichts (2026-10-25, Täter nicht sicher zuzuordnen). Unsere Ruf-Änderungen erscheinen nur
   im Debug-Modus.
 
 ## Begründung

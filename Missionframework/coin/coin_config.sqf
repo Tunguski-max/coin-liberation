@@ -42,6 +42,7 @@ COIN_disableFobHunting      = true;     // Phase 2, ADR 0011: no enemy bases bes
 COIN_replaceLiberationThreats = true;   // Phase 4, ADR 0008: Liberation IEDs and town ambushes off
 COIN_capReadinessByNetwork  = true;     // Phase 6, ADR 0013: active nests cap combat_readiness
 COIN_enableReputationStart  = true;     // Phase 5, ADR 0009: a new campaign starts at COIN_reputationStart; off = 0 as in Liberation
+COIN_disableBuildingPenalty  = true;     // Phase 5, ADR 0009, default of the lobby parameter "Disable Building Destruction penalty" (it wins): Liberation takes no reputation for houses that are gone when a town is taken (KP_liberation_cr_building_penalty = 0, the AI often destroys them); the gain for the capture stays
 COIN_hideReputationNumber   = true;     // Phase 5, ADR 0009: no reputation display (number and icon) in the Liberation overlay
 COIN_secondaryAtElder       = true;     // Phase 5, ADR 0023: Liberation's secondary missions start at the elder, not at a FOB
 
@@ -964,7 +965,6 @@ COIN_repNestDestroyed       = 5;        // Any nest type, once per nest (ticket 
 COIN_repCaptiveKilled       = -10;      // Ticket 5.1, 0 = off. Total for a prisoner; for Liberation's prisoners (civilian group) Liberation already takes -5, we take the rest
 COIN_repCivVehicleSeized    = 0;        // Ticket 5.1: reputation for seizing a civilian vehicle (getting into it). Liberation means -2 (KP_liberation_cr_vehicle_penalty), COIN sets it to this value. A seized vehicle is ours: destroying it costs nothing
 COIN_repCivVehicleDestroyed = -2;       // Ticket 5.1, 0 = off. Destroyed by the army; vehicles COIN made (COIN_isCoinVehicle: VBIED, garage vehicle, later task vehicles) and seized ones do not count
-COIN_repBuildingDestroyed   = -3;       // Per house destroyed by the army in a liberated town; none while militia is inside the town radius
 
 // Informants (ticket 5.2): Liberation's KP_liberation_civinfo_* by reputation; below COIN_repBandHigh Liberation sends none
 COIN_informantHighRep       = 50;       // From here the faster values apply
