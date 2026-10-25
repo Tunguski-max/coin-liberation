@@ -4,7 +4,8 @@
 
     Description:
         Marks an elder on the map for everybody for COIN_elderMarkerSeconds (ticket 5.9a, "Where do I find the elder?",
-        COIN_fnc_askElder). Asking again while the marker is up starts the time anew. The marker goes early when the
+        COIN_fnc_askElder). Asking again while the marker is up starts the time anew. The marker goes (checked every
+        COIN_spawnCheckInterval s) early when the
         elder dies or is removed with his town. It is not the debug marker of the elder (COIN_debug), which stays.
         Server only; global marker, so late joiners see it too.
 
@@ -35,7 +36,7 @@ _marker setMarkerText name _elder;
 [_elder, _marker] spawn {
     params ["_elder", "_marker"];
     waitUntil {
-        sleep 2;
+        sleep COIN_spawnCheckInterval;
         !alive _elder || {time >= (_elder getVariable ["COIN_hintEnd", 0])}
     };
     deleteMarker _marker;
