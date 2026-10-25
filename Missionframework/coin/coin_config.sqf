@@ -30,6 +30,7 @@ COIN_enableWarnings         = true;     // Phase 3, ticket 3.6: off = the weight
 COIN_enableVehicleSeizure    = true;     // Phase 5, ticket 5.1: getting into a civilian vehicle seizes it (Liberation's handler has a typo and never does); off = nothing is seized, as in Liberation
 COIN_enableInformantTip     = true;     // Phase 3, ticket 3.10: off = Liberation's informant gives only his own reward, no tip (needs COIN_enableNests and COIN_enableQuestioning)
 COIN_enableInterrogation    = true;     // Phase 3, ticket 3.8: off = no entry "Interrogate" at prisoners (needs COIN_enableQuestioning, its loop finds the prisoner)
+COIN_enableMood             = true;     // Phase 5, ticket 5.3: off = no entry "How do you feel about us?" (needs COIN_enableQuestioning, its loop finds the civilian)
 COIN_enableIEDs             = true;     // Phase 4
 COIN_enableVBIEDs           = true;     // Phase 4
 COIN_enableSuicideBombers   = true;     // Phase 4
@@ -359,6 +360,7 @@ COIN_questionCooldown       = 300;      // s the interpreter waits after a marke
 // Entry in the action menu (mouse wheel / space bar): [German, English]
 COIN_askMilitiaLabel = ["Nach der Miliz fragen", "Ask about the militia"];
 COIN_interrogateLabel = ["Verhören", "Interrogate"];
+COIN_moodLabel = ["Wie steht ihr zu uns?", "How do you feel about us?"];
 // Answer sentences of a civilian (tickets 3.1 and 3.4): [result, [German sentences, English sentences]], one is picked at random.
 // A civilian does not name the nest type: a hint or a tip knows the place better, not the word for it (see COIN_questionAnswersByType).
 // "unsafe" is the refusal while enemies are close (COIN_enableUnsafeRefusal): no answer, no marker.
@@ -959,6 +961,82 @@ COIN_reputationStart        = -20;      // Value for a new campaign (while COIN_
 COIN_repBandMid             = 0;        // Band "mid" starts here (below: "low")
 COIN_repBandHigh            = 25;       // Band "high" starts here (= Liberation informants, friendly resistance)
 COIN_moodThresholds         = [-25, 0, 25, 50]; // Mood (ticket 5.3): below the first hostile, then suspicious, waiting, friendly, from the last very friendly
+
+// What a civilian says when the interpreter asks "How do you feel about us?" (ticket 5.3, always true):
+// [mood, [German sentences, English sentences]], one is picked at random. The rows are in the order of COIN_moodThresholds
+// (hostile, suspicious, waiting, friendly, veryFriendly). They tell the mood, never a number and never the reason.
+COIN_moodAnswers = [
+    ["hostile", [
+        [
+            "Ehrlich? Die meisten hier wünschen euch weit weg. Ihr bringt nur Ärger.",
+            "Wir haben euch nicht gerufen. Viele hier stehen lieber auf der Seite der Miliz.",
+            "Geht besser, bevor jemand etwas Dummes tut. Hier traut euch keiner.",
+            "Ihr habt zu viel kaputt gemacht. Von uns bekommt ihr nichts."
+        ],
+        [
+            "Honestly? Most people here wish you were far away. You only bring trouble.",
+            "We didn't call you. Many here would rather stand with the militia.",
+            "You'd better leave before somebody does something stupid. Nobody here trusts you.",
+            "You've broken too much. You'll get nothing from us."
+        ]
+    ]],
+    ["suspicious", [
+        [
+            "Wir wissen noch nicht, was wir von euch halten sollen. Die Leute sind vorsichtig.",
+            "Manche reden gut über euch, andere nicht. Glaubt nicht jedem, der euch etwas erzählt.",
+            "Man beobachtet euch hier genau. Wer mit euch spricht, überlegt sich jedes Wort.",
+            "Das Vertrauen ist dünn. Ein Fehler, und es ist weg."
+        ],
+        [
+            "We don't know yet what to make of you. People are careful.",
+            "Some speak well of you, others don't. Don't believe everyone who tells you something.",
+            "You're watched closely here. Whoever talks to you weighs every word.",
+            "Trust is thin. One mistake, and it's gone."
+        ]
+    ]],
+    ["waiting", [
+        [
+            "Wir warten ab. Wenn ihr bleibt und euer Wort haltet, ändert sich vielleicht etwas.",
+            "Niemand ist gegen euch, aber begeistert ist auch keiner. Zeigt, was ihr könnt.",
+            "Es ist ruhiger geworden. Ob das bleibt, hängt von euch ab.",
+            "Wir haben schon viele Soldaten kommen und gehen sehen. Beweist, dass ihr anders seid."
+        ],
+        [
+            "We're waiting to see. If you stay and keep your word, maybe things will change.",
+            "Nobody is against you, but nobody is thrilled either. Show what you can do.",
+            "It has become calmer. Whether it stays that way is up to you.",
+            "We've seen many soldiers come and go. Prove that you're different."
+        ]
+    ]],
+    ["friendly", [
+        [
+            "Die meisten hier sind froh, dass ihr da seid. Man hilft euch, wo man kann.",
+            "Ihr habt euch Respekt verdient. Die Leute reden gut über euch.",
+            "Wir sind auf eurer Seite, so gut es geht. Sagt, wenn ihr etwas braucht.",
+            "Seit ihr hier seid, geht es bergauf. Das merkt man."
+        ],
+        [
+            "Most people here are glad you're here. They help you where they can.",
+            "You've earned respect. People speak well of you.",
+            "We're on your side as far as we can be. Tell us if you need something.",
+            "Things have been looking up since you came. You can tell."
+        ]
+    ]],
+    ["veryFriendly", [
+        [
+            "Ihr seid hier willkommen. Die Leute würden für euch ein Risiko eingehen.",
+            "Für uns seid ihr keine Besatzer mehr, sondern Verbündete. Sagt, was ihr braucht.",
+            "Wenn ihr ruft, kommen die Leute. So viel Vertrauen hatten wir lange nicht.",
+            "Ihr habt unser Vertrauen. Jeder hier würde euch helfen."
+        ],
+        [
+            "You're welcome here. People would take a risk for you.",
+            "To us you're no longer occupiers but allies. Tell us what you need.",
+            "When you call, people come. We haven't had this much trust in a long time.",
+            "You have our trust. Everyone here would help you."
+        ]
+    ]]
+];
 
 COIN_repIEDDefused          = 2;        // Ticket 4.2a: a real IED defused (not a decoy, not one blown up), 0 = off
 COIN_repNestDestroyed       = 5;        // Any nest type, once per nest (ticket 5.1), 0 = off

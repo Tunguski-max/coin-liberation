@@ -92,7 +92,9 @@ coin/
     │   ├── fn_finishAsking.sqf         COIN_fnc_finishAsking: startet die Abklingzeit nach einem Marker, sonst beendet die Beschäftigung
     │   ├── fn_showInterrogation.sqf    COIN_fnc_showInterrogation: Client, Antwort des Gefangenen, ein Satz je Ergebnis
     │   ├── fn_showSubtitle.sqf         COIN_fnc_showSubtitle: Client, Name und Sätze als Untertitel
-    │   └── fn_showAnswer.sqf           COIN_fnc_showAnswer: Client, Antwort des Zivilisten als Untertitel
+    │   ├── fn_showAnswer.sqf           COIN_fnc_showAnswer: Client, Antwort des Zivilisten als Untertitel
+    │   ├── fn_askMood.sqf              COIN_fnc_askMood: Server, „Wie steht ihr zu uns?“, die wahre Stimmung geht an den Dolmetscher (Ticket 5.3)
+    │   └── fn_showMood.sqf             COIN_fnc_showMood: Client, Stimmung als Untertitel
     ├── persistence/
     │   ├── fn_receiveSaveBlock.sqf     COIN_fnc_receiveSaveBlock: merkt sich Eintrag 22 beim Laden des Spielstands (Hook 18)
     │   ├── fn_getSaveBlock.sqf         COIN_fnc_getSaveBlock: baut Eintrag 22 beim Speichern, [COIN_saveVersion, Nester, Intel] (Hook 17)
@@ -100,6 +102,7 @@ coin/
     ├── reputation/
     │   ├── fn_initReputation.sqf       COIN_fnc_initReputation: Server, Start-Ruf einer neuen Kampagne nach dem Laden (Ticket 5.7)
     │   ├── fn_changeReputation.sqf     COIN_fnc_changeReputation: Server, die eine Stelle für Ruf-Änderungen (Logzeile, im Debug Systemchat), Ticket 5.1
+    │   ├── fn_getMood.sqf              COIN_fnc_getMood: die Stimmung in fünf Stufen aus dem Ruf (Ticket 5.3)
     │   ├── fn_initReputationEvents.sqf COIN_fnc_initReputationEvents: Server, Ruf-Änderungen nach COIN-Ereignissen, z. B. Nest zerstört (Ticket 5.1)
     │   ├── fn_captiveKilled.sqf        COIN_fnc_captiveKilled: Server, Ruf für einen von der Armee getöteten Gefangenen, aufgerufen vom Kill-Manager (Hook 25)
     │   ├── fn_civVehicleDestroyed.sqf  COIN_fnc_civVehicleDestroyed: Server, Ruf für ein von der Armee zerstörtes Zivilfahrzeug, aufgerufen vom Kill-Manager (Hook 25)
