@@ -23,7 +23,7 @@ if ((["COINDebug", 0] call BIS_fnc_getParamValue) == 1) then {
     COIN_debug = true;
 };
 
-// Lobby parameter "COIN: Disable building penalty" decides COIN_disableBuildingPenalty (default on); the config value is the
+// Lobby parameter "Disable Building Destruction penalty" decides COIN_disableBuildingPenalty (default on); the config value is the
 // default when the parameter does not exist
 COIN_disableBuildingPenalty = (["COINDisableBuildingPenalty", [0, 1] select COIN_disableBuildingPenalty] call BIS_fnc_getParamValue) == 1;
 

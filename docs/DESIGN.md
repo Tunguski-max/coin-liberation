@@ -457,7 +457,7 @@ Festgelegt beim Grilling für Phase 5 (2026-10-23, ADR 0023). Werte sind Startwe
 ¹ macht Liberation bereits. Wir ziehen dafür nicht doppelt ab.
 ² Zerstörte Häuser kosten **keinen** Ruf (2026-10-25). Liberation würde bei der Einnahme einer Ortschaft die Häuser im Umkreis
 von 262,5 m um den Sektor-Marker mit dem Stand beim Serverstart vergleichen und je fehlendem Haus −3 abziehen (verrechnet mit
-dem Gewinn der Einnahme). COIN schaltet das ab (Lobby-Parameter „COIN: Disable building penalty“, Standard an; Liberations Wert wird auf 0 gesetzt): Die KI zerstört
+dem Gewinn der Einnahme). COIN schaltet das ab (Lobby-Parameter „Disable Building Destruction penalty“, Standard an; Liberations Wert wird auf 0 gesetzt): Die KI zerstört
 solche Häuser oft selbst. Nach der Einnahme lässt sich der Täter einer Zerstörung nicht sicher zuordnen, ein falscher Abzug
 wäre schlimmer als keiner. Der Gewinn für die Einnahme (+5, Hauptstadt +10) bleibt.
 ³ Gefangener im Sinne des Glossars: gefesselt, ergeben oder mit Liberations CAPTURE in den Squad aufgenommen. Insgesamt
