@@ -72,4 +72,7 @@ if (_updateValues) then {
     (_overlay displayCtrl _x) ctrlShow true;
 } forEach OVERLAY_RSC_IDCS;
 
+// COIN: hides the reputation number and icon (ticket 5.3, ADR 0009), switch COIN_hideReputationNumber, stays visible with COIN_debug
+[_overlay] call COIN_fnc_hideReputationDisplay;
+
 true

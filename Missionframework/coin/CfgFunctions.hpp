@@ -286,6 +286,9 @@ class COIN {
 
         // Client: getting into a civilian vehicle seizes it, for COIN_repCivVehicleSeized (Liberation's own handler has a typo, ticket 5.1)
         class initVehicleSeizure {};
+
+        // Client: hides the reputation number and icon in Liberation's overlay, except with COIN_debug (hook, ticket 5.3)
+        class hideReputationDisplay {};
     };
 
     class nests {
