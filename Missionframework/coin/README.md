@@ -61,6 +61,16 @@ coin/
     │   ├── fn_findElderSpot.sqf        COIN_fnc_findElderSpot: Platz des Ältesten, Moschee oder größtes Haus nahe dem Ortskern (Ticket 5.9a)
     │   ├── fn_spawnElder.sqf           COIN_fnc_spawnElder: der Älteste einer Ortschaft, eigene Kleidung, Name „Ältester …“, steht fest (Ticket 5.9a)
     │   └── fn_markElder.sqf            COIN_fnc_markElder: Marker auf der Karte für den Ältesten, 5 min (Ticket 5.9a)
+    ├── elder/
+    │   ├── fn_askElderHelp.sqf         COIN_fnc_askElderHelp: Server, „Können wir helfen?“ beim Ältesten, schickt die Angebote an den Dolmetscher (Ticket 5.9b)
+    │   ├── fn_getAidOffers.sqf         COIN_fnc_getAidOffers: Server, was der Älteste jetzt anbietet und warum etwas grau ist
+    │   ├── fn_openElderDialog.sqf      COIN_fnc_openElderDialog: Client, Dialog mit Liste, Erklärung und „Annehmen“ (erbt Liberations Nebenmissions-Dialog)
+    │   ├── fn_acceptElderOffer.sqf     COIN_fnc_acceptElderOffer: Server, prüft nochmal, startet den Hilfsauftrag
+    │   ├── fn_runAidTask.sqf           COIN_fnc_runAidTask: Server, ein Hilfsauftrag von Start bis Ende, „Hilfsgüter liefern“ (Ticket 5.10)
+    │   ├── fn_clientTask.sqf           COIN_fnc_clientTask: Client, die Arma-Aufgabe in der Sprache des Spielers
+    │   └── fn_showElderSentence.sqf    COIN_fnc_showElderSentence: Client, ein Satz des Ältesten als Untertitel
+    ├── ui/
+    │   └── CfgDialogs.hpp              Dialog-Klasse coin_elder_dialog (Include per Hook 29 in description.ext)
     ├── intel/
     │   ├── fn_initQuestioning.sqf      COIN_fnc_initQuestioning: Client, Dolmetscher-Slot erkennen, Aktionsmenü „Nach der Miliz fragen“ und „Verhören“ einrichten (Tickets 3.1, 3.8)
     │   ├── fn_addTalkAction.sqf        COIN_fnc_addTalkAction: Einträge im normalen Aktionsmenü (Scrollrad), nach jedem Respawn neu

@@ -255,6 +255,31 @@ class COIN {
         class showSubtitle {};
     };
 
+    class elder {
+        file = "coin\functions\elder";
+
+        // Server: an interpreter asks the elder "Can we help?", the offers go to him and open the dialog (ticket 5.9b)
+        class askElderHelp {};
+
+        // Server: what the elder offers now and why an offer is not possible, for the dialog and the check on accepting (ticket 5.9b)
+        class getAidOffers {};
+
+        // Client: the dialog of the elder, list, explanation, "Accept" (ticket 5.9b)
+        class openElderDialog {};
+
+        // Server: an interpreter accepts an offer, the aid task starts (tickets 5.9b and 5.10)
+        class acceptElderOffer {};
+
+        // Server: one aid task from start to end, success, time limit, reputation (ticket 5.10)
+        class runAidTask {};
+
+        // Client: the Arma task of an aid task, in the language of the player (tickets 5.9b and 5.10)
+        class clientTask {};
+
+        // Client: a sentence of the elder as a subtitle (ticket 5.9b)
+        class showElderSentence {};
+    };
+
     class population {
         file = "coin\functions\population";
 

@@ -246,6 +246,8 @@ class CfgTaskDescriptions {
 };
 
 #include "ui\liberation_interface.hpp"
+// COIN: dialog of the elder, built on liberation_secondary (ticket 5.9b, docs/hooks.md)
+#include "coin\ui\CfgDialogs.hpp"
 #include "ui\liberation_notifications.hpp"
 #include "ui\mission_params.hpp"
 

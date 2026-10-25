@@ -101,6 +101,15 @@ if (COIN_enablePopulation) then {
     diag_log "[COIN] init: population off";
 };
 
+// Aid tasks of the elders (tickets 5.9b and 5.10, DESIGN 8.2): town -> running task, town -> time until it waits. Not saved
+if (COIN_enableAidTasks) then {
+    COIN_aidActive = createHashMap;
+    COIN_aidCooldown = createHashMap;
+    diag_log format ["[COIN] init: aid tasks on, at most %1 at the same time, %2 min limit, %3 min wait per town", COIN_aidTaskMaxActive, COIN_aidTaskTimeoutMin, COIN_aidTaskCooldownMin];
+} else {
+    diag_log "[COIN] init: aid tasks off";
+};
+
 // Messages to all players when a nest is destroyed or a camp cleared (ticket 2.14)
 [] call COIN_fnc_initMessages;
 
