@@ -280,6 +280,12 @@ class COIN {
 
         // Server: reputation for a prisoner killed by the army, called from the kill manager (hook, ticket 5.1)
         class captiveKilled {};
+
+        // Server: reputation for a civilian vehicle destroyed by the army, called from the kill manager (hook, ticket 5.1)
+        class civVehicleDestroyed {};
+
+        // Client: getting into a civilian vehicle seizes it, for COIN_repCivVehicleSeized (Liberation's own handler has a typo, ticket 5.1)
+        class initVehicleSeizure {};
     };
 
     class nests {

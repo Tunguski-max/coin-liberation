@@ -451,7 +451,7 @@ Festgelegt beim Grilling für Phase 5 (2026-10-23, ADR 0023). Werte sind Startwe
 | Verwundeten Zivilisten nach der Befreiung behandeln¹ | +2 | Gefangenen getötet³ | −10 |
 | Informant zur FOB gebracht¹ | +2 | Haus in befreiter Ortschaft zerstört² | −3 |
 | Echtes IED entschärft | +2 | Zivilfahrzeug zerstört⁴ | −2 |
-| Nest zerstört (jeder Nest-Typ) | +5 | Zivilfahrzeug beschlagnahmt¹ | −2 |
+| Nest zerstört (jeder Nest-Typ) | +5 | Zivilfahrzeug beschlagnahmt⁵ | 0 |
 | Hilfsauftrag (Abschnitt 8.2) | +4 bis +7 | Befreundeten Widerstandskämpfer getötet¹ | −3 |
 
 ¹ macht Liberation bereits. Wir ziehen dafür nicht doppelt ab.
@@ -465,7 +465,10 @@ immer −10: bei Kämpfern, die nur mit ACE gefesselt sind oder sich ergeben, zi
 Liberations Ergeben-Skript zieht Liberation schon −5 ab (Zivilisten-Gruppe, auch an der FOB), wir −5 dazu; im Squad zieht
 Liberation nichts, wir −10. Kämpfer in Zivil (Auslöser, VBIED-Fahrer, Attentäter) kosten nie Ruf (ADR 0022).
 ⁴ Liberation zählt das nur in der Statistik. Fahrzeuge, die COIN erzeugt (VBIED, Kurier, Export, Waffentransport),
-kosten keinen Ruf.
+kosten keinen Ruf, beschlagnahmte Fahrzeuge auch nicht (siehe ⁵).
+⁵ Wer in ein Zivilfahrzeug einsteigt, beschlagnahmt es. Das kostet **keinen** Ruf (`COIN_repCivVehicleSeized`, Liberation sieht −2 vor), und das Fahrzeug gilt
+danach als unseres: Zerstört die Armee es, kostet das nichts. Liberations Handler dafür hat einen Tippfehler (`setVehiclesSeized`, auch im Upstream) und
+beschlagnahmt nie, COIN macht den Handler neu (Schalter `COIN_enableVehicleSeizure`). Beschlagnahmte Fahrzeuge werden mit gespeichert, sind für Zeus sichtbar, und die Zivil-Patrouille löscht sie nicht mehr (Hook 26).
 
 Nicht umgesetzt (2026-10-23): „Grundloses Schießen nahe Zivilisten“, „Zivilist verletzt“ und ein eigener Bonus für
 geholfene Zivilisten. Liberation bestraft getötete Zivilisten schon, Verletzungen unter ACE und „grundlos“ lassen sich

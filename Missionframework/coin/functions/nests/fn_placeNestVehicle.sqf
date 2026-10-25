@@ -84,6 +84,8 @@ _vehicle setPosATL _spot;
 [_vehicle] call COIN_fnc_snapToFloor;
 _vehicle setVehicleLock "LOCKED";
 _vehicle setVariable ["KP_liberation_preplaced", true];
+// A COIN vehicle costs no reputation when the army destroys it (COIN_fnc_civVehicleDestroyed)
+_vehicle setVariable ["COIN_isCoinVehicle", true];
 // With simulation again, so it can be destroyed like any vehicle
 _vehicle enableSimulationGlobal true;
 
