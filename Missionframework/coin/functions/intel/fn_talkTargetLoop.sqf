@@ -23,7 +23,7 @@ private _lastHeld = objNull;
 
 while {COIN_enableQuestioning} do {
     private _target = objNull;
-    private _mood = objNull;
+    private _moodTarget = objNull;
     private _prisoner = objNull;
 
     if (alive player && {player getVariable ["COIN_interpreter", false]}) then {
@@ -33,7 +33,7 @@ while {COIN_enableQuestioning} do {
         };
         // The mood may be asked of a civilian who was questioned before (ticket 5.3)
         if (COIN_enableMood && {[_seen, player, COIN_talkRange, true] call COIN_fnc_canQuestion}) then {
-            _mood = _seen;
+            _moodTarget = _seen;
         };
         if ([_seen, player] call COIN_fnc_canInterrogate) then {
             _prisoner = _seen;
@@ -41,10 +41,10 @@ while {COIN_enableQuestioning} do {
     };
     COIN_interrogateTarget = _prisoner;
     COIN_talkTarget = _target;
-    COIN_moodTarget = _mood;
+    COIN_moodTarget = _moodTarget;
 
     // Whoever may be asked something stops and watches him once he is in the sights
-    private _held = [_mood, _target] select (isNull _mood);
+    private _held = [_moodTarget, _target] select (isNull _moodTarget);
     if !(_held isEqualTo _lastHeld) then {
         _lastHeld = _held;
         if (!isNull _held) then {

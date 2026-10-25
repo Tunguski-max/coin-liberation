@@ -8,7 +8,8 @@
         range as the civilian is held), but the civilian may have been questioned before: the mood can be asked as often
         as the interpreter likes. It is no questioning: no mark on the civilian, no cooldown (COIN_fnc_reserveAsking is
         not used), no intel. After a short pause (COIN_questionDelay) the true mood (COIN_fnc_getMood) goes to the
-        asking client only. The civilian is held for a while so he does not walk off. Switch COIN_enableMood.
+        asking client only. The civilian is held and counts as in a conversation (COIN_talking) until the answer has been read, as
+        with the question about the militia, so no second answer overlaps. Switch COIN_enableMood.
 
     Parameter(s):
         _civ   - Civilian [OBJECT, defaults to objNull]
@@ -37,6 +38,8 @@ if !([_civ, _asker, COIN_talkRange + COIN_talkRangeMargin, true] call COIN_fnc_c
     false
 };
 
+// In a conversation until the answer has been read, like a question about the militia: no second answer overlaps this one
+_civ setVariable ["COIN_talking", true, true];
 [_civ, _asker, COIN_talkHoldSeconds] remoteExecCall ["COIN_fnc_holdCivilian", _civ];
 
 [_civ, _asker] spawn {
@@ -52,7 +55,11 @@ if !([_civ, _asker, COIN_talkRange + COIN_talkRangeMargin, true] call COIN_fnc_c
             name _asker, name _civ, typeOf _civ, missionNamespace getVariable ["KP_liberation_civ_rep", 0], _mood
         ];
         [name _civ, _mood] remoteExecCall ["COIN_fnc_showMood", owner _asker];
+        sleep COIN_answerReadSeconds;
     };
+
+    [_civ, objNull, 0] remoteExecCall ["COIN_fnc_holdCivilian", _civ];
+    _civ setVariable ["COIN_talking", false, true];
 };
 
 true
