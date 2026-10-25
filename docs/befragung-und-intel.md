@@ -4,7 +4,7 @@ Dieses Dokument erklärt in einem Stück, **wie COIN aus Gesprächen Wissen mach
 wann daraus Gerüchte, Hinweise, Konkrete Tipps, Warnungen und Lügen entstehen und was davon später noch dazukommt.
 Es ist für Menschen geschrieben (Spieler, Tester, Design), nicht für den Code. Die Begriffe sind die aus `CONTEXT.md`.
 
-Stand: 2026-10-24 (Code auf `master`; Ticket #102 in Arbeit; vom Rest von Phase 5 ist nur der Ruf-Anteil gebaut).
+Stand: 2026-10-25 (Code auf `master`; vom Rest von Phase 5 ist der Ruf-Anteil 5.7 und 5.1 gebaut).
 
 **Wo steht was verbindlich?** Das Design steht in `docs/DESIGN.md` (Abschnitte 7 und 8), die Entscheidungen in
 `docs/adr/` (vor allem 0011, 0021, 0023). Dieses Dokument fasst zusammen und bindet nichts. Bei Abweichungen gilt der Code,
@@ -48,8 +48,8 @@ Weniger Bedrohungen, schwächere Miliz, Ruf steigt → bessere Auskunft
 | Bedrohungen | IEDs, VBIEDs, Attentäter, Hinterhalte, gespeist aus den Nestern | ✅ (Phase 4) |
 | Ruf | Liberations „Civil Reputation“: Start −20, Nest zerstört +5, IED entschärft +2 | ✅ (Phase 5, #99 und #100) |
 | | Gefangener getötet −10 (#101) | ✅ |
-| | Zivilfahrzeug zerstört −2 (#102) | 🔧 |
-| | Haus, Stimmung, Informanten-Häufigkeit | 📋 (Phase 5, Block 5A) |
+| | Zivilfahrzeug zerstört −2, Beschlagnahmen ohne Abzug (#102) | ✅ |
+| | Stimmung, Informanten-Häufigkeit | 📋 (Phase 5, Block 5A) |
 | Ältester, Hilfsaufträge, Nebenmissionen | Ansprechpartner in befreiten Ortschaften | 📋 (Phase 5, Block 5B) |
 | Zugriffsaufträge | Aufträge, die aus einer Befragung oder einem Verhör entstehen | 📋 (Phase 5, Block 5C) |
 | Gefälligkeit „Verstärkung“ | Lokale Kämpfer bei sehr hohem Ruf | 📋 (Phase 5, Block 5D) |
@@ -316,7 +316,7 @@ Die Intel-Marker gelten für **die ganze Seite** (alle Spieler sehen sie), auch 
 
 | Thema | Was sich bei Gesprächen und Intel ändert | Ticket |
 |---|---|---|
-| **Ruf-Änderungen** | Neue Ruf-Quellen: Nest zerstört +5, Gefangener getötet −10, Zivilfahrzeug zerstört −2, Haus in befreiter Ortschaft zerstört −3. Der Ruf verschiebt die Gewichte aus 5.2 | 5.1: Nest, Gefangener ✅, Zivilfahrzeug 🔧 (#102); 5.8 📋 |
+| **Ruf-Änderungen** | Neue Ruf-Quellen: Nest zerstört +5, Gefangener getötet −10, Zivilfahrzeug zerstört −2. Beschlagnahmen und ein Haus nach der Einnahme kosten nichts. Der Ruf verschiebt die Gewichte aus 5.2 | 5.1 ✅ (Nest, Gefangener, Zivilfahrzeug); 5.8 verworfen |
 | **Stimmung** | „Wie steht ihr zu uns?“ beim Zivilisten und Ältesten (Abschnitt 3.4) | 5.3 📋 |
 | **Informanten-Häufigkeit** | Unter +25 keine, ab +25 Liberations Werte (alle 90–180 min ein Versuch, 75 %), ab +50 alle 45–90 min mit 100 % | 5.2 📋 |
 | **Ältester** | Pro befreiter Ortschaft einer, nicht zur Miliz befragbar; getötet → 60 min kein Ältester | 5.9a 📋 |

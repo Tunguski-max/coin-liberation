@@ -449,17 +449,16 @@ Festgelegt beim Grilling für Phase 5 (2026-10-23, ADR 0023). Werte sind Startwe
 |---|---|---|---|
 | Ortschaft befreien¹ | +5 (Hauptstadt +10) | Zivilist getötet¹ (auch der Älteste) | −5 |
 | Verwundeten Zivilisten nach der Befreiung behandeln¹ | +2 | Gefangenen getötet³ | −10 |
-| Informant zur FOB gebracht¹ | +2 | Haus in befreiter Ortschaft zerstört² | −3 |
+| Informant zur FOB gebracht¹ | +2 | Gebäude bei der Einnahme zerstört² | −3 je Haus |
 | Echtes IED entschärft | +2 | Zivilfahrzeug zerstört⁴ | −2 |
 | Nest zerstört (jeder Nest-Typ) | +5 | Zivilfahrzeug beschlagnahmt⁵ | 0 |
 | Hilfsauftrag (Abschnitt 8.2) | +4 bis +7 | Befreundeten Widerstandskämpfer getötet¹ | −3 |
 
 ¹ macht Liberation bereits. Wir ziehen dafür nicht doppelt ab.
-² Liberation rechnet Gebäudeschäden nur bei der Einnahme einer Ortschaft ab. Zusätzlich kostet ein **Haus**
-(mit Gebäudepositionen, keine Mauer, kein Zaun) im Radius einer **befreiten** Ortschaft Ruf, wenn es zur Ruine wird und
-die Armee es zerstört hat (Spieler, KI, Fahrzeug, Mörser, Hubschrauber). Keine Obergrenze. Kein Abzug, solange
-Miliz-Einheiten im Ortschaftsradius sind (Gegenangriff): Wer die Ortschaft verteidigt, wird nicht bestraft. Was die Miliz
-zerstört (IED, VBIED, Attentäter), kostet nichts.
+² Liberation rechnet Gebäudeschäden nur bei der Einnahme einer Ortschaft ab: Es vergleicht die Häuser im Umkreis von
+262,5 m um den Sektor-Marker mit dem Stand beim Serverstart, je fehlendem Haus −3, verrechnet mit dem Gewinn der
+Einnahme. Danach zerstörte Häuser kosten **keinen** Ruf (2026-10-25): Der Täter einer Zerstörung lässt sich nicht sicher
+zuordnen, und ein falscher Abzug wäre schlimmer als keiner.
 ³ Gefangener im Sinne des Glossars: gefesselt, ergeben oder mit Liberations CAPTURE in den Squad aufgenommen. Insgesamt
 immer −10: bei Kämpfern, die nur mit ACE gefesselt sind oder sich ergeben, ziehen wir −10 ab; bei Gefangenen aus
 Liberations Ergeben-Skript zieht Liberation schon −5 ab (Zivilisten-Gruppe, auch an der FOB), wir −5 dazu; im Squad zieht
@@ -470,7 +469,8 @@ kosten keinen Ruf, beschlagnahmte Fahrzeuge auch nicht (siehe ⁵).
 danach als unseres: Zerstört die Armee es, kostet das nichts. Liberations Handler dafür hat einen Tippfehler (`setVehiclesSeized`, auch im Upstream) und
 beschlagnahmt nie, COIN macht den Handler neu (Schalter `COIN_enableVehicleSeizure`). Beschlagnahmte Fahrzeuge werden mit gespeichert, sind für Zeus sichtbar, und die Zivil-Patrouille löscht sie nicht mehr (Hook 26).
 
-Nicht umgesetzt (2026-10-23): „Grundloses Schießen nahe Zivilisten“, „Zivilist verletzt“ und ein eigener Bonus für
+Nicht umgesetzt (2026-10-23): „Grundloses Schießen nahe Zivilisten“, „Zivilist verletzt“, „Haus nach der Einnahme zerstört“
+(2026-10-25, Ticket 5.8, Täter nicht zuzuordnen) und ein eigener Bonus für
 geholfene Zivilisten. Liberation bestraft getötete Zivilisten schon, Verletzungen unter ACE und „grundlos“ lassen sich
 nicht fair erkennen.
 

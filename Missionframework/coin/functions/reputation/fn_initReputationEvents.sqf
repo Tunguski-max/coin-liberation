@@ -11,7 +11,7 @@
         - Prisoner (ACE: handcuffed or surrendered): remembers the state of a living unit in COIN_prisonerState, because ACE
           clears isHandcuffed when the unit dies and COIN_fnc_captiveKilled needs it then. Only while COIN_repCaptiveKilled
           is not 0.
-        Further events of block 5A (tickets 5.1 to 5.8) are added here. Called once at the server start, before
+        Further events of block 5A (tickets 5.1 to 5.3) are added here. Called once at the server start, before
         any nest can be destroyed. Server only.
 
     Parameter(s):

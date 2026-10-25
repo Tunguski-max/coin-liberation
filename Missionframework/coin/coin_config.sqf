@@ -964,7 +964,6 @@ COIN_repNestDestroyed       = 5;        // Any nest type, once per nest (ticket 
 COIN_repCaptiveKilled       = -10;      // Ticket 5.1, 0 = off. Total for a prisoner; for Liberation's prisoners (civilian group) Liberation already takes -5, we take the rest
 COIN_repCivVehicleSeized    = 0;        // Ticket 5.1: reputation for seizing a civilian vehicle (getting into it). Liberation means -2 (KP_liberation_cr_vehicle_penalty), COIN sets it to this value. A seized vehicle is ours: destroying it costs nothing
 COIN_repCivVehicleDestroyed = -2;       // Ticket 5.1, 0 = off. Destroyed by the army; vehicles COIN made (COIN_isCoinVehicle: VBIED, garage vehicle, later task vehicles) and seized ones do not count
-COIN_repBuildingDestroyed   = -3;       // Per house destroyed by the army in a liberated town; none while militia is inside the town radius
 
 // Informants (ticket 5.2): Liberation's KP_liberation_civinfo_* by reputation; below COIN_repBandHigh Liberation sends none
 COIN_informantHighRep       = 50;       // From here the faster values apply
