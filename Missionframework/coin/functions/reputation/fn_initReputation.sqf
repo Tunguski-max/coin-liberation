@@ -10,6 +10,7 @@
         (hostile below -25, friendly from +25, neutral between), which Liberation otherwise sets only on a save load
         or the first change.
         Switch COIN_enableReputationStart: off = a new campaign starts at 0 as in Liberation.
+        Also switches off Liberation's penalty for houses that are gone when a town is taken (COIN_disableBuildingPenalty).
         Must be spawned (waits for save_is_loaded).
 
     Parameter(s):
@@ -20,6 +21,14 @@
 */
 
 if (!isServer) exitWith {false};
+
+// Liberation charges 3 reputation per house that is gone when the army takes a town (f_kp_cr_liberatedSector.sqf, compared
+// with the count at the server start). The fight destroys houses and the AI is often to blame, so the penalty is off. The gain
+// for the capture stays, a message about destroyed buildings is not shown (Liberation sends it only for a penalty above 0)
+if (COIN_disableBuildingPenalty) then {
+    KP_liberation_cr_building_penalty = 0;
+    diag_log "[COIN] reputation: building penalty at the capture of a town is off (Liberation: 3 per house)";
+};
 
 private _timeout = diag_tickTime + COIN_initTimeout;
 waitUntil {

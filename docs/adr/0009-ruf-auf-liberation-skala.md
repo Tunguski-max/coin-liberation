@@ -15,9 +15,9 @@ Miliz, ab +25 auf unserer Seite und erst dann erscheinen Informanten.
   niedrig < 0 · mittel 0 bis < 25 · hoch ≥ 25.
 - **Start:** Eine neue Kampagne beginnt bei **−20** (Hook, greift nur bei neuer Kampagne).
 - **Gefälligkeiten** entstehen ab **+50** (endgültig seit 2026-10-23, ADR 0023).
-- **Gebäudeschäden:** Liberation rechnet nur bei der Einnahme ab. Wir ändern daran nichts und rechnen danach nichts
-  zusätzlich ab: Der Täter einer Zerstörung in einer befreiten Ortschaft lässt sich nicht sicher zuordnen, ein falscher
-  Abzug wäre schlimmer als keiner (2026-10-25, Ticket 5.8 verworfen).
+- **Gebäudeschäden:** Kosten keinen Ruf (2026-10-25, Ticket 5.8 verworfen). Liberations Abrechnung bei der Einnahme (3 je
+  fehlendem Haus) schalten wir ab (`COIN_disableBuildingPenalty`): Die KI zerstört solche Häuser oft selbst. Nach der
+  Einnahme lässt sich der Täter nicht sicher zuordnen, ein falscher Abzug wäre schlimmer als keiner.
 - **Informanten:** Ihre Häufigkeit steigt mit dem Ruf. Unser Code setzt Liberations
   `KP_liberation_civinfo_*`-Werte (kein Hook): unter +25 weiterhin keine, von +25 bis unter +50 Liberations Werte,
   ab +50 doppelt so oft (2026-10-23).

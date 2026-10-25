@@ -225,8 +225,8 @@ Vier Blöcke, nacheinander umgesetzt und getestet: 5A → 5B → 5C → 5D.
   Fahrzeuge ausgenommen). Unsere Änderungen ohne Meldung, im Debug mit Betrag und Wert im Systemchat
 - [-] 5.8 (#103) Haus in befreiter Ortschaft von der Armee zerstört −3: verworfen am 2026-10-25 (Niklas), Ticket geschlossen.
   Grund: Der Täter einer Zerstörung ließ sich nicht sicher zuordnen (`BuildingChanged` nennt keinen Verursacher, ein Handler
-  auf jedem Haus wäre teuer, Nähe zu BLUFOR ist geraten). Liberations Abrechnung bei der Einnahme bleibt, danach kostet
-  ein zerstörtes Haus nichts
+  auf jedem Haus wäre teuer, Nähe zu BLUFOR ist geraten). Auch Liberations Abrechnung bei der Einnahme ist abgeschaltet
+  (`COIN_disableBuildingPenalty`, die KI zerstört oft selbst): zerstörte Häuser kosten nie Ruf
 - [ ] 5.3 Ganze Ruf-Anzeige im Overlay ausblenden (Hook, Zahl und Symbol); „Wie steht ihr zu uns?“ für den Dolmetscher:
   Stimmung in fünf Stufen, immer wahr, keine Abklingzeit
 - [ ] 5.2 Informanten-Häufigkeit nach Ruf: unter +25 keine, ab +25 Liberations Werte, ab +50 doppelt so oft (Server-Loop

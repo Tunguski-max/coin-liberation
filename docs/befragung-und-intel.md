@@ -316,7 +316,7 @@ Die Intel-Marker gelten für **die ganze Seite** (alle Spieler sehen sie), auch 
 
 | Thema | Was sich bei Gesprächen und Intel ändert | Ticket |
 |---|---|---|
-| **Ruf-Änderungen** | Neue Ruf-Quellen: Nest zerstört +5, Gefangener getötet −10, Zivilfahrzeug zerstört −2. Beschlagnahmen und ein Haus nach der Einnahme kosten nichts. Der Ruf verschiebt die Gewichte aus 5.2 | 5.1 ✅ (Nest, Gefangener, Zivilfahrzeug); 5.8 verworfen |
+| **Ruf-Änderungen** | Neue Ruf-Quellen: Nest zerstört +5, Gefangener getötet −10, Zivilfahrzeug zerstört −2. Beschlagnahmen und zerstörte Häuser kosten nichts (auch Liberations Abzug bei der Einnahme ist aus). Der Ruf verschiebt die Gewichte aus 5.2 | 5.1 ✅ (Nest, Gefangener, Zivilfahrzeug); 5.8 verworfen |
 | **Stimmung** | „Wie steht ihr zu uns?“ beim Zivilisten und Ältesten (Abschnitt 3.4) | 5.3 📋 |
 | **Informanten-Häufigkeit** | Unter +25 keine, ab +25 Liberations Werte (alle 90–180 min ein Versuch, 75 %), ab +50 alle 45–90 min mit 100 % | 5.2 📋 |
 | **Ältester** | Pro befreiter Ortschaft einer, nicht zur Miliz befragbar; getötet → 60 min kein Ältester | 5.9a 📋 |
