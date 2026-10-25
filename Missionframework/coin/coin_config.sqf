@@ -27,6 +27,7 @@ COIN_enableQuestioning      = true;     // Phase 3
 COIN_enableLies             = true;     // Phase 3, ticket 3.4: off = the weight of the lie counts as "nothing"; lies already on the map stay
 COIN_enableUnsafeRefusal    = true;     // Phase 3, ticket 3.4: off = a civilian answers even with armed enemies close
 COIN_enableWarnings         = true;     // Phase 3, ticket 3.6: off = the weight of the warning counts as "nothing"; warnings already on the map stay until their threat is gone
+COIN_enableVehicleSeizure    = true;     // Phase 5, ticket 5.1: getting into a civilian vehicle seizes it (Liberation's handler has a typo and never does); off = nothing is seized, as in Liberation
 COIN_enableInformantTip     = true;     // Phase 3, ticket 3.10: off = Liberation's informant gives only his own reward, no tip (needs COIN_enableNests and COIN_enableQuestioning)
 COIN_enableInterrogation    = true;     // Phase 3, ticket 3.8: off = no entry "Interrogate" at prisoners (needs COIN_enableQuestioning, its loop finds the prisoner)
 COIN_enableIEDs             = true;     // Phase 4
@@ -948,7 +949,7 @@ COIN_enableAmbushWarnings   = true;     // Off: no warning of an ambush is made,
 // Reputation (Phase 5), ADR 0009, ADR 0023, DESIGN 8
 // Uses Liberation's civil reputation KP_liberation_civ_rep, scale -100 .. +100.
 // Changes go through Liberation's F_cr_changeCR, without a message (in debug mode: system chat).
-// Liberation already handles: civilian killed (-5), civilian vehicle seized (-2),
+// Liberation already handles: civilian killed (-5),
 // friendly resistance killed (-3), sector liberated (+5 / capital +10),
 // wounded civilian treated (+2), informant delivered (+2),
 // buildings destroyed at the moment of capture (-3 each).
@@ -961,6 +962,7 @@ COIN_moodThresholds         = [-25, 0, 25, 50]; // Mood (ticket 5.3): below the 
 COIN_repIEDDefused          = 2;        // Ticket 4.2a: a real IED defused (not a decoy, not one blown up), 0 = off
 COIN_repNestDestroyed       = 5;        // Any nest type, once per nest (ticket 5.1), 0 = off
 COIN_repCaptiveKilled       = -10;      // Ticket 5.1, 0 = off. Total for a prisoner; for Liberation's prisoners (civilian group) Liberation already takes -5, we take the rest
+COIN_repCivVehicleSeized    = 0;        // Ticket 5.1: reputation for seizing a civilian vehicle (getting into it). Liberation means -2 (KP_liberation_cr_vehicle_penalty), COIN sets it to this value. A seized vehicle is ours: destroying it costs nothing
 COIN_repCivVehicleDestroyed = -2;       // Ticket 5.1, 0 = off. Destroyed by the army; vehicles COIN made (COIN_isCoinVehicle: VBIED, garage vehicle, later task vehicles) and seized ones do not count
 COIN_repBuildingDestroyed   = -3;       // Per house destroyed by the army in a liberated town; none while militia is inside the town radius
 

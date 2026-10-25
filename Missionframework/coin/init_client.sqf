@@ -58,3 +58,9 @@ if (COIN_enableNetworkStrength && {COIN_debug}) then {
 if (COIN_enableSquadMix) then {
     [] call COIN_fnc_registerSquadTwins;
 };
+
+// Civilian vehicles (ticket 5.1): getting in seizes the vehicle, for COIN_repCivVehicleSeized reputation. Liberation's own
+// handler calls a function name that does not exist, so without this nothing is ever seized
+if (COIN_enableVehicleSeizure) then {
+    [] call COIN_fnc_initVehicleSeizure;
+};

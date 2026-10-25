@@ -11,8 +11,8 @@
         - the killer is the army (side of the killer, like Liberation's own rules): what the militia destroys costs nothing,
         - the vehicle was not made by COIN (COIN_isCoinVehicle: VBIED, vehicle of a garage; the vehicles of later tasks set
           it too): it is militia property and not the people's,
-        - the army has not seized it (KPLIB_seized): Liberation took the reputation for that, and a vehicle a player has
-          got into is seized (GetInMan).
+        - the army has not seized it (KPLIB_seized): seizing has its own value (COIN_repCivVehicleSeized, 0), and a vehicle a player
+          has got into is seized (COIN_fnc_initVehicleSeizure, Liberation's own handler has a typo). It is ours then.
         Reach: only vehicles with Liberation's kill manager get here. That is the civilian patrol vehicles and those placed
         by Zeus; parked civilian cars never had it (Liberation does not count them in its statistics either), and COIN's own
         vehicles are created without it, so the mark is a second line of defence. Config value 0 switches it off. Server only.
