@@ -4,9 +4,9 @@
 
     Description:
         Marks an elder on the map for everybody for COIN_elderMarkerSeconds (ticket 5.9a, "Where do I find the elder?",
-        COIN_fnc_askElder). Asking again while the marker is up starts the time anew. The marker goes (checked every
-        COIN_spawnCheckInterval s) early when the
-        elder dies or is removed with his town. It is not the debug marker of the elder (COIN_debug), which stays.
+        COIN_fnc_askElder). Asking again while the marker is up starts the time anew. The marker goes early when the
+        elder dies or is removed with his town (checked every COIN_spawnCheckInterval s). It is a marker of its own,
+        apart from the debug marker of the elder (COIN_debug), which the population loop removes when he dies.
         Server only; global marker, so late joiners see it too.
 
     Parameter(s):
