@@ -229,7 +229,7 @@ Vier Blöcke, nacheinander umgesetzt und getestet: 5A → 5B → 5C → 5D.
   (`COIN_disableBuildingPenalty`, die KI zerstört oft selbst): zerstörte Häuser kosten nie Ruf
 - [ ] 5.3 Ganze Ruf-Anzeige im Overlay ausblenden (Hook, Zahl und Symbol; #104 getestet); „Wie steht ihr zu uns?“ für den Dolmetscher (#105 umgesetzt, ungetestet; beim Ältesten mit 5.9a):
   Stimmung in fünf Stufen, immer wahr, keine Abklingzeit
-- [ ] 5.2 Informanten-Häufigkeit nach Ruf: unter +25 keine, ab +25 Liberations Werte, ab +50 doppelt so oft (Server-Loop
+- [ ] 5.2 (#106, umgesetzt, ungetestet) Informanten-Häufigkeit nach Ruf: unter +25 keine, ab +25 Liberations Werte, ab +50 doppelt so oft (Server-Loop
   setzt `KP_liberation_civinfo_*`, kein Hook). Intel-Gewichte und Attentäter nach Ruf-Band gibt es schon (3.4, 4.4)
 
 **5B Ältester und Hilfsaufträge (DESIGN 8, 8.2)** – Reihenfolge: 5.9a, 5.9b, 5.10, 5.11, 5.12, 5.17
