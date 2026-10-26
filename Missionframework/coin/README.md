@@ -78,6 +78,8 @@ coin/
     │   ├── fn_repairInfrastructure.sqf COIN_fnc_repairInfrastructure: Server, Gerät repariert
     │   ├── fn_closeInfrastructure.sqf  COIN_fnc_closeInfrastructure: Server, Gerät wartet nicht mehr, Rauch aus
     │   ├── fn_removeWhenUnseen.sqf     COIN_fnc_removeWhenUnseen: Server, entfernt Patienten und Geräte, wenn niemand sie sieht
+    │   ├── fn_secondaryAtElder.sqf     COIN_fnc_secondaryAtElder: Client und Server, bieten die Ältesten Nebenmissionen an? (Hook 30, Ticket 5.17)
+    │   ├── fn_startSecondary.sqf       COIN_fnc_startSecondary: Server, startet Liberations Nebenmission über deren Server-Aufruf
     │   ├── fn_rateSites.sqf            COIN_fnc_rateSites: Server, Dörfer um eine Ortschaft mit dem Grund, warum eines kein Einsatzort ist (Ticket 5.20)
     │   ├── fn_findSite.sqf             COIN_fnc_findSite: Server, Einsatzort einer Ortschaft: nächstes Dorf außerhalb der Sektoren
     │   ├── fn_logSites.sqf             COIN_fnc_logSites: Server, schreibt Dörfer und Einsatzort jeder Ortschaft ins RPT (Prüfliste)

@@ -12,6 +12,9 @@
           (KP_liberation_ace),
         - "no_site": only for "medical" and "repair" with COIN_enableAidSites (tickets 5.20 and 5.21, ADR 0024): no village outside
           the sectors for the task (COIN_fnc_findSite), or all of them are the site of another aid task.
+        With COIN_fnc_secondaryAtElder the secondary missions of COIN_secondaryOffers follow as section "secondary" (ticket 5.17), not
+        tied to the town, with their own reasons: "secondary_running" (Liberation runs a secondary mission, only one at a time) and
+        "no_intel" (value: the cost in intel points) and "no_territory" (no enemy territory left for a mission, as in Liberation's dialog).
         Used for the dialog and again for the check when an offer is accepted. Server only.
 
     Parameter(s):
@@ -72,6 +75,27 @@ private _offers = COIN_aidTaskTexts apply {
     // the server looks again, and the elder names the village that was chosen
     private _place = if (_hasSite && {_site isNotEqualTo []}) then {_site select 0} else {_town};
     [_id, "aid", (_offerReason select 0) isEqualTo "", _offerReason select 0, _offerReason select 1, _place, [[], _site] select _hasSite]
+};
+
+// Liberation's secondary missions (ticket 5.17): not tied to the town. Grey when one runs already (Liberation's rule: one at a
+// time) or the intel points are short; Liberation's cost is the price
+if ([] call COIN_fnc_secondaryAtElder) then {
+    private _intel = missionNamespace getVariable ["resources_intel", 0];
+    private _secondaryRunning = (missionNamespace getVariable ["GRLIB_secondary_in_progress", -1]) >= 0
+        || {missionNamespace getVariable ["GRLIB_secondary_starting", false]};
+    // Liberation's dialog starts a mission only while enemy territory is left for it, its server call does not look
+    COIN_secondaryTerritoryRange params ["_rangeMin", "_rangeMax"];
+    private _territory = !(([_rangeMin, _rangeMax, false] call KPLIB_fnc_getOpforSpawnPoint) isEqualTo "");
+    {
+        _x params ["_id", "_index"];
+        private _cost = GRLIB_secondary_missions_costs select _index;
+        private _secondaryReason = if (_secondaryRunning) then {["secondary_running", 0]} else {
+            if (_intel < _cost) then {["no_intel", _cost]} else {
+                if (!_territory) then {["no_territory", 0]} else {["", 0]}
+            }
+        };
+        _offers pushBack [_id, "secondary", (_secondaryReason select 0) isEqualTo "", _secondaryReason select 0, _secondaryReason select 1, "", []];
+    } forEach COIN_secondaryOffers;
 };
 
 [["", "busy"] select (_running || {_minutesLeft > 0}), _offers, _active]

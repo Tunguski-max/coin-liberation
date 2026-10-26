@@ -150,8 +150,10 @@ _player addAction [
     false,
     true,
     "",
+    // COIN: hook 30 - with COIN_secondaryAtElder the secondary missions are started at the elder (ticket 5.17, ADR 0023), no entry here
     "
         isNull (objectParent _originalTarget)
+        && {!([] call COIN_fnc_secondaryAtElder)}
         && {alive _originalTarget}
         && {
             _originalTarget getVariable ['KPLIB_fobDist', 99999] < 20

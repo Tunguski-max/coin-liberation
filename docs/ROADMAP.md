@@ -249,7 +249,7 @@ Vier Blöcke, nacheinander umgesetzt und getestet: 5A → 5B → 5C → 5D.
   Satz des Ältesten nennen das Dorf, grau ohne Dorf, Schalter `COIN_enableAidSites`
 - [x] 5.22 (#134, am 2026-10-26 im Spiel bestätigt: Entscheidung mit Nest, Spawn, Feuer bei 150 m, Hausbesatzung, ausgehoben, Verhör nennt das Nest; offen: Entfernen, Budget voll, Schalter aus) Hinterhalt am Einsatzort: 75 %, nur mit aktivem Nest im Radius, 4–6 Kämpfer in Deckung auf der Zufahrtsseite
   plus 2–3 versteckte in Häusern, Camp-Budget ganz oder gar nicht, vager Warnsatz des Ältesten, Verhör nennt das Nest
-- [ ] 5.17 Liberations Nebenmissionen (Konvoi-Überfall, Rettung) im Dialog des Ältesten; Eintrag an der FOB entfällt
+- [x] 5.17 (#111, am 2026-10-26 im Spiel bestätigt: Abschnitt im Dialog, Start mit Intel-Punkten; nicht einzeln bestätigt: Eintrag an der FOB weg, Schalter aus) Liberations Nebenmissionen (Konvoi-Überfall, Rettung) im Dialog des Ältesten; Eintrag an der FOB entfällt
   (Hook mit Schalter)
 
 **5C Zugriffsaufträge (DESIGN 8.2)** – Reihenfolge: 5.13, 5.14, 5.15, 5.16, 5.18

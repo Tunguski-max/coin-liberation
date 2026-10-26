@@ -65,7 +65,13 @@ _button ctrlSetText (_accept select _index);
         _list lbSetColor [_headerRow, [0.8, 0.8, 0.8, 0.6]];
         {
             _x params ["_id", "", "_enabled"];
-            private _label = (([COIN_aidTaskTexts, _id] call COIN_fnc_findByType) select 1) select _index;
+            // A secondary mission of Liberation (ticket 5.17) has Liberation's title, an aid task its own
+            private _secondary = [COIN_secondaryOffers, _id] call COIN_fnc_findByType;
+            private _label = if (_secondary isNotEqualTo []) then {
+                localize (_secondary select 2)
+            } else {
+                (([COIN_aidTaskTexts, _id] call COIN_fnc_findByType) select 1) select _index
+            };
             private _row = _list lbAdd ("    " + _label);
             _list lbSetData [_row, _id];
             if (!_enabled) then {_list lbSetColor [_row, [0.5, 0.5, 0.5, 1]]};
@@ -89,7 +95,8 @@ while {dialog && {alive player} && {alive _elder} && {(player distance _elder) <
         private _id = _list lbData _selected;
         private _offer = _offers select {(_x select 0) isEqualTo _id};
         // The picture of the offer, like Liberation's pictures of its side missions; none if the file is not there
-        private _picture = format [COIN_aidImagePath, _id];
+        private _secondary = [COIN_secondaryOffers, _id] call COIN_fnc_findByType;
+        private _picture = if (_secondary isNotEqualTo []) then {_secondary select 4} else {format [COIN_aidImagePath, _id]};
         _pictureCtrl ctrlSetText (["", _picture] select (_id isNotEqualTo "" && {fileExists _picture}));
         if (_id isEqualTo "" || {_offer isEqualTo []}) then {
             _text ctrlSetStructuredText parseText "";
@@ -100,9 +107,22 @@ while {dialog && {alive player} && {alive _elder} && {(player distance _elder) <
             // No village for the task: the explanation names no place of the town, as the offer is grey for that reason
             if (_reasonKey isEqualTo "no_site") then {_place = COIN_aidNoSitePlace select _index};
             private _row = [COIN_aidTaskTexts, _id] call COIN_fnc_findByType;
-            private _explanation = format [(_row select 2) select _index, COIN_aidTaskTimeoutMin, COIN_aidSupplyDistance, COIN_aidSupplyMinValue, COIN_aidRepairSeconds, COIN_aidRepairRadius select 0, _place];
+            private _explanation = if (_secondary isNotEqualTo []) then {
+                // Liberation's briefing, then its cost and the intel points the army has
+                (localize (_secondary select 3)) + "<br/><br/>" + format [
+                    COIN_secondaryCostText select _index, GRLIB_secondary_missions_costs select (_secondary select 1), missionNamespace getVariable ["resources_intel", 0]
+                ]
+            } else {
+                format [(_row select 2) select _index, COIN_aidTaskTimeoutMin, COIN_aidSupplyDistance, COIN_aidSupplyMinValue, COIN_aidRepairSeconds, COIN_aidRepairRadius select 0, _place]
+            };
             private _reason = "";
-            private _shown = format ["<t color='#e0e0e0'>%1</t>", _explanation];
+            // The look of Liberation's briefings: the title big and orange, then the text; the lines of the explanation carry their
+            // own colours (blue and orange). A secondary mission has its title in Liberation's briefing
+            private _shown = _explanation;
+            if (_secondary isEqualTo []) then {
+                private _title = ((_row select 1) select _index);
+                _shown = format ["<t size='1.3' color='#ffa000'>%1</t><br/><br/>%2", _title, _explanation];
+            };
             if (!_enabled) then {
                 private _reasonRow = [COIN_aidReasonTexts, _reasonKey] call COIN_fnc_findByType;
                 _reason = format [(_reasonRow param [1, ["", ""]]) select _index, _reasonValue];

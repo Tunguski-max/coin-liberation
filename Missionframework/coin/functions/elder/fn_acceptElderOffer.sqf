@@ -10,6 +10,7 @@
         whole side with a marker, and a message to all. The elder answers the interpreter: for "medical" and "repair" with a
         village (tickets 5.20 and 5.21, ADR 0024) he names it, the village is kept in COIN_aidActive so no other task takes it.
         There the ambush is decided too (ticket 5.22, COIN_fnc_planSiteAmbush); if it waits, he adds a vague warning.
+        A secondary mission of Liberation (ticket 5.17, COIN_secondaryOffers) goes to COIN_fnc_startSecondary instead.
         Switch COIN_enableAidTasks.
 
     Parameter(s):
@@ -53,6 +54,12 @@ if (_offer isEqualTo [] || {!((_offer select 0) select 2)}) exitWith {
     ];
     [_elder, "refused"] remoteExecCall ["COIN_fnc_showElderSentence", owner _asker];
     false
+};
+
+// One of Liberation's secondary missions (ticket 5.17): started by Liberation's own server call, no aid task of the town
+private _secondary = [COIN_secondaryOffers, _id] call COIN_fnc_findByType;
+if (_secondary isNotEqualTo []) exitWith {
+    [_elder, _asker, _secondary] call COIN_fnc_startSecondary
 };
 
 private _sector = _elder getVariable ["COIN_sector", ""];
