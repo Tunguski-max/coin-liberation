@@ -306,6 +306,12 @@ class COIN {
         // Server: removes what an aid task made when nobody sees it (tickets 5.11, 5.12)
         class removeWhenUnseen {};
 
+        // Client and server: do the elders offer Liberation's secondary missions instead of a FOB? Hook 30 asks it (ticket 5.17)
+        class secondaryAtElder {};
+
+        // Server: starts a secondary mission of Liberation that an interpreter accepted at the elder (ticket 5.17)
+        class startSecondary {};
+
         // Server: the villages near a town with the reason each cannot be the site of an aid task (ticket 5.20)
         class rateSites {};
 
