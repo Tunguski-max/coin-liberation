@@ -599,8 +599,9 @@ Diese beiden Hilfsaufträge spielen nicht in der befreiten Ortschaft, sondern an
 Liberation-Sektoren, damit ein Hinterhalt der Miliz glaubhaft ist (er taucht nicht plötzlich in der befreiten Stadt auf).
 „Hilfsgüter liefern“ bleibt beim Ältesten, dort ist der Transport die Schwierigkeit.
 - **Auswahl:** Das nächste Karten-Dorf (`NameVillage` oder `NameLocal`) mit mindestens 6 Häusern im Umkreis von 150 m (so
-  fallen Camps, FOBs und Fabriken heraus, dazu eine Ausschlussliste in der Config), mindestens 500 m von jedem Sektor und
-  1200 m von jedem noch nicht befreiten Sektor (Liberation aktiviert Sektoren bei 1000 m), höchstens 3000 m vom Ältesten,
+  fallen Camps, FOBs und Fabriken heraus, dazu eine Ausschlussliste in der Config), mindestens 500 m von jeder Ortschaft
+  und Stadt (sonst wäre es die befreite Ortschaft selbst) und 150 m von jeder Fabrik, jedem Militärposten und Turm, 1200 m
+  von jedem noch nicht befreiten Sektor (Liberation aktiviert Sektoren bei 1000 m), höchstens 3000 m vom Ältesten,
   gerade nicht Einsatzort eines anderen Auftrags. Dorfmitte ist der Mittelpunkt der Häuser. Gibt es keines, ist der Eintrag
   im Dialog grau („Kein Dorf in der Nähe, das Hilfe braucht.“).
 - **Sichtbar:** Der Dialog, der Titel der Aufgabe und der Karten-Marker nennen das Dorf, der Älteste sagt im Untertitel, wohin.
