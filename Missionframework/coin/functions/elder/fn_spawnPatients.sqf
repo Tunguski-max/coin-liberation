@@ -4,7 +4,7 @@
 
     Description:
         Server: makes the patients of an aid task "Medical aid" (ticket 5.11, DESIGN 8.2): COIN_aidMedicalPatients civilians
-        (rolled), each at a free spot COIN_aidMedicalRadius from the elder's place (BIS_fnc_findSafePos, at least
+        (rolled), each at a free spot COIN_aidMedicalRadius from the elder's place, or the centre of the village (BIS_fnc_findSafePos, at least
         COIN_aidMedicalSpacing from each other if the tries allow it). They are made like Liberation's wounded civilians
         after a town was taken (civrep_wounded_civs.sqf): preset list civilians, damaged, Liberation's wounded animation
         (F_cr_woundedAnim), AI switched off, and a circle on the map near each. Unlike those they cannot be hurt (allowDamage
@@ -15,8 +15,8 @@
 
     Parameter(s):
         _taskId - Id of the Arma task, for the names of the markers [STRING, defaults to ""]
-        _town   - Name of the town, for the log [STRING, defaults to ""]
-        _pos    - Where the elder stands [ARRAY, defaults to [0, 0, 0]]
+        _town   - Name of the town or village, for the log [STRING, defaults to ""]
+        _pos    - Where the elder stands, or with a site (ticket 5.21) the village centre [ARRAY, defaults to [0, 0, 0]]
 
     Returns:
         [patients, markers] [ARRAY of ARRAYs]
@@ -97,7 +97,7 @@ for "_i" from 1 to _count do {
 [_patients] call COIN_fnc_addToCurators;
 
 diag_log format [
-    "[COIN] aid: %1 patients in %2 around %3 (%4 to %5 m from the elder)",
+    "[COIN] aid: %1 patients in %2 around %3 (%4 to %5 m from the centre)",
     count _patients, _town, _pos apply {round _x}, _minRadius, _maxRadius
 ];
 

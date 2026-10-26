@@ -245,7 +245,7 @@ Vier Blöcke, nacheinander umgesetzt und getestet: 5A → 5B → 5C → 5D.
   Werkzeugkasten, 30 s mit Fortschrittsbalken (abbrechbar), +4 wenn alle repariert
 - [x] 5.20 (#132, am 2026-10-26 im Spiel bestätigt: 20 von 29 Ortschaften haben ein Dorf, nur beschriftete Orte) Einsatzort wählen (ADR 0024): nächstes Dorf außerhalb der Sektoren (≥ 6 Häuser, ≥ 500 m von jeder Ortschaft, ≥ 150 m von Fabriken und Posten,
   ≥ 1200 m von nicht befreiten, ≤ 3000 m vom Ältesten, Ausschlussliste), nur Auswahl und Log für alle 29 Ortschaften
-- [ ] 5.21 (#133) Arzt-Einsatz und Reparatur im Dorf: Patienten und Geräte um die Dorfmitte, Dialog, Aufgabe, Marker und
+- [x] 5.21 (#133, am 2026-10-26 im Spiel bestätigt: Dialog, Annehmen, Reparatur im Dorf, grau ohne Dorf, Ende; offen: gleichzeitige Belegung eines Dorfes, Schalter aus) Arzt-Einsatz und Reparatur im Dorf: Patienten und Geräte um die Dorfmitte, Dialog, Aufgabe, Marker und
   Satz des Ältesten nennen das Dorf, grau ohne Dorf, Schalter `COIN_enableAidSites`
 - [ ] 5.22 (#134) Hinterhalt am Einsatzort: 75 %, nur mit aktivem Nest im Radius, 4–6 Kämpfer in Deckung auf der Zufahrtsseite
   plus 2–3 versteckte in Häusern, Camp-Budget ganz oder gar nicht, vager Warnsatz des Ältesten, Verhör nennt das Nest

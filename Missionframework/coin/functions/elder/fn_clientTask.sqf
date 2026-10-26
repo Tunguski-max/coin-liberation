@@ -6,7 +6,7 @@
         Client: creates, changes or removes the Arma task of an aid task on this machine (tickets 5.9b and 5.10). The server
         sends it to all machines with remoteExecCall under the id of the task as JIP key, so a late joiner gets the latest
         state. The task is created here and not once on the server, so every player reads it in his own language
-        (COIN_aidTaskTexts). It has a marker on the elder's place. With "CREATED" and "SUCCEEDED" / "FAILED" the standard
+        (COIN_aidTaskTexts). It has a marker on the elder's place, or on the village of the site (ticket 5.21, the caller passes its centre and name). With "CREATED" and "SUCCEEDED" / "FAILED" the standard
         message of the game is shown ("Task assigned", "Task completed", "Task failed"), but not for a late joiner (JIP).
         The tasks this machine has are kept in COIN_clientTasks, so init_client.sqf can give them to the unit after a respawn.
 
