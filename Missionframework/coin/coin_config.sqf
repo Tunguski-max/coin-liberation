@@ -1250,6 +1250,17 @@ COIN_aidRepairSmokeHeight   = 0.5;      // m above the ground at the device wher
 COIN_aidRepairLabel         = ["Reparieren", "Repair"]; // Action at the device: [German, English]
 COIN_aidRepairBarText       = ["Repariere ...", "Repairing ..."]; // Text of the progress bar: [German, English]
 
+// Site of "Medical aid" and "Repair infrastructure" (ticket 5.20, ADR 0024): a village outside Liberation's sectors. This ticket only
+// chooses it and writes the choice to the RPT, the tasks still play in the town until ticket 5.21
+COIN_enableAidSites         = true;     // Off: no site is chosen, nothing is written to the RPT
+COIN_siteTypes              = ["NameVillage", "NameLocal"]; // Map location types a site can be
+COIN_siteMinHouses          = 6;        // Houses within COIN_siteHouseRadius, fewer is no village (a camp, a lone farm)
+COIN_siteHouseRadius        = 150;      // m around the map label in which houses are counted; their middle is the village centre
+COIN_siteExcludedLocations  = ["GreenCampBase", "IbanCampBase", "PelotonCampBase", "MartinFob", "MikisFob", "KindufFactory", "MozaratDeath"]; // Names (the map label, not case sensitive) that are camps, FOBs or factories the house filter does not catch; the RPT lists every label with its houses
+COIN_siteMinSectorDistance  = 500;      // m from every sector (Liberation's capture radius is 175 m)
+COIN_siteMinEnemySectorDistance = 1200; // m from every sector the army has not liberated (Liberation activates a sector at 1000 m)
+COIN_siteMaxDistance        = 3000;     // m from the town of the elder
+
 // Strike tasks, created as a result of questioning or interrogation
 COIN_strikeTaskChance       = 0.15;     // Chance per questioning (result other than "nothing") or interrogation
 COIN_strikeTaskMinRep       = 25;       // No strike task below this reputation, interrogation too
