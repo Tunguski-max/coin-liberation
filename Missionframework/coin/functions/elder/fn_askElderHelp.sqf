@@ -41,7 +41,7 @@ if (
 ([_elder] call COIN_fnc_getAidOffers) params ["_busy", "_offers", "_active"];
 diag_log format [
     "[COIN] elder: %1 asked %2 if they can help: %3 tasks running, %4 offered, town %5",
-    name _asker, name _elder, _active, count (_offers select {_x select 2}), ["is free", "is busy (" + _busy + ")"] select (_busy isNotEqualTo "")
+    name _asker, name _elder, _active, count (_offers select {_x select 2}), ["is free", "is busy"] select (_busy isNotEqualTo "")
 ];
 
 [_elder, _busy, _offers, _active] remoteExecCall ["COIN_fnc_openElderDialog", owner _asker];

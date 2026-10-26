@@ -47,6 +47,7 @@ private _display = findDisplay 6843;
 private _list = _display displayCtrl 101;
 private _text = _display displayCtrl 102;
 private _button = _display displayCtrl 103;
+private _pictureCtrl = _display displayCtrl 106;
 
 COIN_elderDialogTexts params ["_header", "_accept", "_tasks"];
 (_display displayCtrl 108) ctrlSetText (_header select _index);
@@ -86,6 +87,9 @@ while {dialog && {alive player} && {alive _elder} && {(player distance _elder) <
         _old = _selected;
         private _id = _list lbData _selected;
         private _offer = _offers select {(_x select 0) isEqualTo _id};
+        // The picture of the offer, like Liberation's pictures of its side missions; none if the file is not there
+        private _picture = format [COIN_aidImagePath, _id];
+        _pictureCtrl ctrlSetText (["", _picture] select (_id isNotEqualTo "" && {fileExists _picture}));
         if (_id isEqualTo "" || {_offer isEqualTo []}) then {
             _text ctrlSetStructuredText parseText "";
             _button ctrlEnable false;
