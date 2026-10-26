@@ -243,7 +243,7 @@ Vier Blöcke, nacheinander umgesetzt und getestet: 5A → 5B → 5C → 5D.
   Bandage, +1 pro Patient, +2 für alle in der Zeit
 - [ ] 5.12 (#110, im Spiel bestätigt: Reparatur, Abzug beim Scheitern, Entfernen; offen: alle repariert mit +4, Abbruch, Zeitlimit) Hilfsauftrag „Infrastruktur reparieren“: 2–3 rauchende Generatoren (≥ 50 m vom Ältesten, 20 m voneinander), nur ACE-Pionier mit
   Werkzeugkasten, 30 s mit Fortschrittsbalken (abbrechbar), +4 wenn alle repariert
-- [ ] 5.20 (#132) Einsatzort wählen (ADR 0024): nächstes Dorf außerhalb der Sektoren (≥ 6 Häuser, ≥ 500 m von jedem Sektor,
+- [x] 5.20 (#132, am 2026-10-26 im Spiel bestätigt: 20 von 29 Ortschaften haben ein Dorf, nur beschriftete Orte) Einsatzort wählen (ADR 0024): nächstes Dorf außerhalb der Sektoren (≥ 6 Häuser, ≥ 500 m von jeder Ortschaft, ≥ 150 m von Fabriken und Posten,
   ≥ 1200 m von nicht befreiten, ≤ 3000 m vom Ältesten, Ausschlussliste), nur Auswahl und Log für alle 29 Ortschaften
 - [ ] 5.21 (#133) Arzt-Einsatz und Reparatur im Dorf: Patienten und Geräte um die Dorfmitte, Dialog, Aufgabe, Marker und
   Satz des Ältesten nennen das Dorf, grau ohne Dorf, Schalter `COIN_enableAidSites`

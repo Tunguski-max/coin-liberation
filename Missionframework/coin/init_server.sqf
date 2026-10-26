@@ -111,6 +111,13 @@ if (COIN_enableAidTasks) then {
     diag_log "[COIN] init: aid tasks off";
 };
 
+// Site of the aid tasks (ticket 5.20, ADR 0024): only chosen and written to the RPT, nothing plays there yet
+if (COIN_enableAidSites) then {
+    [] call COIN_fnc_logSites;
+} else {
+    diag_log "[COIN] init: aid sites off";
+};
+
 // Messages to all players when a nest is destroyed or a camp cleared (ticket 2.14)
 [] call COIN_fnc_initMessages;
 

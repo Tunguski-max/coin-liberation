@@ -15,8 +15,9 @@
 
 ## Entscheidung
 - **Einsatzort außerhalb der Sektoren:** Arzt-Einsatz und Reparatur spielen in einem Dorf, das kein Liberation-Sektor ist:
-  das nächste Karten-Dorf (`NameVillage` oder `NameLocal`) mit mindestens 6 Häusern, mindestens 500 m von jedem Sektor und
-  1200 m von jedem nicht befreiten Sektor, höchstens 3000 m von der Ortschaft des Ältesten, gerade nicht Einsatzort eines
+  das nächste Karten-Dorf (`NameVillage` oder `NameLocal`) mit mindestens 6 Häusern, mindestens 500 m von jeder Ortschaft und
+  Stadt, 150 m von jeder Fabrik, jedem Militärposten und Turm (Test 2026-10-26: sonst bliebe das Dorf Offar neben einer Fabrik
+  für drei Ortschaften unbenutzbar) und 1200 m von jedem nicht befreiten Sektor, höchstens 3000 m von der Ortschaft des Ältesten, gerade nicht Einsatzort eines
   anderen Auftrags. Ohne Dorf ist der Eintrag grau. Ein Schalter (`COIN_enableAidSites`) stellt den alten Zustand her.
 - **Gefahr: Hinterhalt am Einsatzort**, nicht IED und nicht Attentäter. Eine neue Spawn-Logik ohne Camp (4–6 Kämpfer in Deckung
   100–250 m vor dem Dorf auf der Zufahrtsseite der befreiten Ortschaft, 2–3 versteckte Kämpfer in Häusern), mit den Werten

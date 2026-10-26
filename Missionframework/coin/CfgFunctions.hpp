@@ -306,6 +306,15 @@ class COIN {
         // Server: removes what an aid task made when nobody sees it (tickets 5.11, 5.12)
         class removeWhenUnseen {};
 
+        // Server: the villages near a town with the reason each cannot be the site of an aid task (ticket 5.20)
+        class rateSites {};
+
+        // Server: the site of an aid task, the nearest village outside the sectors (ticket 5.20)
+        class findSite {};
+
+        // Server: writes the villages and the site of every town to the RPT (ticket 5.20)
+        class logSites {};
+
         // Client: the Arma task of an aid task, in the language of the player (tickets 5.9b and 5.10)
         class clientTask {};
 
