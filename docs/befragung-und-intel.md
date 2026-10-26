@@ -96,7 +96,7 @@ Befragen kann der Dolmetscher **Zivilisten**. Welche es gibt:
 | Miliz-Kämpfer in ziviler Gruppe (z. B. ein Gegner, der sich ergeben hat) | nein | Das ist ein Gefangener, er wird verhört (Abschnitt 4) |
 | **Kämpfer in Zivil** (Auslöser, VBIED-Fahrer, Attentäter) | nein | Er sieht aus wie ein Zivilist, ist aber keiner |
 | **Ältester** | nein, nicht zur Miliz (5.9a, umgesetzt, ungetestet) | Er hat „Wie steht ihr zu uns?“; „Können wir helfen?“ kommt mit 5.9b. Alle anderen Zivilisten fragt man „Wo finde ich den Ältesten?“: Der Älteste (im Umkreis `COIN_elderLocateRange`, 600 m) wird für alle `COIN_elderMarkerSeconds` (5 min) auf der Karte markiert, ohne Befragung, Markierung oder Abklingzeit; ohne Ältesten sagt der Zivilist das (umgesetzt, ungetestet) |
-| **Patienten** des Arzt-Einsatzes | nein 📋 (5.11) | |
+| **Patienten** des Arzt-Einsatzes | nein (5.11, umgesetzt, ungetestet) | `COIN_patient`, `COIN_fnc_canQuestion` lässt sie aus |
 
 ### 3.2 Ablauf einer Befragung
 

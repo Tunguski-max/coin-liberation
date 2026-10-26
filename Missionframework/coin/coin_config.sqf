@@ -1149,6 +1149,7 @@ COIN_elderSections = [
 ];
 // Aid tasks: [id, [title German, English], [explanation German, English], [task text German, English]]
 // Explanation in the dialog: %1 = time limit in minutes, %2 = distance in m, %3 = supplies of the crate. Task text: %1 = town, %2 = minutes, %3 = distance in m, %4 = supplies.
+// (A text may leave out what it does not need: "medical" uses only the time limit and the town.)
 // The reward is named roughly, without a number (the reputation is hidden).
 COIN_aidTaskTexts = [
     ["supplies",
@@ -1161,13 +1162,25 @@ COIN_aidTaskTexts = [
             "Stellt in %1 eine Supply-Kiste mit %4 Supplies am Boden ab, höchstens %3 m vom Ältesten entfernt. Zeitlimit: %2 Minuten.",
             "Put a supply crate with %4 supplies on the ground in %1, at most %3 m from the elder. Time limit: %2 minutes."
         ]
+    ],
+    ["medical",
+        ["Arzt-Einsatz", "Medical aid"],
+        [
+            "In der Ortschaft gibt es Verletzte.<br/><br/>Behandelt die Patienten im Umkreis des Ältesten. Sie liegen in den Kreisen auf der Karte. Jeder Spieler mit einer ACE-Bandage kann helfen, ein Sanitäter ist nicht nötig. Pro Patient wird eine Bandage verbraucht.<br/><br/>Zeitlimit: %1 Minuten. Läuft die Zeit ab, ist der Auftrag gescheitert. Das kostet nichts.<br/><br/>Belohnung: Die Bevölkerung wird es euch danken.",
+            "There are wounded in the town.<br/><br/>Treat the patients around the elder. They lie in the circles on the map. Any player with an ACE bandage can help, no medic needed. One bandage is used up per patient.<br/><br/>Time limit: %1 minutes. If the time runs out the task has failed. That costs nothing.<br/><br/>Reward: The population will be grateful."
+        ],
+        [
+            "Behandelt die Verletzten in %1, sie liegen in den Kreisen auf der Karte. Pro Patient eine ACE-Bandage. Zeitlimit: %2 Minuten.",
+            "Treat the wounded in %1, they lie in the circles on the map. One ACE bandage per patient. Time limit: %2 minutes."
+        ]
     ]
 ];
 // Why an offer is grey: [key, [German, English]], %1 is the value named in the comment
 COIN_aidReasonTexts = [
     ["town_running", ["In dieser Ortschaft läuft schon ein Hilfsauftrag.", "This town has an aid task running already."]],   // no value
     ["town_wait",    ["Die Ortschaft braucht erst in etwa %1 Minuten wieder Hilfe.", "The town needs help again in about %1 minutes."]], // %1 = minutes left
-    ["limit",        ["Es laufen schon %1 Hilfsaufträge.", "%1 aid tasks are running already."]]                                         // %1 = limit
+    ["limit",        ["Es laufen schon %1 Hilfsaufträge.", "%1 aid tasks are running already."]],                                        // %1 = limit
+    ["no_ace",       ["Ohne ACE gibt es keine Verbände für die Patienten.", "Without ACE there are no bandages for the patients."]]      // no value
 ];
 // What the elder says, one is picked at random: [key, [German sentences, English sentences]]
 COIN_elderSentences = [
@@ -1184,9 +1197,26 @@ COIN_elderSentences = [
         ["Not right now. Please ask again later.", "Not now. Please come back later."]
     ]]
 ];
+
+// Aid task "Medical aid" (ticket 5.11): patients around the elder, wounded like Liberation's civilians after a town was taken
 COIN_repAidPatient          = 1;        // Reputation per treated patient
 COIN_repAidMedicalBonus     = 2;        // Bonus when all patients are treated in time
 COIN_aidMedicalPatients     = [3, 5];   // [min, max] patients in a medical task
+COIN_aidMedicalHurtDamage   = 0.5;      // Damage a patient gets (0-1); Liberation's wounded civilians have the same
+COIN_aidMedicalTreatedAnim  = "AinjPpneMstpSnonWnonDnon_kneel"; // Animation of a healed patient before he stands up (as Liberation's)
+COIN_aidMedicalStandUpSeconds = 2;      // s he kneels before the AI lets him stand up
+COIN_aidMedicalHintSeconds  = 3;        // s the message "no bandage" stays
+COIN_aidMedicalRadius       = [10, 40]; // [min, max] m from the elder's place where a patient lies
+COIN_aidMedicalSpacing      = 12;       // m the patients keep from each other (if the tries find room)
+COIN_aidMedicalSpotTries    = 10;       // Tries to find a spot with that spacing for one patient
+COIN_aidMedicalSpotClearance = 3;       // m a patient keeps from objects, so not inside a building (BIS_fnc_findSafePos)
+COIN_aidMedicalMaxGradient  = 0.3;      // Steepest ground a patient lies on (BIS_fnc_findSafePos)
+COIN_aidMedicalItems        = ["ACE_elasticBandage", "ACE_fieldDressing", "ACE_packingBandage", "ACE_quikclot"]; // One of them is used up per patient (the list of Liberation's action)
+COIN_aidMedicalCircleSize   = 25;       // m radius of the circle on the map near a patient (as Liberation's)
+COIN_aidMedicalCircleOffset = 20;       // m the circle's centre is off the patient, so the circle does not give his spot away
+COIN_aidMedicalCircleAlpha  = 0.35;     // Transparency of the circle
+COIN_aidPatientSightDistance = 150;     // m: at the end of the task a patient goes when no player within this distance can see him
+COIN_aidPatientRemoveSeconds = 600;     // s after which the patients go even if somebody still sees them
 COIN_repAidRepair           = 4;        // Reputation for repairing infrastructure
 COIN_aidRepairSeconds       = 20;       // Duration of the repair
 

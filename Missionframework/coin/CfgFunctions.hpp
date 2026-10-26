@@ -273,6 +273,21 @@ class COIN {
         // Server: one aid task from start to end, success, time limit, reputation (ticket 5.10)
         class runAidTask {};
 
+        // Server: the patients of the aid task "Medical aid", wounded, invulnerable, with a circle each (ticket 5.11)
+        class spawnPatients {};
+
+        // Client: the action "Treat" at a patient, like Liberation's (ticket 5.11)
+        class addPatientAction {};
+
+        // Server: heals a patient, ends his wait for treatment (ticket 5.11)
+        class healPatient {};
+
+        // Server: a patient is treated, healed, reputation (ticket 5.11)
+        class treatPatient {};
+
+        // Server: end of "Medical aid", patients stand up and go when nobody sees them (ticket 5.11)
+        class releasePatients {};
+
         // Client: the Arma task of an aid task, in the language of the player (tickets 5.9b and 5.10)
         class clientTask {};
 
