@@ -1216,7 +1216,6 @@ COIN_aidMedicalCircleSize   = 25;       // m radius of the circle on the map nea
 COIN_aidMedicalCircleOffset = 20;       // m the circle's centre is off the patient, so the circle does not give his spot away
 COIN_aidMedicalCircleAlpha  = 0.35;     // Transparency of the circle
 COIN_aidPatientSightDistance = 150;     // m: at the end of the task a patient goes when no player within this distance can see him
-COIN_aidPatientSightMinVisibility = 0.1; // checkVisibility value (0-1) from which a player counts as seeing the patient
 COIN_aidPatientRemoveSeconds = 600;     // s after which the patients go even if somebody still sees them
 COIN_repAidRepair           = 4;        // Reputation for repairing infrastructure
 COIN_aidRepairSeconds       = 20;       // Duration of the repair

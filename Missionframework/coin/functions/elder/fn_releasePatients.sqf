@@ -37,7 +37,7 @@ private _seen = {
     (allPlayers - entities "HeadlessClient_F") findIf {
         alive _x
         && {(_x distance _patient) <= COIN_aidPatientSightDistance}
-        && {(checkVisibility [eyePos _x, eyePos _patient]) > COIN_aidPatientSightMinVisibility}
+        && {(lineIntersectsSurfaces [eyePos _x, eyePos _patient, _x, _patient, true, 1, "VIEW", "FIRE"]) isEqualTo []}
     } >= 0
 };
 
