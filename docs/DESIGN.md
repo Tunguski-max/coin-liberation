@@ -334,6 +334,7 @@ schon Gelegtes bleibt liegen. Darüber gilt die globale Obergrenze für IEDs (Ab
   bleiben, bis niemand in der Nähe ist. Zieht das Camp um, bekommt das Ersatzcamp einen Hinterhalt ohne Würfeln (an
   einer neuen Straße), sofern der alte nicht ausgehoben war und das Ersatzcamp eine Straße in Reichweite hat. Wird das
   Camp ausgehoben, bleibt ein gespawnter Hinterhalt bis zum Abbau.
+- Einen Hinterhalt ohne Camp gibt es am **Einsatzort** von Arzt-Einsatz und Reparatur (Abschnitt 8.2, ADR 0024).
 
 **Kämpfer in Zivil** (Auslöser, VBIED-Fahrer, Attentäter)
 - Stehen technisch auf der Zivilisten-Seite, damit sie sich im Menü nicht von echten Zivilisten unterscheiden. Ihr Tod
@@ -587,10 +588,31 @@ abgebaut wird.
 | Hilfsauftrag | Was zu tun ist | Wer | Belohnung |
 |---|---|---|---|
 | **Hilfsgüter liefern** | Eine Liberation-Supply-Kiste (100 Supplies, aus jeder FOB) am Boden abstellen, höchstens 20 m vom Ältesten entfernt. Die Kiste verschwindet. | jeder Spieler | +5 Ruf |
-| **Arzt-Einsatz** | 3–5 Patienten im Umkreis von 10–40 m um den Ältesten behandeln (Aktion „Behandeln“, verbraucht eine Bandage, heilt sofort). Verwundeten-Animation und 25-m-Kreise kommen von Liberations Verwundeten-Funktion (`F_cr_woundedAnim`); die Aktion ist eine Nachbildung von `KPLIB_fnc_crAddAceAction`, bei der der Server den Schutz der Patienten nur für das Heilen aufhebt. Die Patienten sind unverwundbar, zählen nicht zum Budget und sind nicht befragbar. Am Ende stehen alle auf und werden außer Sicht entfernt, die Kreise verschwinden. | jeder Spieler mit einer ACE-Bandage (eine pro Patient) | +1 Ruf pro Patient, +2 extra, wenn alle in der Zeit behandelt sind |
-| **Infrastruktur reparieren** | 2–3 beschädigte, rauchende Geräte (tragbare Generatoren, Klassenliste in der Config) in der Ortschaft des Ältesten reparieren: mindestens 50 m vom Ältesten, 20 m voneinander entfernt. Aktion „Reparieren“, 30 s mit ACE-Fortschrittsbalken, abbrechbar (dann kein Fortschritt, später neu beginnen). Repariert: Rauch aus. Am Ende des Auftrags werden die Geräte außer Sicht entfernt. | nur ACE-Pionier (Slot EOD) mit Werkzeugkasten | +4 Ruf, wenn alle Geräte repariert sind |
+| **Arzt-Einsatz** | 3–5 Patienten 10–40 m um die Dorfmitte des Einsatzorts (siehe unten) behandeln (Aktion „Behandeln“, verbraucht eine Bandage, heilt sofort). Verwundeten-Animation und 25-m-Kreise kommen von Liberations Verwundeten-Funktion (`F_cr_woundedAnim`); die Aktion ist eine Nachbildung von `KPLIB_fnc_crAddAceAction`, bei der der Server den Schutz der Patienten nur für das Heilen aufhebt. Die Patienten sind unverwundbar, zählen nicht zum Budget und sind nicht befragbar. Am Ende stehen alle auf und werden außer Sicht entfernt, die Kreise verschwinden. | jeder Spieler mit einer ACE-Bandage (eine pro Patient) | +1 Ruf pro Patient, +2 extra, wenn alle in der Zeit behandelt sind |
+| **Infrastruktur reparieren** | 2–3 beschädigte, rauchende Geräte (tragbare Generatoren, Klassenliste in der Config) am Einsatzort (siehe unten) reparieren: 20–100 m um die Dorfmitte, 20 m voneinander entfernt. Aktion „Reparieren“, 30 s mit ACE-Fortschrittsbalken, abbrechbar (dann kein Fortschritt, später neu beginnen). Repariert: Rauch aus. Am Ende des Auftrags werden die Geräte außer Sicht entfernt. | nur ACE-Pionier (Slot EOD) mit Werkzeugkasten | +4 Ruf, wenn alle Geräte repariert sind |
 
 *Später:* Straße räumen, Entführte befreien.
+
+**Einsatzort und Hinterhalt** (Arzt-Einsatz und Reparatur, ADR 0024, festgelegt beim Grilling am 2026-10-26)
+
+Diese beiden Hilfsaufträge spielen nicht in der befreiten Ortschaft, sondern an einem **Einsatzort**: einem Dorf außerhalb der
+Liberation-Sektoren, damit ein Hinterhalt der Miliz glaubhaft ist (er taucht nicht plötzlich in der befreiten Stadt auf).
+„Hilfsgüter liefern“ bleibt beim Ältesten, dort ist der Transport die Schwierigkeit.
+- **Auswahl:** Das nächste Karten-Dorf (`NameVillage` oder `NameLocal`) mit mindestens 6 Häusern im Umkreis von 150 m (so
+  fallen Camps, FOBs und Fabriken heraus, dazu eine Ausschlussliste in der Config), mindestens 500 m von jedem Sektor und
+  1200 m von jedem noch nicht befreiten Sektor (Liberation aktiviert Sektoren bei 1000 m), höchstens 3000 m vom Ältesten,
+  gerade nicht Einsatzort eines anderen Auftrags. Dorfmitte ist der Mittelpunkt der Häuser. Gibt es keines, ist der Eintrag
+  im Dialog grau („Kein Dorf in der Nähe, das Hilfe braucht.“).
+- **Sichtbar:** Der Dialog, der Titel der Aufgabe und der Karten-Marker nennen das Dorf, der Älteste sagt im Untertitel, wohin.
+- **Schalter:** `COIN_enableAidSites` aus = Patienten und Geräte stehen in der befreiten Ortschaft wie vorher.
+- **Hinterhalt am Einsatzort:** Wenn ein aktives Nest (jeder Typ) den Einsatzort im Einflussradius hat, wartet beim Annehmen
+  mit 75 % die Miliz: 4–6 Kämpfer in Deckung mit 2–4 Deckungsobjekten, 100–250 m vor dem Dorf auf der Seite der befreiten
+  Ortschaft (Richtung Ältester, ±45°), möglichst an einer Straße; dazu 2–3 versteckte Kämpfer in Häusern des Dorfes. Feuer bei
+  etwa 150 m Abstand der Armee oder wenn einer getroffen wird. Sie entstehen bei Spielernähe (1000 m), zählen ganz oder gar nicht
+  zum Camp-Budget (kein Platz = kein Hinterhalt, der Auftrag ist sicher) und gehen am Ende des Auftrags außer Sicht, sobald niemand
+  in der Nähe ist. Der Älteste warnt nur vage im Untertitel, nur wenn die Gefahr beschlossen ist. Ein gefangener Kämpfer nennt
+  im Verhör das nächste aktive Nest im Radius, soweit ohne Umbau möglich. Schalter `COIN_enableAidAmbush`.
+- Belohnung, Zeitlimit (60 min) und Abzug beim Scheitern bleiben. Hilfsgüter liefern hat keine Gefahr.
 
 **Zugriffsaufträge**
 - Der Zivilist oder Gefangene erzählt davon im Untertitel, danach öffnet sich beim Dolmetscher derselbe Dialog wie beim

@@ -63,6 +63,7 @@ Code-Bezeichner stehen in Klammern.
 | **VBIED** | Autobombe in einem zivilen Fahrzeug. |
 | **Attentäter** (`suicideBomber`) | Zivilist mit Sprengweste. Kommt nur im Einflussradius einer IED-Werkstatt vor, wie oft, hängt am Ruf. |
 | **Hinterhalt** (`ambush`) | Vorbereiteter Überfall an einer Straße, ausgehend von einem aktiven Camp. |
+| **Hinterhalt am Einsatzort** (`siteAmbush`) | Vorbereiteter Überfall der Miliz am Einsatzort eines Hilfsauftrags (Arzt-Einsatz, Reparatur): Kämpfer in Deckung und in Häusern, die das Feuer eröffnen, sobald die Armee nah ist. Entsteht nur, wenn ein aktives Nest den Einsatzort im Einflussradius hat. _Nicht:_ der Hinterhalt eines Camps. |
 | **Kämpfer in Zivil** | Miliz-Einheit ohne sichtbare Waffe, bis es zum Kontakt kommt. |
 
 ## Intel und Bevölkerung
@@ -85,6 +86,7 @@ Code-Bezeichner stehen in Klammern.
 | **Ältester** (`elder`) | Ansprechpartner in einer befreiten Ortschaft, bei dem über den Dolmetscher Gefälligkeiten angefordert und Hilfsaufträge angenommen werden. |
 | **Auftrag** (`task`) | Zeitlich begrenzte Aufgabe der COIN-Schicht für die Armee. Arten: Hilfsauftrag, Zugriffsauftrag. _Nicht:_ „Sidequest“. |
 | **Hilfsauftrag** (`aidTask`) | Auftrag des Ältesten zur Unterstützung der Bevölkerung (z. B. Hilfsgüter, Arzt-Einsatz). Belohnung: Ruf. |
+| **Einsatzort** (`site`) | Ort eines Hilfsauftrags. Bei Arzt-Einsatz und Reparatur ein Dorf außerhalb der Liberation-Sektoren in der Nähe der Ortschaft des Ältesten, nicht die befreite Ortschaft selbst. Bei „Hilfsgüter liefern“ liegt er beim Ältesten. _Nicht:_ „Ortschaft“, das ist ein Liberation-Sektor. |
 | **Zugriffsauftrag** (`strikeTask`) | Auftrag, der aus Befragung oder Verhör entsteht und auf diese Information hin zugreift (z. B. Kurier abfangen, Anführer festnehmen). Belohnung: Intel, teils sinkende Readiness. _Nicht:_ „Aufklärungsauftrag“ (man klärt nicht auf, man greift zu). |
 | **Nebenmission** | Liberations eigene, mit Intel-Punkten gekaufte Missionen (Konvoi-Überfall, Rettung), die der Dolmetscher beim Ältesten startet. Kein Auftrag im Sinne der COIN-Schicht. |
 | **Lokale Kämpfer** (`localFighters`) | Freundliche Dorfwachen und Stammeskämpfer aus dem Widerstand, die über eine Gefälligkeit kommen und als Verstärkung zur Armee stoßen. _Nicht:_ Liberations spontane Guerilla-Einsätze in Sektorkämpfen. |
