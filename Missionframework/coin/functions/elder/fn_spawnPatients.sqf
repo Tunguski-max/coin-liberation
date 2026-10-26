@@ -62,8 +62,8 @@ for "_i" from 1 to _count do {
     _patient setPosATL [_spot select 0, _spot select 1, 0];
     {_patient disableAI _x} forEach ["ANIM", "TARGET", "AUTOTARGET", "MOVE"];
     removeAllItems _patient;
-    // Hurt first, invulnerable after: the action shows from this damage on (Liberation: 0.5)
-    _patient setDamage 0.5;
+    // Hurt first, invulnerable after (an unhurt unit shows no wounded look)
+    _patient setDamage COIN_aidMedicalHurtDamage;
     if (!isNil "F_cr_woundedAnim") then {
         _patient call F_cr_woundedAnim;
     };
@@ -81,9 +81,10 @@ for "_i" from 1 to _count do {
     _marker setMarkerColor "ColorCIV";
     _marker setMarkerAlpha COIN_aidMedicalCircleAlpha;
 
-    // COIN_patient is public: the clients leave him out of the questioning. The rest is the server's
+    // COIN_patient (the clients leave him out of the questioning) and COIN_patientOpen (the action shows) are public.
+    // The rest is the server's
     _patient setVariable ["COIN_patient", true, true];
-    _patient setVariable ["COIN_patientOpen", true];
+    _patient setVariable ["COIN_patientOpen", true, true];
     _patient setVariable ["COIN_patientMarker", _marker];
     _patient setVariable ["COIN_patientTown", _town];
 

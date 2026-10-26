@@ -1202,6 +1202,10 @@ COIN_elderSentences = [
 COIN_repAidPatient          = 1;        // Reputation per treated patient
 COIN_repAidMedicalBonus     = 2;        // Bonus when all patients are treated in time
 COIN_aidMedicalPatients     = [3, 5];   // [min, max] patients in a medical task
+COIN_aidMedicalHurtDamage   = 0.5;      // Damage a patient gets (0-1); Liberation's wounded civilians have the same
+COIN_aidMedicalTreatedAnim  = "AinjPpneMstpSnonWnonDnon_kneel"; // Animation of a healed patient before he stands up (as Liberation's)
+COIN_aidMedicalStandUpSeconds = 2;      // s he kneels before the AI lets him stand up
+COIN_aidMedicalHintSeconds  = 3;        // s the message "no bandage" stays
 COIN_aidMedicalRadius       = [10, 40]; // [min, max] m from the elder's place where a patient lies
 COIN_aidMedicalSpacing      = 12;       // m the patients keep from each other (if the tries find room)
 COIN_aidMedicalSpotTries    = 10;       // Tries to find a spot with that spacing for one patient
@@ -1214,7 +1218,7 @@ COIN_aidMedicalCircleAlpha  = 0.35;     // Transparency of the circle
 COIN_aidPatientSightDistance = 150;     // m: at the end of the task a patient goes when no player within this distance can see him
 COIN_aidPatientSightMinVisibility = 0.1; // checkVisibility value (0-1) from which a player counts as seeing the patient
 COIN_aidPatientRemoveSeconds = 600;     // s after which the patients go even if somebody still sees them
-COIN_repAidRepair          = 4;        // Reputation for repairing infrastructure
+COIN_repAidRepair           = 4;        // Reputation for repairing infrastructure
 COIN_aidRepairSeconds       = 20;       // Duration of the repair
 
 // Strike tasks, created as a result of questioning or interrogation

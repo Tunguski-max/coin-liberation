@@ -279,6 +279,9 @@ class COIN {
         // Client: the action "Treat" at a patient, like Liberation's (ticket 5.11)
         class addPatientAction {};
 
+        // Server: heals a patient, ends his wait for treatment (ticket 5.11)
+        class healPatient {};
+
         // Server: a patient is treated, healed, reputation (ticket 5.11)
         class treatPatient {};
 

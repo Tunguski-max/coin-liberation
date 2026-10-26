@@ -4,7 +4,7 @@
 
     Description:
         Server: the end of an aid task "Medical aid" (ticket 5.11, DESIGN 8.2), whatever the result: the circles go from the
-        map, the patients who were not treated are healed and everybody stands up (no action any more). Then each one
+        map, the patients who were not treated are healed (COIN_fnc_healPatient) and everybody stands up (no action any more). Then each one
         is removed as soon as no player within COIN_aidPatientSightDistance can see him, at the latest after
         COIN_aidPatientRemoveSeconds. Must be spawned.
 
@@ -26,21 +26,8 @@ if (!isServer) exitWith {};
 {deleteMarker _x} forEach _markers;
 
 {
-    if (!isNull _x) then {
-        if (_x getVariable ["COIN_patientOpen", false]) then {
-            _x setVariable ["COIN_patientOpen", false];
-            _x allowDamage true;
-            _x setDamage 0;
-            _x allowDamage false;
-            [_x, "AinjPpneMstpSnonWnonDnon_kneel"] remoteExec ["switchMove"];
-        };
-    };
-} forEach _patients;
-
-sleep 2;
-{
-    if (!isNull _x) then {
-        _x enableAI "ANIM";
+    if (!isNull _x && {_x getVariable ["COIN_patientOpen", false]}) then {
+        [_x] call COIN_fnc_healPatient;
     };
 } forEach _patients;
 

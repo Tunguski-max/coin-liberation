@@ -44,8 +44,8 @@ private _reason = if (_running) then {
 
 private _offers = COIN_aidTaskTexts apply {
     private _id = _x select 0;
-    private _own = if ((_reason select 0) isEqualTo "" && {_id isEqualTo "medical"} && {!KP_liberation_ace}) then {["no_ace", 0]} else {_reason};
-    [_id, "aid", (_own select 0) isEqualTo "", _own select 0, _own select 1]
+    private _offerReason = if ((_reason select 0) isEqualTo "" && {_id isEqualTo "medical"} && {!KP_liberation_ace}) then {["no_ace", 0]} else {_reason};
+    [_id, "aid", (_offerReason select 0) isEqualTo "", _offerReason select 0, _offerReason select 1]
 };
 
 [["", "busy"] select (_running || {_minutesLeft > 0}), _offers, _active]

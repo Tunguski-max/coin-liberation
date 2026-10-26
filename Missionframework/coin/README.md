@@ -70,6 +70,7 @@ coin/
     │   ├── fn_spawnPatients.sqf        COIN_fnc_spawnPatients: Server, die Patienten des Arzt-Einsatzes mit Kreis auf der Karte (Ticket 5.11)
     │   ├── fn_addPatientAction.sqf     COIN_fnc_addPatientAction: Client, Aktion „Behandeln“ am Patienten, wie Liberations
     │   ├── fn_treatPatient.sqf         COIN_fnc_treatPatient: Server, Patient heilen, +1 Ruf
+    │   ├── fn_healPatient.sqf          COIN_fnc_healPatient: Server, Patient heilen (Schutz kurz aus), Kreis weg, kniet und steht auf
     │   ├── fn_releasePatients.sqf      COIN_fnc_releasePatients: Server, Ende: Patienten stehen auf und verschwinden außer Sicht
     │   ├── fn_clientTask.sqf           COIN_fnc_clientTask: Client, die Arma-Aufgabe in der Sprache des Spielers
     │   └── fn_showElderSentence.sqf    COIN_fnc_showElderSentence: Client, ein Satz des Ältesten als Untertitel

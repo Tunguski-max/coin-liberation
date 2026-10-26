@@ -52,9 +52,9 @@ diag_log format [
 private _patients = [];
 private _circles = [];
 if (_id isEqualTo "medical") then {
-    ([_taskId, _town, _pos] call COIN_fnc_spawnPatients) params ["_made", "_marked"];
-    _patients = _made;
-    _circles = _marked;
+    private _made = [_taskId, _town, _pos] call COIN_fnc_spawnPatients;
+    _patients = _made select 0;
+    _circles = _made select 1;
 };
 
 private _result = "";
@@ -62,9 +62,8 @@ while {_result isEqualTo ""} do {
     sleep COIN_aidCheckSeconds;
 
     if (!COIN_enableAidTasks) exitWith {_result = "aid tasks switched off"};
-    if (time >= _endTime) exitWith {_result = "time over"};
-    if ((COIN_elderAbsent getOrDefault [_sector, 0]) > time) exitWith {_result = "the elder died"};
 
+    // The goal is looked at before the time limit: what was done in time counts, also in the last check
     if (_id isEqualTo "supplies") then {
         // On the ground (not carried, not in a vehicle or hanging below one), a full Liberation supply crate
         private _crates = (nearestObjects [_pos, [KP_liberation_supply_crate], COIN_aidSupplyDistance]) select {
@@ -87,11 +86,19 @@ while {_result isEqualTo ""} do {
         if (_patients isEqualTo [] || {(_patients findIf {isNull _x}) >= 0}) then {
             _result = "a patient is gone";
         } else {
-            // Still waiting for treatment: the ones COIN_fnc_treatPatient has not marked as treated
+            // Still waiting for treatment: the ones COIN_fnc_treatPatient has not taken from the list
             if ((_patients findIf {_x getVariable ["COIN_patientOpen", false]}) < 0) then {
                 [COIN_repAidMedicalBonus, format ["aid task medical aid: all %1 patients treated in %2", count _patients, _town]] call COIN_fnc_changeReputation;
                 _result = "succeeded";
             };
+        };
+    };
+
+    if (_result isEqualTo "") then {
+        if (time >= _endTime) then {
+            _result = "time over";
+        } else {
+            if ((COIN_elderAbsent getOrDefault [_sector, 0]) > time) then {_result = "the elder died"};
         };
     };
 };
