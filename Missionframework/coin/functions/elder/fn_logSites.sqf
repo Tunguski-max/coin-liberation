@@ -21,11 +21,15 @@ if (isNil "sectors_capture" || {isNil "sectors_allSectors"}) exitWith {
     false
 };
 
-// Fills COIN_siteList (kept for the session) and lists the villages
+// Fills COIN_siteList (kept for the session); the rules about the sectors the army has not liberated are checked per town below
 [sectors_capture select 0] call COIN_fnc_rateSites;
+diag_log format [
+    "[COIN] site: %1 map locations of %2, %3 of %4 towns liberated",
+    count COIN_siteList, COIN_siteTypes joinString "/", count (sectors_capture arrayIntersect (missionNamespace getVariable ["blufor_sectors", []])), count sectors_capture
+];
 {
     _x params ["_name", "_centre", "_houses", "_reason"];
-    diag_log format ["[COIN] site: village %1 at %2, %3 houses -> %4", _name, _centre select [0, 2], _houses, ["usable", _reason] select (_reason isNotEqualTo "")];
+    diag_log format ["[COIN] site: village %1 at %2, %3 houses -> %4", _name, _centre select [0, 2], _houses, ["passes the village checks", _reason] select (_reason isNotEqualTo "")];
 } forEach COIN_siteList;
 
 {

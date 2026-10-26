@@ -26,7 +26,15 @@ params [
     ["_occupied", [], [[]]]
 ];
 
-if (!isServer || {_sector isEqualTo ""}) exitWith {[]};
+if (!isServer || {_sector isEqualTo ""} || {isNil "sectors_allSectors"}) exitWith {[]};
+
+// [distance in m, marker] of the sector nearest to a position
+private _nearestSector = {
+    params ["_pos", "_sectors"];
+    private _byDistance = _sectors apply {[_pos distance2D (markerPos _x), _x]};
+    _byDistance sort true;
+    _byDistance select 0
+};
 
 // Village -> [name, centre, houses, reason it is no site whatever the town]
 if (isNil "COIN_siteList") then {
@@ -44,10 +52,10 @@ if (isNil "COIN_siteList") then {
         };
         _centre = _centre apply {round _x};
 
-        private _byDistance = sectors_allSectors apply {[_centre distance2D (markerPos _x), _x]};
-        _byDistance sort true;
-        private _nearest = _byDistance select 0;
-        private _reason = if (toLower _name in _excluded) then {
+        private _nearest = [_centre, sectors_allSectors] call _nearestSector;
+        private _reason = if (_name isEqualTo "") then {
+            "no name"
+        } else { if (toLower _name in _excluded) then {
             "on the exclusion list"
         } else {
             if (count _houses < COIN_siteMinHouses) then {
@@ -57,7 +65,7 @@ if (isNil "COIN_siteList") then {
                     format ["%1 m from sector %2", round (_nearest select 0), markerText (_nearest select 1)]
                 } else {""}
             }
-        };
+        }};
         [_name, _centre, count _houses, _reason]
     };
 };
@@ -74,9 +82,7 @@ private _rated = [];
 
     if (_distance <= COIN_siteMaxDistance) then {
         if (_reason isEqualTo "" && {_enemy isNotEqualTo []}) then {
-            private _enemyByDistance = _enemy apply {[_centre distance2D (markerPos _x), _x]};
-            _enemyByDistance sort true;
-            private _nearEnemy = _enemyByDistance select 0;
+            private _nearEnemy = [_centre, _enemy] call _nearestSector;
             if ((_nearEnemy select 0) < COIN_siteMinEnemySectorDistance) then {
                 _reason = format ["%1 m from enemy sector %2", round (_nearEnemy select 0), markerText (_nearEnemy select 1)];
             };
