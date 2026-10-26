@@ -33,7 +33,7 @@ params [
     ["_mode", "elder", [""]]
 ];
 
-if (!hasInterface || {isNull _elder}) exitWith {false};
+if (!hasInterface || {isNull _elder && {_mode isNotEqualTo "strike"}}) exitWith {false};
 // remoteExecCall runs unscheduled, the dialog loop needs to sleep
 if (!canSuspend) exitWith {_this spawn COIN_fnc_openElderDialog; true};
 

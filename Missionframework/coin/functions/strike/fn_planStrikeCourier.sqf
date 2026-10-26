@@ -3,7 +3,7 @@
     Author: COIN Liberation
 
     Description:
-        Plan of the strike task "Intercept courier" (ticket 5.14, DESIGN 8.2), made when it is accepted: two towns
+        Plan of the strike task "Intercept courier" (ticket 5.14, DESIGN 8.2), made when it is offered (a kind without a plan is not offered): two towns
         (sectors_capture, those the militia still holds if there are two such towns the right distance apart) COIN_courierDistance
         apart, with a road near each (COIN_courierRoadSearch around the centre, no path, no bridge). The courier starts on the
         road at the first and drives to the road at the second. The nest the documents will name is the one a civilian of the first
@@ -36,6 +36,12 @@ private _roadAt = {
     [[_pos select 0, _pos select 1, 0], getDir _road]
 };
 
+// A road has no front: the end of the direction that points towards a position
+private _faceTowards = {
+    params ["_from", "_roadDir", "_towards"];
+    if (abs ((((_roadDir - (_from getDir _towards)) + 540) mod 360) - 180) > 90) then {_roadDir + 180} else {_roadDir}
+};
+
 // Pairs of towns the right distance apart; those the militia still holds both are preferred
 private _held = sectors_capture select {!(_x in (missionNamespace getVariable ["blufor_sectors", []]))};
 private _pairs = [];
@@ -50,7 +56,7 @@ private _pairs = [];
 } forEach sectors_capture;
 
 private _bothHeld = _pairs select {(_x select 0) in _held && {(_x select 1) in _held}};
-private _candidates = [_pairs, _bothHeld] select (_bothHeld isNotEqualTo []);
+private _candidates = +([_pairs, _bothHeld] select (_bothHeld isNotEqualTo []));
 
 private _plan = [];
 while {_plan isEqualTo [] && {_candidates isNotEqualTo []}} do {
@@ -61,8 +67,8 @@ while {_plan isEqualTo [] && {_candidates isNotEqualTo []}} do {
     if (_start isNotEqualTo [] && {_end isNotEqualTo []}) then {
         private _nest = [markerPos _a] call COIN_fnc_pickIntelNest;
         if (_nest isNotEqualTo []) then {
-            // The car faces the way to the destination (a road has no front)
-            private _dir = (_start select 0) getDir (_end select 0);
+            // The car stands along the road, facing the way to the destination
+            private _dir = [_start select 0, _start select 1, _end select 0] call _faceTowards;
             _plan = [_start select 0, markerText _a, _end select 0, markerText _b, _nest select 0, _dir];
         };
     };

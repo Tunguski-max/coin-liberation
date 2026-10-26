@@ -17,7 +17,7 @@
         Server only.
 
     Parameter(s):
-        _role    - What he is, kept in COIN_role ("triggerman", "vbiedDriver", "suicideBomber") [STRING]
+        _role    - What he is, kept in COIN_role ("triggerman", "vbiedDriver", "suicideBomber", "courier") [STRING]
         _pos     - Where he stands, ATL [ARRAY]
         _dir     - Direction he faces [NUMBER]
         _classes - Unit classes he is picked from, only those that exist count [ARRAY, defaults to Liberation's civilians]

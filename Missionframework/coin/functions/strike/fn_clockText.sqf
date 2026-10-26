@@ -5,7 +5,8 @@
     Description:
         The time of day on the game clock a number of seconds from now, as "HH:MM" (ticket 5.13): a strike task names the
         beginning and the end in game time, which is what the players read on their watches. The clock runs faster than
-        real time when the time multiplier is above 1. Server or client.
+        real time when the time multiplier is above 1. It takes the multiplier of now: if the day turns into night meanwhile
+        (Liberation changes it), the time named is off. Server or client.
 
     Parameter(s):
         _seconds - Seconds from now (server time) [NUMBER, defaults to 0]

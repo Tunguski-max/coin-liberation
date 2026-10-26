@@ -97,20 +97,22 @@ while {_result isEqualTo ""} do {
     };
     if (_result isNotEqualTo "") exitWith {};
 
-    if (
-        !_stopped
-        && {
-            ([_driver] call COIN_fnc_getFighterState) isNotEqualTo "free"
-            || {(vehicle _driver) isNotEqualTo _vehicle}
-            || {!canMove _vehicle}
-        }
-    ) then {
-        _stopped = true;
-        _vehicle setVariable ["COIN_courierOpen", true, true];
+    // Stopped: the driver is out (dead, captured) or left the car, the car cannot move, or he is unconscious and the car stands.
+    // Looked at again every time: a driver who wakes up drives on, and the search is not possible while the car is under way
+    private _driverState = [_driver] call COIN_fnc_getFighterState;
+    private _stoppedNow = _driverState isEqualTo "out"
+        || {(vehicle _driver) isNotEqualTo _vehicle}
+        || {!canMove _vehicle}
+        || {_driverState isEqualTo "down" && {(speed _vehicle) < COIN_courierStoppedSpeed}};
+    if (_stoppedNow isNotEqualTo _stopped) then {
+        _stopped = _stoppedNow;
+        _vehicle setVariable ["COIN_courierOpen", _stopped, true];
         diag_log format [
-            "[COIN] strike: courier %1 stopped at %2, %3 m from the destination (driver %4, car can move: %5)",
-            _taskId, getPosATL _vehicle, round (_vehicle distance2D _endPos), [_driver] call COIN_fnc_getFighterState, canMove _vehicle
+            "[COIN] strike: courier %1 %2 at %3, %4 m from the destination (driver %5, car can move: %6)",
+            _taskId, ["drives on", "stopped"] select _stopped, getPosATL _vehicle, round (_vehicle distance2D _endPos), _driverState, canMove _vehicle
         ];
+        // A driver who woke up is sent on again
+        if (!_stopped) then {_driver doMove _endPos};
     };
 
     if (!_stopped && {time >= _nextPath}) then {

@@ -1375,6 +1375,7 @@ COIN_courierDistance        = [2000, 4000]; // [min, max] m between the two town
 COIN_courierVehicles        = COIN_vbiedGarageVehicles; // Civilian cars he drives, one at random (a class that does not exist is left out)
 COIN_courierSpeed           = 50;       // km/h he drives at most (the army has to be able to catch up)
 COIN_courierRoadSearch      = 300;      // m around a town centre in which the road for the start and the end is looked for
+COIN_courierStoppedSpeed    = 1;        // km/h below which the car with an unconscious driver counts as stopped
 COIN_courierArriveDistance  = 80;       // m from the destination at which he has arrived (the task fails, the car vanishes)
 COIN_courierRepathSeconds   = 30;       // s after which the order to drive to the destination is given again
 COIN_courierSearchRange     = 3;        // m from the car from which the action "Search documents" shows

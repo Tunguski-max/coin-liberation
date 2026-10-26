@@ -5,7 +5,8 @@
     Description:
         Server: after a questioning with a result or an interrogation, a strike task may arise (ticket 5.13, DESIGN 7 and 8.2,
         ADR 0023). Only from the reputation COIN_strikeTaskMinRep on, only while fewer than COIN_strikeTaskMaxActive run, with
-        the chance COIN_strikeTaskChance, and only a kind whose requirement holds (COIN_strikeKinds, one at random). Then the
+        the chance COIN_strikeTaskChance, and only a kind whose requirement holds and that can make a plan (COIN_strikeKinds, one
+        at random; the plan is kept with the offer). Then the
         one who spoke tells of it (a sentence "strike_<kind>" as a subtitle) and after COIN_strikeDialogDelay seconds the dialog of
         the elder opens for the interpreter with this one entry (COIN_fnc_openElderDialog, mode "strike"). The offer is kept per
         player (COIN_strikeOffers) for COIN_strikeOfferSeconds; closing the dialog without "Accept" loses it. The roll is
@@ -34,6 +35,8 @@ if (_reputation < COIN_strikeTaskMinRep) exitWith {
     false
 };
 
+// A task that should have ended long ago (its run broke off) does not block the limit for ever
+COIN_strikeActive = COIN_strikeActive select {time <= (_x select 2) + COIN_aidTaskEndShowSeconds};
 if (count COIN_strikeActive >= COIN_strikeTaskMaxActive) exitWith {
     if (COIN_debug) then {
         diag_log format ["[COIN] strike: no roll for %1, %2 strike task(s) run already", name _asker, count COIN_strikeActive];
@@ -49,18 +52,26 @@ if (_roll >= COIN_strikeTaskChance) exitWith {
     false
 };
 
-// The kinds whose requirement holds now
+// The kinds whose requirement holds now and that can make a plan (a kind that cannot is not offered), one at random
 private _kinds = COIN_strikeKinds select {[] call (missionNamespace getVariable [_x select 1, {false}])};
-if (_kinds isEqualTo []) exitWith {
-    diag_log format ["[COIN] strike: roll %1 < chance %2 for %3, but no kind of strike task can be offered now", _rolled, COIN_strikeTaskChance, name _asker];
+private _kind = "";
+private _plan = [];
+private _possible = count _kinds;
+while {_plan isEqualTo [] && {_kinds isNotEqualTo []}} do {
+    private _row = _kinds deleteAt (floor random count _kinds);
+    _plan = [] call (missionNamespace getVariable [_row select 2, {[]}]);
+    if (_plan isNotEqualTo []) then {_kind = _row select 0};
+};
+if (_plan isEqualTo []) exitWith {
+    diag_log format ["[COIN] strike: roll %1 < chance %2 for %3, but no kind of strike task can be offered now (%4 met their requirement)", _rolled, COIN_strikeTaskChance, name _asker, _possible];
     false
 };
 
-private _kind = (selectRandom _kinds) select 0;
-COIN_strikeOffers set [getPlayerUID _asker, [_kind, time + COIN_strikeOfferSeconds]];
+// The plan is kept with the offer and used when it is accepted
+COIN_strikeOffers set [getPlayerUID _asker, [_kind, time + COIN_strikeOfferSeconds, _plan]];
 diag_log format [
-    "[COIN] strike: roll %1 < chance %2 for %3 (reputation %4): %5 offered by %6 (%7 kinds possible)",
-    _rolled, COIN_strikeTaskChance, name _asker, _reputation, _kind, name _speaker, count _kinds
+    "[COIN] strike: roll %1 < chance %2 for %3 (reputation %4): %5 offered by %6 (%7 kinds met their requirement)",
+    _rolled, COIN_strikeTaskChance, name _asker, _reputation, _kind, name _speaker, _possible
 ];
 
 [_speaker, format ["strike_%1", _kind]] remoteExecCall ["COIN_fnc_showElderSentence", owner _asker];

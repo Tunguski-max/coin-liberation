@@ -6,7 +6,7 @@
         Server: an interpreter accepts the strike task that was offered to him (tickets 5.13 and 5.14, DESIGN 8.2). Called
         by the client with remoteExecCall from the dialog. Checks everything again: the offer exists for this player (it is
         used up now), is the one named, has not run out (COIN_strikeOfferSeconds) and fewer than COIN_strikeTaskMaxActive
-        run. The kind makes its plan (start and destination, COIN_strikeKinds), the beginning is rolled in
+        run. The plan of the kind (start and destination, COIN_strikeKinds) was made with the offer (COIN_fnc_rollStrikeTask), the beginning is rolled in
         COIN_strikeTaskDelayMin minutes from now and the end in COIN_strikeTaskWindowMin minutes from now (the end is later
         than the beginning). The task goes into COIN_strikeActive and runs (COIN_fnc_runStrikeTask); the one who told of it
         answers. Nothing is saved. Switch COIN_enableStrikeTasks.
@@ -43,6 +43,8 @@ if (_offer isEqualTo [] || {(_offer select 0) != _id} || {time > (_offer select 
     false
 };
 
+// A task that should have ended long ago (its run broke off) does not block the limit for ever
+COIN_strikeActive = COIN_strikeActive select {time <= (_x select 2) + COIN_aidTaskEndShowSeconds};
 if (count COIN_strikeActive >= COIN_strikeTaskMaxActive) exitWith {
     diag_log format ["[COIN] strike: %1 accepted %2, but %3 strike task(s) run already, refused", name _asker, _id, count COIN_strikeActive];
     false
@@ -54,10 +56,10 @@ if (_row isEqualTo []) exitWith {
     false
 };
 
-private _plan = [] call (missionNamespace getVariable [_row select 2, {[]}]);
+// The plan was made when the strike task was offered
+private _plan = _offer param [2, []];
 if (_plan isEqualTo []) exitWith {
-    diag_log format ["[COIN] strike: %1 accepted %2, but the kind could not make a plan, refused", name _asker, _id];
-    [_speaker, "refused"] remoteExecCall ["COIN_fnc_showElderSentence", owner _asker];
+    diag_log format ["[COIN] strike: ERROR - the offer of %1 for %2 has no plan, refused", _id, name _asker];
     false
 };
 
@@ -70,9 +72,10 @@ private _window = (_windowMin + random (_windowMax - _windowMin)) max (_delay + 
 COIN_strikeNextId = COIN_strikeNextId + 1;
 private _taskId = format ["COIN_strike_%1", COIN_strikeNextId];
 // Registered before it starts, so a second acceptance in the same moment finds the limit reached
-COIN_strikeActive pushBack [_taskId, _id];
+private _endTime = time + (_window * 60);
+COIN_strikeActive pushBack [_taskId, _id, _endTime];
 
-[_row, _plan, _taskId, time + (_delay * 60), time + (_window * 60), name _asker] spawn COIN_fnc_runStrikeTask;
+[_row, _plan, _taskId, time + (_delay * 60), _endTime, name _asker] spawn COIN_fnc_runStrikeTask;
 [_speaker, "strike_accepted"] remoteExecCall ["COIN_fnc_showElderSentence", owner _asker];
 
 true

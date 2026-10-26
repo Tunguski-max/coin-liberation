@@ -3,7 +3,8 @@
     Author: COIN Liberation
 
     Description:
-        Server: removes the things an aid task has made (tickets 5.11 and 5.12) without anybody seeing them vanish: each
+        Server: removes the things an aid task (tickets 5.11 and 5.12) or a strike task (ticket 5.14, the courier car) has made
+        without anybody seeing them vanish (the distances and the time are those of the aid tasks): each
         one is deleted as soon as no player within COIN_aidSightDistance has a line of sight to it, at the latest after
         COIN_aidRemoveSeconds. Checked every COIN_aidCheckSeconds. Must be spawned.
 
