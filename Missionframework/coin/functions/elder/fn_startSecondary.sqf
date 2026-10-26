@@ -5,10 +5,9 @@
     Description:
         Server: starts one of Liberation's secondary missions for an interpreter who accepted it in the dialog of the elder
         (ticket 5.17, ADR 0023). Called by COIN_fnc_acceptElderOffer after it has checked the rules and that the offer can be
-        accepted (COIN_fnc_getAidOffers: enough intel points, no other secondary mission). The start is Liberation's own server
-        call (start_secondary_remote_call): it takes the cost from resources_intel and starts the mission, nothing of that is
-        changed here. Liberation's dialog only starts a mission while enemy territory is left for it, its server call does not
-        look, so this does (KPLIB_fnc_getOpforSpawnPoint). The elder answers the interpreter. A secondary mission does not
+        accepted (COIN_fnc_getAidOffers: enough intel points, no other secondary mission, enemy territory left). The start is
+        Liberation's own server call (start_secondary_remote_call): it takes the cost from resources_intel and starts the mission,
+        nothing of that is changed here. The elder answers the interpreter. A secondary mission does not
         belong to a town: it does not count as an aid task and the town does not wait afterwards.
 
     Parameter(s):
@@ -29,12 +28,6 @@ params [
 if (!isServer || {_offer isEqualTo []}) exitWith {false};
 
 _offer params ["_id", "_index"];
-
-if (([2000, 999999, false] call KPLIB_fnc_getOpforSpawnPoint) isEqualTo "") exitWith {
-    diag_log format ["[COIN] secondary: %1 refused for %2, not enough enemy territory left for a mission", _id, name _asker];
-    [_elder, "refused"] remoteExecCall ["COIN_fnc_showElderSentence", owner _asker];
-    false
-};
 
 private _intelBefore = missionNamespace getVariable ["resources_intel", 0];
 private _started = ([_index] call start_secondary_remote_call) isEqualTo true;

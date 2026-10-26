@@ -1197,7 +1197,8 @@ COIN_aidReasonTexts = [
     ["no_ace",       ["Dieser Auftrag braucht ACE.", "This task needs ACE."]],                                                           // no value
     ["no_site",      ["Kein Dorf in der Nähe, das Hilfe braucht.", "No village nearby needs help."]],                                    // no value (ticket 5.21)
     ["secondary_running", ["Es läuft schon eine Nebenmission.", "A secondary mission is running already."]],                            // no value (ticket 5.17)
-    ["no_intel",     ["Dafür fehlen Intel-Punkte (%1 nötig).", "Not enough intel points (%1 needed)."]]                                 // %1 = cost (ticket 5.17)
+    ["no_intel",     ["Dafür fehlen Intel-Punkte (%1 nötig).", "Not enough intel points (%1 needed)."]],                                // %1 = cost (ticket 5.17)
+    ["no_territory", ["Es ist nicht genug Feindgebiet für eine Nebenmission übrig.", "There is not enough enemy territory left for a mission."]] // no value (ticket 5.17)
 ];
 // What the elder says, one is picked at random: [key, [German sentences, English sentences]]
 COIN_elderSentences = [
@@ -1306,6 +1307,8 @@ COIN_secondaryOffers = [
     ["convoy_hijack",    1, "STR_SECONDARY_MISSION1", "STR_SECONDARY_BRIEFING1", "res\secondary\convoy_hijack.jpg"],
     ["search_and_rescue", 2, "STR_SECONDARY_MISSION2", "STR_SECONDARY_BRIEFING2", "res\secondary\sar.jpg"]
 ];
+// [min, max] m from the sectors and FOBs of the army in which an enemy spawn point must exist for a mission to start (Liberation's dialog: 2000, 999999)
+COIN_secondaryTerritoryRange = [2000, 999999];
 // Under the briefing: %1 = cost in intel points, %2 = intel points the army has
 COIN_secondaryCostText = ["Kosten: %1 Intel-Punkte (ihr habt %2).", "Cost: %1 intel points (you have %2)."];
 
