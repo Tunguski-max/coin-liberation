@@ -7,7 +7,9 @@
         client with remoteExecCall. Checks everything again: the elder, an interpreter close enough, the offer is
         among those that can be accepted now (COIN_fnc_getAidOffers: one task per town, a wait after its end, a limit
         for all towns). Then the aid task is registered for the town and starts (COIN_fnc_runAidTask): a task for the
-        whole side with a marker, and a message to all. The elder answers the interpreter. Switch COIN_enableAidTasks.
+        whole side with a marker, and a message to all. The elder answers the interpreter: for "medical" and "repair" with a
+        village (tickets 5.20 and 5.21, ADR 0024) he names it, the village is kept in COIN_aidActive so no other task takes it.
+        Switch COIN_enableAidTasks.
 
     Parameter(s):
         _elder - The elder [OBJECT, defaults to objNull]
@@ -60,13 +62,22 @@ if (_sector isEqualTo "") exitWith {
 // Where the elder stands; the town may be removed while the task runs, the place stays
 private _pos = (COIN_elderSpots getOrDefault [_sector, [getPosATL _elder]]) select 0;
 
-// Registered before it starts, so a second acceptance in the same moment finds the town busy
+// The village of "medical" and "repair" (tickets 5.20 and 5.21), [] for the others and with COIN_enableAidSites off
+private _site = (_offer select 0) param [6, []];
+private _place = (_offer select 0) param [5, markerText _sector];
+
+// Registered before it starts, so a second acceptance in the same moment finds the town busy and the village taken
 COIN_aidNextId = COIN_aidNextId + 1;
 private _taskId = format ["COIN_aid_%1", COIN_aidNextId];
 private _endTime = time + (COIN_aidTaskTimeoutMin * 60);
-COIN_aidActive set [_sector, [_id, _taskId, _endTime]];
+COIN_aidActive set [_sector, [_id, _taskId, _endTime, [_place, ""] select (_site isEqualTo [])]];
 
-[_id, _sector, _pos, _taskId, _endTime, name _asker] spawn COIN_fnc_runAidTask;
-[_elder, "accepted"] remoteExecCall ["COIN_fnc_showElderSentence", owner _asker];
+[_id, _sector, _pos, _taskId, _endTime, name _asker, _site] spawn COIN_fnc_runAidTask;
+// With a village the elder says where, else he thanks
+if (_site isEqualTo []) then {
+    [_elder, "accepted"] remoteExecCall ["COIN_fnc_showElderSentence", owner _asker];
+} else {
+    [_elder, "site", _place] remoteExecCall ["COIN_fnc_showElderSentence", owner _asker];
+};
 
 true

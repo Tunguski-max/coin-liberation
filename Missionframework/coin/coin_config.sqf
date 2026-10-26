@@ -1149,7 +1149,7 @@ COIN_elderSections = [
     ["aid", ["Hilfsaufträge", "Aid tasks"]]
 ];
 // Aid tasks: [id, [title German, English], [explanation German, English], [task text German, English]]
-// Explanation in the dialog: %1 = time limit in minutes, %2 = distance in m, %3 = supplies of the crate, %4 = seconds of a repair, %5 = least distance of a device from the elder in m.
+// Explanation in the dialog: %1 = time limit in minutes, %2 = distance in m, %3 = supplies of the crate, %4 = seconds of a repair, %5 = least distance of a device from the elder in m (no text uses it since ticket 5.21), %6 = place of the task: the village, else the town.
 // Task text: %1 = town, %2 = minutes, %3 = distance in m, %4 = supplies, %5 = seconds of a repair, %6 = least distance in m.
 // (A text may leave out what it does not need: "medical" uses only the time limit and the town.)
 // The reward is named roughly, without a number (the reputation is hidden).
@@ -1168,8 +1168,8 @@ COIN_aidTaskTexts = [
     ["medical",
         ["Arzt-Einsatz", "Medical aid"],
         [
-            "In der Ortschaft gibt es Verletzte.<br/><br/>Behandelt die Patienten im Umkreis des Ältesten. Sie liegen in den Kreisen auf der Karte. Jeder Spieler mit einer ACE-Bandage kann helfen, ein Sanitäter ist nicht nötig. Pro Patient wird eine Bandage verbraucht.<br/><br/>Zeitlimit: %1 Minuten. Läuft die Zeit ab, ist der Auftrag gescheitert.<br/>Fehlschlag: Die Bevölkerung merkt sich, dass ihr euer Versprechen nicht gehalten habt.<br/>Belohnung: Die Bevölkerung wird es euch danken.",
-            "There are wounded in the town.<br/><br/>Treat the patients around the elder. They lie in the circles on the map. Any player with an ACE bandage can help, no medic needed. One bandage is used up per patient.<br/><br/>Time limit: %1 minutes. If the time runs out the task has failed.<br/>Failure: The population will remember that you did not keep your promise.<br/>Reward: The population will be grateful."
+            "In %6 gibt es Verletzte.<br/><br/>Behandelt die Patienten, sie liegen in den Kreisen auf der Karte. Jeder Spieler mit einer ACE-Bandage kann helfen, ein Sanitäter ist nicht nötig. Pro Patient wird eine Bandage verbraucht.<br/><br/>Zeitlimit: %1 Minuten. Läuft die Zeit ab, ist der Auftrag gescheitert.<br/>Fehlschlag: Die Bevölkerung merkt sich, dass ihr euer Versprechen nicht gehalten habt.<br/>Belohnung: Die Bevölkerung wird es euch danken.",
+            "There are wounded in %6.<br/><br/>Treat the patients, they lie in the circles on the map. Any player with an ACE bandage can help, no medic needed. One bandage is used up per patient.<br/><br/>Time limit: %1 minutes. If the time runs out the task has failed.<br/>Failure: The population will remember that you did not keep your promise.<br/>Reward: The population will be grateful."
         ],
         [
             "Behandelt die Verletzten in %1, sie liegen in den Kreisen auf der Karte. Pro Patient eine ACE-Bandage. Zeitlimit: %2 Minuten.",
@@ -1179,8 +1179,8 @@ COIN_aidTaskTexts = [
     ["repair",
         ["Infrastruktur reparieren", "Repair infrastructure"],
         [
-            "In der Ortschaft sind Generatoren beschädigt, sie rauchen.<br/><br/>Reparieren muss sie ein ACE-Pionier (Slot EOD) mit einem Werkzeugkasten. Eine Reparatur dauert %4 Sekunden, ihr könnt sie abbrechen und später neu beginnen. Die Geräte stehen mindestens %5 m vom Ältesten entfernt in der Ortschaft.<br/><br/>Zeitlimit: %1 Minuten. Läuft die Zeit ab, ist der Auftrag gescheitert.<br/>Fehlschlag: Die Bevölkerung merkt sich, dass ihr euer Versprechen nicht gehalten habt.<br/>Belohnung: Die Bevölkerung wird es euch danken.",
-            "Generators in the town are damaged, they are smoking.<br/><br/>They can only be repaired by an ACE engineer (EOD slot) with a tool kit. A repair takes %4 seconds, you can cancel it and start again later. The devices stand in the town at least %5 m from the elder.<br/><br/>Time limit: %1 minutes. If the time runs out the task has failed.<br/>Failure: The population will remember that you did not keep your promise.<br/>Reward: The population will be grateful."
+            "In %6 sind Generatoren beschädigt, sie rauchen.<br/><br/>Reparieren muss sie ein ACE-Pionier (Slot EOD) mit einem Werkzeugkasten. Eine Reparatur dauert %4 Sekunden, ihr könnt sie abbrechen und später neu beginnen.<br/><br/>Zeitlimit: %1 Minuten. Läuft die Zeit ab, ist der Auftrag gescheitert.<br/>Fehlschlag: Die Bevölkerung merkt sich, dass ihr euer Versprechen nicht gehalten habt.<br/>Belohnung: Die Bevölkerung wird es euch danken.",
+            "Generators in %6 are damaged, they are smoking.<br/><br/>They can only be repaired by an ACE engineer (EOD slot) with a tool kit. A repair takes %4 seconds, you can cancel it and start again later.<br/><br/>Time limit: %1 minutes. If the time runs out the task has failed.<br/>Failure: The population will remember that you did not keep your promise.<br/>Reward: The population will be grateful."
         ],
         [
             "Repariert die rauchenden Generatoren in %1 (ACE-Pionier mit Werkzeugkasten, %5 Sekunden je Gerät). Zeitlimit: %2 Minuten.",
@@ -1193,7 +1193,8 @@ COIN_aidReasonTexts = [
     ["town_running", ["In dieser Ortschaft läuft schon ein Hilfsauftrag.", "This town has an aid task running already."]],   // no value
     ["town_wait",    ["Die Ortschaft braucht erst in etwa %1 Minuten wieder Hilfe.", "The town needs help again in about %1 minutes."]], // %1 = minutes left
     ["limit",        ["Es laufen schon %1 Hilfsaufträge.", "%1 aid tasks are running already."]],                                        // %1 = limit
-    ["no_ace",       ["Dieser Auftrag braucht ACE.", "This task needs ACE."]]                                                            // no value
+    ["no_ace",       ["Dieser Auftrag braucht ACE.", "This task needs ACE."]],                                                           // no value
+    ["no_site",      ["Kein Dorf in der Nähe, das Hilfe braucht.", "No village nearby needs help."]]                                     // no value (ticket 5.21)
 ];
 // What the elder says, one is picked at random: [key, [German sentences, English sentences]]
 COIN_elderSentences = [
@@ -1204,6 +1205,11 @@ COIN_elderSentences = [
     ["accepted", [
         ["Ich danke euch. Wir warten auf eure Hilfe.", "Das wird vielen hier helfen. Ich danke euch."],
         ["Thank you. We will wait for your help.", "This will help many people here. Thank you."]
+    ]],
+    // Where an aid task plays (ticket 5.21), %1 = the village
+    ["site", [
+        ["Im Nachbardorf %1 brauchen sie Hilfe.", "Im Nachbardorf %1 wartet man auf Hilfe."],
+        ["In the neighbouring village %1 they need help.", "In the neighbouring village %1 they are waiting for help."]
     ]],
     ["refused", [
         ["Das geht gerade nicht. Fragt später noch einmal.", "Jetzt nicht. Kommt bitte später wieder."],
@@ -1219,7 +1225,7 @@ COIN_aidMedicalHurtDamage   = 0.5;      // Damage a patient gets (0-1); Liberati
 COIN_aidMedicalTreatedAnim  = "AinjPpneMstpSnonWnonDnon_kneel"; // Animation of a healed patient before he stands up (as Liberation's)
 COIN_aidMedicalStandUpSeconds = 2;      // s he kneels before the AI lets him stand up
 COIN_aidMedicalHintSeconds  = 3;        // s the message "no bandage" stays
-COIN_aidMedicalRadius       = [10, 40]; // [min, max] m from the elder's place where a patient lies
+COIN_aidMedicalRadius       = [10, 40]; // [min, max] m from the centre of the village (without a site: from the elder's place) where a patient lies
 COIN_aidMedicalSpacing      = 12;       // m the patients keep from each other (if the tries find room)
 COIN_aidMedicalSpotTries    = 10;       // Tries to find a spot with that spacing for one patient
 COIN_aidMedicalSpotClearance = 3;       // m a patient keeps from objects, so not inside a building (BIS_fnc_findSafePos)
@@ -1236,7 +1242,8 @@ COIN_aidSightHeight         = 1;        // m above its position the line of sigh
 COIN_repAidRepair           = 4;        // Reputation when all devices are repaired (once, for all together)
 COIN_aidRepairSeconds       = 30;       // s of the progress bar of one repair
 COIN_aidRepairObjects       = [2, 3];   // [min, max] devices in a repair task
-COIN_aidRepairRadius        = [50, 100]; // [min, max] m from the elder's place where a device stands (the town; min = at least that far from the elder)
+COIN_aidRepairSiteRadius    = [20, 100]; // [min, max] m from the centre of the village where a device stands (ticket 5.21, COIN_enableAidSites)
+COIN_aidRepairRadius        = [50, 100]; // [min, max] m from the elder's place where a device stands (without a site) (the town; min = at least that far from the elder)
 COIN_aidRepairSpacing       = 20;       // m the devices keep from each other
 COIN_aidRepairSpotTries     = 10;       // Tries to find a spot for one device; none found, no device
 COIN_aidRepairSpotClearance = 4;        // m a device keeps from other objects, so not in a house or against a wall (BIS_fnc_findSafePos)

@@ -14,7 +14,8 @@
     Parameter(s):
         _elder  - The elder [OBJECT, defaults to objNull]
         _busy   - "busy" if the town runs or waits for an aid task, else "" [STRING, defaults to ""]
-        _offers - [id, section, can be accepted, reason key, reason value] per offer [ARRAY, defaults to []]
+        _offers - [id, section, can be accepted, reason key, reason value, place, site] per offer, the place (village or town) is %6 of
+                  the explanation [ARRAY, defaults to []]
         _active - Aid tasks running now, all towns [NUMBER, defaults to 0]
 
     Returns:
@@ -95,9 +96,9 @@ while {dialog && {alive player} && {alive _elder} && {(player distance _elder) <
             _button ctrlEnable false;
             _button ctrlSetTooltip "";
         } else {
-            (_offer select 0) params ["", "", "_enabled", "_reasonKey", "_reasonValue"];
+            (_offer select 0) params ["", "", "_enabled", "_reasonKey", "_reasonValue", "_place"];
             private _row = [COIN_aidTaskTexts, _id] call COIN_fnc_findByType;
-            private _explanation = format [(_row select 2) select _index, COIN_aidTaskTimeoutMin, COIN_aidSupplyDistance, COIN_aidSupplyMinValue, COIN_aidRepairSeconds, COIN_aidRepairRadius select 0];
+            private _explanation = format [(_row select 2) select _index, COIN_aidTaskTimeoutMin, COIN_aidSupplyDistance, COIN_aidSupplyMinValue, COIN_aidRepairSeconds, COIN_aidRepairRadius select 0, _place];
             private _reason = "";
             private _shown = format ["<t color='#e0e0e0'>%1</t>", _explanation];
             if (!_enabled) then {

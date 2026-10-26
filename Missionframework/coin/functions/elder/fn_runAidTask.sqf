@@ -5,7 +5,10 @@
     Description:
         Server: runs one accepted aid task of a town from start to end (tickets 5.9b, 5.10 and 5.11, DESIGN 8.2). Started by
         COIN_fnc_acceptElderOffer, which has registered the town in COIN_aidActive. Must be spawned.
-        Start: a task for the whole side with a marker at the elder's place and the message "New task" (COIN_fnc_clientTask).
+        Start: a task for the whole side with a marker and the message "New task" (COIN_fnc_clientTask). The marker and the name in the
+        title are those of the elder's town, but for "medical" and "repair" with a site (ticket 5.21, ADR 0024, COIN_enableAidSites)
+        those of the village: the patients and devices stand around its centre. Everything else (supplies, the elder, the
+        reputation, the wait of the town) belongs to the town.
         It ends
         - succeeded when the goal of its kind is reached: "supplies" (ticket 5.10) a Liberation supply crate with
           COIN_aidSupplyMinValue supplies stands on the ground at most COIN_aidSupplyDistance m from the elder's place,
@@ -31,6 +34,8 @@
         _taskId  - Id of the Arma task [STRING]
         _endTime - Time (server time) at which the task fails [NUMBER]
         _by      - Name of the interpreter who accepted it, for the log [STRING, defaults to ""]
+        _site    - [name, village centre, distance] of the village for "medical" and "repair" (tickets 5.20 and 5.21), [] if they play in
+                   the town [ARRAY, defaults to []]
 
     Returns:
         The task succeeded [BOOL]
@@ -42,29 +47,34 @@ params [
     ["_pos", [0, 0, 0], [[]]],
     ["_taskId", "", [""]],
     ["_endTime", 0, [0]],
-    ["_by", "", [""]]
+    ["_by", "", [""]],
+    ["_site", [], [[]]]
 ];
 
 if (!isServer || {_id isEqualTo ""} || {_sector isEqualTo ""}) exitWith {false};
 
 private _town = markerText _sector;
+// Where the task plays (patients, devices, marker, task title): the village of the site, else the town of the elder
+private _place = if (_site isEqualTo []) then {_town} else {_site select 0};
+private _taskPos = if (_site isEqualTo []) then {_pos} else {_site select 1};
 diag_log format [
-    "[COIN] aid: task %1 accepted by %2 in %3 (%4), at %5, %6 of %7 tasks now, limit %8 min",
-    _id, _by, _town, _sector, _pos apply {round _x}, count COIN_aidActive, COIN_aidTaskMaxActive, COIN_aidTaskTimeoutMin
+    "[COIN] aid: task %1 accepted by %2 in %3 (%4), at %5, %6 of %7 tasks now, limit %8 min, plays in %9",
+    _id, _by, _town, _sector, _pos apply {round _x}, count COIN_aidActive, COIN_aidTaskMaxActive, COIN_aidTaskTimeoutMin,
+    if (_site isEqualTo []) then {"the town"} else {format ["%1 at %2, %3 m away", _place, _taskPos apply {round _x}, _site select 2]}
 ];
-[_taskId, "CREATED", _id, _pos, _town, COIN_aidTaskTimeoutMin, true] remoteExecCall ["COIN_fnc_clientTask", 0, _taskId];
+[_taskId, "CREATED", _id, _taskPos, _place, COIN_aidTaskTimeoutMin, true] remoteExecCall ["COIN_fnc_clientTask", 0, _taskId];
 
 private _patients = [];
 private _circles = [];
 if (_id isEqualTo "medical") then {
-    private _made = [_taskId, _town, _pos] call COIN_fnc_spawnPatients;
+    private _made = [_taskId, _place, _taskPos] call COIN_fnc_spawnPatients;
     _patients = _made select 0;
     _circles = _made select 1;
 };
 private _devices = [];
 private _smokes = [];
 if (_id isEqualTo "repair") then {
-    private _made = [_taskId, _town, _pos] call COIN_fnc_spawnInfrastructure;
+    private _made = [_taskId, _place, _taskPos, [COIN_aidRepairRadius, COIN_aidRepairSiteRadius] select (_site isNotEqualTo [])] call COIN_fnc_spawnInfrastructure;
     _devices = _made select 0;
     _smokes = _made select 1;
 };
@@ -146,7 +156,7 @@ if (_result in ["time over", "the elder died"]) then {
         format ["aid task %1 failed in %2 (%3), the reward is taken back", _id, _town, _result]
     ] call COIN_fnc_changeReputation;
 };
-[_taskId, ["FAILED", "SUCCEEDED"] select _succeeded, _id, _pos, _town, COIN_aidTaskTimeoutMin, true] remoteExecCall ["COIN_fnc_clientTask", 0, _taskId];
+[_taskId, ["FAILED", "SUCCEEDED"] select _succeeded, _id, _taskPos, _place, COIN_aidTaskTimeoutMin, true] remoteExecCall ["COIN_fnc_clientTask", 0, _taskId];
 
 if (_id isEqualTo "medical") then {
     [_patients, _circles] spawn COIN_fnc_releasePatients;
@@ -173,7 +183,7 @@ diag_log format [
 
 // Stays in the task list for a while, then goes; late joiners get nothing of it any more
 sleep COIN_aidTaskEndShowSeconds;
-[_taskId, "REMOVED", _id, _pos, _town, COIN_aidTaskTimeoutMin, false] remoteExecCall ["COIN_fnc_clientTask", 0];
+[_taskId, "REMOVED", _id, _taskPos, _place, COIN_aidTaskTimeoutMin, false] remoteExecCall ["COIN_fnc_clientTask", 0];
 [] remoteExecCall ["", _taskId];
 
 _succeeded

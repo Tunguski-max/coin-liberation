@@ -15,8 +15,8 @@
 
     Parameter(s):
         _taskId - Id of the Arma task, for the names of the markers [STRING, defaults to ""]
-        _town   - Name of the town, for the log [STRING, defaults to ""]
-        _pos    - Where the elder stands [ARRAY, defaults to [0, 0, 0]]
+        _town   - Name of the town or village, for the log [STRING, defaults to ""]
+        _pos    - Where the elder stands, or with a site (ticket 5.21) the village centre [ARRAY, defaults to [0, 0, 0]]
 
     Returns:
         [patients, markers] [ARRAY of ARRAYs]
