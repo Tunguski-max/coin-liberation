@@ -453,6 +453,7 @@ Festgelegt beim Grilling für Phase 5 (2026-10-23, ADR 0023). Werte sind Startwe
 | Echtes IED entschärft | +2 | Zivilfahrzeug zerstört⁴ | −2 |
 | Nest zerstört (jeder Nest-Typ) | +5 | Zivilfahrzeug beschlagnahmt⁵ | 0 |
 | Hilfsauftrag (Abschnitt 8.2) | +4 bis +7 | Befreundeten Widerstandskämpfer getötet¹ | −3 |
+| | | Hilfsauftrag gescheitert (Zeit läuft ab oder der Älteste stirbt) | −(Ruf, den er gebracht hätte) |
 
 ¹ macht Liberation bereits. Wir ziehen dafür nicht doppelt ab.
 ² Zerstörte Häuser kosten **keinen** Ruf (2026-10-25). Liberation würde bei der Einnahme einer Ortschaft die Häuser im Umkreis
@@ -569,8 +570,7 @@ Abziehen von Besatzungen würde Liberations Sektor-Logik aushebeln.
 
 Neben Liberations **Nebenmissionen** (Konvoi-Überfall, Rettung, mit Intel-Punkten beim Ältesten gekauft) gibt es eigene
 **Aufträge** in zwei Arten. Jeder Auftrag ist eine Arma-Aufgabe für die ganze Seite (Meldung „Neuer Auftrag“), angenommen
-vom Dolmetscher. Aufträge werden nicht gespeichert und verfallen beim Serverneustart. Scheitern oder Ablaufen kostet nichts,
-einen Abbruch gibt es nicht.
+vom Dolmetscher. Aufträge werden nicht gespeichert und verfallen beim Serverneustart. Läuft ein **Zugriffsauftrag** ab oder scheitert er, kostet das nichts. Läuft bei einem **Hilfsauftrag** die Zeit ab oder stirbt der Älteste, merkt sich die Bevölkerung den gebrochenen Wunsch: Ihr Ruf wird abgezogen, den der Auftrag gebracht hätte (beim Arzt-Einsatz alle Patienten und der Bonus, auch wenn schon einige behandelt waren). Kein Abzug gibt es, wenn der Auftrag technisch endet (Hilfsaufträge ausgeschaltet, ein Gerät oder Patient gelöscht). Einen Abbruch gibt es nicht.
 
 | | Hilfsauftrag | Zugriffsauftrag |
 |---|---|---|

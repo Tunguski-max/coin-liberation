@@ -1114,7 +1114,7 @@ COIN_reinforcementSize      = 10;       // Local fighters per reinforcement
 COIN_reinforcementMaxMin    = 30;       // Group leaves after this time
 
 // ---------------------------------------------------------------------------
-// Elder and tasks (Phase 5, DESIGN 8, 8.2) - not persisted, failure costs nothing
+// Elder and tasks (Phase 5, DESIGN 8, 8.2) - not persisted; an aid task that fails (time over, elder dead) costs its reward
 // ---------------------------------------------------------------------------
 // COIN_elderAbsenceMinutes, COIN_enableElder and the rest of the elder: see the population section above (ticket 5.9a)
 
@@ -1131,6 +1131,7 @@ COIN_aidSupplyMinValue      = 100;      // Supplies a crate holds to count (a Li
 COIN_aidSupplyMaxHeight     = 1.5;      // m: the crate counts as standing on the ground up to this height above it (not carried, not hanging below a helicopter)
 COIN_aidCheckSeconds        = 5;        // s between two looks at a running aid task
 COIN_aidTaskEndShowSeconds  = 120;      // s a finished aid task stays in the task list
+COIN_aidFailurePenaltyFactor = 1;       // An aid task that fails because the time is over or the elder died takes back this share of the reputation it could have given (1 = all of it, 0 = nothing); no penalty if the task was switched off, a device or patient was lost or none could be placed
 COIN_aidTaskType            = "help";   // Icon of the task in the task list and on the map (BIS_fnc_taskCreate type)
 COIN_aidImagePath           = "coin\res\secondary\%1.jpg"; // Picture of an aid task in the elder's dialog, %1 = its id (see coin/res/secondary/README.md); no file, no picture
 
@@ -1156,8 +1157,8 @@ COIN_aidTaskTexts = [
     ["supplies",
         ["Hilfsgüter liefern", "Deliver supplies"],
         [
-            "Die Ortschaft braucht Nachschub.<br/><br/>Stellt eine Supply-Kiste mit %3 Supplies aus einer FOB am Boden ab, höchstens %2 m vom Ältesten entfernt. Die Kiste verschwindet dann. Jeder Spieler kann sie bringen.<br/><br/>Zeitlimit: %1 Minuten. Läuft die Zeit ab, ist der Auftrag gescheitert. Das kostet nichts.<br/><br/>Belohnung: Die Bevölkerung wird es euch danken.",
-            "The town needs supplies.<br/><br/>Put a supply crate with %3 supplies from a FOB on the ground, at most %2 m from the elder. The crate is then removed. Any player can bring it.<br/><br/>Time limit: %1 minutes. If the time runs out the task has failed. That costs nothing.<br/><br/>Reward: The population will be grateful."
+            "Die Ortschaft braucht Nachschub.<br/><br/>Stellt eine Supply-Kiste mit %3 Supplies aus einer FOB am Boden ab, höchstens %2 m vom Ältesten entfernt. Die Kiste verschwindet dann. Jeder Spieler kann sie bringen.<br/><br/>Zeitlimit: %1 Minuten. Läuft die Zeit ab, ist der Auftrag gescheitert. Fehlschlag: Die Bevölkerung merkt sich, dass ihr euer Versprechen nicht gehalten habt.<br/><br/>Belohnung: Die Bevölkerung wird es euch danken.",
+            "The town needs supplies.<br/><br/>Put a supply crate with %3 supplies from a FOB on the ground, at most %2 m from the elder. The crate is then removed. Any player can bring it.<br/><br/>Time limit: %1 minutes. If the time runs out the task has failed. Failure: The population will remember that you did not keep your promise.<br/><br/>Reward: The population will be grateful."
         ],
         [
             "Stellt in %1 eine Supply-Kiste mit %4 Supplies am Boden ab, höchstens %3 m vom Ältesten entfernt. Zeitlimit: %2 Minuten.",
@@ -1167,8 +1168,8 @@ COIN_aidTaskTexts = [
     ["medical",
         ["Arzt-Einsatz", "Medical aid"],
         [
-            "In der Ortschaft gibt es Verletzte.<br/><br/>Behandelt die Patienten im Umkreis des Ältesten. Sie liegen in den Kreisen auf der Karte. Jeder Spieler mit einer ACE-Bandage kann helfen, ein Sanitäter ist nicht nötig. Pro Patient wird eine Bandage verbraucht.<br/><br/>Zeitlimit: %1 Minuten. Läuft die Zeit ab, ist der Auftrag gescheitert. Das kostet nichts.<br/><br/>Belohnung: Die Bevölkerung wird es euch danken.",
-            "There are wounded in the town.<br/><br/>Treat the patients around the elder. They lie in the circles on the map. Any player with an ACE bandage can help, no medic needed. One bandage is used up per patient.<br/><br/>Time limit: %1 minutes. If the time runs out the task has failed. That costs nothing.<br/><br/>Reward: The population will be grateful."
+            "In der Ortschaft gibt es Verletzte.<br/><br/>Behandelt die Patienten im Umkreis des Ältesten. Sie liegen in den Kreisen auf der Karte. Jeder Spieler mit einer ACE-Bandage kann helfen, ein Sanitäter ist nicht nötig. Pro Patient wird eine Bandage verbraucht.<br/><br/>Zeitlimit: %1 Minuten. Läuft die Zeit ab, ist der Auftrag gescheitert. Fehlschlag: Die Bevölkerung merkt sich, dass ihr euer Versprechen nicht gehalten habt.<br/><br/>Belohnung: Die Bevölkerung wird es euch danken.",
+            "There are wounded in the town.<br/><br/>Treat the patients around the elder. They lie in the circles on the map. Any player with an ACE bandage can help, no medic needed. One bandage is used up per patient.<br/><br/>Time limit: %1 minutes. If the time runs out the task has failed. Failure: The population will remember that you did not keep your promise.<br/><br/>Reward: The population will be grateful."
         ],
         [
             "Behandelt die Verletzten in %1, sie liegen in den Kreisen auf der Karte. Pro Patient eine ACE-Bandage. Zeitlimit: %2 Minuten.",
@@ -1178,8 +1179,8 @@ COIN_aidTaskTexts = [
     ["repair",
         ["Infrastruktur reparieren", "Repair infrastructure"],
         [
-            "In der Ortschaft sind Generatoren und Wasserpumpen beschädigt, sie rauchen.<br/><br/>Reparieren muss sie ein ACE-Pionier (Slot EOD) mit einem Werkzeugkasten. Eine Reparatur dauert %4 Sekunden, ihr könnt sie abbrechen und später neu beginnen. Die Geräte stehen mindestens %5 m vom Ältesten entfernt in der Ortschaft.<br/><br/>Zeitlimit: %1 Minuten. Läuft die Zeit ab, ist der Auftrag gescheitert. Das kostet nichts.<br/><br/>Belohnung: Die Bevölkerung wird es euch danken.",
-            "Generators and water pumps in the town are damaged, they are smoking.<br/><br/>They can only be repaired by an ACE engineer (EOD slot) with a tool kit. A repair takes %4 seconds, you can cancel it and start again later. The devices stand in the town at least %5 m from the elder.<br/><br/>Time limit: %1 minutes. If the time runs out the task has failed. That costs nothing.<br/><br/>Reward: The population will be grateful."
+            "In der Ortschaft sind Generatoren und Wasserpumpen beschädigt, sie rauchen.<br/><br/>Reparieren muss sie ein ACE-Pionier (Slot EOD) mit einem Werkzeugkasten. Eine Reparatur dauert %4 Sekunden, ihr könnt sie abbrechen und später neu beginnen. Die Geräte stehen mindestens %5 m vom Ältesten entfernt in der Ortschaft.<br/><br/>Zeitlimit: %1 Minuten. Läuft die Zeit ab, ist der Auftrag gescheitert. Fehlschlag: Die Bevölkerung merkt sich, dass ihr euer Versprechen nicht gehalten habt.<br/><br/>Belohnung: Die Bevölkerung wird es euch danken.",
+            "Generators and water pumps in the town are damaged, they are smoking.<br/><br/>They can only be repaired by an ACE engineer (EOD slot) with a tool kit. A repair takes %4 seconds, you can cancel it and start again later. The devices stand in the town at least %5 m from the elder.<br/><br/>Time limit: %1 minutes. If the time runs out the task has failed. Failure: The population will remember that you did not keep your promise.<br/><br/>Reward: The population will be grateful."
         ],
         [
             "Repariert die rauchenden Generatoren und Wasserpumpen in %1 (ACE-Pionier mit Werkzeugkasten, %5 Sekunden je Gerät). Zeitlimit: %2 Minuten.",
