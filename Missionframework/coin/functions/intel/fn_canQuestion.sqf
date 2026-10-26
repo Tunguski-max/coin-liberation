@@ -11,8 +11,8 @@
         Liberation's own prisoner script uses), not captive (ACE surrendered or handcuffed: that covers Liberation's
         informant while he waits to be picked up), not questioned before and not in a conversation.
         Not a fighter in civilian clothes (triggerman, ticket 4.2b: COIN_civilianFighter, he looks like a civilian but
-        is not one). Prisoners are interrogated instead (ticket 3.8). The asker must be an interpreter, alive, conscious
-        and close enough.
+        is not one). Not a patient of the aid task "Medical aid" (ticket 5.11, COIN_patient). Prisoners are interrogated
+        instead (ticket 3.8). The asker must be an interpreter, alive, conscious and close enough.
         The question "How do you feel about us?" (ticket 5.3) has the same rules but may be asked of a civilian who
         was questioned before and of the elder of a town (ticket 5.9a, COIN_elder: nobody asks him about the militia):
         it passes _mood.
@@ -53,5 +53,6 @@ if (!COIN_enableQuestioning || {isNull _civ} || {isNull _asker}) exitWith {false
 && {!(_civ getVariable ["ace_captives_isHandcuffed", false])}
 && {!(_civ getVariable ["ace_captives_isSurrendering", false])}
 && {!(_civ getVariable ["COIN_civilianFighter", false])}
+&& {!(_civ getVariable ["COIN_patient", false])}
 && {_mood || {!(_civ getVariable ["COIN_questioned", false]) && {!(_civ getVariable ["COIN_elder", false])}}}
 && {!(_civ getVariable ["COIN_talking", false])}

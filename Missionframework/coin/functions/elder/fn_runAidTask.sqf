@@ -3,15 +3,18 @@
     Author: COIN Liberation
 
     Description:
-        Server: runs one accepted aid task of a town from start to end (tickets 5.9b and 5.10, DESIGN 8.2). Started by
+        Server: runs one accepted aid task of a town from start to end (tickets 5.9b, 5.10 and 5.11, DESIGN 8.2). Started by
         COIN_fnc_acceptElderOffer, which has registered the town in COIN_aidActive. Must be spawned.
         Start: a task for the whole side with a marker at the elder's place and the message "New task" (COIN_fnc_clientTask).
         It ends
         - succeeded when the goal of its kind is reached: "supplies" (ticket 5.10) a Liberation supply crate with
           COIN_aidSupplyMinValue supplies stands on the ground at most COIN_aidSupplyDistance m from the elder's place,
-          anybody put it there; it is removed and COIN_repAidSupplies reputation is given,
+          anybody put it there; it is removed and COIN_repAidSupplies reputation is given. "medical" (ticket 5.11) all
+          patients, made at the start (COIN_fnc_spawnPatients), are treated; each treatment has given
+          COIN_repAidPatient (COIN_fnc_treatPatient), now COIN_repAidMedicalBonus comes on top,
         - failed after COIN_aidTaskTimeoutMin minutes, or when the elder of the town dies (the town has no elder
-          for a while), or when aid tasks are switched off. Failing costs nothing.
+          for a while), or when aid tasks are switched off, or when a patient is gone (deleted, e.g. by Zeus). Failing costs
+          nothing (the treated patients were paid already). The patients go at the end either way (COIN_fnc_releasePatients).
         Then the town waits COIN_aidTaskCooldownMin minutes before it has a new aid task, and the finished task stays in
         the task list for COIN_aidTaskEndShowSeconds. Nothing is saved. The things a task makes stay until its end, also
         when the population of the town is removed: the place is the one of the elder, not the elder himself.
@@ -46,6 +49,14 @@ diag_log format [
 ];
 [_taskId, "CREATED", _id, _pos, _town, COIN_aidTaskTimeoutMin, true] remoteExecCall ["COIN_fnc_clientTask", 0, _taskId];
 
+private _patients = [];
+private _circles = [];
+if (_id isEqualTo "medical") then {
+    ([_taskId, _town, _pos] call COIN_fnc_spawnPatients) params ["_made", "_marked"];
+    _patients = _made;
+    _circles = _marked;
+};
+
 private _result = "";
 while {_result isEqualTo ""} do {
     sleep COIN_aidCheckSeconds;
@@ -71,10 +82,26 @@ while {_result isEqualTo ""} do {
             _result = "succeeded";
         };
     };
+
+    if (_id isEqualTo "medical") then {
+        if (_patients isEqualTo [] || {(_patients findIf {isNull _x}) >= 0}) then {
+            _result = "a patient is gone";
+        } else {
+            // Still waiting for treatment: the ones COIN_fnc_treatPatient has not marked as treated
+            if ((_patients findIf {_x getVariable ["COIN_patientOpen", false]}) < 0) then {
+                [COIN_repAidMedicalBonus, format ["aid task medical aid: all %1 patients treated in %2", count _patients, _town]] call COIN_fnc_changeReputation;
+                _result = "succeeded";
+            };
+        };
+    };
 };
 
 private _succeeded = _result isEqualTo "succeeded";
 [_taskId, ["FAILED", "SUCCEEDED"] select _succeeded, _id, _pos, _town, COIN_aidTaskTimeoutMin, true] remoteExecCall ["COIN_fnc_clientTask", 0, _taskId];
+
+if (_id isEqualTo "medical") then {
+    [_patients, _circles] spawn COIN_fnc_releasePatients;
+};
 
 COIN_aidActive deleteAt _sector;
 COIN_aidCooldown set [_sector, time + (COIN_aidTaskCooldownMin * 60)];

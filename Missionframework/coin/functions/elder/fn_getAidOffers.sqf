@@ -7,7 +7,9 @@
         whether it can be accepted and, if not, why. The reasons, the first that applies:
         - "town_running": the town has an aid task running (at most one per town),
         - "town_wait": the town waits COIN_aidTaskCooldownMin after its last aid task (value: minutes left),
-        - "limit": COIN_aidTaskMaxActive aid tasks run already (value: the limit).
+        - "limit": COIN_aidTaskMaxActive aid tasks run already (value: the limit),
+        - "no_ace": only for "medical" (ticket 5.11), Liberation gives its wounded no action without ACE and there are no
+          bandages (KP_liberation_ace).
         Used for the dialog and again for the check when an offer is accepted. Server only.
 
     Parameter(s):
@@ -41,7 +43,9 @@ private _reason = if (_running) then {
 };
 
 private _offers = COIN_aidTaskTexts apply {
-    [_x select 0, "aid", (_reason select 0) isEqualTo "", _reason select 0, _reason select 1]
+    private _id = _x select 0;
+    private _own = if ((_reason select 0) isEqualTo "" && {_id isEqualTo "medical"} && {!KP_liberation_ace}) then {["no_ace", 0]} else {_reason};
+    [_id, "aid", (_own select 0) isEqualTo "", _own select 0, _own select 1]
 };
 
 [["", "busy"] select (_running || {_minutesLeft > 0}), _offers, _active]

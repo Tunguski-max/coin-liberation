@@ -239,7 +239,7 @@ Vier Blöcke, nacheinander umgesetzt und getestet: 5A → 5B → 5C → 5D.
   Abschnitte, graue Einträge mit Grund, „Kommt später wieder“ bei wartender Ortschaft, 1 Auftrag pro Ortschaft, 60 min
   Wartezeit ab Ende, höchstens 2 gleichzeitig, Arma-Aufgabe für die Seite, 60 min Zeitlimit
 - [ ] 5.10 (#108, umgesetzt, ungetestet) Hilfsauftrag „Hilfsgüter liefern“: Supply-Kiste am Boden bis 20 m vom Ältesten, +5
-- [ ] 5.11 Hilfsauftrag „Arzt-Einsatz“: 3–5 unverwundbare Patienten mit Liberations Verwundeten-Funktion, jeder Spieler mit
+- [ ] 5.11 (#109, umgesetzt, ungetestet) Hilfsauftrag „Arzt-Einsatz“: 3–5 unverwundbare Patienten mit Liberations Verwundeten-Funktion, jeder Spieler mit
   Bandage, +1 pro Patient, +2 für alle in der Zeit
 - [ ] 5.12 Hilfsauftrag „Infrastruktur reparieren“: rauchender Generator oder Wasserpumpe, nur ACE-Pionier mit
   Werkzeugkasten, 20 s, +4
