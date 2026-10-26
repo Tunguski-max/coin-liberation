@@ -1132,7 +1132,7 @@ COIN_aidSupplyMaxHeight     = 1.5;      // m: the crate counts as standing on th
 COIN_aidCheckSeconds        = 5;        // s between two looks at a running aid task
 COIN_aidTaskEndShowSeconds  = 120;      // s a finished aid task stays in the task list
 COIN_aidTaskType            = "help";   // Icon of the task in the task list and on the map (BIS_fnc_taskCreate type)
-COIN_aidImagePath           = "coinessecondary%1.jpg"; // Picture of an aid task in the elder's dialog, %1 = its id (see coin/res/secondary/README.md); no file, no picture
+COIN_aidImagePath           = "coin\res\secondary\%1.jpg"; // Picture of an aid task in the elder's dialog, %1 = its id (see coin/res/secondary/README.md); no file, no picture
 
 // Entry in the action menu at the elder: [German, English]
 COIN_helpLabel = ["Können wir helfen?", "Can we help?"];
