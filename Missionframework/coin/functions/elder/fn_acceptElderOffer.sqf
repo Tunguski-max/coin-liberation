@@ -9,6 +9,7 @@
         for all towns). Then the aid task is registered for the town and starts (COIN_fnc_runAidTask): a task for the
         whole side with a marker, and a message to all. The elder answers the interpreter: for "medical" and "repair" with a
         village (tickets 5.20 and 5.21, ADR 0024) he names it, the village is kept in COIN_aidActive so no other task takes it.
+        There the ambush is decided too (ticket 5.22, COIN_fnc_planSiteAmbush); if it waits, he adds a vague warning.
         Switch COIN_enableAidTasks.
 
     Parameter(s):
@@ -72,12 +73,15 @@ private _taskId = format ["COIN_aid_%1", COIN_aidNextId];
 private _endTime = time + (COIN_aidTaskTimeoutMin * 60);
 COIN_aidActive set [_sector, [_id, _taskId, _endTime, [_place, ""] select (_site isEqualTo [])]];
 
-[_id, _sector, _pos, _taskId, _endTime, name _asker, _site] spawn COIN_fnc_runAidTask;
-// With a village the elder says where, else he thanks
+// Whether the militia waits in the village (ticket 5.22): decided now, the elder warns only if it does
+private _danger = if (_site isEqualTo []) then {[]} else {[_site, _pos] call COIN_fnc_planSiteAmbush};
+
+[_id, _sector, _pos, _taskId, _endTime, name _asker, _site, _danger] spawn COIN_fnc_runAidTask;
+// With a village the elder says where (and warns vaguely), else he thanks
 if (_site isEqualTo []) then {
     [_elder, "accepted"] remoteExecCall ["COIN_fnc_showElderSentence", owner _asker];
 } else {
-    [_elder, "site", _place] remoteExecCall ["COIN_fnc_showElderSentence", owner _asker];
+    [_elder, "site", _place, ["", "danger"] select (_danger isNotEqualTo [])] remoteExecCall ["COIN_fnc_showElderSentence", owner _asker];
 };
 
 true
