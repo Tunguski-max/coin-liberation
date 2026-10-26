@@ -241,7 +241,7 @@ Vier Blöcke, nacheinander umgesetzt und getestet: 5A → 5B → 5C → 5D.
 - [x] 5.10 (#108) Hilfsauftrag „Hilfsgüter liefern“: Supply-Kiste am Boden bis 20 m vom Ältesten, +5
 - [x] 5.11 (#109, im Spiel bestätigt; das Entfernen der Patienten am Ende ist noch ungeprüft) Hilfsauftrag „Arzt-Einsatz“: 3–5 unverwundbare Patienten mit Liberations Verwundeten-Funktion, jeder Spieler mit
   Bandage, +1 pro Patient, +2 für alle in der Zeit
-- [ ] 5.12 (#110, umgesetzt, ungetestet) Hilfsauftrag „Infrastruktur reparieren“: 2–3 rauchende Generatoren oder Wasserpumpen (≥ 50 m vom Ältesten, 20 m voneinander), nur ACE-Pionier mit
+- [ ] 5.12 (#110, umgesetzt, ungetestet) Hilfsauftrag „Infrastruktur reparieren“: 2–3 rauchende Generatoren (≥ 50 m vom Ältesten, 20 m voneinander), nur ACE-Pionier mit
   Werkzeugkasten, 30 s mit Fortschrittsbalken (abbrechbar), +4 wenn alle repariert
 - [ ] 5.17 Liberations Nebenmissionen (Konvoi-Überfall, Rettung) im Dialog des Ältesten; Eintrag an der FOB entfällt
   (Hook mit Schalter)

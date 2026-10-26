@@ -4,7 +4,7 @@
 
     Description:
         Server: makes the devices of an aid task "Repair infrastructure" (ticket 5.12, DESIGN 8.2): COIN_aidRepairObjects
-        (rolled) generators or water pumps (classes of COIN_aidRepairClasses that exist in this game), each at a free spot
+        (rolled) generators (classes of COIN_aidRepairClasses that exist in this game), each at a free spot
         (BIS_fnc_findSafePos) in the town, at least the first value of COIN_aidRepairRadius from the elder's place and
         COIN_aidRepairSpacing from each other. A device that finds no such spot in COIN_aidRepairSpotTries tries is left
         out. Each one smokes (an object of COIN_aidRepairSmokeClass, a global object, so a late joiner sees it), cannot

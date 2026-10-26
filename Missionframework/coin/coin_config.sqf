@@ -1179,12 +1179,12 @@ COIN_aidTaskTexts = [
     ["repair",
         ["Infrastruktur reparieren", "Repair infrastructure"],
         [
-            "In der Ortschaft sind Generatoren und Wasserpumpen beschädigt, sie rauchen.<br/><br/>Reparieren muss sie ein ACE-Pionier (Slot EOD) mit einem Werkzeugkasten. Eine Reparatur dauert %4 Sekunden, ihr könnt sie abbrechen und später neu beginnen. Die Geräte stehen mindestens %5 m vom Ältesten entfernt in der Ortschaft.<br/><br/>Zeitlimit: %1 Minuten. Läuft die Zeit ab, ist der Auftrag gescheitert.<br/>Fehlschlag: Die Bevölkerung merkt sich, dass ihr euer Versprechen nicht gehalten habt.<br/>Belohnung: Die Bevölkerung wird es euch danken.",
-            "Generators and water pumps in the town are damaged, they are smoking.<br/><br/>They can only be repaired by an ACE engineer (EOD slot) with a tool kit. A repair takes %4 seconds, you can cancel it and start again later. The devices stand in the town at least %5 m from the elder.<br/><br/>Time limit: %1 minutes. If the time runs out the task has failed.<br/>Failure: The population will remember that you did not keep your promise.<br/>Reward: The population will be grateful."
+            "In der Ortschaft sind Generatoren beschädigt, sie rauchen.<br/><br/>Reparieren muss sie ein ACE-Pionier (Slot EOD) mit einem Werkzeugkasten. Eine Reparatur dauert %4 Sekunden, ihr könnt sie abbrechen und später neu beginnen. Die Geräte stehen mindestens %5 m vom Ältesten entfernt in der Ortschaft.<br/><br/>Zeitlimit: %1 Minuten. Läuft die Zeit ab, ist der Auftrag gescheitert.<br/>Fehlschlag: Die Bevölkerung merkt sich, dass ihr euer Versprechen nicht gehalten habt.<br/>Belohnung: Die Bevölkerung wird es euch danken.",
+            "Generators in the town are damaged, they are smoking.<br/><br/>They can only be repaired by an ACE engineer (EOD slot) with a tool kit. A repair takes %4 seconds, you can cancel it and start again later. The devices stand in the town at least %5 m from the elder.<br/><br/>Time limit: %1 minutes. If the time runs out the task has failed.<br/>Failure: The population will remember that you did not keep your promise.<br/>Reward: The population will be grateful."
         ],
         [
-            "Repariert die rauchenden Generatoren und Wasserpumpen in %1 (ACE-Pionier mit Werkzeugkasten, %5 Sekunden je Gerät). Zeitlimit: %2 Minuten.",
-            "Repair the smoking generators and water pumps in %1 (ACE engineer with a tool kit, %5 seconds each). Time limit: %2 minutes."
+            "Repariert die rauchenden Generatoren in %1 (ACE-Pionier mit Werkzeugkasten, %5 Sekunden je Gerät). Zeitlimit: %2 Minuten.",
+            "Repair the smoking generators in %1 (ACE engineer with a tool kit, %5 seconds each). Time limit: %2 minutes."
         ]
     ]
 ];
@@ -1243,7 +1243,7 @@ COIN_aidRepairSpotClearance = 4;        // m a device keeps from other objects, 
 COIN_aidRepairMaxGradient   = 0.3;      // Steepest ground a device stands on (BIS_fnc_findSafePos)
 COIN_aidRepairRange         = 3;        // m from which the action "Repair" shows
 COIN_aidRepairRangeMargin   = 1;        // m a player may be further away while the bar runs, and when the server checks the repair (walking, lag)
-COIN_aidRepairClasses       = ["Land_Portable_generator_F", "Land_PortableGenerator_01_F", "Land_PowerGenerator_F", "Land_WindmillPump_01_F"]; // Generators and water pumps; a class that does not exist is left out (to be agreed, ticket 5.12)
+COIN_aidRepairClasses       = ["Land_Portable_generator_F", "Land_PortableGenerator_01_F"]; // Portable generators (a class that does not exist is left out); the windmill pump and the large generator were left out, the tall windmill could not be repaired in the test
 COIN_aidRepairTools         = ["ToolKit"]; // One of these must be in the player's inventory (not used up)
 COIN_aidRepairSmokeClass    = "test_EmptyObjectForSmoke"; // Smoke of a device, a global object (deleted when the device is repaired)
 COIN_aidRepairSmokeHeight   = 0.5;      // m above the ground at the device where the smoke object stands
