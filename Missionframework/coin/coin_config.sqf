@@ -1220,6 +1220,15 @@ COIN_elderSentences = [
         ["Seid vorsichtig. In letzter Zeit hat man dort Fremde gesehen.", "Gebt auf euch acht. Dort treiben sich neuerdings Leute herum, die niemand kennt."],
         ["Be careful. Strangers have been seen there lately.", "Watch yourselves. Lately people nobody knows have been hanging around there."]
     ]],
+    // What the one who tells of a strike task says (ticket 5.13, 5.14): the story of the offer, then the thanks after accepting. Texts to be agreed with Niklas
+    ["strike_courier", [
+        ["Ich habe gehört, dass bald ein Kurier der Miliz mit einem Auto unterwegs ist. Er hat Papiere bei sich.", "Man erzählt sich, ein Bote der Miliz fahre bald von Ort zu Ort. Er soll Dokumente tragen."],
+        ["I heard a militia courier will soon be on the road in a car. He carries papers.", "People say a messenger of the militia will drive from town to town soon. He is said to carry documents."]
+    ]],
+    ["strike_accepted", [
+        ["Seid vorsichtig. Wenn ihr schnell seid, erwischt ihr ihn.", "Gut. Passt auf euch auf. Er wird nicht lange auf sich warten lassen."],
+        ["Be careful. If you are quick, you will catch him.", "Good. Take care. He will not keep you waiting long."]
+    ]],
     ["refused", [
         ["Das geht gerade nicht. Fragt später noch einmal.", "Jetzt nicht. Kommt bitte später wieder."],
         ["Not right now. Please ask again later.", "Not now. Please come back later."]
@@ -1319,6 +1328,60 @@ COIN_strikeTaskMaxActive    = 1;
 COIN_strikeTaskDelayMin     = [15, 25]; // Minutes from accepting until the event starts
 COIN_strikeTaskWindowMin    = [30, 60]; // Time window in minutes, from accepting
 COIN_strikeReadinessLoss    = 10;       // Points of combat_readiness (0-100) for leader, arms transport and export
+COIN_strikeOfferSeconds     = 300;      // s the offer of a strike task can be accepted after the one who told of it has spoken
+COIN_strikeDialogDelay      = 3;        // s between what he says and the dialog opens
+COIN_strikeTaskType         = "search"; // Icon of the strike task in the task list and on the map (BIS_fnc_taskCreate type)
+COIN_strikeMarkerStart      = ["mil_start", "ColorOrange"]; // Marker at the start of the route: [type, colour]
+COIN_strikeMarkerEnd        = ["mil_end", "ColorOrange"];   // Marker at the destination
+COIN_strikeCheckSeconds     = 2;        // s between two looks at a running strike task
+
+// Kinds of strike task: [id, requirement, plan, run]. The requirement (a function, []) tells whether the kind can be offered now.
+// The plan (called with []) is made when the task is accepted and returns [start position, start name, destination position,
+// destination name, anything the run needs] or [] if there is none. The run (called with [plan, end time, task id, by]) starts at
+// the beginning of the event and returns "succeeded" or the reason it failed ("time over", ...). Further kinds are added here
+COIN_strikeKinds = [
+    ["courier", "COIN_fnc_canStrikeCourier", "COIN_fnc_planStrikeCourier", "COIN_fnc_runStrikeCourier"]
+];
+
+// Dialog of a strike task (the one of the elder, ticket 5.9b): header, accept button, line "%1 of %2" = running, limit
+COIN_strikeDialogTexts = [
+    ["Gelegenheit", "Opportunity"],
+    ["Annehmen", "Accept"],
+    ["Zugriffsaufträge: %1 von %2", "Strike tasks: %1 of %2"]
+];
+COIN_strikeSections = [
+    ["strike", ["Zugriffsauftrag", "Strike task"]]
+];
+// Strike tasks: [id, [title German, English], [explanation German, English], [task text German, English]]
+// Explanation in the dialog: %1 = least minutes until the event starts, %2 = most, %3 = least minutes of the whole window, %4 = most.
+// Task text: %1 = start, %2 = destination, %3 = time of day (game clock) of the beginning, %4 = time of day of the end.
+// No reward is named in numbers; the reputation is hidden, and a strike task that fails or runs out costs nothing
+COIN_strikeTaskTexts = [
+    ["courier",
+        ["Kurier abfangen", "Intercept courier"],
+        [
+            "Ein Kurier der Miliz fährt mit einem Zivilauto von einer Ortschaft zur nächsten, 2 bis 4 km auf der Straße. Er hat Dokumente bei sich.<br/><br/>Stoppt das Auto (Fahrer ausschalten, gefangen nehmen oder das Auto fahrunfähig schießen), aber zerstört es nicht. Durchsucht dann das Auto nach Dokumenten.<br/><br/><t size='1.15' color='#00a0ff'>Beginn: %1 bis %2 Minuten nach dem Annehmen. Das Zeitfenster dauert insgesamt %3 bis %4 Minuten.</t><br/><t size='1.15' color='#ffa000'>Fehlschlag: Das Auto kommt an oder brennt aus. Das kostet nichts.</t><br/><t size='1.15' color='#ffa000'>Belohnung: Die Dokumente nennen euch das Nest des Kuriers.</t>",
+            "A courier of the militia drives a civilian car from one town to the next, 2 to 4 km by road. He carries documents.<br/><br/>Stop the car (kill the driver, capture him or shoot the car immobile), but do not destroy it. Then search the car for documents.<br/><br/><t size='1.15' color='#00a0ff'>Start: %1 to %2 minutes after accepting. The time window lasts %3 to %4 minutes in all.</t><br/><t size='1.15' color='#ffa000'>Failure: The car arrives or burns out. That costs nothing.</t><br/><t size='1.15' color='#ffa000'>Reward: The documents name the courier's nest.</t>"
+        ],
+        [
+            "Fangt den Kurier der Miliz ab: Er fährt von %1 nach %2, Beginn um %3 Uhr, spätestens bis %4 Uhr. Stoppt das Auto, zerstört es nicht und durchsucht es nach Dokumenten.",
+            "Intercept the militia courier: he drives from %1 to %2, starting at %3, no later than %4. Stop the car, do not destroy it and search it for documents."
+        ]
+    ]
+];
+
+// Courier (ticket 5.14): a civilian car with a fighter in civilian clothes drives from town A to town B
+COIN_courierDistance        = [2000, 4000]; // [min, max] m between the two towns (straight line)
+COIN_courierVehicles        = COIN_vbiedGarageVehicles; // Civilian cars he drives, one at random (a class that does not exist is left out)
+COIN_courierSpeed           = 50;       // km/h he drives at most (the army has to be able to catch up)
+COIN_courierRoadSearch      = 300;      // m around a town centre in which the road for the start and the end is looked for
+COIN_courierArriveDistance  = 80;       // m from the destination at which he has arrived (the task fails, the car vanishes)
+COIN_courierRepathSeconds   = 30;       // s after which the order to drive to the destination is given again
+COIN_courierSearchRange     = 3;        // m from the car from which the action "Search documents" shows
+COIN_courierSearchRangeMargin = 1;      // m a player may be further away when the server checks the search
+COIN_courierSearchLabel     = ["Dokumente durchsuchen", "Search documents"]; // Action at the car: [German, English]
+COIN_courierFoundSpeaker    = ["Dokumente", "Documents"]; // Subtitle after the search: who, then the line
+COIN_courierFoundText       = ["Die Papiere nennen Orte und Namen. Ihr wisst jetzt, woher der Kurier kam.", "The papers name places and people. Now you know where the courier came from."];
 
 // ---------------------------------------------------------------------------
 // Faction markers (Phase 1, ticket 1.6 / #9, ADR 0012, ADR 0014)

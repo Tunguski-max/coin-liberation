@@ -17,6 +17,9 @@
         _offers - [id, section, can be accepted, reason key, reason value, place, site] per offer, the place (village or town) is %6 of
                   the explanation [ARRAY, defaults to []]
         _active - Aid tasks running now, all towns [NUMBER, defaults to 0]
+        _mode   - "elder" or "strike" (tickets 5.13 and 5.14): the dialog of a strike task has the texts and section of
+                  COIN_strikeDialogTexts and COIN_strikeSections, one entry of COIN_strikeTaskTexts, no elder to stay near ("_elder" is the one
+                  who told of it, he speaks after the accepting) and "Accept" goes to COIN_fnc_acceptStrikeTask [STRING, defaults to "elder"]
 
     Returns:
         The dialog was opened, or will be (the call is moved to the scheduler first) [BOOL]
@@ -26,7 +29,8 @@ params [
     ["_elder", objNull, [objNull]],
     ["_busy", "", [""]],
     ["_offers", [], [[]]],
-    ["_active", 0, [0]]
+    ["_active", 0, [0]],
+    ["_mode", "elder", [""]]
 ];
 
 if (!hasInterface || {isNull _elder}) exitWith {false};
@@ -34,6 +38,7 @@ if (!hasInterface || {isNull _elder}) exitWith {false};
 if (!canSuspend) exitWith {_this spawn COIN_fnc_openElderDialog; true};
 
 private _index = [1, 0] select (language isEqualTo "German");
+private _strike = _mode isEqualTo "strike";
 
 if (_busy isNotEqualTo "") then {
     [_elder, "busy"] call COIN_fnc_showElderSentence;
@@ -50,10 +55,10 @@ private _text = _display displayCtrl 102;
 private _button = _display displayCtrl 103;
 private _pictureCtrl = _display displayCtrl 106;
 
-COIN_elderDialogTexts params ["_header", "_accept", "_tasks"];
+(if (_strike) then {COIN_strikeDialogTexts} else {COIN_elderDialogTexts}) params ["_header", "_accept", "_tasks"];
 (_display displayCtrl 108) ctrlSetText (_header select _index);
 _button ctrlSetText (_accept select _index);
-(_display displayCtrl 107) ctrlSetText format [_tasks select _index, _active, COIN_aidTaskMaxActive];
+(_display displayCtrl 107) ctrlSetText format [_tasks select _index, _active, [COIN_aidTaskMaxActive, COIN_strikeTaskMaxActive] select _strike];
 
 // Sections with their offers; a section header has no data and cannot be accepted
 {
@@ -70,14 +75,14 @@ _button ctrlSetText (_accept select _index);
             private _label = if (_secondary isNotEqualTo []) then {
                 localize (_secondary select 2)
             } else {
-                (([COIN_aidTaskTexts, _id] call COIN_fnc_findByType) select 1) select _index
+                (([[COIN_aidTaskTexts, COIN_strikeTaskTexts] select _strike, _id] call COIN_fnc_findByType) select 1) select _index
             };
             private _row = _list lbAdd ("    " + _label);
             _list lbSetData [_row, _id];
             if (!_enabled) then {_list lbSetColor [_row, [0.5, 0.5, 0.5, 1]]};
         } forEach _rows;
     };
-} forEach COIN_elderSections;
+} forEach ([COIN_elderSections, COIN_strikeSections] select _strike);
 
 // The first entry that is no header
 private _first = 0;
@@ -88,7 +93,8 @@ _list lbSetCurSel _first;
 
 private _old = -2;
 private _range = COIN_talkRange + COIN_talkRangeMargin;
-while {dialog && {alive player} && {alive _elder} && {(player distance _elder) <= _range} && {COIN_elderAccept == 0}} do {
+// A strike task does not tie the dialog to the one who told of it (a civilian walks away after he has spoken)
+while {dialog && {alive player} && {_strike || {alive _elder && {(player distance _elder) <= _range}}} && {COIN_elderAccept == 0}} do {
     private _selected = lbCurSel _list;
     if (_selected != _old) then {
         _old = _selected;
@@ -106,14 +112,19 @@ while {dialog && {alive player} && {alive _elder} && {(player distance _elder) <
             (_offer select 0) params ["", "", "_enabled", "_reasonKey", "_reasonValue", "_place"];
             // No village for the task: the explanation names no place of the town, as the offer is grey for that reason
             if (_reasonKey isEqualTo "no_site") then {_place = COIN_aidNoSitePlace select _index};
-            private _row = [COIN_aidTaskTexts, _id] call COIN_fnc_findByType;
+            private _row = [[COIN_aidTaskTexts, COIN_strikeTaskTexts] select _strike, _id] call COIN_fnc_findByType;
             private _explanation = if (_secondary isNotEqualTo []) then {
                 // Liberation's briefing, then its cost and the intel points the army has
                 (localize (_secondary select 3)) + "<br/><br/>" + format [
                     COIN_secondaryCostText select _index, GRLIB_secondary_missions_costs select (_secondary select 1), missionNamespace getVariable ["resources_intel", 0]
                 ]
             } else {
-                format [(_row select 2) select _index, COIN_aidTaskTimeoutMin, COIN_aidSupplyDistance, COIN_aidSupplyMinValue, COIN_aidRepairSeconds, COIN_aidRepairRadius select 0, _place]
+                if (_strike) then {
+                    // The minutes until the event starts and the whole window, each as [least, most]
+                    format [(_row select 2) select _index, COIN_strikeTaskDelayMin select 0, COIN_strikeTaskDelayMin select 1, COIN_strikeTaskWindowMin select 0, COIN_strikeTaskWindowMin select 1]
+                } else {
+                    format [(_row select 2) select _index, COIN_aidTaskTimeoutMin, COIN_aidSupplyDistance, COIN_aidSupplyMinValue, COIN_aidRepairSeconds, COIN_aidRepairRadius select 0, _place]
+                }
             };
             private _reason = "";
             // The look of Liberation's briefings: the title big and orange, then the text; the lines of the explanation carry their
@@ -143,7 +154,7 @@ if (COIN_elderAccept == 1 && {dialog}) then {
 if (dialog) then {closeDialog 0};
 
 if (_chosen isNotEqualTo "") then {
-    [_elder, player, _chosen] remoteExecCall ["COIN_fnc_acceptElderOffer", 2];
+    [_elder, player, _chosen] remoteExecCall [["COIN_fnc_acceptElderOffer", "COIN_fnc_acceptStrikeTask"] select _strike, 2];
 };
 
 true

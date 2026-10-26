@@ -98,6 +98,9 @@ _prisoner setVariable ["COIN_talking", true, true];
 
         [_name, _levels] remoteExecCall ["COIN_fnc_showInterrogation", owner _asker];
         sleep COIN_answerReadSeconds;
+
+        // Every interrogation: a strike task may arise besides the results (ticket 5.13, DESIGN 8.2)
+        [_prisoner, _asker] spawn COIN_fnc_rollStrikeTask;
     } else {
         [_asker, _reservation, false] call COIN_fnc_finishAsking;
     };

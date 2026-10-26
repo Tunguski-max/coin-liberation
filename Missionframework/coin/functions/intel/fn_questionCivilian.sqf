@@ -89,6 +89,11 @@ _civ setVariable ["COIN_talking", true, true];
 
         [_name, _level, _type] remoteExecCall ["COIN_fnc_showAnswer", owner _asker];
         sleep COIN_answerReadSeconds;
+
+        // A result other than "I know nothing": a strike task may arise besides it (ticket 5.13, DESIGN 8.2)
+        if !(_level in ["nothing", "unsafe", "cooldown"]) then {
+            [_civ, _asker] spawn COIN_fnc_rollStrikeTask;
+        };
     } else {
         [_asker, _reservation, false] call COIN_fnc_finishAsking;
     };

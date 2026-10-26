@@ -111,6 +111,16 @@ if (COIN_enableAidTasks) then {
     diag_log "[COIN] init: aid tasks off";
 };
 
+// Strike tasks (tickets 5.13 and 5.14, DESIGN 8.2): the running ones [task id, kind], the offers per player UID [kind, valid until]. Not saved
+if (COIN_enableStrikeTasks) then {
+    COIN_strikeActive = [];
+    COIN_strikeOffers = createHashMap;
+    COIN_strikeNextId = 0;
+    diag_log format ["[COIN] init: strike tasks on, chance %1 from reputation %2, at most %3 at the same time, %4 kinds", COIN_strikeTaskChance, COIN_strikeTaskMinRep, COIN_strikeTaskMaxActive, count COIN_strikeKinds];
+} else {
+    diag_log "[COIN] init: strike tasks off";
+};
+
 // Site of the aid tasks (ticket 5.20, ADR 0024): only chosen and written to the RPT, nothing plays there yet
 if (COIN_enableAidSites) then {
     [] call COIN_fnc_logSites;
