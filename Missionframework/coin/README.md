@@ -81,6 +81,10 @@ coin/
     │   ├── fn_rateSites.sqf            COIN_fnc_rateSites: Server, Dörfer um eine Ortschaft mit dem Grund, warum eines kein Einsatzort ist (Ticket 5.20)
     │   ├── fn_findSite.sqf             COIN_fnc_findSite: Server, Einsatzort einer Ortschaft: nächstes Dorf außerhalb der Sektoren
     │   ├── fn_logSites.sqf             COIN_fnc_logSites: Server, schreibt Dörfer und Einsatzort jeder Ortschaft ins RPT (Prüfliste)
+    │   ├── fn_findSiteAmbushSpot.sqf   COIN_fnc_findSiteAmbushSpot: Server, Platz des Hinterhalts am Einsatzort (Ticket 5.22)
+    │   ├── fn_planSiteAmbush.sqf       COIN_fnc_planSiteAmbush: Server, Hinterhalt am Einsatzort? Nest in Reichweite, Chance, Platz
+    │   ├── fn_spawnSiteAmbush.sqf      COIN_fnc_spawnSiteAmbush: Server, Kämpfer in Deckung und in Häusern des Dorfes
+    │   ├── fn_runSiteAmbush.sqf        COIN_fnc_runSiteAmbush: Server, Leben des Hinterhalts: Spawn bei Spielernähe, Budget, Feuer, Entfernen
     │   ├── fn_clientTask.sqf           COIN_fnc_clientTask: Client, die Arma-Aufgabe in der Sprache des Spielers
     │   └── fn_showElderSentence.sqf    COIN_fnc_showElderSentence: Client, ein Satz des Ältesten als Untertitel
     ├── ui/

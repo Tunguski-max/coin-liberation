@@ -36,6 +36,7 @@
         _by      - Name of the interpreter who accepted it, for the log [STRING, defaults to ""]
         _site    - [name, village centre, distance] of the village for "medical" and "repair" (tickets 5.20 and 5.21), [] if they play in
                    the town [ARRAY, defaults to []]
+        _danger  - Plan of the ambush at the site (COIN_fnc_planSiteAmbush), [] if the task is safe [ARRAY, defaults to []]
 
     Returns:
         The task succeeded [BOOL]
@@ -48,7 +49,8 @@ params [
     ["_taskId", "", [""]],
     ["_endTime", 0, [0]],
     ["_by", "", [""]],
-    ["_site", [], [[]]]
+    ["_site", [], [[]]],
+    ["_danger", [], [[]]]
 ];
 
 if (!isServer || {_id isEqualTo ""} || {_sector isEqualTo ""}) exitWith {false};
@@ -63,6 +65,11 @@ diag_log format [
     if (_site isEqualTo []) then {"the town"} else {format ["%1 at %2, %3 m away", _place, _taskPos apply {round _x}, _site select 2]}
 ];
 [_taskId, "CREATED", _id, _taskPos, _place, COIN_aidTaskTimeoutMin, true] remoteExecCall ["COIN_fnc_clientTask", 0, _taskId];
+
+// The ambush at the site lives on its own: it spawns when a player comes near and stays until nobody is near, also after the task
+if (_danger isNotEqualTo []) then {
+    [_danger, _taskPos, _place, _sector, _taskId] spawn COIN_fnc_runSiteAmbush;
+};
 
 private _patients = [];
 private _circles = [];

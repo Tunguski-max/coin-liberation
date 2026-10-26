@@ -1211,6 +1211,11 @@ COIN_elderSentences = [
         ["Im Nachbardorf %1 brauchen sie Hilfe.", "Im Nachbardorf %1 wartet man auf Hilfe."],
         ["In the neighbouring village %1 they need help.", "In the neighbouring village %1 they are waiting for help."]
     ]],
+    // A warning after the "site" sentence when an ambush waits there (ticket 5.22): vague, no place, no kind of danger. Texts to be agreed with Niklas
+    ["danger", [
+        ["Seid vorsichtig. In letzter Zeit hat man dort Fremde gesehen.", "Gebt auf euch acht. Dort treiben sich neuerdings Leute herum, die niemand kennt."],
+        ["Be careful. Strangers have been seen there lately.", "Watch yourselves. Lately people nobody knows have been hanging around there."]
+    ]],
     ["refused", [
         ["Das geht gerade nicht. Fragt später noch einmal.", "Jetzt nicht. Kommt bitte später wieder."],
         ["Not right now. Please ask again later.", "Not now. Please come back later."]
@@ -1270,6 +1275,22 @@ COIN_siteMinSectorDistance  = 500;      // m from every town sector (Liberation'
 COIN_siteMinOtherSectorDistance = 150;  // m from every factory, military post and tower (a village next to a factory is a village of its own); TEST VALUE
 COIN_siteMinEnemySectorDistance = 1200; // m from every sector the army has not liberated (Liberation activates a sector at 1000 m)
 COIN_siteMaxDistance        = 3000;     // m from the town of the elder
+
+// Ambush at the site (ticket 5.22, ADR 0024, DESIGN 8.2): "Medical aid" and "Repair infrastructure" in a village can meet the militia.
+// Decided when the task is accepted: a nest (any type, state active) has the village in its influence radius, then the chance.
+// Fighters in cover on the side of the elder's town, a few more hidden in houses of the village. Spawn, budget (camp budget,
+// all or none), fire distance and the look of the ambush follow the ambushes of camps (COIN_ambush* above); not saved
+COIN_enableAidAmbush        = true;     // Off: no danger at the site, the tasks stay safe
+COIN_aidAmbushChance        = 0.75;     // Chance of the ambush when a nest has the village in range
+COIN_aidAmbushDistance      = [100, 250]; // [min, max] m from the village centre to the ambush, towards the elder's town
+COIN_aidAmbushArc           = 45;       // Degrees to either side of the direction of the elder's town
+COIN_aidAmbushSpotTries     = 40;       // Tries to find a free place when no road gives one
+COIN_aidAmbushHouseClearance = 15;      // m a free place keeps from houses
+COIN_aidAmbushViewDistance  = 400;      // m from the village centre towards the town: a place is preferred that terrain hides from there
+COIN_aidAmbushFighters      = [4, 6];   // [min, max] fighters in cover
+COIN_aidAmbushCoverCount    = [2, 4];   // [min, max] cover objects (COIN_ambushCoverClasses), at most one per fighter
+COIN_aidAmbushHouseFighters = [2, 3];   // [min, max] fighters hidden in houses of the village (fewer if there are not enough houses)
+COIN_aidAmbushHouseStance   = "UP";     // Stance of a fighter in a house until they open fire
 
 // Strike tasks, created as a result of questioning or interrogation
 COIN_strikeTaskChance       = 0.15;     // Chance per questioning (result other than "nothing") or interrogation

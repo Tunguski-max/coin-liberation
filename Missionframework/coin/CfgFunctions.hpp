@@ -315,6 +315,18 @@ class COIN {
         // Server: writes the villages and the site of every town to the RPT (ticket 5.20)
         class logSites {};
 
+        // Server: place for the ambush at the site, beside a road or on free ground on the side of the elder's town (ticket 5.22)
+        class findSiteAmbushSpot {};
+
+        // Server: is there an ambush at the site? Nest in range, chance, place, numbers (ticket 5.22)
+        class planSiteAmbush {};
+
+        // Server: spawns the fighters in cover and in houses, with cover objects (ticket 5.22)
+        class spawnSiteAmbush {};
+
+        // Server: life of the ambush at the site, spawn near players, budget, fire, removal (ticket 5.22)
+        class runSiteAmbush {};
+
         // Client: the Arma task of an aid task, in the language of the player (tickets 5.9b and 5.10)
         class clientTask {};
 

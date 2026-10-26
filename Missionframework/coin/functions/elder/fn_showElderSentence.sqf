@@ -13,6 +13,7 @@
         _elder - The elder [OBJECT, defaults to objNull]
         _key   - Which sentence, the first column of COIN_elderSentences [STRING, defaults to ""]
         _place - Name of the village, put in for %1 of the sentence [STRING, defaults to ""]
+        _extraKey - Key of a second sentence, a second line under the first (ticket 5.22: "danger", the vague warning) [STRING, defaults to ""]
 
     Returns:
         The sentence was shown [BOOL]
@@ -21,7 +22,8 @@
 params [
     ["_elder", objNull, [objNull]],
     ["_key", "", [""]],
-    ["_place", "", [""]]
+    ["_place", "", [""]],
+    ["_extraKey", "", [""]]
 ];
 
 if (!hasInterface) exitWith {false};
@@ -34,4 +36,14 @@ if (_texts isEqualTo []) exitWith {
     false
 };
 
-[name _elder, [format [selectRandom (_texts select _index), _place]]] call COIN_fnc_showSubtitle
+private _lines = [format [selectRandom (_texts select _index), _place]];
+
+// A second line under the first, e.g. the vague warning of an ambush at the site
+if (_extraKey isNotEqualTo "") then {
+    private _extra = ([COIN_elderSentences, _extraKey] call COIN_fnc_findByType) param [1, []];
+    if (_extra isNotEqualTo []) then {
+        _lines pushBack (selectRandom (_extra select _index));
+    };
+};
+
+[name _elder, _lines] call COIN_fnc_showSubtitle
