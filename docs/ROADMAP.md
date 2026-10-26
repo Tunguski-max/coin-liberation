@@ -247,7 +247,7 @@ Vier Blöcke, nacheinander umgesetzt und getestet: 5A → 5B → 5C → 5D.
   ≥ 1200 m von nicht befreiten, ≤ 3000 m vom Ältesten, Ausschlussliste), nur Auswahl und Log für alle 29 Ortschaften
 - [x] 5.21 (#133, am 2026-10-26 im Spiel bestätigt: Dialog, Annehmen, Reparatur im Dorf, grau ohne Dorf, Ende; offen: gleichzeitige Belegung eines Dorfes, Schalter aus) Arzt-Einsatz und Reparatur im Dorf: Patienten und Geräte um die Dorfmitte, Dialog, Aufgabe, Marker und
   Satz des Ältesten nennen das Dorf, grau ohne Dorf, Schalter `COIN_enableAidSites`
-- [ ] 5.22 (#134) Hinterhalt am Einsatzort: 75 %, nur mit aktivem Nest im Radius, 4–6 Kämpfer in Deckung auf der Zufahrtsseite
+- [x] 5.22 (#134, am 2026-10-26 im Spiel bestätigt: Entscheidung mit Nest, Spawn, Feuer bei 150 m, Hausbesatzung, ausgehoben; offen: Verhör, Entfernen, Budget voll, Schalter aus) Hinterhalt am Einsatzort: 75 %, nur mit aktivem Nest im Radius, 4–6 Kämpfer in Deckung auf der Zufahrtsseite
   plus 2–3 versteckte in Häusern, Camp-Budget ganz oder gar nicht, vager Warnsatz des Ältesten, Verhör nennt das Nest
 - [ ] 5.17 Liberations Nebenmissionen (Konvoi-Überfall, Rettung) im Dialog des Ältesten; Eintrag an der FOB entfällt
   (Hook mit Schalter)
