@@ -97,7 +97,7 @@ while {dialog && {alive player} && {alive _elder} && {(player distance _elder) <
         } else {
             (_offer select 0) params ["", "", "_enabled", "_reasonKey", "_reasonValue"];
             private _row = [COIN_aidTaskTexts, _id] call COIN_fnc_findByType;
-            private _explanation = format [(_row select 2) select _index, COIN_aidTaskTimeoutMin, COIN_aidSupplyDistance, COIN_aidSupplyMinValue];
+            private _explanation = format [(_row select 2) select _index, COIN_aidTaskTimeoutMin, COIN_aidSupplyDistance, COIN_aidSupplyMinValue, COIN_aidRepairSeconds, COIN_aidRepairRadius select 0];
             private _reason = "";
             private _shown = format ["<t color='#e0e0e0'>%1</t>", _explanation];
             if (!_enabled) then {

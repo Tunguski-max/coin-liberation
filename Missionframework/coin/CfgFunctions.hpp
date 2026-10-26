@@ -288,6 +288,24 @@ class COIN {
         // Server: end of "Medical aid", patients stand up and go when nobody sees them (ticket 5.11)
         class releasePatients {};
 
+        // Server: the devices of the aid task "Repair infrastructure", smoking, in the town (ticket 5.12)
+        class spawnInfrastructure {};
+
+        // Client: the action "Repair" at a device, ACE progress bar (ticket 5.12)
+        class addRepairAction {};
+
+        // Client and server: may this unit repair, ACE engineer with a tool kit (ticket 5.12)
+        class canRepairInfrastructure {};
+
+        // Server: a device was repaired by a player (ticket 5.12)
+        class repairInfrastructure {};
+
+        // Server: a device no longer waits for a repair, smoke off (ticket 5.12)
+        class closeInfrastructure {};
+
+        // Server: removes what an aid task made when nobody sees it (tickets 5.11, 5.12)
+        class removeWhenUnseen {};
+
         // Client: the Arma task of an aid task, in the language of the player (tickets 5.9b and 5.10)
         class clientTask {};
 

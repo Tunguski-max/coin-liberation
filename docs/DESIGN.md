@@ -453,6 +453,7 @@ Festgelegt beim Grilling für Phase 5 (2026-10-23, ADR 0023). Werte sind Startwe
 | Echtes IED entschärft | +2 | Zivilfahrzeug zerstört⁴ | −2 |
 | Nest zerstört (jeder Nest-Typ) | +5 | Zivilfahrzeug beschlagnahmt⁵ | 0 |
 | Hilfsauftrag (Abschnitt 8.2) | +4 bis +7 | Befreundeten Widerstandskämpfer getötet¹ | −3 |
+| | | Hilfsauftrag gescheitert (Zeit läuft ab oder der Älteste stirbt) | −(Ruf, den er gebracht hätte) |
 
 ¹ macht Liberation bereits. Wir ziehen dafür nicht doppelt ab.
 ² Zerstörte Häuser kosten **keinen** Ruf (2026-10-25). Liberation würde bei der Einnahme einer Ortschaft die Häuser im Umkreis
@@ -569,8 +570,7 @@ Abziehen von Besatzungen würde Liberations Sektor-Logik aushebeln.
 
 Neben Liberations **Nebenmissionen** (Konvoi-Überfall, Rettung, mit Intel-Punkten beim Ältesten gekauft) gibt es eigene
 **Aufträge** in zwei Arten. Jeder Auftrag ist eine Arma-Aufgabe für die ganze Seite (Meldung „Neuer Auftrag“), angenommen
-vom Dolmetscher. Aufträge werden nicht gespeichert und verfallen beim Serverneustart. Scheitern oder Ablaufen kostet nichts,
-einen Abbruch gibt es nicht.
+vom Dolmetscher. Aufträge werden nicht gespeichert und verfallen beim Serverneustart. Läuft ein **Zugriffsauftrag** ab oder scheitert er, kostet das nichts. Läuft bei einem **Hilfsauftrag** die Zeit ab oder stirbt der Älteste, merkt sich die Bevölkerung den gebrochenen Wunsch: Ihr Ruf wird abgezogen, den der Auftrag gebracht hätte (beim Arzt-Einsatz alle Patienten und der Bonus, auch wenn schon einige behandelt waren). Kein Abzug gibt es, wenn der Auftrag technisch endet (Hilfsaufträge ausgeschaltet, ein Gerät oder Patient gelöscht). Einen Abbruch gibt es nicht.
 
 | | Hilfsauftrag | Zugriffsauftrag |
 |---|---|---|
@@ -587,8 +587,8 @@ abgebaut wird.
 | Hilfsauftrag | Was zu tun ist | Wer | Belohnung |
 |---|---|---|---|
 | **Hilfsgüter liefern** | Eine Liberation-Supply-Kiste (100 Supplies, aus jeder FOB) am Boden abstellen, höchstens 20 m vom Ältesten entfernt. Die Kiste verschwindet. | jeder Spieler | +5 Ruf |
-| **Arzt-Einsatz** | 3–5 Patienten im Umkreis des Ältesten behandeln. Animation, Aktion und 25-m-Kreise kommen von Liberations Verwundeten-Funktion (`F_cr_woundedAnim`, `KPLIB_fnc_crAddAceAction`). Die Patienten sind unverwundbar, zählen nicht zum Budget und sind nicht befragbar. | jeder Spieler mit einer ACE-Bandage (eine pro Patient) | +1 Ruf pro Patient, +2 extra, wenn alle in der Zeit behandelt sind |
-| **Infrastruktur reparieren** | Ein beschädigtes, rauchendes Objekt nahe dem Ältesten (Generator oder Wasserpumpe, Liste in der Config) reparieren, 20 s mit Fortschrittsbalken. Danach wird das Objekt entfernt. | nur ACE-Pionier (Slot EOD) mit Werkzeugkasten | +4 Ruf |
+| **Arzt-Einsatz** | 3–5 Patienten im Umkreis von 10–40 m um den Ältesten behandeln (Aktion „Behandeln“, verbraucht eine Bandage, heilt sofort). Verwundeten-Animation und 25-m-Kreise kommen von Liberations Verwundeten-Funktion (`F_cr_woundedAnim`); die Aktion ist eine Nachbildung von `KPLIB_fnc_crAddAceAction`, bei der der Server den Schutz der Patienten nur für das Heilen aufhebt. Die Patienten sind unverwundbar, zählen nicht zum Budget und sind nicht befragbar. Am Ende stehen alle auf und werden außer Sicht entfernt, die Kreise verschwinden. | jeder Spieler mit einer ACE-Bandage (eine pro Patient) | +1 Ruf pro Patient, +2 extra, wenn alle in der Zeit behandelt sind |
+| **Infrastruktur reparieren** | 2–3 beschädigte, rauchende Geräte (tragbare Generatoren, Klassenliste in der Config) in der Ortschaft des Ältesten reparieren: mindestens 50 m vom Ältesten, 20 m voneinander entfernt. Aktion „Reparieren“, 30 s mit ACE-Fortschrittsbalken, abbrechbar (dann kein Fortschritt, später neu beginnen). Repariert: Rauch aus. Am Ende des Auftrags werden die Geräte außer Sicht entfernt. | nur ACE-Pionier (Slot EOD) mit Werkzeugkasten | +4 Ruf, wenn alle Geräte repariert sind |
 
 *Später:* Straße räumen, Entführte befreien.
 

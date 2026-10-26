@@ -11,10 +11,15 @@
           COIN_aidSupplyMinValue supplies stands on the ground at most COIN_aidSupplyDistance m from the elder's place,
           anybody put it there; it is removed and COIN_repAidSupplies reputation is given. "medical" (ticket 5.11) all
           patients, made at the start (COIN_fnc_spawnPatients), are treated; each treatment has given
-          COIN_repAidPatient (COIN_fnc_treatPatient), now COIN_repAidMedicalBonus comes on top,
+          COIN_repAidPatient (COIN_fnc_treatPatient), now COIN_repAidMedicalBonus comes on top. "repair" (ticket 5.12)
+          all devices, made at the start (COIN_fnc_spawnInfrastructure), are repaired (COIN_fnc_repairInfrastructure):
+          COIN_repAidRepair reputation, once, for all together,
         - failed after COIN_aidTaskTimeoutMin minutes, or when the elder of the town dies (the town has no elder
-          for a while), or when aid tasks are switched off, or when a patient is gone (deleted, e.g. by Zeus). Failing costs
-          nothing (the treated patients were paid already). The patients go at the end either way (COIN_fnc_releasePatients).
+          for a while), or when aid tasks are switched off, or when a patient or device is gone (deleted, e.g. by Zeus).
+          Failing because the time is over or the elder died takes back the reputation the task could have given
+          (COIN_aidFailurePenaltyFactor times the reward, for "medical" all patients and the bonus, also when some were
+          treated and paid already); the other ways to fail cost nothing. The patients and devices go at the end either
+          way (COIN_fnc_releasePatients, COIN_fnc_closeInfrastructure).
         Then the town waits COIN_aidTaskCooldownMin minutes before it has a new aid task, and the finished task stays in
         the task list for COIN_aidTaskEndShowSeconds. Nothing is saved. The things a task makes stay until its end, also
         when the population of the town is removed: the place is the one of the elder, not the elder himself.
@@ -56,6 +61,13 @@ if (_id isEqualTo "medical") then {
     _patients = _made select 0;
     _circles = _made select 1;
 };
+private _devices = [];
+private _smokes = [];
+if (_id isEqualTo "repair") then {
+    private _made = [_taskId, _town, _pos] call COIN_fnc_spawnInfrastructure;
+    _devices = _made select 0;
+    _smokes = _made select 1;
+};
 
 private _result = "";
 while {_result isEqualTo ""} do {
@@ -94,6 +106,21 @@ while {_result isEqualTo ""} do {
         };
     };
 
+    if (_id isEqualTo "repair") then {
+        if (_devices isEqualTo []) then {
+            _result = "no device could be placed";
+        } else {
+            if ((_devices findIf {isNull _x}) >= 0) then {
+                _result = "a device is gone";
+            } else {
+                if ((_devices findIf {_x getVariable ["COIN_infraOpen", false]}) < 0) then {
+                    [COIN_repAidRepair, format ["aid task repair infrastructure: all %1 devices repaired in %2", count _devices, _town]] call COIN_fnc_changeReputation;
+                    _result = "succeeded";
+                };
+            };
+        };
+    };
+
     if (_result isEqualTo "") then {
         if (time >= _endTime) then {
             _result = "time over";
@@ -104,10 +131,37 @@ while {_result isEqualTo ""} do {
 };
 
 private _succeeded = _result isEqualTo "succeeded";
+
+// A broken promise: the town takes back what the task could have given (all patients and the bonus for "medical").
+// Only when the army let it fail (time over, elder dead), not when it was switched off or a device or patient is lost
+if (_result in ["time over", "the elder died"]) then {
+    private _reward = switch (_id) do {
+        case "supplies": {COIN_repAidSupplies};
+        case "medical": {((count _patients) * COIN_repAidPatient) + COIN_repAidMedicalBonus};
+        case "repair": {COIN_repAidRepair};
+        default {0};
+    };
+    [
+        -(_reward * COIN_aidFailurePenaltyFactor),
+        format ["aid task %1 failed in %2 (%3), the reward is taken back", _id, _town, _result]
+    ] call COIN_fnc_changeReputation;
+};
 [_taskId, ["FAILED", "SUCCEEDED"] select _succeeded, _id, _pos, _town, COIN_aidTaskTimeoutMin, true] remoteExecCall ["COIN_fnc_clientTask", 0, _taskId];
 
 if (_id isEqualTo "medical") then {
     [_patients, _circles] spawn COIN_fnc_releasePatients;
+};
+
+// The devices not repaired are done with now (no smoke), then all of them go when nobody sees them
+{
+    if (!isNull _x && {_x getVariable ["COIN_infraOpen", false]}) then {
+        [_x] call COIN_fnc_closeInfrastructure;
+    };
+} forEach _devices;
+// The smoke of a device Zeus deleted has no device to be found by
+{deleteVehicle _x} forEach _smokes;
+if (_devices isNotEqualTo []) then {
+    [_devices, "devices"] spawn COIN_fnc_removeWhenUnseen;
 };
 
 COIN_aidActive deleteAt _sector;

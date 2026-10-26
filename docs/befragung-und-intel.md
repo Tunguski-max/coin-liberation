@@ -77,7 +77,7 @@ Befragen kann der Dolmetscher **Zivilisten**. Welche es gibt:
 
 - Liberations Zivilisten (in umkämpften Ortschaften und auf Patrouille),
 - die **eigene Bevölkerung** von COIN: 4–8 Zivilisten im Ortskern jeder befreiten Ortschaft, die entstehen, sobald Spieler
-  in der Nähe sind, und neu entstehen, wenn man wiederkommt (✅ 3.7). Dazu kommt ein **Ältester** pro Ortschaft (5.9a, umgesetzt, ungetestet): Er steht fest an einer Moschee oder dem größten Haus nahe dem Ortskern, trägt eigene Kleidung und heißt „Ältester …“. Wird er getötet, hat die Ortschaft `COIN_elderAbsenceMinutes` (60) keinen, danach kommt beim nächsten Besuch ein neuer.
+  in der Nähe sind, und neu entstehen, wenn man wiederkommt (✅ 3.7). Dazu kommt ein **Ältester** pro Ortschaft (5.9a, im Spiel bestätigt): Er steht fest an einer Moschee oder dem größten Haus nahe dem Ortskern, trägt eigene Kleidung und heißt „Ältester …“. Wird er getötet, hat die Ortschaft `COIN_elderAbsenceMinutes` (60) keinen, danach kommt beim nächsten Besuch ein neuer.
 
 ### 3.1 Zustände: wer ist befragbar?
 
@@ -95,8 +95,8 @@ Befragen kann der Dolmetscher **Zivilisten**. Welche es gibt:
 | Gefesselt oder ergeben (ACE), auch Liberations **Informant**, solange er auf Abholung wartet | nein | Der Informant hat einen eigenen Ablauf (siehe Abschnitt 6) |
 | Miliz-Kämpfer in ziviler Gruppe (z. B. ein Gegner, der sich ergeben hat) | nein | Das ist ein Gefangener, er wird verhört (Abschnitt 4) |
 | **Kämpfer in Zivil** (Auslöser, VBIED-Fahrer, Attentäter) | nein | Er sieht aus wie ein Zivilist, ist aber keiner |
-| **Ältester** | nein, nicht zur Miliz (5.9a, umgesetzt, ungetestet) | Er hat „Wie steht ihr zu uns?“; „Können wir helfen?“ kommt mit 5.9b. Alle anderen Zivilisten fragt man „Wo finde ich den Ältesten?“: Der Älteste (im Umkreis `COIN_elderLocateRange`, 600 m) wird für alle `COIN_elderMarkerSeconds` (5 min) auf der Karte markiert, ohne Befragung, Markierung oder Abklingzeit; ohne Ältesten sagt der Zivilist das (umgesetzt, ungetestet) |
-| **Patienten** des Arzt-Einsatzes | nein (5.11, umgesetzt, ungetestet) | `COIN_patient`, `COIN_fnc_canQuestion` lässt sie aus |
+| **Ältester** | nein, nicht zur Miliz (5.9a, im Spiel bestätigt) | Er hat „Wie steht ihr zu uns?“; „Können wir helfen?“ öffnet den Dialog (5.9b). Alle anderen Zivilisten fragt man „Wo finde ich den Ältesten?“: Der Älteste (im Umkreis `COIN_elderLocateRange`, 600 m) wird für alle `COIN_elderMarkerSeconds` (5 min) auf der Karte markiert, ohne Befragung, Markierung oder Abklingzeit; ohne Ältesten sagt der Zivilist das (im Spiel bestätigt) |
+| **Patienten** des Arzt-Einsatzes | nein (5.11, im Spiel bestätigt) | `COIN_patient`, `COIN_fnc_canQuestion` lässt sie aus |
 
 ### 3.2 Ablauf einer Befragung
 
@@ -320,8 +320,8 @@ Die Intel-Marker gelten für **die ganze Seite** (alle Spieler sehen sie), auch 
 | **Ruf-Änderungen** | Neue Ruf-Quellen: Nest zerstört +5, Gefangener getötet −10, Zivilfahrzeug zerstört −2. Beschlagnahmen und zerstörte Häuser kosten nichts (auch Liberations Abzug bei der Einnahme ist aus). Der Ruf verschiebt die Gewichte aus 5.2 | 5.1 ✅ (Nest, Gefangener, Zivilfahrzeug); 5.8 verworfen |
 | **Stimmung** | „Wie steht ihr zu uns?“ beim Zivilisten (Abschnitt 3.4), beim Ältesten mit 5.9a | 5.3 ✔ ungetestet |
 | **Informanten-Häufigkeit** | Unter +25 keine, ab +25 Liberations Werte (alle 90–180 min ein Versuch, 75 %), ab +50 alle 45–90 min mit 100 % | 5.2 ✔ ungetestet. Ein Server-Loop setzt Liberations `KP_liberation_civinfo_*`, es gilt ab dem nächsten Intervall, das Liberation würfelt (`COIN_fnc_informantFrequencyLoop`, Schalter `COIN_enableInformantFrequency`) |
-| **Ältester** | Pro befreiter Ortschaft einer, nicht zur Miliz befragbar; getötet → 60 min kein Ältester | 5.9a ✔ ungetestet |
-| **Dialog des Ältesten** | „Können wir helfen?“ (5.9b und 5.10 umgesetzt, ungetestet: Dialog nach Vorbild von Liberations Nebenmissions-Dialog, ein eigener erbt dessen Layout; Hilfsauftrag „Hilfsgüter liefern“; pro Ortschaft ein Auftrag, danach 60 min Wartezeit, höchstens 2 gleichzeitig, 60 min Zeitlimit, Scheitern kostet nichts; stirbt der Älteste, scheitert sein Auftrag; Schalter `COIN_enableAidTasks`). Weiter: Nebenmissionen (Liberations Konvoi-Überfall und Rettung, bezahlt mit Intel-Punkten), Gefälligkeit | 5.9b, 5.10–5.12, 5.17 📋 |
+| **Ältester** | Pro befreiter Ortschaft einer, nicht zur Miliz befragbar; getötet → 60 min kein Ältester | 5.9a ✅ |
+| **Dialog des Ältesten** | „Können wir helfen?“ (5.9b, 5.10 und 5.11 im Spiel bestätigt, 5.12 umgesetzt, ungetestet: Dialog nach Vorbild von Liberations Nebenmissions-Dialog, ein eigener erbt dessen Layout; Hilfsaufträge „Hilfsgüter liefern“, „Arzt-Einsatz“ und „Infrastruktur reparieren“; pro Ortschaft ein Auftrag, danach 60 min Wartezeit, höchstens 2 gleichzeitig, 60 min Zeitlimit; läuft die Zeit ab oder stirbt der Älteste, scheitert der Auftrag und der Ruf, den er gebracht hätte, wird abgezogen (`COIN_aidFailurePenaltyFactor`); Schalter `COIN_enableAidTasks`). Weiter: Nebenmissionen (Liberations Konvoi-Überfall und Rettung, bezahlt mit Intel-Punkten), Gefälligkeit | 5.17 📋 |
 | **Zugriffsaufträge** | Mit **15 %** zusätzlich bei einer Befragung (Ergebnis außer „Ich weiß nichts“) oder einem Verhör, **nur ab Ruf +25**, höchstens einer gleichzeitig. Der Sprecher erzählt davon, ein Dialog mit einem Eintrag öffnet sich, ohne „Annehmen“ ist die Gelegenheit weg. Beginn 15–25 min nach dem Annehmen, Fenster 30–60 min | 5.13 📋 |
 | **Gefälligkeiten und Verstärkung** | Ab Ruf **+50** alle 120 min eine Gefälligkeit (höchstens 2 auf Vorrat, gespeichert, `COIN_saveVersion` 3); Verstärkung kostet eine Gefälligkeit und 10 Intel-Punkte. 10 lokale Kämpfer, per Funk geführt | 5.4, 5.6, 5.19 📋 |
 | **Readiness** | Netzwerkstärke deckelt Liberations Readiness; jedes zerstörte Nest senkt sie sofort; einige Zugriffsaufträge −10 | Phase 6 📋 |
