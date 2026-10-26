@@ -320,8 +320,8 @@ Die Intel-Marker gelten für **die ganze Seite** (alle Spieler sehen sie), auch 
 | **Ruf-Änderungen** | Neue Ruf-Quellen: Nest zerstört +5, Gefangener getötet −10, Zivilfahrzeug zerstört −2. Beschlagnahmen und zerstörte Häuser kosten nichts (auch Liberations Abzug bei der Einnahme ist aus). Der Ruf verschiebt die Gewichte aus 5.2 | 5.1 ✅ (Nest, Gefangener, Zivilfahrzeug); 5.8 verworfen |
 | **Stimmung** | „Wie steht ihr zu uns?“ beim Zivilisten (Abschnitt 3.4), beim Ältesten mit 5.9a | 5.3 ✔ ungetestet |
 | **Informanten-Häufigkeit** | Unter +25 keine, ab +25 Liberations Werte (alle 90–180 min ein Versuch, 75 %), ab +50 alle 45–90 min mit 100 % | 5.2 ✔ ungetestet. Ein Server-Loop setzt Liberations `KP_liberation_civinfo_*`, es gilt ab dem nächsten Intervall, das Liberation würfelt (`COIN_fnc_informantFrequencyLoop`, Schalter `COIN_enableInformantFrequency`) |
-| **Ältester** | Pro befreiter Ortschaft einer, nicht zur Miliz befragbar; getötet → 60 min kein Ältester | 5.9a 📋 |
-| **Dialog des Ältesten** | „Können wir helfen?“: Hilfsaufträge, Nebenmissionen (Liberations Konvoi-Überfall und Rettung, bezahlt mit Intel-Punkten), Gefälligkeit | 5.9b, 5.10–5.12, 5.17 📋 |
+| **Ältester** | Pro befreiter Ortschaft einer, nicht zur Miliz befragbar; getötet → 60 min kein Ältester | 5.9a ✔ ungetestet |
+| **Dialog des Ältesten** | „Können wir helfen?“ (5.9b und 5.10 umgesetzt, ungetestet: Dialog nach Vorbild von Liberations Nebenmissions-Dialog, ein eigener erbt dessen Layout; Hilfsauftrag „Hilfsgüter liefern“; pro Ortschaft ein Auftrag, danach 60 min Wartezeit, höchstens 2 gleichzeitig, 60 min Zeitlimit, Scheitern kostet nichts; stirbt der Älteste, scheitert sein Auftrag; Schalter `COIN_enableAidTasks`). Weiter: Nebenmissionen (Liberations Konvoi-Überfall und Rettung, bezahlt mit Intel-Punkten), Gefälligkeit | 5.9b, 5.10–5.12, 5.17 📋 |
 | **Zugriffsaufträge** | Mit **15 %** zusätzlich bei einer Befragung (Ergebnis außer „Ich weiß nichts“) oder einem Verhör, **nur ab Ruf +25**, höchstens einer gleichzeitig. Der Sprecher erzählt davon, ein Dialog mit einem Eintrag öffnet sich, ohne „Annehmen“ ist die Gelegenheit weg. Beginn 15–25 min nach dem Annehmen, Fenster 30–60 min | 5.13 📋 |
 | **Gefälligkeiten und Verstärkung** | Ab Ruf **+50** alle 120 min eine Gefälligkeit (höchstens 2 auf Vorrat, gespeichert, `COIN_saveVersion` 3); Verstärkung kostet eine Gefälligkeit und 10 Intel-Punkte. 10 lokale Kämpfer, per Funk geführt | 5.4, 5.6, 5.19 📋 |
 | **Readiness** | Netzwerkstärke deckelt Liberations Readiness; jedes zerstörte Nest senkt sie sofort; einige Zugriffsaufträge −10 | Phase 6 📋 |
@@ -356,6 +356,7 @@ Alles in `Missionframework/coin/coin_config.sqf`. Wichtige Namen:
 | Ruf-Bänder | `COIN_repBandMid` (0), `COIN_repBandHigh` (25), `COIN_moodThresholds` ([−25, 0, 25, 50]), `COIN_reputationStart` (−20) |
 | Sätze | `COIN_questionAnswers`, `COIN_questionAnswersByType`, `COIN_interrogationAnswers` und die Sätze für die Abklingzeit |
 | Bevölkerung | `COIN_populationCount` ([4, 8]), `COIN_populationRadius` (80 m) |
+| Hilfsaufträge | `COIN_enableAidTasks`, `COIN_aidTaskMaxActive` (2), `COIN_aidTaskCooldownMin` (60), `COIN_aidTaskTimeoutMin` (60), `COIN_repAidSupplies` (5), `COIN_aidSupplyDistance` (20), `COIN_aidSupplyMinValue` (100), Texte `COIN_aidTaskTexts`, `COIN_aidReasonTexts`, `COIN_elderSentences` |
 | Ältester | `COIN_enableElder`, `COIN_enableElderLocate`, `COIN_elderLocateRange`, `COIN_elderMarkerSeconds`, `COIN_elderLocateAnswers`, `COIN_elderAbsenceMinutes` (60), `COIN_elderSearchRadius`, `COIN_elderBuildingKeywords`, `COIN_elderUniforms`, `COIN_elderHeadgear`, `COIN_elderNameFormat` |
 
 ---

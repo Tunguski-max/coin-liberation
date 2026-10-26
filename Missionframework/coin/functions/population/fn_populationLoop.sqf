@@ -50,9 +50,10 @@ private _spawned = createHashMap;
 // Sector -> number of civilians it waits to spawn (logged once), kept so the roll does not change every check
 private _waiting = createHashMap;
 // Sector -> [position, direction, building] where the elder stands, found at the first spawn and kept for the session
-private _elderSpots = createHashMap;
-// Sector -> time from which the town gets an elder again, set when he died
-private _elderAbsent = createHashMap;
+// (global: an aid task needs the place, ticket 5.9b)
+COIN_elderSpots = createHashMap;
+// Sector -> time from which the town gets an elder again, set when he died (global: an aid task fails then)
+COIN_elderAbsent = createHashMap;
 
 private _remove = {
     params ["_sector", "_reason"];
@@ -78,7 +79,7 @@ while {COIN_enablePopulation} do {
             // _entry select 2: the elder is there and not known to be dead, select 3: the elder
             if (_entry select 2 && {!alive (_entry select 3)}) then {
                 _entry set [2, false];
-                _elderAbsent set [_sector, time + (COIN_elderAbsenceMinutes * 60)];
+                COIN_elderAbsent set [_sector, time + (COIN_elderAbsenceMinutes * 60)];
                 deleteMarker format ["COIN_elder_%1", _sector];
                 diag_log format [
                     "[COIN] population: the elder of %1 (%2) is dead, the town has no elder for %3 min",
@@ -118,7 +119,7 @@ while {COIN_enablePopulation} do {
         {_living = _living + ({alive _x} count (_y select 0))} forEach _spawned;
 
         // The elder comes with the town unless he died less than COIN_elderAbsenceMinutes ago; he counts against the budget
-        private _withElder = COIN_enableElder && {(_elderAbsent getOrDefault [_sector, 0]) <= time};
+        private _withElder = COIN_enableElder && {(COIN_elderAbsent getOrDefault [_sector, 0]) <= time};
         private _total = _count + ([0, 1] select _withElder);
 
         if (COIN_enableAIBudget && {(_living + _total) > COIN_maxCivilians}) then {
@@ -139,11 +140,11 @@ while {COIN_enablePopulation} do {
         private _civs = [_sector, _count] call COIN_fnc_spawnPopulation;
         private _elder = objNull;
         if (_withElder) then {
-            if !(_sector in _elderSpots) then {
-                _elderSpots set [_sector, [_sector] call COIN_fnc_findElderSpot];
+            if !(_sector in COIN_elderSpots) then {
+                COIN_elderSpots set [_sector, [_sector] call COIN_fnc_findElderSpot];
             };
-            _elder = [_sector, _elderSpots get _sector] call COIN_fnc_spawnElder;
-            _elderAbsent deleteAt _sector;
+            _elder = [_sector, COIN_elderSpots get _sector] call COIN_fnc_spawnElder;
+            COIN_elderAbsent deleteAt _sector;
             if (!isNull _elder) then {
                 _civs pushBack _elder;
             };

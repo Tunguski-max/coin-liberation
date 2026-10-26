@@ -35,6 +35,7 @@ if (isNull _elder) exitWith {
 };
 
 _elder setVariable ["COIN_elder", true, true];
+_elder setVariable ["COIN_sector", _sector, true];
 _elder setDir _dir;
 _elder setPosATL [_pos select 0, _pos select 1, 0];
 _elder disableAI "PATH";

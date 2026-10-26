@@ -24,6 +24,7 @@ COIN_isInterpreterSlot = (_role find COIN_interpreterRole) isEqualTo 0;
 COIN_talkTarget = objNull;
 COIN_moodTarget = objNull;
 COIN_locateTarget = objNull;
+COIN_helpTarget = objNull;
 COIN_interrogateTarget = objNull;
 [player] call COIN_fnc_applyInterpreter;
 [player] call COIN_fnc_addTalkAction;

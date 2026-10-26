@@ -21,6 +21,11 @@ if (COIN_enableQuestioning) then {
     [] call COIN_fnc_initQuestioning;
 };
 
+// Aid tasks (tickets 5.9b and 5.10) belong to the unit: after a respawn the new unit gets the ones this machine has (COIN_fnc_clientTask)
+player addEventHandler ["Respawn", {
+    {_x spawn COIN_fnc_clientTask} forEach values (missionNamespace getVariable ["COIN_clientTasks", createHashMap]);
+}];
+
 // Player-readable explanations in the map diary (tab "COIN Liberation"), again after every respawn
 if (COIN_enableFactionMarkers) then {
     [player] call COIN_fnc_createDiary;

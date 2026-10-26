@@ -1127,6 +1127,63 @@ COIN_aidTaskCooldownMin     = 60;       // Minutes a town waits after its aid ta
 COIN_aidTaskTimeoutMin      = 60;       // Minutes to complete an accepted aid task
 COIN_repAidSupplies         = 5;        // Reputation for delivering a supply crate
 COIN_aidSupplyDistance      = 20;       // m from the elder the crate has to stand
+COIN_aidSupplyMinValue      = 100;      // Supplies a crate holds to count (a Liberation supply crate from a FOB holds 100)
+COIN_aidSupplyMaxHeight     = 1.5;      // m: the crate counts as standing on the ground up to this height above it (not carried, not hanging below a helicopter)
+COIN_aidCheckSeconds        = 5;        // s between two looks at a running aid task
+COIN_aidTaskEndShowSeconds  = 120;      // s a finished aid task stays in the task list
+COIN_aidTaskType            = "help";   // Icon of the task in the task list and on the map (BIS_fnc_taskCreate type)
+COIN_aidImagePath           = "coin\res\secondary\%1.jpg"; // Picture of an aid task in the elder's dialog, %1 = its id (see coin/res/secondary/README.md); no file, no picture
+
+// Entry in the action menu at the elder: [German, English]
+COIN_helpLabel = ["Können wir helfen?", "Can we help?"];
+
+// Dialog of the elder (ticket 5.9b): header, accept button, tasks line ("%1 of %2" = running, limit) as [German, English]
+COIN_elderDialogTexts = [
+    ["Ältester", "Elder"],
+    ["Annehmen", "Accept"],
+    ["Hilfsaufträge: %1 von %2", "Aid tasks: %1 of %2"]
+];
+// Sections of the list, in this order: [id, [German, English]]. An offer belongs to one section (more come with later tickets)
+COIN_elderSections = [
+    ["aid", ["Hilfsaufträge", "Aid tasks"]]
+];
+// Aid tasks: [id, [title German, English], [explanation German, English], [task text German, English]]
+// Explanation in the dialog: %1 = time limit in minutes, %2 = distance in m, %3 = supplies of the crate. Task text: %1 = town, %2 = minutes, %3 = distance in m, %4 = supplies.
+// The reward is named roughly, without a number (the reputation is hidden).
+COIN_aidTaskTexts = [
+    ["supplies",
+        ["Hilfsgüter liefern", "Deliver supplies"],
+        [
+            "Die Ortschaft braucht Nachschub.<br/><br/>Stellt eine Supply-Kiste mit %3 Supplies aus einer FOB am Boden ab, höchstens %2 m vom Ältesten entfernt. Die Kiste verschwindet dann. Jeder Spieler kann sie bringen.<br/><br/>Zeitlimit: %1 Minuten. Läuft die Zeit ab, ist der Auftrag gescheitert. Das kostet nichts.<br/><br/>Belohnung: Die Bevölkerung wird es euch danken.",
+            "The town needs supplies.<br/><br/>Put a supply crate with %3 supplies from a FOB on the ground, at most %2 m from the elder. The crate is then removed. Any player can bring it.<br/><br/>Time limit: %1 minutes. If the time runs out the task has failed. That costs nothing.<br/><br/>Reward: The population will be grateful."
+        ],
+        [
+            "Stellt in %1 eine Supply-Kiste mit %4 Supplies am Boden ab, höchstens %3 m vom Ältesten entfernt. Zeitlimit: %2 Minuten.",
+            "Put a supply crate with %4 supplies on the ground in %1, at most %3 m from the elder. Time limit: %2 minutes."
+        ]
+    ]
+];
+// Why an offer is grey: [key, [German, English]], %1 is the value named in the comment
+COIN_aidReasonTexts = [
+    ["town_running", ["In dieser Ortschaft läuft schon ein Hilfsauftrag.", "This town has an aid task running already."]],   // no value
+    ["town_wait",    ["Die Ortschaft braucht erst in etwa %1 Minuten wieder Hilfe.", "The town needs help again in about %1 minutes."]], // %1 = minutes left
+    ["limit",        ["Es laufen schon %1 Hilfsaufträge.", "%1 aid tasks are running already."]]                                         // %1 = limit
+];
+// What the elder says, one is picked at random: [key, [German sentences, English sentences]]
+COIN_elderSentences = [
+    ["busy", [
+        ["Wir brauchen gerade nichts. Kommt später wieder.", "Im Moment fehlt uns nichts. Kommt später noch einmal vorbei."],
+        ["We don't need anything right now. Come back later.", "Nothing is missing at the moment. Come by again later."]
+    ]],
+    ["accepted", [
+        ["Ich danke euch. Wir warten auf eure Hilfe.", "Das wird vielen hier helfen. Ich danke euch."],
+        ["Thank you. We will wait for your help.", "This will help many people here. Thank you."]
+    ]],
+    ["refused", [
+        ["Das geht gerade nicht. Fragt später noch einmal.", "Jetzt nicht. Kommt bitte später wieder."],
+        ["Not right now. Please ask again later.", "Not now. Please come back later."]
+    ]]
+];
 COIN_repAidPatient          = 1;        // Reputation per treated patient
 COIN_repAidMedicalBonus     = 2;        // Bonus when all patients are treated in time
 COIN_aidMedicalPatients     = [3, 5];   // [min, max] patients in a medical task
