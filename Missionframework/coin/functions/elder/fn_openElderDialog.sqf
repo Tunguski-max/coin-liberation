@@ -116,7 +116,13 @@ while {dialog && {alive player} && {alive _elder} && {(player distance _elder) <
                 format [(_row select 2) select _index, COIN_aidTaskTimeoutMin, COIN_aidSupplyDistance, COIN_aidSupplyMinValue, COIN_aidRepairSeconds, COIN_aidRepairRadius select 0, _place]
             };
             private _reason = "";
-            private _shown = format ["<t color='#e0e0e0'>%1</t>", _explanation];
+            // The look of Liberation's briefings: the title big and orange, then the text; the lines of the explanation carry their
+            // own colours (blue and orange). A secondary mission has its title in Liberation's briefing
+            private _shown = _explanation;
+            if (_secondary isEqualTo []) then {
+                private _title = ((_row select 1) select _index);
+                _shown = format ["<t size='1.3' color='#ffa000'>%1</t><br/><br/>%2", _title, _explanation];
+            };
             if (!_enabled) then {
                 private _reasonRow = [COIN_aidReasonTexts, _reasonKey] call COIN_fnc_findByType;
                 _reason = format [(_reasonRow param [1, ["", ""]]) select _index, _reasonValue];
