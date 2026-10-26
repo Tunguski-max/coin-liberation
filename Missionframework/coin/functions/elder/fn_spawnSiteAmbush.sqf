@@ -73,7 +73,8 @@ if (count _classes < count COIN_ambushCoverClasses) then {
 };
 private _objects = +_fighters;
 if (_classes isNotEqualTo []) then {
-    for "_i" from 0 to (_coverCount - 1) do {
+    // At most one per fighter (after a visit fewer fighters may be left)
+    for "_i" from 0 to ((_coverCount min _fighterCount) - 1) do {
         private _spot = (_spots deleteAt (floor random count _spots)) getPos [COIN_ambushCoverDistance, _dir];
         private _cover = createVehicle [selectRandom _classes, [_spot select 0, _spot select 1, 0], [], 0, "CAN_COLLIDE"];
         _cover setDir _dir;

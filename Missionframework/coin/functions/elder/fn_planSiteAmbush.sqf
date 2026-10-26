@@ -33,7 +33,7 @@ _site params ["_name", "_centre"];
 private _covering = (COIN_nests select {
     (_x select 5) isEqualTo "active" && {((_x select 3) distance2D _centre) <= ([_x select 1] call COIN_fnc_getNestRadius)}
 }) apply {[(_x select 3) distance2D _centre, _x]};
-_covering sort true;
+_covering = [_covering, [], {_x select 0}, "ASCEND"] call BIS_fnc_sortBy;
 
 if (_covering isEqualTo []) exitWith {
     diag_log format ["[COIN] danger: no ambush at %1, no active nest has it in range", _name];

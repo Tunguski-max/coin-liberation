@@ -55,10 +55,10 @@ private _fault = {
 
 // Terrain between a man out on the way of the army and the place
 private _lookout = _centre getPos [COIN_aidAmbushViewDistance, _base];
-private _lookoutASL = [_lookout select 0, _lookout select 1, (getTerrainHeightASL _lookout) + 2];
+private _lookoutASL = [_lookout select 0, _lookout select 1, (getTerrainHeightASL _lookout) + COIN_aidAmbushLookoutHeight];
 private _hidden = {
     params ["_place"];
-    terrainIntersectASL [_lookoutASL, [_place select 0, _place select 1, (getTerrainHeightASL _place) + 1.5]]
+    terrainIntersectASL [_lookoutASL, [_place select 0, _place select 1, (getTerrainHeightASL _place) + COIN_aidAmbushEyeHeight]]
 };
 
 private _spot = [];
@@ -101,8 +101,8 @@ _roads = [_roads, [], {[getPosATL _x] call _angle}, "ASCEND"] call BIS_fnc_sortB
     if (_spot isNotEqualTo []) exitWith {};
 } forEach _roads;
 
-// No road gave a place: free ground, the fighters face the town
-if (_spot isEqualTo [] && {_fallback isEqualTo []}) then {
+// No road gave a place that is hidden: look on free ground for one, the fighters face the town
+if (_spot isEqualTo []) then {
     for "_try" from 1 to COIN_aidAmbushSpotTries do {
         private _place = _centre getPos [_distMin + random (_distMax - _distMin), _base + (random (2 * COIN_aidAmbushArc)) - COIN_aidAmbushArc];
         if (

@@ -13,7 +13,7 @@
           (COIN_fnc_getPresence) is within COIN_spawnDistance of the ambush: if all fighters (those in houses too) fit the camp
           budget (COIN_fnc_campFitsBudget, ADR 0015) they spawn (COIN_fnc_spawnSiteAmbush), else the danger is given up for good
           (RPT "no room"); spawned: nobody within COIN_despawnDistance for COIN_despawnDelay seconds, the content is deleted,
-          alive or dead (no player is near). They come back at the next visit while the task runs.
+          alive or dead (no player is near). The ones alive come back at the next visit while the task runs, no new ones.
         The run ends when the content is gone and the task is over or the ambush was cleared, when there was no room, or when
         COIN_enableAidAmbush goes off. When the task ends (success, failure, anything) the fighters stay until nobody is near.
         Must be spawned. Server only.
@@ -53,6 +53,11 @@ private _result = "";
 private _remove = {
     params ["_reason"];
     private _alive = {alive _x} count _fighters;
+    // Nobody new comes: at the next visit only those who were alive are spawned again (the ones in cover come first in the list)
+    _fighterCount = {alive _x} count (_fighters select [0, _fighterCount]);
+    _houseCount = _alive - _fighterCount;
+    _plan set [4, _fighterCount];
+    _plan set [6, _houseCount];
     {deleteVehicle _x} forEach _content;
     // Groups are created with deleteWhenEmpty, they go with their last unit
     diag_log format ["[COIN] danger: ambush at %1 removed (%2), %3 of %4 fighters were alive", _place, _reason, _alive, count _fighters];
@@ -93,7 +98,7 @@ while {_result isEqualTo ""} do {
                     ];
                 };
             };
-            if (!_cleared && {([_fighters, _pos] call COIN_fnc_getCapableFighters) isEqualTo []}) then {
+            if (!_cleared && {(([_fighters, _pos] call COIN_fnc_getCapableFighters) + ([_fighters, _centre] call COIN_fnc_getCapableFighters)) isEqualTo []}) then {
                 _cleared = true;
                 diag_log format ["[COIN] danger: ambush at %1 cleared (ausgehoben), %2 of %3 fighters dead", _place, {!alive _x} count _fighters, count _fighters];
             };
