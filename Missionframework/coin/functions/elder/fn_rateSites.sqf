@@ -7,7 +7,8 @@
         of an aid task (ticket 5.20, ADR 0024). A village is a map location of COIN_siteTypes. The first that applies:
         - it is in COIN_siteExcludedLocations (a camp, FOB or factory the house filter does not catch),
         - fewer than COIN_siteMinHouses houses (map objects of COIN_siteHouseTypes) stand within COIN_siteHouseRadius (a camp, a lone farm),
-        - the village centre is less than COIN_siteMinSectorDistance from a sector,
+        - the village centre is less than COIN_siteMinSectorDistance from a town or less than COIN_siteMinOtherSectorDistance from a
+          factory, military post or tower,
         - it is less than COIN_siteMinEnemySectorDistance from a sector the army has not liberated (checked at every call),
         - it is the site of another aid task already.
         The village centre is the middle of the houses around the map label, which often sits at the edge. What does not depend on the
@@ -31,6 +32,7 @@ if (!isServer || {_sector isEqualTo ""} || {isNil "sectors_allSectors"}) exitWit
 // [distance in m, marker] of the sector nearest to a position
 private _nearestSector = {
     params ["_pos", "_sectors"];
+    if (_sectors isEqualTo []) exitWith {[1e9, ""]};
     private _byDistance = _sectors apply {[_pos distance2D (markerPos _x), _x]};
     _byDistance sort true;
     _byDistance select 0
@@ -39,6 +41,8 @@ private _nearestSector = {
 // Village -> [name, centre, houses, reason it is no site whatever the town]
 if (isNil "COIN_siteList") then {
     private _excluded = COIN_siteExcludedLocations apply {toLower _x};
+    private _townSectors = sectors_allSectors arrayIntersect (sectors_capture + sectors_bigtown);
+    private _otherSectors = sectors_allSectors - _townSectors;
     private _all = nearestLocations [[worldSize / 2, worldSize / 2, 0], COIN_siteTypes, worldSize];
 
     COIN_siteList = _all apply {
@@ -53,7 +57,13 @@ if (isNil "COIN_siteList") then {
         };
         _centre = _centre apply {round _x};
 
-        private _nearest = [_centre, sectors_allSectors] call _nearestSector;
+        // A town (sectors_capture, sectors_bigtown) keeps COIN_siteMinSectorDistance, a factory, military post or tower COIN_siteMinOtherSectorDistance
+        private _nearTown = [_centre, _townSectors] call _nearestSector;
+        private _nearOther = [_centre, _otherSectors] call _nearestSector;
+        private _marginTown = (_nearTown select 0) - COIN_siteMinSectorDistance;
+        private _marginOther = (_nearOther select 0) - COIN_siteMinOtherSectorDistance;
+        private _nearest = [_nearTown, _nearOther] select (_marginOther < _marginTown);
+        private _tooNear = _marginTown < 0 || {_marginOther < 0};
         private _reason = if (_name isEqualTo "") then {
             "no name"
         } else { if (toLower _name in _excluded) then {
@@ -62,7 +72,7 @@ if (isNil "COIN_siteList") then {
             if (count _houses < COIN_siteMinHouses) then {
                 format ["only %1 houses", count _houses]
             } else {
-                if ((_nearest select 0) < COIN_siteMinSectorDistance) then {
+                if (_tooNear) then {
                     format ["%1 m from sector %2", round (_nearest select 0), markerText (_nearest select 1)]
                 } else {""}
             }

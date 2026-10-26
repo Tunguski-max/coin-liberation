@@ -1258,7 +1258,8 @@ COIN_siteMinHouses          = 6;        // Houses within COIN_siteHouseRadius, f
 COIN_siteHouseRadius        = 150;      // m around the map label in which houses are counted; their middle is the village centre
 COIN_siteHouseTypes         = ["BUILDING", "HOUSE", "CHURCH", "CHAPEL", "HOSPITAL"]; // Map object types (nearestTerrainObjects) that count as a house
 COIN_siteExcludedLocations  = ["GreenCampBase", "IbanCampBase", "PelotonCampBase", "MartinFob", "MikisFob", "KindufFactory", "MozaratDeath", "FabianoCampBase", "BushlurkerCampBase", "Regimiento44base", "Reg44Norte", "PuestoCrow", "PuestoVulcan", "PuestoMate", "KindufHospital", "KalaenoowiHospital"]; // Names (the map label, not case sensitive) that are camps, military posts, hospitals, FOBs or factories the house filter does not catch; the RPT lists every label with its houses
-COIN_siteMinSectorDistance  = 500;      // m from every sector (Liberation's capture radius is 175 m)
+COIN_siteMinSectorDistance  = 500;      // m from every town sector (Liberation's capture radius is 175 m); below about 300 m the liberated town itself would be chosen
+COIN_siteMinOtherSectorDistance = 150;  // m from every factory, military post and tower (a village next to a factory is a village of its own); TEST VALUE
 COIN_siteMinEnemySectorDistance = 1200; // m from every sector the army has not liberated (Liberation activates a sector at 1000 m)
 COIN_siteMaxDistance        = 3000;     // m from the town of the elder
 
