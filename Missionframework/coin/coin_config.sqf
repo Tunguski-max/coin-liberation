@@ -1148,7 +1148,8 @@ COIN_elderSections = [
     ["aid", ["Hilfsaufträge", "Aid tasks"]]
 ];
 // Aid tasks: [id, [title German, English], [explanation German, English], [task text German, English]]
-// Explanation in the dialog: %1 = time limit in minutes, %2 = distance in m, %3 = supplies of the crate. Task text: %1 = town, %2 = minutes, %3 = distance in m, %4 = supplies.
+// Explanation in the dialog: %1 = time limit in minutes, %2 = distance in m, %3 = supplies of the crate, %4 = seconds of a repair, %5 = least distance of a device from the elder in m.
+// Task text: %1 = town, %2 = minutes, %3 = distance in m, %4 = supplies, %5 = seconds of a repair, %6 = least distance in m.
 // (A text may leave out what it does not need: "medical" uses only the time limit and the town.)
 // The reward is named roughly, without a number (the reputation is hidden).
 COIN_aidTaskTexts = [
@@ -1173,6 +1174,17 @@ COIN_aidTaskTexts = [
             "Behandelt die Verletzten in %1, sie liegen in den Kreisen auf der Karte. Pro Patient eine ACE-Bandage. Zeitlimit: %2 Minuten.",
             "Treat the wounded in %1, they lie in the circles on the map. One ACE bandage per patient. Time limit: %2 minutes."
         ]
+    ],
+    ["repair",
+        ["Infrastruktur reparieren", "Repair infrastructure"],
+        [
+            "In der Ortschaft sind Generatoren und Wasserpumpen beschädigt, sie rauchen.<br/><br/>Reparieren muss sie ein ACE-Pionier (Slot EOD) mit einem Werkzeugkasten. Eine Reparatur dauert %4 Sekunden, ihr könnt sie abbrechen und später neu beginnen. Die Geräte stehen mindestens %5 m vom Ältesten entfernt in der Ortschaft.<br/><br/>Zeitlimit: %1 Minuten. Läuft die Zeit ab, ist der Auftrag gescheitert. Das kostet nichts.<br/><br/>Belohnung: Die Bevölkerung wird es euch danken.",
+            "Generators and water pumps in the town are damaged, they are smoking.<br/><br/>They can only be repaired by an ACE engineer (EOD slot) with a tool kit. A repair takes %4 seconds, you can cancel it and start again later. The devices stand in the town at least %5 m from the elder.<br/><br/>Time limit: %1 minutes. If the time runs out the task has failed. That costs nothing.<br/><br/>Reward: The population will be grateful."
+        ],
+        [
+            "Repariert die rauchenden Generatoren und Wasserpumpen in %1 (ACE-Pionier mit Werkzeugkasten, %5 Sekunden je Gerät). Zeitlimit: %2 Minuten.",
+            "Repair the smoking generators and water pumps in %1 (ACE engineer with a tool kit, %5 seconds each). Time limit: %2 minutes."
+        ]
     ]
 ];
 // Why an offer is grey: [key, [German, English]], %1 is the value named in the comment
@@ -1180,7 +1192,7 @@ COIN_aidReasonTexts = [
     ["town_running", ["In dieser Ortschaft läuft schon ein Hilfsauftrag.", "This town has an aid task running already."]],   // no value
     ["town_wait",    ["Die Ortschaft braucht erst in etwa %1 Minuten wieder Hilfe.", "The town needs help again in about %1 minutes."]], // %1 = minutes left
     ["limit",        ["Es laufen schon %1 Hilfsaufträge.", "%1 aid tasks are running already."]],                                        // %1 = limit
-    ["no_ace",       ["Ohne ACE gibt es keine Verbände für die Patienten.", "Without ACE there are no bandages for the patients."]]      // no value
+    ["no_ace",       ["Dieser Auftrag braucht ACE.", "This task needs ACE."]]                                                            // no value
 ];
 // What the elder says, one is picked at random: [key, [German sentences, English sentences]]
 COIN_elderSentences = [
@@ -1215,10 +1227,26 @@ COIN_aidMedicalItems        = ["ACE_elasticBandage", "ACE_fieldDressing", "ACE_p
 COIN_aidMedicalCircleSize   = 25;       // m radius of the circle on the map near a patient (as Liberation's)
 COIN_aidMedicalCircleOffset = 20;       // m the circle's centre is off the patient, so the circle does not give his spot away
 COIN_aidMedicalCircleAlpha  = 0.35;     // Transparency of the circle
-COIN_aidPatientSightDistance = 150;     // m: at the end of the task a patient goes when no player within this distance can see him
-COIN_aidPatientRemoveSeconds = 600;     // s after which the patients go even if somebody still sees them
-COIN_repAidRepair           = 4;        // Reputation for repairing infrastructure
-COIN_aidRepairSeconds       = 20;       // Duration of the repair
+COIN_aidSightDistance       = 150;      // m: at the end of a task what it made (patients, devices) goes when no player within this distance can see it
+COIN_aidRemoveSeconds       = 600;      // s after which it goes even if somebody still sees it
+COIN_aidSightHeight         = 1;        // m above its position the line of sight is checked to
+
+// Aid task "Repair infrastructure" (ticket 5.12): smoking devices in the town, repaired by an ACE engineer with a tool kit
+COIN_repAidRepair           = 4;        // Reputation when all devices are repaired (once, for all together)
+COIN_aidRepairSeconds       = 30;       // s of the progress bar of one repair
+COIN_aidRepairObjects       = [2, 3];   // [min, max] devices in a repair task
+COIN_aidRepairRadius        = [50, 100]; // [min, max] m from the elder's place where a device stands (the town; min = at least that far from the elder)
+COIN_aidRepairSpacing       = 20;       // m the devices keep from each other
+COIN_aidRepairSpotTries     = 10;       // Tries to find a spot for one device; none found, no device
+COIN_aidRepairSpotClearance = 4;        // m a device keeps from other objects, so not in a house or against a wall (BIS_fnc_findSafePos)
+COIN_aidRepairMaxGradient   = 0.3;      // Steepest ground a device stands on (BIS_fnc_findSafePos)
+COIN_aidRepairRange         = 3;        // m from which the action "Repair" shows
+COIN_aidRepairClasses       = ["Land_Portable_generator_F", "Land_PortableGenerator_01_F", "Land_PowerGenerator_F", "Land_WindmillPump_01_F"]; // Generators and water pumps; a class that does not exist is left out (to be agreed, ticket 5.12)
+COIN_aidRepairTools         = ["ToolKit"]; // One of these must be in the player's inventory (not used up)
+COIN_aidRepairSmokeClass    = "test_EmptyObjectForSmoke"; // Smoke of a device, a global object (deleted when the device is repaired)
+COIN_aidRepairSmokeHeight   = 0.5;      // m above the device's position where the smoke rises
+COIN_aidRepairLabel         = ["Reparieren", "Repair"]; // Action at the device: [German, English]
+COIN_aidRepairBarText       = ["Repariere ...", "Repairing ..."]; // Text of the progress bar: [German, English]
 
 // Strike tasks, created as a result of questioning or interrogation
 COIN_strikeTaskChance       = 0.15;     // Chance per questioning (result other than "nothing") or interrogation

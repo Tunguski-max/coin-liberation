@@ -66,12 +66,18 @@ coin/
     │   ├── fn_getAidOffers.sqf         COIN_fnc_getAidOffers: Server, was der Älteste jetzt anbietet und warum etwas grau ist
     │   ├── fn_openElderDialog.sqf      COIN_fnc_openElderDialog: Client, Dialog mit Liste, Erklärung und „Annehmen“ (erbt Liberations Nebenmissions-Dialog)
     │   ├── fn_acceptElderOffer.sqf     COIN_fnc_acceptElderOffer: Server, prüft nochmal, startet den Hilfsauftrag
-    │   ├── fn_runAidTask.sqf           COIN_fnc_runAidTask: Server, ein Hilfsauftrag von Start bis Ende, „Hilfsgüter liefern“ und „Arzt-Einsatz“ (Tickets 5.10, 5.11)
+    │   ├── fn_runAidTask.sqf           COIN_fnc_runAidTask: Server, ein Hilfsauftrag von Start bis Ende, „Hilfsgüter liefern“, „Arzt-Einsatz“, „Infrastruktur reparieren“ (Tickets 5.10–5.12)
     │   ├── fn_spawnPatients.sqf        COIN_fnc_spawnPatients: Server, die Patienten des Arzt-Einsatzes mit Kreis auf der Karte (Ticket 5.11)
     │   ├── fn_addPatientAction.sqf     COIN_fnc_addPatientAction: Client, Aktion „Behandeln“ am Patienten, wie Liberations
     │   ├── fn_treatPatient.sqf         COIN_fnc_treatPatient: Server, Patient heilen, +1 Ruf
     │   ├── fn_healPatient.sqf          COIN_fnc_healPatient: Server, Patient heilen (Schutz kurz aus), Kreis weg, kniet und steht auf
     │   ├── fn_releasePatients.sqf      COIN_fnc_releasePatients: Server, Ende: Patienten stehen auf und verschwinden außer Sicht
+    │   ├── fn_spawnInfrastructure.sqf  COIN_fnc_spawnInfrastructure: Server, die rauchenden Geräte des Reparatur-Auftrags (Ticket 5.12)
+    │   ├── fn_addRepairAction.sqf      COIN_fnc_addRepairAction: Client, Aktion „Reparieren“ mit ACE-Fortschrittsbalken
+    │   ├── fn_canRepairInfrastructure.sqf COIN_fnc_canRepairInfrastructure: Client, ACE-Pionier mit Werkzeugkasten?
+    │   ├── fn_repairInfrastructure.sqf COIN_fnc_repairInfrastructure: Server, Gerät repariert
+    │   ├── fn_closeInfrastructure.sqf  COIN_fnc_closeInfrastructure: Server, Gerät wartet nicht mehr, Rauch aus
+    │   ├── fn_removeWhenUnseen.sqf     COIN_fnc_removeWhenUnseen: Server, entfernt Patienten und Geräte, wenn niemand sie sieht
     │   ├── fn_clientTask.sqf           COIN_fnc_clientTask: Client, die Arma-Aufgabe in der Sprache des Spielers
     │   └── fn_showElderSentence.sqf    COIN_fnc_showElderSentence: Client, ein Satz des Ältesten als Untertitel
     ├── ui/

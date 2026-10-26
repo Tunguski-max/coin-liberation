@@ -59,7 +59,7 @@ COIN_clientTasks set [_taskId, [_taskId, _state, _id, _pos, _town, _minutes, fal
 
 if !([_taskId] call BIS_fnc_taskExists) then {
     private _title = format ["%1: %2", (_row select 1) select _index, _town];
-    private _description = format [((_row select 3) select _index), _town, _minutes, COIN_aidSupplyDistance, COIN_aidSupplyMinValue];
+    private _description = format [((_row select 3) select _index), _town, _minutes, COIN_aidSupplyDistance, COIN_aidSupplyMinValue, COIN_aidRepairSeconds, COIN_aidRepairRadius select 0];
     [
         player,
         _taskId,

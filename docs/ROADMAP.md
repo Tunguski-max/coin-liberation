@@ -233,16 +233,16 @@ Vier Blöcke, nacheinander umgesetzt und getestet: 5A → 5B → 5C → 5D.
   setzt `KP_liberation_civinfo_*`, kein Hook). Intel-Gewichte und Attentäter nach Ruf-Band gibt es schon (3.4, 4.4)
 
 **5B Ältester und Hilfsaufträge (DESIGN 8, 8.2)** – Reihenfolge: 5.9a, 5.9b, 5.10, 5.11, 5.12, 5.17
-- [ ] 5.9a (#107, umgesetzt, ungetestet) Ältester in jeder befreiten Ortschaft (Teil der Bevölkerung, fester Platz am Ortskern, eigene Kleidung, Name
+- [x] 5.9a (#107) Ältester in jeder befreiten Ortschaft (Teil der Bevölkerung, fester Platz am Ortskern, eigene Kleidung, Name
   „Ältester …“, nicht nach der Miliz befragbar; getötet → 60 min kein Ältester)
-- [ ] 5.9b (#108, umgesetzt, ungetestet) Dialog des Ältesten („Können wir helfen?“, nur Dolmetscher) nach Vorbild von Liberations Nebenmissions-Dialog:
+- [x] 5.9b (#108) Dialog des Ältesten („Können wir helfen?“, nur Dolmetscher) nach Vorbild von Liberations Nebenmissions-Dialog:
   Abschnitte, graue Einträge mit Grund, „Kommt später wieder“ bei wartender Ortschaft, 1 Auftrag pro Ortschaft, 60 min
   Wartezeit ab Ende, höchstens 2 gleichzeitig, Arma-Aufgabe für die Seite, 60 min Zeitlimit
-- [ ] 5.10 (#108, umgesetzt, ungetestet) Hilfsauftrag „Hilfsgüter liefern“: Supply-Kiste am Boden bis 20 m vom Ältesten, +5
-- [ ] 5.11 (#109, umgesetzt, ungetestet) Hilfsauftrag „Arzt-Einsatz“: 3–5 unverwundbare Patienten mit Liberations Verwundeten-Funktion, jeder Spieler mit
+- [x] 5.10 (#108) Hilfsauftrag „Hilfsgüter liefern“: Supply-Kiste am Boden bis 20 m vom Ältesten, +5
+- [x] 5.11 (#109, im Spiel bestätigt; das Entfernen der Patienten am Ende ist noch ungeprüft) Hilfsauftrag „Arzt-Einsatz“: 3–5 unverwundbare Patienten mit Liberations Verwundeten-Funktion, jeder Spieler mit
   Bandage, +1 pro Patient, +2 für alle in der Zeit
-- [ ] 5.12 Hilfsauftrag „Infrastruktur reparieren“: rauchender Generator oder Wasserpumpe, nur ACE-Pionier mit
-  Werkzeugkasten, 20 s, +4
+- [ ] 5.12 (#110, umgesetzt, ungetestet) Hilfsauftrag „Infrastruktur reparieren“: 2–3 rauchende Generatoren oder Wasserpumpen (≥ 50 m vom Ältesten, 20 m voneinander), nur ACE-Pionier mit
+  Werkzeugkasten, 30 s mit Fortschrittsbalken (abbrechbar), +4 wenn alle repariert
 - [ ] 5.17 Liberations Nebenmissionen (Konvoi-Überfall, Rettung) im Dialog des Ältesten; Eintrag an der FOB entfällt
   (Hook mit Schalter)
 
