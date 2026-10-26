@@ -42,6 +42,8 @@ private _startClock = [_startTime - time] call COIN_fnc_clockText;
 private _endClock = [_endTime - time] call COIN_fnc_clockText;
 private _minutes = round ((_endTime - time) / 60);
 private _extra = [_startName, _endName, _startClock, _endClock];
+// The name of the destination may come in German and English (a point on a road has no name of its own); the markers are German
+private _endLabel = if (_endName isEqualType []) then {_endName select 0} else {_endName};
 
 private _markers = [];
 {
@@ -53,12 +55,12 @@ private _markers = [];
     _markers pushBack _marker;
 } forEach [
     ["start", _startPos, _startName, COIN_strikeMarkerStart],
-    ["end", _endPos, _endName, COIN_strikeMarkerEnd]
+    ["end", _endPos, _endLabel, COIN_strikeMarkerEnd]
 ];
 
 diag_log format [
     "[COIN] strike: task %1 (%2) accepted by %3: %4 to %5, begins at %6 (in %7 min), ends at %8 (in %9 min)",
-    _kind, _taskId, _by, _startName, _endName, _startClock, round ((_startTime - time) / 60), _endClock, _minutes
+    _kind, _taskId, _by, _startName, _endLabel, _startClock, round ((_startTime - time) / 60), _endClock, _minutes
 ];
 [_taskId, "CREATED", _kind, _startPos, "", _minutes, true, _extra] remoteExecCall ["COIN_fnc_clientTask", 0, _taskId];
 

@@ -1222,8 +1222,8 @@ COIN_elderSentences = [
     ]],
     // What the one who tells of a strike task says (ticket 5.13, 5.14): the story of the offer, then the thanks after accepting. Texts to be agreed with Niklas
     ["strike_courier", [
-        ["Ich habe gehört, dass bald ein Kurier der Miliz mit einem Auto unterwegs ist. Er hat Papiere bei sich.", "Man erzählt sich, ein Bote der Miliz fahre bald von Ort zu Ort. Er soll Dokumente tragen."],
-        ["I heard a militia courier will soon be on the road in a car. He carries papers.", "People say a messenger of the militia will drive from town to town soon. He is said to carry documents."]
+        ["Ich habe gehört, dass bald ein Kurier der Miliz mit ein paar bewaffneten Männern im Auto unterwegs ist. Er hat Papiere bei sich.", "Man erzählt sich, ein Bote der Miliz fahre bald mit Begleitschutz über die Straße. Er soll Dokumente tragen."],
+        ["I heard a militia courier will soon be on the road in a car with a few armed men. He carries papers.", "People say a messenger of the militia will soon drive down the road with an escort. He is said to carry documents."]
     ]],
     ["strike_accepted", [
         ["Seid vorsichtig. Wenn ihr schnell seid, erwischt ihr ihn.", "Gut. Passt auf euch auf. Er wird nicht lange auf sich warten lassen."],
@@ -1326,6 +1326,7 @@ COIN_strikeTaskChance       = 0.15;     // Chance per questioning (result other 
 COIN_strikeTaskMinRep       = 25;       // No strike task below this reputation, interrogation too
 COIN_strikeTaskMaxActive    = 1;
 COIN_strikeTaskDelayMin     = [15, 25]; // Minutes from accepting until the event starts
+COIN_strikeTaskDelayMinFast = [2, 5];   // The same when the strike task replaced the intel of a questioning (the window opens sooner)
 COIN_strikeTaskWindowMin    = [30, 60]; // Time window in minutes, from accepting
 COIN_strikeReadinessLoss    = 10;       // Points of combat_readiness (0-100) for leader, arms transport and export
 COIN_strikeOfferSeconds     = 300;      // s the offer of a strike task can be accepted after the one who told of it has spoken
@@ -1360,21 +1361,29 @@ COIN_strikeTaskTexts = [
     ["courier",
         ["Kurier abfangen", "Intercept courier"],
         [
-            "Ein Kurier der Miliz fährt mit einem Zivilauto von einer Ortschaft zur nächsten, 2 bis 4 km auf der Straße. Er hat Dokumente bei sich.<br/><br/>Stoppt das Auto (Fahrer ausschalten, gefangen nehmen oder das Auto fahrunfähig schießen), aber zerstört es nicht. Durchsucht dann das Auto nach Dokumenten.<br/><br/><t size='1.15' color='#00a0ff'>Beginn: %1 bis %2 Minuten nach dem Annehmen. Das Zeitfenster dauert insgesamt %3 bis %4 Minuten.</t><br/><t size='1.15' color='#ffa000'>Fehlschlag: Das Auto kommt an oder brennt aus. Das kostet nichts.</t><br/><t size='1.15' color='#ffa000'>Belohnung: Die Dokumente nennen euch das Nest des Kuriers.</t>",
-            "A courier of the militia drives a civilian car from one town to the next, 2 to 4 km by road. He carries documents.<br/><br/>Stop the car (kill the driver, capture him or shoot the car immobile), but do not destroy it. Then search the car for documents.<br/><br/><t size='1.15' color='#00a0ff'>Start: %1 to %2 minutes after accepting. The time window lasts %3 to %4 minutes in all.</t><br/><t size='1.15' color='#ffa000'>Failure: The car arrives or burns out. That costs nothing.</t><br/><t size='1.15' color='#ffa000'>Reward: The documents name the courier's nest.</t>"
+            "Ein Kurier der Miliz fährt mit zwei bis drei bewaffneten Wachen in einem Auto ein Stück über die Straße, etwa einen halben bis einen Kilometer. Er hat Dokumente bei sich.<br/><br/>Stoppt das Auto (Fahrer ausschalten, gefangen nehmen oder das Auto fahrunfähig schießen), aber zerstört es nicht. Rechnet mit Gegenwehr. Durchsucht dann das Auto nach Dokumenten.<br/><br/><t size='1.15' color='#00a0ff'>Beginn: %1 bis %2 Minuten nach dem Annehmen. Das Zeitfenster dauert insgesamt %3 bis %4 Minuten.</t><br/><t size='1.15' color='#ffa000'>Fehlschlag: Das Auto kommt an oder brennt aus. Das kostet nichts.</t><br/><t size='1.15' color='#ffa000'>Belohnung: Die Dokumente nennen euch das Nest des Kuriers.</t>",
+            "A courier of the militia drives a car with two or three armed guards a short way down the road, about half a kilometre to a kilometre. He carries documents.<br/><br/>Stop the car (kill the driver, capture him or shoot the car immobile), but do not destroy it. Expect resistance. Then search the car for documents.<br/><br/><t size='1.15' color='#00a0ff'>Start: %1 to %2 minutes after accepting. The time window lasts %3 to %4 minutes in all.</t><br/><t size='1.15' color='#ffa000'>Failure: The car arrives or burns out. That costs nothing.</t><br/><t size='1.15' color='#ffa000'>Reward: The documents name the courier's nest.</t>"
         ],
         [
-            "Fangt den Kurier der Miliz ab: Er fährt von %1 nach %2, Beginn um %3 Uhr, spätestens bis %4 Uhr. Stoppt das Auto, zerstört es nicht und durchsucht es nach Dokumenten.",
-            "Intercept the militia courier: he drives from %1 to %2, starting at %3, no later than %4. Stop the car, do not destroy it and search it for documents."
+            "Fangt den Kurier der Miliz ab: Er fährt mit Wachen von %1 zur %2, Beginn um %3 Uhr, spätestens bis %4 Uhr. Stoppt das Auto, zerstört es nicht und durchsucht es nach Dokumenten.",
+            "Intercept the militia courier: he drives with guards from %1 to the %2, starting at %3, no later than %4. Stop the car, do not destroy it and search it for documents."
         ]
     ]
 ];
 
-// Courier (ticket 5.14): a civilian car with a fighter in civilian clothes drives from town A to town B
-COIN_courierDistance        = [2000, 4000]; // [min, max] m between the two towns (straight line)
-COIN_courierVehicles        = COIN_vbiedGarageVehicles; // Civilian cars he drives, one at random (a class that does not exist is left out)
+// Courier (ticket 5.14): a car with the courier as driver and a few guards (the militia in uniform, no technical) drives a short way
+// along the road from a town the militia holds near the one who was told of it. The nearest such towns are the candidates
+COIN_courierStartCandidates = 3;        // The courier starts at one of this many nearest towns of the militia, at random
+COIN_courierDistance        = [500, 1000]; // [min, max] m along the road from the start to the destination (a point on the road, not a town)
+COIN_courierSearchNodes     = 1200;     // Road pieces looked at at most when the destination is searched
+COIN_courierGuards          = [2, 3];   // [min, max] guards in the car besides the courier (fewer if the car has not so many seats)
+COIN_courierBehaviour       = "SAFE";   // Behaviour of the group on the road; shot at, it fights as every group
+COIN_courierDestinationName = ["Straße bei %1", "road near %1"]; // Name of the destination in the task: [German, English], %1 = nearest town
+COIN_courierVehicles        = COIN_vbiedGarageVehicles; // Cars he drives, one at random (a class that does not exist or has too few seats is left out)
 COIN_courierSpeed           = 50;       // km/h he drives at most (the army has to be able to catch up)
 COIN_courierRoadSearch      = 300;      // m around a town centre in which the road for the start and the end is looked for
+COIN_courierMarker        = ["mil_triangle", "ColorOrange"]; // Debug map (COIN_debug): the courier's car, follows it: [type, colour]
+COIN_strikeMarkerSeconds    = 2;        // s between two moves of that marker
 COIN_courierStoppedSpeed    = 1;        // km/h below which the car with an unconscious driver counts as stopped
 COIN_courierArriveDistance  = 80;       // m from the destination at which he has arrived (the task fails, the car vanishes)
 COIN_courierRepathSeconds   = 30;       // s after which the order to drive to the destination is given again

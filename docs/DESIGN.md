@@ -396,8 +396,9 @@ Festgelegt beim Grilling für Phase 3 (2026-10-22). Speicherformat, Triangulatio
     unter allen Bedrohungen ohne Kreis in Reichweite entscheidet der Zufall. Symbol, Farbe und Meldung wie beim Camp,
     nicht gespeichert
   - **Lüge**: Kreis an einer falschen Stelle. Häufig bei niedrigem Ruf.
-- Ab Ruf +25 kann zusätzlich zum Ergebnis (außer „Ich weiß nichts“) ein **Zugriffsauftrag** entstehen, ebenso beim Verhör
-  (Abschnitt 8.2).
+- Ab Ruf +25 kann statt des Ergebnisses (außer „Ich weiß nichts“) ein **Zugriffsauftrag** entstehen: Er ersetzt das Intel
+  der Befragung, damit es keine doppelte Belohnung gibt, und beginnt dafür früher (Abschnitt 8.2). Beim Verhör entsteht er
+  zusätzlich zu den Ergebnissen.
 - **Welches Nest:** ein zufälliges aktives Nest im Umkreis von etwa 4 km um den Zivilisten; gibt es dort keins, das nächste
   aktive Nest überhaupt. So zählt die Geografie, und am Ende sind auch die letzten Nester noch zu finden.
 
@@ -575,7 +576,7 @@ vom Dolmetscher. Aufträge werden nicht gespeichert und verfallen beim Serverneu
 
 | | Hilfsauftrag | Zugriffsauftrag |
 |---|---|---|
-| Woher | Dialog des Ältesten einer befreiten Ortschaft (Abschnitt 8). | Entsteht mit 15 % Chance zusätzlich bei einer Befragung (Ergebnis außer „Ich weiß nichts“) oder einem Verhör. |
+| Woher | Dialog des Ältesten einer befreiten Ortschaft (Abschnitt 8). | Entsteht mit 15 % Chance bei einer Befragung (Ergebnis außer „Ich weiß nichts“) anstelle von deren Intel, oder zusätzlich zu den Ergebnissen eines Verhörs. |
 | Bedingung | Jedes Ruf-Band. Pro Ortschaft 1 Auftrag, danach 60 min Wartezeit ab dessen Ende; höchstens 2 gleichzeitig. | Ruf ≥ +25 (auch beim Verhör); höchstens 1 gleichzeitig. |
 | Zeit | 60 min | Beginn 15–25 min nach dem Annehmen, Fenster insgesamt 30–60 min |
 | Belohnung | Ruf | Intel (Konkreter Tipp) und/oder Readiness −10 (Punkte) |
@@ -625,7 +626,7 @@ Liberation-Sektoren, damit ein Hinterhalt der Miliz glaubhaft ist (er taucht nic
 
 | Zugriffsauftrag | Voraussetzung | Ablauf | Erfolg | Scheitern |
 |---|---|---|---|---|
-| **Kurier abfangen** | ein aktives Nest | Zivilauto mit einem Kämpfer in Zivil fährt 2–4 km auf der Straße von Ortschaft A nach B (Marker an Start und Ziel). | Auto gestoppt (Fahrer tot, gefangen oder Auto fahrunfähig) und „Dokumente durchsuchen“ am Auto: Konkreter Tipp zum Nest des Kuriers | Auto erreicht B oder brennt aus |
+| **Kurier abfangen** | ein aktives Nest | Ein Auto (kein Technical) mit dem Kurier als Fahrer und 2–3 bewaffneten Wachen der Miliz in Uniform fährt 500–1000 m auf der Straße von einer Ortschaft der Miliz nahe beim Fragenden zu einem Straßenpunkt (Marker an Start und Ziel). | Auto gestoppt (Kurier tot, gefangen oder Auto fahrunfähig) und „Dokumente durchsuchen“ am Auto: Konkreter Tipp zum Nest des Kuriers | Auto erreicht das Ziel oder brennt aus |
 | **Anführer festnehmen** | ein aktiver Kommandoposten | Anführer in eigener Kleidung mit 4–6 Wachen an einem Haus, für das Zeitfenster. | Gefesselt oder ergeben (keine Lieferung zur FOB nötig): Readiness −10; sein Verhör bringt als erstes Ergebnis immer einen Konkreten Tipp zu seinem Kommandoposten | Er stirbt |
 | **Waffentransport abfangen** | ein aktives Waffenlager | Lkw mit zwei Technicals als Eskorte fährt auf das Lager zu. | Lkw zerstört oder gestoppt, bevor er ankommt: Readiness −10 und Konkreter Tipp zum Ziel-Lager | Lkw kommt an |
 | **Export** | Die Miliz hält eine Ortschaft (oder die Hauptstadt) im Umkreis von 3 km um einen Flugplatz (Liste in der Config: Kinduf Airport, Kinduf Airfield, Kalae Airport) | Zivilflugzeug (Cessna, Klasse in der Config) auf der Piste, 4–6 Wachen. | Flugzeug zerstört: Readiness −10 | Fenster endet: kein echter KI-Start, das Flugzeug verschwindet außer Sicht |

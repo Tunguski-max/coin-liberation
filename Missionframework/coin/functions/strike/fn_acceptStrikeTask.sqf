@@ -6,7 +6,7 @@
         Server: an interpreter accepts the strike task that was offered to him (tickets 5.13 and 5.14, DESIGN 8.2). Called
         by the client with remoteExecCall from the dialog. Checks everything again: the offer exists for this player (it is
         used up now), is the one named, has not run out (COIN_strikeOfferSeconds) and fewer than COIN_strikeTaskMaxActive
-        run. The plan of the kind (start and destination, COIN_strikeKinds) was made with the offer (COIN_fnc_rollStrikeTask), the beginning is rolled in
+        run. The plan of the kind (start and destination, COIN_strikeKinds) was made with the offer (COIN_fnc_decideStrikeTask), the beginning is rolled in
         COIN_strikeTaskDelayMin minutes from now and the end in COIN_strikeTaskWindowMin minutes from now (the end is later
         than the beginning). The task goes into COIN_strikeActive and runs (COIN_fnc_runStrikeTask); the one who told of it
         answers. Nothing is saved. Switch COIN_enableStrikeTasks.
@@ -63,7 +63,8 @@ if (_plan isEqualTo []) exitWith {
     false
 };
 
-COIN_strikeTaskDelayMin params ["_delayMin", "_delayMax"];
+// A strike task that took the place of the intel of a questioning begins sooner
+([COIN_strikeTaskDelayMin, COIN_strikeTaskDelayMinFast] select (_offer param [3, false])) params ["_delayMin", "_delayMax"];
 COIN_strikeTaskWindowMin params ["_windowMin", "_windowMax"];
 private _delay = _delayMin + random (_delayMax - _delayMin);
 // The window is at least a little longer than the wait for the beginning

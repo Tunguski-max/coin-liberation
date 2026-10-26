@@ -343,8 +343,11 @@ class COIN {
     class strike {
         file = "coin\functions\strike";
 
-        // Server: after a questioning with a result or an interrogation, a strike task may be offered (ticket 5.13)
-        class rollStrikeTask {};
+        // Server: decides whether a strike task arises from a questioning or an interrogation, keeps the offer (ticket 5.13)
+        class decideStrikeTask {};
+
+        // Server: the one who spoke tells of the strike task, the dialog opens (ticket 5.13)
+        class offerStrikeTask {};
 
         // Server: the interpreter accepts the offered strike task, it is planned and starts (ticket 5.13)
         class acceptStrikeTask {};

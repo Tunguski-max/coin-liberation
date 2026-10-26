@@ -14,6 +14,8 @@
         (COIN_fnc_isUnsafe) he refuses instead, gives no intel and can be asked again later. The answer goes to the
         asking client only, a new intel is announced to everybody (COIN_fnc_showNotification, "Neue Intel"). The
         civilian is released after the answer has been read.
+        Strike task (ticket 5.13): when the rolled answer is more than "I know nothing", a strike task may take its place
+        (COIN_fnc_decideStrikeTask): the civilian tells of it instead (COIN_fnc_offerStrikeTask), no intel is made, no cooldown starts.
         Cooldown (ticket 3.5): a marker (also a lie) makes the interpreter wait COIN_questionCooldown s. If he asks before
         that, the civilian puts him off (result "cooldown") and stays unquestioned. "I know nothing" and a refusal
         start no cooldown. Kept per player UID in COIN_cooldownEnds, not saved.
@@ -78,21 +80,30 @@ _civ setVariable ["COIN_talking", true, true];
             name _asker, _name, typeOf _civ, missionNamespace getVariable ["KP_liberation_civ_rep", 0], _band, _weights, _outcome
         ];
 
-        ([_outcome, _nest, _civ] call COIN_fnc_resolveOutcome) params ["_level", "_type", "_notify"];
-        if (_outcome isEqualTo "unsafe") then {_level = "unsafe"};
-        if !(_notify isEqualTo "") then {
-            [_notify] remoteExecCall ["COIN_fnc_showNotification", 0];
+        // A result other than "I know nothing": a strike task may arise (ticket 5.13, DESIGN 8.2). It takes the place of the intel,
+        // there is no double reward; the interpreter who turns it down has lost both
+        private _strike = "";
+        if !(_outcome in ["nothing", "unsafe"]) then {
+            _strike = [_civ, _asker, true] call COIN_fnc_decideStrikeTask;
         };
 
-        // A marker (also a lie or a warning) starts the cooldown, "I know nothing" and a refusal do not
-        [_asker, _reservation, !(_notify isEqualTo "")] call COIN_fnc_finishAsking;
+        if (_strike isNotEqualTo "") then {
+            // No marker, so no cooldown. The civilian tells of the strike task instead and is held while he speaks
+            [_asker, _reservation, false] call COIN_fnc_finishAsking;
+            [_civ, _asker, _strike] spawn COIN_fnc_offerStrikeTask;
+            sleep COIN_answerReadSeconds;
+        } else {
+            ([_outcome, _nest, _civ] call COIN_fnc_resolveOutcome) params ["_level", "_type", "_notify"];
+            if (_outcome isEqualTo "unsafe") then {_level = "unsafe"};
+            if !(_notify isEqualTo "") then {
+                [_notify] remoteExecCall ["COIN_fnc_showNotification", 0];
+            };
 
-        [_name, _level, _type] remoteExecCall ["COIN_fnc_showAnswer", owner _asker];
-        sleep COIN_answerReadSeconds;
+            // A marker (also a lie or a warning) starts the cooldown, "I know nothing" and a refusal do not
+            [_asker, _reservation, !(_notify isEqualTo "")] call COIN_fnc_finishAsking;
 
-        // A result other than "I know nothing": a strike task may arise besides it (ticket 5.13, DESIGN 8.2)
-        if !(_level in ["nothing", "unsafe", "cooldown"]) then {
-            [_civ, _asker] spawn COIN_fnc_rollStrikeTask;
+            [_name, _level, _type] remoteExecCall ["COIN_fnc_showAnswer", owner _asker];
+            sleep COIN_answerReadSeconds;
         };
     } else {
         [_asker, _reservation, false] call COIN_fnc_finishAsking;
