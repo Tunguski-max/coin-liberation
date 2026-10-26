@@ -241,7 +241,7 @@ Vier Blöcke, nacheinander umgesetzt und getestet: 5A → 5B → 5C → 5D.
 - [x] 5.10 (#108) Hilfsauftrag „Hilfsgüter liefern“: Supply-Kiste am Boden bis 20 m vom Ältesten, +5
 - [x] 5.11 (#109, im Spiel bestätigt) Hilfsauftrag „Arzt-Einsatz“: 3–5 unverwundbare Patienten mit Liberations Verwundeten-Funktion, jeder Spieler mit
   Bandage, +1 pro Patient, +2 für alle in der Zeit
-- [ ] 5.12 (#110, im Spiel bestätigt: Reparatur, Abzug beim Scheitern, Entfernen; offen: alle repariert mit +4, Abbruch, Zeitlimit) Hilfsauftrag „Infrastruktur reparieren“: 2–3 rauchende Generatoren (≥ 50 m vom Ältesten, 20 m voneinander), nur ACE-Pionier mit
+- [x] 5.12 (#110, am 2026-10-26 im Spiel bestätigt: Reparatur, alle repariert mit Ende „succeeded“, Abzug beim Scheitern, Entfernen; Abbruch und Zeitlimit nicht einzeln getestet) Hilfsauftrag „Infrastruktur reparieren“: 2–3 rauchende Generatoren (≥ 50 m vom Ältesten, 20 m voneinander), nur ACE-Pionier mit
   Werkzeugkasten, 30 s mit Fortschrittsbalken (abbrechbar), +4 wenn alle repariert
 - [x] 5.20 (#132, am 2026-10-26 im Spiel bestätigt: 20 von 29 Ortschaften haben ein Dorf, nur beschriftete Orte) Einsatzort wählen (ADR 0024): nächstes Dorf außerhalb der Sektoren (≥ 6 Häuser, ≥ 500 m von jeder Ortschaft, ≥ 150 m von Fabriken und Posten,
   ≥ 1200 m von nicht befreiten, ≤ 3000 m vom Ältesten, Ausschlussliste), nur Auswahl und Log für alle 29 Ortschaften
