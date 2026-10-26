@@ -90,7 +90,7 @@ for "_i" from 1 to _count do {
 [_created] call COIN_fnc_addToCurators;
 
 diag_log format [
-    "[COIN] aid: %1 devices in %2 (%3), %4 to %5 m from the elder at %6",
+    "[COIN] aid: %1 devices in %2 (%3), %4 to %5 m from the centre at %6",
     count _devices, _town, _devices apply {typeOf _x}, _minRadius, _maxRadius, _pos apply {round _x}
 ];
 

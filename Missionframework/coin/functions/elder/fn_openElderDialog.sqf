@@ -97,6 +97,8 @@ while {dialog && {alive player} && {alive _elder} && {(player distance _elder) <
             _button ctrlSetTooltip "";
         } else {
             (_offer select 0) params ["", "", "_enabled", "_reasonKey", "_reasonValue", "_place"];
+            // No village for the task: the explanation names no place of the town, as the offer is grey for that reason
+            if (_reasonKey isEqualTo "no_site") then {_place = COIN_aidNoSitePlace select _index};
             private _row = [COIN_aidTaskTexts, _id] call COIN_fnc_findByType;
             private _explanation = format [(_row select 2) select _index, COIN_aidTaskTimeoutMin, COIN_aidSupplyDistance, COIN_aidSupplyMinValue, COIN_aidRepairSeconds, COIN_aidRepairRadius select 0, _place];
             private _reason = "";

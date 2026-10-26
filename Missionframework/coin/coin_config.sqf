@@ -1257,9 +1257,10 @@ COIN_aidRepairSmokeHeight   = 0.5;      // m above the ground at the device wher
 COIN_aidRepairLabel         = ["Reparieren", "Repair"]; // Action at the device: [German, English]
 COIN_aidRepairBarText       = ["Repariere ...", "Repairing ..."]; // Text of the progress bar: [German, English]
 
-// Site of "Medical aid" and "Repair infrastructure" (ticket 5.20, ADR 0024): a village outside Liberation's sectors. This ticket only
-// chooses it and writes the choice to the RPT, the tasks still play in the town until ticket 5.21
-COIN_enableAidSites         = true;     // Off: no site is chosen, nothing is written to the RPT
+// Site of "Medical aid" and "Repair infrastructure" (ticket 5.20, ADR 0024): a village outside Liberation's sectors. The tasks play
+// there (ticket 5.21); the choice of every town is written to the RPT at the start (ticket 5.20)
+COIN_enableAidSites         = true;     // Off: no site is chosen, nothing is written to the RPT, the tasks play in the town as before
+COIN_aidNoSitePlace         = ["einem Nachbardorf", "a neighbouring village"]; // Named in the explanation of an offer that is grey because no village is free (%6)
 COIN_siteTypes              = ["NameVillage", "NameLocal"]; // Map location types a site can be
 COIN_siteMinHouses          = 6;        // Houses within COIN_siteHouseRadius, fewer is no village (a camp, a lone farm)
 COIN_siteHouseRadius        = 150;      // m around the map label in which houses are counted; their middle is the village centre

@@ -53,10 +53,13 @@ private _town = markerText _sector;
 private _site = [];
 private _siteSearched = false;
 
+// The tasks that need ACE (ticket 5.11, 5.12) are the ones that play in a village
+private _aceTasks = ["medical", "repair"];
+
 private _offers = COIN_aidTaskTexts apply {
     private _id = _x select 0;
-    private _hasSite = COIN_enableAidSites && {_id in ["medical", "repair"]};
-    private _offerReason = if ((_reason select 0) isEqualTo "" && {_id in ["medical", "repair"]} && {!KP_liberation_ace}) then {["no_ace", 0]} else {_reason};
+    private _hasSite = COIN_enableAidSites && {_id in _aceTasks};
+    private _offerReason = if ((_reason select 0) isEqualTo "" && {_id in _aceTasks} && {!KP_liberation_ace}) then {["no_ace", 0]} else {_reason};
     if ((_offerReason select 0) isEqualTo "" && {_hasSite}) then {
         if (!_siteSearched) then {
             _siteSearched = true;
@@ -64,7 +67,9 @@ private _offers = COIN_aidTaskTexts apply {
         };
         if (_site isEqualTo []) then {_offerReason = ["no_site", 0]};
     };
-    // The place the task plays in: the village, else the town. Its centre only for the server (COIN_fnc_acceptElderOffer)
+    // The place the task plays in: the village, else the town. The site (with the centre) is for COIN_fnc_acceptElderOffer; the
+    // dialog gets it too (small). The village may be another one by the time the offer is accepted (taken or freed meanwhile):
+    // the server looks again, and the elder names the village that was chosen
     private _place = if (_hasSite && {_site isNotEqualTo []}) then {_site select 0} else {_town};
     [_id, "aid", (_offerReason select 0) isEqualTo "", _offerReason select 0, _offerReason select 1, _place, [[], _site] select _hasSite]
 };
