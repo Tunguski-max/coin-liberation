@@ -6,7 +6,7 @@
         Every map village within COIN_siteMaxDistance of a liberated town, nearest first, each with the reason it cannot be the site
         of an aid task (ticket 5.20, ADR 0024). A village is a map location of COIN_siteTypes. The first that applies:
         - it is in COIN_siteExcludedLocations (a camp, FOB or factory the house filter does not catch),
-        - fewer than COIN_siteMinHouses houses stand within COIN_siteHouseRadius (a camp, a lone farm),
+        - fewer than COIN_siteMinHouses houses (map objects of COIN_siteHouseTypes) stand within COIN_siteHouseRadius (a camp, a lone farm),
         - the village centre is less than COIN_siteMinSectorDistance from a sector,
         - it is less than COIN_siteMinEnemySectorDistance from a sector the army has not liberated (checked at every call),
         - it is the site of another aid task already.
@@ -43,9 +43,10 @@ if (isNil "COIN_siteList") then {
 
     COIN_siteList = _all apply {
         private _name = text _x;
-        private _labelPos = locationPosition _x;
-        private _houses = (_labelPos nearObjects ["House", COIN_siteHouseRadius]) select {alive _x};
-        private _centre = if (_houses isEqualTo []) then {+_labelPos} else {
+        // 2D: a position with a height (the label has one) makes the search a sphere, and houses in high country were missed
+        private _labelPos = (locationPosition _x) select [0, 2];
+        private _houses = (nearestTerrainObjects [_labelPos, COIN_siteHouseTypes, COIN_siteHouseRadius, false, true]) select {alive _x};
+        private _centre = if (_houses isEqualTo []) then {_labelPos + [0]} else {
             private _sum = [0, 0];
             {_sum = [(_sum select 0) + ((getPos _x) select 0), (_sum select 1) + ((getPos _x) select 1)]} forEach _houses;
             [(_sum select 0) / count _houses, (_sum select 1) / count _houses, 0]
