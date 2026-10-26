@@ -1241,10 +1241,11 @@ COIN_aidRepairSpotTries     = 10;       // Tries to find a spot for one device; 
 COIN_aidRepairSpotClearance = 4;        // m a device keeps from other objects, so not in a house or against a wall (BIS_fnc_findSafePos)
 COIN_aidRepairMaxGradient   = 0.3;      // Steepest ground a device stands on (BIS_fnc_findSafePos)
 COIN_aidRepairRange         = 3;        // m from which the action "Repair" shows
+COIN_aidRepairRangeMargin   = 1;        // m a player may be further away while the bar runs, and when the server checks the repair (walking, lag)
 COIN_aidRepairClasses       = ["Land_Portable_generator_F", "Land_PortableGenerator_01_F", "Land_PowerGenerator_F", "Land_WindmillPump_01_F"]; // Generators and water pumps; a class that does not exist is left out (to be agreed, ticket 5.12)
 COIN_aidRepairTools         = ["ToolKit"]; // One of these must be in the player's inventory (not used up)
 COIN_aidRepairSmokeClass    = "test_EmptyObjectForSmoke"; // Smoke of a device, a global object (deleted when the device is repaired)
-COIN_aidRepairSmokeHeight   = 0.5;      // m above the device's position where the smoke rises
+COIN_aidRepairSmokeHeight   = 0.5;      // m above the ground at the device where the smoke object stands
 COIN_aidRepairLabel         = ["Reparieren", "Repair"]; // Action at the device: [German, English]
 COIN_aidRepairBarText       = ["Repariere ...", "Repairing ..."]; // Text of the progress bar: [German, English]
 

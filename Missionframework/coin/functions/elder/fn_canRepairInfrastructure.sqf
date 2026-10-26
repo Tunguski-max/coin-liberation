@@ -3,10 +3,11 @@
     Author: COIN Liberation
 
     Description:
-        Client: may this unit repair the devices of an aid task "Repair infrastructure"? (ticket 5.12, DESIGN 8.2). Only
-        an ACE engineer (the EOD slot, ACE_isEngineer of COIN_roleTraits, else the engineer entry of the class) who is on foot,
-        alive and carries one of COIN_aidRepairTools. Used by the action condition (every frame, so cheap) and while the
-        progress bar runs.
+        Client and server: may this unit repair the devices of an aid task "Repair infrastructure"? (ticket 5.12, DESIGN 8.2).
+        Only an ACE engineer (the EOD slot, ACE_isEngineer of COIN_roleTraits, else the engineer entry of the class) who is
+        on foot, alive and carries one of COIN_aidRepairTools. Used by the action condition (every frame while the player
+        is within reach of a device), while the progress bar runs and by the server when it checks a repair
+        (COIN_fnc_repairInfrastructure), so the unit may be a remote one.
 
     Parameter(s):
         _unit - The player [OBJECT, defaults to objNull]

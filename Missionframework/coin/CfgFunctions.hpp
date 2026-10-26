@@ -294,7 +294,7 @@ class COIN {
         // Client: the action "Repair" at a device, ACE progress bar (ticket 5.12)
         class addRepairAction {};
 
-        // Client: may this unit repair, ACE engineer with a tool kit (ticket 5.12)
+        // Client and server: may this unit repair, ACE engineer with a tool kit (ticket 5.12)
         class canRepairInfrastructure {};
 
         // Server: a device was repaired by a player (ticket 5.12)

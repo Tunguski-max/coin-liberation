@@ -22,7 +22,8 @@ params [
     ["_device", objNull, [objNull]]
 ];
 
-if (!hasInterface || {isNull _device}) exitWith {false};
+// The progress bar is ACE's, without ACE there is nothing to repair with
+if (!hasInterface || {isNull _device} || {!KP_liberation_ace}) exitWith {false};
 
 private _index = [1, 0] select (language isEqualTo "German");
 
@@ -40,7 +41,7 @@ _device addAction [
             {
                 params ["_args"];
                 _args params ["_target"];
-                [_target, name player] remoteExecCall ["COIN_fnc_repairInfrastructure", 2];
+                [_target, player] remoteExecCall ["COIN_fnc_repairInfrastructure", 2];
             },
             {},
             COIN_aidRepairBarText select _index,
@@ -48,7 +49,7 @@ _device addAction [
                 params ["_args"];
                 _args params ["_target"];
                 (_target getVariable ["COIN_infraOpen", false])
-                && {(player distance _target) <= (COIN_aidRepairRange + 1)}
+                && {(player distance _target) <= (COIN_aidRepairRange + COIN_aidRepairRangeMargin)}
                 && {[player] call COIN_fnc_canRepairInfrastructure}
             }
         ] call ace_common_fnc_progressBar;

@@ -18,7 +18,7 @@
         _pos    - Where the elder stands [ARRAY, defaults to [0, 0, 0]]
 
     Returns:
-        The devices [ARRAY of OBJECTs]
+        [devices, smokes], the smoke is also given back so the task can remove it if Zeus deleted its device [ARRAY of ARRAYs of OBJECTs]
 */
 
 params [
@@ -27,12 +27,12 @@ params [
     ["_pos", [0, 0, 0], [[]]]
 ];
 
-if (!isServer || {_taskId isEqualTo ""}) exitWith {[]};
+if (!isServer || {_taskId isEqualTo ""}) exitWith {[[], []]};
 
 private _classes = COIN_aidRepairClasses select {isClass (configFile >> "CfgVehicles" >> _x)};
 if (_classes isEqualTo []) exitWith {
     diag_log format ["[COIN] aid: ERROR - none of the classes of COIN_aidRepairClasses exists, no devices in %1", _town];
-    []
+    [[], []]
 };
 
 COIN_aidRepairObjects params ["_min", "_max"];
@@ -42,6 +42,7 @@ private _count = _min + floor (random ((_max - _min) + 1));
 private _devices = [];
 private _spots = [];
 private _created = [];
+private _smokes = [];
 
 for "_i" from 1 to _count do {
     // A free spot that is far enough from the elder and from the other devices; none after the tries, no device
@@ -49,7 +50,10 @@ for "_i" from 1 to _count do {
     for "_try" from 1 to COIN_aidRepairSpotTries do {
         private _candidate = [_pos, _minRadius, _maxRadius, COIN_aidRepairSpotClearance, 0, COIN_aidRepairMaxGradient, 0, [], [_pos, _pos]] call BIS_fnc_findSafePos;
         if (
-            (_candidate distance2D _pos) >= _minRadius
+            _candidate isEqualType []
+            && {count _candidate >= 2}
+            && {(_candidate select 0) isEqualType 0}
+            && {(_candidate distance2D _pos) >= _minRadius}
             && {(_spots findIf {(_x distance2D _candidate) < COIN_aidRepairSpacing}) < 0}
         ) exitWith {_spot = _candidate};
     };
@@ -64,8 +68,8 @@ for "_i" from 1 to _count do {
     _device setPosATL [_spot select 0, _spot select 1, 0];
     _device allowDamage false;
 
-    private _smoke = createVehicle [COIN_aidRepairSmokeClass, getPosATL _device, [], 0, "CAN_COLLIDE"];
-    _smoke attachTo [_device, [0, 0, COIN_aidRepairSmokeHeight]];
+    private _smoke = createVehicle [COIN_aidRepairSmokeClass, [_spot select 0, _spot select 1, COIN_aidRepairSmokeHeight], [], 0, "CAN_COLLIDE"];
+
 
     // COIN_infraOpen is public (the action shows), the rest is the server's
     _device setVariable ["COIN_infra", true, true];
@@ -78,6 +82,7 @@ for "_i" from 1 to _count do {
     _devices pushBack _device;
     _created pushBack _device;
     _created pushBack _smoke;
+    _smokes pushBack _smoke;
 };
 
 [_created] call COIN_fnc_addToCurators;
@@ -87,4 +92,4 @@ diag_log format [
     count _devices, _town, _devices apply {typeOf _x}, _minRadius, _maxRadius, _pos apply {round _x}
 ];
 
-_devices
+[_devices, _smokes]

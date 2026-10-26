@@ -74,7 +74,7 @@ coin/
     │   ├── fn_releasePatients.sqf      COIN_fnc_releasePatients: Server, Ende: Patienten stehen auf und verschwinden außer Sicht
     │   ├── fn_spawnInfrastructure.sqf  COIN_fnc_spawnInfrastructure: Server, die rauchenden Geräte des Reparatur-Auftrags (Ticket 5.12)
     │   ├── fn_addRepairAction.sqf      COIN_fnc_addRepairAction: Client, Aktion „Reparieren“ mit ACE-Fortschrittsbalken
-    │   ├── fn_canRepairInfrastructure.sqf COIN_fnc_canRepairInfrastructure: Client, ACE-Pionier mit Werkzeugkasten?
+    │   ├── fn_canRepairInfrastructure.sqf COIN_fnc_canRepairInfrastructure: Client und Server, ACE-Pionier mit Werkzeugkasten?
     │   ├── fn_repairInfrastructure.sqf COIN_fnc_repairInfrastructure: Server, Gerät repariert
     │   ├── fn_closeInfrastructure.sqf  COIN_fnc_closeInfrastructure: Server, Gerät wartet nicht mehr, Rauch aus
     │   ├── fn_removeWhenUnseen.sqf     COIN_fnc_removeWhenUnseen: Server, entfernt Patienten und Geräte, wenn niemand sie sieht

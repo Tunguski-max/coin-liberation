@@ -60,8 +60,11 @@ if (_id isEqualTo "medical") then {
     _circles = _made select 1;
 };
 private _devices = [];
+private _smokes = [];
 if (_id isEqualTo "repair") then {
-    _devices = [_taskId, _town, _pos] call COIN_fnc_spawnInfrastructure;
+    private _made = [_taskId, _town, _pos] call COIN_fnc_spawnInfrastructure;
+    _devices = _made select 0;
+    _smokes = _made select 1;
 };
 
 private _result = "";
@@ -102,12 +105,16 @@ while {_result isEqualTo ""} do {
     };
 
     if (_id isEqualTo "repair") then {
-        if (_devices isEqualTo [] || {(_devices findIf {isNull _x}) >= 0}) then {
-            _result = "a device is gone";
+        if (_devices isEqualTo []) then {
+            _result = "no device could be placed";
         } else {
-            if ((_devices findIf {_x getVariable ["COIN_infraOpen", false]}) < 0) then {
-                [COIN_repAidRepair, format ["aid task repair infrastructure: all %1 devices repaired in %2", count _devices, _town]] call COIN_fnc_changeReputation;
-                _result = "succeeded";
+            if ((_devices findIf {isNull _x}) >= 0) then {
+                _result = "a device is gone";
+            } else {
+                if ((_devices findIf {_x getVariable ["COIN_infraOpen", false]}) < 0) then {
+                    [COIN_repAidRepair, format ["aid task repair infrastructure: all %1 devices repaired in %2", count _devices, _town]] call COIN_fnc_changeReputation;
+                    _result = "succeeded";
+                };
             };
         };
     };
@@ -134,6 +141,8 @@ if (_id isEqualTo "medical") then {
         [_x] call COIN_fnc_closeInfrastructure;
     };
 } forEach _devices;
+// The smoke of a device Zeus deleted has no device to be found by
+{deleteVehicle _x} forEach _smokes;
 if (_devices isNotEqualTo []) then {
     [_devices, "devices"] spawn COIN_fnc_removeWhenUnseen;
 };
