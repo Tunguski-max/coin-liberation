@@ -25,7 +25,7 @@
   Liberations Nebenmissionen (Konvoi-Überfall, Rettung) und die Verstärkung. Liberations Eintrag an der FOB entfällt
   (Hook mit Schalter). Starten darf nur der Dolmetscher.
 - **Zugriffsaufträge** (statt „Aufklärungsaufträge“) entstehen nur ab Ruf +25, auch beim Verhör, weil sie die Readiness
-  senken. Readiness −10 heißt 10 Punkte.
+  senken. Readiness −10 heißt 10 Punkte (Waffentransport: −20, geändert am 2026-10-27).
 - **Stimmung in fünf Stufen** statt der drei Ruf-Bänder für die Antwort auf „Wie steht ihr zu uns?“: Die Stufen liegen auf
   den Schwellen, an denen sich im Spiel etwas ändert (−25, 0, +25, +50). Die Antwort ist immer wahr.
 - **Ruf-Regeln:** Gefangener getötet kostet insgesamt immer −10 (bei Liberations Gefangenen −5 von Liberation und −5
