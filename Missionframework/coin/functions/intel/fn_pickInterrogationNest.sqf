@@ -26,8 +26,8 @@ if (!isServer || {isNil "COIN_nests"}) exitWith {[]};
 private _pos = getPosATL _prisoner;
 // The leader of the strike task "Arrest leader" (ticket 5.15) names his command post, if it is still active
 private _leaderNest = _prisoner getVariable ["COIN_leaderNest", -1];
-private _command = COIN_nests findIf {(_x select 0) isEqualTo _leaderNest && {(_x select 5) isEqualTo "active"}};
-if (_leaderNest >= 0 && {_command >= 0}) exitWith {COIN_nests select _command};
+private _command = [-1, COIN_nests findIf {(_x select 0) isEqualTo _leaderNest && {(_x select 5) isEqualTo "active"}}] select (_leaderNest >= 0);
+if (_command >= 0) exitWith {COIN_nests select _command};
 
 private _origin = _prisoner getVariable ["COIN_origin", []];
 if (_origin isEqualTo []) exitWith {[_pos] call COIN_fnc_pickIntelNest};

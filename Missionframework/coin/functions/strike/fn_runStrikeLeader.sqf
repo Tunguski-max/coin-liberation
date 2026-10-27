@@ -77,7 +77,12 @@ COIN_leaderGuardRing params ["_ringMin", "_ringMax"];
     };
     _spots pushBack _spot;
 
-    private _class = [selectRandom militia_squad, true, [0, 1] select _x] call COIN_fnc_mixClass;
+    // An armored guard needs a role that has a twin: another role is picked a few times (without the squad mix, or if none has a twin, he is plain)
+    private _class = "";
+    for "_try" from 1 to COIN_leaderSpotTries do {
+        _class = [selectRandom militia_squad, true, [0, 1] select _x] call COIN_fnc_mixClass;
+        if (!_x || {isNil "COIN_squadTwinsLower"} || {(toLower _class) in COIN_squadTwinsLower}) exitWith {};
+    };
     private _guard = [_class, [_spot select 0, _spot select 1, 0], _group] call KPLIB_fnc_createManagedUnit;
     _guard setVariable ["COIN_origin", ["camp", _nestId, -1]];
     // Facing outwards, standing where he stands until the fight begins
@@ -92,7 +97,7 @@ _group setCombatMode "RED";
 
 diag_log format [
     "[COIN] strike: leader %1 (%2) with %3 guards (%4 armored) in %5 at %6 for command post %7, accepted by %8",
-    _taskId, typeOf _leader, count _guards, count (_flags select {_x}), _village, _leaderPos select [0, 2], _nestId, _by
+    _taskId, typeOf _leader, count _guards, {isNil "COIN_squadTwinsLower" || {(toLower typeOf _x) in COIN_squadTwinsLower}} count _guards, _village, _leaderPos select [0, 2], _nestId, _by
 ];
 
 private _result = "";
