@@ -28,7 +28,7 @@ if (!hasInterface || {isNull _device} || {!KP_liberation_ace}) exitWith {false};
 private _index = [1, 0] select (language isEqualTo "German");
 
 _device addAction [
-    "<t color='#FFC000'>" + (COIN_aidRepairLabel select _index) + "</t>",
+    ["<t color='#FFFF00'>", COIN_aidRepairLabel select _index, "</t>"] joinString "",
     {
         params ["_target", "_caller"];
 
