@@ -8,13 +8,14 @@
         wear vest and helmet) stands on the road at the start of the plan, one group, and drives along the waypoints of the plan to the
         end of the route next to the cache. The fighters are militia in uniform, made like those of a camp (Liberation's kill manager,
         marked as COIN units, handed to Zeus). Technicals and trucks are made by Liberation's own vehicle function with its crew, the
-        car is a COIN vehicle (no reputation when it is destroyed). Car and men spawn whatever the distance of the players is. The
+        car is a COIN vehicle (no reputation when it is destroyed).
+        Only damage of the players counts (COIN_fnc_guardConvoyVehicle, as in Liberation, so civilian cars do not decide the task). Car andmen spawn whatever the distance of the players is. The
         convoy drives at the "LIMITED" speed of its group, in file like the convoy of Liberation's hijack mission (no speed limit per
         vehicle: the ones behind would not catch up), led by the driver of the first vehicle. Like there it flees (behaviour
         COIN_convoyFleeBehaviour, speed COIN_convoyFleeSpeed) as soon as a vehicle is lost, damaged beyond COIN_convoyAttackDamage or
         without its driver (COIN_convoyFleeWhenAttacked); otherwise shot at, the group fights as every group. Every COIN_strikeCheckSeconds:
         - succeeded: every vehicle is destroyed or burned out (a vehicle that only stands counts as alive, a convoy is destroyed),
-        - failed: a vehicle that is alive has come within COIN_convoyArriveDistance of the end of the route, it is stuck
+        - failed: a vehicle that is alive has come within COIN_convoyArriveDistance of the end of the route or of the cache, it is stuck
           (COIN_convoyStuckLimit), or the end time is reached.
         A convoy that stands although its driver lives and the group is not in combat is sent on again by new waypoints from where it
         is. The RPT tells when the convoy passes the two points of the task (with the time window), with COIN_debug also its
@@ -41,6 +42,9 @@ params [
 if (!isServer || {_plan isEqualTo []}) exitWith {"no plan"};
 
 _plan params ["_pos1", "_name1", "_pos2", "_name2", "_cacheId", "_spawn", "_waypoints", "_endPos", "_windows", "_startName", "_length"];
+
+// Where the cache is: reached also when the vehicle stands there (the road ends up to COIN_convoyCacheRoadSearch m from it)
+private _nestPos = ((COIN_nests select {(_x select 0) isEqualTo _cacheId}) param [0, []]) param [3, _endPos];
 
 private _technicals = [COIN_convoyTechnicals, militia_vehicles] select (COIN_convoyTechnicals isEqualTo []);
 private _trucks = [COIN_convoyTrucks, [opfor_ammobox_transport, opfor_transport_truck]] select (COIN_convoyTrucks isEqualTo []);
@@ -99,6 +103,7 @@ private _crew = [];
     if (isNull _vehicle) then {
         diag_log format ["[COIN] strike: ERROR - convoy vehicle %1 (%2) could not be created", _what, _forEachIndex];
     } else {
+        [_vehicle] call COIN_fnc_guardConvoyVehicle;
         _vehicles pushBack _vehicle;
     };
 } forEach COIN_convoyOrder;
@@ -174,7 +179,7 @@ while {_result isEqualTo ""} do {
     _result = switch (true) do {
         case (GRLIB_endgame != 0 || {!COIN_enableStrikeTasks}): {"strike tasks switched off"};
         case (_alive isEqualTo []): {"succeeded"};
-        case ((_alive findIf {(_x distance2D _endPos) <= COIN_convoyArriveDistance}) >= 0): {"the convoy reached the depot"};
+        case ((_alive findIf {(_x distance2D _endPos) <= COIN_convoyArriveDistance || {(_x distance2D _nestPos) <= COIN_convoyArriveDistance}}) >= 0): {"the convoy reached the depot"};
         case (time >= _endTime): {"time over"};
         default {""};
     };

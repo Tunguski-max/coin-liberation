@@ -394,6 +394,9 @@ class COIN {
         // Server: the event of the convoy: vehicles, the drive along the route, destroyed, arrived (ticket 5.16)
         class runStrikeConvoy {};
 
+        // Server: protects a vehicle of the arms transport from damage that does not come from the players (ticket 5.16)
+        class guardConvoyVehicle {};
+
         // Server: the times of day of the time windows for the text of the arms transport (ticket 5.16)
         class strikeExtraConvoy {};
 

@@ -104,6 +104,7 @@ coin/
     │   ├── fn_canStrikeConvoy.sqf      COIN_fnc_canStrikeConvoy: Voraussetzung „Waffentransport abfangen“: ein aktives Waffenlager (Ticket 5.16)
     │   ├── fn_planStrikeConvoy.sqf     COIN_fnc_planStrikeConvoy: Lager, Route, zwei Punkte mit Zeitfenstern, Fahrzeuge am Start
     │   ├── fn_runStrikeConvoy.sqf      COIN_fnc_runStrikeConvoy: Konvoi, Fahrt, alle zerstört, Lager erreicht, Readiness
+    │   ├── fn_guardConvoyVehicle.sqf   COIN_fnc_guardConvoyVehicle: Fahrzeuge des Konvois nehmen nur Schaden von den Spielern (wie bei Liberation)
     │   ├── fn_strikeExtraConvoy.sqf    COIN_fnc_strikeExtraConvoy: Uhrzeiten der Zeitfenster für den Aufgabentext
     │   ├── fn_findRoadNear.sqf         COIN_fnc_findRoadNear: Straßenstück für Start und Ende eines Autos (Kurier, Konvoi)
     │   ├── fn_calcRoute.sqf            COIN_fnc_calcRoute: die Route, die ein Auto findet (calculatePath)
