@@ -6,7 +6,7 @@
         The event of the strike task "Arrest leader" (ticket 5.15, DESIGN 8.2), called by COIN_fnc_runStrikeTask at the beginning
         (it may sleep). The leader stands beside a house of a village in civilian clothes and unarmed (COIN_fnc_createCivilianFighter,
         COIN_role "leader", a class of COIN_leaderClasses or any civilian of Liberation), COIN_leaderGuards militia fighters in uniform
-        stand in a ring around him, looking outwards, COIN_leaderPatrolShare of them walk a patrol round him instead (BIS_fnc_taskPatrol). They are made with Liberation's kill manager, marked as COIN units, handed to Zeus, and come from the command
+        stand in a ring around him, looking outwards, COIN_leaderPatrolShare of them walk a patrol round him instead (a loop of waypoints). They are made with Liberation's kill manager, marked as COIN units, handed to Zeus, and come from the command
         post of the plan, so a prisoner names that post. At least COIN_leaderGuardArmorShare of them (more at a high readiness, as in the
         field squads, ADR 0014) are Islamic State twins in vest and helmet. The ring guards stay where they are and take up the fight (they
         may move, the patrol leaves its route) as soon as a group is in combat. Units spawn whatever the distance of the players is. Every COIN_strikeCheckSeconds:
@@ -102,8 +102,26 @@ COIN_leaderGuardRing params ["_ringMin", "_ringMax"];
     _x setBehaviour COIN_leaderBehaviour;
     _x setCombatMode "RED";
 } forEach [_group, _patrolGroup];
+// The patrol: a loop of waypoints round the leader at free spots, walking
 if (_patrolCount > 0) then {
-    [_patrolGroup, _leaderPos, COIN_leaderPatrolRadius, COIN_leaderPatrolPoints, "MOVE", COIN_leaderBehaviour, "RED", "LIMITED"] call BIS_fnc_taskPatrol;
+    private _points = [];
+    for "_i" from 0 to (COIN_leaderPatrolPoints - 1) do {
+        // Each point in its own sector of the circle, so the loop goes round the leader
+        private _angle = _i * 360 / COIN_leaderPatrolPoints;
+        private _point = _leaderPos getPos [(COIN_leaderPatrolRadius * 0.5) + random (COIN_leaderPatrolRadius * 0.5), _angle + random (360 / COIN_leaderPatrolPoints)];
+        private _safe = [_point, 0, 8, COIN_leaderGuardClearance, 0, COIN_leaderSpotGradient, 0, [], [_point, _point]] call BIS_fnc_findSafePos;
+        if (_safe isEqualType [] && {count _safe >= 2} && {(_safe select 0) isEqualType 0}) then {_point = _safe};
+        _points pushBack [_point select 0, _point select 1, 0];
+    };
+    {
+        private _waypoint = _patrolGroup addWaypoint [_x, 0];
+        _waypoint setWaypointType "MOVE";
+        _waypoint setWaypointSpeed "LIMITED";
+        _waypoint setWaypointBehaviour COIN_leaderBehaviour;
+        _waypoint setWaypointCompletionRadius COIN_leaderPatrolArrive;
+    } forEach _points;
+    (_patrolGroup addWaypoint [_points select 0, 0]) setWaypointType "CYCLE";
+    diag_log format ["[COIN] strike: leader %1: patrol of %2 guards, %3 waypoints round %4", _taskId, _patrolCount, count waypoints _patrolGroup, _leaderPos select [0, 2]];
 };
 [_guards] call COIN_fnc_addToCurators;
 
@@ -115,6 +133,7 @@ diag_log format [
 private _result = "";
 private _captive = false;
 private _fighting = false;
+private _nextPatrolLog = 0;
 
 while {_result isEqualTo ""} do {
     sleep COIN_strikeCheckSeconds;
@@ -124,6 +143,19 @@ while {_result isEqualTo ""} do {
     if (_captiveNow isNotEqualTo _captive) then {
         _captive = _captiveNow;
         diag_log format ["[COIN] strike: leader %1 %2 at %3", _taskId, ["is free again", "is captive"] select _captive, getPosATL _leader];
+    };
+
+    // For the RPT with COIN_debug: where the patrol is, whether it walks
+    if (COIN_debug && {_patrolCount > 0} && {time >= _nextPatrolLog}) then {
+        _nextPatrolLog = time + COIN_courierProgressSeconds;
+        private _walkers = (units _patrolGroup) select {alive _x};
+        diag_log format [
+            "[COIN] strike: leader %1 patrol: %2 alive, first at %3 m from the leader, %4 km/h, waypoint %5 of %6, path allowed %7",
+            _taskId, count _walkers, if (_walkers isEqualTo []) then {-1} else {round ((_walkers select 0) distance2D _leaderPos)},
+            if (_walkers isEqualTo []) then {0} else {round speed (_walkers select 0)},
+            currentWaypoint _patrolGroup, count waypoints _patrolGroup,
+            if (_walkers isEqualTo []) then {false} else {(_walkers select 0) checkAIFeature "PATH"}
+        ];
     };
 
     // The guards take up the fight when the group is in combat or one of them is hurt
