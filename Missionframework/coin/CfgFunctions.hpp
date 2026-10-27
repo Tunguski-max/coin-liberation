@@ -375,6 +375,15 @@ class COIN {
 
         // Client: the subtitle after the search (ticket 5.14)
         class showCourierFound {};
+
+        // Server: can the kind "Arrest leader" be offered now? An active command post (ticket 5.15)
+        class canStrikeLeader {};
+
+        // Server: the village and the house for the leader, made when accepted (ticket 5.15)
+        class planStrikeLeader {};
+
+        // Server: the event of the leader: him, his guards, arrested, brought to a FOB (ticket 5.15)
+        class runStrikeLeader {};
     };
 
     class population {

@@ -13,6 +13,7 @@
     Parameter(s):
         _class - Infantry class of a militia role   [STRING, defaults to ""]
         _apply - Mix at all, false returns _class   [BOOL, defaults to true]
+        _share - Share of twins instead of the one of the readiness, 0 = never a twin, 1 = always [NUMBER, defaults to -1: the share of the readiness]
 
     Returns:
         Class to spawn [STRING]
@@ -20,7 +21,8 @@
 
 params [
     ["_class", "", [""]],
-    ["_apply", true, [true]]
+    ["_apply", true, [true]],
+    ["_share", -1, [0]]
 ];
 
 if (!_apply || {!(missionNamespace getVariable ["COIN_enableSquadMix", false])}) exitWith {_class};
@@ -41,4 +43,4 @@ private _amIndex = [COIN_squadTwins findIf {(_x select 0) == _lower}, _twinIndex
 if (_amIndex < 0) exitWith {_class};
 
 private _entry = COIN_squadTwins select _amIndex;
-if (random 1 < ([] call COIN_fnc_getSquadMixShare)) then {_entry select 2} else {_entry select 1}
+if (random 1 < ([[] call COIN_fnc_getSquadMixShare, _share] select (_share >= 0))) then {_entry select 2} else {_entry select 1}

@@ -9,7 +9,9 @@
         one or two results (the second with the chance COIN_interrogationSecondChance), each rolled by its own weights
         (COIN_interrogationWeights, they do not depend on the reputation). The first result is never "I know nothing" as
         long as there is a nest to tell of. The nest the results are about: COIN_fnc_pickInterrogationNest, one for both
-        results. Each result is made as for a civilian (COIN_fnc_resolveOutcome), a second true hit on the same nest makes
+        results. The leader of the strike task "Arrest leader" (ticket 5.15) names his command post (COIN_leaderNest) in the first result and
+        it is always a concrete tip, if that nest is still active.
+        Each result is made as for a civilian (COIN_fnc_resolveOutcome), a second true hit on the same nest makes
         its circle smaller. The
         answer goes to the asking client only, new intel is announced to everybody once. The cooldown (ticket 3.5) is
         checked before and started by a marker, as for a civilian (COIN_fnc_reserveAsking, COIN_fnc_finishAsking).
@@ -70,6 +72,8 @@ _prisoner setVariable ["COIN_talking", true, true];
         for "_i" from 0 to (_count - 1) do {
             private _weights = COIN_interrogationWeights select _i;
             private _outcome = [_weights, _nest] call COIN_fnc_rollOutcome;
+            // The leader of the strike task "Arrest leader" (ticket 5.15) names his command post first, with a concrete tip
+            if (_i isEqualTo 0 && {_nest isNotEqualTo []} && {(_nest select 0) isEqualTo (_prisoner getVariable ["COIN_leaderNest", -1])}) then {_outcome = "tip"};
             diag_log format ["[COIN] intel: interrogation result %1: weights %2 -> %3", _i + 1, _weights, _outcome];
 
             private _result = [_outcome, _nest, _prisoner] call COIN_fnc_resolveOutcome;

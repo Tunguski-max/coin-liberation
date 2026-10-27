@@ -98,6 +98,9 @@ coin/
     │   ├── fn_canStrikeCourier.sqf     COIN_fnc_canStrikeCourier: Voraussetzung „Kurier abfangen“: ein aktives Nest (Ticket 5.14)
     │   ├── fn_planStrikeCourier.sqf    COIN_fnc_planStrikeCourier: zwei Ortschaften mit Straße, Nest des Kuriers
     │   ├── fn_runStrikeCourier.sqf     COIN_fnc_runStrikeCourier: Auto und Fahrer, Fahrt, gestoppt, durchsucht, angekommen
+    │   ├── fn_canStrikeLeader.sqf      COIN_fnc_canStrikeLeader: Voraussetzung „Anführer festnehmen“: ein aktiver Kommandoposten (Ticket 5.15)
+    │   ├── fn_planStrikeLeader.sqf     COIN_fnc_planStrikeLeader: Dorf (≥ 1000 m vom Kommandoposten), Haus und Platz des Anführers
+    │   ├── fn_runStrikeLeader.sqf      COIN_fnc_runStrikeLeader: Anführer und Wachen, festgenommen, zur FOB gebracht, Readiness
     │   ├── fn_addCourierAction.sqf     COIN_fnc_addCourierAction: Client, Aktion „Dokumente durchsuchen“
     │   ├── fn_searchDocuments.sqf      COIN_fnc_searchDocuments: Server, die Suche am gestoppten Auto
     │   └── fn_showCourierFound.sqf     COIN_fnc_showCourierFound: Client, Untertitel nach der Suche
