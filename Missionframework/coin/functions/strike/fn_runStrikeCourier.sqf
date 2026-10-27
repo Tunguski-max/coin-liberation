@@ -17,7 +17,7 @@
         - searched: success, the documents name a nest (a true hit, level "tip", COIN_fnc_createIntel; the nest of the plan if it is
           still active, else any a civilian of the start would know of), announced to everybody, and a subtitle for the one who searched,
         - failed: the car is destroyed or burned out (the documents are lost), the car that is not stopped has come back within
-          COIN_courierArriveDistance of its start, or the end time is reached.
+          COIN_courierArriveDistance of its start, it is stuck (COIN_courierStuckLimit), or the end time is reached.
         The car drives to the destination, waits there COIN_courierWaitSeconds and drives back to the start (like the convoy of Liberation's
         secondary mission, which also starts wherever it is and does not care for the players).
         What is left (car, wreck, men) goes when nobody sees it (COIN_fnc_removeWhenUnseen), at once if the strike tasks are switched off.
@@ -118,6 +118,10 @@ private _nextPath = time + COIN_courierRepathSeconds;
 // The way: "out" to the destination, "wait" there, "back" to the start
 private _phase = "out";
 private _waitUntil = 0;
+// For the RPT and for a car that sticks: when the next line is due, since when the car stands, how often it was sent on
+private _nextProgress = 0;
+private _stillSince = -1;
+private _stuckCount = 0;
 
 // With COIN_debug the car has a marker that follows it (the players cannot tell it from other cars otherwise)
 private _marker = format ["COIN_courier_%1", _taskId];
@@ -167,6 +171,48 @@ while {_result isEqualTo ""} do {
     };
 
     if (!_stopped) then {
+        private _goal = [_endPos, _startPos] select (_phase isEqualTo "back");
+
+        if (time >= _nextProgress) then {
+            _nextProgress = time + COIN_courierProgressSeconds;
+            diag_log format [
+                "[COIN] strike: courier %1 %2 at %3, %4 km/h, %5 m from its goal, courier %6",
+                _taskId, _phase, getPosATL _vehicle, round (speed _vehicle), round (_vehicle distance2D _goal), _driverState
+            ];
+        };
+
+        // A car that stands on the way although the courier is free is stuck (the road does not lead on, a jam, a ditch). Close to its goal
+        // it has arrived as near as it can get, farther away it is sent on, and after COIN_courierStuckLimit times the task fails
+        if (_phase in ["out", "back"]) then {
+            if ((speed _vehicle) >= COIN_courierStuckSpeed) then {
+                _stillSince = -1;
+            } else {
+                if (_stillSince < 0) then {_stillSince = time};
+                if ((time - _stillSince) >= COIN_courierStuckSeconds) then {
+                    _stillSince = time;
+                    private _gap = _vehicle distance2D _goal;
+                    if (_gap <= COIN_courierStuckDistance) then {
+                        diag_log format ["[COIN] strike: courier %1 stands %2 m from its goal, that is as near as it gets (%3)", _taskId, round _gap, _phase];
+                        if (_phase isEqualTo "out") then {
+                            _phase = "wait";
+                            _waitUntil = time + COIN_courierWaitSeconds;
+                        } else {
+                            _result = "the car came back to its start";
+                        };
+                    } else {
+                        _stuckCount = _stuckCount + 1;
+                        if (_stuckCount > COIN_courierStuckLimit) then {
+                            _result = format ["stuck, %1 m from its goal", round _gap];
+                        } else {
+                            diag_log format ["[COIN] strike: courier %1 is stuck %2 m from its goal at %3, sent on (%4 of %5)", _taskId, round _gap, getPosATL _vehicle, _stuckCount, COIN_courierStuckLimit];
+                            _driver doMove _goal;
+                            _nextPath = time + COIN_courierRepathSeconds;
+                        };
+                    };
+                };
+            };
+        };
+
         switch (_phase) do {
             case "out": {
                 if ((_vehicle distance2D _endPos) <= COIN_courierArriveDistance) then {

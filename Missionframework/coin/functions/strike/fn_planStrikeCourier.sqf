@@ -41,7 +41,12 @@ private _roadAt = {
     private _centre = markerPos _town;
     private _roads = (_centre nearRoads COIN_courierRoadSearch) select {[_x] call _usable};
     if (_roads isEqualTo []) exitWith {objNull};
-    _roads = [_roads, [], {_x distance2D _centre}, "ASCEND"] call BIS_fnc_sortBy;
+    // A main road before a road before a track; within a type the nearest to the centre
+    _roads = [_roads, [], {
+        private _rank = COIN_courierRoadTypes find ((getRoadInfo _x) select 0);
+        if (_rank < 0) then {_rank = count COIN_courierRoadTypes};
+        (_rank * 100000) + (_x distance2D _centre)
+    }, "ASCEND"] call BIS_fnc_sortBy;
     _roads select 0
 };
 
@@ -54,23 +59,41 @@ private _faceTowards = {
 // The length of the route a car finds between two positions, -1 if there is none (or it takes too long to find)
 private _routeLength = {
     params ["_from", "_to"];
+    // The route may come in several parts (the event can fire more than once): all of them are kept, the longest is taken
     private _agent = calculatePath ["car", "safe", _from, _to];
+    _agent setVariable ["COIN_paths", []];
     _agent addEventHandler ["PathCalculated", {
         params ["_agent", "_path"];
-        _agent setVariable ["COIN_path", _path];
+        (_agent getVariable "COIN_paths") pushBack _path;
     }];
     private _timeout = diag_tickTime + COIN_courierPathTimeout;
-    waitUntil {sleep 0.05; !isNil {_agent getVariable "COIN_path"} || {diag_tickTime > _timeout}};
-    private _path = _agent getVariable ["COIN_path", []];
+    waitUntil {sleep 0.05; (count (_agent getVariable ["COIN_paths", []])) > 0 || {diag_tickTime > _timeout}};
+    sleep COIN_courierPathWait;
+    private _paths = _agent getVariable ["COIN_paths", []];
     if (!isNull _agent) then {deleteVehicle _agent};
 
-    private _length = -1;
-    if (count _path >= 2 && {((_path select (count _path - 1)) distance2D _to) <= COIN_courierPathEndTolerance}) then {
-        _length = 0;
-        for "_i" from 1 to (count _path - 1) do {
-            _length = _length + ((_path select (_i - 1)) distance2D (_path select _i));
+    private _pathLength = {
+        params ["_points"];
+        private _sum = 0;
+        for "_i" from 1 to (count _points - 1) do {
+            _sum = _sum + ((_points select (_i - 1)) distance2D (_points select _i));
         };
+        _sum
     };
+    private _best = [];
+    {
+        if ((count _x) >= 2 && {([_x] call _pathLength) > ([_best] call _pathLength)}) then {_best = _x};
+    } forEach _paths;
+
+    private _length = -1;
+    if (_best isNotEqualTo [] && {((_best select (count _best - 1)) distance2D _to) <= COIN_courierPathEndTolerance}) then {
+        _length = [_best] call _pathLength;
+    };
+    private _gap = if (_best isEqualTo []) then {-1} else {round ((_best select (count _best - 1)) distance2D _to)};
+    diag_log format [
+        "[COIN] strike: courier route: %1 event(s), longest %2 points, %3 m, ends %4 m from the destination (%5 m by air)",
+        count _paths, count _best, round ([_best] call _pathLength), _gap, round (_from distance2D _to)
+    ];
     _length
 };
 
