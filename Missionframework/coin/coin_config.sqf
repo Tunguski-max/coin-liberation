@@ -1225,6 +1225,10 @@ COIN_elderSentences = [
         ["Ich habe gehört, dass bald ein Kurier der Miliz mit ein paar bewaffneten Männern im Auto unterwegs ist. Er hat Papiere bei sich.", "Man erzählt sich, ein Bote der Miliz fahre bald mit Begleitschutz von Ort zu Ort. Er soll Dokumente tragen."],
         ["I heard a militia courier will soon be on the road in a car with a few armed men. He carries papers.", "People say a messenger of the militia will soon drive down the road with an escort. He is said to carry documents."]
     ]],
+    ["strike_leader", [
+        ["Einer von den Anführern der Miliz soll sich bald in einem Dorf in der Nähe aufhalten. Er trägt keine Uniform, aber er ist nie allein.", "Ich habe gehört, dass bald einer von ihren Anführern in einem Dorf übernachtet. Er ist wie wir gekleidet, aber ihm folgen viele Bewaffnete."],
+        ["I heard one of the militia leaders will soon stay in a village nearby. He wears no uniform, but he is never alone.", "People say one of their leaders will soon spend a night in a village. He dresses like us, but a crowd of armed men follows him."]
+    ]],
     ["strike_accepted", [
         ["Seid vorsichtig. Wenn ihr schnell seid, erwischt ihr ihn.", "Gut. Passt auf euch auf. Er wird nicht lange auf sich warten lassen."],
         ["Be careful. If you are quick, you will catch him.", "Good. Take care. He will not keep you waiting long."]
@@ -1341,7 +1345,8 @@ COIN_strikeCheckSeconds     = 2;        // s between two looks at a running stri
 // destination name, anything the run needs] or [] if there is none. The run (called with [plan, end time, task id, by]) starts at
 // the beginning of the event and returns "succeeded" or the reason it failed ("time over", ...). Further kinds are added here
 COIN_strikeKinds = [
-    ["courier", "COIN_fnc_canStrikeCourier", "COIN_fnc_planStrikeCourier", "COIN_fnc_runStrikeCourier"]
+    ["courier", "COIN_fnc_canStrikeCourier", "COIN_fnc_planStrikeCourier", "COIN_fnc_runStrikeCourier"],
+    ["leader", "COIN_fnc_canStrikeLeader", "COIN_fnc_planStrikeLeader", "COIN_fnc_runStrikeLeader"]
 ];
 
 // Dialog of a strike task (the one of the elder, ticket 5.9b): header, accept button, line "%1 of %2" = running, limit
@@ -1368,8 +1373,42 @@ COIN_strikeTaskTexts = [
             "Fangt den Kurier der Miliz ab: Er fährt mit Wachen von %1 nach %2, wartet dort kurz und fährt zurück. Beginn um %3 Uhr, spätestens bis %4 Uhr. Stoppt das Auto, zerstört es nicht und durchsucht es nach Dokumenten.",
             "Intercept the militia courier: he drives with guards from %1 to %2, waits there for a while and drives back. Start at %3, no later than %4. Stop the car, do not destroy it and search it for documents."
         ]
+    ],
+    // A kind without a destination (the leader) names only the start: the village. %2 is not used
+    ["leader",
+        ["Anführer festnehmen", "Arrest leader"],
+        [
+            "Ein Anführer der Miliz hält sich in Zivilkleidung und unbewaffnet an einem Haus in einem Dorf auf. Er wird von acht bis zehn Männern bewacht, viele davon mit Weste und Helm. Er läuft nicht weg.<br/><br/>Schaltet die Wachen aus, nehmt den Anführer lebend fest (Fesseln) und bringt ihn zu einer FOB. Stirbt er, ist der Auftrag verloren.<br/><br/><t size='1.15' color='#00a0ff'>Beginn: %1 bis %2 Minuten nach dem Annehmen. Das Zeitfenster dauert insgesamt %3 bis %4 Minuten.</t><br/><t size='1.15' color='#ffa000'>Fehlschlag: Der Anführer stirbt oder das Zeitfenster endet. Das kostet nichts.</t><br/><t size='1.15' color='#ffa000'>Belohnung: Die Miliz verliert an Schlagkraft, und sein Verhör nennt euch den Kommandoposten, zu dem er gehört.</t>",
+            "A militia leader is staying at a house in a village, in civilian clothes and unarmed. Eight to ten men guard him, many of them in vest and helmet. He does not run away.<br/><br/>Take out the guards, arrest the leader alive (handcuffs) and bring him to a FOB. If he dies, the task is lost.<br/><br/><t size='1.15' color='#00a0ff'>Start: %1 to %2 minutes after accepting. The time window lasts %3 to %4 minutes in all.</t><br/><t size='1.15' color='#ffa000'>Failure: The leader dies or the time window ends. That costs nothing.</t><br/><t size='1.15' color='#ffa000'>Reward: The militia loses strength, and his interrogation names the command post he belongs to.</t>"
+        ],
+        [
+            "Nehmt den Anführer der Miliz fest: Er hält sich in %1 an einem Haus auf, schwer bewacht, in Zivilkleidung. Beginn um %3 Uhr, spätestens bis %4 Uhr. Nehmt ihn lebend fest und bringt ihn zu einer FOB.",
+            "Arrest the militia leader: he stays at a house in %1, heavily guarded, in civilian clothes. Start at %3, no later than %4. Arrest him alive and bring him to a FOB."
+        ]
     ]
 ];
+
+// Leader (ticket 5.15): in civilian clothes and unarmed beside a house of a village near his command post, guards around him. Arrested
+// (handcuffed, ACE) and brought to a FOB alive, the readiness falls (COIN_strikeReadinessLoss) and his interrogation names the command post
+COIN_leaderGuards           = [8, 10];  // [min, max] guards in the ring around him
+COIN_leaderGuardArmorShare  = 0.5;      // At least this share of the guards are Islamic State twins (vest and helmet, ADR 0014); more at a high readiness (COIN_squadMixShare)
+COIN_leaderGuardRing        = [6, 16];  // [min, max] m from the leader where a guard stands
+COIN_leaderPatrolShare      = 0.4;      // Share of the guards that walk a patrol round the leader instead of standing in the ring
+COIN_leaderPatrolRadius     = 75;       // m round the leader within which the patrol walks
+COIN_leaderPatrolPoints     = 5;        // Waypoints of the patrol 
+COIN_leaderPatrolArrive     = 6;        // m from a waypoint at which the patrol goes on to the next
+COIN_leaderGuardSpacing     = 3;        // m the guards keep from each other
+COIN_leaderGuardClearance   = 1.5;      // m a guard keeps from other objects (BIS_fnc_findSafePos)
+COIN_leaderBehaviour        = "AWARE";  // Behaviour of the guards; they stay where they stand until the group is in combat, then they fight as every group
+COIN_leaderClasses          = [];       // Unit classes of the leader (his clothes), one at random; empty = a civilian of Liberation's preset like every civilian. Agreed with Niklas: first any civilian
+COIN_leaderMinNestDistance  = 1000;     // m his village is at least from the command post he belongs to (so both are not on the same trip)
+COIN_leaderVillageChoices   = 3;        // The village is one of this many nearest villages beyond that distance, at random
+COIN_leaderSpotRadius       = 6;        // m beyond the wall of the house in which he stands (BIS_fnc_findSafePos)
+COIN_leaderSpotClearance    = 2;        // m his spot keeps from other objects
+COIN_leaderSpotGradient     = 0.3;      // Steepest ground for his spot and the guards
+COIN_leaderSpotTries        = 10;       // Tries for a spot
+COIN_leaderFobRange         = 30;       // m from a FOB (Liberation's own distance for handing in a prisoner) at which a captive leader counts as brought
+COIN_leaderKeepSeconds      = 900;      // s a captive leader stays after the task, so he can be interrogated
 
 // Courier (ticket 5.14): a car with the courier as driver and a few guards (the militia in uniform, no technical) drives like the convoy
 // of Liberation's secondary mission, and starts anywhere on the map whatever the players do: from a town (one the militia holds if it

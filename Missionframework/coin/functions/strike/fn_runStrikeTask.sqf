@@ -6,7 +6,7 @@
         Server: runs one accepted strike task from start to end (tickets 5.13 and 5.14, DESIGN 8.2). Started by
         COIN_fnc_acceptStrikeTask, which has put the task into COIN_strikeActive. Must be spawned.
         At the start: a task for the whole side with the times of day of the beginning and the end (game clock,
-        COIN_fnc_clockText) and the name of the start and the destination, markers at both (COIN_strikeMarkerStart, COIN_strikeMarkerEnd)
+        COIN_fnc_clockText) and the name of the start and the destination, markers at both, or at the start only for a kind without a destination (COIN_strikeMarkerStart, COIN_strikeMarkerEnd)
         and the message "New task" (COIN_fnc_clientTask). It waits for the beginning, then the run of the kind
         (COIN_strikeKinds, fourth entry) takes over and returns "succeeded" or the reason it failed, at the latest when the end time
         is reached. A strike task that fails or runs out costs nothing. The markers go, the task stays in the task list for
@@ -53,14 +53,14 @@ private _markers = [];
     _marker setMarkerColor (_look select 1);
     _marker setMarkerText _name;
     _markers pushBack _marker;
-} forEach [
+} forEach ([
     ["start", _startPos, _startName, COIN_strikeMarkerStart],
     ["end", _endPos, _endLabel, COIN_strikeMarkerEnd]
-];
+] select {(_x select 1) isNotEqualTo []});
 
 diag_log format [
-    "[COIN] strike: task %1 (%2) accepted by %3: %4 to %5, begins at %6 (in %7 min), ends at %8 (in %9 min)",
-    _kind, _taskId, _by, _startName, _endLabel, _startClock, round ((_startTime - time) / 60), _endClock, _minutes
+    "[COIN] strike: task %1 (%2) accepted by %3: %4%5, begins at %6 (in %7 min), ends at %8 (in %9 min)",
+    _kind, _taskId, _by, _startName, ["", format [" to %1", _endLabel]] select (_endLabel isNotEqualTo ""), _startClock, round ((_startTime - time) / 60), _endClock, _minutes
 ];
 [_taskId, "CREATED", _kind, _startPos, "", _minutes, true, _extra] remoteExecCall ["COIN_fnc_clientTask", 0, _taskId];
 

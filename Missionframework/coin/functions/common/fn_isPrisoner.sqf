@@ -15,7 +15,8 @@
           where Liberation seats him in a civilian group until it deletes him. Walking away from the squad he goes back to
           the enemy group and is a plain fighter again.
         A fighter in civilian clothes (triggerman, VBIED driver, suicide bomber) is never a prisoner (ADR 0022), he
-        has civilian classes anyway. Used by the interrogation (ticket 3.8) and the reputation for a prisoner who is
+        has civilian classes anyway. The exception is the leader of the strike task "Arrest leader" (ticket 5.15, COIN_role "leader"): he is a
+        prisoner when he is handcuffed or surrenders, whatever his class and side. Used by the interrogation (ticket 3.8) and the reputation for a prisoner who is
         killed (ticket 5.1).
 
     Parameter(s):
@@ -29,13 +30,21 @@ params [
     ["_unit", objNull, [objNull]]
 ];
 
-!isNull _unit
-&& {_unit isKindOf "CAManBase"}
-&& {!(_unit getVariable ["COIN_civilianFighter", false])}
-&& {(toLower typeOf _unit) in KPLIB_o_inf_classes || {typeOf _unit in militia_squad}}
-&& {
+if (isNull _unit || {!(_unit isKindOf "CAManBase")}) exitWith {false};
+
+private _captive = {
     _unit getVariable ["ace_captives_isHandcuffed", false]
     || {_unit getVariable ["ace_captives_isSurrendering", false]}
     || {!alive _unit && {_unit getVariable ["COIN_prisonerState", false]}}
+};
+
+// The leader of the strike task "Arrest leader" (ticket 5.15) is a civilian fighter by his clothes and his side, and a prisoner once he is
+// captive. The civilian side is no sign of a prisoner for him (it is his own)
+if ((_unit getVariable ["COIN_role", ""]) isEqualTo "leader") exitWith {call _captive};
+
+!(_unit getVariable ["COIN_civilianFighter", false])
+&& {(toLower typeOf _unit) in KPLIB_o_inf_classes || {typeOf _unit in militia_squad}}
+&& {
+    call _captive
     || {(side group _unit) in [GRLIB_side_friendly, GRLIB_side_civilian]}
 }

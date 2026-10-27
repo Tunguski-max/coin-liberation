@@ -257,7 +257,7 @@ Vier Blöcke, nacheinander umgesetzt und getestet: 5A → 5B → 5C → 5D.
   einem Eintrag, Beginn 15–25 min nach Annehmen (bei der Befragung früher, der Auftrag ersetzt dort deren Intel), Fenster
   45–75 min, Einheiten spawnen immer
 - [x] 5.14 Zugriffsauftrag „Kurier abfangen“ (Auto mit Kurier und 2–3 Wachen fährt wie der Konvoi irgendwo los zu einer beliebigen Ortschaft in 3–6 km, wartet 2 min und fährt zurück; zurück am Start = gescheitert; „Dokumente durchsuchen“, Konkreter Tipp)
-- [ ] 5.15 Zugriffsauftrag „Anführer festnehmen“ (lebend, Readiness −10 Punkte, Verhör bringt Tipp zum Kommandoposten)
+- [x] 5.15 Zugriffsauftrag „Anführer festnehmen“ (Anführer in Zivilkleidung mit 8–10 Wachen, mindestens die Hälfte gepanzert, an einem Haus, ein Teil patrouilliert; festgenommen und lebend zur FOB gebracht: Readiness −10 Punkte; Verhör bringt immer zuerst einen Tipp zum Kommandoposten)
 - [ ] 5.16 Zugriffsauftrag „Waffentransport abfangen“ (Lkw mit zwei Technicals, Readiness −10 Punkte, Tipp zum Ziel-Lager)
 - [ ] 5.18 Zugriffsauftrag „Export“ (Cessna an einem Flugplatz nahe einer Ortschaft der Miliz zerstören, Readiness −10 Punkte)
 
