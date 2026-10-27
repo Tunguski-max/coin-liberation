@@ -32,14 +32,16 @@ private _offsets = (_config select 0) select [2, count (_config select 0)];
 
 private _crates = [];
 {
+    // The pauses of Liberation's loop: before the crate is made, and before it is loaded
+    sleep COIN_convoyCrateWait;
     private _crate = [KP_liberation_ammo_crate, COIN_convoyCrateValue, getPosATL _truck] call KPLIB_fnc_createCrate;
+    sleep COIN_convoyCrateWait;
     if (!isNull _crate) then {
         _crate attachTo [_truck, _x];
         [_crate, false] remoteExec ["enableRopeAttach"];
         _crates pushBack _crate;
         _truck setVariable ["GRLIB_ammo_truck_load", count _crates, true];
     };
-    sleep COIN_convoyCrateWait;
 } forEach _offsets;
 
 _crates

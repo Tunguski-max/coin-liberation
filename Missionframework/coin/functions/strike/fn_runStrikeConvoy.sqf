@@ -108,6 +108,8 @@ private _trucks = [];
         [_vehicle] call COIN_fnc_guardConvoyVehicle;
         _vehicles pushBack _vehicle;
     };
+    // A pause after each vehicle, as Liberation's hijack mission has it
+    sleep COIN_convoySpawnWait;
 } forEach COIN_convoyOrder;
 
 // A convoy that lacks a vehicle would be destroyed with fewer wrecks than the task names: no convoy at all
