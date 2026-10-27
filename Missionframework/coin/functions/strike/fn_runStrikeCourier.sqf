@@ -4,7 +4,7 @@
 
     Description:
         The event of the strike task "Intercept courier" (ticket 5.14, DESIGN 8.2), called by COIN_fnc_runStrikeTask at the beginning
-        (it may sleep). A car of COIN_courierVehicles (one with enough seats) stands on the road at the start. The courier drives it
+        (it may sleep). A car of COIN_strikeCarClasses (one with enough seats) stands on the road at the start. The courier drives it
         and COIN_courierGuards guards sit in it: militia fighters of Liberation's militia_squad in uniform, so the car is plainly hostile
         (no technical, nothing mounted). They are made like the fighters of a camp (Liberation's kill manager, marked as COIN
         units, handed to Zeus) and come from the nest of the plan (COIN_origin), so a prisoner names that nest. The car drives to the
@@ -13,7 +13,7 @@
         destroyed), its cargo empty. Every COIN_strikeCheckSeconds:
         - the car is stopped when the courier is out (dead, captured), left the car, or the car cannot move, or he is unconscious and the
           car stands. This is looked at every time: a courier who wakes up drives on. While it is stopped the action "Search
-          documents" shows (COIN_fnc_addCourierAction, COIN_fnc_searchDocuments),
+          documents" shows (COIN_fnc_addSearchAction, COIN_fnc_searchDocuments),
         - searched: success, the documents name a nest (a true hit, level "tip", COIN_fnc_createIntel; the nest of the plan if it is
           still active, else any a civilian of the start would know of), announced to everybody, and a subtitle for the one who searched,
         - failed: the car is destroyed or burned out (the documents are lost), the car that is not stopped has come back within
@@ -49,10 +49,10 @@ COIN_courierGuards params ["_guardsMin", "_guardsMax"];
 private _wanted = _guardsMin + floor random ((_guardsMax - _guardsMin) + 1);
 
 // Cars that exist and seat the guards; if none seats them all, the one with the most seats takes fewer
-private _classes = COIN_courierVehicles select {isClass (configFile >> "CfgVehicles" >> _x)};
+private _classes = COIN_strikeCarClasses select {isClass (configFile >> "CfgVehicles" >> _x)};
 private _seats = {getNumber (configFile >> "CfgVehicles" >> _this >> "transportSoldier")};
 if (_classes isEqualTo []) exitWith {
-    diag_log "[COIN] strike: ERROR - none of COIN_courierVehicles exists, no courier";
+    diag_log "[COIN] strike: ERROR - none of COIN_strikeCarClasses exists, no courier";
     "no vehicle class"
 };
 private _roomy = _classes select {(_x call _seats) >= _wanted};
@@ -66,8 +66,8 @@ if (_roomy isNotEqualTo []) then {
 private _guards = _wanted min (_class call _seats);
 
 // For the RPT: what stands at the start (a courier that does not move may be wedged)
-private _around = (nearestObjects [_startPos, [], COIN_courierClearance]) apply {format ["%1 (%2 m)", typeOf _x, round (_x distance2D _startPos)]};
-diag_log format ["[COIN] strike: courier start %1, objects within %2 m: %3", _startPos, COIN_courierClearance, _around];
+private _around = (nearestObjects [_startPos, [], COIN_strikeRoadClearance]) apply {format ["%1 (%2 m)", typeOf _x, round (_x distance2D _startPos)]};
+diag_log format ["[COIN] strike: courier start %1, objects within %2 m: %3", _startPos, COIN_strikeRoadClearance, _around];
 
 private _vehicle = createVehicle [_class, _startPos, [], 0, "NONE"];
 if (isNull _vehicle) exitWith {
@@ -104,11 +104,9 @@ _vehicle limitSpeed COIN_courierSpeed;
 
 // A COIN vehicle costs no reputation when the army destroys it (COIN_fnc_civVehicleDestroyed)
 _vehicle setVariable ["COIN_isCoinVehicle", true];
-// COIN_courierOpen (the action shows) is public, the rest is the server's
-_vehicle setVariable ["COIN_courier", true, true];
-_vehicle setVariable ["COIN_courierOpen", false, true];
 [[_vehicle] + _men] call COIN_fnc_addToCurators;
-[_vehicle] remoteExec ["COIN_fnc_addCourierAction", 0, _vehicle];
+// The action "Search documents" shows while the car is stopped (COIN_searchOpen, set below)
+[_vehicle] call COIN_fnc_makeSearchable;
 
 _driver doMove _endPos;
 diag_log format [
@@ -147,7 +145,7 @@ while {_result isEqualTo ""} do {
 
     _result = switch (true) do {
         case (GRLIB_endgame != 0 || {!COIN_enableStrikeTasks}): {"strike tasks switched off"};
-        case (_vehicle getVariable ["COIN_courierSearched", false]): {"succeeded"};
+        case (_vehicle getVariable ["COIN_searched", false]): {"succeeded"};
         case (isNull _vehicle): {"the car is gone"};
         case (!alive _vehicle): {"the car burned out, the documents are lost"};
         case (time >= _endTime): {"time over"};
@@ -165,7 +163,7 @@ while {_result isEqualTo ""} do {
         || {_driverState isEqualTo "down" && {(speed _vehicle) < COIN_courierStoppedSpeed}};
     if (_stoppedNow isNotEqualTo _stopped) then {
         _stopped = _stoppedNow;
-        _vehicle setVariable ["COIN_courierOpen", _stopped, true];
+        _vehicle setVariable ["COIN_searchOpen", _stopped, true];
         diag_log format [
             "[COIN] strike: courier %1 %2 at %3, %4 m from the destination (courier %5, car can move: %6)",
             _taskId, ["drives on", "stopped"] select _stopped, getPosATL _vehicle, round (_vehicle distance2D _endPos), _driverState, canMove _vehicle
@@ -250,24 +248,10 @@ while {_result isEqualTo ""} do {
 
 if (_result isEqualTo "succeeded") then {
     // The documents name the nest of the plan; if it is gone, any nest a civilian of the start town would know of
-    private _nest = (COIN_nests select {(_x select 0) isEqualTo _nestId && {(_x select 5) isEqualTo "active"}}) param [0, []];
-    if (_nest isEqualTo []) then {
-        _nest = [_startPos] call COIN_fnc_pickIntelNest;
-    };
-    private _intel = [_nest, "tip"] call COIN_fnc_createIntel;
-    if (_intel isEqualTo []) then {
-        diag_log format ["[COIN] strike: courier %1: no intel could be made (nest %2)", _taskId, _nest];
-    } else {
-        diag_log format [
-            "[COIN] strike: courier %1: the documents name nest %2 (%3), circle of %4 m at %5 (intel %6)",
-            _taskId, _nest select 0, _nest select 1, _intel select 3, _intel select 2, _intel select 0
-        ];
-        ["intel"] remoteExecCall ["COIN_fnc_showNotification", 0];
-        private _searcher = _vehicle getVariable ["COIN_courierSearchedBy", objNull];
-        if (!isNull _searcher) then {
-            [COIN_courierFoundSpeaker, COIN_courierFoundText] remoteExecCall ["COIN_fnc_showCourierFound", owner _searcher];
-        };
-    };
+    [
+        _nestId, _startPos, _vehicle getVariable ["COIN_searchedBy", objNull],
+        COIN_courierFoundSpeaker, COIN_courierFoundText, format ["courier %1", _taskId]
+    ] call COIN_fnc_giveDocumentsTip;
 };
 
 if (_result isEqualTo "strike tasks switched off") then {

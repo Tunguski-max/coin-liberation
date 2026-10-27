@@ -1,5 +1,5 @@
 /*
-    File: fn_showCourierFound.sqf
+    File: fn_showDocumentsFound.sqf
     Author: COIN Liberation
 
     Description:

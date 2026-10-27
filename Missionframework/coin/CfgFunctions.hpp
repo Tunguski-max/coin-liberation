@@ -368,13 +368,13 @@ class COIN {
         class runStrikeCourier {};
 
         // Client: the action "Search documents" at the courier's car (ticket 5.14)
-        class addCourierAction {};
+        class addSearchAction {};
 
         // Server: a player searches the stopped courier's car (ticket 5.14)
         class searchDocuments {};
 
         // Client: the subtitle after the search (ticket 5.14)
-        class showCourierFound {};
+        class showDocumentsFound {};
 
         // Server: can the kind "Arrest leader" be offered now? An active command post (ticket 5.15)
         class canStrikeLeader {};
@@ -384,6 +384,42 @@ class COIN {
 
         // Server: the event of the leader: him, his guards, arrested, brought to a FOB (ticket 5.15)
         class runStrikeLeader {};
+
+        // Server: can the kind "Intercept arms transport" be offered now? An active weapons cache (ticket 5.16)
+        class canStrikeConvoy {};
+
+        // Server: cache, route, two points with time windows, vehicles at the start, made when accepted (ticket 5.16)
+        class planStrikeConvoy {};
+
+        // Server: the event of the convoy: vehicles, the drive along the route, destroyed, arrived (ticket 5.16)
+        class runStrikeConvoy {};
+
+        // Server: protects a vehicle of the arms transport from damage that does not come from the players (ticket 5.16)
+        class guardConvoyVehicle {};
+
+        // Server: loads a truck with ammo crates as Liberation's convoy hijack mission does (ticket 5.16)
+        class loadAmmoCrates {};
+
+        // Server: makes a vehicle of a strike task searchable for documents (tickets 5.14, 5.16)
+        class makeSearchable {};
+
+        // Server: what the documents of a search tell: the tip to a nest, notification, subtitle (tickets 5.14, 5.16)
+        class giveDocumentsTip {};
+
+        // Server: the times of day of the time windows for the text of the arms transport (ticket 5.16)
+        class strikeExtraConvoy {};
+
+        // Server: the road piece a car of a strike task starts or ends on (tickets 5.14, 5.16)
+        class findRoadNear {};
+
+        // Server: the route a car finds between two positions (tickets 5.14, 5.16)
+        class calcRoute {};
+
+        // Length of a path in m (tickets 5.14, 5.16)
+        class pathLength {};
+
+        // Server: a militia infantry class with vest and helmet for a fighter of a strike task (tickets 5.15, 5.16)
+        class pickArmoredClass {};
     };
 
     class population {

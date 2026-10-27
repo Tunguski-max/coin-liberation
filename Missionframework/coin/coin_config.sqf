@@ -1229,6 +1229,10 @@ COIN_elderSentences = [
         ["Einer von den Anführern der Miliz soll sich bald in einem Dorf in der Nähe aufhalten. Er trägt keine Uniform, aber er ist nie allein.", "Ich habe gehört, dass bald einer von ihren Anführern in einem Dorf übernachtet. Er ist wie wir gekleidet, aber ihm folgen viele Bewaffnete."],
         ["I heard one of the militia leaders will soon stay in a village nearby. He wears no uniform, but he is never alone.", "People say one of their leaders will soon spend a night in a village. He dresses like us, but a crowd of armed men follows him."]
     ]],
+    ["strike_convoy", [
+        ["Ich habe von zwei Punkten erfahren, die ein Waffentransport der Miliz bald passiert. Es sind ein Lastwagen und bewaffnete Wagen, und sie fahren nicht ohne Schutz.", "Man erzählt sich, dass ein Konvoi der Miliz mit Waffen bald an zwei Stellen vorbeikommt. Viele Männer fahren mit ihm."],
+        ["I learned of two points that a militia arms transport will soon pass. They are a truck and armed vehicles, and they do not drive without protection.", "People say a militia convoy with weapons will soon pass two places. Many men travel with it."]
+    ]],
     ["strike_accepted", [
         ["Seid vorsichtig. Wenn ihr schnell seid, erwischt ihr ihn.", "Gut. Passt auf euch auf. Er wird nicht lange auf sich warten lassen."],
         ["Be careful. If you are quick, you will catch him.", "Good. Take care. He will not keep you waiting long."]
@@ -1331,8 +1335,9 @@ COIN_strikeTaskMinRep       = 25;       // No strike task below this reputation,
 COIN_strikeTaskMaxActive    = 1;
 COIN_strikeTaskDelayMin     = [15, 25]; // Minutes from accepting until the event starts
 COIN_strikeTaskDelayMinFast = [2, 5];   // The same when the strike task replaced the intel of a questioning (the window opens sooner)
-COIN_strikeTaskWindowMin    = [45, 75]; // Time window in minutes, from accepting (the courier needs 18-38 min for the way there, the wait and the way back)
-COIN_strikeReadinessLoss    = 10;       // Points of combat_readiness (0-100) for leader and export (the arms transport has its own value, ticket 5.16)
+COIN_strikeTaskWindowMin    = [45, 75]; // Time window in minutes, from accepting (the courier needs 30-40 min for the way there, the wait and the way back, the arms transport the same for its drive)
+COIN_strikeReadinessLoss    = 10;       // Points of combat_readiness (0-100) for leader and export
+COIN_strikeReadinessLossConvoy = 20;    // The same for the arms transport: a convoy hurts the militia more
 COIN_strikeOfferSeconds     = 300;      // s the offer of a strike task can be accepted after the one who told of it has spoken
 COIN_strikeDialogDelay      = 3;        // s between what he says and the dialog opens
 COIN_strikeTaskType         = "search"; // Icon of the strike task in the task list and on the map (BIS_fnc_taskCreate type)
@@ -1340,13 +1345,16 @@ COIN_strikeMarkerStart      = ["mil_start", "ColorOrange"]; // Marker at the sta
 COIN_strikeMarkerEnd        = ["mil_end", "ColorOrange"];   // Marker at the destination
 COIN_strikeCheckSeconds     = 2;        // s between two looks at a running strike task
 
-// Kinds of strike task: [id, requirement, plan, run]. The requirement (a function, []) tells whether the kind can be offered now.
+// Kinds of strike task: [id, requirement, plan, run, extra, markers]. The requirement (a function, []) tells whether the kind can be offered now.
 // The plan (called with []) is made when the task is accepted and returns [start position, start name, destination position,
 // destination name, anything the run needs] or [] if there is none. The run (called with [plan, end time, task id, by]) starts at
-// the beginning of the event and returns "succeeded" or the reason it failed ("time over", ...). Further kinds are added here
+// the beginning of the event and returns "succeeded" or the reason it failed ("time over", ...). Further kinds are added here.
+// Optional: extra = a function (called with [plan, time of the beginning]) that returns texts added after the four every task text has;
+// markers = [look of the start marker, look of the end marker] as [type, colour], else COIN_strikeMarkerStart and COIN_strikeMarkerEnd
 COIN_strikeKinds = [
     ["courier", "COIN_fnc_canStrikeCourier", "COIN_fnc_planStrikeCourier", "COIN_fnc_runStrikeCourier"],
-    ["leader", "COIN_fnc_canStrikeLeader", "COIN_fnc_planStrikeLeader", "COIN_fnc_runStrikeLeader"]
+    ["leader", "COIN_fnc_canStrikeLeader", "COIN_fnc_planStrikeLeader", "COIN_fnc_runStrikeLeader"],
+    ["convoy", "COIN_fnc_canStrikeConvoy", "COIN_fnc_planStrikeConvoy", "COIN_fnc_runStrikeConvoy", "COIN_fnc_strikeExtraConvoy", [["mil_ambush", "ColorRed"], ["mil_ambush", "ColorRed"]]]
 ];
 
 // Dialog of a strike task (the one of the elder, ticket 5.9b): header, accept button, line "%1 of %2" = running, limit
@@ -1385,6 +1393,19 @@ COIN_strikeTaskTexts = [
             "Nehmt den Anführer der Miliz fest: Er hält sich in %1 an einem Haus auf, schwer bewacht, in Zivilkleidung. Beginn um %3 Uhr, spätestens bis %4 Uhr. Nehmt ihn lebend fest und bringt ihn zu einer FOB.",
             "Arrest the militia leader: he stays at a house in %1, heavily guarded, in civilian clothes. Start at %3, no later than %4. Arrest him alive and bring him to a FOB."
         ]
+    ],
+    // The arms transport names two points on its route, no start and no destination: %1 and %2 are the points (German and English), %3 and
+    // %4 the beginning and the end as for every task, %5 to %8 the times of day in which the convoy passes point 1 (from, to) and point 2
+    ["convoy",
+        ["Waffentransport abfangen", "Intercept arms transport"],
+        [
+            "Ein Waffentransport der Miliz fährt über die Straße zu einem Waffenlager: zwei Technicals, ein Lastwagen und ein Wagen mit schwer gepanzerten Kämpfern. Ihr wisst nicht, woher er kommt und wohin er fährt, nur an welchen zwei Punkten und ungefähr wann er vorbeikommt.<br/><br/>Legt dort einen Hinterhalt, bevor ein Fahrzeug das Lager erreicht. Durchsucht den Laster nach den Lieferdokumenten. Zerstört anschließend alles und hinterlasst nur Wracks: Die Fahrzeuge müssen komplett zerstört werden, ein Fahrzeug, das nur steht, ausgeschaltet oder liegengeblieben ist, zählt nicht. Rechnet mit starker Gegenwehr.<br/><br/><t size='1.15' color='#00a0ff'>Beginn: %1 bis %2 Minuten nach dem Annehmen. Das Zeitfenster dauert insgesamt %3 bis %4 Minuten.</t><br/><t size='1.15' color='#ffa000'>Fehlschlag: Ein Fahrzeug erreicht das Lager, oder das Zeitfenster endet. Das kostet nichts.</t><br/><t size='1.15' color='#ffa000'>Belohnung: Die Miliz verliert stark an Schlagkraft. Nur wenn ihr vorher die Lieferdokumente findet, erfahrt ihr, wohin der Transport fuhr.</t>",
+            "A militia arms transport drives along the road to a weapons cache: two technicals, a truck and a car with heavily armored fighters. You do not know where it comes from or where it goes, only the two points it passes and about when.<br/><br/>Set an ambush there before a vehicle reaches the cache. Search the truck for the delivery documents. Then destroy everything and leave nothing but wrecks: the vehicles must be destroyed completely, a vehicle that only stands, is disabled or broke down does not count. Expect strong resistance.<br/><br/><t size='1.15' color='#00a0ff'>Start: %1 to %2 minutes after accepting. The time window lasts %3 to %4 minutes in all.</t><br/><t size='1.15' color='#ffa000'>Failure: A vehicle reaches the cache, or the time window ends. That costs nothing.</t><br/><t size='1.15' color='#ffa000'>Reward: The militia loses much strength. Only if you find the delivery documents first do you learn where the transport was going.</t>"
+        ],
+        [
+            "Fangt den Waffentransport der Miliz ab: Er passiert Punkt 1 (%1) zwischen %5 und %6 Uhr und Punkt 2 (%2) zwischen %7 und %8 Uhr. Durchsucht den Laster nach den Lieferdokumenten. Zerstört anschließend alles und hinterlasst nur Wracks. Beginn um %3 Uhr, spätestens bis %4 Uhr.",
+            "Intercept the militia arms transport: it passes point 1 (%1) between %5 and %6 and point 2 (%2) between %7 and %8. Search the truck for the delivery documents. Then destroy everything and leave nothing but wrecks. Start at %3, no later than %4."
+        ]
     ]
 ];
 
@@ -1407,8 +1428,64 @@ COIN_leaderSpotRadius       = 6;        // m beyond the wall of the house in whi
 COIN_leaderSpotClearance    = 2;        // m his spot keeps from other objects
 COIN_leaderSpotGradient     = 0.3;      // Steepest ground for his spot and the guards
 COIN_leaderSpotTries        = 10;       // Tries for a spot
+COIN_strikeArmoredTries     = 10;       // Roles tried for a fighter in vest and helmet (a role without an Islamic State twin is picked again), leader guards and convoy
 COIN_leaderFobRange         = 30;       // m from a FOB (Liberation's own distance for handing in a prisoner) at which a captive leader counts as brought
 COIN_leaderKeepSeconds      = 900;      // s a captive leader stays after the task, so he can be interrogated
+
+// Arms transport (ticket 5.16): a convoy drives from a town to a weapons cache on the road, starting wherever it is, whatever the players
+// do. The task names two points on the route (not the start, not the cache) with the time in which the convoy passes; the players set
+// an ambush. Success: every vehicle destroyed; failure: one vehicle reaches the cache, or the time window ends
+COIN_convoyOrder            = ["technical", "car", "truck", "technical"]; // The convoy from front to back: technical (militia vehicle of the preset, with its crew), car (armored infantry), truck (the open ammo truck of the preset, loaded with ammo crates)
+COIN_convoyCarPassengers    = 3;        // Armored fighters in the car besides the driver (fewer if the car has not so many seats); the cars are those of the courier
+COIN_convoyBehaviour        = "SAFE";   // Behaviour of the group on the road; shot at, it fights as every group
+COIN_convoyCombatMode       = "YELLOW"; // Combat mode of the group on the road
+COIN_convoyFormation        = "FILE";   // Formation of the convoy (as in Liberation convoy hijack)
+COIN_convoyFleeWhenAttacked = true;    // As in Liberation convoy hijack: a vehicle lost, damaged or without its driver, and the whole convoy flees
+COIN_convoyAttackDamage    = 0.3;      // Damage (0 to 1) of a vehicle from which the convoy counts as attacked
+COIN_convoyFleeBehaviour   = "COMBAT"; // Behaviour of the group on the flight
+COIN_convoyFleeSpeed       = "FULL";   // Speed mode of the group on the flight
+COIN_convoySettleSeconds   = 0.5;      // s the group has to settle after the crews joined it, before the leader and the waypoints are set
+COIN_convoyBlockOtherDamage = true;    // As in Liberation convoy hijack: the vehicles take only damage of the players (civilian cars ram the convoy full speed otherwise)
+COIN_convoyBlockedLogDamage = 0.1;     // Debug (COIN_debug): a blocked hit that would add more damage than this is written to the RPT
+COIN_convoyBlockedLogMax   = 5;        // Debug: at most this many such lines per vehicle
+COIN_convoyLoadCrates      = true;     // As in Liberation convoy hijack: the open truck is loaded with ammo crates (as many as it takes)
+COIN_convoyCrateValue      = 100;      // Ammo in each crate (Liberation: 100)
+COIN_convoyCrateWait       = 0.5;      // s Liberation waits before a crate is made and again before it is loaded (hijack mission)
+COIN_convoySpawnWait       = 0.5;      // s after each vehicle of the convoy is made (Liberation hijack mission)
+COIN_convoySpeedMode       = "LIMITED"; // Speed mode of the group on the road (until it flees: COIN_convoyFleeSpeed)
+COIN_convoySearchSpeed     = 3;        // km/h below which a truck that is alive counts as standing: it can be searched for the delivery documents
+COIN_convoySearchLabel     = ["Lieferdokumente suchen", "Search delivery documents"]; // Action at the truck: [German, English]
+COIN_convoySearchBarText   = ["Suche Lieferdokumente ...", "Searching delivery documents ..."]; // Text of the progress bar: [German, English]
+COIN_convoyFoundSpeaker    = ["Lieferdokumente", "Delivery documents"]; // Subtitle after the search: who, then the line
+COIN_convoyFoundText       = ["Die Papiere nennen das Ziel des Transports. Ihr wisst jetzt, wohin er fuhr.", "The papers name where the transport was going. Now you know."];
+COIN_convoySpacing          = 30;       // m between the vehicles at the start
+COIN_convoyDistance         = [4000, 8000]; // [min, max] m in a straight line from the start town to the road end next to the cache
+COIN_convoyRouteLength      = [6000, 10000]; // [min, max] m the route a car finds is long
+COIN_convoyMaxDetour        = 1.8;      // The road may be this many times longer than the straight line
+COIN_convoyPathTries        = 5;        // Routes tried at most (each takes up to COIN_strikePathTimeout s, the one who told of it waits for it)
+COIN_convoyCacheRoadSearch  = 500;      // m around the cache in which the road for the end of the route is looked for (none: another cache)
+COIN_convoyPointFractions   = [0.33, 0.66]; // Where on the route the two points of the task are, as a share of its length
+COIN_convoyPointSearch      = 0.08;     // Share of the route round such a fraction in which a bridge or junction is looked for for the point
+COIN_convoyPointMinCache    = 2000;     // m (straight line) the second point is at least from the cache, so the task does not give the cache away
+COIN_convoyPointMinGap      = 1000;     // m along the route the two points are at least apart
+COIN_convoyNameRadius       = 1500;     // m around a point in which the nearest place is looked for for its name
+COIN_convoyPointNames       = [         // Name of a point by its kind (road, junction, bridge): [German, English], %1 = the nearest place
+    ["Straße bei %1", "Road near %1"],
+    ["Kreuzung bei %1", "Junction near %1"],
+    ["Brücke bei %1", "Bridge near %1"]
+];
+COIN_convoyAverageKmh       = 30;       // km/h the convoy averages on the road, for the time windows (it drives slower than its limit; measured with the courier)
+COIN_convoyWindowShare      = 0.3;      // Share of the time to a point that the window reaches to either side
+COIN_convoyWindowMin        = 180;      // s the window reaches at least to either side
+COIN_convoyWaypointSpacing  = 600;      // m between the waypoints along the route (few and far apart like Liberation convoy hijack, the cars find the road between them)
+COIN_convoyWaypointRadius   = 50;       // m from a waypoint at which the convoy goes on to the next
+COIN_convoyArriveDistance   = 150;      // m from the end of the route at which a vehicle has reached the cache
+COIN_convoyPointNear        = 200;      // m from a point at which a vehicle counts as passing it (for the RPT)
+COIN_convoyProgressSeconds  = 30;       // s between two lines in the RPT about the convoy (with COIN_debug)
+COIN_convoyStuckSeconds     = 60;       // s the first vehicle with a driver has to stand (below COIN_convoyStuckSpeed) without a fight to count as stuck
+COIN_convoyStuckSpeed       = 2;        // km/h
+COIN_convoyStuckLimit       = 3;        // The convoy is sent on this many times; stuck once more, the task fails ("stuck")
+COIN_convoyDebugMarker      = ["mil_triangle", "ColorRed"]; // Debug map (COIN_debug): the first vehicle of the convoy, follows it: [type, colour]
 
 // Courier (ticket 5.14): a car with the courier as driver and a few guards (the militia in uniform, no technical) drives like the convoy
 // of Liberation's secondary mission, and starts anywhere on the map whatever the players do: from a town (one the militia holds if it
@@ -1417,31 +1494,31 @@ COIN_courierDistance        = [3000, 6000]; // [min, max] m in a straight line f
 COIN_courierWaitSeconds     = 120;      // s the car waits at the destination before it drives back
 COIN_courierMaxDetour       = 2;        // The road may be this many times longer than the straight line
 COIN_courierPathTries       = 8;        // Pairs of towns tried for a route at most
-COIN_courierPathTimeout     = 5;        // s the search for the route of one pair may take
-COIN_courierPathEndTolerance = 150;     // m the end of the route may be from the destination (else there is no route)
+COIN_strikePathTimeout       = 5;        // s the search for a route (courier, arms transport) may take
+COIN_strikePathEndTolerance = 150;      // m the end of a route may be from the destination (else there is no route)
 COIN_courierGuards          = [2, 3];   // [min, max] guards in the car besides the courier (fewer if the car has not so many seats)
 COIN_courierBehaviour       = "SAFE";   // Behaviour of the group on the road; shot at, it fights as every group
-COIN_courierVehicles        = COIN_vbiedGarageVehicles; // Cars he drives, one at random (a class that does not exist or has too few seats is left out)
+COIN_strikeCarClasses        = COIN_vbiedGarageVehicles; // Cars he drives, one at random (a class that does not exist or has too few seats is left out)
 COIN_courierSpeed           = 70;       // km/h he drives at most (on the winding roads he averages about half of it)
-COIN_courierRoadSearch      = 300;      // m around a town centre in which the road for the start and the end is looked for
-COIN_courierClearance       = 8;        // m around the road piece of the start (and the destination) that are free of other vehicles (a parked car blocks the courier)
+COIN_strikeRoadSearch      = 300;      // m around a town centre in which the road for the start and the end is looked for
+COIN_strikeRoadClearance      = 8;        // m around the road piece of the start (and the destination) of a car that are free of other vehicles (a parked car blocks it)
 COIN_courierMarker        = ["mil_triangle", "ColorOrange"]; // Debug map (COIN_debug): the courier's car, follows it: [type, colour]
 COIN_strikeMarkerSeconds    = 2;        // s between two moves of that marker
 COIN_courierStoppedSpeed    = 1;        // km/h below which the car with an unconscious driver counts as stopped
 COIN_courierArriveDistance  = 120;      // m from the destination (or the start, on the way back) at which he has arrived
-COIN_courierRoadTypes       = ["MAIN ROAD", "ROAD", "TRACK", "TRAIL"]; // Road types for the start and the destination, the first that is near a town wins (getRoadInfo)
+COIN_strikeRoadTypes          = ["MAIN ROAD", "ROAD", "TRACK", "TRAIL"]; // Road types for the start and the destination of a car, the first that is near wins (getRoadInfo)
 COIN_courierProgressSeconds = 30;       // s between two lines in the RPT about the car (position, speed, distance to its goal)
 COIN_courierStuckSeconds    = 45;       // s a car with a free courier has to stand (below COIN_courierStuckSpeed) to count as stuck
 COIN_courierStuckSpeed      = 2;        // km/h
 COIN_courierStuckDistance   = 500;      // m: a car that is stuck this close to its goal has arrived, farther away it is sent on again
 COIN_courierStuckLimit      = 3;        // The car is sent on this many times; stuck once more, the task fails ("stuck")
-COIN_courierPathWait        = 0.6;      // s the search for a route waits for further parts of the route after the first
+COIN_strikePathWait          = 0.6;      // s the search for a route waits for further parts of the route after the first
 COIN_courierRepathSeconds   = 30;       // s after which the order to drive to the destination is given again
-COIN_courierSearchRange     = 3;        // m from the car from which the action "Search documents" shows
-COIN_courierSearchRangeMargin = 1;      // m a player may be further away when the server checks the search
-COIN_courierSearchSeconds   = 30;       // s of the progress bar of the search (ACE)
-COIN_courierSearchBarText   = ["Durchsuche ...", "Searching ..."]; // Text of the progress bar: [German, English]
-COIN_courierSearchLabel     = ["Dokumente durchsuchen", "Search documents"]; // Action at the car: [German, English]
+COIN_searchRange     = 3;        // m from the car or truck (arms transport) from which the action "Search documents" shows
+COIN_searchRangeMargin = 1;      // m a player may be further away when the server checks the search
+COIN_searchSeconds   = 30;       // s of the progress bar of the search (ACE)
+COIN_searchBarText   = ["Durchsuche ...", "Searching ..."]; // Text of the progress bar: [German, English]
+COIN_searchLabel     = ["Dokumente durchsuchen", "Search documents"]; // Action at the car: [German, English]
 COIN_courierFoundSpeaker    = ["Dokumente", "Documents"]; // Subtitle after the search: who, then the line
 COIN_courierFoundText       = ["Die Papiere nennen Orte und Namen. Ihr wisst jetzt, woher der Kurier kam.", "The papers name places and people. Now you know where the courier came from."];
 

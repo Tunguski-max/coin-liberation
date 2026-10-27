@@ -101,9 +101,21 @@ coin/
     │   ├── fn_canStrikeLeader.sqf      COIN_fnc_canStrikeLeader: Voraussetzung „Anführer festnehmen“: ein aktiver Kommandoposten (Ticket 5.15)
     │   ├── fn_planStrikeLeader.sqf     COIN_fnc_planStrikeLeader: Dorf (≥ 1000 m vom Kommandoposten), Haus und Platz des Anführers
     │   ├── fn_runStrikeLeader.sqf      COIN_fnc_runStrikeLeader: Anführer und Wachen, festgenommen, zur FOB gebracht, Readiness
-    │   ├── fn_addCourierAction.sqf     COIN_fnc_addCourierAction: Client, Aktion „Dokumente durchsuchen“
-    │   ├── fn_searchDocuments.sqf      COIN_fnc_searchDocuments: Server, die Suche am gestoppten Auto
-    │   └── fn_showCourierFound.sqf     COIN_fnc_showCourierFound: Client, Untertitel nach der Suche
+    │   ├── fn_canStrikeConvoy.sqf      COIN_fnc_canStrikeConvoy: Voraussetzung „Waffentransport abfangen“: ein aktives Waffenlager (Ticket 5.16)
+    │   ├── fn_planStrikeConvoy.sqf     COIN_fnc_planStrikeConvoy: Lager, Route, zwei Punkte mit Zeitfenstern, Fahrzeuge am Start
+    │   ├── fn_runStrikeConvoy.sqf      COIN_fnc_runStrikeConvoy: Konvoi, Fahrt, alle zerstört, Lager erreicht, Readiness, Munitionskisten, Lieferdokumente
+    │   ├── fn_guardConvoyVehicle.sqf   COIN_fnc_guardConvoyVehicle: Fahrzeuge des Konvois nehmen nur Schaden von den Spielern (wie bei Liberation)
+    │   ├── fn_loadAmmoCrates.sqf       COIN_fnc_loadAmmoCrates: Lkw des Waffentransports mit Munitionskisten beladen (wie Liberation)
+    │   ├── fn_makeSearchable.sqf       COIN_fnc_makeSearchable: Fahrzeug eines Zugriffsauftrags durchsuchbar machen (Kurier, Lkw)
+    │   ├── fn_giveDocumentsTip.sqf     COIN_fnc_giveDocumentsTip: was die Dokumente verraten (Tipp, Meldung, Untertitel)
+    │   ├── fn_strikeExtraConvoy.sqf    COIN_fnc_strikeExtraConvoy: Uhrzeiten der Zeitfenster für den Aufgabentext
+    │   ├── fn_findRoadNear.sqf         COIN_fnc_findRoadNear: Straßenstück für Start und Ende eines Autos (Kurier, Konvoi)
+    │   ├── fn_calcRoute.sqf            COIN_fnc_calcRoute: die Route, die ein Auto findet (calculatePath)
+    │   ├── fn_pathLength.sqf           COIN_fnc_pathLength: Länge eines Wegs in m
+    │   ├── fn_pickArmoredClass.sqf     COIN_fnc_pickArmoredClass: Milizklasse mit Weste und Helm für Anführer-Wachen und Konvoi
+    │   ├── fn_addSearchAction.sqf     COIN_fnc_addSearchAction: Client, Aktion „Dokumente durchsuchen“ (Kurier) und „Lieferdokumente suchen“ (Lkw des Waffentransports)
+    │   ├── fn_searchDocuments.sqf      COIN_fnc_searchDocuments: Server, die Suche am gestoppten Auto oder Lkw
+    │   └── fn_showDocumentsFound.sqf     COIN_fnc_showDocumentsFound: Client, Untertitel nach der Suche
     ├── ui/
     │   └── CfgDialogs.hpp              Dialog-Klasse coin_elder_dialog (Include per Hook 29 in description.ext)
     ├── intel/

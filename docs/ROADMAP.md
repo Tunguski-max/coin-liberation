@@ -258,7 +258,7 @@ Vier Blöcke, nacheinander umgesetzt und getestet: 5A → 5B → 5C → 5D.
   45–75 min, Einheiten spawnen immer
 - [x] 5.14 Zugriffsauftrag „Kurier abfangen“ (Auto mit Kurier und 2–3 Wachen fährt wie der Konvoi irgendwo los zu einer beliebigen Ortschaft in 3–6 km, wartet 2 min und fährt zurück; zurück am Start = gescheitert; „Dokumente durchsuchen“, Konkreter Tipp)
 - [x] 5.15 Zugriffsauftrag „Anführer festnehmen“ (Anführer in Zivilkleidung mit 8–10 Wachen, mindestens die Hälfte gepanzert, an einem Haus, ein Teil patrouilliert; festgenommen und lebend zur FOB gebracht: Readiness −10 Punkte; Verhör bringt immer zuerst einen Tipp zum Kommandoposten)
-- [ ] 5.16 Zugriffsauftrag „Waffentransport abfangen“ (Konvoi aus 2 Technicals, 2 Lkw und einem Auto mit gepanzerter Infanterie fährt zum Waffenlager; die Aufgabe nennt nur zwei Punkte auf der Route mit Zeitfenstern, nicht Start und Ziel; Hinterhalt; alle Fahrzeuge zerstört: Readiness −20 Punkte, Tipp zum Ziel-Lager)
+- [x] 5.16 Zugriffsauftrag „Waffentransport abfangen“ (Konvoi aus 2 Technicals, einem Lkw und einem Auto mit gepanzerter Infanterie fährt zum Waffenlager; die Aufgabe nennt nur zwei Punkte auf der Route mit Zeitfenstern, nicht Start und Ziel; Hinterhalt; Lkw mit Munitionskisten; alle Fahrzeuge komplett zerstört: Readiness −20 Punkte; Tipp zum Ziel-Lager nur durch die Suche nach den Lieferdokumenten im Lkw)
 - [ ] 5.18 Zugriffsauftrag „Export“ (Cessna an einem Flugplatz nahe einer Ortschaft der Miliz zerstören, Readiness −10 Punkte)
 
 **5D Gefälligkeit „Verstärkung“ (DESIGN 8.1)** – Reihenfolge: 5.4, 5.6, 5.19

@@ -18,7 +18,7 @@
         _town    - Name of the town [STRING, defaults to ""]
         _minutes - Time limit in minutes, for the text [NUMBER, defaults to 0]
         _notify  - Show the message of the game [BOOL, defaults to true]
-        _extra   - For a strike task (tickets 5.13, 5.14): [start, destination, time of day of the beginning, of the end] for the text [ARRAY, defaults to []]
+        _extra   - For a strike task (tickets 5.13, 5.14): [start, destination, time of day of the beginning, of the end] for the text, for the arms transport (ticket 5.16) four more: the times of day in which the convoy passes point 1 and point 2 [ARRAY, defaults to []]
 
     Returns:
         NONE
