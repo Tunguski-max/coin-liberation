@@ -6,10 +6,10 @@
         The event of the strike task "Arrest leader" (ticket 5.15, DESIGN 8.2), called by COIN_fnc_runStrikeTask at the beginning
         (it may sleep). The leader stands beside a house of a village in civilian clothes and unarmed (COIN_fnc_createCivilianFighter,
         COIN_role "leader", a class of COIN_leaderClasses or any civilian of Liberation), COIN_leaderGuards militia fighters in uniform
-        stand in a ring around him, looking outwards (Liberation's kill manager, marked as COIN units, handed to Zeus; of the command
-        post of the plan, so a prisoner names that post). At least COIN_leaderGuardArmorShare of them (more at a high readiness, as in the
-        field squads, ADR 0014) are Islamic State twins in vest and helmet. The guards stay where they are and take up the fight (they
-        may move) as soon as the group is in combat. Units spawn whatever the distance of the players is. Every COIN_strikeCheckSeconds:
+        stand in a ring around him, looking outwards, COIN_leaderPatrolShare of them walk a patrol round him instead (BIS_fnc_taskPatrol). They are made with Liberation's kill manager, marked as COIN units, handed to Zeus, and come from the command
+        post of the plan, so a prisoner names that post. At least COIN_leaderGuardArmorShare of them (more at a high readiness, as in the
+        field squads, ADR 0014) are Islamic State twins in vest and helmet. The ring guards stay where they are and take up the fight (they
+        may move, the patrol leaves its route) as soon as a group is in combat. Units spawn whatever the distance of the players is. Every COIN_strikeCheckSeconds:
         - succeeded: the leader is alive and captive (handcuffed or surrendering, ACE) and COIN_leaderFobRange m or nearer to a FOB:
           combat_readiness falls by COIN_strikeReadinessLoss once, he stays (COIN_leaderKeepSeconds) so the interpreter can interrogate
           him: the first result is always a concrete tip about his command post (COIN_leaderNest, COIN_fnc_interrogatePrisoner),
@@ -54,8 +54,14 @@ private _armored = ceil (_count * _share);
 private _flags = [];
 for "_i" from 0 to (_count - 1) do {_flags pushBack (_i < _armored)};
 _flags = _flags call BIS_fnc_arrayShuffle;
+// Part of the guards patrol round the leader, a group of their own, the others stand in the ring
+private _patrolCount = round (_count * COIN_leaderPatrolShare);
+private _patrolFlags = [];
+for "_i" from 0 to (_count - 1) do {_patrolFlags pushBack (_i < _patrolCount)};
+_patrolFlags = _patrolFlags call BIS_fnc_arrayShuffle;
 
 private _group = createGroup [GRLIB_side_enemy, true];
+private _patrolGroup = createGroup [GRLIB_side_enemy, true];
 private _guards = [];
 private _spots = [];
 COIN_leaderGuardRing params ["_ringMin", "_ringMax"];
@@ -83,21 +89,27 @@ COIN_leaderGuardRing params ["_ringMin", "_ringMax"];
         _class = [selectRandom militia_squad, true, [0, 1] select _x] call COIN_fnc_mixClass;
         if (!_x || {isNil "COIN_squadTwinsLower"} || {(toLower _class) in COIN_squadTwinsLower}) exitWith {};
     };
-    private _guard = [_class, [_spot select 0, _spot select 1, 0], _group] call KPLIB_fnc_createManagedUnit;
+    private _patrols = _patrolFlags select _forEachIndex;
+    private _guard = [_class, [_spot select 0, _spot select 1, 0], [_group, _patrolGroup] select _patrols] call KPLIB_fnc_createManagedUnit;
     _guard setVariable ["COIN_origin", ["camp", _nestId, -1]];
-    // Facing outwards, standing where he stands until the fight begins
+    // Facing outwards, standing where he stands until the fight begins (a patrol walks)
     _guard setDir (_leaderPos getDir _spot);
-    _guard disableAI "PATH";
+    if (!_patrols) then {_guard disableAI "PATH"};
     _guards pushBack _guard;
 } forEach _flags;
 [_guards] call COIN_fnc_markCoinUnits;
-_group setBehaviour COIN_leaderBehaviour;
-_group setCombatMode "RED";
+{
+    _x setBehaviour COIN_leaderBehaviour;
+    _x setCombatMode "RED";
+} forEach [_group, _patrolGroup];
+if (_patrolCount > 0) then {
+    [_patrolGroup, _leaderPos, COIN_leaderPatrolRadius, COIN_leaderPatrolPoints, "MOVE", COIN_leaderBehaviour, "RED", "LIMITED"] call BIS_fnc_taskPatrol;
+};
 [_guards] call COIN_fnc_addToCurators;
 
 diag_log format [
-    "[COIN] strike: leader %1 (%2) with %3 guards (%4 armored) in %5 at %6 for command post %7, accepted by %8",
-    _taskId, typeOf _leader, count _guards, {isNil "COIN_squadTwinsLower" || {(toLower typeOf _x) in COIN_squadTwinsLower}} count _guards, _village, _leaderPos select [0, 2], _nestId, _by
+    "[COIN] strike: leader %1 (%2) with %3 guards (%4 armored, %5 patrolling) in %6 at %7 for command post %8, accepted by %9",
+    _taskId, typeOf _leader, count _guards, {isNil "COIN_squadTwinsLower" || {(toLower typeOf _x) in COIN_squadTwinsLower}} count _guards, _patrolCount, _village, _leaderPos select [0, 2], _nestId, _by
 ];
 
 private _result = "";
@@ -118,10 +130,12 @@ while {_result isEqualTo ""} do {
     if (
         !_fighting
         && {(_guards findIf {alive _x}) >= 0}
-        && {behaviour (leader _group) isEqualTo "COMBAT" || {(_guards findIf {alive _x && {damage _x > 0}}) >= 0}}
+        && {([_group, _patrolGroup] findIf {behaviour (leader _x) isEqualTo "COMBAT"}) >= 0 || {(_guards findIf {alive _x && {damage _x > 0}}) >= 0}}
     ) then {
         _fighting = true;
         {_x enableAI "PATH"} forEach _guards;
+        // The patrol leaves its route and fights like the others
+        for "_i" from (count waypoints _patrolGroup) - 1 to 0 step -1 do {deleteWaypoint [_patrolGroup, _i]};
         diag_log format ["[COIN] strike: leader %1: the guards are in combat, %2 of %3 alive", _taskId, {alive _x} count _guards, count _guards];
     };
 
