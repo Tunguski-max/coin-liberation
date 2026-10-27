@@ -28,11 +28,11 @@ if (!isServer || {isNil "sectors_capture"}) exitWith {[]};
 
 COIN_courierDistance params ["_distMin", "_distMax"];
 
-// A road piece a car can use: no path
+// A road piece a car can use: no path, and no other vehicle (a parked car) within COIN_courierClearance, or the courier would stand wedged
 private _usable = {
     params ["_road"];
     private _info = getRoadInfo _road;
-    _info isNotEqualTo [] && {!(_info select 2)}
+    _info isNotEqualTo [] && {!(_info select 2)} && {(nearestObjects [getPosATL _road, ["LandVehicle"], COIN_courierClearance]) isEqualTo []}
 };
 
 // The road nearest to the centre of a town: the piece, objNull if there is none
