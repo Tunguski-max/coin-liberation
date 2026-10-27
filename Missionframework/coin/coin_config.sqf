@@ -1399,12 +1399,12 @@ COIN_strikeTaskTexts = [
     ["convoy",
         ["Waffentransport abfangen", "Intercept arms transport"],
         [
-            "Ein Waffentransport der Miliz fährt über die Straße zu einem Waffenlager: zwei Technicals, ein Lastwagen und ein Wagen mit schwer gepanzerten Kämpfern. Ihr wisst nicht, woher er kommt und wohin er fährt, nur an welchen zwei Punkten und ungefähr wann er vorbeikommt.<br/><br/>Legt dort einen Hinterhalt und zerstört alle vier Fahrzeuge, bevor eines das Lager erreicht. Die Fahrzeuge müssen komplett zerstört werden: Ein Fahrzeug, das nur steht, ausgeschaltet oder liegengeblieben ist, zählt nicht. Rechnet mit starker Gegenwehr.<br/><br/><t size='1.15' color='#00a0ff'>Beginn: %1 bis %2 Minuten nach dem Annehmen. Das Zeitfenster dauert insgesamt %3 bis %4 Minuten.</t><br/><t size='1.15' color='#ffa000'>Fehlschlag: Ein Fahrzeug erreicht das Lager, oder das Zeitfenster endet. Das kostet nichts.</t><br/><t size='1.15' color='#ffa000'>Belohnung: Die Miliz verliert stark an Schlagkraft, und ihr erfahrt, wohin der Transport fuhr.</t>",
-            "A militia arms transport drives along the road to a weapons cache: two technicals, a truck and a car with heavily armored fighters. You do not know where it comes from or where it goes, only the two points it passes and about when.<br/><br/>Set an ambush there and destroy all four vehicles before one reaches the cache. The vehicles must be destroyed completely: a vehicle that only stands, is disabled or broke down does not count. Expect strong resistance.<br/><br/><t size='1.15' color='#00a0ff'>Start: %1 to %2 minutes after accepting. The time window lasts %3 to %4 minutes in all.</t><br/><t size='1.15' color='#ffa000'>Failure: A vehicle reaches the cache, or the time window ends. That costs nothing.</t><br/><t size='1.15' color='#ffa000'>Reward: The militia loses much strength, and you learn where the transport was going.</t>"
+            "Ein Waffentransport der Miliz fährt über die Straße zu einem Waffenlager: zwei Technicals, ein Lastwagen und ein Wagen mit schwer gepanzerten Kämpfern. Ihr wisst nicht, woher er kommt und wohin er fährt, nur an welchen zwei Punkten und ungefähr wann er vorbeikommt.<br/><br/>Legt dort einen Hinterhalt, bevor ein Fahrzeug das Lager erreicht. Durchsucht einen der Laster nach den Frachtdokumenten. Zerstört anschließend alles und hinterlasst nur Wracks: Die Fahrzeuge müssen komplett zerstört werden, ein Fahrzeug, das nur steht, ausgeschaltet oder liegengeblieben ist, zählt nicht. Rechnet mit starker Gegenwehr.<br/><br/><t size='1.15' color='#00a0ff'>Beginn: %1 bis %2 Minuten nach dem Annehmen. Das Zeitfenster dauert insgesamt %3 bis %4 Minuten.</t><br/><t size='1.15' color='#ffa000'>Fehlschlag: Ein Fahrzeug erreicht das Lager, oder das Zeitfenster endet. Das kostet nichts.</t><br/><t size='1.15' color='#ffa000'>Belohnung: Die Miliz verliert stark an Schlagkraft. Die Frachtdokumente verraten, wohin der Transport fuhr.</t>",
+            "A militia arms transport drives along the road to a weapons cache: two technicals, a truck and a car with heavily armored fighters. You do not know where it comes from or where it goes, only the two points it passes and about when.<br/><br/>Set an ambush there before a vehicle reaches the cache. Search one of the trucks for the delivery documents. Then destroy everything and leave nothing but wrecks: the vehicles must be destroyed completely, a vehicle that only stands, is disabled or broke down does not count. Expect strong resistance.<br/><br/><t size='1.15' color='#00a0ff'>Start: %1 to %2 minutes after accepting. The time window lasts %3 to %4 minutes in all.</t><br/><t size='1.15' color='#ffa000'>Failure: A vehicle reaches the cache, or the time window ends. That costs nothing.</t><br/><t size='1.15' color='#ffa000'>Reward: The militia loses much strength. The delivery documents tell where the transport was going.</t>"
         ],
         [
-            "Fangt den Waffentransport der Miliz ab und zerstört alle vier Fahrzeuge komplett: Er passiert Punkt 1 (%1) zwischen %5 und %6 Uhr und Punkt 2 (%2) zwischen %7 und %8 Uhr. Beginn um %3 Uhr, spätestens bis %4 Uhr.",
-            "Intercept the militia arms transport and destroy all four vehicles completely: it passes point 1 (%1) between %5 and %6 and point 2 (%2) between %7 and %8. Start at %3, no later than %4."
+            "Fangt den Waffentransport der Miliz ab: Er passiert Punkt 1 (%1) zwischen %5 und %6 Uhr und Punkt 2 (%2) zwischen %7 und %8 Uhr. Durchsucht einen der Laster nach den Frachtdokumenten. Zerstört anschließend alles und hinterlasst nur Wracks. Beginn um %3 Uhr, spätestens bis %4 Uhr.",
+            "Intercept the militia arms transport: it passes point 1 (%1) between %5 and %6 and point 2 (%2) between %7 and %8. Search one of the trucks for the delivery documents. Then destroy everything and leave nothing but wrecks. Start at %3, no later than %4."
         ]
     ]
 ];
@@ -1450,6 +1450,15 @@ COIN_convoySettleSeconds   = 0.5;      // s the group has to settle after the cr
 COIN_convoyBlockOtherDamage = true;    // As in Liberation convoy hijack: the vehicles take only damage of the players (civilian cars ram the convoy full speed otherwise)
 COIN_convoyBlockedLogDamage = 0.1;     // Debug (COIN_debug): a blocked hit that would add more damage than this is written to the RPT
 COIN_convoyBlockedLogMax   = 5;        // Debug: at most this many such lines per vehicle
+COIN_convoyLoadCrates      = true;     // As in Liberation convoy hijack: the open truck is loaded with ammo crates (as many as it takes)
+COIN_convoyCrateValue      = 100;      // Ammo in each crate (Liberation: 100)
+COIN_convoyCrateDistance   = 15;       // m beside the truck at which a crate is made before it is loaded
+COIN_convoyCrateLoadRange  = 50;       // m in which Liberation's loading function looks for the truck
+COIN_convoySearchSpeed     = 3;        // km/h below which a truck that is alive counts as standing: it can be searched for the delivery documents
+COIN_convoySearchLabel     = ["Lieferdokumente suchen", "Search delivery documents"]; // Action at the truck: [German, English]
+COIN_convoySearchBarText   = ["Suche Lieferdokumente ...", "Searching delivery documents ..."]; // Text of the progress bar: [German, English]
+COIN_convoyFoundSpeaker    = ["Frachtdokumente", "Delivery documents"]; // Subtitle after the search: who, then the line
+COIN_convoyFoundText       = ["Die Papiere nennen das Ziel des Transports. Ihr wisst jetzt, wohin er fuhr.", "The papers name where the transport was going. Now you know."];
 COIN_convoySpacing          = 30;       // m between the vehicles at the start
 COIN_convoyDistance         = [4000, 8000]; // [min, max] m in a straight line from the start town to the road end next to the cache
 COIN_convoyRouteLength      = [6000, 10000]; // [min, max] m the route a car finds is long
@@ -1506,7 +1515,7 @@ COIN_courierStuckDistance   = 500;      // m: a car that is stuck this close to 
 COIN_courierStuckLimit      = 3;        // The car is sent on this many times; stuck once more, the task fails ("stuck")
 COIN_strikePathWait          = 0.6;      // s the search for a route waits for further parts of the route after the first
 COIN_courierRepathSeconds   = 30;       // s after which the order to drive to the destination is given again
-COIN_courierSearchRange     = 3;        // m from the car from which the action "Search documents" shows
+COIN_courierSearchRange     = 3;        // m from the car or truck (arms transport) from which the action "Search documents" shows
 COIN_courierSearchRangeMargin = 1;      // m a player may be further away when the server checks the search
 COIN_courierSearchSeconds   = 30;       // s of the progress bar of the search (ACE)
 COIN_courierSearchBarText   = ["Durchsuche ...", "Searching ..."]; // Text of the progress bar: [German, English]

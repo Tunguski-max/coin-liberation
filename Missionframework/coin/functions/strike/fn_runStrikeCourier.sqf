@@ -104,9 +104,9 @@ _vehicle limitSpeed COIN_courierSpeed;
 
 // A COIN vehicle costs no reputation when the army destroys it (COIN_fnc_civVehicleDestroyed)
 _vehicle setVariable ["COIN_isCoinVehicle", true];
-// COIN_courierOpen (the action shows) is public, the rest is the server's
-_vehicle setVariable ["COIN_courier", true, true];
-_vehicle setVariable ["COIN_courierOpen", false, true];
+// COIN_searchOpen (the action shows) is public, the rest is the server's
+_vehicle setVariable ["COIN_searchable", true, true];
+_vehicle setVariable ["COIN_searchOpen", false, true];
 [[_vehicle] + _men] call COIN_fnc_addToCurators;
 [_vehicle] remoteExec ["COIN_fnc_addCourierAction", 0, _vehicle];
 
@@ -147,7 +147,7 @@ while {_result isEqualTo ""} do {
 
     _result = switch (true) do {
         case (GRLIB_endgame != 0 || {!COIN_enableStrikeTasks}): {"strike tasks switched off"};
-        case (_vehicle getVariable ["COIN_courierSearched", false]): {"succeeded"};
+        case (_vehicle getVariable ["COIN_searched", false]): {"succeeded"};
         case (isNull _vehicle): {"the car is gone"};
         case (!alive _vehicle): {"the car burned out, the documents are lost"};
         case (time >= _endTime): {"time over"};
@@ -165,7 +165,7 @@ while {_result isEqualTo ""} do {
         || {_driverState isEqualTo "down" && {(speed _vehicle) < COIN_courierStoppedSpeed}};
     if (_stoppedNow isNotEqualTo _stopped) then {
         _stopped = _stoppedNow;
-        _vehicle setVariable ["COIN_courierOpen", _stopped, true];
+        _vehicle setVariable ["COIN_searchOpen", _stopped, true];
         diag_log format [
             "[COIN] strike: courier %1 %2 at %3, %4 m from the destination (courier %5, car can move: %6)",
             _taskId, ["drives on", "stopped"] select _stopped, getPosATL _vehicle, round (_vehicle distance2D _endPos), _driverState, canMove _vehicle
@@ -263,7 +263,7 @@ if (_result isEqualTo "succeeded") then {
             _taskId, _nest select 0, _nest select 1, _intel select 3, _intel select 2, _intel select 0
         ];
         ["intel"] remoteExecCall ["COIN_fnc_showNotification", 0];
-        private _searcher = _vehicle getVariable ["COIN_courierSearchedBy", objNull];
+        private _searcher = _vehicle getVariable ["COIN_searchedBy", objNull];
         if (!isNull _searcher) then {
             [COIN_courierFoundSpeaker, COIN_courierFoundText] remoteExecCall ["COIN_fnc_showCourierFound", owner _searcher];
         };
