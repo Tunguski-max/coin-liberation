@@ -127,9 +127,10 @@ private _giveWay = {
         _waypoint setWaypointCompletionRadius COIN_convoyWaypointRadius;
     } forEach (_waypoints select [_from, count _waypoints]);
 };
+// As Liberation's hijack mission: the others follow the leader of the group, and only then the waypoints are given (doFollow after them
+// stopped the convoy; the leader does not follow himself)
+{_x doFollow (leader _group)} forEach (units _group select {_x isNotEqualTo (leader _group)});
 [0] call _giveWay;
-// As Liberation's hijack mission: everyone follows the leader of the group
-{_x doFollow (leader _group)} forEach units _group;
 
 diag_log format [
     "[COIN] strike: convoy %1 with %2 vehicles and %3 men starts in %4 for cache %5, %6 m by road, %7 waypoints, accepted by %8",
