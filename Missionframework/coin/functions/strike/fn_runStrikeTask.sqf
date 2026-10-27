@@ -35,15 +35,19 @@ params [
 
 if (!isServer || {_row isEqualTo []} || {_plan isEqualTo []}) exitWith {false};
 
-_row params ["_kind", "", "", "_runFunction"];
+_row params ["_kind", "", "", "_runFunction", ["_extraFunction", ""], ["_markerLooks", []]];
 _plan params ["_startPos", "_startName", "_endPos", "_endName"];
 
 private _startClock = [_startTime - time] call COIN_fnc_clockText;
 private _endClock = [_endTime - time] call COIN_fnc_clockText;
 private _minutes = round ((_endTime - time) / 60);
-private _extra = [_startName, _endName, _startClock, _endClock];
-// The name of the destination may come in German and English (a point on a road has no name of its own); the markers are German
+// A kind may add texts of its own after the four every strike task has (its extra function, fifth entry of the kind): the arms transport its time windows
+private _extra = [_startName, _endName, _startClock, _endClock] + (if (_extraFunction isEqualTo "") then {[]} else {[_plan, _startTime] call (missionNamespace getVariable [_extraFunction, {[]}])});
+// The names may come in German and English (a point on a road has no name of its own); the markers are German
+private _startLabel = if (_startName isEqualType []) then {_startName select 0} else {_startName};
 private _endLabel = if (_endName isEqualType []) then {_endName select 0} else {_endName};
+// A kind may have its own look for the two markers (sixth entry of the kind: [start, end])
+private _looks = [[COIN_strikeMarkerStart, COIN_strikeMarkerEnd], _markerLooks] select (count _markerLooks == 2);
 
 private _markers = [];
 {
@@ -54,13 +58,13 @@ private _markers = [];
     _marker setMarkerText _name;
     _markers pushBack _marker;
 } forEach ([
-    ["start", _startPos, _startName, COIN_strikeMarkerStart],
-    ["end", _endPos, _endLabel, COIN_strikeMarkerEnd]
+    ["start", _startPos, _startLabel, _looks select 0],
+    ["end", _endPos, _endLabel, _looks select 1]
 ] select {(_x select 1) isNotEqualTo []});
 
 diag_log format [
     "[COIN] strike: task %1 (%2) accepted by %3: %4%5, begins at %6 (in %7 min), ends at %8 (in %9 min)",
-    _kind, _taskId, _by, _startName, ["", format [" to %1", _endLabel]] select (_endLabel isNotEqualTo ""), _startClock, round ((_startTime - time) / 60), _endClock, _minutes
+    _kind, _taskId, _by, _startLabel, ["", format [" to %1", _endLabel]] select (_endLabel isNotEqualTo ""), _startClock, round ((_startTime - time) / 60), _endClock, _minutes
 ];
 [_taskId, "CREATED", _kind, _startPos, "", _minutes, true, _extra] remoteExecCall ["COIN_fnc_clientTask", 0, _taskId];
 

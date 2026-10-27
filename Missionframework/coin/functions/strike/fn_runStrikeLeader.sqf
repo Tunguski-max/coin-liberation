@@ -83,12 +83,7 @@ COIN_leaderGuardRing params ["_ringMin", "_ringMax"];
     };
     _spots pushBack _spot;
 
-    // An armored guard needs a role that has a twin: another role is picked a few times (without the squad mix, or if none has a twin, he is plain)
-    private _class = "";
-    for "_try" from 1 to COIN_leaderSpotTries do {
-        _class = [selectRandom militia_squad, true, [0, 1] select _x] call COIN_fnc_mixClass;
-        if (!_x || {isNil "COIN_squadTwinsLower"} || {(toLower _class) in COIN_squadTwinsLower}) exitWith {};
-    };
+    private _class = [_x] call COIN_fnc_pickArmoredClass;
     private _patrols = _patrolFlags select _forEachIndex;
     private _guard = [_class, [_spot select 0, _spot select 1, 0], [_group, _patrolGroup] select _patrols] call KPLIB_fnc_createManagedUnit;
     _guard setVariable ["COIN_origin", ["camp", _nestId, -1]];

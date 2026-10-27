@@ -384,6 +384,30 @@ class COIN {
 
         // Server: the event of the leader: him, his guards, arrested, brought to a FOB (ticket 5.15)
         class runStrikeLeader {};
+
+        // Server: can the kind "Intercept arms transport" be offered now? An active weapons cache (ticket 5.16)
+        class canStrikeConvoy {};
+
+        // Server: cache, route, two points with time windows, vehicles at the start, made when accepted (ticket 5.16)
+        class planStrikeConvoy {};
+
+        // Server: the event of the convoy: vehicles, the drive along the route, destroyed, arrived (ticket 5.16)
+        class runStrikeConvoy {};
+
+        // Server: the times of day of the time windows for the text of the arms transport (ticket 5.16)
+        class strikeExtraConvoy {};
+
+        // Server: the road piece a car of a strike task starts or ends on (tickets 5.14, 5.16)
+        class findRoadNear {};
+
+        // Server: the route a car finds between two positions (tickets 5.14, 5.16)
+        class calcRoute {};
+
+        // Length of a path in m (tickets 5.14, 5.16)
+        class pathLength {};
+
+        // Server: a militia infantry class with vest and helmet for a fighter of a strike task (tickets 5.15, 5.16)
+        class pickArmoredClass {};
     };
 
     class population {

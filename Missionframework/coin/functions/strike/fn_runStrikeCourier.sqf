@@ -66,8 +66,8 @@ if (_roomy isNotEqualTo []) then {
 private _guards = _wanted min (_class call _seats);
 
 // For the RPT: what stands at the start (a courier that does not move may be wedged)
-private _around = (nearestObjects [_startPos, [], COIN_courierClearance]) apply {format ["%1 (%2 m)", typeOf _x, round (_x distance2D _startPos)]};
-diag_log format ["[COIN] strike: courier start %1, objects within %2 m: %3", _startPos, COIN_courierClearance, _around];
+private _around = (nearestObjects [_startPos, [], COIN_strikeRoadClearance]) apply {format ["%1 (%2 m)", typeOf _x, round (_x distance2D _startPos)]};
+diag_log format ["[COIN] strike: courier start %1, objects within %2 m: %3", _startPos, COIN_strikeRoadClearance, _around];
 
 private _vehicle = createVehicle [_class, _startPos, [], 0, "NONE"];
 if (isNull _vehicle) exitWith {
