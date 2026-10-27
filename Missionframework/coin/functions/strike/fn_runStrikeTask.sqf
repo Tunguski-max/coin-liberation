@@ -59,8 +59,8 @@ private _markers = [];
 ] select {(_x select 1) isNotEqualTo []});
 
 diag_log format [
-    "[COIN] strike: task %1 (%2) accepted by %3: %4 to %5, begins at %6 (in %7 min), ends at %8 (in %9 min)",
-    _kind, _taskId, _by, _startName, _endLabel, _startClock, round ((_startTime - time) / 60), _endClock, _minutes
+    "[COIN] strike: task %1 (%2) accepted by %3: %4%5, begins at %6 (in %7 min), ends at %8 (in %9 min)",
+    _kind, _taskId, _by, _startName, ["", format [" to %1", _endLabel]] select (_endLabel isNotEqualTo ""), _startClock, round ((_startTime - time) / 60), _endClock, _minutes
 ];
 [_taskId, "CREATED", _kind, _startPos, "", _minutes, true, _extra] remoteExecCall ["COIN_fnc_clientTask", 0, _taskId];
 
