@@ -368,13 +368,13 @@ class COIN {
         class runStrikeCourier {};
 
         // Client: the action "Search documents" at the courier's car (ticket 5.14)
-        class addCourierAction {};
+        class addSearchAction {};
 
         // Server: a player searches the stopped courier's car (ticket 5.14)
         class searchDocuments {};
 
         // Client: the subtitle after the search (ticket 5.14)
-        class showCourierFound {};
+        class showDocumentsFound {};
 
         // Server: can the kind "Arrest leader" be offered now? An active command post (ticket 5.15)
         class canStrikeLeader {};
@@ -396,6 +396,15 @@ class COIN {
 
         // Server: protects a vehicle of the arms transport from damage that does not come from the players (ticket 5.16)
         class guardConvoyVehicle {};
+
+        // Server: loads a truck with ammo crates as Liberation's convoy hijack mission does (ticket 5.16)
+        class loadAmmoCrates {};
+
+        // Server: makes a vehicle of a strike task searchable for documents (tickets 5.14, 5.16)
+        class makeSearchable {};
+
+        // Server: what the documents of a search tell: the tip to a nest, notification, subtitle (tickets 5.14, 5.16)
+        class giveDocumentsTip {};
 
         // Server: the times of day of the time windows for the text of the arms transport (ticket 5.16)
         class strikeExtraConvoy {};

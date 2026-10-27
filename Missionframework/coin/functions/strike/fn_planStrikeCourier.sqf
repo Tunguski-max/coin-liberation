@@ -7,7 +7,7 @@
         not offered). Like the convoy of Liberation's secondary mission the courier starts anywhere on the map and does not care for
         the players: the start is a town (sectors_capture) the militia holds if there is such a pair, the destination any other town,
         held or not, COIN_courierDistance m away in a straight line. Each has a road piece near its centre (COIN_fnc_findRoadNear,
-        COIN_courierRoadSearch, no path). A pair is only taken when a car finds a route (COIN_fnc_calcRoute): the route has to end
+        COIN_strikeRoadSearch, no path). A pair is only taken when a car finds a route (COIN_fnc_calcRoute): the route has to end
         within COIN_strikePathEndTolerance of the destination and be no longer than COIN_courierMaxDetour times the straight line. At most
         COIN_courierPathTries pairs are tried, each for COIN_strikePathTimeout s. The nest the documents will name is the one a
         civilian of the start town would know of (COIN_fnc_pickIntelNest). Must be called where it may wait (scheduled). Server only.
@@ -31,7 +31,7 @@ COIN_courierDistance params ["_distMin", "_distMax"];
 // The road nearest to the centre of a town: the piece, objNull if there is none
 private _roadAt = {
     params ["_town"];
-    [markerPos _town, COIN_courierRoadSearch] call COIN_fnc_findRoadNear
+    [markerPos _town, COIN_strikeRoadSearch] call COIN_fnc_findRoadNear
 };
 
 // A road has no front: the end of the direction that points towards a position

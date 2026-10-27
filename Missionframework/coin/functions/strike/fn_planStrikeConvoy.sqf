@@ -47,8 +47,8 @@ private _placeAt = {
     private _i = (_cum findIf {_x >= _distance}) max 1;
     private _from = _path select (_i - 1);
     private _to = _path select _i;
-    private _span = ((_cum select _i) - (_cum select (_i - 1))) max 0.1;
-    private _share = (((_distance - (_cum select (_i - 1))) / _span) min 1) max 0;
+    private _span = (_cum select _i) - (_cum select (_i - 1));
+    private _share = if (_span > 0) then {(((_distance - (_cum select (_i - 1))) / _span) min 1) max 0} else {0};
     private _pos = [(_from select 0) + ((_to select 0) - (_from select 0)) * _share, (_from select 1) + ((_to select 1) - (_from select 1)) * _share, 0];
     // The height of the road piece there (a bridge is higher than the ground); the place itself stays on the line between the route points
     private _road = roadAt _pos;
@@ -68,7 +68,7 @@ private _nameOf = {
 private _pointNear = {
     params ["_path", "_cum", "_total", "_fraction", "_avoid"];
     private _best = [-1, 0];
-    private _bestScore = -1e9;
+    private _bestScore = 0;
     {
         private _along = _cum select _forEachIndex;
         // Near the fraction, and not within COIN_convoyPointMinCache of the cache (a point that close gives the cache away)
@@ -82,9 +82,10 @@ private _pointNear = {
                     if (count (roadsConnectedTo _road) >= 3) then {_kind = 1};
                 };
             };
-            // A bridge before a junction before a road piece; within a kind the nearest to the fraction
-            private _score = (_kind * 1000000) - abs (_along - (_fraction * _total));
-            if (_score > _bestScore) then {
+            // A bridge before a junction before a road piece (the kind outweighs any distance: the search reaches COIN_convoyPointSearch of the
+            // route round the fraction, less than the whole route); within a kind the nearest to the fraction
+            private _score = (_kind * _total) - abs (_along - (_fraction * _total));
+            if ((_best select 0) < 0 || {_score > _bestScore}) then {
                 _bestScore = _score;
                 _best = [_forEachIndex, _kind];
             };
@@ -173,7 +174,7 @@ while {_plan isEqualTo [] && {_caches isNotEqualTo []} && {_tries < COIN_convoyP
 
         while {_plan isEqualTo [] && {_towns isNotEqualTo []} && {_tries < COIN_convoyPathTries}} do {
             private _town = _towns deleteAt (floor random count _towns);
-            private _startRoad = [markerPos _town, COIN_courierRoadSearch] call COIN_fnc_findRoadNear;
+            private _startRoad = [markerPos _town, COIN_strikeRoadSearch] call COIN_fnc_findRoadNear;
             if (!isNull _startRoad) then {
                 _tries = _tries + 1;
                 private _startPos = getPosATL _startRoad;

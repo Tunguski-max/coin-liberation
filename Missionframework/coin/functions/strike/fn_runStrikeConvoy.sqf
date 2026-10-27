@@ -4,27 +4,29 @@
 
     Description:
         The event of the strike task "Intercept arms transport" (ticket 5.16, DESIGN 8.2), called by COIN_fnc_runStrikeTask at the
-        beginning (it may sleep). The convoy of COIN_convoyOrder (technicals, trucks of Liberation's preset, a car whose passengers all
-        wear vest and helmet) stands on the road at the start of the plan, one group, and drives along the waypoints of the plan to the
-        end of the route next to the cache. The fighters are militia in uniform, made like those of a camp (Liberation's kill manager,
-        marked as COIN units, handed to Zeus). Technicals and trucks are made by Liberation's own vehicle function with its crew, the
-        car is a COIN vehicle (no reputation when it is destroyed). The open truck is loaded with ammo crates as in Liberation's hijack
-        mission (COIN_convoyLoadCrates). Only damage of the players counts (COIN_fnc_guardConvoyVehicle, as in Liberation, so civilian
-        cars do not decide the task). Car and men spawn whatever the distance of the players is. The convoy drives at the "LIMITED" speed of its group, in file like the convoy of Liberation's hijack mission (no speed limit per
-        vehicle: the ones behind would not catch up), led by the driver of the first vehicle. Like there it flees (behaviour
-        COIN_convoyFleeBehaviour, speed COIN_convoyFleeSpeed) as soon as a vehicle is lost, damaged beyond COIN_convoyAttackDamage or
-        without its driver (COIN_convoyFleeWhenAttacked); otherwise shot at, the group fights as every group. A truck that is alive and
-        stands (below COIN_convoySearchSpeed km/h) can be searched for the delivery documents (the action of COIN_fnc_addCourierAction,
-        COIN_fnc_searchDocuments): the first search makes the tip to the cache (the information does not come by itself when the convoy
-        is destroyed; a truck that is destroyed first takes the documents with it). Every COIN_strikeCheckSeconds:
+        beginning (it may sleep). The convoy of COIN_convoyOrder (technicals, the open ammo truck of Liberation's preset, a car whose
+        passengers all wear vest and helmet) stands on the road at the start of the plan, one group, and drives along the waypoints of
+        the plan to the end of the route next to the cache. The fighters are militia in uniform, made like those of a camp (Liberation's
+        kill manager, marked as COIN units, handed to Zeus). Technicals and truck are made by Liberation's own vehicle function with
+        its crew, the car is a COIN vehicle (no reputation when it is destroyed). The truck is loaded with ammo crates as in Liberation's
+        hijack mission (COIN_fnc_loadAmmoCrates, COIN_convoyLoadCrates). Only damage of the players counts (COIN_fnc_guardConvoyVehicle,
+        as in Liberation, so civilian cars do not decide the task). Car and men spawn whatever the distance of the players is.
+        The convoy drives at the speed mode COIN_convoySpeedMode of its group, in file like the convoy of Liberation's hijack mission
+        (no speed limit per vehicle: the ones behind would not catch up), led by the driver of the first vehicle. Like there it flees
+        (behaviour COIN_convoyFleeBehaviour, speed COIN_convoyFleeSpeed) as soon as a vehicle is lost, damaged beyond
+        COIN_convoyAttackDamage or without its driver (COIN_convoyFleeWhenAttacked); otherwise shot at, the group fights as every group.
+        The truck, alive and standing (below COIN_convoySearchSpeed km/h), can be searched for the delivery documents (the action of
+        COIN_fnc_addSearchAction, COIN_fnc_searchDocuments): the first search makes the tip to the cache (COIN_fnc_giveDocumentsTip).
+        The information does not come by itself when the convoy is destroyed, and a truck that is destroyed first takes the documents
+        with it. Every COIN_strikeCheckSeconds:
         - succeeded: every vehicle is destroyed or burned out (a vehicle that only stands counts as alive, a convoy is destroyed),
           the readiness falls,
-        - failed: a vehicle that is alive has come within COIN_convoyArriveDistance of the end of the route or of the cache, it is stuck
-          (COIN_convoyStuckLimit), or the end time is reached.
-        A convoy that stands although its driver lives and the group is not in combat is sent on again by new waypoints from where it
-        is. The RPT tells when the convoy passes the two points of the task (with the time window), with COIN_debug also its
-        progress and a marker that follows the first vehicle. What is left goes when nobody sees it (COIN_fnc_removeWhenUnseen), at once if
-        the strike tasks are switched off. Server only.
+        - failed: a vehicle that is alive has come within COIN_convoyArriveDistance of the end of the route or of the cache, the end
+          time is reached, or the convoy is stuck (COIN_convoyStuckLimit; not once it was attacked: then the players decide).
+        A convoy that stands although its driver lives and it was not attacked is sent on again by new waypoints from where it is.
+        The RPT tells when the convoy passes the two points of the task (with the time window), with COIN_debug also its progress and a
+        marker that follows the first vehicle. What is left goes when nobody sees it (COIN_fnc_removeWhenUnseen), at once if the strike
+        tasks are switched off. Server only.
 
     Parameter(s):
         _plan    - Plan from COIN_fnc_planStrikeConvoy [ARRAY]
@@ -50,14 +52,10 @@ _plan params ["_pos1", "_name1", "_pos2", "_name2", "_cacheId", "_spawn", "_wayp
 // Where the cache is: reached also when the vehicle stands there (the road ends up to COIN_convoyCacheRoadSearch m from it)
 private _nestPos = ((COIN_nests select {(_x select 0) isEqualTo _cacheId}) param [0, []]) param [3, _endPos];
 
-private _technicals = [COIN_convoyTechnicals, militia_vehicles] select (COIN_convoyTechnicals isEqualTo []);
-private _trucks = [COIN_convoyTrucks, [opfor_ammobox_transport, opfor_transport_truck]] select (COIN_convoyTrucks isEqualTo []);
-
 private _group = createGroup [GRLIB_side_enemy, true];
 private _vehicles = [];
 private _crew = [];
-private _searchable = [];
-private _openTrucks = [];
+private _trucks = [];
 
 {
     private _what = _x;
@@ -67,7 +65,7 @@ private _openTrucks = [];
     if (_what isEqualTo "car") then {
         // The car carries the armored infantry: the driver and as many passengers as COIN_convoyCarPassengers, as the seats allow
         private _seats = {getNumber (configFile >> "CfgVehicles" >> _this >> "transportSoldier")};
-        private _classes = COIN_courierVehicles select {isClass (configFile >> "CfgVehicles" >> _x) && {(_x call _seats) >= 1}};
+        private _classes = COIN_strikeCarClasses select {isClass (configFile >> "CfgVehicles" >> _x) && {(_x call _seats) >= 1}};
         private _roomy = _classes select {(_x call _seats) >= COIN_convoyCarPassengers};
         private _sorted = [_classes, [], {_x call _seats}, "DESCEND"] call BIS_fnc_sortBy;
         private _class = if (_roomy isNotEqualTo []) then {selectRandom _roomy} else {if (_sorted isEqualTo []) then {""} else {_sorted select 0}};
@@ -80,7 +78,8 @@ private _openTrucks = [];
             clearItemCargoGlobal _vehicle;
             clearBackpackCargoGlobal _vehicle;
             _vehicle setVariable ["COIN_isCoinVehicle", true];
-            private _men = (1 + (COIN_convoyCarPassengers min ((_class call _seats) - 1)));
+            // The seats in the cargo do not count the driver
+            private _men = 1 + (COIN_convoyCarPassengers min (_class call _seats));
             for "_i" from 1 to _men do {
                 private _man = [[true] call COIN_fnc_pickArmoredClass, _place, _group] call KPLIB_fnc_createManagedUnit;
                 _man setVariable ["COIN_origin", ["camp", _cacheId, -1]];
@@ -89,11 +88,7 @@ private _openTrucks = [];
             };
         };
     } else {
-        private _class = switch (_what) do {
-            case "technical": {selectRandom _technicals};
-            case "truckOpen": {_trucks select 0};
-            default {_trucks select (1 min ((count _trucks) - 1))};
-        };
+        private _class = [opfor_ammobox_transport, selectRandom militia_vehicles] select (_what isEqualTo "technical");
         // Liberation's own function: crew (militia crew for the technicals) and the kill manager. The crew is taken over by the convoy group
         _vehicle = [_place, _class, true, false] call KPLIB_fnc_spawnVehicle;
         if (!isNull _vehicle) then {
@@ -103,8 +98,7 @@ private _openTrucks = [];
             private _men = crew _vehicle;
             _men joinSilent _group;
             _crew append _men;
-            if (_what in ["truckOpen", "truckCovered"]) then {_searchable pushBack _vehicle};
-            if (_what isEqualTo "truckOpen") then {_openTrucks pushBack _vehicle};
+            if (_what isEqualTo "truck") then {_trucks pushBack _vehicle};
         };
     };
 
@@ -116,42 +110,21 @@ private _openTrucks = [];
     };
 } forEach COIN_convoyOrder;
 
-if (_vehicles isEqualTo []) exitWith {
-    diag_log "[COIN] strike: ERROR - no vehicle of the convoy could be created";
+// A convoy that lacks a vehicle would be destroyed with fewer wrecks than the task names: no convoy at all
+if ((count _vehicles) < (count COIN_convoyOrder)) exitWith {
+    diag_log format ["[COIN] strike: ERROR - only %1 of %2 vehicles of the convoy could be created, no convoy", count _vehicles, count COIN_convoyOrder];
+    {deleteVehicle _x} forEach (_vehicles + _crew);
     "no vehicles"
 };
 
-// The ammo crates of the open truck, as in Liberation's hijack mission: crates made beside the truck and loaded by Liberation's own function
-// (it loads onto a transport truck that stands near, as many as the truck takes: KPLIB_transportConfigs)
+// The truck is loaded with ammo crates, and it can be searched for the delivery documents (the action shows while it stands:
+// COIN_searchOpen is set in the loop)
 private _crates = [];
-if (COIN_convoyLoadCrates) then {
-    private _loadBox = compileFinal preprocessFileLineNumbers "scripts\client\ammoboxes\do_load_box.sqf";
-    {
-        private _truck = _x;
-        private _config = KPLIB_transportConfigs select {(_x select 0) isEqualTo (typeOf _truck)};
-        private _capacity = if (_config isEqualTo []) then {0} else {(count (_config select 0)) - 2};
-        if (_capacity <= 0) then {
-            diag_log format ["[COIN] strike: convoy %1: the truck %2 takes no crates (KPLIB_transportConfigs)", _taskId, typeOf _truck];
-        } else {
-            for "_i" from 1 to _capacity do {
-                private _crate = [KP_liberation_ammo_crate, COIN_convoyCrateValue, (getPosATL _truck) getPos [COIN_convoyCrateDistance, 135]] call KPLIB_fnc_createCrate;
-                sleep 0.5;
-                [_crate, COIN_convoyCrateLoadRange] call _loadBox;
-                sleep 0.5;
-                // One that was not loaded (the truck is full) is not left standing on the road
-                if (isNull (attachedTo _crate)) then {deleteVehicle _crate} else {_crates pushBack _crate};
-            };
-            diag_log format ["[COIN] strike: convoy %1: %2 ammo crates loaded on %3", _taskId, count _crates, typeOf _truck];
-        };
-    } forEach _openTrucks;
-};
-
-// The trucks can be searched for the delivery documents (the action shows while the truck stands, COIN_searchOpen is set below)
 {
-    _x setVariable ["COIN_searchable", true, true];
-    _x setVariable ["COIN_searchOpen", false, true];
-    [_x, COIN_convoySearchLabel, COIN_convoySearchBarText] remoteExec ["COIN_fnc_addCourierAction", 0, _x];
-} forEach _searchable;
+    if (COIN_convoyLoadCrates) then {_crates append ([_x] call COIN_fnc_loadAmmoCrates)};
+    [_x, COIN_convoySearchLabel, COIN_convoySearchBarText] call COIN_fnc_makeSearchable;
+} forEach _trucks;
+if (COIN_convoyLoadCrates) then {diag_log format ["[COIN] strike: convoy %1: %2 ammo crates loaded", _taskId, count _crates]};
 
 [_crew] call COIN_fnc_markCoinUnits;
 [_vehicles + _crew + _crates] call COIN_fnc_addToCurators;
@@ -163,7 +136,7 @@ private _frontDriver = driver (_vehicles select 0);
 if (!isNull _frontDriver) then {_group selectLeader _frontDriver};
 
 private _behaviour = COIN_convoyBehaviour;
-private _speedMode = "LIMITED";
+private _speedMode = COIN_convoySpeedMode;
 _group setBehaviour _behaviour;
 _group setCombatMode COIN_convoyCombatMode;
 _group setFormation COIN_convoyFormation;
@@ -209,6 +182,18 @@ private _nextProgress = 0;
 private _attacked = false;
 private _documents = false;
 
+// The delivery documents: the first search of a truck makes the tip to the cache (the one the convoy was driving to)
+private _checkDocuments = {
+    if (!_documents && {(_trucks findIf {_x getVariable ["COIN_searched", false]}) >= 0}) then {
+        _documents = true;
+        private _truck = _trucks select (_trucks findIf {_x getVariable ["COIN_searched", false]});
+        [
+            _cacheId, _pos1, _truck getVariable ["COIN_searchedBy", objNull],
+            COIN_convoyFoundSpeaker, COIN_convoyFoundText, format ["convoy %1", _taskId]
+        ] call COIN_fnc_giveDocumentsTip;
+    };
+};
+
 while {_result isEqualTo ""} do {
     sleep COIN_strikeCheckSeconds;
 
@@ -216,6 +201,9 @@ while {_result isEqualTo ""} do {
     // The first vehicle of the convoy that lives and has a driver: it leads and tells whether the convoy stands
     private _leadIndex = _alive findIf {alive (driver _x)};
     private _lead = if (_leadIndex >= 0) then {_alive select _leadIndex} else {objNull};
+
+    // A search that ended in the last moment still counts, so this comes before the end is looked at
+    call _checkDocuments;
 
     _result = switch (true) do {
         case (GRLIB_endgame != 0 || {!COIN_enableStrikeTasks}): {"strike tasks switched off"};
@@ -228,41 +216,30 @@ while {_result isEqualTo ""} do {
 
     if (COIN_debug && {!isNull _lead}) then {_marker setMarkerPos (getPosATL _lead)};
 
-    // The delivery documents: a truck that is alive and stands can be searched (once, by anyone). The first search makes the tip to the
-    // cache the convoy was driving to; if it is gone meanwhile, any nest a civilian of the start would know of
+    // A truck that is alive and stands can be searched (the action shows), once
     {
         private _open = alive _x && {(speed _x) < COIN_convoySearchSpeed} && {!(_x getVariable ["COIN_searched", false])};
         if (_open isNotEqualTo (_x getVariable ["COIN_searchOpen", false])) then {_x setVariable ["COIN_searchOpen", _open, true]};
-        if (!_documents && {_x getVariable ["COIN_searched", false]}) then {
-            _documents = true;
-            private _nest = (COIN_nests select {(_x select 0) isEqualTo _cacheId && {(_x select 5) isEqualTo "active"}}) param [0, []];
-            if (_nest isEqualTo []) then {_nest = [_pos1] call COIN_fnc_pickIntelNest};
-            private _intel = if (_nest isEqualTo []) then {[]} else {[_nest, "tip"] call COIN_fnc_createIntel};
-            diag_log format [
-                "[COIN] strike: convoy %1: the delivery documents are found, %2",
-                _taskId,
-                if (_intel isEqualTo []) then {"no intel could be made"} else {format ["cache %1, intel %2 (%3 m circle at %4)", _nest select 0, _intel select 0, _intel select 3, _intel select 2]}
-            ];
-            if (_intel isNotEqualTo []) then {["intel"] remoteExecCall ["COIN_fnc_showNotification", 0]};
-            private _searcher = _x getVariable ["COIN_searchedBy", objNull];
-            if (!isNull _searcher) then {[COIN_convoyFoundSpeaker, COIN_convoyFoundText] remoteExecCall ["COIN_fnc_showCourierFound", owner _searcher]};
-        };
-    } forEach _searchable;
+    } forEach _trucks;
 
-    // As Liberation's hijack mission: the first vehicle that is lost, damaged or has lost its driver, and the convoy flees (combat, full speed)
-    if (COIN_convoyFleeWhenAttacked && {!_attacked}) then {
+    // As Liberation's hijack mission: the first vehicle that is lost, damaged or has lost its driver. Then the convoy flees (combat, full
+    // speed), and it is no longer sent on when it stands: what happens to it is up to the players
+    if (!_attacked) then {
         private _hit = _vehicles findIf {!alive _x || {(damage _x) > COIN_convoyAttackDamage} || {!alive (driver _x)}};
         if (_hit >= 0) then {
             _attacked = true;
-            _behaviour = COIN_convoyFleeBehaviour;
-            _speedMode = COIN_convoyFleeSpeed;
-            _group setBehaviour _behaviour;
-            _group setSpeedMode _speedMode;
-            {
-                _x setWaypointBehaviour _behaviour;
-                _x setWaypointSpeed _speedMode;
-            } forEach (waypoints _group);
-            diag_log format ["[COIN] strike: convoy %1 is attacked (vehicle %2), it flees: %3, %4", _taskId, _hit, _behaviour, _speedMode];
+            diag_log format ["[COIN] strike: convoy %1 is attacked (vehicle %2)", _taskId, _hit];
+            if (COIN_convoyFleeWhenAttacked) then {
+                _behaviour = COIN_convoyFleeBehaviour;
+                _speedMode = COIN_convoyFleeSpeed;
+                _group setBehaviour _behaviour;
+                _group setSpeedMode _speedMode;
+                {
+                    _x setWaypointBehaviour _behaviour;
+                    _x setWaypointSpeed _speedMode;
+                } forEach (waypoints _group);
+                diag_log format ["[COIN] strike: convoy %1 flees: %2, %3", _taskId, _behaviour, _speedMode];
+            };
         };
     };
 
@@ -281,9 +258,9 @@ while {_result isEqualTo ""} do {
     } forEach _passed;
 
     if (!isNull _lead) then {
-        if (time >= _nextProgress) then {
+        // With COIN_debug: how far the convoy has fallen apart (the distance of every vehicle to the first one, its speed)
+        if (COIN_debug && {time >= _nextProgress}) then {
             _nextProgress = time + COIN_convoyProgressSeconds;
-            // The distance of every vehicle to the first one and its speed: how far the convoy has fallen apart
             diag_log format [
                 "[COIN] strike: convoy %1: %2 of %3 vehicles, first at %4, %5 km/h, %6 m from the end, waypoint %7 of %8, %9",
                 _taskId, count _alive, count _vehicles, getPosATL _lead, round (speed _lead), round (_lead distance2D _endPos),
@@ -295,8 +272,9 @@ while {_result isEqualTo ""} do {
             ];
         };
 
-        // A convoy that stands although its driver lives and nobody fights is stuck (a ditch, a jam, a road that does not lead on): sent on from where it is
-        if ((speed _lead) >= COIN_convoyStuckSpeed || {!_attacked && {(behaviour (leader _group)) isEqualTo "COMBAT"}}) then {
+        // A convoy that stands although its driver lives and nobody fights is stuck (a ditch, a jam, a road that does not lead on): sent on
+        // from where it is. Once it was attacked it may stand as long as it likes, the players are at work
+        if ((speed _lead) >= COIN_convoyStuckSpeed || {_attacked} || {(behaviour (leader _group)) isEqualTo "COMBAT"}) then {
             _stillSince = -1;
         } else {
             if (_stillSince < 0) then {_stillSince = time};
@@ -307,14 +285,8 @@ while {_result isEqualTo ""} do {
                     _result = format ["stuck, %1 m from the end", round (_lead distance2D _endPos)];
                 } else {
                     // The waypoint nearest to the first vehicle and the ones after it
-                    private _nearest = 0;
-                    private _nearestDistance = 1e9;
-                    {
-                        if ((_lead distance2D _x) < _nearestDistance) then {
-                            _nearestDistance = _lead distance2D _x;
-                            _nearest = _forEachIndex;
-                        };
-                    } forEach _waypoints;
+                    private _byDistance = [_waypoints, [], {_lead distance2D _x}, "ASCEND"] call BIS_fnc_sortBy;
+                    private _nearest = _waypoints find (_byDistance select 0);
                     diag_log format ["[COIN] strike: convoy %1 is stuck at %2, sent on from waypoint %3 (%4 of %5)", _taskId, getPosATL _lead, _nearest, _stuckCount, COIN_convoyStuckLimit];
                     [_nearest] call _giveWay;
                 };
@@ -322,6 +294,9 @@ while {_result isEqualTo ""} do {
         };
     };
 };
+
+// A search that ended in the last moment before the end of the task still counts (not if the task is switched off)
+if (_result isNotEqualTo "strike tasks switched off") then {call _checkDocuments};
 
 if (_result isEqualTo "strike tasks switched off") then {
     {deleteVehicle _x} forEach (_vehicles + _crew + _crates);
