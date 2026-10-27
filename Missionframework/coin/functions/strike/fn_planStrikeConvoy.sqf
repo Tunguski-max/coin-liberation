@@ -14,7 +14,8 @@
         COIN_convoyPointMinGap m apart. For each point the time window in which the convoy passes it, as seconds after the beginning
         (the average speed is COIN_convoyAverageKmh, the window is COIN_convoyWindowShare of the time on both sides, at least
         COIN_convoyWindowMin s). Also the places and directions of the vehicles at the start (COIN_convoyOrder, COIN_convoySpacing m
-        apart along the route, the first in the order is in front) and the waypoints along the route (COIN_convoyWaypointSpacing m apart).
+        apart along the route, the first in the order is in front) and the waypoints along the route (COIN_convoyWaypointSpacing m apart,
+        the two points of the task are always among them).
         Must be called where it may wait (scheduled). Server only.
 
     Parameter(s):
@@ -138,7 +139,8 @@ private _makePlan = {
     private _waypoints = [];
     private _next = _lead + COIN_convoyWaypointSpacing;
     {
-        if ((_cum select _forEachIndex) >= _next) then {
+        // The two points of the task are always waypoints, so the convoy certainly passes them
+        if ((_cum select _forEachIndex) >= _next || {_forEachIndex isEqualTo (_p1 select 0)} || {_forEachIndex isEqualTo (_p2 select 0)}) then {
             _waypoints pushBack [_x select 0, _x select 1, 0];
             _next = (_cum select _forEachIndex) + COIN_convoyWaypointSpacing;
         };
