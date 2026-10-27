@@ -578,7 +578,7 @@ vom Dolmetscher. Aufträge werden nicht gespeichert und verfallen beim Serverneu
 |---|---|---|
 | Woher | Dialog des Ältesten einer befreiten Ortschaft (Abschnitt 8). | Entsteht mit 15 % Chance bei einer Befragung (Ergebnis außer „Ich weiß nichts“) anstelle von deren Intel, oder zusätzlich zu den Ergebnissen eines Verhörs. |
 | Bedingung | Jedes Ruf-Band. Pro Ortschaft 1 Auftrag, danach 60 min Wartezeit ab dessen Ende; höchstens 2 gleichzeitig. | Ruf ≥ +25 (auch beim Verhör); höchstens 1 gleichzeitig. |
-| Zeit | 60 min | Beginn 15–25 min nach dem Annehmen, Fenster insgesamt 30–60 min |
+| Zeit | 60 min | Beginn 15–25 min nach dem Annehmen, Fenster insgesamt 45–75 min (der Kurier braucht 18–38 min für Hin, Warten und Zurück) |
 | Belohnung | Ruf | Intel (Konkreter Tipp) und/oder Readiness −10 (Punkte) |
 
 **Hilfsaufträge**
