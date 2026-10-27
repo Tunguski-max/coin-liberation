@@ -60,16 +60,21 @@ private _faceTowards = {
 private _routeLength = {
     params ["_from", "_to"];
     // The route may come in several parts (the event can fire more than once): all of them are kept, the longest is taken
+    private _started = diag_tickTime;
     private _agent = calculatePath ["car", "safe", _from, _to];
-    _agent setVariable ["COIN_paths", []];
+    private _agentMissing = isNull _agent;
+    // The agent deletes itself soon after the route is made: the parts are kept in an array of ours, not read from the agent afterwards
+    private _parts = [];
+    _agent setVariable ["COIN_paths", _parts];
     _agent addEventHandler ["PathCalculated", {
         params ["_agent", "_path"];
         (_agent getVariable "COIN_paths") pushBack _path;
     }];
     private _timeout = diag_tickTime + COIN_courierPathTimeout;
-    waitUntil {sleep 0.05; (count (_agent getVariable ["COIN_paths", []])) > 0 || {diag_tickTime > _timeout}};
+    waitUntil {sleep 0.05; (count _parts) > 0 || {diag_tickTime > _timeout}};
+    private _waited = diag_tickTime - _started;
     sleep COIN_courierPathWait;
-    private _paths = _agent getVariable ["COIN_paths", []];
+    private _paths = _parts;
     if (!isNull _agent) then {deleteVehicle _agent};
 
     private _pathLength = {
@@ -91,8 +96,9 @@ private _routeLength = {
     };
     private _gap = if (_best isEqualTo []) then {-1} else {round ((_best select (count _best - 1)) distance2D _to)};
     diag_log format [
-        "[COIN] strike: courier route: %1 event(s), longest %2 points, %3 m, ends %4 m from the destination (%5 m by air)",
-        count _paths, count _best, round ([_best] call _pathLength), _gap, round (_from distance2D _to)
+        "[COIN] strike: courier route: %1 event(s), longest %2 points, %3 m, ends %4 m from the destination (%5 m by air), first part after %6 s, agent missing: %7",
+        count _paths, count _best, round ([_best] call _pathLength), _gap, round (_from distance2D _to),
+        _waited toFixed 1, _agentMissing
     ];
     _length
 };
