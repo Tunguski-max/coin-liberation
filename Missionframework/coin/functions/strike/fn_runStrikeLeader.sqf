@@ -66,21 +66,8 @@ private _guards = [];
 private _spots = [];
 COIN_leaderGuardRing params ["_ringMin", "_ringMax"];
 {
-    // A free spot of the ring that is not close to another guard; none found: a plain place of the ring
-    private _spot = [];
-    for "_try" from 1 to COIN_leaderSpotTries do {
-        private _candidate = [_leaderPos, _ringMin, _ringMax, COIN_leaderGuardClearance, 0, COIN_leaderSpotGradient, 0, [], [_leaderPos, _leaderPos]] call BIS_fnc_findSafePos;
-        if (
-            _candidate isEqualType []
-            && {count _candidate >= 2}
-            && {(_candidate select 0) isEqualType 0}
-            && {(_candidate distance2D _leaderPos) >= _ringMin}
-            && {(_spots findIf {(_x distance2D _candidate) < COIN_leaderGuardSpacing}) < 0}
-        ) exitWith {_spot = _candidate};
-    };
-    if (_spot isEqualTo []) then {
-        _spot = _leaderPos getPos [_ringMin + random (_ringMax - _ringMin), random 360];
-    };
+    // A free spot of the ring that is not close to another guard
+    private _spot = [_leaderPos, _ringMin, _ringMax, _spots] call COIN_fnc_findGuardSpot;
     _spots pushBack _spot;
 
     private _class = [_x] call COIN_fnc_pickArmoredClass;
@@ -104,7 +91,7 @@ if (_patrolCount > 0) then {
         // Each point in its own sector of the circle, so the loop goes round the leader
         private _angle = _i * 360 / COIN_leaderPatrolPoints;
         private _point = _leaderPos getPos [(COIN_leaderPatrolRadius * 0.5) + random (COIN_leaderPatrolRadius * 0.5), _angle + random (360 / COIN_leaderPatrolPoints)];
-        private _safe = [_point, 0, 8, COIN_leaderGuardClearance, 0, COIN_leaderSpotGradient, 0, [], [_point, _point]] call BIS_fnc_findSafePos;
+        private _safe = [_point, 0, 8, COIN_strikeGuardClearance, 0, COIN_strikeGuardGradient, 0, [], [_point, _point]] call BIS_fnc_findSafePos;
         if (_safe isEqualType [] && {count _safe >= 2} && {(_safe select 0) isEqualType 0}) then {_point = _safe};
         _points pushBack [_point select 0, _point select 1, 0];
     };

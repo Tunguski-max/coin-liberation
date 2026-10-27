@@ -424,6 +424,12 @@ class COIN {
         // Server: the airfields from which the export can be taken (ticket 5.18)
         class findExportAirfields {};
 
+        // Server: a free place for a guard of a strike task (tickets 5.15, 5.18)
+        class findGuardSpot {};
+
+        // Server: the towns the militia holds (tickets 5.14, 5.16, 5.18)
+        class getMilitiaTowns {};
+
         // Server: requirement of the strike task "Export" (ticket 5.18)
         class canStrikeExport {};
 

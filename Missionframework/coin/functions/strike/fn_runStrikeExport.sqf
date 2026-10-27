@@ -6,7 +6,8 @@
         The event of the strike task "Export" (ticket 5.18, DESIGN 8.2), called by COIN_fnc_runStrikeTask at the beginning (it may
         sleep). A civilian plane (the first class of COIN_exportPlaneClasses that exists) stands on the runway of the airfield, without
         a crew and locked (COIN_exportLockPlane), a COIN vehicle (no reputation when it is destroyed), handed to Zeus.
-        COIN_exportGuards militia fighters in uniform stand round it, looking outwards, and take up the fight (they may move) as soon as
+        COIN_exportGuards militia fighters in uniform (armored by the squad mix of the readiness, COIN_fnc_mixClass, ADR 0014) stand
+        round it, each at a free spot (COIN_fnc_findGuardSpot), looking outwards, and take up the fight (they may move) as soon as
         their group is in combat or one of them is hurt. They are made with Liberation's kill manager, marked as COIN units, handed to
         Zeus, and come from the nest of the plan, so a prisoner names that nest. Units spawn whatever the distance of the players is.
         There is no real take-off: the plane never moves. Every COIN_strikeCheckSeconds:
@@ -48,7 +49,6 @@ if (isNull _plane) exitWith {
     diag_log format ["[COIN] strike: ERROR - the plane %1 could not be created", _class];
     "no plane"
 };
-_plane setVehiclePosition [_planePos, [], 0, "CAN_COLLIDE"];
 _plane setDir _planeDir;
 clearWeaponCargoGlobal _plane;
 clearMagazineCargoGlobal _plane;
@@ -64,11 +64,12 @@ COIN_exportGuardRing params ["_ringMin", "_ringMax"];
 private _count = _guardsMin + floor random ((_guardsMax - _guardsMin) + 1);
 private _group = createGroup [GRLIB_side_enemy, true];
 private _guards = [];
+private _spots = [];
 for "_i" from 0 to (_count - 1) do {
-    // Each guard in his own sector of the circle, so they stand all round the plane
-    private _angle = (_i * 360 / _count) + random (360 / _count);
-    private _spot = _planePos getPos [_ringMin + random (_ringMax - _ringMin), _angle];
-    private _guard = [selectRandom militia_squad, [_spot select 0, _spot select 1, 0], _group] call KPLIB_fnc_createManagedUnit;
+    // A free spot of the ring that is not close to another guard
+    private _spot = [_planePos, _ringMin, _ringMax, _spots] call COIN_fnc_findGuardSpot;
+    _spots pushBack _spot;
+    private _guard = [[selectRandom militia_squad] call COIN_fnc_mixClass, [_spot select 0, _spot select 1, 0], _group] call KPLIB_fnc_createManagedUnit;
     if (_nestId >= 0) then {_guard setVariable ["COIN_origin", ["camp", _nestId, -1]]};
     _guard setDir (_planePos getDir _spot);
     _guard disableAI "PATH";

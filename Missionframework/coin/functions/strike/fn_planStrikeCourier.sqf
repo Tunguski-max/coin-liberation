@@ -49,7 +49,7 @@ private _routeLength = {
 };
 
 // Pairs of towns the right distance apart (start, destination); those with a start the militia holds first
-private _held = sectors_capture select {!(_x in (missionNamespace getVariable ["blufor_sectors", []]))};
+private _held = [] call COIN_fnc_getMilitiaTowns;
 private _pairs = [];
 {
     private _a = _x;

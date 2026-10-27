@@ -114,6 +114,8 @@ coin/
     │   ├── fn_pathLength.sqf           COIN_fnc_pathLength: Länge eines Wegs in m
     │   ├── fn_pickArmoredClass.sqf     COIN_fnc_pickArmoredClass: Milizklasse mit Weste und Helm für Anführer-Wachen und Konvoi
     │   ├── fn_findExportAirfields.sqf  COIN_fnc_findExportAirfields: Flugplätze mit einer Ortschaft der Miliz in 3 km (Ticket 5.18)
+    │   ├── fn_findGuardSpot.sqf        COIN_fnc_findGuardSpot: freier Platz für eine Wache (Anführer, Export)
+    │   ├── fn_getMilitiaTowns.sqf      COIN_fnc_getMilitiaTowns: Ortschaften, die die Miliz hält
     │   ├── fn_canStrikeExport.sqf      COIN_fnc_canStrikeExport: Voraussetzung „Export“
     │   ├── fn_planStrikeExport.sqf     COIN_fnc_planStrikeExport: Flugplatz, Piste, Flugzeug
     │   ├── fn_runStrikeExport.sqf      COIN_fnc_runStrikeExport: Flugzeug und Wachen auf der Piste, zerstört, Readiness

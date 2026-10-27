@@ -164,7 +164,7 @@ while {_plan isEqualTo [] && {_caches isNotEqualTo []} && {_tries < COIN_convoyP
         private _endPos = getPosATL _endRoad;
 
         // Towns the right distance from the road end next to the cache; those the militia holds first
-        private _held = sectors_capture select {!(_x in (missionNamespace getVariable ["blufor_sectors", []]))};
+        private _held = [] call COIN_fnc_getMilitiaTowns;
         private _towns = sectors_capture select {
             private _d = (markerPos _x) distance2D _endPos;
             _d >= _distMin && {_d <= _distMax}

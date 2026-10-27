@@ -4,8 +4,9 @@
 
     Description:
         Plan of the strike task "Export" (ticket 5.18, DESIGN 8.2), made when it is offered (a kind without a plan is not offered).
-        One of the airfields that can be taken (COIN_fnc_findExportAirfields, writes the reasons for the others to the RPT), at random:
-        the civilian plane stands on its runway at the position and in the direction of the list COIN_exportAirfields. The guards come
+        One of the airfields that can be taken (COIN_fnc_findExportAirfields; the requirement has written the reasons for the others to
+        the RPT), at random: the civilian plane stands on its runway at the position and in the direction of the list
+        COIN_exportAirfields. The guards come
         from a nest a civilian there would know of (COIN_fnc_pickIntelNest), so a prisoner names that nest. The units do not care for
         the players: they appear at the beginning, wherever the players are. Server only.
 
@@ -23,7 +24,7 @@ params [
 
 if (!isServer) exitWith {[]};
 
-private _airfields = [true] call COIN_fnc_findExportAirfields;
+private _airfields = [] call COIN_fnc_findExportAirfields;
 if (_airfields isEqualTo []) exitWith {[]};
 
 (selectRandom _airfields) params ["_name", "_pos", "_dir", "_town"];

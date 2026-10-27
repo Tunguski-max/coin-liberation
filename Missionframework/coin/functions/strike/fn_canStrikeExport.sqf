@@ -13,4 +13,5 @@
         The kind can be offered now [BOOL]
 */
 
-count ([] call COIN_fnc_findExportAirfields) > 0
+// Writes the reason for each airfield that is left out to the RPT (the offer is made when a questioning has a result, not all the time)
+count ([true] call COIN_fnc_findExportAirfields) > 0

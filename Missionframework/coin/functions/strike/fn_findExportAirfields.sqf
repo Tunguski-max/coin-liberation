@@ -4,7 +4,7 @@
 
     Description:
         The airfields from which the strike task "Export" can be taken (ticket 5.18, DESIGN 8.2): those of COIN_exportAirfields that
-        have a runway position, and a town (sectors_capture, the capital too) that the militia holds within COIN_exportTownRange m.
+        have a runway position, and a town (sectors_capture or the capital, COIN_fnc_getMilitiaTowns) that the militia holds within COIN_exportTownRange m.
         An airfield without a position in the list, or without such a town, is left out (with a line in the RPT if asked to log).
         Server only.
 
@@ -21,7 +21,7 @@ params [
 
 if (!isServer || {isNil "sectors_capture"}) exitWith {[]};
 
-private _held = sectors_capture select {!(_x in (missionNamespace getVariable ["blufor_sectors", []]))};
+private _held = [true] call COIN_fnc_getMilitiaTowns;
 private _found = [];
 {
     _x params ["_name", "_pos", "_dir"];
