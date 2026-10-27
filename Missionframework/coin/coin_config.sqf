@@ -1439,10 +1439,9 @@ COIN_convoyOrder            = ["technical", "car", "truckOpen", "truckCovered", 
 COIN_convoyTechnicals       = [];       // Classes of the technicals, one at random; empty = militia_vehicles of the preset (they come with their militia crew)
 COIN_convoyTrucks           = [];       // [open truck, covered truck]; empty = opfor_ammobox_transport and opfor_transport_truck of the preset
 COIN_convoyCarPassengers    = 3;        // Armored fighters in the car besides the driver (fewer if the car has not so many seats); the cars are those of the courier
-COIN_convoySpeed            = 50;       // km/h at most
 COIN_convoyBehaviour        = "SAFE";   // Behaviour of the group on the road; shot at, it fights as every group
 COIN_convoyCombatMode       = "YELLOW"; // Combat mode of the group on the road
-COIN_convoyFormation        = "COLUMN"; // Formation of the convoy
+COIN_convoyFormation        = "FILE";   // Formation of the convoy (as in Liberation convoy hijack)
 COIN_convoySpacing          = 30;       // m between the vehicles at the start
 COIN_convoyDistance         = [4000, 8000]; // [min, max] m in a straight line from the start town to the road end next to the cache
 COIN_convoyRouteLength      = [6000, 10000]; // [min, max] m the route a car finds is long
@@ -1462,8 +1461,8 @@ COIN_convoyPointNames       = [         // Name of a point by its kind (road, ju
 COIN_convoyAverageKmh       = 30;       // km/h the convoy averages on the road, for the time windows (it drives slower than its limit; measured with the courier)
 COIN_convoyWindowShare      = 0.3;      // Share of the time to a point that the window reaches to either side
 COIN_convoyWindowMin        = 180;      // s the window reaches at least to either side
-COIN_convoyWaypointSpacing  = 250;      // m between the waypoints along the route
-COIN_convoyWaypointRadius   = 40;       // m from a waypoint at which the convoy goes on to the next
+COIN_convoyWaypointSpacing  = 600;      // m between the waypoints along the route (few and far apart like Liberation convoy hijack, the cars find the road between them)
+COIN_convoyWaypointRadius   = 50;       // m from a waypoint at which the convoy goes on to the next
 COIN_convoyArriveDistance   = 150;      // m from the end of the route at which a vehicle has reached the cache
 COIN_convoyPointNear        = 200;      // m from a point at which a vehicle counts as passing it (for the RPT)
 COIN_convoyProgressSeconds  = 30;       // s between two lines in the RPT about the convoy (with COIN_debug)

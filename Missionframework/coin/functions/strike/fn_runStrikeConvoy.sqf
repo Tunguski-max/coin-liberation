@@ -9,7 +9,8 @@
         end of the route next to the cache. The fighters are militia in uniform, made like those of a camp (Liberation's kill manager,
         marked as COIN units, handed to Zeus). Technicals and trucks are made by Liberation's own vehicle function with its crew, the
         car is a COIN vehicle (no reputation when it is destroyed). Car and men spawn whatever the distance of the players is. The
-        convoy drives at most COIN_convoySpeed km/h; shot at, the group fights as every group. Every COIN_strikeCheckSeconds:
+        convoy drives at the "LIMITED" speed of its group, in file like the convoy of Liberation's hijack mission (no speed limit per
+        vehicle: the ones behind would not catch up); shot at, the group fights as every group. Every COIN_strikeCheckSeconds:
         - succeeded: every vehicle is destroyed or burned out (a vehicle that only stands counts as alive, a convoy is destroyed),
         - failed: a vehicle that is alive has come within COIN_convoyArriveDistance of the end of the route, it is stuck
           (COIN_convoyStuckLimit), or the end time is reached.
@@ -96,7 +97,6 @@ private _crew = [];
     if (isNull _vehicle) then {
         diag_log format ["[COIN] strike: ERROR - convoy vehicle %1 (%2) could not be created", _what, _forEachIndex];
     } else {
-        _vehicle limitSpeed COIN_convoySpeed;
         _vehicles pushBack _vehicle;
     };
 } forEach COIN_convoyOrder;
@@ -128,6 +128,8 @@ private _giveWay = {
     } forEach (_waypoints select [_from, count _waypoints]);
 };
 [0] call _giveWay;
+// As Liberation's hijack mission: everyone follows the leader of the group
+{_x doFollow (leader _group)} forEach units _group;
 
 diag_log format [
     "[COIN] strike: convoy %1 with %2 vehicles and %3 men starts in %4 for cache %5, %6 m by road, %7 waypoints, accepted by %8",
@@ -185,10 +187,15 @@ while {_result isEqualTo ""} do {
     if (!isNull _lead) then {
         if (time >= _nextProgress) then {
             _nextProgress = time + COIN_convoyProgressSeconds;
+            // The distance of every vehicle to the first one and its speed: how far the convoy has fallen apart
             diag_log format [
                 "[COIN] strike: convoy %1: %2 of %3 vehicles, first at %4, %5 km/h, %6 m from the end, waypoint %7 of %8, %9",
                 _taskId, count _alive, count _vehicles, getPosATL _lead, round (speed _lead), round (_lead distance2D _endPos),
                 currentWaypoint _group, count waypoints _group, behaviour (leader _group)
+            ];
+            diag_log format [
+                "[COIN] strike: convoy %1: vehicles (distance to the first, speed): %2",
+                _taskId, _alive apply {format ["%1 m %2 km/h", round (_x distance2D _lead), round (speed _x)]}
             ];
         };
 
