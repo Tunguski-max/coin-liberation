@@ -110,8 +110,8 @@ if (_vehicles isEqualTo []) exitWith {
 [_vehicles + _crew] call COIN_fnc_addToCurators;
 
 _group setBehaviour COIN_convoyBehaviour;
-_group setCombatMode "YELLOW";
-_group setFormation "COLUMN";
+_group setCombatMode COIN_convoyCombatMode;
+_group setFormation COIN_convoyFormation;
 _group setSpeedMode "LIMITED";
 
 // The way: waypoints along the route, so the convoy takes the road the plan named (a plain order would find its own way)
@@ -123,7 +123,7 @@ private _giveWay = {
         _waypoint setWaypointType "MOVE";
         _waypoint setWaypointSpeed "LIMITED";
         _waypoint setWaypointBehaviour COIN_convoyBehaviour;
-        _waypoint setWaypointFormation "COLUMN";
+        _waypoint setWaypointFormation COIN_convoyFormation;
         _waypoint setWaypointCompletionRadius COIN_convoyWaypointRadius;
     } forEach (_waypoints select [_from, count _waypoints]);
 };

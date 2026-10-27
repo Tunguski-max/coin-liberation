@@ -48,10 +48,11 @@ private _placeAt = {
     private _to = _path select _i;
     private _span = ((_cum select _i) - (_cum select (_i - 1))) max 0.1;
     private _share = (((_distance - (_cum select (_i - 1))) / _span) min 1) max 0;
-    [
-        [(_from select 0) + ((_to select 0) - (_from select 0)) * _share, (_from select 1) + ((_to select 1) - (_from select 1)) * _share, 0],
-        _from getDir _to
-    ]
+    private _pos = [(_from select 0) + ((_to select 0) - (_from select 0)) * _share, (_from select 1) + ((_to select 1) - (_from select 1)) * _share, 0];
+    // The height of the road piece there (a bridge is higher than the ground); the place itself stays on the line between the route points
+    private _road = roadAt _pos;
+    if (!isNull _road) then {_pos set [2, (getPosATL _road) select 2]};
+    [_pos, _from getDir _to]
 };
 
 // The name of a point: the kind of road and the nearest place, German and English
@@ -64,12 +65,13 @@ private _nameOf = {
 
 // The point on the route near a fraction of its length: [index, kind 0 road / 1 junction / 2 bridge]
 private _pointNear = {
-    params ["_path", "_cum", "_total", "_fraction"];
+    params ["_path", "_cum", "_total", "_fraction", "_avoid"];
     private _best = [-1, 0];
     private _bestScore = -1e9;
     {
         private _along = _cum select _forEachIndex;
-        if (abs (_along - (_fraction * _total)) <= COIN_convoyPointSearch * _total) then {
+        // Near the fraction, and not within COIN_convoyPointMinCache of the cache (a point that close gives the cache away)
+        if (abs (_along - (_fraction * _total)) <= COIN_convoyPointSearch * _total && {(_x distance2D _avoid) >= COIN_convoyPointMinCache}) then {
             private _road = roadAt _x;
             private _kind = 0;
             if (!isNull _road) then {
@@ -100,8 +102,8 @@ private _makePlan = {
     private _total = _cum select (count _cum - 1);
 
     COIN_convoyPointFractions params ["_f1", "_f2"];
-    private _p1 = [_path, _cum, _total, _f1] call _pointNear;
-    private _p2 = [_path, _cum, _total, _f2] call _pointNear;
+    private _p1 = [_path, _cum, _total, _f1, _nest select 3] call _pointNear;
+    private _p2 = [_path, _cum, _total, _f2, _nest select 3] call _pointNear;
     if ((_p1 select 0) < 0 || {(_p2 select 0) < 0}) exitWith {[]};
 
     private _pos1 = _path select (_p1 select 0);

@@ -6,14 +6,14 @@
         Server: runs one accepted strike task from start to end (tickets 5.13 and 5.14, DESIGN 8.2). Started by
         COIN_fnc_acceptStrikeTask, which has put the task into COIN_strikeActive. Must be spawned.
         At the start: a task for the whole side with the times of day of the beginning and the end (game clock,
-        COIN_fnc_clockText) and the name of the start and the destination, markers at both, or at the start only for a kind without a destination (COIN_strikeMarkerStart, COIN_strikeMarkerEnd)
+        COIN_fnc_clockText) and the name of the start and the destination (for the arms transport: of its two points), markers at both (COIN_strikeMarkerStart, COIN_strikeMarkerEnd, or the look of the kind), or at the start only for a kind without a destination
         and the message "New task" (COIN_fnc_clientTask). It waits for the beginning, then the run of the kind
-        (COIN_strikeKinds, fourth entry) takes over and returns "succeeded" or the reason it failed, at the latest when the end time
+        (COIN_strikeKinds, fourth entry; a fifth entry adds texts after the four of every task, a sixth gives the markers a look) takes over and returns "succeeded" or the reason it failed, at the latest when the end time
         is reached. A strike task that fails or runs out costs nothing. The markers go, the task stays in the task list for
         COIN_aidTaskEndShowSeconds. Nothing is saved.
 
     Parameter(s):
-        _row       - Entry of COIN_strikeKinds [ARRAY, defaults to []]
+        _row       - Entry of COIN_strikeKinds: [id, requirement, plan, run, extra function (optional), marker looks (optional)] [ARRAY, defaults to []]
         _plan      - Result of the plan of the kind [start position, start name, destination position, destination name, ...] [ARRAY, defaults to []]
         _taskId    - Id of the Arma task [STRING, defaults to ""]
         _startTime - Time (server time) of the beginning [NUMBER, defaults to 0]
