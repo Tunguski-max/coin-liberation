@@ -1416,8 +1416,8 @@ COIN_strikeTaskTexts = [
     ["export",
         ["Export verhindern", "Stop export"],
         [
-            "Die Miliz will ein Flugzeug außer Landes bringen. Ein Zivilflugzeug steht auf der Piste eines Flugplatzes in der Nähe einer Ortschaft, die die Miliz hält, bewacht von vier bis sechs Kämpfern. Es hebt nicht ab, aber ihr müsst es zerstören, bevor das Zeitfenster endet. Rechnet mit Gegenwehr.<br/><br/><t size='1.15' color='#00a0ff'>Beginn: %1 bis %2 Minuten nach dem Annehmen. Das Zeitfenster dauert insgesamt %3 bis %4 Minuten.</t><br/><t size='1.15' color='#ffa000'>Fehlschlag: Das Zeitfenster endet. Das Flugzeug verschwindet. Das kostet nichts.</t><br/><t size='1.15' color='#ffa000'>Belohnung: Die Miliz verliert an Schlagkraft.</t>",
-            "The militia wants to get a plane out of the country. A civilian plane stands on the runway of an airfield near a town the militia holds, guarded by four to six fighters. It does not take off, but you have to destroy it before the time window ends. Expect resistance.<br/><br/><t size='1.15' color='#00a0ff'>Start: %1 to %2 minutes after accepting. The time window lasts %3 to %4 minutes in all.</t><br/><t size='1.15' color='#ffa000'>Failure: The time window ends. The plane disappears. That costs nothing.</t><br/><t size='1.15' color='#ffa000'>Reward: The militia loses strength.</t>"
+            "Die Miliz will ein Flugzeug außer Landes bringen. Ein Zivilflugzeug steht auf der Piste eines Flugplatzes in der Nähe einer Ortschaft, die die Miliz hält, bewacht von acht bis zwölf Kämpfern, die zum Teil Streife gehen. Daneben stehen ein leerer Lastwagen und ein Technical: teure Ware. Es hebt nicht ab, aber ihr müsst es zerstören, bevor das Zeitfenster endet. Rechnet mit Gegenwehr.<br/><br/><t size='1.15' color='#00a0ff'>Beginn: %1 bis %2 Minuten nach dem Annehmen. Das Zeitfenster dauert insgesamt %3 bis %4 Minuten.</t><br/><t size='1.15' color='#ffa000'>Fehlschlag: Das Zeitfenster endet. Das Flugzeug verschwindet. Das kostet nichts.</t><br/><t size='1.15' color='#ffa000'>Belohnung: Die Miliz verliert an Schlagkraft.</t>",
+            "The militia wants to get a plane out of the country. A civilian plane stands on the runway of an airfield near a town the militia holds, guarded by eight to twelve fighters, some of them on patrol. Beside it stand an empty truck and a technical: expensive goods. It does not take off, but you have to destroy it before the time window ends. Expect resistance.<br/><br/><t size='1.15' color='#00a0ff'>Start: %1 to %2 minutes after accepting. The time window lasts %3 to %4 minutes in all.</t><br/><t size='1.15' color='#ffa000'>Failure: The time window ends. The plane disappears. That costs nothing.</t><br/><t size='1.15' color='#ffa000'>Reward: The militia loses strength.</t>"
         ],
         [
             "Verhindert den Export der Miliz: Zerstört das Flugzeug auf dem Flugplatz %1. Beginn um %3 Uhr, spätestens bis %4 Uhr. Das Flugzeug wird bewacht.",
@@ -1433,8 +1433,8 @@ COIN_leaderGuardArmorShare  = 0.5;      // At least this share of the guards are
 COIN_leaderGuardRing        = [6, 16];  // [min, max] m from the leader where a guard stands
 COIN_leaderPatrolShare      = 0.4;      // Share of the guards that walk a patrol round the leader instead of standing in the ring
 COIN_leaderPatrolRadius     = 75;       // m round the leader within which the patrol walks
-COIN_leaderPatrolPoints     = 5;        // Waypoints of the patrol 
-COIN_leaderPatrolArrive     = 6;        // m from a waypoint at which the patrol goes on to the next
+COIN_strikePatrolPoints     = 5;        // Waypoints of the loop of a patrol of guards (COIN_fnc_startGuardPatrol: leader, export)
+COIN_strikePatrolArrive     = 6;        // m from a waypoint at which a patrol goes on to the next
 COIN_leaderBehaviour        = "AWARE";  // Behaviour of the guards; they stay where they stand until the group is in combat, then they fight as every group
 COIN_leaderClasses          = [];       // Unit classes of the leader (his clothes), one at random; empty = a civilian of Liberation's preset like every civilian. Agreed with Niklas: first any civilian
 COIN_leaderMinNestDistance  = 1000;     // m his village is at least from the command post he belongs to (so both are not on the same trip)
@@ -1515,8 +1515,12 @@ COIN_exportAirfields        = [         // [name, position of the runway where t
 COIN_exportTownRange        = 3000;     // m (straight line): the militia has to hold a town (the capital too) this near the airfield
 COIN_exportPlaneClasses     = ["CUP_C_Cessna_CIV", "C_Plane_Civil_01_F"]; // The plane: the first class that exists
 COIN_exportLockPlane        = true;     // The plane is locked: nobody can get in and fly away (it is to be destroyed)
-COIN_exportGuards           = [4, 6];   // [min, max] guards round the plane
+COIN_exportGuards           = [8, 12];  // [min, max] guards at the plane (a share of them patrols)
 COIN_exportGuardRing        = [8, 20];  // [min, max] m from the plane where a guard stands
+COIN_exportPatrolShare     = 0.5;      // Share of the guards that walk a patrol round the plane instead of standing in the ring
+COIN_exportPatrolRadius    = 60;       // m round the plane within which the patrol walks
+COIN_exportVehicleDistance = 25;       // m from the plane (to the side of it) where the empty truck and the technical stand
+COIN_exportVehicleSearch   = 20;       // m round that place in which a free place is looked for
 COIN_exportBehaviour        = "AWARE";  // Behaviour of the guards; they stand until the group is in combat, then they fight as every group
 
 // Courier (ticket 5.14): a car with the courier as driver and a few guards (the militia in uniform, no technical) drives like the convoy

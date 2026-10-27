@@ -86,24 +86,8 @@ COIN_leaderGuardRing params ["_ringMin", "_ringMax"];
 } forEach [_group, _patrolGroup];
 // The patrol: a loop of waypoints round the leader at free spots, walking
 if (_patrolCount > 0) then {
-    private _points = [];
-    for "_i" from 0 to (COIN_leaderPatrolPoints - 1) do {
-        // Each point in its own sector of the circle, so the loop goes round the leader
-        private _angle = _i * 360 / COIN_leaderPatrolPoints;
-        private _point = _leaderPos getPos [(COIN_leaderPatrolRadius * 0.5) + random (COIN_leaderPatrolRadius * 0.5), _angle + random (360 / COIN_leaderPatrolPoints)];
-        private _safe = [_point, 0, 8, COIN_strikeGuardClearance, 0, COIN_strikeGuardGradient, 0, [], [_point, _point]] call BIS_fnc_findSafePos;
-        if (_safe isEqualType [] && {count _safe >= 2} && {(_safe select 0) isEqualType 0}) then {_point = _safe};
-        _points pushBack [_point select 0, _point select 1, 0];
-    };
-    {
-        private _waypoint = _patrolGroup addWaypoint [_x, 0];
-        _waypoint setWaypointType "MOVE";
-        _waypoint setWaypointSpeed "LIMITED";
-        _waypoint setWaypointBehaviour COIN_leaderBehaviour;
-        _waypoint setWaypointCompletionRadius COIN_leaderPatrolArrive;
-    } forEach _points;
-    (_patrolGroup addWaypoint [_points select 0, 0]) setWaypointType "CYCLE";
-    diag_log format ["[COIN] strike: leader %1: patrol of %2 guards, %3 waypoints round %4", _taskId, _patrolCount, count waypoints _patrolGroup, _leaderPos select [0, 2]];
+    private _waypoints = [_patrolGroup, _leaderPos, COIN_leaderPatrolRadius, COIN_strikePatrolPoints, COIN_strikePatrolArrive, COIN_leaderBehaviour] call COIN_fnc_startGuardPatrol;
+    diag_log format ["[COIN] strike: leader %1: patrol of %2 guards, %3 waypoints round %4", _taskId, _patrolCount, _waypoints, _leaderPos select [0, 2]];
 };
 [_guards] call COIN_fnc_addToCurators;
 
