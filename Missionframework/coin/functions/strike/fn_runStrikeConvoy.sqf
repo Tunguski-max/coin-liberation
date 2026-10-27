@@ -10,7 +10,9 @@
         marked as COIN units, handed to Zeus). Technicals and trucks are made by Liberation's own vehicle function with its crew, the
         car is a COIN vehicle (no reputation when it is destroyed). Car and men spawn whatever the distance of the players is. The
         convoy drives at the "LIMITED" speed of its group, in file like the convoy of Liberation's hijack mission (no speed limit per
-        vehicle: the ones behind would not catch up); shot at, the group fights as every group. Every COIN_strikeCheckSeconds:
+        vehicle: the ones behind would not catch up), led by the driver of the first vehicle. Like there it flees (behaviour
+        COIN_convoyFleeBehaviour, speed COIN_convoyFleeSpeed) as soon as a vehicle is lost, damaged beyond COIN_convoyAttackDamage or
+        without its driver (COIN_convoyFleeWhenAttacked); otherwise shot at, the group fights as every group. Every COIN_strikeCheckSeconds:
         - succeeded: every vehicle is destroyed or burned out (a vehicle that only stands counts as alive, a convoy is destroyed),
         - failed: a vehicle that is alive has come within COIN_convoyArriveDistance of the end of the route, it is stuck
           (COIN_convoyStuckLimit), or the end time is reached.
@@ -109,10 +111,18 @@ if (_vehicles isEqualTo []) exitWith {
 [_crew] call COIN_fnc_markCoinUnits;
 [_vehicles + _crew] call COIN_fnc_addToCurators;
 
-_group setBehaviour COIN_convoyBehaviour;
+// As Liberation's hijack mission: a moment for the group to settle after the crews have joined it, then the driver of the first vehicle
+// leads (else the rank decides and a gunner or a man in the car may lead, the vehicle in front would follow the one behind it)
+sleep COIN_convoySettleSeconds;
+private _frontDriver = driver (_vehicles select 0);
+if (!isNull _frontDriver) then {_group selectLeader _frontDriver};
+
+private _behaviour = COIN_convoyBehaviour;
+private _speedMode = "LIMITED";
+_group setBehaviour _behaviour;
 _group setCombatMode COIN_convoyCombatMode;
 _group setFormation COIN_convoyFormation;
-_group setSpeedMode "LIMITED";
+_group setSpeedMode _speedMode;
 
 // The way: waypoints along the route, so the convoy takes the road the plan named (a plain order would find its own way)
 private _giveWay = {
@@ -121,20 +131,20 @@ private _giveWay = {
     {
         private _waypoint = _group addWaypoint [_x, 0];
         _waypoint setWaypointType "MOVE";
-        _waypoint setWaypointSpeed "LIMITED";
-        _waypoint setWaypointBehaviour COIN_convoyBehaviour;
+        _waypoint setWaypointSpeed _speedMode;
+        _waypoint setWaypointBehaviour _behaviour;
         _waypoint setWaypointFormation COIN_convoyFormation;
         _waypoint setWaypointCompletionRadius COIN_convoyWaypointRadius;
     } forEach (_waypoints select [_from, count _waypoints]);
 };
-// As Liberation's hijack mission: the others follow the leader of the group, and only then the waypoints are given (doFollow after them
-// stopped the convoy; the leader does not follow himself)
+// The others follow the leader of the group, and only then the waypoints are given (doFollow after them stopped the convoy; the leader
+// does not follow himself)
 {_x doFollow (leader _group)} forEach (units _group select {_x isNotEqualTo (leader _group)});
 [0] call _giveWay;
 
 diag_log format [
-    "[COIN] strike: convoy %1 with %2 vehicles and %3 men starts in %4 for cache %5, %6 m by road, %7 waypoints, accepted by %8",
-    _taskId, count _vehicles, count _crew, _startName, _cacheId, _length, count _waypoints, _by
+    "[COIN] strike: convoy %1 with %2 vehicles and %3 men starts in %4 for cache %5, %6 m by road, %7 waypoints, accepted by %8, led from vehicle %9",
+    _taskId, count _vehicles, count _crew, _startName, _cacheId, _length, count _waypoints, _by, _vehicles find (vehicle (leader _group))
 ];
 
 private _marker = format ["COIN_convoy_%1", _taskId];
@@ -151,6 +161,7 @@ private _begin = time;
 private _stillSince = -1;
 private _stuckCount = 0;
 private _nextProgress = 0;
+private _attacked = false;
 
 while {_result isEqualTo ""} do {
     sleep COIN_strikeCheckSeconds;
@@ -170,6 +181,23 @@ while {_result isEqualTo ""} do {
     if (_result isNotEqualTo "") exitWith {};
 
     if (COIN_debug && {!isNull _lead}) then {_marker setMarkerPos (getPosATL _lead)};
+
+    // As Liberation's hijack mission: the first vehicle that is lost, damaged or has lost its driver, and the convoy flees (combat, full speed)
+    if (COIN_convoyFleeWhenAttacked && {!_attacked}) then {
+        private _hit = _vehicles findIf {!alive _x || {(damage _x) > COIN_convoyAttackDamage} || {!alive (driver _x)}};
+        if (_hit >= 0) then {
+            _attacked = true;
+            _behaviour = COIN_convoyFleeBehaviour;
+            _speedMode = COIN_convoyFleeSpeed;
+            _group setBehaviour _behaviour;
+            _group setSpeedMode _speedMode;
+            {
+                _x setWaypointBehaviour _behaviour;
+                _x setWaypointSpeed _speedMode;
+            } forEach (waypoints _group);
+            diag_log format ["[COIN] strike: convoy %1 is attacked (vehicle %2), it flees: %3, %4", _taskId, _hit, _behaviour, _speedMode];
+        };
+    };
 
     // For the RPT: when the convoy passes a point of the task, to compare with the time window
     {
@@ -201,7 +229,7 @@ while {_result isEqualTo ""} do {
         };
 
         // A convoy that stands although its driver lives and nobody fights is stuck (a ditch, a jam, a road that does not lead on): sent on from where it is
-        if ((speed _lead) >= COIN_convoyStuckSpeed || {(behaviour (leader _group)) isEqualTo "COMBAT"}) then {
+        if ((speed _lead) >= COIN_convoyStuckSpeed || {!_attacked && {(behaviour (leader _group)) isEqualTo "COMBAT"}}) then {
             _stillSince = -1;
         } else {
             if (_stillSince < 0) then {_stillSince = time};
