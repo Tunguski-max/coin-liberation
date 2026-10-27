@@ -113,6 +113,10 @@ coin/
     │   ├── fn_calcRoute.sqf            COIN_fnc_calcRoute: die Route, die ein Auto findet (calculatePath)
     │   ├── fn_pathLength.sqf           COIN_fnc_pathLength: Länge eines Wegs in m
     │   ├── fn_pickArmoredClass.sqf     COIN_fnc_pickArmoredClass: Milizklasse mit Weste und Helm für Anführer-Wachen und Konvoi
+    │   ├── fn_findExportAirfields.sqf  COIN_fnc_findExportAirfields: Flugplätze mit einer Ortschaft der Miliz in 3 km (Ticket 5.18)
+    │   ├── fn_canStrikeExport.sqf      COIN_fnc_canStrikeExport: Voraussetzung „Export“
+    │   ├── fn_planStrikeExport.sqf     COIN_fnc_planStrikeExport: Flugplatz, Piste, Flugzeug
+    │   ├── fn_runStrikeExport.sqf      COIN_fnc_runStrikeExport: Flugzeug und Wachen auf der Piste, zerstört, Readiness
     │   ├── fn_addSearchAction.sqf     COIN_fnc_addSearchAction: Client, Aktion „Dokumente durchsuchen“ (Kurier) und „Lieferdokumente suchen“ (Lkw des Waffentransports)
     │   ├── fn_searchDocuments.sqf      COIN_fnc_searchDocuments: Server, die Suche am gestoppten Auto oder Lkw
     │   └── fn_showDocumentsFound.sqf     COIN_fnc_showDocumentsFound: Client, Untertitel nach der Suche

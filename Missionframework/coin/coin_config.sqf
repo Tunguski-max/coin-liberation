@@ -1233,6 +1233,10 @@ COIN_elderSentences = [
         ["Ich habe von zwei Punkten erfahren, die ein Waffentransport der Miliz bald passiert. Es sind ein Lastwagen und bewaffnete Wagen, und sie fahren nicht ohne Schutz.", "Man erzählt sich, dass ein Konvoi der Miliz mit Waffen bald an zwei Stellen vorbeikommt. Viele Männer fahren mit ihm."],
         ["I learned of two points that a militia arms transport will soon pass. They are a truck and armed vehicles, and they do not drive without protection.", "People say a militia convoy with weapons will soon pass two places. Many men travel with it."]
     ]],
+    ["strike_export", [
+        ["Ich habe gehört, dass die Miliz bald auf einem Flugplatz ein Flugzeug bereitstellt, um etwas außer Landes zu bringen. Es steht auf der Piste und wird bewacht.", "Man erzählt sich, die Miliz wolle bald von einem Flugplatz aus etwas ausfliegen. Das Flugzeug steht bereit, und Bewaffnete passen darauf auf."],
+        ["I heard the militia will soon have a plane ready at an airfield to get something out of the country. It stands on the runway and is guarded.", "People say the militia wants to fly something out from an airfield soon. The plane is ready, and armed men watch over it."]
+    ]],
     ["strike_accepted", [
         ["Seid vorsichtig. Wenn ihr schnell seid, erwischt ihr ihn.", "Gut. Passt auf euch auf. Er wird nicht lange auf sich warten lassen."],
         ["Be careful. If you are quick, you will catch him.", "Good. Take care. He will not keep you waiting long."]
@@ -1354,7 +1358,8 @@ COIN_strikeCheckSeconds     = 2;        // s between two looks at a running stri
 COIN_strikeKinds = [
     ["courier", "COIN_fnc_canStrikeCourier", "COIN_fnc_planStrikeCourier", "COIN_fnc_runStrikeCourier"],
     ["leader", "COIN_fnc_canStrikeLeader", "COIN_fnc_planStrikeLeader", "COIN_fnc_runStrikeLeader"],
-    ["convoy", "COIN_fnc_canStrikeConvoy", "COIN_fnc_planStrikeConvoy", "COIN_fnc_runStrikeConvoy", "COIN_fnc_strikeExtraConvoy", [["mil_ambush", "ColorRed"], ["mil_ambush", "ColorRed"]]]
+    ["convoy", "COIN_fnc_canStrikeConvoy", "COIN_fnc_planStrikeConvoy", "COIN_fnc_runStrikeConvoy", "COIN_fnc_strikeExtraConvoy", [["mil_ambush", "ColorRed"], ["mil_ambush", "ColorRed"]]],
+    ["export", "COIN_fnc_canStrikeExport", "COIN_fnc_planStrikeExport", "COIN_fnc_runStrikeExport"]
 ];
 
 // Dialog of a strike task (the one of the elder, ticket 5.9b): header, accept button, line "%1 of %2" = running, limit
@@ -1405,6 +1410,18 @@ COIN_strikeTaskTexts = [
         [
             "Fangt den Waffentransport der Miliz ab: Er passiert Punkt 1 (%1) zwischen %5 und %6 Uhr und Punkt 2 (%2) zwischen %7 und %8 Uhr. Durchsucht den Laster nach den Lieferdokumenten. Zerstört anschließend alles und hinterlasst nur Wracks. Beginn um %3 Uhr, spätestens bis %4 Uhr.",
             "Intercept the militia arms transport: it passes point 1 (%1) between %5 and %6 and point 2 (%2) between %7 and %8. Search the truck for the delivery documents. Then destroy everything and leave nothing but wrecks. Start at %3, no later than %4."
+        ]
+    ],
+    // A kind without a destination (the leader, the export) names only the start: here the airfield. %2 is not used
+    ["export",
+        ["Export verhindern", "Stop export"],
+        [
+            "Die Miliz will ein Flugzeug außer Landes bringen. Ein Zivilflugzeug steht auf der Piste eines Flugplatzes in der Nähe einer Ortschaft, die die Miliz hält, bewacht von vier bis sechs Kämpfern. Es hebt nicht ab, aber ihr müsst es zerstören, bevor das Zeitfenster endet. Rechnet mit Gegenwehr.<br/><br/><t size='1.15' color='#00a0ff'>Beginn: %1 bis %2 Minuten nach dem Annehmen. Das Zeitfenster dauert insgesamt %3 bis %4 Minuten.</t><br/><t size='1.15' color='#ffa000'>Fehlschlag: Das Zeitfenster endet. Das Flugzeug verschwindet. Das kostet nichts.</t><br/><t size='1.15' color='#ffa000'>Belohnung: Die Miliz verliert an Schlagkraft.</t>",
+            "The militia wants to get a plane out of the country. A civilian plane stands on the runway of an airfield near a town the militia holds, guarded by four to six fighters. It does not take off, but you have to destroy it before the time window ends. Expect resistance.<br/><br/><t size='1.15' color='#00a0ff'>Start: %1 to %2 minutes after accepting. The time window lasts %3 to %4 minutes in all.</t><br/><t size='1.15' color='#ffa000'>Failure: The time window ends. The plane disappears. That costs nothing.</t><br/><t size='1.15' color='#ffa000'>Reward: The militia loses strength.</t>"
+        ],
+        [
+            "Verhindert den Export der Miliz: Zerstört das Flugzeug auf dem Flugplatz %1. Beginn um %3 Uhr, spätestens bis %4 Uhr. Das Flugzeug wird bewacht.",
+            "Stop the militia export: destroy the plane at the airfield %1. Start at %3, no later than %4. The plane is guarded."
         ]
     ]
 ];
@@ -1486,6 +1503,19 @@ COIN_convoyStuckSeconds     = 60;       // s the first vehicle with a driver has
 COIN_convoyStuckSpeed       = 2;        // km/h
 COIN_convoyStuckLimit       = 3;        // The convoy is sent on this many times; stuck once more, the task fails ("stuck")
 COIN_convoyDebugMarker      = ["mil_triangle", "ColorRed"]; // Debug map (COIN_debug): the first vehicle of the convoy, follows it: [type, colour]
+
+// Strike task "Export" (ticket 5.18): the airfields are listed by hand, the plane stands on the runway
+COIN_exportAirfields        = [         // [name, position of the runway where the plane stands (ATL, [] = not set: the airfield is left out), direction of the plane]
+    ["Kinduf Airport", [], 0],
+    ["Kinduf Airfield", [], 0],
+    ["Kalae Airport", [], 0]
+];
+COIN_exportTownRange        = 3000;     // m (straight line): the militia has to hold a town (the capital too) this near the airfield
+COIN_exportPlaneClasses     = ["CUP_C_Cessna_CIV", "C_Plane_Civil_01_F"]; // The plane: the first class that exists
+COIN_exportLockPlane        = true;     // The plane is locked: nobody can get in and fly away (it is to be destroyed)
+COIN_exportGuards           = [4, 6];   // [min, max] guards round the plane
+COIN_exportGuardRing        = [8, 20];  // [min, max] m from the plane where a guard stands
+COIN_exportBehaviour        = "AWARE";  // Behaviour of the guards; they stand until the group is in combat, then they fight as every group
 
 // Courier (ticket 5.14): a car with the courier as driver and a few guards (the militia in uniform, no technical) drives like the convoy
 // of Liberation's secondary mission, and starts anywhere on the map whatever the players do: from a town (one the militia holds if it
