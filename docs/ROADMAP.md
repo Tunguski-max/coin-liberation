@@ -253,10 +253,10 @@ Vier Blöcke, nacheinander umgesetzt und getestet: 5A → 5B → 5C → 5D.
   (Hook mit Schalter)
 
 **5C Zugriffsaufträge (DESIGN 8.2)** – Reihenfolge: 5.13, 5.14, 5.15, 5.16, 5.18
-- [ ] 5.13 Zugriffsauftrag entsteht aus Befragung/Verhör: 15 %, nur ab Ruf +25, höchstens 1 gleichzeitig, Dialog mit
+- [x] 5.13 Zugriffsauftrag entsteht aus Befragung/Verhör: 15 %, nur ab Ruf +25, höchstens 1 gleichzeitig, Dialog mit
   einem Eintrag, Beginn 15–25 min nach Annehmen (bei der Befragung früher, der Auftrag ersetzt dort deren Intel), Fenster
   45–75 min, Einheiten spawnen immer
-- [ ] 5.14 Zugriffsauftrag „Kurier abfangen“ (Auto mit Kurier und 2–3 Wachen fährt wie der Konvoi irgendwo los zu einer beliebigen Ortschaft in 3–6 km, wartet 2 min und fährt zurück; zurück am Start = gescheitert; „Dokumente durchsuchen“, Konkreter Tipp)
+- [x] 5.14 Zugriffsauftrag „Kurier abfangen“ (Auto mit Kurier und 2–3 Wachen fährt wie der Konvoi irgendwo los zu einer beliebigen Ortschaft in 3–6 km, wartet 2 min und fährt zurück; zurück am Start = gescheitert; „Dokumente durchsuchen“, Konkreter Tipp)
 - [ ] 5.15 Zugriffsauftrag „Anführer festnehmen“ (lebend, Readiness −10 Punkte, Verhör bringt Tipp zum Kommandoposten)
 - [ ] 5.16 Zugriffsauftrag „Waffentransport abfangen“ (Lkw mit zwei Technicals, Readiness −10 Punkte, Tipp zum Ziel-Lager)
 - [ ] 5.18 Zugriffsauftrag „Export“ (Cessna an einem Flugplatz nahe einer Ortschaft der Miliz zerstören, Readiness −10 Punkte)
