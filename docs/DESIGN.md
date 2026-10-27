@@ -621,12 +621,12 @@ Liberation-Sektoren, damit ein Hinterhalt der Miliz glaubhaft ist (er taucht nic
   Ältesten mit genau einem Eintrag. Schließt er ihn ohne „Annehmen“, ist die Gelegenheit weg.
 - Die Art wird zufällig aus denen gewählt, deren Voraussetzung erfüllt ist. Die Aufgabe nennt Uhrzeit im Spiel und Ort
   bzw. Start und Ziel der Strecke.
-- Die Einheiten entstehen zum Beginn, unabhängig vom Abstand der Spieler (damit Fahrzeuge wirklich fahren). Sie zählen als
+- Die Einheiten aller Arten entstehen zum Beginn, wie der Konvoi von Liberation unabhängig vom Abstand der Spieler (damit Fahrzeuge wirklich fahren). Sie zählen als
   COIN-Einheiten, spawnen aber immer.
 
 | Zugriffsauftrag | Voraussetzung | Ablauf | Erfolg | Scheitern |
 |---|---|---|---|---|
-| **Kurier abfangen** | ein aktives Nest | Ein Auto (kein Technical) mit dem Kurier als Fahrer und 2–3 bewaffneten Wachen der Miliz in Uniform fährt 500–1000 m auf der Straße von einer Ortschaft der Miliz nahe beim Fragenden zu einem Straßenpunkt (Marker an Start und Ziel). | Auto gestoppt (Kurier tot, gefangen oder Auto fahrunfähig) und „Dokumente durchsuchen“ am Auto: Konkreter Tipp zum Nest des Kuriers | Auto erreicht das Ziel oder brennt aus |
+| **Kurier abfangen** | ein aktives Nest | Ein Auto (kein Technical) mit dem Kurier als Fahrer und 2–3 bewaffneten Wachen der Miliz in Uniform fährt wie der Konvoi der Liberation-Nebenmission irgendwo auf der Karte los (ohne Rücksicht auf die Spieler, vorzugsweise von einer Ortschaft der Miliz) zu einer beliebigen anderen Ortschaft (befreit oder nicht) in 3–6 km Luftlinie, wartet dort 2 Minuten und fährt zurück zum Start (Marker an Start und Ziel). Die Strecke prüft Arma vorher auf Befahrbarkeit. | Auto gestoppt (Kurier tot, gefangen oder Auto fahrunfähig) und „Dokumente durchsuchen“ am Auto: Konkreter Tipp zum Nest des Kuriers | Auto ist zurück am Start oder brennt aus |
 | **Anführer festnehmen** | ein aktiver Kommandoposten | Anführer in eigener Kleidung mit 4–6 Wachen an einem Haus, für das Zeitfenster. | Gefesselt oder ergeben (keine Lieferung zur FOB nötig): Readiness −10; sein Verhör bringt als erstes Ergebnis immer einen Konkreten Tipp zu seinem Kommandoposten | Er stirbt |
 | **Waffentransport abfangen** | ein aktives Waffenlager | Lkw mit zwei Technicals als Eskorte fährt auf das Lager zu. | Lkw zerstört oder gestoppt, bevor er ankommt: Readiness −10 und Konkreter Tipp zum Ziel-Lager | Lkw kommt an |
 | **Export** | Die Miliz hält eine Ortschaft (oder die Hauptstadt) im Umkreis von 3 km um einen Flugplatz (Liste in der Config: Kinduf Airport, Kinduf Airfield, Kalae Airport) | Zivilflugzeug (Cessna, Klasse in der Config) auf der Piste, 4–6 Wachen. | Flugzeug zerstört: Readiness −10 | Fenster endet: kein echter KI-Start, das Flugzeug verschwindet außer Sicht |

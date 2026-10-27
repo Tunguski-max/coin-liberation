@@ -16,8 +16,10 @@
           documents" shows (COIN_fnc_addCourierAction, COIN_fnc_searchDocuments),
         - searched: success, the documents name a nest (a true hit, level "tip", COIN_fnc_createIntel; the nest of the plan if it is
           still active, else any a civilian of the start would know of), announced to everybody, and a subtitle for the one who searched,
-        - failed: the car is destroyed or burned out (the documents are lost), the car that is not stopped has come within
-          COIN_courierArriveDistance of the destination, or the end time is reached.
+        - failed: the car is destroyed or burned out (the documents are lost), the car that is not stopped has come back within
+          COIN_courierArriveDistance of its start, or the end time is reached.
+        The car drives to the destination, waits there COIN_courierWaitSeconds and drives back to the start (like the convoy of Liberation's
+        secondary mission, which also starts wherever it is and does not care for the players).
         What is left (car, wreck, men) goes when nobody sees it (COIN_fnc_removeWhenUnseen), at once if the strike tasks are switched off.
         With COIN_debug a marker follows the car. Server only.
 
@@ -113,6 +115,9 @@ diag_log format [
 private _result = "";
 private _stopped = false;
 private _nextPath = time + COIN_courierRepathSeconds;
+// The way: "out" to the destination, "wait" there, "back" to the start
+private _phase = "out";
+private _waitUntil = 0;
 
 // With COIN_debug the car has a marker that follows it (the players cannot tell it from other cars otherwise)
 private _marker = format ["COIN_courier_%1", _taskId];
@@ -138,7 +143,7 @@ while {_result isEqualTo ""} do {
         case (isNull _vehicle): {"the car is gone"};
         case (!alive _vehicle): {"the car burned out, the documents are lost"};
         case (time >= _endTime): {"time over"};
-        case (!_stopped && {(_vehicle distance2D _endPos) <= COIN_courierArriveDistance}): {"the car arrived"};
+        case (_phase isEqualTo "back" && {!_stopped} && {(_vehicle distance2D _startPos) <= COIN_courierArriveDistance}): {"the car came back to its start"};
         default {""};
     };
     if (_result isNotEqualTo "") exitWith {};
@@ -158,12 +163,38 @@ while {_result isEqualTo ""} do {
             _taskId, ["drives on", "stopped"] select _stopped, getPosATL _vehicle, round (_vehicle distance2D _endPos), _driverState, canMove _vehicle
         ];
         // A courier who woke up is sent on again
-        if (!_stopped) then {_driver doMove _endPos};
+        if (!_stopped) then {_driver doMove ([_endPos, _startPos] select (_phase isEqualTo "back"))};
     };
 
-    if (!_stopped && {time >= _nextPath}) then {
-        _driver doMove _endPos;
-        _nextPath = time + COIN_courierRepathSeconds;
+    if (!_stopped) then {
+        switch (_phase) do {
+            case "out": {
+                if ((_vehicle distance2D _endPos) <= COIN_courierArriveDistance) then {
+                    _phase = "wait";
+                    _waitUntil = time + COIN_courierWaitSeconds;
+                    diag_log format ["[COIN] strike: courier %1 is at the destination %2, waits %3 s", _taskId, _endLabel, COIN_courierWaitSeconds];
+                } else {
+                    if (time >= _nextPath) then {
+                        _driver doMove _endPos;
+                        _nextPath = time + COIN_courierRepathSeconds;
+                    };
+                };
+            };
+            case "wait": {
+                if (time >= _waitUntil) then {
+                    _phase = "back";
+                    _driver doMove _startPos;
+                    _nextPath = time + COIN_courierRepathSeconds;
+                    diag_log format ["[COIN] strike: courier %1 drives back to %2", _taskId, _startName];
+                };
+            };
+            case "back": {
+                if (time >= _nextPath) then {
+                    _driver doMove _startPos;
+                    _nextPath = time + COIN_courierRepathSeconds;
+                };
+            };
+        };
     };
 };
 
