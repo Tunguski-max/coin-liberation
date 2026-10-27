@@ -340,6 +340,43 @@ class COIN {
         class showElderSentence {};
     };
 
+    class strike {
+        file = "coin\functions\strike";
+
+        // Server: decides whether a strike task arises from a questioning or an interrogation, keeps the offer (ticket 5.13)
+        class decideStrikeTask {};
+
+        // Server: the one who spoke tells of the strike task, the dialog opens (ticket 5.13)
+        class offerStrikeTask {};
+
+        // Server: the interpreter accepts the offered strike task, it is planned and starts (ticket 5.13)
+        class acceptStrikeTask {};
+
+        // Server: one accepted strike task from start to end, task, markers, the event of its kind (ticket 5.13)
+        class runStrikeTask {};
+
+        // Server and client: time of day on the game clock some seconds from now, "HH:MM" (ticket 5.13)
+        class clockText {};
+
+        // Server: can the kind "Intercept courier" be offered now? An active nest (ticket 5.14)
+        class canStrikeCourier {};
+
+        // Server: two towns and the roads between them for the courier, made when accepted (ticket 5.14)
+        class planStrikeCourier {};
+
+        // Server: the event of the courier: car and driver, the drive, stopped, searched, arrived (ticket 5.14)
+        class runStrikeCourier {};
+
+        // Client: the action "Search documents" at the courier's car (ticket 5.14)
+        class addCourierAction {};
+
+        // Server: a player searches the stopped courier's car (ticket 5.14)
+        class searchDocuments {};
+
+        // Client: the subtitle after the search (ticket 5.14)
+        class showCourierFound {};
+    };
+
     class population {
         file = "coin\functions\population";
 

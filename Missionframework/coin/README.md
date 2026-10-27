@@ -89,6 +89,18 @@ coin/
     │   ├── fn_runSiteAmbush.sqf        COIN_fnc_runSiteAmbush: Server, Leben des Hinterhalts: Spawn bei Spielernähe, Budget, Feuer, Entfernen
     │   ├── fn_clientTask.sqf           COIN_fnc_clientTask: Client, die Arma-Aufgabe in der Sprache des Spielers
     │   └── fn_showElderSentence.sqf    COIN_fnc_showElderSentence: Client, ein Satz des Ältesten als Untertitel
+    ├── functions/strike/
+    │   ├── fn_decideStrikeTask.sqf     COIN_fnc_decideStrikeTask: Server, entscheidet bei Befragung/Verhör über einen Zugriffsauftrag (Ticket 5.13)
+    │   ├── fn_offerStrikeTask.sqf      COIN_fnc_offerStrikeTask: Server, der Sprecher erzählt davon, der Dialog öffnet sich
+    │   ├── fn_acceptStrikeTask.sqf     COIN_fnc_acceptStrikeTask: Server, Dolmetscher nimmt an: Plan, Beginn und Ende würfeln, Start
+    │   ├── fn_runStrikeTask.sqf        COIN_fnc_runStrikeTask: Server, ein Zugriffsauftrag von Start bis Ende, Aufgabe, Marker
+    │   ├── fn_clockText.sqf            COIN_fnc_clockText: Uhrzeit im Spiel in n Sekunden als HH:MM
+    │   ├── fn_canStrikeCourier.sqf     COIN_fnc_canStrikeCourier: Voraussetzung „Kurier abfangen“: ein aktives Nest (Ticket 5.14)
+    │   ├── fn_planStrikeCourier.sqf    COIN_fnc_planStrikeCourier: zwei Ortschaften mit Straße, Nest des Kuriers
+    │   ├── fn_runStrikeCourier.sqf     COIN_fnc_runStrikeCourier: Auto und Fahrer, Fahrt, gestoppt, durchsucht, angekommen
+    │   ├── fn_addCourierAction.sqf     COIN_fnc_addCourierAction: Client, Aktion „Dokumente durchsuchen“
+    │   ├── fn_searchDocuments.sqf      COIN_fnc_searchDocuments: Server, die Suche am gestoppten Auto
+    │   └── fn_showCourierFound.sqf     COIN_fnc_showCourierFound: Client, Untertitel nach der Suche
     ├── ui/
     │   └── CfgDialogs.hpp              Dialog-Klasse coin_elder_dialog (Include per Hook 29 in description.ext)
     ├── intel/
