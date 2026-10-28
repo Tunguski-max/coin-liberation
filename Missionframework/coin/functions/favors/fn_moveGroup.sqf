@@ -41,5 +41,7 @@ if (_combat isNotEqualTo "") then {_group setCombatMode _combat};
 private _waypoint = _group addWaypoint [_pos, 0];
 _waypoint setWaypointType "MOVE";
 _waypoint setWaypointCompletionRadius _radius;
+// The group may have had a waypoint that was current: it must go to the new one, not wait for the one that is gone
+_group setCurrentWaypoint _waypoint;
 
 _waypoint
