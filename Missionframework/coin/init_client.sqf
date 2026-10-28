@@ -77,6 +77,29 @@ if (COIN_enableFavors && {COIN_debug}) then {
     };
 };
 
+// Radio orders for the reinforcement (ticket 5.19): the menu and the briefing follow COIN_reinforcementOn, which the server publishes. A
+// local host gets no published value from itself, COIN_fnc_publishReinforcement updates it directly. The items belong to the unit, so
+// a respawn starts again
+if (COIN_enableFavors && {COIN_enableReinforcement} && {COIN_enableRadio}) then {
+    player addEventHandler ["Respawn", {
+        COIN_radioMenuIds = [];
+        COIN_radioBriefingRecord = nil;
+        [] call COIN_fnc_updateRadio;
+    }];
+    if (!isServer) then {
+        "COIN_reinforcementOn" addPublicVariableEventHandler {[] call COIN_fnc_updateRadio;};
+        // A late joiner gets the value after this point, perhaps without the handler firing
+        [] spawn {
+            private _timeout = diag_tickTime + COIN_initTimeout;
+            waitUntil {
+                sleep 1;
+                !isNil "COIN_reinforcementOn" || {diag_tickTime > _timeout}
+            };
+            [] call COIN_fnc_updateRadio;
+        };
+    };
+};
+
 // Islamic State twins are enemy infantry too (Liberation's prisoner script checks KPLIB_o_inf_classes on the client).
 // init_presets.sqf builds that list on every client, so the twins are added here as well, also for late joiners.
 if (COIN_enableSquadMix) then {

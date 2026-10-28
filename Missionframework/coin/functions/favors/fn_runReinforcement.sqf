@@ -11,7 +11,7 @@
         Everybody gets a message when the group reaches the point (one fighter within COIN_reinforcementArriveRadius) and when it leaves
         (COIN_fnc_showReinforcementMessage). After "time" and "reputation" the survivors walk back to the elder's place, then go when
         nobody sees them (COIN_fnc_removeWhenUnseen), at the latest COIN_reinforcementReturnSeconds after the order. From that moment
-        COIN_reinforcement is empty again, so another reinforcement may be sent. Must be spawned. Server only.
+        COIN_reinforcement is empty again, so another reinforcement may be sent, and the players lose their radio orders (COIN_fnc_publishReinforcement). Must be spawned. Server only.
 
     Parameter(s):
         _group - The group of the local fighters, the state is COIN_reinforcement [GROUP, defaults to grpNull]
@@ -64,6 +64,7 @@ diag_log format [
 ];
 // None on its way any more: the group is not led by the radio from here on, and the next one may come
 COIN_reinforcement = [];
+[false] call COIN_fnc_publishReinforcement;
 ["left_" + _result, _town] remoteExecCall ["COIN_fnc_showReinforcementMessage", 0];
 
 if (_result isEqualTo "wiped") exitWith {
@@ -73,12 +74,7 @@ if (_result isEqualTo "wiped") exitWith {
 };
 
 // They walk home and go when nobody sees them
-while {(count (waypoints _group)) != 0} do {deleteWaypoint ((waypoints _group) select 0)};
-_group setBehaviour "AWARE";
-_group setSpeedMode "NORMAL";
-private _waypoint = _group addWaypoint [_home, 0];
-_waypoint setWaypointType "MOVE";
-_waypoint setWaypointCompletionRadius COIN_reinforcementHomeRadius;
+[_group, _home, COIN_reinforcementHomeRadius, "NORMAL", "AWARE", ""] call COIN_fnc_moveGroup;
 
 private _giveUp = time + COIN_reinforcementReturnSeconds;
 waitUntil {

@@ -507,6 +507,33 @@ class COIN {
 
         // Client: message about the reinforcement to everybody (ticket 5.6)
         class showReinforcementMessage {};
+
+        // Client: the player picks a point on the map, with a circle of the reach if asked (tickets 5.6, 5.19)
+        class pickMapPoint {};
+
+        // Server: sends a group of the reinforcement to a point with one waypoint (tickets 5.6, 5.19)
+        class moveGroup {};
+
+        // Both: may this player give radio orders to the reinforcement? Commander, squad leaders, interpreters (ticket 5.19)
+        class canGiveRadioOrder {};
+
+        // Server: tells all machines whether a reinforcement is on its way, for the radio menu (ticket 5.19)
+        class publishReinforcement {};
+
+        // Client: the three radio orders in the communication menu and the briefing in the map diary, while a reinforcement is on its way (ticket 5.19)
+        class updateRadio {};
+
+        // Client: a radio order was chosen in the menu, "go there" asks for the point on the map first (ticket 5.19)
+        class giveRadioOrder {};
+
+        // Server: carries out a radio order: follow, go there, attack (ticket 5.19)
+        class radioOrder {};
+
+        // Server: the reinforcement follows a player until another order comes or it is over (ticket 5.19)
+        class radioFollowLoop {};
+
+        // Client: the answer of the radio to the one who gave the order (ticket 5.19)
+        class showRadioReply {};
     };
 
     class reputation {

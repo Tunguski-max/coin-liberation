@@ -552,11 +552,22 @@ Abziehen von Besatzungen würde Liberations Sektor-Logik aushebeln.
   `COIN_reinforcementMaxDistance` (2500 m) vom Ältesten entfernt; die Karte zeigt diese Reichweite als Kreis, ein Klick
   außerhalb wird abgelehnt (die Karte bleibt offen). Ausrüstung nach Liberations aktueller
   Widerstands-Stufe. Sie spawnen immer und zählen in keinem Gegner-Budget.
-- **Funk:** Solange eine Verstärkung unterwegs ist, haben Kommandant, Truppführer und Dolmetscher im Kommunikationsmenü (0-8):
-  - **„Folgt uns“:** Die Gruppe folgt dem Spieler, der den Befehl gibt. Stirbt er, hält sie ihre Stellung.
-  - **„Geht dorthin“:** Klick auf die Karte, die Gruppe läuft hin und hält.
-  - **„Greift an“:** Die Gruppe läuft im Kampfmodus zur Mitte der nächsten Ortschaft der Miliz. Liberation aktiviert eine
-    Ortschaft nur bei Spielern in Reichweite; ohne Spieler trifft die Gruppe dort niemanden. Gedacht als gemeinsamer Angriff.
+- **Funk:** Solange eine Verstärkung unterwegs ist, haben Kommandant, Truppführer (beide Trupps) und Dolmetscher im
+  Kommunikationsmenü (0-8) drei Befehle, ohne Entfernungsgrenze. Jeder von ihnen darf jeden Befehl geben, der letzte
+  Befehl gilt und ersetzt den alten:
+  - **„Folgt uns“:** Die Gruppe folgt dem Spieler, der den Befehl gibt (Skript alle 10 s) und bleibt 15 m hinter ihm.
+    Stirbt er oder geht er offline, hält sie ihre Stellung.
+  - **„Geht dorthin“:** Klick auf die Karte (Esc bricht ab, kostet nichts), die Gruppe läuft hin und hält. Im Wasser wird
+    abgelehnt, eine Reichweitengrenze gibt es nicht.
+  - **„Greift an“:** Die Gruppe läuft im Kampfmodus zur Mitte der **ihr nächsten** Ortschaft der Miliz und sucht und
+    zerstört dort (SAD). Gibt es keine Ortschaft der Miliz mehr, antwortet der Funk „kein Ziel“ und der alte Befehl bleibt.
+    Liberation aktiviert eine Ortschaft nur bei Spielern in Reichweite; ohne Spieler trifft die Gruppe dort niemanden.
+    Gedacht als gemeinsamer Angriff.
+  - Ein Befehl setzt die 30 min nicht zurück. Die Ankunftsmeldung gilt nur dem ersten Punkt der Anforderung. Mit dem Ende der
+    Verstärkung (Zeit, Ruf, aufgerieben, Abzugsbefehl) verschwinden die Befehle.
+  - **Bestätigung:** ein kurzer Funkspruch (Chatzeile mit dem Rufzeichen „Verstärkung“) nur an den Befehlsgeber, dazu eine
+    Logzeile je Befehl. Das Briefing „Verstärkung führen“ steht im Karten-Tagebuch „COIN Liberation“ von Kommandant,
+    Truppführer und Dolmetscher, solange die Verstärkung aktiv ist.
 - **Meldungen:** an alle, wenn die Gruppe am Punkt ankommt, und beim Abzug mit dem Grund (Zeit, Ruf, aufgerieben).
   Liberations Stärke des Widerstands sinkt mit jedem Gefallenen (`kill_manager.sqf`), das bleibt so.
 - **Ende:** nach 30 min ab dem Entstehen (die Laufzeit zählt mit), wenn der Ruf unter +25 fällt oder wenn die Gruppe

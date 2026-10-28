@@ -1121,6 +1121,28 @@ COIN_reinforcementCheckSeconds = 5;     // s between two looks at a reinforcemen
 COIN_reinforcementHomeRadius = 40;      // m: the fighters that walk home have arrived this close to the elder's place
 COIN_reinforcementReturnSeconds = 300;  // s the fighters get to walk home; then they go when nobody sees them, wherever they are
 COIN_reinforcementMapZoom   = 0.3;      // Zoom of the map when the interpreter picks the point (the circle of COIN_reinforcementMaxDistance should fit)
+
+// Radio orders for the reinforcement (ticket 5.19, DESIGN 8.1, ADR 0023): items of the communication menu (0-8) while one is on its way
+COIN_enableRadio            = true;     // Off: the reinforcement gets no orders, it walks to its point and holds it
+COIN_radioRoles             = ["Kommandant", "Truppführer"]; // Role descriptions (start of it) that may give orders, the interpreters may too (for a test in another slot: player setVariable ["COIN_radioOrders", true, true])
+COIN_radioFollowSeconds     = 10;       // s between two looks of a group that follows
+COIN_radioFollowDistance    = 15;       // m behind the player the group that follows stops
+COIN_radioFollowMove        = 5;        // m the point behind the player must have moved before the group gets a new waypoint
+COIN_radioAttackRadius      = 150;      // m: "Attack" searches and destroys in this radius around the middle of the town
+COIN_radioCallsign          = ["Verstärkung", "Reinforcement"]; // How the answers of the radio start
+// Answers to the one who gave the order: [key, [German, English]]; %1 = point or town, %2 = distance in m ("attack")
+COIN_radioReplyTexts = [
+    ["follow",    ["Verstanden, wir folgen dir.", "Understood, we follow you."]],
+    ["goto",      ["Verstanden, wir gehen zu %1.", "Understood, we are moving to %1."]],
+    ["attack",    ["Verstanden, wir greifen %1 an, %2 m.", "Understood, we attack %1, %2 m."]],
+    ["no_target", ["Kein Ziel: Es gibt keine Ortschaft der Miliz mehr.", "No target: There is no town of the militia left."]],
+    ["refused",   ["Funkspruch nicht verstanden.", "Radio message not understood."]]
+];
+// The briefing in the map diary of the ones who may give orders, tab "COIN Liberation" (German like the rest of it): [title, text]
+COIN_radioBriefing = [
+    "Verstärkung führen",
+    "Solange eine Verstärkung unterwegs ist, habt ihr im Kommunikationsmenü (0-8) drei Funkbefehle. Kommandant, Truppführer und Dolmetscher dürfen sie geben, der letzte Befehl gilt.<br/><br/>- <font color='#4da6ff'>Folgt uns</font>: Die Gruppe folgt dem, der den Befehl gibt. Stirbt er oder geht er offline, hält sie ihre Stellung.<br/>- <font color='#4da6ff'>Geht dorthin</font>: Klickt auf die Karte, die Gruppe läuft hin und hält den Punkt.<br/>- <font color='#4da6ff'>Greift an</font>: Die Gruppe geht im Kampfmodus in die nächste Ortschaft der Miliz. Dort kämpft sie nur, wenn ihr in der Nähe seid, sonst ist die Ortschaft leer.<br/><br/>Die Verstärkung zieht nach der Zeit ab oder wenn die Bevölkerung euch nicht mehr genug vertraut. Dann verschwinden die Befehle."
+];
 COIN_reinforcementMapWaitSeconds = 2;   // s the map gets to open before the pick is given up
 
 // Texts of the favor offer in the dialog of the elder, like COIN_aidTaskTexts: [id, [title German, English], [explanation German, English]]
@@ -1139,6 +1161,7 @@ COIN_reinforcementPickTexts = [
     ["start", ["Klickt den Zielpunkt der Verstärkung an. Der Kreis zeigt die Reichweite. Esc bricht ab.", "Click the target point of the reinforcement. The circle shows the range. Esc cancels."]],
     ["water", ["Im Wasser können die Kämpfer nicht stehen. Wählt einen anderen Punkt.", "The fighters cannot stand in water. Pick another point."]],
     ["far", ["Das ist zu weit vom Ältesten. Wählt einen Punkt im Kreis.", "That is too far from the elder. Pick a point inside the circle."]],
+    ["start_radio", ["Klickt auf die Karte, wohin die Verstärkung gehen soll. Esc bricht ab.", "Click on the map where the reinforcement should go. Esc cancels."]],
     ["away", ["Ihr habt euch vom Ältesten entfernt. Die Verstärkung ist abgebrochen, es hat nichts gekostet.", "You walked away from the elder. The reinforcement is cancelled, it cost nothing."]]
 ];
 // Messages to everybody (ticket 5.6): the classes coin_reinforcement_<key>_<en|de> of CfgNotifications.hpp, keys arrived, left_time, left_reputation, left_wiped

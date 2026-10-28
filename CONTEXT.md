@@ -93,6 +93,7 @@ Code-Bezeichner stehen in Klammern.
 | **Lokale Kämpfer** (`localFighters`) | Freundliche Dorfwachen und Stammeskämpfer aus dem Widerstand, die über eine Gefälligkeit kommen und als Verstärkung zur Armee stoßen. _Nicht:_ Liberations spontane Guerilla-Einsätze in Sektorkämpfen. |
 | **Verstärkung** (`reinforcement`) | Gruppe lokaler Kämpfer, die über eine Gefälligkeit kommt und für begrenzte Zeit per Funk geführt wird (folgen, hingehen, angreifen). Bleibt Widerstand, tritt keiner Spielergruppe bei. |
 | **Aufgerieben** (`wiped`) | Zustand einer Verstärkung, deren Kämpfer alle gefallen sind, bevor sie abgezogen ist. Die nächste Gefälligkeit kommt dann später. _Nicht:_ Abzug (Zeit, Ruf) und Verluste einzelner Kämpfer. |
+| **Funkbefehl** (`radioOrder`) | Befehl an die Verstärkung über das Kommunikationsmenü: „Folgt uns“, „Geht dorthin“, „Greift an“. Geben dürfen ihn Kommandant, Truppführer und Dolmetscher. _Nicht:_ Befehle an die eigene Spielergruppe. |
 | **Informant** | Zivilist, der sich bei hohem Ruf von sich aus meldet und zu einer FOB gebracht werden muss (Liberation-Funktion). Liefert Intel-Punkte und Intel. |
 
 ## Technik
