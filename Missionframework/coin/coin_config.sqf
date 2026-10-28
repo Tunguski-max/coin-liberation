@@ -1102,7 +1102,7 @@ COIN_informantCheckSeconds  = 15;       // s between two looks at the reputation
 // ---------------------------------------------------------------------------
 // Favors at very high reputation (Phase 5, E12, ADR 0023): the only favor is the reinforcement
 // ---------------------------------------------------------------------------
-COIN_enableFavors           = true;     // Ticket 5.4: off = the counter does not run (stock and counter are kept and saved as they are)
+COIN_enableFavors           = true;     // Ticket 5.4: off = the counter does not run (stock and counter are kept and saved as they are). The favors are saved in the COIN block with the nests: with COIN_enableNests off they are not saved
 COIN_favorRepThreshold      = 50;       // Favors grow from here on
 COIN_favorGainMinutes       = 120;      // One favor per this many minutes of the counter (it runs above the threshold with at least one player online)
 COIN_favorMaxStored         = 2;        // Most favors in stock (a full stock does not collect)

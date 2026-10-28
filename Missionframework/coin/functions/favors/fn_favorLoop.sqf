@@ -20,16 +20,19 @@
 
 if (!isServer) exitWith {false};
 
-private _step = COIN_favorTickSeconds / 60;
 private _lastRunning = false;
+private _last = diag_tickTime;
 
 while {COIN_enableFavors} do {
     sleep COIN_favorTickSeconds;
+    // Real time since the last step, so a lagging server does not slow the counter
+    private _step = (diag_tickTime - _last) / 60;
+    _last = diag_tickTime;
 
     private _reputation = missionNamespace getVariable ["KP_liberation_civ_rep", 0];
-    private _players = (allPlayers select {!(_x isKindOf "HeadlessClient_F")}) isNotEqualTo [];
+    private _players = count (allPlayers select {!(_x isKindOf "HeadlessClient_F")});
     private _room = COIN_favorStock < COIN_favorMaxStored;
-    private _running = _reputation >= COIN_favorRepThreshold && {_players} && {_room};
+    private _running = _reputation >= COIN_favorRepThreshold && {_players > 0} && {_room};
     private _changed = _running isNotEqualTo _lastRunning;
     _lastRunning = _running;
 

@@ -468,7 +468,7 @@ class COIN {
         // Stores entry 22 of Liberation's save while it loads (hook in save_manager.sqf, ADR 0005)
         class receiveSaveBlock {};
 
-        // Builds entry 22 of Liberation's save: [COIN_saveVersion, nests, intel] (hook in KPLIB_fnc_getSaveData)
+        // Builds entry 22 of Liberation's save: [COIN_saveVersion, nests, intel, favors] (hook in KPLIB_fnc_getSaveData)
         class getSaveBlock {};
 
         // Notes a new campaign while Liberation loads (hook in save_manager.sqf, branch without a save)

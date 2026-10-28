@@ -170,11 +170,11 @@ coin/
     │   └── fn_markNewCampaign.sqf      COIN_fnc_markNewCampaign: merkt sich beim Laden, dass es keinen Spielstand gibt (Hook 24)
     ├── favors/
     │   ├── fn_initFavors.sqf           COIN_fnc_initFavors: Server, Vorrat und Zähler der Gefälligkeiten aus dem Spielstand (Version 3), startet die Schleife (Ticket 5.4)
-    │   ├── fn_favorLoop.sqf            COIN_fnc_favorLoop: Server-Schleife, der Zähler läuft ab Ruf +50 mit einem Spieler online, alle 120 min eine Gefälligkeit, höchstens 2
+    │   ├── fn_favorLoop.sqf            COIN_fnc_favorLoop: Server-Schleife, der Zähler läuft bei hohem Ruf mit einem Spieler online, nach Config eine Gefälligkeit je Intervall, höchstens so viele wie in der Config
     │   ├── fn_publishFavors.sqf        COIN_fnc_publishFavors: Server, veröffentlicht Vorrat und Zähler für den Debug-Eintrag
     │   ├── fn_showFavors.sqf           COIN_fnc_showFavors: Client, Debug-Eintrag „Gefälligkeiten“ im Karten-Tagebuch (Tab „COIN Debug“)
     │   ├── fn_useFavor.sqf             COIN_fnc_useFavor: Server, eine Gefälligkeit verbrauchen (Schnittstelle für die Verstärkung, 5.6)
-    │   └── fn_delayFavor.sqf           COIN_fnc_delayFavor: Server, den Zähler um 60 min zurückwerfen (Schnittstelle für 5.6)
+    │   └── fn_delayFavor.sqf           COIN_fnc_delayFavor: Server, den Zähler um die Config-Minuten zurückwerfen (Schnittstelle für 5.6)
     ├── reputation/
     │   ├── fn_initReputation.sqf       COIN_fnc_initReputation: Server, Start-Ruf einer neuen Kampagne nach dem Laden (Ticket 5.7)
     │   ├── fn_changeReputation.sqf     COIN_fnc_changeReputation: Server, die eine Stelle für Ruf-Änderungen (Logzeile, im Debug Systemchat), Ticket 5.1
