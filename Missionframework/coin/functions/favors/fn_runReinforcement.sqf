@@ -35,7 +35,7 @@ private _arrived = false;
 private _result = "";
 while {_result isEqualTo ""} do {
     sleep COIN_reinforcementCheckSeconds;
-    private _alive = (units _group) select {alive _x};
+    private _alive = [_group] call COIN_fnc_getFighters;
     if (_alive isEqualTo []) then {
         _result = "wiped";
     } else {
@@ -68,7 +68,7 @@ while {_result isEqualTo ""} do {
     };
 };
 
-private _survivors = (units _group) select {alive _x};
+private _survivors = [_group] call COIN_fnc_getFighters;
 diag_log format [
     "[COIN] favors: reinforcement from %1 ends (%2) after %3 min, %4 of %5 fighters alive",
     _town, _result, ((time - _started) / 60) toFixed 1, count _survivors, _size

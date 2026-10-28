@@ -29,7 +29,7 @@ if (!isServer || {isNull _group}) exitWith {};
 // Still this order of this group
 private _current = {
     COIN_radioOrderId isEqualTo _orderId
-    && {((missionNamespace getVariable ["COIN_reinforcement", []]) param [0, grpNull]) isEqualTo _group}
+    && {[_group] call COIN_fnc_isReinforcement}
 };
 
 private _lastPoint = [];
@@ -37,7 +37,7 @@ private _holding = false;
 while {call _current && {!_holding}} do {
     if (!alive _player || {!isPlayer _player}) then {
         // Nobody to follow: hold the position
-        while {(count (waypoints _group)) != 0} do {deleteWaypoint ((waypoints _group) select 0)};
+        [_group] call COIN_fnc_clearWaypoints;
         {doStop _x} forEach (units _group);
         _holding = true;
         diag_log format ["[COIN] radio: the reinforcement holds its position, %1 is dead or gone", name _player];
@@ -46,7 +46,7 @@ while {call _current && {!_holding}} do {
         if (_lastPoint isEqualTo [] || {(_point distance2D _lastPoint) >= COIN_radioFollowMove}) then {
             _lastPoint = _point;
             // Far behind it runs, close it walks
-            private _leader = ((units _group) select {alive _x}) param [0, objNull];
+            private _leader = ([_group] call COIN_fnc_getFighters) param [0, objNull];
             private _speed = ["NORMAL", "FULL"] select (!isNull _leader && {(_leader distance2D _player) > COIN_radioFollowRunDistance});
             // Behaviour and combat mode stay as they are, the loop must not pull the group out of a fight. Not when the reinforcement
             // ended or another order came in the meantime

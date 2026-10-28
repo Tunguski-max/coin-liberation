@@ -22,13 +22,13 @@ params [
 
 if (!hasInterface) exitWith {false};
 
-private _index = [1, 0] select (language isEqualTo "German");
-private _row = [COIN_radioReplyTexts, _key] call COIN_fnc_findByType;
-if (_row isEqualTo []) exitWith {
+private _text = [COIN_radioReplyTexts, _key] call COIN_fnc_getLanguageText;
+if (_text isEqualTo "") exitWith {
     diag_log format ["[COIN] radio: ERROR - no answer text for %1", _key];
     false
 };
 
-systemChat format ["%1: %2", COIN_radioCallsign select _index, format ([(_row select 1) select _index] + _args)];
+private _index = [1, 0] select (language isEqualTo "German");
+systemChat format ["%1: %2", COIN_radioCallsign select _index, format ([_text] + _args)];
 
 true

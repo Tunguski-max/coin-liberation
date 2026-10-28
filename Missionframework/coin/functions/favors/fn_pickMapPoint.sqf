@@ -27,11 +27,9 @@ params [
 
 if (!hasInterface || {!canSuspend}) exitWith {[]};
 
-private _index = [1, 0] select (language isEqualTo "German");
 private _say = {
     params ["_key"];
-    private _row = [COIN_reinforcementPickTexts, _key] call COIN_fnc_findByType;
-    hint ((_row param [1, ["", ""]]) select _index);
+    hint ([COIN_reinforcementPickTexts, _key] call COIN_fnc_getLanguageText);
 };
 
 private _marker = "";

@@ -32,7 +32,7 @@ params [
 
 if (!isServer || {isNull _group}) exitWith {[]};
 
-while {(count (waypoints _group)) != 0} do {deleteWaypoint ((waypoints _group) select 0)};
+[_group] call COIN_fnc_clearWaypoints;
 {_x doFollow (leader _group)} forEach (units _group);
 _group setBehaviour _behaviour;
 _group setSpeedMode _speed;

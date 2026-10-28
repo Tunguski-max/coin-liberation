@@ -48,9 +48,9 @@ private _casualties = false;
 private _never = -1e6;
 private _lastActive = _never;
 
-while {((missionNamespace getVariable ["COIN_reinforcement", []]) param [0, grpNull]) isEqualTo _group} do {
+while {[_group] call COIN_fnc_isReinforcement} do {
     sleep COIN_reinforcementCheckSeconds;
-    private _alive = (units _group) select {alive _x};
+    private _alive = [_group] call COIN_fnc_getFighters;
     if (_alive isEqualTo []) exitWith {};
 
     private _enemy = _alive findIf {(_x targets [true, COIN_radioContactRange, [], COIN_radioContactAge]) isNotEqualTo []} >= 0;

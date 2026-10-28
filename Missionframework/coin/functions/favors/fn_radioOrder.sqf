@@ -47,7 +47,7 @@ private _reply = {
 
 private _state = missionNamespace getVariable ["COIN_reinforcement", []];
 private _group = _state param [0, grpNull];
-private _here = ((units _group) select {alive _x}) param [0, objNull];
+private _here = ([_group] call COIN_fnc_getFighters) param [0, objNull];
 if (_state isEqualTo [] || {isNull _here} || {!([_caller] call COIN_fnc_canGiveRadioOrder)}) exitWith {
     diag_log format ["[COIN] radio: order %1 of %2 refused (no reinforcement, or the rules)", _order, name _caller];
     ["refused"] call _reply;

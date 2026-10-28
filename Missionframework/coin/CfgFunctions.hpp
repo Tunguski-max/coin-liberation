@@ -84,6 +84,9 @@ class COIN {
         // Row of a config table keyed by nest type (COIN_nestSetup, COIN_nestBuildingShare, ...)
         class findByType {};
 
+        // Text of a config table row [key, [German, English]] in the game language (tickets 5.6, 5.19)
+        class getLanguageText {};
+
         // Fighters among given objects who can still fight (tickets 2.10, 4.5): a camp or an ambush is cleared when none is left
         class getCapableFighters {};
 
@@ -513,6 +516,15 @@ class COIN {
 
         // Server: sends a group of the reinforcement to a point with one waypoint (tickets 5.6, 5.19)
         class moveGroup {};
+
+        // Server: takes all waypoints of a group away (tickets 5.6, 5.19)
+        class clearWaypoints {};
+
+        // The fighters of a group of the reinforcement who are alive (tickets 5.6, 5.19)
+        class getFighters {};
+
+        // Server: is this the group of the reinforcement on its way? the loops of the radio end when not (ticket 5.19)
+        class isReinforcement {};
 
         // Both: may this player give radio orders to the reinforcement? Commander, squad leaders, interpreters (ticket 5.19)
         class canGiveRadioOrder {};
