@@ -166,8 +166,15 @@ coin/
     │   └── fn_showElderLocation.sqf    COIN_fnc_showElderLocation: Client, die Antwort als Untertitel
     ├── persistence/
     │   ├── fn_receiveSaveBlock.sqf     COIN_fnc_receiveSaveBlock: merkt sich Eintrag 22 beim Laden des Spielstands (Hook 18)
-    │   ├── fn_getSaveBlock.sqf         COIN_fnc_getSaveBlock: baut Eintrag 22 beim Speichern, [COIN_saveVersion, Nester, Intel] (Hook 17)
+    │   ├── fn_getSaveBlock.sqf         COIN_fnc_getSaveBlock: baut Eintrag 22 beim Speichern, [COIN_saveVersion, Nester, Intel, Gefälligkeiten] (Hook 17)
     │   └── fn_markNewCampaign.sqf      COIN_fnc_markNewCampaign: merkt sich beim Laden, dass es keinen Spielstand gibt (Hook 24)
+    ├── favors/
+    │   ├── fn_initFavors.sqf           COIN_fnc_initFavors: Server, Vorrat und Zähler der Gefälligkeiten aus dem Spielstand (Version 3), startet die Schleife (Ticket 5.4)
+    │   ├── fn_favorLoop.sqf            COIN_fnc_favorLoop: Server-Schleife, der Zähler läuft bei hohem Ruf mit einem Spieler online, nach Config eine Gefälligkeit je Intervall, höchstens so viele wie in der Config
+    │   ├── fn_publishFavors.sqf        COIN_fnc_publishFavors: Server, veröffentlicht Vorrat und Zähler für den Debug-Eintrag
+    │   ├── fn_showFavors.sqf           COIN_fnc_showFavors: Client, Debug-Eintrag „Gefälligkeiten“ im Karten-Tagebuch (Tab „COIN Debug“)
+    │   ├── fn_useFavor.sqf             COIN_fnc_useFavor: Server, eine Gefälligkeit verbrauchen (Schnittstelle für die Verstärkung, 5.6)
+    │   └── fn_delayFavor.sqf           COIN_fnc_delayFavor: Server, den Zähler um die Config-Minuten zurückwerfen (Schnittstelle für 5.6)
     ├── reputation/
     │   ├── fn_initReputation.sqf       COIN_fnc_initReputation: Server, Start-Ruf einer neuen Kampagne nach dem Laden (Ticket 5.7)
     │   ├── fn_changeReputation.sqf     COIN_fnc_changeReputation: Server, die eine Stelle für Ruf-Änderungen (Logzeile, im Debug Systemchat), Ticket 5.1

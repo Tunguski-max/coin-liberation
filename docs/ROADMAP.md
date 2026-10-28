@@ -262,9 +262,9 @@ Vier Blöcke, nacheinander umgesetzt und getestet: 5A → 5B → 5C → 5D.
 - [x] 5.18 Zugriffsauftrag „Export“ (Cessna an einem Flugplatz nahe einer Ortschaft oder einem Militärposten der Miliz zerstören, Readiness −10 Punkte)
 
 **5D Gefälligkeit „Verstärkung“ (DESIGN 8.1)** – Reihenfolge: 5.4, 5.6, 5.19
-- [ ] 5.4 Gefälligkeiten: ab +50 eine je 120 min mit Spieler online, höchstens 2, gespeichert (`COIN_saveVersion` 3);
-  Eintrag „Verstärkung“ im Dialog des Ältesten, kostet eine Gefälligkeit und 10 Intel-Punkte, ab Ruf +25, höchstens eine gleichzeitig
-- [ ] 5.6 Verstärkung: 10 lokale Kämpfer (Widerstand, eigene Gruppe, ADR 0012) entstehen am Ältesten und laufen zu einem
+- [x] 5.4 Gefälligkeiten: ab +50 eine je 120 min mit Spieler online, höchstens 2, gespeichert (`COIN_saveVersion` 3)
+- [ ] 5.6 Verstärkung: Eintrag „Verstärkung“ im Dialog des Ältesten, kostet eine Gefälligkeit und 10 Intel-Punkte, ab Ruf +25,
+  höchstens eine gleichzeitig; 10 lokale Kämpfer (Widerstand, eigene Gruppe, ADR 0012) entstehen am Ältesten und laufen zu einem
   Punkt, den der Dolmetscher auf der Karte anklickt; Abzug nach 30 min, unter Ruf +25 oder aufgerieben (dann nächste
   Gefälligkeit 60 min später)
 - [ ] 5.19 Funk (Kommunikationsmenü) für Kommandant, Truppführer und Dolmetscher: „Folgt uns“, „Geht dorthin“, „Greift an“

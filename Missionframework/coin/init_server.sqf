@@ -59,6 +59,9 @@ if (COIN_enableInformantFrequency) then {
     diag_log "[COIN] init: informant frequency by reputation off, Liberation's values stay";
 };
 
+// Favors (ticket 5.4, DESIGN 8.1, ADR 0023): the stock and the counter come from the save, the counter runs at a high reputation
+[] spawn COIN_fnc_initFavors;
+
 // AI budget (ticket 2.13, ADR 0015): Liberation's caps = COIN_maxEnemyAI x Unitcap, COIN units on top
 if (COIN_enableAIBudget) then {
     [] spawn COIN_fnc_aiBudget;

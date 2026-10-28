@@ -468,11 +468,33 @@ class COIN {
         // Stores entry 22 of Liberation's save while it loads (hook in save_manager.sqf, ADR 0005)
         class receiveSaveBlock {};
 
-        // Builds entry 22 of Liberation's save: [COIN_saveVersion, nests, intel] (hook in KPLIB_fnc_getSaveData)
+        // Builds entry 22 of Liberation's save: [COIN_saveVersion, nests, intel, favors] (hook in KPLIB_fnc_getSaveData)
         class getSaveBlock {};
 
         // Notes a new campaign while Liberation loads (hook in save_manager.sqf, branch without a save)
         class markNewCampaign {};
+    };
+
+    class favors {
+        file = "coin\functions\favors";
+
+        // Server: the stock of favors and the counter from the save, starts the loop (ticket 5.4, ADR 0023)
+        class initFavors {};
+
+        // Server: the counter runs at a high reputation, a favor every COIN_favorGainMinutes (ticket 5.4)
+        class favorLoop {};
+
+        // Server: publishes stock and counter for the debug record (ticket 5.4)
+        class publishFavors {};
+
+        // Client: debug record of the favors in the map diary, tab "COIN Debug" (ticket 5.4)
+        class showFavors {};
+
+        // Server: uses one favor from the stock, interface for the reinforcement (tickets 5.4, 5.6)
+        class useFavor {};
+
+        // Server: throws the counter back, interface for the reinforcement that was wiped out (tickets 5.4, 5.6)
+        class delayFavor {};
     };
 
     class reputation {

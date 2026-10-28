@@ -15,8 +15,8 @@
 // General
 // ---------------------------------------------------------------------------
 COIN_debug                  = false;    // Show nests, radii, IEDs on map; verbose [COIN] logs
-COIN_saveVersion            = 2;        // Bump when the persisted data format changes (2: intel, ADR 0021)
-COIN_loadableSaveVersions   = [1, 2];   // Versions that load; older ones are converted (1 -> 2: empty intel list)
+COIN_saveVersion            = 3;        // Bump when the persisted data format changes (2: intel, ADR 0021; 3: favors, ADR 0023)
+COIN_loadableSaveVersions   = [1, 2, 3]; // Versions that load; older ones are converted (1 -> 2: empty intel list; 2 -> 3: no favors, stock 0 and counter 0)
 COIN_initTimeout            = 300;      // s to wait for Liberation's init before giving up
 
 // ---------------------------------------------------------------------------
@@ -1102,11 +1102,12 @@ COIN_informantCheckSeconds  = 15;       // s between two looks at the reputation
 // ---------------------------------------------------------------------------
 // Favors at very high reputation (Phase 5, E12, ADR 0023): the only favor is the reinforcement
 // ---------------------------------------------------------------------------
-COIN_enableFavors           = true;
+COIN_enableFavors           = true;     // Ticket 5.4: off = the counter does not run (stock and counter are kept and saved as they are). The favors are saved in the COIN block with the nests: with COIN_enableNests off they are not saved
 COIN_favorRepThreshold      = 50;       // Favors grow from here on
-COIN_favorGainMinutes       = 120;      // One favor per this many minutes above the threshold, with at least one player online
-COIN_favorMaxStored         = 2;
-COIN_favorLossCooldownMin   = 60;       // Extra wait if local fighters were wiped out
+COIN_favorGainMinutes       = 120;      // One favor per this many minutes of the counter (it runs above the threshold with at least one player online)
+COIN_favorMaxStored         = 2;        // Most favors in stock (a full stock does not collect)
+COIN_favorLossCooldownMin   = 60;       // Minutes the counter is thrown back if local fighters were wiped out (COIN_fnc_delayFavor)
+COIN_favorTickSeconds       = 30;       // s between two steps of the counter (ticket 5.4)
 COIN_favorIntelCost         = 10;       // Liberation intel points to redeem a favor (on top of the favor itself)
 COIN_favorMinRep            = 25;       // A stored favor can be redeemed from here on (friendly resistance)
 
