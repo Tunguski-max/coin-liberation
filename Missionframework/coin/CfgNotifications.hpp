@@ -52,3 +52,34 @@ class coin_intel_warning_de: coin_intel_warning_en {
     title = "WARNUNG";
     description = "Eine Gefahr in der Nähe wurde auf der Karte eingetragen.";
 };
+// Reinforcement (ticket 5.6): %1 is the town of the elder. Arrived is good news (green), leaving is a hint (orange), wiped out a warning (red)
+class coin_reinforcement_arrived_en: coin_nest_destroyed_en {
+    title = "REINFORCEMENT ARRIVED";
+    description = "The reinforcement from %1 has reached the target point.";
+};
+class coin_reinforcement_arrived_de: coin_reinforcement_arrived_en {
+    title = "VERSTÄRKUNG ANGEKOMMEN";
+    description = "Die Verstärkung aus %1 hat den Zielpunkt erreicht.";
+};
+class coin_reinforcement_left_time_en: coin_intel_new_en {
+    title = "REINFORCEMENT LEAVING";
+    description = "The reinforcement from %1 is leaving, their time is up.";
+};
+class coin_reinforcement_left_time_de: coin_reinforcement_left_time_en {
+    title = "VERSTÄRKUNG ZIEHT AB";
+    description = "Die Verstärkung aus %1 zieht ab, ihre Zeit ist um.";
+};
+class coin_reinforcement_left_reputation_en: coin_reinforcement_left_time_en {
+    description = "%1 Reinforcements are leaving as they lost trust in you";
+};
+class coin_reinforcement_left_reputation_de: coin_reinforcement_left_time_de {
+    description = "Verstärkung aus %1 zieht ab, nachdem du ihr Vertrauen verloren hast";
+};
+class coin_reinforcement_left_wiped_en: coin_intel_warning_en {
+    title = "REINFORCEMENT WIPED OUT";
+    description = "The reinforcement from %1 has been wiped out.";
+};
+class coin_reinforcement_left_wiped_de: coin_reinforcement_left_wiped_en {
+    title = "VERSTÄRKUNG AUFGERIEBEN";
+    description = "Die Verstärkung aus %1 ist aufgerieben.";
+};

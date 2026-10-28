@@ -9,7 +9,9 @@
         the dialog. An offer that cannot be accepted is grey; its explanation starts with the reason in red and the
         button stays disabled. Sent by COIN_fnc_askElderHelp. If the town waits for a task or runs one, the elder says so
         as a subtitle on opening. "Accept" sends the offer to the server (COIN_fnc_acceptElderOffer), which checks again.
-        The dialog closes by itself when the interpreter walks away or the elder is gone.
+        The dialog closes by itself when the interpreter walks away or the elder is gone. The favor "reinforcement" (section "favor",
+        ticket 5.6, texts of COIN_favorOfferTexts) does not go to COIN_fnc_acceptElderOffer: "Accept" opens the map for the point
+        (COIN_fnc_pickReinforcementPoint), which sends the request.
 
     Parameter(s):
         _elder  - The elder [OBJECT, defaults to objNull]
@@ -70,12 +72,14 @@ _button ctrlSetText (_accept select _index);
         _list lbSetColor [_headerRow, [0.8, 0.8, 0.8, 0.6]];
         {
             _x params ["_id", "", "_enabled"];
-            // A secondary mission of Liberation (ticket 5.17) has Liberation's title, an aid task its own
+            // A secondary mission of Liberation (ticket 5.17) has Liberation's title, an aid task and a favor (ticket 5.6) their own
             private _secondary = [COIN_secondaryOffers, _id] call COIN_fnc_findByType;
+            private _favorRow = [COIN_favorOfferTexts, _id] call COIN_fnc_findByType;
             private _label = if (_secondary isNotEqualTo []) then {
                 localize (_secondary select 2)
             } else {
-                (([[COIN_aidTaskTexts, COIN_strikeTaskTexts] select _strike, _id] call COIN_fnc_findByType) select 1) select _index
+                private _row = if (_favorRow isNotEqualTo []) then {_favorRow} else {[[COIN_aidTaskTexts, COIN_strikeTaskTexts] select _strike, _id] call COIN_fnc_findByType};
+                (_row select 1) select _index
             };
             private _row = _list lbAdd ("    " + _label);
             _list lbSetData [_row, _id];
@@ -112,18 +116,28 @@ while {dialog && {alive player} && {_strike || {alive _elder && {(player distanc
             (_offer select 0) params ["", "", "_enabled", "_reasonKey", "_reasonValue", "_place"];
             // No village for the task: the explanation names no place of the town, as the offer is grey for that reason
             if (_reasonKey isEqualTo "no_site") then {_place = COIN_aidNoSitePlace select _index};
-            private _row = [[COIN_aidTaskTexts, COIN_strikeTaskTexts] select _strike, _id] call COIN_fnc_findByType;
+            private _favorRow = [COIN_favorOfferTexts, _id] call COIN_fnc_findByType;
+            private _row = if (_favorRow isNotEqualTo []) then {_favorRow} else {[[COIN_aidTaskTexts, COIN_strikeTaskTexts] select _strike, _id] call COIN_fnc_findByType};
             private _explanation = if (_secondary isNotEqualTo []) then {
                 // Liberation's briefing, then its cost and the intel points the army has
                 (localize (_secondary select 3)) + "<br/><br/>" + format [
                     COIN_secondaryCostText select _index, GRLIB_secondary_missions_costs select (_secondary select 1), missionNamespace getVariable ["resources_intel", 0]
                 ]
             } else {
-                if (_strike) then {
-                    // The minutes until the event starts and the whole window, each as [least, most]
-                    format [(_row select 2) select _index, COIN_strikeTaskDelayMin select 0, COIN_strikeTaskDelayMin select 1, COIN_strikeTaskWindowMin select 0, COIN_strikeTaskWindowMin select 1]
+                if (_favorRow isNotEqualTo []) then {
+                    // A favor (ticket 5.6): the fighters, the time, the cost, the reach, then the favors in stock and the most (8th entry)
+                    private _stocks = (_offer select 0) param [7, [0, 0]];
+                    format [
+                        (_row select 2) select _index, COIN_reinforcementSize, COIN_reinforcementMaxMin, COIN_favorIntelCost,
+                        COIN_reinforcementMaxDistance, _stocks select 0, _stocks select 1
+                    ]
                 } else {
-                    format [(_row select 2) select _index, COIN_aidTaskTimeoutMin, COIN_aidSupplyDistance, COIN_aidSupplyMinValue, COIN_aidRepairSeconds, COIN_aidRepairRadius select 0, _place]
+                    if (_strike) then {
+                        // The minutes until the event starts and the whole window, each as [least, most]
+                        format [(_row select 2) select _index, COIN_strikeTaskDelayMin select 0, COIN_strikeTaskDelayMin select 1, COIN_strikeTaskWindowMin select 0, COIN_strikeTaskWindowMin select 1]
+                    } else {
+                        format [(_row select 2) select _index, COIN_aidTaskTimeoutMin, COIN_aidSupplyDistance, COIN_aidSupplyMinValue, COIN_aidRepairSeconds, COIN_aidRepairRadius select 0, _place]
+                    }
                 }
             };
             private _reason = "";
@@ -154,7 +168,12 @@ if (COIN_elderAccept == 1 && {dialog}) then {
 if (dialog) then {closeDialog 0};
 
 if (_chosen isNotEqualTo "") then {
-    [_elder, player, _chosen] remoteExecCall [["COIN_fnc_acceptElderOffer", "COIN_fnc_acceptStrikeTask"] select _strike, 2];
+    if (!_strike && {([COIN_favorOfferTexts, _chosen] call COIN_fnc_findByType) isNotEqualTo []}) then {
+        // A favor needs its point on the map first; the request goes to the server from there (ticket 5.6)
+        [_elder] spawn COIN_fnc_pickReinforcementPoint;
+    } else {
+        [_elder, player, _chosen] remoteExecCall [["COIN_fnc_acceptElderOffer", "COIN_fnc_acceptStrikeTask"] select _strike, 2];
+    };
 };
 
 true

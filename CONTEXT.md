@@ -92,6 +92,7 @@ Code-Bezeichner stehen in Klammern.
 | **Nebenmission** | Liberations eigene, mit Intel-Punkten gekaufte Missionen (Konvoi-Überfall, Rettung), die der Dolmetscher beim Ältesten startet. Kein Auftrag im Sinne der COIN-Schicht. |
 | **Lokale Kämpfer** (`localFighters`) | Freundliche Dorfwachen und Stammeskämpfer aus dem Widerstand, die über eine Gefälligkeit kommen und als Verstärkung zur Armee stoßen. _Nicht:_ Liberations spontane Guerilla-Einsätze in Sektorkämpfen. |
 | **Verstärkung** (`reinforcement`) | Gruppe lokaler Kämpfer, die über eine Gefälligkeit kommt und für begrenzte Zeit per Funk geführt wird (folgen, hingehen, angreifen). Bleibt Widerstand, tritt keiner Spielergruppe bei. |
+| **Aufgerieben** (`wiped`) | Zustand einer Verstärkung, deren Kämpfer alle gefallen sind, bevor sie abgezogen ist. Die nächste Gefälligkeit kommt dann später. _Nicht:_ Abzug (Zeit, Ruf) und Verluste einzelner Kämpfer. |
 | **Informant** | Zivilist, der sich bei hohem Ruf von sich aus meldet und zu einer FOB gebracht werden muss (Liberation-Funktion). Liefert Intel-Punkte und Intel. |
 
 ## Technik

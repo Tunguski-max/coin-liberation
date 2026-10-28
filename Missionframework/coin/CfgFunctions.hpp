@@ -495,6 +495,18 @@ class COIN {
 
         // Server: throws the counter back, interface for the reinforcement that was wiped out (tickets 5.4, 5.6)
         class delayFavor {};
+
+        // Client: the interpreter picks the target point of the reinforcement on the map, with the circle of the reach (ticket 5.6)
+        class pickReinforcementPoint {};
+
+        // Server: checks the request for a reinforcement, takes favor and intel points, spawns the local fighters (ticket 5.6)
+        class requestReinforcement {};
+
+        // Server: watches the reinforcement: arrived, time, reputation, wiped out; the walk home (ticket 5.6)
+        class runReinforcement {};
+
+        // Client: message about the reinforcement to everybody (ticket 5.6)
+        class showReinforcementMessage {};
     };
 
     class reputation {

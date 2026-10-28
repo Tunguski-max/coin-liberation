@@ -174,7 +174,11 @@ coin/
     │   ├── fn_publishFavors.sqf        COIN_fnc_publishFavors: Server, veröffentlicht Vorrat und Zähler für den Debug-Eintrag
     │   ├── fn_showFavors.sqf           COIN_fnc_showFavors: Client, Debug-Eintrag „Gefälligkeiten“ im Karten-Tagebuch (Tab „COIN Debug“)
     │   ├── fn_useFavor.sqf             COIN_fnc_useFavor: Server, eine Gefälligkeit verbrauchen (Schnittstelle für die Verstärkung, 5.6)
-    │   └── fn_delayFavor.sqf           COIN_fnc_delayFavor: Server, den Zähler um die Config-Minuten zurückwerfen (Schnittstelle für 5.6)
+    │   ├── fn_delayFavor.sqf           COIN_fnc_delayFavor: Server, den Zähler um die Config-Minuten zurückwerfen (Schnittstelle für 5.6)
+    │   ├── fn_pickReinforcementPoint.sqf COIN_fnc_pickReinforcementPoint: Client, der Dolmetscher klickt den Zielpunkt der Verstärkung auf der Karte an, Kreis = Reichweite (Ticket 5.6)
+    │   ├── fn_requestReinforcement.sqf COIN_fnc_requestReinforcement: Server, prüft die Anfrage, nimmt Gefälligkeit und Intel-Punkte, lässt die lokalen Kämpfer entstehen (Ticket 5.6)
+    │   ├── fn_runReinforcement.sqf     COIN_fnc_runReinforcement: Server, überwacht die Verstärkung (Ankunft, Zeit, Ruf, aufgerieben) und den Rückweg (Ticket 5.6)
+    │   └── fn_showReinforcementMessage.sqf COIN_fnc_showReinforcementMessage: Client, Meldung zur Verstärkung an alle (Ticket 5.6)
     ├── reputation/
     │   ├── fn_initReputation.sqf       COIN_fnc_initReputation: Server, Start-Ruf einer neuen Kampagne nach dem Laden (Ticket 5.7)
     │   ├── fn_changeReputation.sqf     COIN_fnc_changeReputation: Server, die eine Stelle für Ruf-Änderungen (Logzeile, im Debug Systemchat), Ticket 5.1
