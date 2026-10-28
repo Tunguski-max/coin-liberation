@@ -1232,7 +1232,7 @@ COIN_aidReasonTexts = [
     ["no_territory", ["Es ist nicht genug Feindgebiet für eine Nebenmission übrig.", "There is not enough enemy territory left for a mission."]], // no value (ticket 5.17)
     ["reinforcement_running", ["Es ist schon eine Verstärkung unterwegs.", "A reinforcement is on its way already."]],           // no value (ticket 5.6)
     ["reinforcement_rep",     ["Dafür vertraut die Bevölkerung euch nicht genug.", "The population does not trust you enough for that."]], // no value (ticket 5.6)
-    ["no_favor",              ["Es ist keine Gefälligkeit im Vorrat.", "There is no favor in stock."]]                                // no value (ticket 5.6)
+    ["no_favor",              ["Du hast gerade keinen Gefallen bei den Bewohnern gut.", "The locals do not owe you a favor right now."]]                                // no value (ticket 5.6)
 ];
 // What the elder says, one is picked at random: [key, [German sentences, English sentences]]
 COIN_elderSentences = [
