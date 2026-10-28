@@ -298,8 +298,13 @@ Vier Blöcke, nacheinander umgesetzt und getestet: 6A → 6B → 6C → 6D. Samm
   hat sich geändert, im nächsten echten Durchlauf im RPT nach `readiness: strike` suchen))
 
 **6B Gegenangriffe (ADR 0025)** – Reihenfolge: 6.1a, 6.1b, 6.1c, 6.2, 6.7a, 6.7b
-- [ ] 6.1a (#154, umgesetzt, ungetestet) Aufmarschräume berechnen (Einflussradius aktiver Kommandoposten, 2000 m um Militärposten in Miliz-Hand) und auf der
+- [x] 6.1a (#154, am 2026-10-28 im Spiel getestet) Aufmarschräume berechnen (Einflussradius aktiver Kommandoposten, 3000 m um Militärposten in Miliz-Hand) und auf der
   Debug-Karte zeigen; Debug-Funktion „Sektor einnehmen“
+  (beim Start 8 Aufmarschräume (2 Kommandoposten, 6 Militärposten), zerstörtes Nest und eingenommener Militärposten (Peleton Camp,
+  über die Debug-Funktion) verschwinden nach wenigen Sekunden aus Log und Karte, nach dem Neustart gelten beide weiter nicht mehr
+  (6 Aufmarschräume), Verweigerung eines Sektors, der schon der Armee gehört; Radius der Militärposten am Ende von 2000 auf 3000 m
+  erhöht (nach dem Test, noch nicht im Spiel gesehen); nicht einzeln getestet: Hauptstadt und aktive Sektoren verweigern,
+  Miliz holt sich einen Militärposten zurück)
 - [ ] 6.1b (#155) Gegenangriff nach Einnahme und zufällige Battlegroups nur von Spawnpunkten im Aufmarschraum, sonst entfällt er;
   Hauptstadt ohne Bedingung, Patrouillen unverändert (Hook)
 - [ ] 6.1c (#156) Entsatz: nächster Aufmarschraum, der den Sektor enthält, statt Funkturm; Liberations Ablauf (Wartezeit, Patrouillen

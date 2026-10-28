@@ -11,7 +11,8 @@
 - Der Readiness-Deckel aus ADR 0013 hatte noch keine Formel.
 
 ## Entscheidung
-- **Aufmarschraum** (CONTEXT.md): der Einflussradius eines aktiven Kommandopostens **oder** der Umkreis (Startwert 2000 m)
+- **Aufmarschraum** (CONTEXT.md): der Einflussradius eines aktiven Kommandopostens **oder** der Umkreis (Startwert 3000 m, am 2026-10-28 von 2000 m erhöht: ein Militärposten ist ein Punkt ohne Einflussradius und sollte
+  ähnlich viel Fläche decken wie ein Kommandoposten mit 2500 m)
   eines Militärpostens, den die Miliz hält. Er endet, wenn das Nest zerstört oder der Militärposten eingenommen ist.
   Erobert die Miliz einen Militärposten zurück, ist er wieder ein Aufmarschraum (wir folgen Liberations Besitz).
 - **Gegenangriffe:** Der Gegenangriff nach einer Einnahme und die zufälligen Battlegroups starten nur an einem Spawnpunkt

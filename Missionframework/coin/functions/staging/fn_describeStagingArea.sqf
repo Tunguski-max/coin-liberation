@@ -4,7 +4,7 @@
 
     Description:
         Short text of a staging area for the log and the debug map (ticket 6.1a, #154), e.g.
-        "command post (nest 3), radius 2500" or "military post military_2 (Kalae Barracks), radius 2000". Server only.
+        "command post (nest 3), radius 2500" or "military post military_2 (Kalae Barracks), radius 3000". Server only.
 
     Parameter(s):
         _area - One entry of COIN_fnc_getStagingAreas [ARRAY]
