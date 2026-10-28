@@ -1128,7 +1128,10 @@ COIN_radioRoles             = ["Kommandant", "Truppführer"]; // Role descriptio
 COIN_radioFollowSeconds     = 10;       // s between two looks of a group that follows
 COIN_radioFollowDistance    = 15;       // m behind the player the group that follows stops
 COIN_radioFollowMove        = 5;        // m the point behind the player must have moved before the group gets a new waypoint
+COIN_radioFollowRadius      = 5;        // m: completion radius of that waypoint
+COIN_radioFollowRunDistance = 45;       // m: farther than this from the player the group that follows runs, closer it walks
 COIN_radioAttackRadius      = 150;      // m: "Attack" searches and destroys in this radius around the middle of the town
+COIN_radioAttackModes       = ["FULL", "AWARE", "RED", "COMBAT"]; // "Attack": speed and behaviour on the way, combat mode, behaviour of the search
 COIN_radioCallsign          = ["Verstärkung", "Reinforcement"]; // How the answers of the radio start
 // Answers to the one who gave the order: [key, [German, English]]; %1 = point or town, %2 = distance in m ("attack")
 COIN_radioReplyTexts = [

@@ -3,8 +3,9 @@
     Author: COIN Liberation
 
     Description:
-        Server: sends a group of the reinforcement to a point (tickets 5.6 and 5.19): takes all its waypoints away and gives it one
-        move waypoint, with its speed, behaviour and combat mode. The group walks there and stays; the caller may add more
+        Server: sends a group of the reinforcement to a point (tickets 5.6 and 5.19): takes all its waypoints away, lets every unit
+        follow its leader again (a unit that was stopped by "doStop" obeys the waypoint then, Liberation does the same before its
+        waypoints) and gives the group one move waypoint, with its speed, behaviour and combat mode. The group walks there and stays; the caller may add more
         waypoints to the one that is returned.
 
     Parameter(s):
@@ -32,6 +33,7 @@ params [
 if (!isServer || {isNull _group}) exitWith {[]};
 
 while {(count (waypoints _group)) != 0} do {deleteWaypoint ((waypoints _group) select 0)};
+{_x doFollow (leader _group)} forEach (units _group);
 _group setBehaviour _behaviour;
 _group setSpeedMode _speed;
 if (_combat isNotEqualTo "") then {_group setCombatMode _combat};

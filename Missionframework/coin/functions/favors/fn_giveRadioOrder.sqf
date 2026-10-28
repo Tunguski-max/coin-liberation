@@ -29,7 +29,11 @@ if (!(missionNamespace getVariable ["COIN_reinforcementOn", false]) || {!([_call
 
 private _pos = [];
 if (_order isEqualTo "goto") then {
+    // The map is open once: a second click on the menu item while it picks does nothing
+    if (missionNamespace getVariable ["COIN_radioPicking", false]) exitWith {};
+    COIN_radioPicking = true;
     _pos = [getPosATL _caller, 0, objNull, "start_radio"] call COIN_fnc_pickMapPoint;
+    COIN_radioPicking = false;
 };
 if (_order isEqualTo "goto" && {_pos isEqualTo []}) exitWith {false};
 

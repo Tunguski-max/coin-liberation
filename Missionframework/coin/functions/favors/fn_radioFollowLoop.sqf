@@ -47,8 +47,12 @@ while {call _current && {!_holding}} do {
             _lastPoint = _point;
             // Far behind it runs, close it walks
             private _leader = ((units _group) select {alive _x}) param [0, objNull];
-            private _speed = ["NORMAL", "FULL"] select (!isNull _leader && {(_leader distance2D _player) > (COIN_radioFollowDistance * 3)});
-            [_group, _point, COIN_radioFollowMove, _speed] call COIN_fnc_moveGroup;
+            private _speed = ["NORMAL", "FULL"] select (!isNull _leader && {(_leader distance2D _player) > COIN_radioFollowRunDistance});
+            // Behaviour and combat mode stay as they are, the loop must not pull the group out of a fight. Not when the reinforcement
+            // ended or another order came in the meantime
+            if (call _current && {!isNull _leader}) then {
+                [_group, _point, COIN_radioFollowRadius, _speed, behaviour _leader, combatMode _group] call COIN_fnc_moveGroup;
+            };
         };
         sleep COIN_radioFollowSeconds;
     };

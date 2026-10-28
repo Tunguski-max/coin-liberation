@@ -81,7 +81,6 @@ private _group = [_home, COIN_reinforcementSize] call KPLIB_fnc_spawnGuerillaGro
 _group setVariable ["COIN_reinforcement", true, true];
 [units _group] call COIN_fnc_addToCurators;
 
-{_x doFollow (leader _group)} forEach (units _group);
 [_group, _target, COIN_reinforcementArriveRadius] call COIN_fnc_moveGroup;
 
 private _endTime = time + (COIN_reinforcementMaxMin * 60);

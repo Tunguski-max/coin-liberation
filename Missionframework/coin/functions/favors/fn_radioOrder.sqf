@@ -54,11 +54,18 @@ if (_state isEqualTo [] || {isNull _here} || {!([_caller] call COIN_fnc_canGiveR
 
 private _town = _state select 4;
 private _done = false;
+// A new order ends the loop of a group that follows
+private _nextOrder = {
+    COIN_radioOrderId = (missionNamespace getVariable ["COIN_radioOrderId", 0]) + 1;
+    COIN_radioOrderId
+};
 
 switch (_order) do {
     case "follow": {
-        COIN_radioOrderId = (missionNamespace getVariable ["COIN_radioOrderId", 0]) + 1;
-        [_group, _caller, COIN_radioOrderId] spawn COIN_fnc_radioFollowLoop;
+        // It starts calm; the loop leaves the modes alone, so a fight is not broken off
+        _group setBehaviour "AWARE";
+        _group setCombatMode "YELLOW";
+        [_group, _caller, call _nextOrder] spawn COIN_fnc_radioFollowLoop;
         ["follow"] call _reply;
         diag_log format ["[COIN] radio: %1 orders the reinforcement from %2: follow", name _caller, _town];
         _done = true;
@@ -68,7 +75,7 @@ switch (_order) do {
             diag_log format ["[COIN] radio: order goto of %1 refused, no usable point %2", name _caller, _pos];
             ["refused"] call _reply;
         } else {
-            COIN_radioOrderId = (missionNamespace getVariable ["COIN_radioOrderId", 0]) + 1;
+            call _nextOrder;
             [_group, _pos, COIN_reinforcementArriveRadius] call COIN_fnc_moveGroup;
             ["goto", [mapGridPosition _pos]] call _reply;
             diag_log format ["[COIN] radio: %1 orders the reinforcement from %2: go to %3, %4 m", name _caller, _town, mapGridPosition _pos, round (_here distance2D _pos)];
@@ -83,12 +90,13 @@ switch (_order) do {
         } else {
             _targets sort true;
             (_targets select 0) params ["_distance", "_marker"];
-            COIN_radioOrderId = (missionNamespace getVariable ["COIN_radioOrderId", 0]) + 1;
+            call _nextOrder;
             // On the way ready to fire at will, there searching and destroying like Liberation's own guerilla
-            private _waypoint = [_group, markerPos _marker, COIN_reinforcementArriveRadius, "FULL", "AWARE", "RED"] call COIN_fnc_moveGroup;
+            COIN_radioAttackModes params ["_speed", "_wayBehaviour", "_combat", "_searchBehaviour"];
+            private _waypoint = [_group, markerPos _marker, COIN_reinforcementArriveRadius, _speed, _wayBehaviour, _combat] call COIN_fnc_moveGroup;
             _waypoint = _group addWaypoint [markerPos _marker, COIN_radioAttackRadius];
             _waypoint setWaypointType "SAD";
-            _waypoint setWaypointBehaviour "COMBAT";
+            _waypoint setWaypointBehaviour _searchBehaviour;
             _waypoint = _group addWaypoint [markerPos _marker, COIN_radioAttackRadius];
             _waypoint setWaypointType "CYCLE";
             ["attack", [markerText _marker, round _distance]] call _reply;

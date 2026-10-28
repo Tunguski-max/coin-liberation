@@ -84,7 +84,8 @@ if (COIN_enableFavors && {COIN_enableReinforcement} && {COIN_enableRadio}) then 
     player addEventHandler ["Respawn", {
         COIN_radioMenuIds = [];
         COIN_radioBriefingRecord = nil;
-        [] call COIN_fnc_updateRadio;
+        params ["_unit"];
+        [_unit] call COIN_fnc_updateRadio;
     }];
     if (!isServer) then {
         "COIN_reinforcementOn" addPublicVariableEventHandler {[] call COIN_fnc_updateRadio;};
@@ -93,7 +94,7 @@ if (COIN_enableFavors && {COIN_enableReinforcement} && {COIN_enableRadio}) then 
             private _timeout = diag_tickTime + COIN_initTimeout;
             waitUntil {
                 sleep 1;
-                !isNil "COIN_reinforcementOn" || {diag_tickTime > _timeout}
+                (!isNil "COIN_reinforcementOn" && {!isNull player}) || {diag_tickTime > _timeout}
             };
             [] call COIN_fnc_updateRadio;
         };
