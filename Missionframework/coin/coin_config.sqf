@@ -1512,7 +1512,7 @@ COIN_exportAirfields        = [         // [name, position of the runway where t
     ["Kinduf Airfield", [], 0],
     ["Kalae Airport", [12461.6, 17739.2, 0], 311]
 ];
-COIN_exportTownRange        = 3000;     // m (straight line): the militia has to hold a town (the capital too) this near the airfield
+COIN_exportTownRange        = 3000;     // m (straight line): the militia has to hold a town, the capital or a military post this near the airfield
 COIN_exportPlaneClasses     = ["CUP_C_Cessna_CIV", "C_Plane_Civil_01_F"]; // The plane: the first class that exists
 COIN_exportLockPlane        = true;     // The plane is locked: nobody can get in and fly away (it is to be destroyed)
 COIN_exportGuards           = [8, 12];  // [min, max] guards at the plane (a share of them patrols)
