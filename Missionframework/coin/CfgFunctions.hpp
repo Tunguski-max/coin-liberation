@@ -534,6 +534,9 @@ class COIN {
 
         // Client: the answer of the radio to the one who gave the order (ticket 5.19)
         class showRadioReply {};
+
+        // Server: reports contact, firefight and losses of the reinforcement to those who have the orders (ticket 5.19)
+        class watchReinforcement {};
     };
 
     class reputation {

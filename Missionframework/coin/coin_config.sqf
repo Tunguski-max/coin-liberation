@@ -1132,13 +1132,21 @@ COIN_radioFollowRadius      = 5;        // m: completion radius of that waypoint
 COIN_radioFollowRunDistance = 45;       // m: farther than this from the player the group that follows runs, closer it walks
 COIN_radioAttackRadius      = 150;      // m: "Attack" searches and destroys in this radius around the middle of the town
 COIN_radioAttackModes       = ["FULL", "AWARE", "RED", "COMBAT"]; // "Attack": speed and behaviour on the way, combat mode, behaviour of the search
+COIN_radioContactRange       = 400;      // m: a fighter who knows an enemy this near reports contact
+COIN_radioContactAge         = 30;       // s: an enemy seen this long ago still counts
+COIN_radioFightSeconds      = 10;       // s: a fighter who fired or was hit this long ago means a firefight
+COIN_radioQuietSeconds      = 60;       // s without an enemy and without a shot until contact and firefight are reported again
+COIN_radioCasualtyShare     = 0.5;      // The reinforcement reports its losses when this share of the fighters or fewer are able to fight
 COIN_radioCallsign          = ["Verstärkung", "Reinforcement"]; // How the answers of the radio start
-// Answers to the one who gave the order: [key, [German, English]]; %1 = point or town (grid), %2 = distance in m ("attack"); "arrived": the group has reached the point of "go there"
+// Answers to the one who gave the order: [key, [German, English]]; %1 = point or town (grid), %2 = distance in m ("attack"); "arrived": the group has reached the point of "go there"; "contact", "firefight", "casualties" (%1 = grid, for the losses %1 = able to fight, %2 = fighters at the start) go to all who may give orders
 COIN_radioReplyTexts = [
     ["follow",    ["Verstanden, wir folgen dir.", "Understood, we follow you."]],
     ["goto",      ["Verstanden, wir gehen zu %1.", "Understood, we are moving to %1."]],
     ["attack",    ["Verstanden, wir greifen %1 an, %2 m.", "Understood, we attack %1, %2 m."]],
     ["arrived",   ["Wir sind an Punkt %1 angekommen.", "We have reached point %1."]],
+    ["contact",   ["Feindkontakt bei %1.", "Enemy contact at %1."]],
+    ["firefight", ["Wir sind im Feuergefecht bei %1.", "We are in a firefight at %1."]],
+    ["casualties", ["Die Hälfte von uns ist ausgeschaltet, noch %1 von %2 kampffähig.", "Half of us are down, %1 of %2 still able to fight."]],
     ["no_target", ["Kein Ziel: Es gibt keine Ortschaft der Miliz mehr.", "No target: There is no town of the militia left."]],
     ["refused",   ["Funkspruch nicht verstanden.", "Radio message not understood."]]
 ];

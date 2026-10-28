@@ -188,7 +188,8 @@ coin/
     │   ├── fn_giveRadioOrder.sqf       COIN_fnc_giveRadioOrder: Client, ein Funkbefehl aus dem Menü, "Geht dorthin" fragt erst nach dem Punkt (Ticket 5.19)
     │   ├── fn_radioOrder.sqf           COIN_fnc_radioOrder: Server, führt einen Funkbefehl aus: Folgt uns, Geht dorthin, Greift an (Ticket 5.19)
     │   ├── fn_radioFollowLoop.sqf      COIN_fnc_radioFollowLoop: Server, die Verstärkung folgt einem Spieler (Ticket 5.19)
-    │   └── fn_showRadioReply.sqf       COIN_fnc_showRadioReply: Client, die Antwort des Funks an den Befehlsgeber (Ticket 5.19)
+    │   ├── fn_showRadioReply.sqf       COIN_fnc_showRadioReply: Client, die Antwort des Funks an den Befehlsgeber (Ticket 5.19)
+    │   └── fn_watchReinforcement.sqf   COIN_fnc_watchReinforcement: Server, meldet Feindkontakt, Feuergefecht und Verluste an die, die die Funkbefehle haben (Ticket 5.19)
     ├── reputation/
     │   ├── fn_initReputation.sqf       COIN_fnc_initReputation: Server, Start-Ruf einer neuen Kampagne nach dem Laden (Ticket 5.7)
     │   ├── fn_changeReputation.sqf     COIN_fnc_changeReputation: Server, die eine Stelle für Ruf-Änderungen (Logzeile, im Debug Systemchat), Ticket 5.1

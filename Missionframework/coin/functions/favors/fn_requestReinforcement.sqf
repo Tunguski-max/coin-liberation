@@ -9,7 +9,7 @@
         intel points), the point (no water, within COIN_reinforcementMaxDistance of the elder). Then it takes one favor (COIN_fnc_useFavor) and
         COIN_favorIntelCost intel points, and COIN_reinforcementSize local fighters appear at the elder's place: Liberation's resistance in
         a group of their own (KPLIB_fnc_spawnGuerillaGroup: equipment of the current tier of the resistance), no part of any enemy
-        budget, given to Zeus. They walk to the point; COIN_fnc_runReinforcement watches the group. The group is kept in
+        budget, given to Zeus. They walk to the point; COIN_fnc_runReinforcement watches the group, COIN_fnc_watchReinforcement reports to the radio. The group is kept in
         COIN_reinforcement = [group, place of the elder, target point, end time, town] (empty while none is on its way), for the radio of
         ticket 5.19 (the radio orders, COIN_fnc_radioOrder); COIN_fnc_publishReinforcement tells the players. Not saved. Switches COIN_enableFavors, COIN_enableReinforcement and COIN_enableAidTasks.
 
@@ -95,5 +95,6 @@ diag_log format [
 
 [_elder, "reinforcement"] remoteExecCall ["COIN_fnc_showElderSentence", owner _asker];
 [_group] spawn COIN_fnc_runReinforcement;
+[_group] spawn COIN_fnc_watchReinforcement;
 
 true

@@ -565,6 +565,8 @@ Abziehen von Besatzungen würde Liberations Sektor-Logik aushebeln.
     Gedacht als gemeinsamer Angriff.
   - Ein Befehl setzt die 30 min nicht zurück. Die Ankunftsmeldung gilt nur dem ersten Punkt der Anforderung. Mit dem Ende der
     Verstärkung (Zeit, Ruf, aufgerieben) verschwinden die Befehle.
+  - **Meldungen der Verstärkung:** Die Verstärkung meldet allen, die die Funkbefehle haben, Feindkontakt und Feuergefecht (je einmal je
+    Gefecht, erst nach einer Ruhepause wieder) und, wenn nur noch die Hälfte oder weniger kampffähig ist (tot oder bewusstlos), ihre Verluste.
   - **Bestätigung:** ein kurzer Funkspruch (Chatzeile mit dem Rufzeichen „Verstärkung“) nur an den Befehlsgeber, dazu eine
     Logzeile je Befehl. Das Briefing „Verstärkung führen“ steht im Karten-Tagebuch „COIN Liberation“ von Kommandant,
     Truppführer und Dolmetscher, solange die Verstärkung aktiv ist.
