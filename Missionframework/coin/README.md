@@ -204,6 +204,9 @@ coin/
     │   ├── fn_civVehicleDestroyed.sqf  COIN_fnc_civVehicleDestroyed: Server, Ruf für ein von der Armee zerstörtes Zivilfahrzeug, aufgerufen vom Kill-Manager (Hook 25)
     │   ├── fn_initVehicleSeizure.sqf   COIN_fnc_initVehicleSeizure: Client, Einsteigen in ein Zivilfahrzeug beschlagnahmt es, Ruf nach Config (Liberations Handler hat einen Tippfehler)
     │   └── fn_hideReputationDisplay.sqf COIN_fnc_hideReputationDisplay: Client, blendet Ruf-Zahl und -Symbol im Overlay aus, außer mit COIN_debug (Hook 28)
+    ├── readiness/
+    │   ├── fn_getReadinessCap.sqf      COIN_fnc_getReadinessCap: Höchstwert der Readiness aus der Netzwerkstärke, -1 ohne Netzwerkstärke (Ticket 6.6a, ADR 0025)
+    │   └── fn_readinessCapLoop.sqf     COIN_fnc_readinessCapLoop: Server-Schleife, hält combat_readiness höchstens auf dem Deckel (Ticket 6.6a, ADR 0013, kein Hook)
     ├── threats/
     │   ├── fn_initIEDs.sqf             COIN_fnc_initIEDs: Server, jede aktive Werkstatt legt ihr IED-Budget, startet die Schleife (Ticket 4.1a)
     │   ├── fn_createIED.sqf            COIN_fnc_createIED: Server, legt ein IED für eine Werkstatt (Mine, Zeus, COIN_ieds)
