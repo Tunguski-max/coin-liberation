@@ -548,14 +548,19 @@ Abziehen von Besatzungen würde Liberations Sektor-Logik aushebeln.
 
 **Verstärkung**
 - Nach „Annehmen“ klickt der Dolmetscher einen Punkt auf der Karte an (wie beim HALO-Sprung von Liberation). 10 lokale
-  Kämpfer entstehen am Ältesten, laufen dorthin und halten den Punkt. Ausrüstung nach Liberations aktueller
+  Kämpfer entstehen am Ältesten, laufen dorthin und halten den Punkt. Der Punkt liegt nicht im Wasser und höchstens
+  `COIN_reinforcementMaxDistance` (2500 m) vom Ältesten entfernt; die Karte zeigt diese Reichweite als Kreis, ein Klick
+  außerhalb wird abgelehnt (die Karte bleibt offen). Ausrüstung nach Liberations aktueller
   Widerstands-Stufe. Sie spawnen immer und zählen in keinem Gegner-Budget.
 - **Funk:** Solange eine Verstärkung unterwegs ist, haben Kommandant, Truppführer und Dolmetscher im Kommunikationsmenü (0-8):
   - **„Folgt uns“:** Die Gruppe folgt dem Spieler, der den Befehl gibt. Stirbt er, hält sie ihre Stellung.
   - **„Geht dorthin“:** Klick auf die Karte, die Gruppe läuft hin und hält.
   - **„Greift an“:** Die Gruppe läuft im Kampfmodus zur Mitte der nächsten Ortschaft der Miliz. Liberation aktiviert eine
     Ortschaft nur bei Spielern in Reichweite; ohne Spieler trifft die Gruppe dort niemanden. Gedacht als gemeinsamer Angriff.
-- **Ende:** nach 30 min, wenn der Ruf unter +25 fällt oder wenn die Gruppe aufgerieben ist. Die Kämpfer laufen zurück zur
+- **Meldungen:** an alle, wenn die Gruppe am Punkt ankommt, und beim Abzug mit dem Grund (Zeit, Ruf, aufgerieben).
+  Liberations Stärke des Widerstands sinkt mit jedem Gefallenen (`kill_manager.sqf`), das bleibt so.
+- **Ende:** nach 30 min ab dem Entstehen (die Laufzeit zählt mit), wenn der Ruf unter +25 fällt oder wenn die Gruppe
+  aufgerieben ist (alle tot, bevor sie abzieht). Die Kämpfer laufen zurück zur
   Ortschaft ihres Ältesten und verschwinden außer Sicht. Eine laufende Verstärkung wird nicht gespeichert.
 - Wird die Gruppe aufgerieben, kommt die nächste Gefälligkeit 60 min später. Ruf kostet ihr Tod nicht.
   (Tötet die Armee sie selbst, zieht Liberation Ruf ab.)

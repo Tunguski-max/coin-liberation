@@ -51,6 +51,8 @@ if (_block isNotEqualTo []) then {
     diag_log "[COIN] favors: no COIN block in the save (new campaign), stock 0, counter 0";
 };
 
+// No reinforcement is on its way (it is not saved, ticket 5.6): [group, place of the elder, target, end time, town] while one is
+COIN_reinforcement = [];
 COIN_favorStock = _stock;
 COIN_favorCounter = _counter;
 [false] call COIN_fnc_publishFavors;

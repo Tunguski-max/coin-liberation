@@ -1111,8 +1111,43 @@ COIN_favorTickSeconds       = 30;       // s between two steps of the counter (t
 COIN_favorIntelCost         = 10;       // Liberation intel points to redeem a favor (on top of the favor itself)
 COIN_favorMinRep            = 25;       // A stored favor can be redeemed from here on (friendly resistance)
 
+// The reinforcement (ticket 5.6, ADR 0012, ADR 0023): local fighters, Liberation's resistance in a group of their own
+COIN_enableReinforcement    = true;     // Off: the elder offers no reinforcement (the favors still count up)
 COIN_reinforcementSize      = 10;       // Local fighters per reinforcement
-COIN_reinforcementMaxMin    = 30;       // Group leaves after this time
+COIN_reinforcementMaxMin    = 30;       // Group leaves after this time, counted from the moment the fighters appear (the walk counts)
+COIN_reinforcementMaxDistance = 2500;   // m: the point the interpreter clicks is at most this far from the elder (the map shows it as a circle)
+COIN_reinforcementArriveRadius = 50;    // m: the group has arrived when one fighter is this close to the point
+COIN_reinforcementCheckSeconds = 5;     // s between two looks at a reinforcement (arrived, time, reputation, wiped out)
+COIN_reinforcementHomeRadius = 40;      // m: the fighters that walk home have arrived this close to the elder's place
+COIN_reinforcementReturnSeconds = 300;  // s the fighters get to walk home; then they go when nobody sees them, wherever they are
+COIN_reinforcementMapZoom   = 0.3;      // Zoom of the map when the interpreter picks the point (the circle of COIN_reinforcementMaxDistance should fit)
+
+// Texts of the favor offer in the dialog of the elder, like COIN_aidTaskTexts: [id, [title German, English], [explanation German, English]]
+// Explanation: %1 = fighters, %2 = minutes, %3 = intel points, %4 = most distance from the elder in m, %5 = favors in stock, %6 = most in stock
+COIN_favorOfferTexts = [
+    ["reinforcement",
+        ["Verstärkung", "Reinforcement"],
+        [
+            "Die Bevölkerung stellt euch %1 Kämpfer zur Seite.<br/><br/>Nach dem Annehmen klickt ihr auf der Karte den Zielpunkt an, höchstens %4 m vom Ältesten entfernt. Die Kämpfer laufen dorthin und halten ihn. Nach %2 Minuten ziehen sie wieder ab, früher, wenn die Bevölkerung euch nicht mehr genug vertraut.<br/><br/><t size='1.15' color='#00a0ff'>Kosten: eine Gefälligkeit und %3 Intel-Punkte. Ihr habt %5 von %6 Gefälligkeiten.</t><br/><t size='1.15' color='#ffa000'>Werden alle Kämpfer getötet, dauert es länger bis zur nächsten Gefälligkeit.</t>",
+            "The population puts %1 fighters at your side.<br/><br/>After accepting you click the target point on the map, at most %4 m from the elder. The fighters walk there and hold it. After %2 minutes they leave again, sooner if the population no longer trusts you enough.<br/><br/><t size='1.15' color='#00a0ff'>Cost: one favor and %3 intel points. You have %5 of %6 favors.</t><br/><t size='1.15' color='#ffa000'>If all the fighters are killed, the next favor takes longer.</t>"
+        ]
+    ]
+];
+// Hints while the interpreter picks the point on the map (ticket 5.6): [key, [German, English]]
+COIN_reinforcementPickTexts = [
+    ["start", ["Klickt den Zielpunkt der Verstärkung an. Der Kreis zeigt die Reichweite. Esc bricht ab.", "Click the target point of the reinforcement. The circle shows the range. Esc cancels."]],
+    ["water", ["Im Wasser können die Kämpfer nicht stehen. Wählt einen anderen Punkt.", "The fighters cannot stand in water. Pick another point."]],
+    ["far", ["Das ist zu weit vom Ältesten. Wählt einen Punkt im Kreis.", "That is too far from the elder. Pick a point inside the circle."]],
+    ["away", ["Ihr habt euch vom Ältesten entfernt. Die Verstärkung ist abgebrochen, es hat nichts gekostet.", "You walked away from the elder. The reinforcement is cancelled, it cost nothing."]]
+];
+// Messages to everybody (ticket 5.6): title, then [key, [German, English]] with %1 = the town of the elder
+COIN_reinforcementTitle = ["Verstärkung", "Reinforcement"];
+COIN_reinforcementTexts = [
+    ["arrived",         ["Die Verstärkung aus %1 hat den Zielpunkt erreicht.", "The reinforcement from %1 has reached the target point."]],
+    ["left_time",       ["Die Verstärkung aus %1 zieht ab, ihre Zeit ist um.", "The reinforcement from %1 is leaving, their time is up."]],
+    ["left_reputation", ["Die Verstärkung aus %1 zieht ab, die Bevölkerung vertraut euch nicht mehr genug.", "The reinforcement from %1 is leaving, the population no longer trusts you enough."]],
+    ["left_wiped",      ["Die Verstärkung aus %1 ist aufgerieben.", "The reinforcement from %1 has been wiped out."]]
+];
 
 // ---------------------------------------------------------------------------
 // Elder and tasks (Phase 5, DESIGN 8, 8.2) - not persisted; an aid task that fails (time over, elder dead) costs its reward
@@ -1148,7 +1183,8 @@ COIN_elderDialogTexts = [
 // Sections of the list, in this order: [id, [German, English]]. An offer belongs to one section (more come with later tickets)
 COIN_elderSections = [
     ["aid", ["Hilfsaufträge", "Aid tasks"]],
-    ["secondary", ["Nebenmissionen", "Secondary missions"]]
+    ["secondary", ["Nebenmissionen", "Secondary missions"]],
+    ["favor", ["Gefälligkeit", "Favor"]]
 ];
 // Aid tasks: [id, [title German, English], [explanation German, English], [task text German, English]]
 // Explanation in the dialog: %1 = time limit in minutes, %2 = distance in m, %3 = supplies of the crate, %4 = seconds of a repair, %5 = least distance of a device from the elder in m (no text uses it since ticket 5.21), %6 = place of the task: the village, else the town.
@@ -1199,7 +1235,10 @@ COIN_aidReasonTexts = [
     ["no_site",      ["Kein Dorf in der Nähe, das Hilfe braucht.", "No village nearby needs help."]],                                    // no value (ticket 5.21)
     ["secondary_running", ["Es läuft schon eine Nebenmission.", "A secondary mission is running already."]],                            // no value (ticket 5.17)
     ["no_intel",     ["Dafür fehlen Intel-Punkte (%1 nötig).", "Not enough intel points (%1 needed)."]],                                // %1 = cost (ticket 5.17)
-    ["no_territory", ["Es ist nicht genug Feindgebiet für eine Nebenmission übrig.", "There is not enough enemy territory left for a mission."]] // no value (ticket 5.17)
+    ["no_territory", ["Es ist nicht genug Feindgebiet für eine Nebenmission übrig.", "There is not enough enemy territory left for a mission."]], // no value (ticket 5.17)
+    ["reinforcement_running", ["Es ist schon eine Verstärkung unterwegs.", "A reinforcement is on its way already."]],           // no value (ticket 5.6)
+    ["reinforcement_rep",     ["Dafür vertraut die Bevölkerung euch nicht genug.", "The population does not trust you enough for that."]], // no value (ticket 5.6)
+    ["no_favor",              ["Es ist keine Gefälligkeit im Vorrat.", "There is no favor in stock."]]                                // no value (ticket 5.6)
 ];
 // What the elder says, one is picked at random: [key, [German sentences, English sentences]]
 COIN_elderSentences = [
@@ -1212,6 +1251,11 @@ COIN_elderSentences = [
         ["Thank you. We will wait for your help.", "This will help many people here. Thank you."]
     ]],
     // Where an aid task plays (ticket 5.21), %1 = the village
+    // The reinforcement was sent (ticket 5.6). Texts to be agreed with Niklas
+    ["reinforcement", [
+        ["Ich schicke die Männer los. Sie werden euch beistehen.", "Die Männer machen sich auf den Weg. Möge es euch nützen."],
+        ["I am sending the men. They will stand by you.", "The men are on their way. May it serve you well."]
+    ]],
     ["site", [
         ["Im Nachbardorf %1 brauchen sie Hilfe.", "Im Nachbardorf %1 wartet man auf Hilfe."],
         ["In the neighbouring village %1 they need help.", "In the neighbouring village %1 they are waiting for help."]

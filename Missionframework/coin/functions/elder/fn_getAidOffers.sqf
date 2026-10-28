@@ -15,6 +15,10 @@
         With COIN_fnc_secondaryAtElder the secondary missions of COIN_secondaryOffers follow as section "secondary" (ticket 5.17), not
         tied to the town, with their own reasons: "secondary_running" (Liberation runs a secondary mission, only one at a time) and
         "no_intel" (value: the cost in intel points) and "no_territory" (no enemy territory left for a mission, as in Liberation's dialog).
+        With COIN_enableFavors and COIN_enableReinforcement the favor "reinforcement" follows as section "favor" (ticket 5.6), not tied to
+        the town either, with the first reason that applies: "reinforcement_running" (one at a time), "reinforcement_rep" (the reputation
+        is below COIN_favorMinRep), "no_favor" (none in stock) and "no_intel" (value: COIN_favorIntelCost). It has an 8th entry,
+        [favors in stock, most in stock], for the explanation.
         Used for the dialog and again for the check when an offer is accepted. Server only.
 
     Parameter(s):
@@ -24,7 +28,7 @@
         [busy, offers, active]: busy is "" or "busy" while the town runs or waits for a task (the elder says so on opening),
         offers are [id, section, can be accepted, reason key, reason value, place, site] per offer: the place is the name of the
         village the task plays in, else of the town; the site is [name, village centre, distance] for "medical" and "repair" with
-        COIN_enableAidSites, else []. Active is the number of running aid tasks
+        COIN_enableAidSites, else []; only the favor has an 8th entry. Active is the number of running aid tasks
         [ARRAY]
 */
 
@@ -96,6 +100,21 @@ if ([] call COIN_fnc_secondaryAtElder) then {
         };
         _offers pushBack [_id, "secondary", (_secondaryReason select 0) isEqualTo "", _secondaryReason select 0, _secondaryReason select 1, "", []];
     } forEach COIN_secondaryOffers;
+};
+
+// The favor "reinforcement" (ticket 5.6, ADR 0023): not tied to the town. Grey with the first reason that applies: a reinforcement
+// is on its way, the reputation is too low, no favor in stock, too few intel points
+if (COIN_enableFavors && {COIN_enableReinforcement}) then {
+    private _stock = missionNamespace getVariable ["COIN_favorStock", 0];
+    private _favorReason = if ((missionNamespace getVariable ["COIN_reinforcement", []]) isNotEqualTo []) then {["reinforcement_running", 0]} else {
+        if ((missionNamespace getVariable ["KP_liberation_civ_rep", 0]) < COIN_favorMinRep) then {["reinforcement_rep", 0]} else {
+            if (_stock < 1) then {["no_favor", 0]} else {
+                if ((missionNamespace getVariable ["resources_intel", 0]) < COIN_favorIntelCost) then {["no_intel", COIN_favorIntelCost]} else {["", 0]}
+            }
+        }
+    };
+    // The 8th entry is for the explanation: the favors in stock and the most
+    _offers pushBack ["reinforcement", "favor", (_favorReason select 0) isEqualTo "", _favorReason select 0, _favorReason select 1, "", [], [_stock, COIN_favorMaxStored]];
 };
 
 [["", "busy"] select (_running || {_minutesLeft > 0}), _offers, _active]
