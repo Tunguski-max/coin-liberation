@@ -1133,11 +1133,12 @@ COIN_radioFollowRunDistance = 45;       // m: farther than this from the player 
 COIN_radioAttackRadius      = 150;      // m: "Attack" searches and destroys in this radius around the middle of the town
 COIN_radioAttackModes       = ["FULL", "AWARE", "RED", "COMBAT"]; // "Attack": speed and behaviour on the way, combat mode, behaviour of the search
 COIN_radioCallsign          = ["Verstärkung", "Reinforcement"]; // How the answers of the radio start
-// Answers to the one who gave the order: [key, [German, English]]; %1 = point or town, %2 = distance in m ("attack")
+// Answers to the one who gave the order: [key, [German, English]]; %1 = point or town (grid), %2 = distance in m ("attack"); "arrived": the group has reached the point of "go there"
 COIN_radioReplyTexts = [
     ["follow",    ["Verstanden, wir folgen dir.", "Understood, we follow you."]],
     ["goto",      ["Verstanden, wir gehen zu %1.", "Understood, we are moving to %1."]],
     ["attack",    ["Verstanden, wir greifen %1 an, %2 m.", "Understood, we attack %1, %2 m."]],
+    ["arrived",   ["Wir sind an Punkt %1 angekommen.", "We have reached point %1."]],
     ["no_target", ["Kein Ziel: Es gibt keine Ortschaft der Miliz mehr.", "No target: There is no town of the militia left."]],
     ["refused",   ["Funkspruch nicht verstanden.", "Radio message not understood."]]
 ];
