@@ -1121,6 +1121,7 @@ COIN_reinforcementCheckSeconds = 5;     // s between two looks at a reinforcemen
 COIN_reinforcementHomeRadius = 40;      // m: the fighters that walk home have arrived this close to the elder's place
 COIN_reinforcementReturnSeconds = 300;  // s the fighters get to walk home; then they go when nobody sees them, wherever they are
 COIN_reinforcementMapZoom   = 0.3;      // Zoom of the map when the interpreter picks the point (the circle of COIN_reinforcementMaxDistance should fit)
+COIN_reinforcementMapWaitSeconds = 2;   // s the map gets to open before the pick is given up
 
 // Texts of the favor offer in the dialog of the elder, like COIN_aidTaskTexts: [id, [title German, English], [explanation German, English]]
 // Explanation: %1 = fighters, %2 = minutes, %3 = intel points, %4 = most distance from the elder in m, %5 = favors in stock, %6 = most in stock
@@ -1140,14 +1141,7 @@ COIN_reinforcementPickTexts = [
     ["far", ["Das ist zu weit vom Ältesten. Wählt einen Punkt im Kreis.", "That is too far from the elder. Pick a point inside the circle."]],
     ["away", ["Ihr habt euch vom Ältesten entfernt. Die Verstärkung ist abgebrochen, es hat nichts gekostet.", "You walked away from the elder. The reinforcement is cancelled, it cost nothing."]]
 ];
-// Messages to everybody (ticket 5.6): title, then [key, [German, English]] with %1 = the town of the elder
-COIN_reinforcementTitle = ["Verstärkung", "Reinforcement"];
-COIN_reinforcementTexts = [
-    ["arrived",         ["Die Verstärkung aus %1 hat den Zielpunkt erreicht.", "The reinforcement from %1 has reached the target point."]],
-    ["left_time",       ["Die Verstärkung aus %1 zieht ab, ihre Zeit ist um.", "The reinforcement from %1 is leaving, their time is up."]],
-    ["left_reputation", ["Die Verstärkung aus %1 zieht ab, die Bevölkerung vertraut euch nicht mehr genug.", "The reinforcement from %1 is leaving, the population no longer trusts you enough."]],
-    ["left_wiped",      ["Die Verstärkung aus %1 ist aufgerieben.", "The reinforcement from %1 has been wiped out."]]
-];
+// Messages to everybody (ticket 5.6): the classes coin_reinforcement_<key>_<en|de> of CfgNotifications.hpp, keys arrived, left_time, left_reputation, left_wiped
 
 // ---------------------------------------------------------------------------
 // Elder and tasks (Phase 5, DESIGN 8, 8.2) - not persisted; an aid task that fails (time over, elder dead) costs its reward
@@ -1250,12 +1244,12 @@ COIN_elderSentences = [
         ["Ich danke euch. Wir warten auf eure Hilfe.", "Das wird vielen hier helfen. Ich danke euch."],
         ["Thank you. We will wait for your help.", "This will help many people here. Thank you."]
     ]],
-    // Where an aid task plays (ticket 5.21), %1 = the village
     // The reinforcement was sent (ticket 5.6). Texts to be agreed with Niklas
     ["reinforcement", [
         ["Ich schicke die Männer los. Sie werden euch beistehen.", "Die Männer machen sich auf den Weg. Möge es euch nützen."],
         ["I am sending the men. They will stand by you.", "The men are on their way. May it serve you well."]
     ]],
+    // Where an aid task plays (ticket 5.21), %1 = the village
     ["site", [
         ["Im Nachbardorf %1 brauchen sie Hilfe.", "Im Nachbardorf %1 wartet man auf Hilfe."],
         ["In the neighbouring village %1 they need help.", "In the neighbouring village %1 they are waiting for help."]

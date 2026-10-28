@@ -46,10 +46,10 @@ private _handler = addMissionEventHandler ["MapSingleClick", {
 }];
 
 openMap [true, false];
-mapAnimAdd [0.3, COIN_reinforcementMapZoom, _centre];
+mapAnimAdd [0, COIN_reinforcementMapZoom, _centre];
 mapAnimCommit;
 // The map may need a moment to open
-private _opened = time + 2;
+private _opened = time + COIN_reinforcementMapWaitSeconds;
 waitUntil {visibleMap || time > _opened};
 
 private _target = [];
@@ -83,10 +83,10 @@ removeMissionEventHandler ["MapSingleClick", _handler];
 deleteMarkerLocal _marker;
 COIN_reinforcementPick = [];
 if (visibleMap) then {openMap [false, false]};
+hint "";
 
 if (_target isEqualTo []) exitWith {false};
 
-hint "";
 [_elder, player, _target] remoteExecCall ["COIN_fnc_requestReinforcement", 2];
 
 true

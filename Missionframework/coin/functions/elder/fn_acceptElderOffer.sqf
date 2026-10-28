@@ -56,6 +56,12 @@ if (_offer isEqualTo [] || {!((_offer select 0) select 2)}) exitWith {
     false
 };
 
+// A favor (ticket 5.6) comes with a point on the map and takes its cost in COIN_fnc_requestReinforcement, never as an aid task
+if (((_offer select 0) select 1) isEqualTo "favor") exitWith {
+    diag_log format ["[COIN] elder: offer %1 of %2 refused, a favor is requested with a point (COIN_fnc_requestReinforcement)", _id, name _asker];
+    false
+};
+
 // One of Liberation's secondary missions (ticket 5.17): started by Liberation's own server call, no aid task of the town
 private _secondary = [COIN_secondaryOffers, _id] call COIN_fnc_findByType;
 if (_secondary isNotEqualTo []) exitWith {
