@@ -277,16 +277,52 @@ hochgesetzt lässt sich die Verstärkung anfordern und per Funk führen.
 
 ## Phase 6 – Gegenangriffe und Hauptstadt
 
-- [ ] 6.1 Gegenangriffe und Verstärkung nur aus Regionen mit aktivem Kommandoposten
-- [ ] 6.2 Asymmetrische Gegenangriffe: Technicals und Truppentransporter, höchstens 1 Altfahrzeug pro Gegenangriff (Hook),
-  Mörser auf FOBs, Konvoi-Überfälle
-- [ ] 6.3 Hauptstadt-Garnison skaliert mit Netzwerkstärke; festes schweres Gerät: 2 T-72BA, 1 ZSU-23-4,
-  Igla-Schützen (Klassen in `coin_config.sqf`, ADR 0014)
-- [ ] 6.4 Optional: Miliz baut Nester langsam neu auf (Entscheidung E5)
-- [ ] 6.5 Kampagnenende mit Abschluss-Statistik
-- [ ] 6.6 Netzwerkstärke deckelt Liberations Readiness; zerstörtes Nest senkt die Readiness sofort (ADR 0013)
+Ziel: Das Netzwerk bestimmt, wie hart die Miliz zurückschlägt und wie schwer der Endkampf wird.
+Festgelegt beim Grilling am 2026-10-28 (DESIGN 9, ADR 0025, Ergänzung ADR 0013).
+Vier Blöcke, nacheinander umgesetzt und getestet: 6A → 6B → 6C → 6D. Sammel-Ticket #151.
 
-**DoD:** Komplettdurchlauf im Debug-Modus beschleunigt möglich, von Start bis Sieg.
+**6A Readiness (ADR 0013, 0025)** – Reihenfolge: 6.6a, 6.6b
+- [-] 6.8 Debug-Funktionen: aufgegangen in 6.1a (Sektor einnehmen); Nest zerstören (`COIN_fnc_destroyNest`) und Readiness setzen
+  gehen schon per Konsole
+- [ ] 6.6a (#152) Readiness-Deckel `25 + 75 × Netzwerkstärke` (Boden in der Config), Server-Loop alle 60 s, kein Hook
+- [ ] 6.6b (#153) Zerstörtes Nest senkt die Readiness sofort (`COIN_nestReadinessDrop` über `COIN_nestDestroyed`; Kommandoposten 20, sonst 10);
+  Zugriffsaufträge nutzen dieselbe Funktion
+
+**6B Gegenangriffe (ADR 0025)** – Reihenfolge: 6.1a, 6.1b, 6.1c, 6.2, 6.7a, 6.7b
+- [ ] 6.1a (#154) Aufmarschräume berechnen (Einflussradius aktiver Kommandoposten, 2000 m um Militärposten in Miliz-Hand) und auf der
+  Debug-Karte zeigen; Debug-Funktion „Sektor einnehmen“
+- [ ] 6.1b (#155) Gegenangriff nach Einnahme und zufällige Battlegroups nur von Spawnpunkten im Aufmarschraum, sonst entfällt er;
+  Hauptstadt ohne Bedingung, Patrouillen unverändert (Hook)
+- [ ] 6.1c (#156) Entsatz: nächster Aufmarschraum, der den Sektor enthält, statt Funkturm; Liberations Ablauf (Wartezeit, Patrouillen
+  umleiten), keine Fallschirmjäger (Hook)
+- [ ] 6.2 (#157) Höchstens 1 Altfahrzeug pro Gegenangriff: jedes weitere wird durch einen Technical ersetzt (Hook). Konvoi-Überfälle
+  entfallen hier: Liberations Überfälle auf KI-Konvois laufen schon (ADR 0008), Überfälle auf Spieler sind die Hinterhalte (Phase 4)
+- [ ] 6.7a (#158) Mörserangriff, Durchstich: nur auf eine FOB im Aufmarschraum mit Spieler an der FOB (300 m), alle 10 min 15 %, 45 min
+  Wartezeit pro FOB, höchstens einer gleichzeitig; 3 Kämpfer mit leichtem Mörser 1500–2500 m entfernt außer Sicht, 3 Salven zu je
+  4 Granaten mit Streuung 150 m → 50 m, echter Schaden, 10 min in Stellung, Abbau außer Sicht; COIN-Einheiten, spawnen immer
+- [ ] 6.7b (#159) Mörserangriff: Meldung „Mörserbeschuss auf FOB …“ und Kreis (etwa 400 m) um die Stellung nach der ersten Salve,
+  verschwindet mit dem Trupp; Verhör nennt den Kommandoposten des Aufmarschraums, beim Militärposten gilt „Welches Nest“
+
+**6C Hauptstadt (ADR 0014)** – Reihenfolge: 6.3a, 6.3b
+- [ ] 6.3a (#160) Zusatz-Garnison: `runden(Liberations Infanterie-Trupps × 0,15 × aktive Nester)` zusätzliche Trupps beim Aktivieren der
+  Hauptstadt (Hook in `manage_one_sector`), Zusammensetzung wie Liberation mit Rüstungsmischung, COIN-Einheiten, spawnen immer
+- [ ] 6.3b (#161) Festes schweres Gerät (2 T-72BA, 1 ZSU-23-4 wie Sektorfahrzeuge) und 3 Igla-Schützen auf hohen Gebäudeplätzen;
+  zerstörtes Gerät bleibt bis zum Serverneustart weg (nicht gespeichert)
+
+**6D Kampagnenende** – Reihenfolge: 6.5a, 6.5b
+- [ ] 6.5a (#162) Abschnitt „COIN“ in Liberations Endbildschirm (Hook) mit gespeicherten Zählern (`COIN_saveVersion` 4, ältere
+  Stände starten bei 0), erste Werte: Nester zerstört (je Typ) und Netzwerkstärke, Ruf am Ende als Zahl und Stimmung, Camps
+  ausgehoben, Befragungen, Verhöre, Intel-Marker (davon Lügen)
+- [ ] 6.5b (#163) Restliche Zähler: IEDs entschärft/explodiert, VBIEDs gestoppt/explodiert, Attentäter ausgeschaltet/explodiert,
+  Hinterhalte ausgehoben, Hilfs- und Zugriffsaufträge erfüllt/gescheitert, Verstärkungen, Mörserangriffe
+
+- [-] 6.4 Miliz baut Nester langsam neu auf (E5): verschoben am 2026-10-28 (Niklas) auf „Später“ nach Phase 7. Optional, eigene
+  große Mechanik, Balancing ohne Spielerfahrung geraten, und es arbeitet gegen die DoD „Durchlauf bis zum Sieg“
+
+**DoD:** Komplettdurchlauf im Debug-Modus beschleunigt möglich, von Start bis Sieg: Mit den Debug-Funktionen werden nacheinander
+Nester zerstört, die Readiness sinkt bei jedem sofort und ihr Deckel mit. Ein Gegenangriff kommt nur aus einem Aufmarschraum.
+Ein Mörserangriff trifft eine FOB, sein Trupp wird über den Kreis gefunden. Die Hauptstadt hat bei vollem und leerem Netzwerk
+sichtbar unterschiedlich viele Verteidiger. Nach der Einnahme zeigt der Endbildschirm den Abschnitt „COIN“.
 
 ## Phase 7 – Server und Balancing
 
