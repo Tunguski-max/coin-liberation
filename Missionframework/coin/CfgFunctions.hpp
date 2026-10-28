@@ -597,6 +597,12 @@ class COIN {
         // Server: short text of one staging area for the log and the debug map
         class describeStagingArea {};
 
+        // Server: must a counterattack start in a staging area? Asked by spawn_battlegroup.sqf (hook 32, ticket 6.1b)
+        class isStagingOnly {};
+
+        // Server: log line for the spawn point of a counterattack in a staging area, or why it lapses (hook 32, ticket 6.1b)
+        class logBattlegroupSpawn {};
+
         // Server, debug: circle and label of every staging area on the map
         class drawStagingMarkers {};
 

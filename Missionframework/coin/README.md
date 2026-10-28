@@ -62,6 +62,8 @@ coin/
     │   ├── fn_getStagingAreas.sqf      COIN_fnc_getStagingAreas: alle Aufmarschräume [Mitte, Radius, Quelle] aus aktiven Kommandoposten und Militärposten der Miliz (Ticket 6.1a, ADR 0025)
     │   ├── fn_getStagingAreasAt.sqf    COIN_fnc_getStagingAreasAt: die Aufmarschräume, die eine Position enthalten (Tickets 6.1b, 6.1c, 6.7a)
     │   ├── fn_describeStagingArea.sqf  COIN_fnc_describeStagingArea: Kurztext eines Aufmarschraums für Log und Debug-Karte
+    │   ├── fn_isStagingOnly.sqf        COIN_fnc_isStagingOnly: Server, muss ein Gegenangriff in einem Aufmarschraum starten (Hauptstadt ohne Bedingung), Hook 32 (Ticket 6.1b)
+    │   ├── fn_logBattlegroupSpawn.sqf  COIN_fnc_logBattlegroupSpawn: Server, Logzeile zum Spawnpunkt eines Gegenangriffs im Aufmarschraum oder warum er entfällt (Ticket 6.1b)
     │   ├── fn_drawStagingMarkers.sqf   COIN_fnc_drawStagingMarkers: Debug-Karte, Kreis und Beschriftung je Aufmarschraum (Lobby-Parameter „COIN Debug“)
     │   └── fn_stagingLoop.sqf          COIN_fnc_stagingLoop: Server-Schleife, loggt eine Änderung der Aufmarschräume und zeichnet die Debug-Karte neu (kein Hook)
     ├── population/

@@ -6,7 +6,12 @@ params [
 
 if (GRLIB_endgame == 1) exitWith {};
 
-_spawn_marker = [[2000, 1000] select _infOnly, 3000, false, markerPos _spawn_marker] call KPLIB_fnc_getOpforSpawnPoint;
+// COIN BEGIN: a counterattack starts only at a spawn point in a staging area, the capital's without a condition (ticket 6.1b, #155, ADR 0025, hook 32)
+private _target = _spawn_marker;
+private _stagingOnly = [_target] call COIN_fnc_isStagingOnly;
+_spawn_marker = [[2000, 1000] select _infOnly, 3000, false, markerPos _spawn_marker, _stagingOnly] call KPLIB_fnc_getOpforSpawnPoint;
+[_target, _spawn_marker, _stagingOnly] call COIN_fnc_logBattlegroupSpawn;
+// COIN END
 
 if !(_spawn_marker isEqualTo "") then {
     GRLIB_last_battlegroup_time = diag_tickTime;
