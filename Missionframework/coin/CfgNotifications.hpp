@@ -73,7 +73,7 @@ class coin_reinforcement_left_reputation_en: coin_reinforcement_left_time_en {
     description = "%1 Reinforcements are leaving as they lost trust in you";
 };
 class coin_reinforcement_left_reputation_de: coin_reinforcement_left_time_de {
-    description = "%1 Verstärkung zieht ab, da sie euer Vertrauen verloren hat";
+    description = "Verstärkung aus %1 zieht ab, nachdem du ihr Vertrauen verloren hast";
 };
 class coin_reinforcement_left_wiped_en: coin_intel_warning_en {
     title = "REINFORCEMENT WIPED OUT";
