@@ -8,10 +8,11 @@
         - "time": COIN_reinforcementMaxMin minutes since the fighters appeared,
         - "reputation": the reputation is below COIN_favorMinRep (the resistance is no longer on our side),
         - "wiped": no fighter is alive any more (killed, or deleted in Zeus). The next favor comes later (COIN_fnc_delayFavor).
+        The one who gave "go there" gets a radio message when a fighter is at that point (COIN_radioGoto, set by COIN_fnc_radioOrder).
         Everybody gets a message when the group reaches the point (one fighter within COIN_reinforcementArriveRadius) and when it leaves
         (COIN_fnc_showReinforcementMessage). After "time" and "reputation" the survivors walk back to the elder's place, then go when
         nobody sees them (COIN_fnc_removeWhenUnseen), at the latest COIN_reinforcementReturnSeconds after the order. From that moment
-        COIN_reinforcement is empty again, so another reinforcement may be sent. Must be spawned. Server only.
+        COIN_reinforcement is empty again, so another reinforcement may be sent, and the players lose their radio orders (COIN_fnc_publishReinforcement). Must be spawned. Server only.
 
     Parameter(s):
         _group - The group of the local fighters, the state is COIN_reinforcement [GROUP, defaults to grpNull]
@@ -34,7 +35,7 @@ private _arrived = false;
 private _result = "";
 while {_result isEqualTo ""} do {
     sleep COIN_reinforcementCheckSeconds;
-    private _alive = (units _group) select {alive _x};
+    private _alive = [_group] call COIN_fnc_getFighters;
     if (_alive isEqualTo []) then {
         _result = "wiped";
     } else {
@@ -52,18 +53,30 @@ while {_result isEqualTo ""} do {
                         _town, ((time - _started) / 60) toFixed 1, count _alive, _size
                     ];
                 };
+                // The point of "go there" (ticket 5.19): the one who gave the order hears when a fighter is there
+                private _goto = missionNamespace getVariable ["COIN_radioGoto", []];
+                if (_goto isNotEqualTo [] && {_alive findIf {(_x distance2D (_goto select 0)) <= COIN_reinforcementArriveRadius} >= 0}) then {
+                    COIN_radioGoto = [];
+                    _goto params ["_gotoPos", "_gotoPlayer"];
+                    if (isPlayer _gotoPlayer) then {
+                        ["arrived", [mapGridPosition _gotoPos]] remoteExecCall ["COIN_fnc_showRadioReply", owner _gotoPlayer];
+                    };
+                    diag_log format ["[COIN] radio: the reinforcement from %1 reached the point %2 of %3", _town, mapGridPosition _gotoPos, name _gotoPlayer];
+                };
             };
         };
     };
 };
 
-private _survivors = (units _group) select {alive _x};
+private _survivors = [_group] call COIN_fnc_getFighters;
 diag_log format [
     "[COIN] favors: reinforcement from %1 ends (%2) after %3 min, %4 of %5 fighters alive",
     _town, _result, ((time - _started) / 60) toFixed 1, count _survivors, _size
 ];
 // None on its way any more: the group is not led by the radio from here on, and the next one may come
 COIN_reinforcement = [];
+COIN_radioGoto = [];
+[false] call COIN_fnc_publishReinforcement;
 ["left_" + _result, _town] remoteExecCall ["COIN_fnc_showReinforcementMessage", 0];
 
 if (_result isEqualTo "wiped") exitWith {
@@ -73,12 +86,7 @@ if (_result isEqualTo "wiped") exitWith {
 };
 
 // They walk home and go when nobody sees them
-while {(count (waypoints _group)) != 0} do {deleteWaypoint ((waypoints _group) select 0)};
-_group setBehaviour "AWARE";
-_group setSpeedMode "NORMAL";
-private _waypoint = _group addWaypoint [_home, 0];
-_waypoint setWaypointType "MOVE";
-_waypoint setWaypointCompletionRadius COIN_reinforcementHomeRadius;
+[_group, _home, COIN_reinforcementHomeRadius, "NORMAL", "AWARE", ""] call COIN_fnc_moveGroup;
 
 private _giveUp = time + COIN_reinforcementReturnSeconds;
 waitUntil {

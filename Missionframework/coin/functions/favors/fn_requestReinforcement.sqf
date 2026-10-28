@@ -9,9 +9,9 @@
         intel points), the point (no water, within COIN_reinforcementMaxDistance of the elder). Then it takes one favor (COIN_fnc_useFavor) and
         COIN_favorIntelCost intel points, and COIN_reinforcementSize local fighters appear at the elder's place: Liberation's resistance in
         a group of their own (KPLIB_fnc_spawnGuerillaGroup: equipment of the current tier of the resistance), no part of any enemy
-        budget, given to Zeus. They walk to the point; COIN_fnc_runReinforcement watches the group. The group is kept in
+        budget, given to Zeus. They walk to the point; COIN_fnc_runReinforcement watches the group, COIN_fnc_watchReinforcement reports to the radio. The group is kept in
         COIN_reinforcement = [group, place of the elder, target point, end time, town] (empty while none is on its way), for the radio of
-        ticket 5.19. Not saved. Switches COIN_enableFavors, COIN_enableReinforcement and COIN_enableAidTasks.
+        ticket 5.19 (the radio orders, COIN_fnc_radioOrder); COIN_fnc_publishReinforcement tells the players. Not saved. Switches COIN_enableFavors, COIN_enableReinforcement and COIN_enableAidTasks.
 
     Parameter(s):
         _elder  - The elder [OBJECT, defaults to objNull]
@@ -28,7 +28,8 @@ params [
     ["_target", [], [[]]]
 ];
 
-if (!isServer || {!COIN_enableFavors} || {!COIN_enableReinforcement} || {!COIN_enableAidTasks}) exitWith {false};
+// owner of a null unit is 0, and a message to 0 goes to everybody
+if (!isServer || {!COIN_enableFavors} || {!COIN_enableReinforcement} || {!COIN_enableAidTasks} || {isNull _asker}) exitWith {false};
 
 // The asker must be the unit of the machine that sent this
 private _sender = remoteExecutedOwner;
@@ -81,17 +82,11 @@ private _group = [_home, COIN_reinforcementSize] call KPLIB_fnc_spawnGuerillaGro
 _group setVariable ["COIN_reinforcement", true, true];
 [units _group] call COIN_fnc_addToCurators;
 
-while {(count (waypoints _group)) != 0} do {deleteWaypoint ((waypoints _group) select 0)};
-{_x doFollow (leader _group)} forEach (units _group);
-_group setBehaviour "AWARE";
-_group setCombatMode "YELLOW";
-_group setSpeedMode "NORMAL";
-private _waypoint = _group addWaypoint [_target, 0];
-_waypoint setWaypointType "MOVE";
-_waypoint setWaypointCompletionRadius COIN_reinforcementArriveRadius;
+[_group, _target, COIN_reinforcementArriveRadius] call COIN_fnc_moveGroup;
 
 private _endTime = time + (COIN_reinforcementMaxMin * 60);
 COIN_reinforcement = [_group, _home, _target, _endTime, _town];
+[true] call COIN_fnc_publishReinforcement;
 
 diag_log format [
     "[COIN] favors: reinforcement for %1 from the elder of %2: %3 fighters (tier %4) walk %5 m to %6, intel points %7 -> %8, favors left %9, leave after %10 min",
@@ -101,5 +96,6 @@ diag_log format [
 
 [_elder, "reinforcement"] remoteExecCall ["COIN_fnc_showElderSentence", owner _asker];
 [_group] spawn COIN_fnc_runReinforcement;
+[_group] spawn COIN_fnc_watchReinforcement;
 
 true

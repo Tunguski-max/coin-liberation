@@ -23,3 +23,6 @@ class coin_elder_dialog: liberation_secondary {
         action = "COIN_elderAccept = 1;";
     };
 };
+
+// The radio orders for the reinforcement (ticket 5.19): items of the communication menu, in a file of their own
+#include "..\CfgCommunicationMenu.hpp"

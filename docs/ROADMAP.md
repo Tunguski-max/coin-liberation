@@ -267,7 +267,7 @@ Vier Blöcke, nacheinander umgesetzt und getestet: 5A → 5B → 5C → 5D.
   höchstens eine gleichzeitig; 10 lokale Kämpfer (Widerstand, eigene Gruppe, ADR 0012) entstehen am Ältesten und laufen zu einem
   Punkt, den der Dolmetscher auf der Karte anklickt; Abzug nach 30 min, unter Ruf +25 oder aufgerieben (dann nächste
   Gefälligkeit 60 min später)
-- [ ] 5.19 Funk (Kommunikationsmenü) für Kommandant, Truppführer und Dolmetscher: „Folgt uns“, „Geht dorthin“, „Greift an“
+- [x] 5.19 Funk (Kommunikationsmenü) für Kommandant, Truppführer und Dolmetscher: „Folgt uns“, „Geht dorthin“, „Greift an“
 - [-] 5.5 Gefälligkeit „Ablenkungsangriff“: gestrichen am 2026-10-23 (ADR 0023), Liberations Guerilla-Einsätze leisten Ähnliches
 
 **DoD:** Zwei Testläufe (absichtlich „gut“ und „schlecht“ spielen) zeigen deutlich unterschiedliche Intel-Qualität, und

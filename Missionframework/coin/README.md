@@ -10,6 +10,7 @@ coin/
 ├── CfgFunctions.hpp       Registrierung aller COIN_fnc_* (in description.ext eingebunden, Hook #1)
 ├── coin_config.sqf        Balancing und Feature-Schalter, auf jeder Maschine geladen
 ├── CfgNotifications.hpp   Meldungen an die Spieler, eingebunden in ui\liberation_notifications.hpp (Hook 20)
+├── CfgCommunicationMenu.hpp   Funkbefehle der Verstärkung im Kommunikationsmenü (0-8), eingebunden am Ende von ui\CfgDialogs.hpp (Ticket 5.19)
 ├── coin_templates.sqf     Gebäude- und Gelände-Templates (ADR 0019, ADR 0020), nach coin_config.sqf geladen
 ├── init_server.sqf        Server-Teil des Moduls
 ├── init_client.sqf        Client-Teil des Moduls (Maschinen mit Interface)
@@ -38,6 +39,7 @@ coin/
     │   └── fn_campFitsBudget.sqf       COIN_fnc_campFitsBudget: darf ein Camp mit N Kämpfern jetzt spawnen? Ganz oder gar nicht (COIN_maxCampAI)
     ├── common/
     │   ├── fn_findByType.sqf           COIN_fnc_findByType: Zeile einer Config-Tabelle nach Nest-Typ
+    │   ├── fn_getLanguageText.sqf      COIN_fnc_getLanguageText: Text einer Config-Zeile [Schlüssel, [Deutsch, Englisch]] in der Spielsprache (Tickets 5.6, 5.19)
     │   ├── fn_getCapableFighters.sqf   COIN_fnc_getCapableFighters: Kämpfer unter gegebenen Objekten, die noch kämpfen können (Camp und Hinterhalt ausgehoben, Tickets 2.10, 4.5)
     │   ├── fn_isPrisoner.sqf           COIN_fnc_isPrisoner: Gefangener? Miliz-Kämpfer, gefesselt, ergeben oder per CAPTURE im Squad (Ticket 3.8, 5.1)
     │   ├── fn_getReputationBand.sqf    COIN_fnc_getReputationBand: Ruf-Band „low“, „mid“ oder „high“ (Ticket 3.4)
@@ -178,7 +180,20 @@ coin/
     │   ├── fn_pickReinforcementPoint.sqf COIN_fnc_pickReinforcementPoint: Client, der Dolmetscher klickt den Zielpunkt der Verstärkung auf der Karte an, Kreis = Reichweite (Ticket 5.6)
     │   ├── fn_requestReinforcement.sqf COIN_fnc_requestReinforcement: Server, prüft die Anfrage, nimmt Gefälligkeit und Intel-Punkte, lässt die lokalen Kämpfer entstehen (Ticket 5.6)
     │   ├── fn_runReinforcement.sqf     COIN_fnc_runReinforcement: Server, überwacht die Verstärkung (Ankunft, Zeit, Ruf, aufgerieben) und den Rückweg (Ticket 5.6)
-    │   └── fn_showReinforcementMessage.sqf COIN_fnc_showReinforcementMessage: Client, Meldung zur Verstärkung an alle (Ticket 5.6)
+    │   ├── fn_showReinforcementMessage.sqf COIN_fnc_showReinforcementMessage: Client, Meldung zur Verstärkung an alle (Ticket 5.6)
+    │   ├── fn_pickMapPoint.sqf         COIN_fnc_pickMapPoint: Client, ein Punkt auf der Karte, mit Kreis der Reichweite wenn gewünscht (Tickets 5.6, 5.19)
+    │   ├── fn_moveGroup.sqf            COIN_fnc_moveGroup: Server, schickt eine Gruppe der Verstärkung mit einem Wegpunkt zu einem Punkt (Tickets 5.6, 5.19)
+    │   ├── fn_clearWaypoints.sqf       COIN_fnc_clearWaypoints: Server, nimmt alle Wegpunkte einer Gruppe weg (Tickets 5.6, 5.19)
+    │   ├── fn_getFighters.sqf          COIN_fnc_getFighters: die lebenden Kämpfer einer Gruppe der Verstärkung (Tickets 5.6, 5.19)
+    │   ├── fn_isReinforcement.sqf      COIN_fnc_isReinforcement: Server, ist das die Gruppe der Verstärkung, die unterwegs ist (Funk-Schleifen enden sonst), Ticket 5.19
+    │   ├── fn_canGiveRadioOrder.sqf    COIN_fnc_canGiveRadioOrder: darf der Spieler der Verstärkung Funkbefehle geben (Kommandant, Truppführer, Dolmetscher), Ticket 5.19
+    │   ├── fn_publishReinforcement.sqf COIN_fnc_publishReinforcement: Server, meldet allen, ob eine Verstärkung unterwegs ist (Funkmenü), Ticket 5.19
+    │   ├── fn_updateRadio.sqf          COIN_fnc_updateRadio: Client, die drei Funkbefehle im Kommunikationsmenü und das Briefing im Tagebuch (Ticket 5.19)
+    │   ├── fn_giveRadioOrder.sqf       COIN_fnc_giveRadioOrder: Client, ein Funkbefehl aus dem Menü, "Geht dorthin" fragt erst nach dem Punkt (Ticket 5.19)
+    │   ├── fn_radioOrder.sqf           COIN_fnc_radioOrder: Server, führt einen Funkbefehl aus: Folgt uns, Geht dorthin, Greift an (Ticket 5.19)
+    │   ├── fn_radioFollowLoop.sqf      COIN_fnc_radioFollowLoop: Server, die Verstärkung folgt einem Spieler (Ticket 5.19)
+    │   ├── fn_showRadioReply.sqf       COIN_fnc_showRadioReply: Client, die Antwort des Funks an den Befehlsgeber (Ticket 5.19)
+    │   └── fn_watchReinforcement.sqf   COIN_fnc_watchReinforcement: Server, meldet Feindkontakt, Feuergefecht und Verluste an die, die die Funkbefehle haben (Ticket 5.19)
     ├── reputation/
     │   ├── fn_initReputation.sqf       COIN_fnc_initReputation: Server, Start-Ruf einer neuen Kampagne nach dem Laden (Ticket 5.7)
     │   ├── fn_changeReputation.sqf     COIN_fnc_changeReputation: Server, die eine Stelle für Ruf-Änderungen (Logzeile, im Debug Systemchat), Ticket 5.1
