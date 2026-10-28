@@ -313,8 +313,14 @@ Vier Blöcke, nacheinander umgesetzt und getestet: 6A → 6B → 6C → 6D. Samm
   `_target = ""`). Aufgefallen: Bei Readiness 100 und abgeschaltetem Deckel starten alle sechs Infanterie-Patrouillen von Liberation
   auf einmal (48 Mann, SAFE, `MOVE`-Folge zwischen den Sektoren der Miliz). Das sind keine Gegenangriffe und bleiben laut Ticket
   unverändert, sie belegen aber einen Teil der Gegner-Obergrenze, die ein Gegenangriff braucht)
-- [ ] 6.1c (#156) Entsatz: nächster Aufmarschraum, der den Sektor enthält, statt Funkturm; Liberations Ablauf (Wartezeit, Patrouillen
-  umleiten), keine Fallschirmjäger (Hook)
+- [x] 6.1c (#156, am 2026-10-28 im Spiel getestet) Entsatz: nächster Aufmarschraum, der den Sektor enthält, statt Funkturm; Liberations Ablauf
+  (Wartezeit, Patrouillen umleiten), keine Fallschirmjäger (Hook 33)
+  (Karift aus Mayankel Rebel Camp, 2910 m: Meldung 722 s nach dem Start, genau Liberations Formel ohne Großstadt-Faktor, denn
+  `capture_bigtown_7` steht nicht in `sectors_bigtown`; Old Village außerhalb jedes Kreises: `no relief`; Tonkuf: `lapsed` bei
+  deaktiviertem Sektor, und `lapsed` 21 s nach der Einnahme von Mountain Patrol Camp während der Wartezeit; keine
+  Fallschirmjäger-Spur; Schalter aus nicht einzeln getestet. Aufgefallen: Die Wartezeit beträgt bei 2,9 km bis zu 12 min, und
+  Liberations Manager zählt vor der Wartezeit alle Gegner im Sektorradius, bei kleinen Sektoren verzögert das den Start; beides
+  Liberations Verhalten und Stoff für Phase 7)
 - [ ] 6.2 (#157) Höchstens 1 Altfahrzeug pro Gegenangriff: jedes weitere wird durch einen Technical ersetzt (Hook). Konvoi-Überfälle
   entfallen hier: Liberations Überfälle auf KI-Konvois laufen schon (ADR 0008), Überfälle auf Spieler sind die Hinterhalte (Phase 4)
 - [ ] 6.7a (#158) Mörserangriff, Durchstich: nur auf eine FOB im Aufmarschraum mit Spieler an der FOB (300 m), alle 10 min 15 %, 45 min
