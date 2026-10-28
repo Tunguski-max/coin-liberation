@@ -70,10 +70,10 @@ class coin_reinforcement_left_time_de: coin_reinforcement_left_time_en {
     description = "Die Verstärkung aus %1 zieht ab, ihre Zeit ist um.";
 };
 class coin_reinforcement_left_reputation_en: coin_reinforcement_left_time_en {
-    description = "The reinforcement from %1 is leaving, the population no longer trusts you enough.";
+    description = "%1 Reinforcements are leaving as they lost trust in you";
 };
 class coin_reinforcement_left_reputation_de: coin_reinforcement_left_time_de {
-    description = "Die Verstärkung aus %1 zieht ab, die Bevölkerung vertraut euch nicht mehr genug.";
+    description = "%1 Verstärkung zieht ab, da sie euer Vertrauen verloren hat";
 };
 class coin_reinforcement_left_wiped_en: coin_intel_warning_en {
     title = "REINFORCEMENT WIPED OUT";
