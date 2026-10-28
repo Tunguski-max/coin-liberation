@@ -420,6 +420,27 @@ class COIN {
 
         // Server: a militia infantry class with vest and helmet for a fighter of a strike task (tickets 5.15, 5.16)
         class pickArmoredClass {};
+
+        // Server: the airfields from which the export can be taken (ticket 5.18)
+        class findExportAirfields {};
+
+        // Server: a free place for a guard of a strike task (tickets 5.15, 5.18)
+        class findGuardSpot {};
+
+        // Server: a patrol of guards walking round a centre (tickets 5.15, 5.18)
+        class startGuardPatrol {};
+
+        // Server: the towns the militia holds (tickets 5.14, 5.16, 5.18)
+        class getMilitiaTowns {};
+
+        // Server: requirement of the strike task "Export" (ticket 5.18)
+        class canStrikeExport {};
+
+        // Server: plan of the strike task "Export": airfield, runway, plane (ticket 5.18)
+        class planStrikeExport {};
+
+        // Server: the event of the export: plane on the runway, guards, destroyed, readiness (ticket 5.18)
+        class runStrikeExport {};
     };
 
     class population {
