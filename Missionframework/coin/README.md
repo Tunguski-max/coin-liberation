@@ -10,7 +10,7 @@ coin/
 ├── CfgFunctions.hpp       Registrierung aller COIN_fnc_* (in description.ext eingebunden, Hook #1)
 ├── coin_config.sqf        Balancing und Feature-Schalter, auf jeder Maschine geladen
 ├── CfgNotifications.hpp   Meldungen an die Spieler, eingebunden in ui\liberation_notifications.hpp (Hook 20)
-├── CfgCommunicationMenu.hpp   Funkbefehle der Verstärkung im Kommunikationsmenü (0-8), eingebunden am Ende von uiCfgDialogs.hpp (Ticket 5.19)
+├── CfgCommunicationMenu.hpp   Funkbefehle der Verstärkung im Kommunikationsmenü (0-8), eingebunden am Ende von ui\CfgDialogs.hpp (Ticket 5.19)
 ├── coin_templates.sqf     Gebäude- und Gelände-Templates (ADR 0019, ADR 0020), nach coin_config.sqf geladen
 ├── init_server.sqf        Server-Teil des Moduls
 ├── init_client.sqf        Client-Teil des Moduls (Maschinen mit Interface)
