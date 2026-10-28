@@ -558,7 +558,7 @@ Abziehen von Besatzungen würde Liberations Sektor-Logik aushebeln.
   - **„Folgt uns“:** Die Gruppe folgt dem Spieler, der den Befehl gibt (Skript alle 10 s) und bleibt 15 m hinter ihm.
     Stirbt er oder geht er offline, hält sie ihre Stellung.
   - **„Geht dorthin“:** Klick auf die Karte (Esc bricht ab, kostet nichts), die Gruppe läuft hin und hält. Im Wasser wird
-    abgelehnt, eine Reichweitengrenze gibt es nicht.
+    abgelehnt, eine Reichweitengrenze gibt es nicht. Hat die Gruppe den Punkt erreicht, meldet sie es dem Befehlsgeber per Funk.
   - **„Greift an“:** Die Gruppe läuft im Kampfmodus zur Mitte der **ihr nächsten** Ortschaft der Miliz und sucht und
     zerstört dort (SAD). Gibt es keine Ortschaft der Miliz mehr, antwortet der Funk „kein Ziel“ und der alte Befehl bleibt.
     Liberation aktiviert eine Ortschaft nur bei Spielern in Reichweite; ohne Spieler trifft die Gruppe dort niemanden.

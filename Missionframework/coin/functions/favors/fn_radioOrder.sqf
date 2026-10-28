@@ -7,7 +7,8 @@
         remoteExecCall. Checks the machine, that a reinforcement is on its way with a fighter alive, and that the player may give
         orders (COIN_fnc_canGiveRadioOrder). The last order counts: a new one ends a following group's loop. The orders:
         - "follow": the group follows the player (COIN_fnc_radioFollowLoop),
-        - "goto": the group walks to the point and stays (not in water),
+        - "goto": the group walks to the point and stays (not in water); the player gets a message when it has arrived (COIN_radioGoto,
+          COIN_fnc_runReinforcement),
         - "attack": the group goes to the middle of the militia's town nearest to it (the capital counts, military posts do not) in
           combat mode and searches and destroys there in COIN_radioAttackRadius; none left: "no target", the old order stays. Liberation
           activates a town only when players are near, without them the town is empty (no hook in Liberation).
@@ -54,8 +55,9 @@ if (_state isEqualTo [] || {isNull _here} || {!([_caller] call COIN_fnc_canGiveR
 
 private _town = _state select 4;
 private _done = false;
-// A new order ends the loop of a group that follows
+// A new order ends the loop of a group that follows and the wait of the group for its point of "go there"
 private _nextOrder = {
+    COIN_radioGoto = [];
     COIN_radioOrderId = (missionNamespace getVariable ["COIN_radioOrderId", 0]) + 1;
     COIN_radioOrderId
 };
@@ -77,6 +79,8 @@ switch (_order) do {
         } else {
             call _nextOrder;
             [_group, _pos, COIN_reinforcementArriveRadius] call COIN_fnc_moveGroup;
+            // COIN_fnc_runReinforcement tells the player when a fighter is there
+            COIN_radioGoto = [_pos, _caller];
             ["goto", [mapGridPosition _pos]] call _reply;
             diag_log format ["[COIN] radio: %1 orders the reinforcement from %2: go to %3, %4 m", name _caller, _town, mapGridPosition _pos, round (_here distance2D _pos)];
             _done = true;

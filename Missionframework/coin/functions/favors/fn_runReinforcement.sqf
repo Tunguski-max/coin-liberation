@@ -8,6 +8,7 @@
         - "time": COIN_reinforcementMaxMin minutes since the fighters appeared,
         - "reputation": the reputation is below COIN_favorMinRep (the resistance is no longer on our side),
         - "wiped": no fighter is alive any more (killed, or deleted in Zeus). The next favor comes later (COIN_fnc_delayFavor).
+        The one who gave "go there" gets a radio message when a fighter is at that point (COIN_radioGoto, set by COIN_fnc_radioOrder).
         Everybody gets a message when the group reaches the point (one fighter within COIN_reinforcementArriveRadius) and when it leaves
         (COIN_fnc_showReinforcementMessage). After "time" and "reputation" the survivors walk back to the elder's place, then go when
         nobody sees them (COIN_fnc_removeWhenUnseen), at the latest COIN_reinforcementReturnSeconds after the order. From that moment
@@ -52,6 +53,16 @@ while {_result isEqualTo ""} do {
                         _town, ((time - _started) / 60) toFixed 1, count _alive, _size
                     ];
                 };
+                // The point of "go there" (ticket 5.19): the one who gave the order hears when a fighter is there
+                private _goto = missionNamespace getVariable ["COIN_radioGoto", []];
+                if (_goto isNotEqualTo [] && {_alive findIf {(_x distance2D (_goto select 0)) <= COIN_reinforcementArriveRadius} >= 0}) then {
+                    COIN_radioGoto = [];
+                    _goto params ["_gotoPos", "_gotoPlayer"];
+                    if (isPlayer _gotoPlayer) then {
+                        ["arrived", [mapGridPosition _gotoPos]] remoteExecCall ["COIN_fnc_showRadioReply", owner _gotoPlayer];
+                    };
+                    diag_log format ["[COIN] radio: the reinforcement from %1 reached the point %2 of %3", _town, mapGridPosition _gotoPos, name _gotoPlayer];
+                };
             };
         };
     };
@@ -64,6 +75,7 @@ diag_log format [
 ];
 // None on its way any more: the group is not led by the radio from here on, and the next one may come
 COIN_reinforcement = [];
+COIN_radioGoto = [];
 [false] call COIN_fnc_publishReinforcement;
 ["left_" + _result, _town] remoteExecCall ["COIN_fnc_showReinforcementMessage", 0];
 
