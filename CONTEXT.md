@@ -45,6 +45,8 @@ Code-Bezeichner stehen in Klammern.
 | **Netzwerkstärke** (`networkStrength`) | Anteil der aktiven Nester an allen Nestern der Kampagne (0 bis 1, alle Nest-Typen gleich gewichtet). Bestimmt u. a. die Hauptstadt-Garnison und den Höchstwert der Readiness. |
 | **Readiness** (`combat_readiness`) | Liberations Maß (0–100) dafür, wie aggressiv die Miliz auftritt: Besatzungen, Gegenangriffe, Patrouillen. |
 | **Gegenangriff** | Angriff der Miliz auf befreite Sektoren oder FOBs (Liberation: „Battlegroup“). |
+| **Aufmarschraum** (`stagingArea`) | Gebiet, aus dem die Miliz Gegenangriffe, Entsatz und Mörserangriffe führt: der Einflussradius eines aktiven Kommandopostens oder der Umkreis eines Militärpostens in Miliz-Hand. Endet, wenn das Nest zerstört oder der Militärposten eingenommen ist. |
+| **Entsatz** (`relief`) | Hilfe der Miliz für einen eigenen Sektor, den die Armee angreift (Liberation: „Reinforcements“). _Nicht:_ „Verstärkung“, das sind die lokalen Kämpfer der Armee. |
 | **Camp** (`camp`) | Kleines, offenes Lager der Miliz im Gelände. Gehört zu einem Nest, wird nicht gespeichert, wechselt seine Position. |
 | **Unentdeckt** (`undiscovered`) | Zustand eines Camps, in dessen Nähe seit seiner Entstehung noch kein Spieler war. Nur unentdeckte Camps wechseln ihre Position. |
 | **Ausgehoben** (`cleared`) | Zustand eines Camps, in dessen Nähe kein Kämpfer des Camps mehr kampffähig ist (tot, gefangen, ergeben oder geflohen). _Nicht:_ „zerstört“, das gilt nur für Nester. |
@@ -64,6 +66,7 @@ Code-Bezeichner stehen in Klammern.
 | **Attentäter** (`suicideBomber`) | Zivilist mit Sprengweste. Kommt nur im Einflussradius einer IED-Werkstatt vor, wie oft, hängt am Ruf. |
 | **Hinterhalt** (`ambush`) | Vorbereiteter Überfall an einer Straße, ausgehend von einem aktiven Camp. |
 | **Hinterhalt am Einsatzort** (`siteAmbush`) | Vorbereiteter Überfall der Miliz am Einsatzort eines Hilfsauftrags (Arzt-Einsatz, Reparatur): Kämpfer in Deckung und in Häusern, die das Feuer eröffnen, sobald die Armee nah ist. Entsteht nur, wenn ein aktives Nest den Einsatzort im Einflussradius hat. _Nicht:_ der Hinterhalt eines Camps. |
+| **Mörserangriff** (`mortarAttack`) | Beschuss einer FOB in einem Aufmarschraum durch einen kleinen Mörsertrupp der Miliz aus einigen Kilometern Entfernung. Der Trupp lässt sich finden und ausschalten. |
 | **Kämpfer in Zivil** | Miliz-Einheit ohne sichtbare Waffe, bis es zum Kontakt kommt. |
 
 ## Intel und Bevölkerung

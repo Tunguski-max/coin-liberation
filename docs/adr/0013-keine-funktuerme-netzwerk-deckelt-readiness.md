@@ -1,6 +1,6 @@
 # ADR 0013: Keine Funktürme, das Netzwerk deckelt die Readiness
 
-**Status:** Akzeptiert (2026-10-18)
+**Status:** Akzeptiert (2026-10-18), ergänzt durch ADR 0025 (2026-10-28)
 
 ## Kontext
 - Liberations Funktürme sind Quelle der feindlichen Verstärkung. In BLUFOR-Hand zeigen sie alle
@@ -10,10 +10,10 @@
   Netzwerkstärke steuerte bisher nur Hauptstadt-Garnison und Camps.
 
 ## Entscheidung
-- Auf der Karte gibt es **keine Funktürme** (`tower`-Sektoren), siehe auch ADR 0016. Die Verstärkungsquelle wird ab
-  Phase 6 der Kommandoposten.
+- Auf der Karte gibt es **keine Funktürme** (`tower`-Sektoren), siehe auch ADR 0016. Quelle für Entsatz und Gegenangriffe
+  werden ab Phase 6 die **Aufmarschräume**: Kommandoposten und Militärposten in Miliz-Hand (ADR 0025).
 - Unser Server-Code begrenzt `combat_readiness` regelmäßig auf einen Höchstwert, der von den aktiven
-  Nestern abhängt (Phase 6, kein Hook).
+  Nestern abhängt (Phase 6, kein Hook; Formel `25 + 75 × Netzwerkstärke`, ADR 0025).
 - Zusätzlich senkt ein **zerstörtes Nest die Readiness sofort** um einen Wert je Nest-Typ (z. B. 10,
   Kommandoposten 20; ergänzt 2026-10-18). Einige Zugriffsaufträge senken sie um 10 Punkte, der Waffentransport um 20 (umbenannt 2026-10-23, ADR 0023; Waffentransport 2026-10-27).
   Die Readiness bleibt im Overlay sichtbar.

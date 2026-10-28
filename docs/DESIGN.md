@@ -1,6 +1,6 @@
 # Design: COIN Liberation (Arbeitstitel)
 
-> Status: **Entwurf v0.7** – Grundlage für die Umsetzung mit Claude Code.
+> Status: **Entwurf v0.8** – Grundlage für die Umsetzung mit Claude Code.
 > v0.2: Entscheidungen aus Phase 0 eingearbeitet (ADR 0008–0015, `docs/kp-liberation-map.md`).
 > v0.3: Spielfeld und Ausrüstung für Phase 1 festgelegt (ADR 0007, 0016), Abgleich mit Hearts and Minds.
 > v0.3.1: Sektorauswahl von Hand ergänzt (ADR 0016), Ressourcen-Wirtschaft (ADR 0017).
@@ -17,6 +17,7 @@
 > v0.6.2: Attentäter wirkt im ganzen Radius der Werkstatt (keine Ortschaft nötig) und kontert ACEs „Get Down!“/„Go Away!“ nicht (Ticket 4.4, Test am 2026-10-23, Niklas).
 > v0.6.3: Hinterhalt: Platz neben der nächsten Straße, Kämpfer halten Feuer bis 150 m, Ersatzcamp nach Umzug bekommt garantiert einen Hinterhalt (Ticket 4.5, Test am 2026-10-23, Niklas).
 > v0.7: Ruf und Konsequenzen für Phase 5 festgelegt (Ruf-Werte, Stimmung, Ältester mit Dialog, Hilfs- und Zugriffsaufträge, Nebenmissionen beim Ältesten, Verstärkung per Funk, Ablenkungsangriff gestrichen, ADR 0023).
+> v0.8: Gegenangriffe und Hauptstadt für Phase 6 festgelegt (Aufmarschräume aus Kommandoposten und Militärposten, Entsatz, Mörserangriff, Readiness-Deckel, Zusatz-Garnison, Abschluss-Statistik, Neuaufbau der Nester verschoben, ADR 0025).
 > Offene Entscheidungen stehen gesammelt in [Abschnitt 12](#12-offene-entscheidungen).
 > Begriffe sind in [`CONTEXT.md`](../CONTEXT.md) definiert.
 
@@ -106,7 +107,7 @@ die jeweils einen **Einflussradius** haben und dort einen konkreten Effekt erzeu
 
 | Nest-Typ | Effekt im Einflussradius | Wenn zerstört |
 |---|---|---|
-| Kommandoposten | Steuert Patrouillen, Gegenangriffe und Verstärkung | Keine Gegenangriffe und keine Verstärkung mehr aus dieser Region, weniger Patrouillen |
+| Kommandoposten | Aufmarschraum: Gegenangriffe, Entsatz und Mörserangriffe (Abschnitt 9) | Keine Gegenangriffe, kein Entsatz und keine Mörserangriffe mehr aus dieser Region (außer ein Militärposten in Miliz-Hand deckt sie ab), Readiness sinkt |
 | IED-Werkstatt | Erzeugt IED-Budget | IED-Obergrenze im Radius sinkt deutlich |
 | Waffenlager | Verstärkt Garnisonen und Ausrüstung, bewacht 1–2 Altfahrzeuge | Garnisonen kleiner, weniger schwere Waffen, seine Altfahrzeuge verschwinden |
 | VBIED-Garage | Ermöglicht VBIED-Ereignisse | Keine VBIEDs mehr im Radius |
@@ -153,8 +154,8 @@ die jeweils einen **Einflussradius** haben und dort einen konkreten Effekt erzeu
     bemannte Luftfahrzeuge mehr als 100 m über Grund zählen nicht.
   - Ein Nest sieht bei jedem Besuch gleich aus (Template, Ausrichtung und Plätze folgen aus einem gespeicherten Zufallswert).
 - **Leichte Bewachung:** bei jedem Spawn vollständig, Verluste werden nicht gemerkt. Etwa die Hälfte sitzt beim
-  Kernobjekt, der Rest patrouilliert im Umkreis von etwa 100 m. Ein Nest ruft keine Verstärkung (die kommt mit dem
-  Kommandoposten in Phase 6). Nester spawnen immer vollständig, auch wenn viele Gegner auf der Karte sind (ADR 0015).
+  Kernobjekt, der Rest patrouilliert im Umkreis von etwa 100 m. Ein Nest ruft keinen Entsatz (Entsatz gibt es nur für
+  Sektoren, aus Aufmarschräumen, Abschnitt 9). Nester spawnen immer vollständig, auch wenn viele Gegner auf der Karte sind (ADR 0015).
 - Die **Altfahrzeuge eines Waffenlagers** sind besetzt und für Spieler gesperrt (ADR 0007). Sie sind wie die Wachen
   bei jedem Spawn wieder da, bis das Lager zerstört ist.
 - Nester sind **nicht** auf der Karte markiert. Nur Intel macht sie sichtbar (siehe System C).
@@ -653,20 +654,70 @@ Liberations HVT-Aufgabe nach Informanten bleibt unverändert daneben bestehen.
 
 ## 9. System E: Gegenangriffe und Hauptstadt
 
+Festgelegt beim Grilling für Phase 6 (2026-10-28, ADR 0025, Ergänzung ADR 0013).
+
+**Aufmarschräume** (ADR 0025)
+- Gegenangriffe, Entsatz und Mörserangriffe kommen aus **Aufmarschräumen**: dem Einflussradius eines aktiven
+  Kommandopostens oder dem Umkreis (2000 m) eines Militärpostens, den die Miliz hält. Ein Aufmarschraum endet, wenn das Nest
+  zerstört oder der Militärposten eingenommen ist. Erobert die Miliz einen Militärposten zurück, ist er wieder einer.
+  Liberations Funktürme entfallen (ADR 0013).
+- Im Debug-Modus zeigt die Karte die Aufmarschräume.
+
+**Gegenangriffe**
 - Liberation-Gegenangriffe auf eingenommene Sektoren bleiben, werden aber **asymmetrisch**:
-  Technicals und Infanterie, höchstens **ein Altfahrzeug** pro Gegenangriff, keine Kampfpanzer.
-  Dazu Mörserbeschuss auf FOBs und Überfälle auf Konvois.
-- Gegenangriffe starten nur aus Regionen mit aktivem **Kommandoposten**. Kommandoposten sind auch die
-  Quelle für Verstärkung angegriffener Miliz-Sektoren; Liberations Funktürme entfallen (ADR 0013).
-- Die **Netzwerkstärke deckelt Liberations Readiness**: Je weniger Nester aktiv sind, desto niedriger der
-  Höchstwert. Zusätzlich **senkt jedes zerstörte Nest die Readiness sofort** (z. B. um 10, Kommandoposten 20),
+  Technicals und Infanterie, höchstens **ein Altfahrzeug** pro Gegenangriff (jedes weitere wird durch einen Technical ersetzt),
+  keine Kampfpanzer.
+- Der Gegenangriff nach einer Einnahme und die zufälligen Battlegroups starten nur an einem Spawnpunkt (`opfor_point`) im
+  Aufmarschraum. Weil Liberation 2–3 km vom Ziel spawnt, reicht ein Aufmarschraum etwa so weit über seinen Rand hinaus.
+  Gibt es keinen solchen Spawnpunkt, entfällt der Gegenangriff. Nach der Einnahme der Hauptstadt greift Liberation wie bisher
+  immer gegen an. Patrouillen bleiben unverändert, sie folgen der gedeckelten Readiness.
+- Überfälle auf Konvois baut COIN nicht: Liberations Überfälle auf KI-Logistikkonvois laufen weiter (ADR 0008), Überfälle auf
+  Spieler sind die Hinterhalte (Abschnitt 6).
+
+**Entsatz**
+- Greift die Armee einen Sektor der Miliz an, kommt Entsatz aus dem nächsten Aufmarschraum, der den Sektor enthält. Er
+  ersetzt in Liberations Ablauf den Funkturm: Die Wartezeit hängt am Abstand, laufende Patrouillen werden zum Sektor
+  umgeleitet. Es entstehen keine neuen Einheiten, Fallschirmjäger gibt es keine (keine Hubschrauber, ADR 0014).
+
+**Mörserangriff**
+- Nur auf eine FOB in einem Aufmarschraum und nur, wenn mindestens ein Spieler an der FOB ist (300 m). Alle 10 min eine
+  Chance (Startwert 15 %), danach 45 min Wartezeit pro FOB, höchstens ein Mörserangriff gleichzeitig.
+- 3 Kämpfer mit einem leichten Mörser (Klasse in der Config) spawnen 1500–2500 m von der FOB entfernt, außer Sicht und möglichst
+  im Aufmarschraum. Sie schießen 3 Salven zu je 4 Granaten, die erste streut etwa 150 m, jede weitere enger bis etwa 50 m
+  (Einschießen: Zeit, in Deckung zu gehen). Echte Munition, echter Schaden an Fahrzeugen und Bauten.
+- Nach der ersten Salve bekommt die Seite die Meldung „Mörserbeschuss auf FOB …“ und einen Kreis (etwa 400 m) um die Stellung;
+  der Trupp liegt darin, nicht in der Mitte. Der Kreis verschwindet mit dem Trupp.
+- Der Trupp bleibt 10 min in Stellung und wird danach außer Sicht abgebaut, sobald niemand nah ist. Er zählt als
+  COIN-Einheiten und spawnt immer. Ein gefangener Mörserschütze nennt im Verhör den Kommandoposten seines Aufmarschraums,
+  kam er von einem Militärposten, gilt die Regel „Welches Nest“ (Abschnitt 7).
+
+**Readiness** (ADR 0013, 0025)
+- Die **Netzwerkstärke deckelt Liberations Readiness**: `Deckel = 25 + 75 × Netzwerkstärke` (Boden in der Config), ein
+  Server-Loop prüft alle 60 s. Bei vollem Netzwerk 100 (keine Wirkung), bei 0 Nestern 25, damit Liberation nicht nur noch
+  schwache Trupps schickt. Zusätzlich **senkt jedes zerstörte Nest die Readiness sofort** (Kommandoposten 20, sonst 10),
   einige Zugriffsaufträge um 10 Punkte (der Waffentransport um 20). Die Readiness bleibt im Overlay sichtbar (ADR 0013).
 - Hohe Readiness bedeutet: mehr Patrouillen, stärkere Besatzungen in den Sektoren, häufigere Gegenangriffe.
-- **Hauptstadt:** Garnisonsstärke skaliert mit dem Restnetzwerk (siehe Abschnitt 5).
-  Bei 0 verbleibenden Nestern: Mindestbesetzung. Bei vollem Netzwerk: praktisch nicht einnehmbar.
-  Fest dazu gehört schweres Gerät für den Endkampf: **2 Kampfpanzer T-72**, **1 Flakpanzer ZSU-23-4**
-  und Igla-Schützen. Es hängt nicht an den Waffenlagern.
+
+**Hauptstadt**
+- Liberations normale Besatzung der Hauptstadt ist die **Mindestbesetzung** bei 0 Nestern. Beim Aktivieren spawnt COIN
+  zusätzlich `runden(Liberations Infanterie-Trupps × Faktor × aktive Nester)` Trupps (Faktor 0,15): bei 3 Trupps und 11 Nestern
+  5 Zusatz-Trupps (etwa 40 Mann), bei 5 Nestern 2, bei 0 keine. Zusammensetzung wie Liberations Trupps derselben Readiness mit
+  Rüstungsmischung (ADR 0014), sie besetzen Häuser und patrouillieren im Sektor. Sie zählen als COIN-Einheiten und spawnen immer
+  (ADR 0015). Bei vollem Netzwerk ist die Hauptstadt praktisch nicht einnehmbar.
+- Fest dazu gehört schweres Gerät für den Endkampf: **2 Kampfpanzer T-72BA** und **1 Flakpanzer ZSU-23-4** wie Liberations
+  Sektorfahrzeuge, dazu 3 Igla-Schützen auf hohen Gebäudeplätzen. Es hängt nicht an den Waffenlagern. Zerstörtes Gerät bleibt
+  bis zum Serverneustart weg (nicht gespeichert), damit es sich lohnt, es vorab herauszuschießen.
 - Einnahme der Hauptstadt = Kampagnensieg.
+
+**Kampagnenende**
+- Liberations Endbildschirm bekommt einen Abschnitt **„COIN“**: Nester zerstört (je Typ) und Netzwerkstärke am Ende, Camps und
+  Hinterhalte ausgehoben, Befragungen, Verhöre, Intel-Marker (davon Lügen), IEDs entschärft/explodiert, VBIEDs
+  gestoppt/explodiert, Attentäter ausgeschaltet/explodiert, Hilfs- und Zugriffsaufträge erfüllt/gescheitert, angeforderte
+  Verstärkungen, Mörserangriffe, dazu der **Ruf am Ende als Zahl** (erstmals sichtbar) und die Stimmung.
+- Die Zähler laufen über die ganze Kampagne und werden im COIN-Block gespeichert (`COIN_saveVersion` 4, ältere Stände starten
+  bei 0). Liberations eigene Werte (Gegenangriffe, Entsatz, Gefangene …) bleiben in Liberations Teil.
+
+*Später:* Die Miliz baut Nester langsam neu auf (E5, verschoben am 2026-10-28).
 
 ## 10. Ausrüstung: leichte Brigade
 
@@ -761,7 +812,7 @@ Infanterie, Technicals, Motorräder, zivile Fahrzeuge, leichte statische Waffen 
 | E2 | Name und Erscheinung der Miliz | Fiktiver Name; Erscheinung: Project OPFOR „Afghan Militia“ (ADR 0014) | offen (Name) |
 | E3 | Welche Stadt wird Hauptstadt, welches Gebiet? | Kalae Noowi, ganze Karte ausgedünnt (ADR 0016) | **entschieden** |
 | E4 | Ruf global oder pro Ortschaft? | Global starten (Liberation-Ruf ist global, ADR 0009) | offen |
-| E5 | Bauen sich Nester neu auf? | Ja, langsam, ab Phase 6 | offen |
+| E5 | Bauen sich Nester neu auf? | Ja, langsam; aus Phase 6 verschoben auf „Später“ nach Phase 7 (2026-10-28) | verschoben |
 | E6 | Reicht ein Dolmetscher-Slot oder zwei? | Zwei, in der Führungsgruppe | **entschieden** |
 | E7 | Funktions-Präfix für eigenen Code | `COIN` (siehe ADR 0003) | **entschieden** |
 | E8 | Regel für die Anzahl der Camps | Kapazität anteilig aus dem Gewicht der aktiven Nester (max. 10, geändert 2026-10-19), keine Camps nahe befreitem Gebiet | **entschieden** |
