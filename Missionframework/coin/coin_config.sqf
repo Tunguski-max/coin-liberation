@@ -198,7 +198,8 @@ COIN_nestDebugColors = [
     ["vbiedGarage",  "ColorPink"],
     ["recruitment",  "ColorBrown"]
 ];
-// Immediate combat_readiness drop when a nest is destroyed: [type, drop] (Phase 6, ADR 0013)
+// Immediate combat_readiness drop when a nest is destroyed: [type, drop] (Phase 6, ticket 6.6b, #153, ADR 0013)
+COIN_enableNestReadinessDrop = true;    // Off: a destroyed nest does not lower the readiness (the strike tasks still do)
 COIN_nestReadinessDrop = [
     ["command",      20],
     ["iedWorkshop",  10],

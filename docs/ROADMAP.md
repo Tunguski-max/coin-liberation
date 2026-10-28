@@ -289,7 +289,7 @@ Vier Blöcke, nacheinander umgesetzt und getestet: 6A → 6B → 6C → 6D. Samm
   altem Wert, neuem Wert und Deckel; der Deckel gilt nach dem Laden des Spielstands weiter; ein Deckel von 100 greift nie, eine Kampagne
   ohne Nester hat keinen; nicht getestet: Schalter zur Laufzeit ausschalten, Dedicated Server (7.5). Bekannt: Nach dem Laden gilt der Deckel
   erst beim zweiten Durchlauf, also bis zu 60 s später, weil der erste vor der Netzwerkstärke läuft)
-- [ ] 6.6b (#153) Zerstörtes Nest senkt die Readiness sofort (`COIN_nestReadinessDrop` über `COIN_nestDestroyed`; Kommandoposten 20, sonst 10);
+- [ ] 6.6b (#153, umgesetzt, ungetestet) Zerstörtes Nest senkt die Readiness sofort (`COIN_nestReadinessDrop` über `COIN_nestDestroyed`; Kommandoposten 20, sonst 10);
   Zugriffsaufträge nutzen dieselbe Funktion
 
 **6B Gegenangriffe (ADR 0025)** – Reihenfolge: 6.1a, 6.1b, 6.1c, 6.2, 6.7a, 6.7b

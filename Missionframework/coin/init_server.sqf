@@ -53,6 +53,8 @@ if ([] call COIN_fnc_replacesLiberationThreats) then {
 // Reputation (ticket 5.7, ADR 0009): start value of a new campaign, logs the value of a loaded save
 [] spawn COIN_fnc_initReputation;
 [] call COIN_fnc_initReputationEvents;
+// Readiness drop when a nest is destroyed (ticket 6.6b, #153, ADR 0013): registered before the nests are loaded or created
+[] call COIN_fnc_initReadinessEvents;
 if (COIN_enableInformantFrequency) then {
     [] spawn COIN_fnc_informantFrequencyLoop;
 } else {
