@@ -209,7 +209,9 @@ COIN_nestReadinessDrop = [
 ];
 COIN_cacheOldVehicles       = [1, 2];   // [min, max] old vehicles guarded by a weapons cache
 COIN_oldVehicleClasses      = ["LOP_AM_OPF_BTR60", "LOP_AM_OPF_M113_W"];
-COIN_enableOldVehicles      = true;     // Off: weapons caches get no old vehicles (ticket 2.9a)
+COIN_battlegroupOldVehicleClasses = COIN_oldVehicleClasses + ["LOP_ISTS_OPF_BTR60"]; // Ticket 6.2, #157: what counts as an old vehicle in a counterattack (the BTR-60 of the preset list is the ISTS twin)
+COIN_enableOldVehicleLimit  = true;     // Off: no limit, the list weighting alone decides (ticket 6.2, hook 34)
+COIN_enableOldVehicles      = true;    // Off: weapons caches get no old vehicles (ticket 2.9a)
 COIN_oldVehicleDist         = [20, 40]; // [min, max] m from the nest position (beyond the house or the template)
 COIN_oldVehicleTries        = 10;       // Spots tried per vehicle before it is left out
 COIN_oldVehicleSearch       = 10;       // m around a tried spot searched for free room (findEmptyPosition)
