@@ -305,7 +305,7 @@ Vier Blöcke, nacheinander umgesetzt und getestet: 6A → 6B → 6C → 6D. Samm
   (6 Aufmarschräume), Verweigerung eines Sektors, der schon der Armee gehört; Radius der Militärposten am Ende von 2000 auf 3000 m
   erhöht (nach dem Test, noch nicht im Spiel gesehen); nicht einzeln getestet: Hauptstadt und aktive Sektoren verweigern,
   Miliz holt sich einen Militärposten zurück)
-- [ ] 6.1b (#155) Gegenangriff nach Einnahme und zufällige Battlegroups nur von Spawnpunkten im Aufmarschraum, sonst entfällt er;
+- [ ] 6.1b (#155, umgesetzt, ungetestet) Gegenangriff nach Einnahme und zufällige Battlegroups nur von Spawnpunkten im Aufmarschraum, sonst entfällt er;
   Hauptstadt ohne Bedingung, Patrouillen unverändert (Hook)
 - [ ] 6.1c (#156) Entsatz: nächster Aufmarschraum, der den Sektor enthält, statt Funkturm; Liberations Ablauf (Wartezeit, Patrouillen
   umleiten), keine Fallschirmjäger (Hook)

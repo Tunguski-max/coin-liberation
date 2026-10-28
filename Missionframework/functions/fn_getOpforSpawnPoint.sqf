@@ -19,6 +19,7 @@
         _max        - Maximum distance to any blufor sector or FOB                      [NUMBER, defaults to 20000]
         _nearest    - Provide the nearest spawn point of valid points                   [BOOL, defaults to false]
         _pos        - Position if the nearest spawn point to this should be selected    [POSITION, defaults to [0, 0, 0]]
+        _stagingOnly - COIN: only spawn points inside a COIN staging area (hook 31)     [BOOL, defaults to false]
 
     Returns:
         Opfor spawn point [STRING]
@@ -28,7 +29,9 @@ params [
     ["_min", 2000, [0]],
     ["_max", 20000, [0]],
     ["_nearest", false, [false]],
-    ["_pos", [0, 0, 0], [[]], [2, 3]]
+    ["_pos", [0, 0, 0], [[]], [2, 3]],
+    // COIN: only spawn points in a staging area (ticket 6.1b, #155, ADR 0025, hook 31)
+    ["_stagingOnly", false, [false]]
 ];
 
 private _possibleSpawns = [];
@@ -83,6 +86,12 @@ private ["_valid", "_current", "_distances"];
             _valid = false;
         };
     };
+
+    // COIN BEGIN: counterattacks start only in a staging area (hook 31, default false = Liberation's behaviour)
+    if (_valid && {_stagingOnly}) then {
+        _valid = !(([markerPos _current] call COIN_fnc_getStagingAreasAt) isEqualTo []);
+    };
+    // COIN END
 
     // Add distance and marker name to possible spawn, if still valid
     if (_valid) then {
