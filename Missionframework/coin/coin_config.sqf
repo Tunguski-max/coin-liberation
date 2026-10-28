@@ -1508,9 +1508,9 @@ COIN_convoyDebugMarker      = ["mil_triangle", "ColorRed"]; // Debug map (COIN_d
 
 // Strike task "Export" (ticket 5.18): the airfields are listed by hand, the plane stands on the runway
 COIN_exportAirfields        = [         // [name, position of the runway where the plane stands (ATL, [] = not set: the airfield is left out), direction of the plane]
-    ["Kinduf Airport", [], 0],
+    ["Kinduf Airport", [11032.1, 2871.17, 0], 225],
     ["Kinduf Airfield", [], 0],
-    ["Kalae Airport", [], 0]
+    ["Kalae Airport", [12461.6, 17739.2, 0], 311]
 ];
 COIN_exportTownRange        = 3000;     // m (straight line): the militia has to hold a town (the capital too) this near the airfield
 COIN_exportPlaneClasses     = ["CUP_C_Cessna_CIV", "C_Plane_Civil_01_F"]; // The plane: the first class that exists
