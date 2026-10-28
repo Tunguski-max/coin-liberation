@@ -344,6 +344,7 @@ COIN_readinessCapLogDrop    = 1;        // Points: smaller pull-backs (Liberatio
 COIN_enableStagingAreas     = true;     // Off: no staging areas; the callers of tickets 6.1b, 6.1c and 6.7a then leave Liberation's behaviour alone
 COIN_stagingRadiusMilitary  = 3000;     // m around a military post held by the militia (a command post uses its influence radius)
 COIN_enableStagingCounterattacks = true; // Ticket 6.1b, #155: counterattacks and random battlegroups start only at a spawn point in a staging area (hooks 31, 32); off = Liberation's spawn point choice
+COIN_enableStagingRelief    = true;     // Ticket 6.1c, #156: relief for a militia sector under attack comes from the nearest staging area containing it, no paratroopers (hook 33); off = Liberation's radio towers (none on the map, so no relief)
 COIN_stagingCheckSeconds    = 5;        // s between two checks for a change (nest destroyed, military post captured or lost)
 COIN_stagingDebugColor      = "ColorKhaki"; // Debug map: circle and label of a staging area
 
