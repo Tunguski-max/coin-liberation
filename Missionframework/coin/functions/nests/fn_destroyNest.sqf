@@ -5,7 +5,7 @@
     Description:
         Marks a nest as destroyed (ticket 2.4, #33, ADR 0018): state "destroyed", saved right away with Liberation's
         save function, one log line, grey debug marker and the server event "COIN_nestDestroyed" [id, type, position]
-        (CBA local event). Reputation (Phase 5) and readiness drop (Phase 6) attach to that event.
+        (CBA local event). Reputation (Phase 5, COIN_fnc_initReputationEvents) and the readiness drop (Phase 6, COIN_fnc_initReadinessEvents) attach to that event.
         Only once per nest: a nest that is already destroyed, or an id that is no saved nest (debug nest), does nothing.
         A destroyed nest never spawns again; guards still alive fight on until the nest is removed.
         Server only.

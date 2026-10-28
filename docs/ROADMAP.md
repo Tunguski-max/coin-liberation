@@ -289,8 +289,13 @@ Vier Blöcke, nacheinander umgesetzt und getestet: 6A → 6B → 6C → 6D. Samm
   altem Wert, neuem Wert und Deckel; der Deckel gilt nach dem Laden des Spielstands weiter; ein Deckel von 100 greift nie, eine Kampagne
   ohne Nester hat keinen; nicht getestet: Schalter zur Laufzeit ausschalten, Dedicated Server (7.5). Bekannt: Nach dem Laden gilt der Deckel
   erst beim zweiten Durchlauf, also bis zu 60 s später, weil der erste vor der Netzwerkstärke läuft)
-- [ ] 6.6b (#153) Zerstörtes Nest senkt die Readiness sofort (`COIN_nestReadinessDrop` über `COIN_nestDestroyed`; Kommandoposten 20, sonst 10);
+- [x] 6.6b (#153, am 2026-10-28 im Spiel getestet) Zerstörtes Nest senkt die Readiness sofort (`COIN_nestReadinessDrop` über `COIN_nestDestroyed`; Kommandoposten 20, sonst 10);
   Zugriffsaufträge nutzen dieselbe Funktion
+  (Kommandoposten −20, Waffenlager zweimal −10 (zwei verschiedene Nester), Rekrutierungsstelle bei Readiness 5 ergibt 0 und nie
+  darunter; Neustart mit zerstörten Nestern senkt nicht noch einmal; Deckel aus 6.6a und Abzug laufen nebeneinander; das Overlay
+  zeigt den neuen Wert erst nach Liberations Aktualisierung (Karte oder FOB nötig); nicht einzeln getestet: Schalter, derselbe Aufruf
+  für ein schon zerstörtes Nest (Absicherung aus 2.4), die drei Zugriffsaufträge über die gemeinsame Funktion (nur die Logzeile
+  hat sich geändert, im nächsten echten Durchlauf im RPT nach `readiness: strike` suchen))
 
 **6B Gegenangriffe (ADR 0025)** – Reihenfolge: 6.1a, 6.1b, 6.1c, 6.2, 6.7a, 6.7b
 - [ ] 6.1a (#154) Aufmarschräume berechnen (Einflussradius aktiver Kommandoposten, 2000 m um Militärposten in Miliz-Hand) und auf der

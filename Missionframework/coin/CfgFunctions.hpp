@@ -590,6 +590,12 @@ class COIN {
 
         // Server loop: keeps combat_readiness at most at the cap (ticket 6.6a, ADR 0013, no hook)
         class readinessCapLoop {};
+
+        // Server: the one way COIN lowers combat_readiness, never below 0, one log line (ticket 6.6b)
+        class lowerReadiness {};
+
+        // Server: readiness drop when a nest is destroyed, listens to COIN_nestDestroyed (ticket 6.6b, ADR 0013)
+        class initReadinessEvents {};
     };
 
     class nests {

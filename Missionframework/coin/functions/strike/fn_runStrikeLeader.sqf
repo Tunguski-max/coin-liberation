@@ -150,12 +150,7 @@ while {_result isEqualTo ""} do {
 };
 
 if (_result isEqualTo "succeeded") then {
-    private _before = combat_readiness;
-    combat_readiness = (combat_readiness - COIN_strikeReadinessLoss) max 0;
-    diag_log format [
-        "[COIN] strike: leader %1 was brought to a FOB at %2: readiness %3 -> %4 (-%5), command post %6",
-        _taskId, getPosATL _leader, round _before, round combat_readiness, COIN_strikeReadinessLoss, _nestId
-    ];
+    [COIN_strikeReadinessLoss, format ["strike leader %1 was brought to a FOB at %2 (command post %3)", _taskId, getPosATL _leader, _nestId]] call COIN_fnc_lowerReadiness;
 };
 
 if (_result isEqualTo "strike tasks switched off") then {

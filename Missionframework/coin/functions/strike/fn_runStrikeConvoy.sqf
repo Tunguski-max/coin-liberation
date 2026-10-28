@@ -308,12 +308,7 @@ if (_result isEqualTo "strike tasks switched off") then {
 };
 
 if (_result isEqualTo "succeeded") then {
-    private _before = combat_readiness;
-    combat_readiness = (combat_readiness - COIN_strikeReadinessLossConvoy) max 0;
-    diag_log format [
-        "[COIN] strike: convoy %1 destroyed: readiness %2 -> %3 (-%4), cache %5, delivery documents found: %6",
-        _taskId, round _before, round combat_readiness, COIN_strikeReadinessLossConvoy, _cacheId, _documents
-    ];
+    [COIN_strikeReadinessLossConvoy, format ["strike convoy %1 destroyed (cache %2, delivery documents found: %3)", _taskId, _cacheId, _documents]] call COIN_fnc_lowerReadiness;
 };
 
 deleteMarker _marker;

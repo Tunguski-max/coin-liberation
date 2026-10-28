@@ -160,12 +160,7 @@ while {_result isEqualTo ""} do {
 };
 
 if (_result isEqualTo "succeeded") then {
-    private _before = combat_readiness;
-    combat_readiness = (combat_readiness - COIN_strikeReadinessLoss) max 0;
-    diag_log format [
-        "[COIN] strike: export %1: the plane at %2 is destroyed: readiness %3 -> %4 (-%5)",
-        _taskId, _airfield, round _before, round combat_readiness, COIN_strikeReadinessLoss
-    ];
+    [COIN_strikeReadinessLoss, format ["strike export %1: the plane at %2 is destroyed", _taskId, _airfield]] call COIN_fnc_lowerReadiness;
 };
 
 private _everything = [_plane] + _goods + _goodsCrew + _guards;
