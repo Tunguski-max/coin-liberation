@@ -58,6 +58,25 @@ if (COIN_enableNetworkStrength && {COIN_debug}) then {
     };
 };
 
+// Favors (ticket 5.4): debug record in the map diary (tab "COIN Debug"), follows the state the server publishes. A local host gets no
+// published value from itself, COIN_fnc_publishFavors updates its record directly
+if (COIN_enableFavors && {COIN_debug}) then {
+    [player, true] call COIN_fnc_showFavors;
+    player addEventHandler ["Respawn", {params ["_unit"]; [_unit, true] call COIN_fnc_showFavors;}];
+    if (!isServer) then {
+        "COIN_favorState" addPublicVariableEventHandler {[player] call COIN_fnc_showFavors;};
+        // A late joiner may get the value after this point without the handler firing
+        [] spawn {
+            private _timeout = diag_tickTime + COIN_initTimeout;
+            waitUntil {
+                sleep 1;
+                !isNil "COIN_favorState" || {diag_tickTime > _timeout}
+            };
+            [player] call COIN_fnc_showFavors;
+        };
+    };
+};
+
 // Islamic State twins are enemy infantry too (Liberation's prisoner script checks KPLIB_o_inf_classes on the client).
 // init_presets.sqf builds that list on every client, so the twins are added here as well, also for late joiners.
 if (COIN_enableSquadMix) then {
