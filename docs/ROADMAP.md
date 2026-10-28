@@ -298,7 +298,7 @@ Vier Blöcke, nacheinander umgesetzt und getestet: 6A → 6B → 6C → 6D. Samm
   hat sich geändert, im nächsten echten Durchlauf im RPT nach `readiness: strike` suchen))
 
 **6B Gegenangriffe (ADR 0025)** – Reihenfolge: 6.1a, 6.1b, 6.1c, 6.2, 6.7a, 6.7b
-- [ ] 6.1a (#154) Aufmarschräume berechnen (Einflussradius aktiver Kommandoposten, 2000 m um Militärposten in Miliz-Hand) und auf der
+- [ ] 6.1a (#154, umgesetzt, ungetestet) Aufmarschräume berechnen (Einflussradius aktiver Kommandoposten, 2000 m um Militärposten in Miliz-Hand) und auf der
   Debug-Karte zeigen; Debug-Funktion „Sektor einnehmen“
 - [ ] 6.1b (#155) Gegenangriff nach Einnahme und zufällige Battlegroups nur von Spawnpunkten im Aufmarschraum, sonst entfällt er;
   Hauptstadt ohne Bedingung, Patrouillen unverändert (Hook)

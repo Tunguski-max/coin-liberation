@@ -56,7 +56,14 @@ coin/
     │   ├── fn_debugNestContent.sqf     COIN_fnc_debugNestContent: Kernobjekt, Requisiten und Fahrzeuge eines Typs nebeneinander (Abstimmung)
     │   ├── fn_exportNestTemplate.sqf   COIN_fnc_exportNestTemplate: Gebäude-Template des angeschauten Hauses in die Zwischenablage
     │   ├── fn_exportTerrainTemplate.sqf COIN_fnc_exportTerrainTemplate: Gelände-Template um den Richtungspfeil in die Zwischenablage
-    │   └── fn_debugTerrainNest.sqf     COIN_fnc_debugTerrainNest: Gelände-Nest eines Typs vor dem Spieler, wie ein echtes
+    │   ├── fn_debugTerrainNest.sqf     COIN_fnc_debugTerrainNest: Gelände-Nest eines Typs vor dem Spieler, wie ein echtes
+    │   └── fn_debugCaptureSector.sqf   COIN_fnc_debugCaptureSector: nimmt einen Sektor über Liberations Ablauf ein, ohne Angabe listet sie die Sektoren der Miliz (Ticket 6.1a)
+    ├── staging/
+    │   ├── fn_getStagingAreas.sqf      COIN_fnc_getStagingAreas: alle Aufmarschräume [Mitte, Radius, Quelle] aus aktiven Kommandoposten und Militärposten der Miliz (Ticket 6.1a, ADR 0025)
+    │   ├── fn_getStagingAreasAt.sqf    COIN_fnc_getStagingAreasAt: die Aufmarschräume, die eine Position enthalten (Tickets 6.1b, 6.1c, 6.7a)
+    │   ├── fn_describeStagingArea.sqf  COIN_fnc_describeStagingArea: Kurztext eines Aufmarschraums für Log und Debug-Karte
+    │   ├── fn_drawStagingMarkers.sqf   COIN_fnc_drawStagingMarkers: Debug-Karte, Kreis und Beschriftung je Aufmarschraum (Lobby-Parameter „COIN Debug“)
+    │   └── fn_stagingLoop.sqf          COIN_fnc_stagingLoop: Server-Schleife, loggt eine Änderung der Aufmarschräume und zeichnet die Debug-Karte neu (kein Hook)
     ├── population/
     │   ├── fn_populationLoop.sqf       COIN_fnc_populationLoop: Server-Schleife, eigene Zivilisten in befreiten Ortschaften bei Spielernähe, Budget COIN_maxCivilians (Ticket 3.7), dazu der Älteste (Ticket 5.9a)
     │   ├── fn_spawnPopulation.sqf      COIN_fnc_spawnPopulation: die Zivilisten einer Ortschaft, wie Liberations, laufen im Ort umher
