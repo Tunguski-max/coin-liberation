@@ -18,10 +18,12 @@ params [
     ["_relief", [], [[]], 3]
 ];
 
+if (!isServer) exitWith {false};
+
 private _source = _relief select 1;
 
 if ((_source select 0) isEqualTo "tower") exitWith {
     (_source select 1) in blufor_sectors
 };
 
-([] call COIN_fnc_getStagingAreas) findIf {(_x select 2) isEqualTo _source} < 0
+(([] call COIN_fnc_getStagingAreas) findIf {(_x select 2) isEqualTo _source}) < 0

@@ -24,28 +24,26 @@ params [
 
 if (!isServer) exitWith {[]};
 
-private _name = format ["%1 (%2)", _sector, markerText _sector];
-
 if !(COIN_enableStagingAreas && {COIN_enableStagingRelief}) exitWith {
     private _tower = [markerPos _sector, GRLIB_side_enemy, GRLIB_radiotower_size * 1.4] call KPLIB_fnc_getNearestTower;
-    if (isNil "_tower") exitWith {[]};
-    [(markerPos _tower) distance (markerPos _sector), ["tower", _tower], true]
+    if (isNil "_tower") then {[]} else {[(markerPos _tower) distance2D (markerPos _sector), ["tower", _tower], true]}
 };
 
-private _areas = [markerPos _sector] call COIN_fnc_getStagingAreasAt;
+private _name = format ["%1 (%2)", _sector, markerText _sector];
+private _areas = ([markerPos _sector] call COIN_fnc_getStagingAreasAt) apply {[(markerPos _sector) distance2D (_x select 0), _x]};
+
 if (_areas isEqualTo []) exitWith {
     diag_log format ["[COIN] staging: relief for %1: no staging area contains the sector, no relief", _name];
     []
 };
 
 // The nearest staging area by its centre
-private _distances = _areas apply {[(markerPos _sector) distance2D (_x select 0), _x select 2]};
-_distances sort true;
-(_distances select 0) params ["_distance", "_source"];
+_areas sort true;
+(_areas select 0) params ["_distance", "_area"];
 
 diag_log format [
     "[COIN] staging: relief for %1 comes from %2, %3 m away",
-    _name, [_areas select (_areas findIf {(_x select 2) isEqualTo _source})] call COIN_fnc_describeStagingArea, round _distance
+    _name, [_area] call COIN_fnc_describeStagingArea, round _distance
 ];
 
-[_distance, _source, false]
+[_distance, _area select 2, false]

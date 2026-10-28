@@ -4,7 +4,7 @@
     Description:
         Log line for the end of a relief that was waiting for its time (ticket 6.1c, #156, hook 33): called (Liberation's
         report goes out, the patrols turn to the sector) or lapsed (source gone, sector captured or no longer
-        attacked). Nothing for a relief from a radio tower (switch off). Server only.
+        attacked, or Liberation's attack on the capital is on). Nothing for a relief from a radio tower (switch off). Server only.
 
     Parameter(s):
         _sector - Marker of the sector under attack [STRING]
@@ -26,7 +26,7 @@ if (!isServer || {((_relief select 1) select 0) isEqualTo "tower"}) exitWith {fa
 diag_log format [
     "[COIN] staging: relief for %1 (%2) %3 (source %4)",
     _sector, markerText _sector,
-    ["lapsed: source gone, sector captured or no longer attacked", "called, patrols turn to the sector, no paratroopers"] select _called,
+    ["lapsed: source gone, sector captured or no longer attacked, or the capital's attack is on", "called, patrols turn to the sector, no paratroopers"] select _called,
     _relief select 1
 ];
 true
