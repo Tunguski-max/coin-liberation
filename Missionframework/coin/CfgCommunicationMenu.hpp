@@ -14,7 +14,7 @@ class CfgCommunicationMenu {
     class coin_radio_follow_en {
         text = "Reinforcement: Follow us";
         submenu = "";
-        expression = "[_caller, 'follow'] spawn COIN_fnc_giveRadioOrder;";
+        expression = "[player, 'follow'] spawn COIN_fnc_giveRadioOrder;";
         icon = "";
         cursor = "";
         enable = "1";
@@ -25,14 +25,14 @@ class CfgCommunicationMenu {
     };
     class coin_radio_goto_en: coin_radio_follow_en {
         text = "Reinforcement: Go there";
-        expression = "[_caller, 'goto'] spawn COIN_fnc_giveRadioOrder;";
+        expression = "[player, 'goto'] spawn COIN_fnc_giveRadioOrder;";
     };
     class coin_radio_goto_de: coin_radio_goto_en {
         text = "Verstärkung: Geht dorthin";
     };
     class coin_radio_attack_en: coin_radio_follow_en {
         text = "Reinforcement: Attack";
-        expression = "[_caller, 'attack'] spawn COIN_fnc_giveRadioOrder;";
+        expression = "[player, 'attack'] spawn COIN_fnc_giveRadioOrder;";
     };
     class coin_radio_attack_de: coin_radio_attack_en {
         text = "Verstärkung: Greift an";

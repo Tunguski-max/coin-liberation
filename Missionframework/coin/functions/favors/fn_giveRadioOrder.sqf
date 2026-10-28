@@ -21,11 +21,15 @@ params [
     ["_order", "", [""]]
 ];
 
+if (COIN_debug) then {diag_log format ["[COIN] radio: menu item %1 chosen by %2", _order, name _caller]};
 if (!hasInterface || {_caller isNotEqualTo player}) exitWith {false};
 if (!canSuspend) exitWith {_this spawn COIN_fnc_giveRadioOrder; true};
 
 // The menu may be a moment behind the server
-if (!(missionNamespace getVariable ["COIN_reinforcementOn", false]) || {!([_caller] call COIN_fnc_canGiveRadioOrder)}) exitWith {false};
+if (!(missionNamespace getVariable ["COIN_reinforcementOn", false]) || {!([_caller] call COIN_fnc_canGiveRadioOrder)}) exitWith {
+    if (COIN_debug) then {diag_log format ["[COIN] radio: order %1 of %2 not sent, no reinforcement on its way or not allowed", _order, name _caller]};
+    false
+};
 
 private _pos = [];
 if (_order isEqualTo "goto") then {
