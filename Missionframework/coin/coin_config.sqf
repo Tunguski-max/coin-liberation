@@ -43,7 +43,7 @@ COIN_enableRoleTraits       = true;     // Phase 1, ticket 1.5: ACE abilities pe
 // Changes to Liberation behaviour (each one is a hook or overrides a Liberation global)
 COIN_disableFobHunting      = true;     // Phase 2, ADR 0011: no enemy bases besides nests
 COIN_replaceLiberationThreats = true;   // Phase 4, ADR 0008: Liberation IEDs and town ambushes off
-COIN_capReadinessByNetwork  = true;     // Phase 6, ADR 0013: active nests cap combat_readiness
+COIN_capReadinessByNetwork  = true;     // Phase 6, ticket 6.6a (#152), ADR 0013, ADR 0025: active nests cap combat_readiness (server loop, no hook); off at runtime ends the loop
 COIN_enableReputationStart  = true;     // Phase 5, ADR 0009: a new campaign starts at COIN_reputationStart; off = 0 as in Liberation
 COIN_disableBuildingPenalty  = true;     // Phase 5, ADR 0009, default of the lobby parameter "Disable Building Destruction penalty" (it wins): Liberation takes no reputation for houses that are gone when a town is taken (KP_liberation_cr_building_penalty = 0, the AI often destroys them); the gain for the capture stays
 COIN_hideReputationNumber   = true;     // Phase 5, ADR 0009: no reputation display (number and icon) in the Liberation overlay
@@ -331,6 +331,12 @@ COIN_enableCampLifecycle    = true;     // Off: camps stay as created, no replac
 COIN_campReplaceMinutes     = [30, 60]; // [min, max] minutes before a cleared camp is replaced (the lower value is also the delay before a failed try is repeated)
 COIN_campRelocateMinutes    = [120, 180]; // [min, max] minutes after which an undiscovered camp moves (taken when the camp is created)
 COIN_campFleeDistance       = 200;      // m: a fighter farther from its camp than this no longer counts, it fled (the patrol walks within COIN_nestPatrolRadius)
+
+// Readiness cap by the network (ticket 6.6a, #152, ADR 0013, ADR 0025): cap = floor + (100 - floor) x network strength,
+// switch COIN_capReadinessByNetwork. Full network 100 (no effect), 6 of 11 nests about 66, no nest left the floor
+COIN_readinessCapFloor      = 25;       // Cap with no active nest left, so Liberation does not send only weak militia squads at the end
+COIN_readinessCapSeconds    = 60;       // s between two checks of the server loop; Liberation's raises are pulled back within this time
+COIN_readinessCapLogDrop    = 1;        // Points: smaller pull-backs (Liberation's 0.25 steps over time) are logged only with COIN_debug
 
 // Capital garrison = base * (1 + factor * active nests) - Phase 6
 COIN_capitalGarrisonBase    = 1.0;

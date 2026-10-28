@@ -582,6 +582,16 @@ class COIN {
         class hideReputationDisplay {};
     };
 
+    class readiness {
+        file = "coin\functions\readiness";
+
+        // Highest combat_readiness from the network strength, -1 without one (ticket 6.6a, ADR 0025)
+        class getReadinessCap {};
+
+        // Server loop: keeps combat_readiness at most at the cap (ticket 6.6a, ADR 0013, no hook)
+        class readinessCapLoop {};
+    };
+
     class nests {
         file = "coin\functions\nests";
 

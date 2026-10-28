@@ -79,6 +79,14 @@ if (COIN_enableNests) then {
     diag_log "[COIN] init: nests off, none are created, a COIN block in the save is kept unchanged";
 };
 
+// Readiness cap (ticket 6.6a, #152, ADR 0013, ADR 0025): the network strength of the nests caps combat_readiness
+if (COIN_capReadinessByNetwork) then {
+    diag_log format ["[COIN] init: readiness cap on, floor %1, check every %2 s", COIN_readinessCapFloor, COIN_readinessCapSeconds];
+    [] spawn COIN_fnc_readinessCapLoop;
+} else {
+    diag_log "[COIN] init: readiness cap off, Liberation's readiness stays";
+};
+
 // Intel (ticket 3.1, DESIGN 7): circles on the map from the interpreter's questions. Empty until COIN_fnc_initNests
 // has loaded the save (ticket 3.2, COIN_fnc_loadIntel)
 if (COIN_enableQuestioning) then {
