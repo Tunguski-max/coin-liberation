@@ -603,6 +603,15 @@ class COIN {
         // Server: log line for the spawn point of a counterattack in a staging area, or why it lapses (hook 32, ticket 6.1b)
         class logBattlegroupSpawn {};
 
+        // Server: where the relief for a militia sector under attack comes from, called by reinforcements_manager.sqf (hook 33, ticket 6.1c)
+        class getRelief {};
+
+        // Server: is the source of a relief gone (command post destroyed, military post captured)? (hook 33, ticket 6.1c)
+        class isReliefGone {};
+
+        // Server: log line for a relief that was called or lapsed (hook 33, ticket 6.1c)
+        class logRelief {};
+
         // Server, debug: circle and label of every staging area on the map
         class drawStagingMarkers {};
 
