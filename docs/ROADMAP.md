@@ -305,8 +305,14 @@ Vier Blöcke, nacheinander umgesetzt und getestet: 6A → 6B → 6C → 6D. Samm
   (6 Aufmarschräume), Verweigerung eines Sektors, der schon der Armee gehört; Radius der Militärposten am Ende von 2000 auf 3000 m
   erhöht (nach dem Test, noch nicht im Spiel gesehen); nicht einzeln getestet: Hauptstadt und aktive Sektoren verweigern,
   Miliz holt sich einen Militärposten zurück)
-- [ ] 6.1b (#155, umgesetzt, ungetestet) Gegenangriff nach Einnahme und zufällige Battlegroups nur von Spawnpunkten im Aufmarschraum, sonst entfällt er;
-  Hauptstadt ohne Bedingung, Patrouillen unverändert (Hook)
+- [x] 6.1b (#155, am 2026-10-28 im Spiel getestet) Gegenangriff nach Einnahme und zufällige Battlegroups nur von Spawnpunkten im Aufmarschraum, sonst entfällt er;
+  Hauptstadt ohne Bedingung, Patrouillen unverändert (Hook 31 und 32)
+  (zweimal Start im Aufmarschraum: Lobo von `opfor_point_145` in Amir Barricaded Village, Doran East Village von `opfor_point_199`
+  2270 m von Kalae Barracks (E); `skipped` mit zerstörtem letztem Kommandoposten und Kreisen auf 100 m, 46 s nach der Einnahme;
+  Schalter aus: keine COIN-Zeile; nicht einzeln getestet: Hauptstadt als Ziel, zufällige Battlegroups ohne Ziel (derselbe Weg,
+  `_target = ""`). Aufgefallen: Bei Readiness 100 und abgeschaltetem Deckel starten alle sechs Infanterie-Patrouillen von Liberation
+  auf einmal (48 Mann, SAFE, `MOVE`-Folge zwischen den Sektoren der Miliz). Das sind keine Gegenangriffe und bleiben laut Ticket
+  unverändert, sie belegen aber einen Teil der Gegner-Obergrenze, die ein Gegenangriff braucht)
 - [ ] 6.1c (#156) Entsatz: nächster Aufmarschraum, der den Sektor enthält, statt Funkturm; Liberations Ablauf (Wartezeit, Patrouillen
   umleiten), keine Fallschirmjäger (Hook)
 - [ ] 6.2 (#157) Höchstens 1 Altfahrzeug pro Gegenangriff: jedes weitere wird durch einen Technical ersetzt (Hook). Konvoi-Überfälle
