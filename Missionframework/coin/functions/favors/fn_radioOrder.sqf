@@ -30,7 +30,8 @@ params [
     ["_pos", [], [[]]]
 ];
 
-if (!isServer || {!COIN_enableRadio}) exitWith {false};
+// owner of a null unit is 0, and a message to 0 goes to everybody
+if (!isServer || {!COIN_enableRadio} || {isNull _caller}) exitWith {false};
 
 // The player must be the unit of the machine that sent this
 private _sender = remoteExecutedOwner;
@@ -64,9 +65,11 @@ private _nextOrder = {
 
 switch (_order) do {
     case "follow": {
-        // It starts calm; the loop leaves the modes alone, so a fight is not broken off
-        _group setBehaviour "AWARE";
-        _group setCombatMode "YELLOW";
+        // It starts calm, but a group that is fighting keeps its modes; the loop leaves them alone, so a fight is not broken off
+        if ((time - (_group getVariable ["COIN_lastCombat", -1e6])) > COIN_radioFightSeconds) then {
+            _group setBehaviour "AWARE";
+            _group setCombatMode "YELLOW";
+        };
         [_group, _caller, call _nextOrder] spawn COIN_fnc_radioFollowLoop;
         ["follow"] call _reply;
         diag_log format ["[COIN] radio: %1 orders the reinforcement from %2: follow", name _caller, _town];

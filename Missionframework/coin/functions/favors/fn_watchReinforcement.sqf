@@ -44,7 +44,9 @@ private _size = count (units _group);
 private _contact = false;
 private _fight = false;
 private _casualties = false;
-private _lastActive = -1e6;
+// "Never": long before any time the loop sees
+private _never = -1e6;
+private _lastActive = _never;
 
 while {((missionNamespace getVariable ["COIN_reinforcement", []]) param [0, grpNull]) isEqualTo _group} do {
     sleep COIN_reinforcementCheckSeconds;
@@ -52,7 +54,7 @@ while {((missionNamespace getVariable ["COIN_reinforcement", []]) param [0, grpN
     if (_alive isEqualTo []) exitWith {};
 
     private _enemy = _alive findIf {(_x targets [true, COIN_radioContactRange, [], COIN_radioContactAge]) isNotEqualTo []} >= 0;
-    private _shooting = (time - (_group getVariable ["COIN_lastCombat", -1e6])) <= COIN_radioFightSeconds;
+    private _shooting = (time - (_group getVariable ["COIN_lastCombat", _never])) <= COIN_radioFightSeconds;
     if (_enemy || _shooting) then {_lastActive = time};
     if ((time - _lastActive) > COIN_radioQuietSeconds) then {
         _contact = false;
@@ -60,16 +62,18 @@ while {((missionNamespace getVariable ["COIN_reinforcement", []]) param [0, grpN
     };
 
     private _grid = mapGridPosition (_alive select 0);
-    if (_enemy && !_contact) then {
-        _contact = true;
-        ["contact", [_grid]] call _tell;
-        diag_log format ["[COIN] radio: the reinforcement reports enemy contact at %1", _grid];
-    };
+    // Shots say more than a sighting: with both in one step only the firefight is reported
     if (_shooting && !_fight) then {
         _fight = true;
         _contact = true;
         ["firefight", [_grid]] call _tell;
         diag_log format ["[COIN] radio: the reinforcement reports a firefight at %1", _grid];
+    } else {
+        if (_enemy && !_contact) then {
+            _contact = true;
+            ["contact", [_grid]] call _tell;
+            diag_log format ["[COIN] radio: the reinforcement reports enemy contact at %1", _grid];
+        };
     };
 
     private _able = {!(_x getVariable ["ACE_isUnconscious", false]) && {lifeState _x isNotEqualTo "INCAPACITATED"}} count _alive;

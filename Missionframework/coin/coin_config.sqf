@@ -1121,6 +1121,7 @@ COIN_reinforcementCheckSeconds = 5;     // s between two looks at a reinforcemen
 COIN_reinforcementHomeRadius = 40;      // m: the fighters that walk home have arrived this close to the elder's place
 COIN_reinforcementReturnSeconds = 300;  // s the fighters get to walk home; then they go when nobody sees them, wherever they are
 COIN_reinforcementMapZoom   = 0.3;      // Zoom of the map when the interpreter picks the point (the circle of COIN_reinforcementMaxDistance should fit)
+COIN_reinforcementMapWaitSeconds = 2;   // s the map gets to open before the pick is given up
 
 // Radio orders for the reinforcement (ticket 5.19, DESIGN 8.1, ADR 0023): items of the communication menu (0-8) while one is on its way
 COIN_enableRadio            = true;     // Off: the reinforcement gets no orders, it walks to its point and holds it
@@ -1146,7 +1147,7 @@ COIN_radioReplyTexts = [
     ["arrived",   ["Wir sind an Punkt %1 angekommen.", "We have reached point %1."]],
     ["contact",   ["Feindkontakt bei %1.", "Enemy contact at %1."]],
     ["firefight", ["Wir sind im Feuergefecht bei %1.", "We are in a firefight at %1."]],
-    ["casualties", ["Die Hälfte von uns ist ausgeschaltet, noch %1 von %2 kampffähig.", "Half of us are down, %1 of %2 still able to fight."]],
+    ["casualties", ["Verluste: Nur noch %1 von %2 sind kampffähig.", "Losses: Only %1 of %2 are still able to fight."]],
     ["no_target", ["Kein Ziel: Es gibt keine Ortschaft der Miliz mehr.", "No target: There is no town of the militia left."]],
     ["refused",   ["Funkspruch nicht verstanden.", "Radio message not understood."]]
 ];
@@ -1155,7 +1156,6 @@ COIN_radioBriefing = [
     "Verstärkung führen",
     "Solange eine Verstärkung unterwegs ist, habt ihr im Kommunikationsmenü (0-8) drei Funkbefehle. Kommandant, Truppführer und Dolmetscher dürfen sie geben, der letzte Befehl gilt.<br/><br/>- <font color='#4da6ff'>Folgt uns</font>: Die Gruppe folgt dem, der den Befehl gibt. Stirbt er oder geht er offline, hält sie ihre Stellung.<br/>- <font color='#4da6ff'>Geht dorthin</font>: Klickt auf die Karte, die Gruppe läuft hin und hält den Punkt.<br/>- <font color='#4da6ff'>Greift an</font>: Die Gruppe geht im Kampfmodus in die nächste Ortschaft der Miliz. Dort kämpft sie nur, wenn ihr in der Nähe seid, sonst ist die Ortschaft leer.<br/><br/>Die Verstärkung zieht nach der Zeit ab oder wenn die Bevölkerung euch nicht mehr genug vertraut. Dann verschwinden die Befehle."
 ];
-COIN_reinforcementMapWaitSeconds = 2;   // s the map gets to open before the pick is given up
 
 // Texts of the favor offer in the dialog of the elder, like COIN_aidTaskTexts: [id, [title German, English], [explanation German, English]]
 // Explanation: %1 = fighters, %2 = minutes, %3 = intel points, %4 = most distance from the elder in m, %5 = favors in stock, %6 = most in stock

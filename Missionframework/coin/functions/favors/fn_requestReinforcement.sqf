@@ -28,7 +28,8 @@ params [
     ["_target", [], [[]]]
 ];
 
-if (!isServer || {!COIN_enableFavors} || {!COIN_enableReinforcement} || {!COIN_enableAidTasks}) exitWith {false};
+// owner of a null unit is 0, and a message to 0 goes to everybody
+if (!isServer || {!COIN_enableFavors} || {!COIN_enableReinforcement} || {!COIN_enableAidTasks} || {isNull _asker}) exitWith {false};
 
 // The asker must be the unit of the machine that sent this
 private _sender = remoteExecutedOwner;
