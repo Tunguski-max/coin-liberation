@@ -658,7 +658,7 @@ Festgelegt beim Grilling für Phase 6 (2026-10-28, ADR 0025, Ergänzung ADR 0013
 
 **Aufmarschräume** (ADR 0025)
 - Gegenangriffe, Entsatz und Mörserangriffe kommen aus **Aufmarschräumen**: dem Einflussradius eines aktiven
-  Kommandopostens oder dem Umkreis (2000 m) eines Militärpostens, den die Miliz hält. Ein Aufmarschraum endet, wenn das Nest
+  Kommandopostens oder dem Umkreis (3000 m) eines Militärpostens, den die Miliz hält. Ein Aufmarschraum endet, wenn das Nest
   zerstört oder der Militärposten eingenommen ist. Erobert die Miliz einen Militärposten zurück, ist er wieder einer.
   Liberations Funktürme entfallen (ADR 0013).
 - Im Debug-Modus zeigt die Karte die Aufmarschräume.

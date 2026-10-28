@@ -130,6 +130,9 @@ class COIN {
         // Debug console: core object, props and vehicles of a nest type in a row, for tuning
         class debugNestContent {};
 
+        // Debug console: captures a sector through Liberation's flow, without a sector it lists the ones the militia holds (ticket 6.1a)
+        class debugCaptureSector {};
+
         // Debug console: building template of the house the player looks at, to the clipboard
         class exportNestTemplate {};
 
@@ -580,6 +583,25 @@ class COIN {
 
         // Client: hides the reputation number and icon in Liberation's overlay, except with COIN_debug (hook, ticket 5.3)
         class hideReputationDisplay {};
+    };
+
+    class staging {
+        file = "coin\functions\staging";
+
+        // Server: all staging areas [center, radius, source] (active command posts, military posts of the militia), ticket 6.1a, ADR 0025
+        class getStagingAreas {};
+
+        // Server: the staging areas that contain a position (tickets 6.1b, 6.1c, 6.7a)
+        class getStagingAreasAt {};
+
+        // Server: short text of one staging area for the log and the debug map
+        class describeStagingArea {};
+
+        // Server, debug: circle and label of every staging area on the map
+        class drawStagingMarkers {};
+
+        // Server loop: logs a change of the staging areas and redraws the debug map (no hook)
+        class stagingLoop {};
     };
 
     class readiness {

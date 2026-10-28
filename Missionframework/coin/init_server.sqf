@@ -81,6 +81,14 @@ if (COIN_enableNests) then {
     diag_log "[COIN] init: nests off, none are created, a COIN block in the save is kept unchanged";
 };
 
+// Staging areas (ticket 6.1a, #154, ADR 0025): command posts and military posts of the militia, logged and drawn on a change
+if (COIN_enableStagingAreas) then {
+    diag_log format ["[COIN] init: staging areas on, military post radius %1 m, check every %2 s", COIN_stagingRadiusMilitary, COIN_stagingCheckSeconds];
+    [] spawn COIN_fnc_stagingLoop;
+} else {
+    diag_log "[COIN] init: staging areas off";
+};
+
 // Readiness cap (ticket 6.6a, #152, ADR 0013, ADR 0025): the network strength of the nests caps combat_readiness
 if (COIN_capReadinessByNetwork) then {
     diag_log format ["[COIN] init: readiness cap on, floor %1, check every %2 s", COIN_readinessCapFloor, COIN_readinessCapSeconds];

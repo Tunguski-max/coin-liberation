@@ -339,6 +339,13 @@ COIN_readinessCapFloor      = 25;       // Cap with no active nest left, so Libe
 COIN_readinessCapSeconds    = 60;       // s between two checks of the server loop; Liberation's raises are pulled back within this time
 COIN_readinessCapLogDrop    = 1;        // Points: smaller pull-backs (Liberation's 0.25 steps over time) are logged only with COIN_debug
 
+// Staging areas (ticket 6.1a, #154, ADR 0025, CONTEXT.md: Aufmarschraum): where counterattacks, relief and mortar attacks
+// come from: the influence radius of an active command post (COIN_nestSetup) and the surroundings of a military post the militia holds
+COIN_enableStagingAreas     = true;     // Off: no staging areas; the callers of tickets 6.1b, 6.1c and 6.7a then leave Liberation's behaviour alone
+COIN_stagingRadiusMilitary  = 3000;     // m around a military post held by the militia (a command post uses its influence radius)
+COIN_stagingCheckSeconds    = 5;        // s between two checks for a change (nest destroyed, military post captured or lost)
+COIN_stagingDebugColor      = "ColorKhaki"; // Debug map: circle and label of a staging area
+
 // Capital garrison = base * (1 + factor * active nests) - Phase 6
 COIN_capitalGarrisonBase    = 1.0;
 COIN_capitalGarrisonFactor  = 0.15;
