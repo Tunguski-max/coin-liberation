@@ -697,8 +697,8 @@ Festgelegt beim Grilling für Phase 6 (2026-10-28, ADR 0025, Ergänzung ADR 0013
   kam er von einem Militärposten, gilt die Regel „Welches Nest“ (Abschnitt 7).
 
 **Readiness** (ADR 0013, 0025)
-- Die **Netzwerkstärke deckelt Liberations Readiness**: `Deckel = 25 + 75 × Netzwerkstärke` (Boden in der Config), ein
-  Server-Loop prüft alle 60 s. Bei vollem Netzwerk 100 (keine Wirkung), bei 0 Nestern 25, damit Liberation nicht nur noch
+- Die **Netzwerkstärke deckelt Liberations Readiness**: `Deckel = 30 + 70 × Netzwerkstärke` (Boden in der Config, am 2026-10-29 von 25 auf 30 angehoben), ein
+  Server-Loop prüft alle 60 s. Bei vollem Netzwerk 100 (keine Wirkung), bei 0 Nestern 30, damit Liberation nicht nur noch
   schwache Trupps schickt. Zusätzlich **senkt jedes zerstörte Nest die Readiness sofort** (Kommandoposten 20, sonst 10),
   einige Zugriffsaufträge um 10 Punkte (der Waffentransport um 20). Die Readiness bleibt im Overlay sichtbar (ADR 0013).
 - Hohe Readiness bedeutet: mehr Patrouillen, stärkere Besatzungen in den Sektoren, häufigere Gegenangriffe.

@@ -339,8 +339,8 @@ COIN_campRelocateMinutes    = [120, 180]; // [min, max] minutes after which an u
 COIN_campFleeDistance       = 200;      // m: a fighter farther from its camp than this no longer counts, it fled (the patrol walks within COIN_nestPatrolRadius)
 
 // Readiness cap by the network (ticket 6.6a, #152, ADR 0013, ADR 0025): cap = floor + (100 - floor) x network strength,
-// switch COIN_capReadinessByNetwork. Full network 100 (no effect), 6 of 11 nests about 66, no nest left the floor
-COIN_readinessCapFloor      = 25;       // Cap with no active nest left, so Liberation does not send only weak militia squads at the end
+// switch COIN_capReadinessByNetwork. Full network 100 (no effect), 6 of 11 nests about 68, no nest left the floor
+COIN_readinessCapFloor      = 30;       // Cap with no active nest left (25 until 2026-10-29). 30 is the lower bound of the armor mix (COIN_squadMixReadiness) and of the army squad type of the capital: below it Liberation sends only weak militia squads without armored twins
 COIN_readinessCapSeconds    = 60;       // s between two checks of the server loop; Liberation's raises are pulled back within this time
 COIN_readinessCapLogDrop    = 1;        // Points: smaller pull-backs (Liberation's 0.25 steps over time) are logged only with COIN_debug
 

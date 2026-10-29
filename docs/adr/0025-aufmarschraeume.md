@@ -21,14 +21,14 @@
 - **Entsatz:** Der nächste Aufmarschraum, der den angegriffenen Sektor enthält, ersetzt den Funkturm in Liberations Ablauf
   (Wartezeit nach Abstand, laufende Patrouillen werden umgeleitet). Fallschirmjäger gibt es keine (keine Hubschrauber, ADR 0014).
 - **Mörserangriff:** nur auf eine FOB in einem Aufmarschraum (DESIGN 9).
-- **Readiness-Deckel:** `25 + 75 × Netzwerkstärke` (Boden in der Config), ein Server-Loop prüft regelmäßig.
+- **Readiness-Deckel:** `30 + 70 × Netzwerkstärke` (Boden in der Config; zuerst 25, am 2026-10-29 auf 30 angehoben), ein Server-Loop prüft regelmäßig.
 
 ## Begründung
 - Mit dem Filter am Spawnpunkt reicht ein Aufmarschraum etwa 5 km über seinen Rand hinaus. Die Geografie zählt: Wer einen
   Kommandoposten zerstört oder einen Militärposten einnimmt, macht eine ganze Gegend spürbar ruhiger.
 - Militärposten sind sichtbare Ziele und werden so zu mehr als einer Fahrzeug-Freischaltung. Kalae Barracks an der
   Hauptstadt hält deren Umgebung bis zum Endkampf aktiv.
-- Der Boden von 25 verhindert, dass Liberation am Ende nur noch schwache „militia“-Trupps schickt.
+- Der Boden von 30 verhindert, dass Liberation am Ende nur noch schwache „militia“-Trupps ohne Rüstung schickt: Die Rüstungsmischung beginnt bei Readiness 30 (ADR 0014), und die Hauptstadt nimmt unter 30 den Typ „militia“. Mit 25 wäre die Armee ohne Nester nie gepanzert gewesen.
 
 ## Verworfene Alternativen
 - **Ziel im Radius eines Kommandopostens:** Es würden nur etwa 10 % der Karte angegriffen, also praktisch nie.

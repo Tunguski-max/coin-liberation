@@ -286,7 +286,7 @@ Vier Blöcke, nacheinander umgesetzt und getestet: 6A → 6B → 6C → 6D. Samm
 **6A Readiness (ADR 0013, 0025)** – Reihenfolge: 6.6a, 6.6b
 - [-] 6.8 Debug-Funktionen: aufgegangen in 6.1a (Sektor einnehmen); Nest zerstören (`COIN_fnc_destroyNest`) und Readiness setzen
   gehen schon per Konsole
-- [x] 6.6a (#152, am 2026-10-28 im Spiel getestet) Readiness-Deckel `25 + 75 × Netzwerkstärke` (Boden in der Config), Server-Loop alle 60 s, kein Hook
+- [x] 6.6a (#152, am 2026-10-28 im Spiel getestet) Readiness-Deckel `25 + 75 × Netzwerkstärke` (Boden in der Config; am 2026-10-29 auf 30 angehoben, `30 + 70 × Netzwerkstärke`, damit die Rüstungsmischung ab Readiness 30 auch ohne Nester greift, ungetestet), Server-Loop alle 60 s, kein Hook
   (zwei zerstörte Nester ergeben Stärke 0,82 und Deckel 86,4, Readiness 100 wird innerhalb von 60 s auf 86,4 gezogen, RPT-Zeile mit
   altem Wert, neuem Wert und Deckel; der Deckel gilt nach dem Laden des Spielstands weiter; ein Deckel von 100 greift nie, eine Kampagne
   ohne Nester hat keinen; nicht getestet: Schalter zur Laufzeit ausschalten, Dedicated Server (7.5). Bekannt: Nach dem Laden gilt der Deckel
