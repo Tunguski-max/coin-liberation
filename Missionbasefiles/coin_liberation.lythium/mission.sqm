@@ -423,7 +423,7 @@ class Mission
 {
 	class Intel
 	{
-		briefingName="@STR_MISSION_TITLE";
+		briefingName="@STR_COIN_mission_title";
 		overviewText="@STR_MISSION_DESCRIPTION";
 		resistanceEast=1;
 		timeOfChanges=1800.0002;

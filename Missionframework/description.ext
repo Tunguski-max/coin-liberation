@@ -25,8 +25,8 @@ class Header {
 };
 
 // Name of Mission author(s) and contributors. Obviously you can only add and not (!) remove someone.
-// COIN: COIN Liberation added as author (docs/hooks.md #2)
-author = "[GREUH] Zbug & McKeewa, KP Liberation Dev Team, COIN Liberation";
+// COIN: Tunguski (COIN Liberation) added as author (docs/hooks.md #2)
+author = "[GREUH] Zbug & McKeewa, KP Liberation Dev Team, Tunguski (COIN Liberation)";
 
 
 /*
@@ -34,7 +34,8 @@ author = "[GREUH] Zbug & McKeewa, KP Liberation Dev Team, COIN Liberation";
 */
 
 // Mission name displayed in the mission selection menu.
-briefingName = $STR_MISSION_TITLE;
+// COIN: own title, key of the COIN package (docs/hooks.md #2)
+briefingName = $STR_COIN_mission_title;
 
 // Path to image which will be displayed when the mission is highlighted on the mission selection screen.
 // Image should be .paa format and in 2:1 aspect ratio – ideally 1024x512 (Arma 3).
@@ -42,7 +43,7 @@ overviewPicture = "res\lib.paa";
 
 // Text to be displayed below the overviewPicture on the mission selection screen
 // COIN: own mission description (docs/hooks.md #2)
-overviewText = "Counterinsurgency auf Lythium: Spürt das Netzwerk der Miliz mit Hilfe der Bevölkerung auf und zerschlagt es, bevor ihr die Hauptstadt stürmt. Basiert auf KP Liberation (www.killahpotatoes.de).";
+overviewText = $STR_COIN_mission_overview;
 
 
 /*
@@ -51,7 +52,8 @@ overviewText = "Counterinsurgency auf Lythium: Spürt das Netzwerk der Miliz mit
 
 // String (usually mission name) shown during mission loading.
 // The string is shown in a slightly larger font above the loadScreen.
-onLoadName = $STR_MISSION_TITLE;
+// COIN: own title, key of the COIN package (docs/hooks.md #2)
+onLoadName = $STR_COIN_mission_title;
 
 // You can define a picture to be shown while the mission is loaded.
 // The path is relative to the mission folder.
@@ -59,7 +61,7 @@ loadScreen = "res\lib.paa";
 
 // Displays a message while the mission is loading below the loadScreen picture.
 // COIN: own loading text (docs/hooks.md #2)
-onLoadMission = "COIN Liberation - basiert auf KP Liberation (www.killahpotatoes.de)";
+onLoadMission = $STR_COIN_mission_loading;
 
 
 /*
