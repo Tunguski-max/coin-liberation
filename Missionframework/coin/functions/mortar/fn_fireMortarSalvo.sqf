@@ -36,11 +36,11 @@ if (isNil {_mortar getVariable "COIN_shots"}) then {
 };
 
 _mortar setVehicleAmmo 1;
-private _mag = (magazinesTurret [_mortar, [0]]) select {
+private _mag = (_mortar magazinesTurret [0]) select {
     getNumber (configFile >> "CfgAmmo" >> getText (configFile >> "CfgMagazines" >> _x >> "ammo") >> "indirectHit") > 0
 };
 if (_mag isEqualTo []) exitWith {
-    diag_log format ["[COIN] mortar: ERROR - %1 has no high explosive magazine: %2", typeOf _mortar, magazinesTurret [_mortar, [0]]];
+    diag_log format ["[COIN] mortar: ERROR - %1 has no high explosive magazine: %2", typeOf _mortar, _mortar magazinesTurret [0]];
     0
 };
 _mag = _mag select 0;
@@ -55,7 +55,7 @@ for "_i" from 1 to COIN_mortarRounds do {
 
     private _point = _fob getPos [random _spread, random 360];
     _point = [_point select 0, _point select 1, 0];
-    if !(_point inRangeOfArtillery [[_mortar], _mag]) exitWith {
+    if !([_mortar] inRangeOfArtillery [_point, _mag]) exitWith {
         diag_log format ["[COIN] mortar: target %1 is out of range of %2, salvo stops", _point, typeOf _mortar];
     };
 
