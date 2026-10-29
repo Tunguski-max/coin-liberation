@@ -649,6 +649,12 @@ class COIN {
         // Server, scheduled: one salvo of real rounds around the FOB
         class fireMortarSalvo {};
 
+        // Server: the unarmed car behind the mortar for the getaway
+        class spawnMortarCar {};
+
+        // Server, scheduled: the squad gets into the car and drives away from the mortar and the FOB
+        class runMortarGetaway {};
+
         // Server: message and circle on the map after the first salvo (ticket 6.7b, #159)
         class announceMortarAttack {};
 

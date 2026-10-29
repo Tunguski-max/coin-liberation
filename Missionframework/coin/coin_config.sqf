@@ -385,6 +385,15 @@ COIN_mortarHoldSeconds      = 600;      // s the squad stays in position after t
 COIN_mortarRemoveDistance   = 800;      // m: the squad is taken down when no player is nearer than this
 COIN_mortarRemoveSeconds    = 30;       // s between two checks for players near the squad
 COIN_mortarMarkerColor      = "ColorRed"; // Debug map: marker at the squad
+// Getaway: after the hold time a squad that is still alive leaves in an unarmed car that stood behind the mortar. The gunner gets
+// out, the squad drives away from the FOB and is taken down afterwards. Hold time 0 = it leaves right after the last salvo
+COIN_enableMortarGetaway    = true;     // Off: no car, the squad is taken down in position
+COIN_mortarCarClasses       = ["LOP_TKA_UAZ", "LOP_TKA_UAZ_Open", "O_G_Offroad_01_F"]; // First that exists, has no turret and enough seats; Takistan preset UAZ-3151
+COIN_mortarCarDistance      = [8, 20];  // [min, max] m the car stands behind the mortar, seen from the FOB
+COIN_mortarBoardSeconds     = 60;       // s the squad has to get into the car, then the rest is put in
+COIN_mortarGetawayDistance  = 800;      // m from the mortar the car drives, away from the FOB
+COIN_mortarDriveSeconds     = 300;      // s the drive may take at most
+
 // Message and circle after the first salvo (ticket 6.7b, #159): the squad lies in the circle, not in its middle (COIN_intelCenterOffset)
 COIN_enableMortarMessage    = true;     // Off: no message "Mortar fire on FOB ..."
 COIN_enableMortarCircle     = true;     // Off: no circle on the map

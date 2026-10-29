@@ -11,7 +11,10 @@
            after the first salvo the side gets the message and the circle (COIN_fnc_announceMortarAttack, #159),
         3. the squad stays COIN_mortarHoldSeconds after the last salvo, or less if all its fighters are dead (the attack
            is over then),
-        4. then it is taken down: everything is deleted as soon as no player is within COIN_mortarRemoveDistance,
+        4. a squad that is still alive and has its car (COIN_fnc_spawnMortarCar) gets away (COIN_fnc_runMortarGetaway: the gunner
+           gets out, the squad drives COIN_mortarGetawayDistance away from the mortar, away from the FOB); the circle goes
+           when it leaves,
+        5. then it is taken down: everything is deleted as soon as no player is within COIN_mortarRemoveDistance of the mortar or the car,
            checked every COIN_mortarRemoveSeconds (dead fighters and the mortar included). The circle goes when the
            squad is eliminated or taken down.
         Sets COIN_mortarActive to false when the attack is over (before the take-down) and sets the cooldown. Must be spawned. Server only.
@@ -38,7 +41,7 @@ private _squad = [_spot, _fob] call COIN_fnc_spawnMortarSquad;
 if (_squad isEqualTo []) exitWith {
     COIN_mortarActive = false;
 };
-_squad params ["_group", "_fighters", "_mortar"];
+_squad params ["_group", "_fighters", "_mortar", "_car"];
 
 private _areas = ([_spot] call COIN_fnc_getStagingAreasAt) apply {[_x] call COIN_fnc_describeStagingArea};
 diag_log format [
@@ -97,23 +100,35 @@ diag_log format [
     _fobName, ["the squad is eliminated", "time is up, the squad is taken down"] select (call _anyAlive), {alive _x} count _fighters, count _fighters
 ];
 
-// An eliminated squad takes its circle with it, a squad that is taken down at the end
+// An eliminated squad takes its circle with it. A squad that is still alive packs up: the circle goes when it leaves
 if !(call _anyAlive) then {
     [_circle] call COIN_fnc_removeMortarCircle;
     _circle = "";
+} else {
+    if (!isNull _car && {alive _car}) then {
+        [_circle] call COIN_fnc_removeMortarCircle;
+        _circle = "";
+        // The gunner gets out, the squad drives COIN_mortarGetawayDistance away from the mortar, away from the FOB
+        [_fighters, _mortar, _car, _fob] call COIN_fnc_runMortarGetaway;
+    };
 };
 
 // The attack is over: the FOB waits COIN_mortarCooldownSeconds, the next attack may start while the squad is taken down
 COIN_mortarCooldowns set [[_fob] call COIN_fnc_mortarFobKey, time + COIN_mortarCooldownSeconds];
 COIN_mortarActive = false;
 
-// Taken down when nobody is near
+// Taken down when nobody is near the mortar or the car
 private _playerNear = {
-    ((allPlayers - entities "HeadlessClient_F") findIf {alive _x && {(_x distance2D _spot) < COIN_mortarRemoveDistance}}) >= 0
+    private _places = [_spot];
+    if (!isNull _car) then {_places pushBack (getPosATL _car)};
+    ((allPlayers - entities "HeadlessClient_F") findIf {
+        private _player = _x;
+        alive _player && {(_places findIf {(_player distance2D _x) < COIN_mortarRemoveDistance}) >= 0}
+    }) >= 0
 };
 waitUntil {sleep COIN_mortarRemoveSeconds; !(call _playerNear)};
 
-{deleteVehicle _x} forEach (_fighters + [_mortar]);
+{deleteVehicle _x} forEach (_fighters + [_mortar, _car]);
 deleteGroup _group;
 [_circle] call COIN_fnc_removeMortarCircle;
 if (_marker isNotEqualTo "") then {deleteMarker _marker};

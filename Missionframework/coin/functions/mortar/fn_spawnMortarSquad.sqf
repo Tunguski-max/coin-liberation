@@ -16,7 +16,7 @@
         _fob  - Position of the FOB it faces [ARRAY]
 
     Returns:
-        [group, fighters, mortar] or [] if no class of COIN_mortarClasses exists [ARRAY]
+        [group, fighters, mortar, car (objNull if none)] or [] if no class of COIN_mortarClasses exists [ARRAY]
 */
 
 params [
@@ -65,4 +65,7 @@ _group setBehaviour "AWARE";
 [_fighters] call COIN_fnc_markCoinUnits;
 [[_mortar] + _fighters] call COIN_fnc_addToCurators;
 
-[_group, _fighters, _mortar]
+// The unarmed car behind the mortar for the getaway (objNull if there is none)
+private _car = [_spot, _fob] call COIN_fnc_spawnMortarCar;
+
+[_group, _fighters, _mortar, _car]

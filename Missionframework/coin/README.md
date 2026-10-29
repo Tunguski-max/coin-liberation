@@ -68,6 +68,8 @@ coin/
     │   ├── fn_runMortarAttack.sqf      COIN_fnc_runMortarAttack: Ablauf eines Angriffs (Trupp, 3 Salven, Stellung halten, Abbau)
     │   ├── fn_spawnMortarSquad.sqf     COIN_fnc_spawnMortarSquad: Mörser und 3 Kämpfer der Miliz, alles an Zeus
     │   ├── fn_fireMortarSalvo.sqf      COIN_fnc_fireMortarSalvo: eine Salve scharfer Granaten um die FOB
+    │   ├── fn_spawnMortarCar.sqf       COIN_fnc_spawnMortarCar: unbewaffnetes Auto hinter dem Mörser für die Flucht des Trupps
+    │   ├── fn_runMortarGetaway.sqf     COIN_fnc_runMortarGetaway: Schütze steigt aus, Trupp steigt ein und fährt 800 m weg vom Mörser, weg von der FOB
     │   ├── fn_announceMortarAttack.sqf COIN_fnc_announceMortarAttack: Meldung „Mörserbeschuss auf FOB …“ und Kreis (400 m) nach der ersten Salve (Ticket 6.7b)
     │   └── fn_removeMortarCircle.sqf   COIN_fnc_removeMortarCircle: nimmt den Kreis von der Karte
     ├── staging/
