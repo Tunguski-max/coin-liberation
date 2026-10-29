@@ -84,9 +84,6 @@ class COIN {
         // Row of a config table keyed by nest type (COIN_nestSetup, COIN_nestBuildingShare, ...)
         class findByType {};
 
-        // Text of a config table row [key, [German, English]] in the game language (tickets 5.6, 5.19)
-        class getLanguageText {};
-
         // Text of a config entry in the game language: a key of the COIN package, or the old pair [German, English] until 7.0d (ADR 0026, tickets 7.0b to 7.0d)
         class text {};
 
@@ -150,6 +147,9 @@ class COIN {
 
         // Debug console, client: every COIN message once in the game language (ticket 7.0a, #177)
         class debugShowMessages {};
+
+        // Debug console: does every key of the COIN package that the config names exist in the stringtable? (ticket 7.0c, #180)
+        class debugCheckTexts {};
     };
 
     class intel {
@@ -475,6 +475,10 @@ class COIN {
 
         // Server: marks an elder on the map for COIN_elderMarkerSeconds (ticket 5.9a)
         class markElder {};
+
+        // Client: the name of the elder and the text of his marker in the game language (ticket 7.0c, #180, ADR 0026)
+        class setElderName {};
+        class localizeElderMarker {};
     };
 
     class persistence {
@@ -516,6 +520,9 @@ class COIN {
 
         // Server: checks the request for a reinforcement, takes favor and intel points, spawns the local fighters (ticket 5.6)
         class requestReinforcement {};
+
+        // Server: arms the fighters of a reinforcement, Liberation gives them empty weapons and often no magazines (ticket 5.6)
+        class loadFighterWeapons {};
 
         // Server: watches the reinforcement: arrived, time, reputation, wiped out; the walk home (ticket 5.6)
         class runReinforcement {};

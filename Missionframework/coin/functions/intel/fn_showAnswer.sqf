@@ -3,8 +3,8 @@
     Author: COIN Liberation
 
     Description:
-        Shows the answer of a civilian to the interpreter as a subtitle (ticket 3.1): his name and a sentence, German or
-        else English by the game language. The sentences come from COIN_questionAnswers by the result; a hint or a tip
+        Shows the answer of a civilian to the interpreter as a subtitle (ticket 3.1): his name and a sentence in the game language
+        (keys of the COIN package, ADR 0026). The sentences come from COIN_questionAnswers by the result; a hint or a tip
         has them by nest type (COIN_questionAnswersByType), but the civilian never says the type itself. A result without
         sentences gets the rumor sentences. While the cooldown of the interpreter runs (ticket 3.5) the result is "cooldown"
         and the civilian puts the interpreter off (COIN_cooldownAnswers). Sent by
@@ -27,9 +27,7 @@ params [
 
 if (!hasInterface) exitWith {false};
 
-private _index = [1, 0] select (language isEqualTo "German");
-
-// [German sentences, English sentences] of this result, [] if there are none
+// Keys of the sentences of this result, [] if there are none
 private _texts = switch (true) do {
     case (_level isEqualTo "cooldown"): {COIN_cooldownAnswers};
     case (_level in ["hint", "tip"]): {
@@ -49,4 +47,4 @@ if (_texts isEqualTo []) then {
 };
 if (_texts isEqualTo []) exitWith {false};
 
-[_name, [selectRandom (_texts select _index)]] call COIN_fnc_showSubtitle
+[_name, [[selectRandom _texts] call COIN_fnc_text]] call COIN_fnc_showSubtitle

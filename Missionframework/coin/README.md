@@ -39,7 +39,6 @@ coin/
     │   └── fn_campFitsBudget.sqf       COIN_fnc_campFitsBudget: darf ein Camp mit N Kämpfern jetzt spawnen? Ganz oder gar nicht (COIN_maxCampAI)
     ├── common/
     │   ├── fn_findByType.sqf           COIN_fnc_findByType: Zeile einer Config-Tabelle nach Nest-Typ
-    │   ├── fn_getLanguageText.sqf      COIN_fnc_getLanguageText: Text einer Config-Zeile [Schlüssel, [Deutsch, Englisch]] in der Spielsprache (Tickets 5.6, 5.19)
     │   ├── fn_text.sqf                 COIN_fnc_text: Text eines Config-Eintrags in der Spielsprache, Schlüssel der Stringtable oder altes Paar bis 7.0d (ADR 0026)
     │   ├── fn_getCapableFighters.sqf   COIN_fnc_getCapableFighters: Kämpfer unter gegebenen Objekten, die noch kämpfen können (Camp und Hinterhalt ausgehoben, Tickets 2.10, 4.5)
     │   ├── fn_isPrisoner.sqf           COIN_fnc_isPrisoner: Gefangener? Miliz-Kämpfer, gefesselt, ergeben oder per CAPTURE im Squad (Ticket 3.8, 5.1)
@@ -60,7 +59,8 @@ coin/
     │   ├── fn_debugTerrainNest.sqf     COIN_fnc_debugTerrainNest: Gelände-Nest eines Typs vor dem Spieler, wie ein echtes
     │   ├── fn_debugCaptureSector.sqf   COIN_fnc_debugCaptureSector: nimmt einen Sektor über Liberations Ablauf ein, ohne Angabe listet sie die Sektoren der Miliz (Ticket 6.1a)
     │   ├── fn_debugMortarAttack.sqf    COIN_fnc_debugMortarAttack: Mörserangriff jetzt auf die nächste FOB, ohne Chance, Wartezeit und Spieler an der FOB (Ticket 6.7a)
-    │   └── fn_debugShowMessages.sqf    COIN_fnc_debugShowMessages: zeigt jede COIN-Meldung einmal in der Spielsprache, Client (Ticket 7.0a)
+    │   ├── fn_debugShowMessages.sqf    COIN_fnc_debugShowMessages: zeigt jede COIN-Meldung einmal in der Spielsprache, Client (Ticket 7.0a)
+    │   └── fn_debugCheckTexts.sqf      COIN_fnc_debugCheckTexts: prüft, ob jeder Schlüssel des COIN-Packages, den die Config nennt, in der Stringtable steht (Ticket 7.0c)
     ├── mortar/
     │   ├── fn_mortarLoop.sqf           COIN_fnc_mortarLoop: Server-Schleife, würfelt alle COIN_mortarCheckSeconds den Mörserangriff auf eine FOB (Ticket 6.7a, kein Hook)
     │   ├── fn_checkMortarFob.sqf       COIN_fnc_checkMortarFob: darf diese FOB getroffen werden (Aufmarschraum, Wartezeit, Spieler an der FOB)
@@ -91,7 +91,9 @@ coin/
     │   ├── fn_spawnPopulation.sqf      COIN_fnc_spawnPopulation: die Zivilisten einer Ortschaft, wie Liberations, laufen im Ort umher
     │   ├── fn_findElderSpot.sqf        COIN_fnc_findElderSpot: Platz des Ältesten, Moschee oder größtes Haus nahe dem Ortskern (Ticket 5.9a)
     │   ├── fn_spawnElder.sqf           COIN_fnc_spawnElder: der Älteste einer Ortschaft, eigene Kleidung, Name „Ältester …“, steht fest (Ticket 5.9a)
-    │   └── fn_markElder.sqf            COIN_fnc_markElder: Marker auf der Karte für den Ältesten, 5 min (Ticket 5.9a)
+    │   ├── fn_markElder.sqf            COIN_fnc_markElder: Marker auf der Karte für den Ältesten, 5 min (Ticket 5.9a)
+    │   ├── fn_setElderName.sqf         COIN_fnc_setElderName: Client, Name des Ältesten in der Spielsprache (Ticket 7.0c)
+    │   └── fn_localizeElderMarker.sqf  COIN_fnc_localizeElderMarker: Client, Text seines Markers in der Spielsprache (Ticket 7.0c)
     ├── elder/
     │   ├── fn_askElderHelp.sqf         COIN_fnc_askElderHelp: Server, „Können wir helfen?“ beim Ältesten, schickt die Angebote an den Dolmetscher (Ticket 5.9b)
     │   ├── fn_getAidOffers.sqf         COIN_fnc_getAidOffers: Server, was der Älteste jetzt anbietet und warum etwas grau ist
@@ -208,6 +210,7 @@ coin/
     │   ├── fn_delayFavor.sqf           COIN_fnc_delayFavor: Server, den Zähler um die Config-Minuten zurückwerfen (Schnittstelle für 5.6)
     │   ├── fn_pickReinforcementPoint.sqf COIN_fnc_pickReinforcementPoint: Client, der Dolmetscher klickt den Zielpunkt der Verstärkung auf der Karte an, Kreis = Reichweite (Ticket 5.6)
     │   ├── fn_requestReinforcement.sqf COIN_fnc_requestReinforcement: Server, prüft die Anfrage, nimmt Gefälligkeit und Intel-Punkte, lässt die lokalen Kämpfer entstehen (Ticket 5.6)
+    │   ├── fn_loadFighterWeapons.sqf   COIN_fnc_loadFighterWeapons: Server, lädt die Waffen der Kämpfer einer Verstärkung und ergänzt fehlende Magazine (Ticket 5.6)
     │   ├── fn_runReinforcement.sqf     COIN_fnc_runReinforcement: Server, überwacht die Verstärkung (Ankunft, Zeit, Ruf, aufgerieben) und den Rückweg (Ticket 5.6)
     │   ├── fn_showReinforcementMessage.sqf COIN_fnc_showReinforcementMessage: Client, Meldung zur Verstärkung an alle (Ticket 5.6)
     │   ├── fn_pickMapPoint.sqf         COIN_fnc_pickMapPoint: Client, ein Punkt auf der Karte, mit Kreis der Reichweite wenn gewünscht (Tickets 5.6, 5.19)

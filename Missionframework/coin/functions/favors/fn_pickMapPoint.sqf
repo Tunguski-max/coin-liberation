@@ -29,7 +29,7 @@ if (!hasInterface || {!canSuspend}) exitWith {[]};
 
 private _say = {
     params ["_key"];
-    hint ([COIN_reinforcementPickTexts, _key] call COIN_fnc_getLanguageText);
+    hint ([([COIN_reinforcementPickTexts, _key] call COIN_fnc_findByType) param [1, ""]] call COIN_fnc_text);
 };
 
 private _marker = "";

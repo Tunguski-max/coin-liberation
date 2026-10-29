@@ -7,7 +7,7 @@
         population (preset list civilians, KPLIB_fnc_createManagedUnit, so killing him costs reputation through
         Liberation's kill manager), in a group of his own without waypoints, so he stands where he is put and does not
         walk around. He gets the clothes of COIN_elderUniforms and COIN_elderHeadgear (classes that do not exist are
-        left out) and the name COIN_elderNameFormat with the name of the town. He is marked COIN_elder, which the
+        left out) and a name in the language of every player, "Elder of <town>" (COIN_fnc_setElderName, key STR_COIN_elder_name). He is marked COIN_elder, which the
         interpreter's question about the militia respects (COIN_fnc_canQuestion). Handed to Zeus; in debug mode he is
         on the map. Server only.
 
@@ -51,8 +51,11 @@ if (_headgear isNotEqualTo []) then {
     _elder addHeadgear (selectRandom _headgear);
 };
 
-private _name = format [COIN_elderNameFormat, markerText _sector];
-[_elder, _name] remoteExecCall ["setName", 0, _elder];
+private _town = markerText _sector;
+// The server sends the name of the town, every machine builds the name in its own language (ADR 0026)
+[_elder, _town] remoteExecCall ["COIN_fnc_setElderName", 0, _elder];
+// The name for the log and the debug marker is in the language of the server
+private _name = format [localize "STR_COIN_elder_name", _town];
 
 [[_elder]] call COIN_fnc_addToCurators;
 
