@@ -7318,4 +7318,101 @@
             <Czech>KP Player Menu v1.0.2\nby Wyqer</Czech>
         </Key>
     </Package>
+    <!-- COIN BEGIN: texts of the COIN module (ADR 0026, docs/hooks.md hook 36). Keys STR_COIN_<module>_<name>, Original is English, German added.
+         Other languages fall back to Original. Texts are picked on the client with localize or $STR_ in the configs, the server only sends keys. -->
+    <Package name="COIN">
+        <Container name="Notifications">
+            <Key ID="STR_COIN_notify_nestDestroyed_title">
+                <Original>INSURGENT HIDEOUT DESTROYED</Original>
+                <German>VERSTECK DER AUFSTÄNDISCHEN ZERSTÖRT</German>
+            </Key>
+            <Key ID="STR_COIN_notify_nestDestroyed_text">
+                <Original>%1 destroyed!</Original>
+                <German>%1 zerstört!</German>
+            </Key>
+            <Key ID="STR_COIN_notify_campCleared_title">
+                <Original>INSURGENT CAMP CLEARED</Original>
+                <German>CAMP DER AUFSTÄNDISCHEN AUSGEHOBEN</German>
+            </Key>
+            <Key ID="STR_COIN_notify_campCleared_text">
+                <Original>An insurgent camp has been cleared.</Original>
+                <German>Ein Camp der Aufständischen wurde ausgehoben.</German>
+            </Key>
+            <Key ID="STR_COIN_notify_intelNew_title">
+                <Original>NEW INTEL</Original>
+                <German>NEUE SPUR</German>
+            </Key>
+            <Key ID="STR_COIN_notify_intelNew_text">
+                <Original>A new lead has been added to the map.</Original>
+                <German>Eine neue Spur wurde auf der Karte eingetragen.</German>
+            </Key>
+            <Key ID="STR_COIN_notify_intelWarning_title">
+                <Original>WARNING</Original>
+                <German>WARNUNG</German>
+            </Key>
+            <Key ID="STR_COIN_notify_intelWarning_text">
+                <Original>A danger nearby has been marked on the map.</Original>
+                <German>Eine Gefahr in der Nähe wurde auf der Karte eingetragen.</German>
+            </Key>
+            <Key ID="STR_COIN_notify_mortarAttack_title">
+                <Original>MORTAR FIRE</Original>
+                <German>MÖRSERBESCHUSS</German>
+            </Key>
+            <Key ID="STR_COIN_notify_mortarAttack_text">
+                <Original>Mortar fire on FOB %1!</Original>
+                <German>Mörserbeschuss auf FOB %1!</German>
+            </Key>
+            <Key ID="STR_COIN_notify_reinforcementArrived_title">
+                <Original>REINFORCEMENT ARRIVED</Original>
+                <German>VERSTÄRKUNG ANGEKOMMEN</German>
+            </Key>
+            <Key ID="STR_COIN_notify_reinforcementArrived_text">
+                <Original>The reinforcement from %1 has reached the target point.</Original>
+                <German>Die Verstärkung aus %1 hat den Zielpunkt erreicht.</German>
+            </Key>
+            <Key ID="STR_COIN_notify_reinforcementLeftTime_title">
+                <Original>REINFORCEMENT LEAVING</Original>
+                <German>VERSTÄRKUNG ZIEHT AB</German>
+            </Key>
+            <Key ID="STR_COIN_notify_reinforcementLeftTime_text">
+                <Original>The reinforcement from %1 is leaving, their time is up.</Original>
+                <German>Die Verstärkung aus %1 zieht ab, ihre Zeit ist um.</German>
+            </Key>
+            <Key ID="STR_COIN_notify_reinforcementLeftReputation_text">
+                <Original>%1 Reinforcements are leaving as they lost trust in you</Original>
+                <German>Verstärkung aus %1 zieht ab, nachdem du ihr Vertrauen verloren hast</German>
+            </Key>
+            <Key ID="STR_COIN_notify_reinforcementWiped_title">
+                <Original>REINFORCEMENT WIPED OUT</Original>
+                <German>VERSTÄRKUNG AUFGERIEBEN</German>
+            </Key>
+            <Key ID="STR_COIN_notify_reinforcementWiped_text">
+                <Original>The reinforcement from %1 has been wiped out.</Original>
+                <German>Die Verstärkung aus %1 ist aufgerieben.</German>
+            </Key>
+        </Container>
+        <Container name="Nests">
+            <Key ID="STR_COIN_nestType_command">
+                <Original>Command post</Original>
+                <German>Kommandoposten</German>
+            </Key>
+            <Key ID="STR_COIN_nestType_iedWorkshop">
+                <Original>IED workshop</Original>
+                <German>IED-Werkstatt</German>
+            </Key>
+            <Key ID="STR_COIN_nestType_cache">
+                <Original>Weapons cache</Original>
+                <German>Waffenlager</German>
+            </Key>
+            <Key ID="STR_COIN_nestType_vbiedGarage">
+                <Original>VBIED garage</Original>
+                <German>VBIED-Garage</German>
+            </Key>
+            <Key ID="STR_COIN_nestType_recruitment">
+                <Original>Recruitment point</Original>
+                <German>Rekrutierungsstelle</German>
+            </Key>
+        </Container>
+    </Package>
+    <!-- COIN END -->
 </Project>

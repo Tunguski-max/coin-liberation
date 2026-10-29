@@ -279,12 +279,12 @@ COIN_nestSaveRetryDelay     = 5;        // s until a destroyed nest is saved aga
 // Messages to all players (ticket 2.14): a nest destroyed (names the type, no position), a camp cleared (nothing else)
 COIN_enableNestMessage      = true;     // Off: no message when a nest is destroyed
 COIN_enableCampMessage      = true;     // Off: no message when a camp is cleared
-COIN_nestTypeNames = [                  // Nest type as the message names it: [type, [German, English]]
-    ["command",      ["Kommandoposten",     "Command post"]],
-    ["iedWorkshop",  ["IED-Werkstatt",      "IED workshop"]],
-    ["cache",        ["Waffenlager",        "Weapons cache"]],
-    ["vbiedGarage",  ["VBIED-Garage",       "VBIED garage"]],
-    ["recruitment",  ["Rekrutierungsstelle", "Recruitment point"]]
+COIN_nestTypeNames = [                  // Nest type as the message names it: [type, key of the COIN package in stringtable.xml] (ADR 0026)
+    ["command",      "STR_COIN_nestType_command"],
+    ["iedWorkshop",  "STR_COIN_nestType_iedWorkshop"],
+    ["cache",        "STR_COIN_nestType_cache"],
+    ["vbiedGarage",  "STR_COIN_nestType_vbiedGarage"],
+    ["recruitment",  "STR_COIN_nestType_recruitment"]
 ];
 // Props per type, may be indestructible (e.g. workbench). Missing classes are left out (one log line on server start)
 COIN_nestProps = [

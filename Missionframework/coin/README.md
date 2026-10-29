@@ -58,7 +58,8 @@ coin/
     │   ├── fn_exportTerrainTemplate.sqf COIN_fnc_exportTerrainTemplate: Gelände-Template um den Richtungspfeil in die Zwischenablage
     │   ├── fn_debugTerrainNest.sqf     COIN_fnc_debugTerrainNest: Gelände-Nest eines Typs vor dem Spieler, wie ein echtes
     │   ├── fn_debugCaptureSector.sqf   COIN_fnc_debugCaptureSector: nimmt einen Sektor über Liberations Ablauf ein, ohne Angabe listet sie die Sektoren der Miliz (Ticket 6.1a)
-    │   └── fn_debugMortarAttack.sqf    COIN_fnc_debugMortarAttack: Mörserangriff jetzt auf die nächste FOB, ohne Chance, Wartezeit und Spieler an der FOB (Ticket 6.7a)
+    │   ├── fn_debugMortarAttack.sqf    COIN_fnc_debugMortarAttack: Mörserangriff jetzt auf die nächste FOB, ohne Chance, Wartezeit und Spieler an der FOB (Ticket 6.7a)
+    │   └── fn_debugShowMessages.sqf    COIN_fnc_debugShowMessages: zeigt jede COIN-Meldung einmal in der Spielsprache, Client (Ticket 7.0a)
     ├── mortar/
     │   ├── fn_mortarLoop.sqf           COIN_fnc_mortarLoop: Server-Schleife, würfelt alle COIN_mortarCheckSeconds den Mörserangriff auf eine FOB (Ticket 6.7a, kein Hook)
     │   ├── fn_checkMortarFob.sqf       COIN_fnc_checkMortarFob: darf diese FOB getroffen werden (Aufmarschraum, Wartezeit, Spieler an der FOB)

@@ -4,7 +4,7 @@
 
     Description:
         After the first salvo of a mortar attack (ticket 6.7b, #159, DESIGN 9) the side learns of it:
-        - a message "Mortar fire on FOB ..." on every client, German or English (COIN_fnc_showNotification, kind "mortar"),
+        - a message "Mortar fire on FOB ..." on every client in its own language (COIN_fnc_showNotification, kind "mortar"),
           switch COIN_enableMortarMessage,
         - a circle of COIN_mortarCircleRadius (400 m) on the map around the firing position, with an own symbol
           (COIN_mortarCircleMarkerType). The squad lies in the circle, but not in its middle (COIN_fnc_offsetCenter),
