@@ -364,7 +364,7 @@ Vier Blöcke, nacheinander umgesetzt und getestet: 6A → 6B → 6C → 6D. Samm
   jeder Aktivierung; nicht ausdrücklich geprüft: Zeus-Sicht, Sperre für Spieler, Schalter aus. Der Igla-Schütze ist `LOP_TKA_Infantry_AA`,
   `LOP_AM_OPF_Infantry_AA` gibt es nicht)
 
-**6D Kampagnenende** – Reihenfolge: 6.5a, 6.5b
+**6D Kampagnenende** – Reihenfolge: 6.5a, 6.5b. **Nice to have, nicht Teil der DoD** (Niklas, 2026-10-29): Phase 6 gilt ohne 6D als abgeschlossen, die Tickets bleiben offen und können später folgen
 - [ ] 6.5a (#162) Abschnitt „COIN“ in Liberations Endbildschirm (Hook) mit gespeicherten Zählern (`COIN_saveVersion` 4, ältere
   Stände starten bei 0), erste Werte: Nester zerstört (je Typ) und Netzwerkstärke, Ruf am Ende als Zahl und Stimmung, Camps
   ausgehoben, Befragungen, Verhöre, Intel-Marker (davon Lügen)
@@ -377,7 +377,7 @@ Vier Blöcke, nacheinander umgesetzt und getestet: 6A → 6B → 6C → 6D. Samm
 **DoD:** Komplettdurchlauf im Debug-Modus beschleunigt möglich, von Start bis Sieg: Mit den Debug-Funktionen werden nacheinander
 Nester zerstört, die Readiness sinkt bei jedem sofort und ihr Deckel mit. Ein Gegenangriff kommt nur aus einem Aufmarschraum.
 Ein Mörserangriff trifft eine FOB, sein Trupp wird über den Kreis gefunden. Die Hauptstadt hat bei vollem und leerem Netzwerk
-sichtbar unterschiedlich viele Verteidiger. Nach der Einnahme zeigt der Endbildschirm den Abschnitt „COIN“.
+sichtbar unterschiedlich viele Verteidiger. (Der Abschnitt „COIN“ im Endbildschirm gehört nicht mehr zur DoD, siehe 6D.)
 
 ## Phase 7 – Server und Balancing
 
