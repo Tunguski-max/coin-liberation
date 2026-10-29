@@ -187,8 +187,8 @@ while {_plan isEqualTo [] && {_caches isNotEqualTo []} && {_tries < COIN_convoyP
                     if (_plan isNotEqualTo []) then {
                         diag_log format [
                             "[COIN] strike: convoy plan: from %1 to cache %2 (%3 m by road, %4 m by air), point 1 %5 at %6 s, point 2 %7 at %8 s after the beginning, start %9 m from the origin",
-                            _plan select 9, _nest select 0, _plan select 10, round _straight, (_plan select 1) select 0, (_plan select 8) select 0,
-                            (_plan select 3) select 0, (_plan select 8) select 1, round (_startPos distance2D _origin)
+                            _plan select 9, _nest select 0, _plan select 10, round _straight, (_plan select 1) select 1, (_plan select 8) select 0,
+                            (_plan select 3) select 1, (_plan select 8) select 1, round (_startPos distance2D _origin)
                         ];
                     };
                 } else {
