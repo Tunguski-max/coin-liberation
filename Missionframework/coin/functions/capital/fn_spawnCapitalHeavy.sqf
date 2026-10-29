@@ -67,8 +67,19 @@ private _vehicleCount = 0;
     // Watched instead of an event: the vehicle ends the watch when it is deleted with the sector, so a living one is not recorded
     [_vehicle, _index, _sector, _class] spawn {
         params ["_watched", "_watchedIndex", "_watchedSector", "_watchedClass"];
-        waitUntil {sleep COIN_capitalHeavyCheckSeconds; isNull _watched || {!alive _watched}};
-        if (isNull _watched) exitWith {};
+        private _lastDamage = 0;
+        private _lastCrew = count crew _watched;
+        waitUntil {
+            sleep COIN_capitalHeavyCheckSeconds;
+            if (!isNull _watched) then {
+                _lastDamage = damage _watched;
+                _lastCrew = {alive _x} count crew _watched;
+            };
+            isNull _watched || {!alive _watched}
+        };
+        if (isNull _watched) exitWith {
+            diag_log format ["[COIN] capital: %1: %2 (no. %3) removed with the sector, alive, damage %4, %5 crew alive, comes back", _watchedSector, _watchedClass, _watchedIndex, _lastDamage, _lastCrew];
+        };
         private _lostNow = missionNamespace getVariable ["COIN_capitalHeavyLost", []];
         _lostNow pushBackUnique _watchedIndex;
         COIN_capitalHeavyLost = _lostNow;
