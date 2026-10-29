@@ -112,7 +112,7 @@ Befragen kann der Dolmetscher **Zivilisten**. Welche es gibt:
 ### 3.3 Abklingzeit
 
 - Nach jeder Befragung oder jedem Verhör, das einen **Marker** erzeugt (auch Lüge, auch Warnung), muss **derselbe Dolmetscher**
-  **5 Minuten** warten.
+  **1,5 Minuten** warten.
 - „Ich weiß nichts“ und eine Verweigerung starten **keine** Abklingzeit.
 - Sie gilt pro Spieler (Spieler-ID), übersteht den Respawn und wird nicht gespeichert. Ein zweiter Dolmetscher hat seine eigene.
 - Grund: Liberation erzeugt bei jeder Sektoraktivierung neue Zivilisten. Ohne Bremse ließe sich eine Ortschaft abgrasen.
@@ -275,7 +275,7 @@ Ruf −20 (niedrig), der Dolmetscher befragt einen Zivilisten in einer Ortschaft
 
 1. Würfel: 35 % Lüge → es entsteht ein Kreis (zum Beispiel „Hinweis, Waffenlager, 300 m“) um einen verborgenen Ersatzpunkt am
    Ortsrand, der Spieler sieht ihn wie jeden anderen.
-2. Der Dolmetscher hat 5 Minuten Abklingzeit.
+2. Der Dolmetscher hat 1,5 Minuten Abklingzeit.
 3. Ein Spieler zu Fuß geht zum Kreis, steht ~50 m vom Ersatzpunkt: Der Marker verschwindet ohne Meldung. Die Lüge war enttarnt,
    ohne dass es jemand gesagt hat.
 4. Ein ergebener Kämpfer eines Camps wird verhört: Er nennt das Nest seines Camps (Konkreter Tipp, 100 m). Der Kreis um dieses
@@ -349,7 +349,7 @@ Alles in `Missionframework/coin/coin_config.sqf`. Wichtige Namen:
 | Thema | Variablen |
 |---|---|
 | Ein/Aus | `COIN_enableQuestioning`, `COIN_enableInterrogation`, `COIN_enableMood`, `COIN_enableInformantFrequency`, `COIN_enableLies`, `COIN_enableWarnings`, `COIN_enableIEDWarnings`, `COIN_enableAmbushWarnings`, `COIN_enableUnsafeRefusal`, `COIN_enableCooldown`, `COIN_enableInformantTip`, `COIN_enablePopulation` |
-| Reichweiten und Zeiten | `COIN_talkRange` (5 m), `COIN_talkHoldSeconds` (30 s), `COIN_questionDelay` ([1, 2] s), `COIN_answerReadSeconds`, `COIN_unsafeRadius` (100 m), `COIN_questionCooldown` (300 s), `COIN_intelNestRange` (4000 m) |
+| Reichweiten und Zeiten | `COIN_talkRange` (5 m), `COIN_talkHoldSeconds` (30 s), `COIN_questionDelay` ([1, 2] s), `COIN_answerReadSeconds`, `COIN_unsafeRadius` (100 m), `COIN_questionCooldown` (90 s), `COIN_intelNestRange` (4000 m) |
 | Kreise | `COIN_intelRadiusRumor` (600), `COIN_intelRadiusHint` (300), `COIN_intelRadiusTip` (100), `COIN_intelRadiusMin` (50), `COIN_triangulationFactor` (0,5), `COIN_intelCenterOffset` ([0,2; 0,8]) |
 | Gewichte | `COIN_intelWeightsLow` / `Mid` / `High`, `COIN_intelWeightsByBand`, `COIN_interrogationWeights`, `COIN_interrogationSecondChance` (0) |
 | Warnungen | `COIN_warningKinds` (Art, Reichweite, Radius, Satz), `COIN_warningCheckInterval` (10 s) |

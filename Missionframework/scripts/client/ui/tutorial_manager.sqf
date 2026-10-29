@@ -2,31 +2,14 @@ private [ "_tutorial_titles", "_tutorial_pages", "_current_page", "_old_page", "
 
 if ( isNil "howtoplay" ) then { howtoplay = 0; };
 
-_tutorial_titles = [
-    localize "STR_TUTO_TITLE1",
-    localize "STR_TUTO_TITLE2",
-    localize "STR_TUTO_TITLE3",
-    localize "STR_TUTO_TITLE4",
-    localize "STR_TUTO_TITLE5",
-    localize "STR_TUTO_TITLE6",
-    localize "STR_TUTO_TITLE7",
-    localize "STR_TUTO_TITLE8",
-    localize "STR_TUTO_TITLE9",
-    localize "STR_TUTO_TITLE10"
-];
-
-_tutorial_pages = [
-    "STR_TUTO_TEXT1",
-    "STR_TUTO_TEXT2",
-    "STR_TUTO_TEXT3",
-    "STR_TUTO_TEXT4",
-    "STR_TUTO_TEXT5",
-    "STR_TUTO_TEXT6",
-    "STR_TUTO_TEXT7",
-    "STR_TUTO_TEXT8",
-    "STR_TUTO_TEXT9",
-    "STR_TUTO_TEXT10"
-];
+// COIN BEGIN: the pages are the COIN tutorial (ADR 0026, docs/hooks.md hook 37), a list of keys of the COIN package
+_tutorial_titles = [];
+_tutorial_pages = [];
+{
+    _tutorial_titles pushBack (localize format ["STR_COIN_tutorial_title_%1", _x]);
+    _tutorial_pages pushBack format ["STR_COIN_tutorial_text_%1", _x];
+} forEach [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
+// COIN END
 
 _current_page = 0;
 _old_page = -99;
