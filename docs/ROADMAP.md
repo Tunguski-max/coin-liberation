@@ -383,7 +383,7 @@ sichtbar unterschiedlich viele Verteidiger. (Der Abschnitt „COIN“ im Endbild
 
 **7.0 Vor dem Deployment (#145)** – Texte, Tutorial und Mission für den Go-Live, Reihenfolge nacheinander (ADR 0026). Entschieden am 2026-10-29;
 das Arsenal-Preset („limited Arsenal“) ist verworfen: Es bleibt bei Liberations Blacklist (`KP_liberation_arsenal = 0`).
-- [ ] 7.0a Stringtable-Grundlage: COIN-Package in `stringtable.xml` (Hook), `COIN_fnc_getLanguageText` und `CfgNotifications` auf Keys, Server schickt nur Keys
+- [ ] 7.0a Stringtable-Grundlage: COIN-Package in `stringtable.xml` (Hook), `CfgNotifications` und die Namen der Nest-Typen auf Keys, Server schickt nur Keys; der alte Weg (`COIN_fnc_getLanguageText`, Paare in der Config) bleibt bis 7.0d daneben bestehen
 - [ ] 7.0b Texte von Ältestem, Dialogen und Aufträgen auf Keys, sichtbar „Versteck“ und „Aufständische“
 - [ ] 7.0c Texte von Intel, Verhör, Gefälligkeiten und Funkantworten auf Keys, ebenso
 - [ ] 7.0d Texte von Strike, Hilfsaufträgen, Entsatz und Mörserangriff auf Keys, ebenso
