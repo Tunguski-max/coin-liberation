@@ -425,6 +425,7 @@ COIN_capitalAAInfantry      = 3;        // Igla gunners on the highest building 
 COIN_capitalAAClasses       = ["LOP_AM_OPF_Infantry_AA", "LOP_TKA_Infantry_AA", "LOP_SLA_Infantry_AA"]; // First one that exists is used
 COIN_capitalAARadius        = 150;      // m around the middle in which buildings are searched
 COIN_capitalAASpacing       = 30;       // m the gunners keep apart
+COIN_capitalHeavyCheckSeconds = 2;      // s between the checks whether a vehicle of the capital is destroyed
 
 // ---------------------------------------------------------------------------
 // Army equipment limits (Phase 1, ticket 1.9, ADR 0007)

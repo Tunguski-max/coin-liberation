@@ -64,19 +64,16 @@ private _vehicleCount = 0;
 
     _vehicle setVehicleLock "LOCKEDPLAYER";
     _vehicle setVariable ["KP_liberation_preplaced", true];
-    _vehicle setVariable ["COIN_capitalHeavyIndex", _index];
-    // MPKilled as Liberation's kill_manager: the vehicle is local to the server, but the event is the safe way when the owner changes
-    _vehicle addMPEventHandler ["MPKilled", {
-        params ["_killed"];
-        if (!isServer) exitWith {};
-        private _destroyed = _killed getVariable ["COIN_capitalHeavyIndex", -1];
+    // Watched instead of an event: the vehicle ends the watch when it is deleted with the sector, so a living one is not recorded
+    [_vehicle, _index, _sector, _class] spawn {
+        params ["_watched", "_watchedIndex", "_watchedSector", "_watchedClass"];
+        waitUntil {sleep COIN_capitalHeavyCheckSeconds; isNull _watched || {!alive _watched}};
+        if (isNull _watched) exitWith {};
         private _lostNow = missionNamespace getVariable ["COIN_capitalHeavyLost", []];
-        if (_destroyed >= 0 && {!(_destroyed in _lostNow)}) then {
-            _lostNow pushBack _destroyed;
-            COIN_capitalHeavyLost = _lostNow;
-            diag_log format ["[COIN] capital: %1 (no. %2) destroyed, stays gone until the server restarts", typeOf _killed, _destroyed];
-        };
-    }];
+        _lostNow pushBackUnique _watchedIndex;
+        COIN_capitalHeavyLost = _lostNow;
+        diag_log format ["[COIN] capital: %1: %2 (no. %3) destroyed, stays gone until the server restarts", _watchedSector, _watchedClass, _watchedIndex];
+    };
 
     private _crew = crew _vehicle;
     if (!isNull group (driver _vehicle)) then {
