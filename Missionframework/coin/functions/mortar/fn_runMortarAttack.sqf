@@ -61,6 +61,7 @@ private _anyAlive = {(_fighters findIf {alive _x}) >= 0};
 
 // Message and circle after the first salvo (ticket 6.7b, #159)
 private _circle = "";
+private _announced = false;
 
 sleep COIN_mortarStartDelay;
 
@@ -77,7 +78,8 @@ private _total = count COIN_mortarSpread;
     private _fired = [_mortar, _fob, _x] call COIN_fnc_fireMortarSalvo;
     diag_log format ["[COIN] mortar: attack on FOB %1: salvo %2 of %3, %4 of %5 rounds fired, spread %6 m", _fobName, _salvo, _total, _fired, COIN_mortarRounds, _x];
 
-    if (_salvo isEqualTo 1 && {_fired > 0} && {call _anyAlive}) then {
+    if (!_announced && {_fired > 0} && {call _anyAlive}) then {
+        _announced = true;
         _circle = [_fobName, _spot] call COIN_fnc_announceMortarAttack;
     };
 
