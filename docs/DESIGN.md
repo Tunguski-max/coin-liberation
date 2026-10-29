@@ -57,8 +57,8 @@ Einsatzgebiet ist **ganz Lythium**, stark ausgedünnt (ADR 0016).
 | Ortschaften | 29: 25 per Regel (davon 7 herabgestufte Hauptstädte), 4 von Hand ergänzt | Liberation-Sektoren (Städte/Dörfer) | Einnehmen, halten, Bevölkerung gewinnen |
 | Supply Points | 8: 5 per Regel, 3 von Hand ergänzt | Liberation-Fabriken/Ressourcen-Sektoren | Ressourcen-Produktion (ADR 0017) |
 | Militärposten | 6: 4 per Regel, 2 von Hand ergänzt (u. a. Kalae Barracks (E) an der Hauptstadt) | Liberation-Militärsektoren | Optionale harte Ziele, schalten je ein Elite-Fahrzeug frei |
-| Miliz-Nester | 11 | **neu** (siehe Abschnitt 5) | Verdeckt, nur über Intel auffindbar |
-| Miliz-Camps | bis 10 gleichzeitig | **neu** (siehe Abschnitt 5.1) | Zufällig im Gelände, Spur zu den Nestern |
+| Miliz-Nester | 12 | **neu** (siehe Abschnitt 5) | Verdeckt, nur über Intel auffindbar |
+| Miliz-Camps | bis 14 gleichzeitig | **neu** (siehe Abschnitt 5.1) | Zufällig im Gelände, Spur zu den Nestern |
 | Startbasis | 1 | Liberation-Startpunkt im Südwesten | Ausgangspunkt, etwa 19 km von der Hauptstadt |
 
 - Auswahl der Ziele aus den vorhandenen Liberation-Markern: Mindestabstand 2,5 km zwischen Ortschaften,
@@ -115,7 +115,7 @@ die jeweils einen **Einflussradius** haben und dort einen konkreten Effekt erzeu
 | Rekrutierungsstelle | Füllt Verluste der Miliz wieder auf | Miliz regeneriert langsamer |
 
 **Regeln**
-- 11 Nester zu Kampagnenbeginn, von jedem Typ mindestens 2: Reicht die Verteilung aus `coin_config.sqf` dafür nicht,
+- 12 Nester zu Kampagnenbeginn (11 bis 2026-10-29, eine vierte IED-Werkstatt kam dazu), von jedem Typ mindestens 2: Reicht die Verteilung aus `coin_config.sqf` dafür nicht,
   gibt der häufigste Typ ein Nest ab (bei Gleichstand gelost), die Gesamtzahl bleibt (Test 2026-10-20, wie bei den
   Ressourcen). Typen mit den wenigsten passenden Häusern werden zuerst platziert, damit sie nicht immer im selben
   abgelegenen Haus landen.
@@ -234,15 +234,15 @@ Die Anzahl hängt von zwei Dingen ab, die beide den Spielfortschritt abbilden:
 
 1. **Kapazität aus den Nestern.** Jedes Nest hat ein Gewicht:
    Kommandoposten und Rekrutierungsstelle je 2, alle anderen Nest-Typen je 1.
-   Die Kapazität ist der Anteil der aktiven Nester an diesem Gewicht, bezogen auf höchstens 10 Camps:
-   `Kapazität = abrunden(10 × Gewicht der aktiven Nester / Gewicht aller Nester)`, mindestens 1, solange ein Nest aktiv ist.
+   Die Kapazität ist der Anteil der aktiven Nester an diesem Gewicht, bezogen auf höchstens 14 Camps (bis 2026-10-29 10):
+   `Kapazität = abrunden(14 × Gewicht der aktiven Nester / Gewicht aller Nester)`, mindestens 1, solange ein Nest aktiv ist.
    So verringert schon das erste zerstörte Nest die Camps, wichtige Typen stärker.
    Wird ein Nest zerstört, verschwinden seine Camps beim nächsten Abbau und es kommen keine neuen nach.
-   *Beispiel:* Zu Beginn sind es 10 Camps (Gewicht 15 von 15). Ist ein Kommandoposten zerstört, sind es 8 (13/15),
-   nach einem Waffenlager 9 (14/15). Sind noch 4 Nester übrig, sind es etwa 3–4 Camps, am Ende nur noch 1.
+   *Beispiel:* Zu Beginn sind es 14 Camps (Gewicht 16 von 16). Ist ein Kommandoposten zerstört, sind es 12 (14/16),
+   nach einem Waffenlager 13 (15/16). Sind noch 4 Nester übrig, sind es etwa 4–5 Camps, am Ende nur noch 1.
    (Geändert am 2026-10-19, vorher Summe der Gewichte gedeckelt bei 10: Die ersten 3–4 zerstörten Nester hätten
    an der Zahl der Camps nichts geändert.)
-2. **Befreites Gebiet ist tabu.** Im Umkreis von 1 km um eingenommene Sektoren und um FOBs
+2. **Befreites Gebiet ist tabu.** Im Umkreis von 800 m um eingenommene Sektoren und um FOBs (1 km bis 2026-10-29)
    entstehen keine Camps. Je weiter ihr vorrückt, desto mehr werden die Camps Richtung Hauptstadt gedrängt.
 
 **Nachschub und Wechsel**
