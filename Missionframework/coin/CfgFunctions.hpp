@@ -670,6 +670,8 @@ class COIN {
 
         // Server: additional squads of the capital by the number of active nests, called by manage_one_sector.sqf (hook 35, ticket 6.3a, #160)
         class spawnCapitalGarrison {};
+        // Server, scheduled: fixed heavy equipment (T-72BA, ZSU-23-4) and Igla gunners, same hook 35 (ticket 6.3b, #161)
+        class spawnCapitalHeavy {};
     };
 
     class battlegroup {
