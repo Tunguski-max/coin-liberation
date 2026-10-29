@@ -634,6 +634,9 @@ class COIN {
         // Server: key of a FOB in the cooldown table
         class mortarFobKey {};
 
+        // Server: is there still a FOB at this position (it can be dismantled during an attack)
+        class mortarFobExists {};
+
         // Server: position for the mortar squad, 1500-2500 m away, out of sight, flat, preferably in a staging area
         class findMortarSpot {};
 
@@ -648,6 +651,18 @@ class COIN {
 
         // Server, scheduled: one salvo of real rounds around the FOB
         class fireMortarSalvo {};
+
+        // Server: the unarmed car behind the mortar for the getaway
+        class spawnMortarCar {};
+
+        // Server, scheduled: the squad gets into the car and drives away from the mortar and the FOB
+        class runMortarGetaway {};
+
+        // Server: message and circle on the map after the first salvo (ticket 6.7b, #159)
+        class announceMortarAttack {};
+
+        // Server: takes the circle off the map
+        class removeMortarCircle {};
     };
 
     class battlegroup {

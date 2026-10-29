@@ -18,6 +18,7 @@
 > v0.6.3: Hinterhalt: Platz neben der nächsten Straße, Kämpfer halten Feuer bis 150 m, Ersatzcamp nach Umzug bekommt garantiert einen Hinterhalt (Ticket 4.5, Test am 2026-10-23, Niklas).
 > v0.7: Ruf und Konsequenzen für Phase 5 festgelegt (Ruf-Werte, Stimmung, Ältester mit Dialog, Hilfs- und Zugriffsaufträge, Nebenmissionen beim Ältesten, Verstärkung per Funk, Ablenkungsangriff gestrichen, ADR 0023).
 > v0.8: Gegenangriffe und Hauptstadt für Phase 6 festgelegt (Aufmarschräume aus Kommandoposten und Militärposten, Entsatz, Mörserangriff, Readiness-Deckel, Zusatz-Garnison, Abschluss-Statistik, Neuaufbau der Nester verschoben, ADR 0025).
+> v0.8.1: Ein Verhör bringt genau ein Ergebnis statt 1–2, gegen die doppelte Belohnung (Abschnitt 7, Entscheidung von Niklas am 2026-10-29).
 > Offene Entscheidungen stehen gesammelt in [Abschnitt 12](#12-offene-entscheidungen).
 > Begriffe sind in [`CONTEXT.md`](../CONTEXT.md) definiert.
 
@@ -399,7 +400,7 @@ Festgelegt beim Grilling für Phase 3 (2026-10-22). Speicherformat, Triangulatio
   - **Lüge**: Kreis an einer falschen Stelle. Häufig bei niedrigem Ruf.
 - Ab Ruf +25 kann statt des Ergebnisses (außer „Ich weiß nichts“) ein **Zugriffsauftrag** entstehen: Er ersetzt das Intel
   der Befragung, damit es keine doppelte Belohnung gibt, und beginnt dafür früher (Abschnitt 8.2). Beim Verhör entsteht er
-  zusätzlich zu den Ergebnissen.
+  zusätzlich zum Ergebnis (Entscheidung Niklas 2026-10-29: das zählt nicht als doppelte Belohnung).
 - **Welches Nest:** ein zufälliges aktives Nest im Umkreis von etwa 4 km um den Zivilisten; gibt es dort keins, das nächste
   aktive Nest überhaupt. So zählt die Geografie, und am Ende sind auch die letzten Nester noch zu finden.
 
@@ -416,11 +417,12 @@ Festgelegt beim Grilling für Phase 3 (2026-10-22). Speicherformat, Triangulatio
   Spieler zu Fuß nahe an diesem Punkt (etwa 50 m), gilt das Gebiet als durchsucht und der Marker verschwindet ohne Meldung.
 
 **Weitere Intel-Quellen**
-- **Gefangene verhören** (Aktionsmenü „Verhören“): überall möglich, einmal pro Gefangenem. Ein Verhör bringt 1–2 Ergebnisse
-  mit eigenen Gewichten, die nicht vom Ruf abhängen (ein Gefangener gehört nicht zur Bevölkerung): mehr Tipps, wenig
-  Lügen, beim ersten Ergebnis nie „Ich weiß nichts“. Ein Kämpfer aus einem Camp nennt das Nest seines Camps, eine
-  Nest-Wache ein anderes Nest, alle anderen folgen der Regel „Welches Nest“. Beide Ergebnisse eines Verhörs betreffen dasselbe
-  Nest: ein zweites wahres Ergebnis verkleinert nur den Kreis. Die Abklingzeit gilt auch hier.
+- **Gefangene verhören** (Aktionsmenü „Verhören“): überall möglich, einmal pro Gefangenem. Ein Verhör bringt **genau ein Ergebnis**
+  (seit 2026-10-29; vorher 1–2, ein zweites Ergebnis wäre eine doppelte Belohnung), mit eigenen Gewichten, die nicht vom Ruf abhängen (ein Gefangener gehört nicht zur Bevölkerung): mehr Tipps, wenig
+  Lügen, nie „Ich weiß nichts“, solange es ein Nest gibt. Ein Kämpfer aus einem Camp nennt das Nest seines Camps, eine
+  Nest-Wache ein anderes Nest, ein Mörserschütze das Nest des Kommandopostens seines Aufmarschraums (Abschnitt 9), alle
+  anderen folgen der Regel „Welches Nest“. Die Config-Chance auf ein zweites Ergebnis steht auf 0; wäre sie größer, betreffen
+  beide Ergebnisse dasselbe Nest und ein zweites wahres Ergebnis verkleinert nur den Kreis. Die Abklingzeit gilt auch hier.
   Liberations Belohnung für das Abliefern an der FOB (Intel-Punkte) bleibt zusätzlich.
 - *Später/optional:* Für Gebäude-Nester ein Foto des Hauses im Tagebuch statt eines Kreises (braucht ein Bild pro Hausklasse).
 - **Informanten** (Liberation-Funktion): Ab Ruf +25 meldet sich gelegentlich ein Zivilist, der zu einer FOB gebracht werden
@@ -687,7 +689,9 @@ Festgelegt beim Grilling für Phase 6 (2026-10-28, ADR 0025, Ergänzung ADR 0013
   (Einschießen: Zeit, in Deckung zu gehen). Echte Munition, echter Schaden an Fahrzeugen und Bauten.
 - Nach der ersten Salve bekommt die Seite die Meldung „Mörserbeschuss auf FOB …“ und einen Kreis (etwa 400 m) um die Stellung;
   der Trupp liegt darin, nicht in der Mitte. Der Kreis verschwindet mit dem Trupp.
-- Der Trupp bleibt 10 min in Stellung und wird danach außer Sicht abgebaut, sobald niemand nah ist. Er zählt als
+- Der Trupp bleibt 10 min in Stellung. Danach flieht er: Hinter dem Mörser steht ein unbewaffnetes Auto (UAZ aus dem Takistan-Preset),
+  der Schütze steigt aus, der Trupp steigt ein und fährt 800 m weg vom Mörser und von der FOB. Erst danach wird er abgebaut, sobald
+  niemand nah ist (Mörser und Auto bleiben bis dahin stehen). Ist der Trupp ausgeschaltet, ist der Angriff vorbei. Er zählt als
   COIN-Einheiten und spawnt immer. Ein gefangener Mörserschütze nennt im Verhör den Kommandoposten seines Aufmarschraums,
   kam er von einem Militärposten, gilt die Regel „Welches Nest“ (Abschnitt 7).
 

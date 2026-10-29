@@ -174,7 +174,9 @@ Schnitt in dünne, einzeln testbare Durchstiche (Grilling 2026-10-22, DESIGN 7 v
 - [x] 3.7 (#64) Eigene Bevölkerung: 4–8 Zivilisten im Kern befreiter Ortschaften bei Spielernähe, im Zivilisten-Budget
   (ADR 0011, 0015); der Älteste kommt in Phase 5
   (am 2026-10-22 von Niklas im Spiel getestet und bestätigt: Zagun nach der Einnahme, Spawn etwa 90 s später (Liberation gibt die Ortschaft nach 60 s frei), 6 und 7 Zivilisten, Abbau nach 120 s außerhalb von 1300 m, Budget auf 2: Ortschaft wartet mit einer RPT-Zeile, nach dem Zurücksetzen „fits the budget now“ und Spawn; Befragen, Zeus und Ruf-Abzug getestet; Budget zählt nur die eigenen Zivilisten, ganz oder gar nicht (ADR 0015); nicht gesehen: Ortschaft ohne freien Platz (Zivilist im Mittelpunkt), Angriff auf die Ortschaft während die Bevölkerung steht, Schalter aus; Mehrspieler: siehe 7.5)
-- [x] 3.8 (#65) Verhör: Aktionsmenü „Verhören“ an Gefangenen, einmal pro Gefangenem, 1–2 Ergebnisse mit eigenen Gewichten;
+- [x] 3.8 (#65) Verhör: Aktionsmenü „Verhören“ an Gefangenen, einmal pro Gefangenem, 1–2 Ergebnisse mit eigenen Gewichten
+  (seit 2026-10-29 genau ein Ergebnis: `COIN_interrogationSecondChance` 0, wegen der doppelten Belohnung, Entscheidung von Niklas,
+  am 2026-10-29 im Spiel getestet: `1 result(s)`, nur `interrogation result 1`);
   Camp-Kämpfer nennt sein Nest, Nest-Wache ein anderes (ADR 0011); beide Ergebnisse eines Verhörs betreffen dasselbe Nest
   (nachträglich geändert am 2026-10-22, am 2026-10-22 im Spiel getestet: zwei Ergebnisse zum selben Nest, ein Kreis; der Test unterscheidet nicht vom alten Stand, weil im Test kein anderes Nest innerhalb von 4 km lag)
   (am 2026-10-22 von Niklas im Spiel getestet und bestätigt: Camp-Kämpfer nennt das Nest seines Camps, Nest-Wache ein anderes Nest, zwei Ergebnisse zum selben Nest lassen den Kreis nicht größer werden, Abklingzeit 300 s gilt auch für Gefangene; Gewichte 1. Ergebnis [0, 15, 30, 40, 7, 8], 2. Ergebnis [25, 20, 25, 20, 5, 5] mit 50 % Chance, Texte von Niklas; Befragung und Abklingzeit (3.1, 3.5) laufen nach dem Umbau unverändert; nicht gesehen: zweites Verhör desselben Gefangenen, Lüge und Warnung im Verhör, ergebener Kämpfer (Variable ace_captives_isSurrendering); Liberations Intel-Punkte an der FOB gibt es nur für Gefangene, die durch Liberations Ergeben-Skript laufen und über „Gefangen nehmen“ zur FOB gebracht werden, nicht für nur gefesselte Camp-Wachen; Mehrspieler: siehe 7.5)
@@ -335,8 +337,17 @@ Vier Blöcke, nacheinander umgesetzt und getestet: 6A → 6B → 6C → 6D. Samm
   staging area`; Zeus sieht Trupp und Mörser; nicht einzeln getestet: Zufallsauslöser der Schleife mit Würfel und Wartezeit, kein
   Spieler an der FOB, Schalter aus. Bei der Entwicklung gefunden: `magazinesTurret` ist binär, `inRangeOfArtillery` erwartet die
   Position links. Ohne Schütze feuert niemand mehr, auch wenn die anderen leben)
-- [ ] 6.7b (#159) Mörserangriff: Meldung „Mörserbeschuss auf FOB …“ und Kreis (etwa 400 m) um die Stellung nach der ersten Salve,
+- [x] 6.7b (#159, am 2026-10-29 im Spiel getestet) Mörserangriff: Meldung „Mörserbeschuss auf FOB …“ und Kreis (etwa 400 m) um die Stellung nach der ersten Salve,
   verschwindet mit dem Trupp; Verhör nennt den Kommandoposten des Aufmarschraums, beim Militärposten gilt „Welches Nest“
+  (Meldung bei jedem Lauf nach der ersten Salve mit Schuss, Kreis 400 m, der Trupp liegt 170–268 m von der Mitte; Kreis weg beim
+  Ausschalten und beim Abbau; Verhör eines Kämpfers im Aufmarschraum eines Militärpostens: Herkunft leer, „Welches Nest“;
+  Meldungstexte „MÖRSERBESCHUSS / Mörserbeschuss auf FOB …“ von Niklas am 2026-10-29 bestätigt;
+  nicht getestet: Verhör im Aufmarschraum eines Kommandopostens (im Spielstand gibt es dort keinen), Schalter aus.
+  Auf Wunsch von Niklas dazu: Flucht des Trupps nach der Stellung in einem unbewaffneten Auto (UAZ aus dem Takistan-Preset),
+  Schütze steigt aus, 800 m weg vom Mörser und von der FOB, erst dann Abbau; getestet: Einsteigen nach 12 s, 803 m in 61 s,
+  Abbau danach. Nach dem Review: Kreis erst weg, wenn die Flucht gelingt; „höchstens ein Angriff“ bis zum Ende der Flucht;
+  Wächter für ein hängendes Flag, Cooldown nach einer gescheiterten Platzsuche, billige Regeln zuerst in der Platzsuche,
+  Magic Numbers in der Config, Doku zum einen Verhörergebnis nachgezogen; diese Nacharbeiten sind ungetestet)
 
 **6C Hauptstadt (ADR 0014)** – Reihenfolge: 6.3a, 6.3b
 - [ ] 6.3a (#160) Zusatz-Garnison: `runden(Liberations Infanterie-Trupps × 0,15 × aktive Nester)` zusätzliche Trupps beim Aktivieren der

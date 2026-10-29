@@ -37,38 +37,43 @@ private _players = (allPlayers - entities "HeadlessClient_F") select {alive _x};
 private _bases = [startbase] + (missionNamespace getVariable ["GRLIB_all_fobs", []]);
 private _rejected = createHashMap;
 
-// The rule a point breaks, "" if none
+// Directions of the wall check, evenly around the mortar
+private _angles = [];
+for "_i" from 0 to (COIN_mortarClearDirections - 1) do {
+    _angles pushBack (_i * 360 / COIN_mortarClearDirections);
+};
+
+// The rule a point breaks, "" if none. The cheap rules come first, the rays last
 private _fault = {
     params ["_point"];
-    private _eye = ATLToASL [_point select 0, _point select 1, 1.5];
-    private _ground = ATLToASL [_point select 0, _point select 1, 0];
-    private _toFob = _point getDir _fob;
+    private _ground = ATLToASL _point;
     switch (true) do {
         case (surfaceIsWater _point): {"water"};
         case (((surfaceNormal _point) select 2) < COIN_mortarMinNormalZ): {"slope"};
         case (isOnRoad _point || {(_point nearRoads 15) isNotEqualTo []}): {"road"};
-        case (lineIntersects [ATLToASL [_point select 0, _point select 1, 0.5], ATLToASL [_point select 0, _point select 1, 8]]): {"covered"};
+        case ((sectors_allSectors findIf {(_point distance2D (markerPos _x)) < COIN_mortarMinDistSector}) >= 0): {"sector"};
+        case ((_bases findIf {(_point distance2D _x) < COIN_mortarMinDistBase}) >= 0): {"base"};
+        case ((_players findIf {(_x distance2D _point) < COIN_mortarMinDistPlayer}) >= 0): {"playerNear"};
+        case (lineIntersects [_ground vectorAdd [0, 0, 0.5], _ground vectorAdd [0, 0, 8]]): {"covered"};
         case ((COIN_mortarClearHeights findIf {
             private _height = _x;
             // Objects only: terrain hits (a slope) are no wall
-            ([0, 45, 90, 135, 180, 225, 270, 315] findIf {
+            (_angles findIf {
                 ((lineIntersectsSurfaces [
                     _ground vectorAdd [0, 0, _height],
                     _ground vectorAdd [(sin _x) * COIN_mortarClearRadius, (cos _x) * COIN_mortarClearRadius, _height],
-                    objNull, objNull, true, 5, "GEOM", "NONE"
+                    objNull, objNull, true, COIN_mortarClearMaxHits, "GEOM", "NONE"
                 ]) findIf {!isNull (_x select 2)}) >= 0
             }) >= 0
         }) >= 0): {"wall"};
         case ((COIN_mortarClearElevations findIf {
-            private _ray = [(sin _toFob) * (cos _x) * COIN_mortarClearArc, (cos _toFob) * (cos _x) * COIN_mortarClearArc, (sin _x) * COIN_mortarClearArc];
-            lineIntersects [_ground vectorAdd [0, 0, 1], _ground vectorAdd [0, 0, 1] vectorAdd _ray]
+            private _toFob = _point getDir _fob;
+            private _start = _ground vectorAdd [0, 0, COIN_mortarClearArcStart];
+            lineIntersects [_start, _start vectorAdd [(sin _toFob) * (cos _x) * COIN_mortarClearArc, (cos _toFob) * (cos _x) * COIN_mortarClearArc, (sin _x) * COIN_mortarClearArc]]
         }) >= 0): {"arc"};
-        case ((sectors_allSectors findIf {(_point distance2D (markerPos _x)) < COIN_mortarMinDistSector}) >= 0): {"sector"};
-        case ((_bases findIf {(_point distance2D _x) < COIN_mortarMinDistBase}) >= 0): {"base"};
-        case ((_players findIf {(_x distance2D _point) < COIN_mortarMinDistPlayer}) >= 0): {"playerNear"};
         case ((_players findIf {
             (_x distance2D _point) < COIN_mortarSightDistance
-            && {(lineIntersectsSurfaces [eyePos _x, _eye, _x, objNull, true, 1, "VIEW", "FIRE"]) isEqualTo []}
+            && {(lineIntersectsSurfaces [eyePos _x, _ground vectorAdd [0, 0, 1.5], _x, objNull, true, 1, "VIEW", "FIRE"]) isEqualTo []}
         }) >= 0): {"seen"};
         default {""};
     }

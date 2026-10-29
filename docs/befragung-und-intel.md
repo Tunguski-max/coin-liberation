@@ -173,11 +173,12 @@ vom Ruf ab (ein Gefangener gehört nicht zur Bevölkerung). Entfernung, Dolmetsc
 
 1. Dolmetscher zielt auf den Gefangenen (≤ 5 m), wählt **„Verhören“**.
 2. Server prüft die Regeln, die Abklingzeit, markiert ihn als verhört.
-3. Nach 1–2 s gibt es **ein oder zwei Ergebnisse** (das zweite mit 50 % Chance), jedes mit eigenen Gewichten (Abschnitt 5.2).
-4. **Beide Ergebnisse betreffen dasselbe Nest.** Ein zweites wahres Ergebnis verkleinert nur den Kreis des Nests.
+3. Nach 1–2 s gibt es **genau ein Ergebnis** (seit 2026-10-29, gegen die doppelte Belohnung; `COIN_interrogationSecondChance` steht auf 0) mit eigenen Gewichten (Abschnitt 5.2).
+4. Würde ein zweites Ergebnis wieder eingeschaltet, betreffen **beide dasselbe Nest**, und ein zweites wahres Ergebnis verkleinert nur den Kreis. Ein Zugriffsauftrag nach dem Verhör bleibt möglich (Entscheidung Niklas 2026-10-29, keine doppelte Belohnung).
 5. **Welches Nest er nennt:**
    - Ein **Kämpfer aus einem Camp** nennt das **Nest seines Camps** (die Spur vom Camp zum Nest läuft über das Verhör).
    - Eine **Nest-Wache** nennt ein **anderes** Nest, nicht das, das sie bewacht.
+   - Ein **Mörserschütze** nennt das Nest des **Kommandopostens**, in dessen Aufmarschraum sein Trupp stand; stand er nur im Aufmarschraum eines Militärpostens, folgt er der allgemeinen Regel.
    - Alle anderen (Ergebene, Aufgenommene) folgen der allgemeinen Regel („Welches Nest“, Abschnitt 5.3).
 6. Der Gefangene antwortet mit eigenen Sätzen, es gilt die Abklingzeit.
 
@@ -250,7 +251,7 @@ gut behandelt, kommt ins mittlere und hohe Band.
 | Ergebnis | Nichts | Gerücht | Hinweis | Tipp | Warnung | Lüge |
 |---|---|---|---|---|---|---|
 | 1. Ergebnis (immer) | 0 | 15 | 30 | **40** | 7 | 8 |
-| 2. Ergebnis (50 % Chance) | 25 | 20 | 25 | 20 | 5 | 5 |
+| 2. Ergebnis (derzeit aus, Chance 0) | 25 | 20 | 25 | 20 | 5 | 5 |
 
 Das **erste Ergebnis ist nie „Ich weiß nichts“**, solange es ein aktives Nest gibt: Scheitert eine gewürfelte Lüge oder
 Warnung (kein Platz, keine Bedrohung), wird stattdessen eine wahre Stufe gewählt.
@@ -350,7 +351,7 @@ Alles in `Missionframework/coin/coin_config.sqf`. Wichtige Namen:
 | Ein/Aus | `COIN_enableQuestioning`, `COIN_enableInterrogation`, `COIN_enableMood`, `COIN_enableInformantFrequency`, `COIN_enableLies`, `COIN_enableWarnings`, `COIN_enableIEDWarnings`, `COIN_enableAmbushWarnings`, `COIN_enableUnsafeRefusal`, `COIN_enableCooldown`, `COIN_enableInformantTip`, `COIN_enablePopulation` |
 | Reichweiten und Zeiten | `COIN_talkRange` (5 m), `COIN_talkHoldSeconds` (30 s), `COIN_questionDelay` ([1, 2] s), `COIN_answerReadSeconds`, `COIN_unsafeRadius` (100 m), `COIN_questionCooldown` (300 s), `COIN_intelNestRange` (4000 m) |
 | Kreise | `COIN_intelRadiusRumor` (600), `COIN_intelRadiusHint` (300), `COIN_intelRadiusTip` (100), `COIN_intelRadiusMin` (50), `COIN_triangulationFactor` (0,5), `COIN_intelCenterOffset` ([0,2; 0,8]) |
-| Gewichte | `COIN_intelWeightsLow` / `Mid` / `High`, `COIN_intelWeightsByBand`, `COIN_interrogationWeights`, `COIN_interrogationSecondChance` (0,5) |
+| Gewichte | `COIN_intelWeightsLow` / `Mid` / `High`, `COIN_intelWeightsByBand`, `COIN_interrogationWeights`, `COIN_interrogationSecondChance` (0) |
 | Warnungen | `COIN_warningKinds` (Art, Reichweite, Radius, Satz), `COIN_warningCheckInterval` (10 s) |
 | Lügen | `COIN_lieTownShare` (0,5), `COIN_lieSpotTries` (40), `COIN_lieSearchDistance` (50 m), `COIN_lieSearchInterval` (3 s) |
 | Ruf-Bänder | `COIN_repBandMid` (0), `COIN_repBandHigh` (25), `COIN_moodThresholds` ([−25, 0, 25, 50]), `COIN_reputationStart` (−20) |

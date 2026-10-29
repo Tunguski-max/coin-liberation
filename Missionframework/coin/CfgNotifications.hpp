@@ -52,6 +52,15 @@ class coin_intel_warning_de: coin_intel_warning_en {
     title = "WARNUNG";
     description = "Eine Gefahr in der Nähe wurde auf der Karte eingetragen.";
 };
+// Mortar fire on a FOB (ticket 6.7b, #159): %1 is the name of the FOB. Red like the warning. Texts to be agreed with Niklas
+class coin_mortar_attack_en: coin_intel_warning_en {
+    title = "MORTAR FIRE";
+    description = "Mortar fire on FOB %1!";
+};
+class coin_mortar_attack_de: coin_intel_warning_en {
+    title = "MÖRSERBESCHUSS";
+    description = "Mörserbeschuss auf FOB %1!";
+};
 // Reinforcement (ticket 5.6): %1 is the town of the elder. Arrived is good news (green), leaving is a hint (orange), wiped out a warning (red)
 class coin_reinforcement_arrived_en: coin_nest_destroyed_en {
     title = "REINFORCEMENT ARRIVED";

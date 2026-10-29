@@ -385,6 +385,33 @@ COIN_mortarHoldSeconds      = 600;      // s the squad stays in position after t
 COIN_mortarRemoveDistance   = 800;      // m: the squad is taken down when no player is nearer than this
 COIN_mortarRemoveSeconds    = 30;       // s between two checks for players near the squad
 COIN_mortarMarkerColor      = "ColorRed"; // Debug map: marker at the squad
+// Getaway: after the hold time a squad that is still alive leaves in an unarmed car that stood behind the mortar. The gunner gets
+// out, the squad drives away from the FOB and is taken down afterwards. Hold time 0 = it leaves right after the last salvo
+COIN_enableMortarGetaway    = true;     // Off: no car, the squad is taken down in position
+COIN_mortarCarClasses       = ["LOP_TKA_UAZ", "LOP_TKA_UAZ_Open", "O_G_Offroad_01_F"]; // First that exists, has no turret and enough seats; Takistan preset UAZ-3151
+COIN_mortarCarDistance      = [8, 20];  // [min, max] m the car stands behind the mortar, seen from the FOB
+COIN_mortarBoardSeconds     = 60;       // s the squad has to get into the car, then the rest is put in
+COIN_mortarGetawayDistance  = 800;      // m from the mortar the car drives, away from the FOB
+COIN_mortarDriveSeconds     = 300;      // s the drive may take at most
+COIN_mortarGetawayOvershoot = 50;       // m the drive target lies beyond the distance, so the car passes it
+COIN_mortarGetawayRoadRadius = 250;     // m around the target a road is looked for
+COIN_mortarGetawaySafeRadius = 300;     // m around a target in water a dry spot is looked for
+COIN_mortarCarFreeRadius    = 6;        // m around the chosen spot the car needs to be free
+COIN_mortarCarAngles        = [0, 25, -25, 50, -50, 75, -75]; // Degrees off "straight behind" that are tried in turn
+COIN_mortarCarHeadingJitter = 20;       // Degrees the heading of the car may differ from "away from the FOB"
+COIN_mortarFobRadius        = 50;       // m: a FOB this near the remembered position is still that FOB
+COIN_mortarClearDirections  = 8;        // Rays of the wall check around the mortar
+COIN_mortarClearArcStart    = 1;        // m above the ground where the firing-arc rays start
+COIN_mortarClearMaxHits     = 5;        // Surfaces a wall ray looks at (a terrain hit uses a slot)
+COIN_mortarFailCooldownSeconds = 600;   // s a FOB is left alone after a failed attempt (no spot, no squad)
+COIN_mortarActiveMaxSeconds = 2400;     // s after which the loop treats a running attack as stuck and frees the flag
+
+// Message and circle after the first salvo (ticket 6.7b, #159): the squad lies in the circle, not in its middle (COIN_intelCenterOffset)
+COIN_enableMortarMessage    = true;     // Off: no message "Mortar fire on FOB ..."
+COIN_enableMortarCircle     = true;     // Off: no circle on the map
+COIN_mortarCircleRadius     = 400;      // m
+COIN_mortarCircleMarkerType = "hd_destroy"; // Own symbol, not the warning triangle
+COIN_mortarCircleColor      = "ColorRed";
 
 // Capital garrison = base * (1 + factor * active nests) - Phase 6
 COIN_capitalGarrisonBase    = 1.0;
@@ -738,7 +765,7 @@ COIN_interrogationWeights = [
     [ 0, 15, 30, 40,  7,  8],
     [25, 20, 25, 20,  5,  5]
 ];
-COIN_interrogationSecondChance = 0.5;   // Chance of a second result
+COIN_interrogationSecondChance = 0;     // Chance of a second result. 0 = exactly one result per interrogation (no double reward, decided 2026-10-29); the weights of the second result stay for a later change
 
 // What a prisoner says: [result, [German sentences, English sentences]], one is picked at random per result.
 // A prisoner never names the nest type. "nothing" is the first result that could not be made (no nest, no camp to warn of)

@@ -34,8 +34,22 @@ if !(call _ready) exitWith {
 };
 
 private _last = time;
+private _activeSince = -1;
 while {COIN_enableMortarAttacks} do {
     sleep 5;
+
+    // Watchdog: an attack that runs longer than COIN_mortarActiveMaxSeconds is stuck (a script error), the flag is freed
+    if (COIN_mortarActive) then {
+        if (_activeSince < 0) then {_activeSince = time};
+        if (time > _activeSince + COIN_mortarActiveMaxSeconds) then {
+            diag_log format ["[COIN] mortar: ERROR - an attack has run for more than %1 s, the flag is freed", COIN_mortarActiveMaxSeconds];
+            COIN_mortarActive = false;
+            _activeSince = -1;
+        };
+    } else {
+        _activeSince = -1;
+    };
+
     if (time < _last + COIN_mortarCheckSeconds) then {continue};
     _last = time;
 

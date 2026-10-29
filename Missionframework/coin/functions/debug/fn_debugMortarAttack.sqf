@@ -33,8 +33,8 @@ private _say = {
     systemChat format ["[COIN] mortar attack: %1", _text];
 };
 
-if (_fob isEqualTo []) then {
-    if (isNull player) exitWith {};
+// Without a FOB position the nearest one to the player; a dedicated server has no player and finds none
+if (_fob isEqualTo [] && {!isNull player}) then {
     _fob = [getPosATL player] call KPLIB_fnc_getNearestFob;
 };
 if (_fob isEqualTo [] || {_fob isEqualTo [0, 0, 0]}) exitWith {
