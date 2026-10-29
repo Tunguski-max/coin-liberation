@@ -388,7 +388,7 @@ das Arsenal-Preset („limited Arsenal“) ist verworfen: Es bleibt bei Liberati
 - [x] 7.0c (#180, am 2026-10-29 im Spiel von Niklas bestätigt) Texte von Intel, Verhör, Gefälligkeiten und Funkantworten auf Keys, ebenso (RPT: 211 Schlüssel von der Config genannt, 0 fehlen; Name des Ältesten „Elder of Zagun“; Verstärkung mit 10 von 10 geladenen Gewehren, Kämpfer wehren sich im Feuergefecht; nicht belegt: Funkmenü-Text, Englisch und Deutsch der Befragung)
 - [ ] 7.0d Texte von Strike, Hilfsaufträgen, Entsatz und Mörserangriff auf Keys, ebenso
 - [ ] 7.0e Tutorial: die 10 Seiten durch COIN-Seiten ersetzen (Dolmetscher, Intel, Verstecke, Aufträge, Ruf, Gegenangriffe, Zeus), FOB, Bauen und Logistik von Liberation behalten; Texte als Entwurf zur Freigabe
-- [ ] 7.0f Missionstitel „Counterinsurgency - Liberate Lythium“, Beschreibung als Key (Deutsch und Englisch), Autorenzeile mit „Tunguski (COIN Liberation)“, Bild von Niklas (2:1, 1024×512)
+- [x] 7.0f (#182, am 2026-10-29 im Spiel von Niklas bestätigt) Missionstitel „Counterinsurgency - Liberate Lythium“, Beschreibung als Key (Deutsch und Englisch), Autorenzeile mit „Tunguski (COIN Liberation)“, Bild von Niklas (2:1, 1024×512) (Bild als `res/mission.jpg` 1024×512, JPG statt `.paa`; Titel, Bild, Beschreibung und Ladetext in der Missionsauswahl und auf dem Ladebildschirm bestätigt; nicht belegt: Englisch)
 - [ ] 7.0g Bilder der Zugriffsaufträge (`courier`, `leader`, `convoy`, `export`): Prompts von Claude, Bilder von Niklas, Ablage und README
 
 - [ ] 7.1 Erstes Deployment auf G-Portal (siehe `docs/DEPLOY.md`)
