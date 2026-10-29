@@ -113,8 +113,8 @@ The COIN code lives in `Missionframework/coin/`. Changes inside Liberation files
 
 ## License and credits
 
-- **KP Liberation** by the KP Liberation Dev Team, based on work by GreuhZbug (GREUH) and Wyqer, is licensed under the **MIT License** (see [`LICENSE.md`](LICENSE.md)). The license and copyright notice are kept unchanged, as the license requires.
-- **COIN Liberation** additions (`Missionframework/coin/`, the Liberation hooks, the documentation and the artwork) are by Tunguski with AI assistance (see the disclaimer above) and are distributed together with KP Liberation in this repository.
+- **KP Liberation** by the KP Liberation Dev Team, based on work by GreuhZbug (GREUH) and Wyqer, is licensed under the **MIT License** (see [`LICENSE.md`](LICENSE.md)). The original license text and copyright notice are kept, as the license requires. One copyright line for COIN Liberation was added below them.
+- **COIN Liberation** additions (`Missionframework/coin/`, the Liberation hooks, the documentation and the artwork) are by Tunguski with AI assistance (see the disclaimer above) and are released under the same MIT License as the rest of this repository.
 - **Hearts and Minds** (Vdauphin) is an inspiration only. No code was taken from it.
 - **Not included:** the mods listed above and the map Lythium are separate works under their own licenses. This repository does not contain them. You need them to run the mission.
 - The software is provided "as is", without warranty of any kind (see `LICENSE.md`).
