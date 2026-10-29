@@ -665,6 +665,13 @@ class COIN {
         class removeMortarCircle {};
     };
 
+    class capital {
+        file = "coinunctionspital";
+
+        // Server: additional squads of the capital by the number of active nests, called by manage_one_sector.sqf (hook 35, ticket 6.3a, #160)
+        class spawnCapitalGarrison {};
+    };
+
     class battlegroup {
         file = "coin\functions\battlegroup";
 

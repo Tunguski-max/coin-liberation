@@ -413,8 +413,9 @@ COIN_mortarCircleRadius     = 400;      // m
 COIN_mortarCircleMarkerType = "hd_destroy"; // Own symbol, not the warning triangle
 COIN_mortarCircleColor      = "ColorRed";
 
-// Capital garrison = base * (1 + factor * active nests) - Phase 6
-COIN_capitalGarrisonBase    = 1.0;
+// Additional garrison of the capital (ticket 6.3a, #160, DESIGN 9): round (Liberation's infantry squads of the capital x factor x active nests)
+// more squads when the capital is activated: 3 squads and 11 nests give 5, 5 nests give 2, no nest none. Liberation's own garrison is the minimum
+COIN_enableCapitalGarrison  = true;     // Off: Liberation's garrison alone
 COIN_capitalGarrisonFactor  = 0.15;
 // Fixed heavy equipment of the capital, independent of caches (ADR 0014)
 COIN_capitalHeavyVehicles   = ["LOP_AM_OPF_T72BA", "LOP_AM_OPF_T72BA", "LOP_ISTS_OPF_ZSU234"];
