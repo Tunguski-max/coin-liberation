@@ -27,9 +27,8 @@ params [
 
 if (!hasInterface) exitWith {false};
 
-private _index = [1, 0] select (language isEqualTo "German");
 
-// [German sentences, English sentences] of this result, [] if there are none
+// Keys of the sentences of this result, [] if there are none
 private _texts = switch (true) do {
     case (_level isEqualTo "cooldown"): {COIN_cooldownAnswers};
     case (_level in ["hint", "tip"]): {
@@ -49,4 +48,4 @@ if (_texts isEqualTo []) then {
 };
 if (_texts isEqualTo []) exitWith {false};
 
-[_name, [selectRandom (_texts select _index)]] call COIN_fnc_showSubtitle
+[_name, [[selectRandom _texts] call COIN_fnc_text]] call COIN_fnc_showSubtitle

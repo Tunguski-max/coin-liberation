@@ -24,11 +24,10 @@ params [
 
 if (!hasInterface) exitWith {false};
 
-private _index = [1, 0] select (language isEqualTo "German");
 
 private _sentences = [];
 {
-    // [German sentences, English sentences] of this result
+    // Keys of the sentences of this result
     private _texts = if (_x isEqualTo "cooldown") then {
         COIN_interrogationCooldownAnswers
     } else {
@@ -37,7 +36,7 @@ private _sentences = [];
     if (_texts isEqualTo []) then {
         diag_log format ["[COIN] intel: ERROR - no interrogation texts for result %1", _x];
     } else {
-        _sentences pushBack selectRandom (_texts select _index);
+        _sentences pushBack ([selectRandom _texts] call COIN_fnc_text);
     };
 } forEach _levels;
 

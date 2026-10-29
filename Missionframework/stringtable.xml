@@ -7633,6 +7633,644 @@
                 <German>Repariert die rauchenden Generatoren in %1 (ACE-Pionier mit Werkzeugkasten, %5 Sekunden je Gerät). Zeitlimit: %2 Minuten.</German>
             </Key>
         </Container>
+        <Container name="Locate">
+            <Key ID="STR_COIN_locate_found_1">
+                <Original>The elder? I'll show you, look at your map.</Original>
+                <German>Der Älteste? Ich zeige ihn euch, seht auf eure Karte.</German>
+            </Key>
+            <Key ID="STR_COIN_locate_found_2">
+                <Original>You're looking for the elder? He waits at his house, you'll find him.</Original>
+                <German>Ihr sucht den Ältesten? Er wartet an seinem Haus, ihr findet ihn.</German>
+            </Key>
+            <Key ID="STR_COIN_locate_found_3">
+                <Original>Everybody here knows the elder. I've marked the way for you.</Original>
+                <German>Den Ältesten kennt hier jeder. Ich habe euch den Weg eingezeichnet.</German>
+            </Key>
+            <Key ID="STR_COIN_locate_none_1">
+                <Original>We don't have an elder right now.</Original>
+                <German>Einen Ältesten haben wir gerade nicht.</German>
+            </Key>
+            <Key ID="STR_COIN_locate_none_2">
+                <Original>The elder? He's gone. Ask again later.</Original>
+                <German>Der Älteste? Der ist nicht mehr da. Fragt später noch einmal.</German>
+            </Key>
+            <Key ID="STR_COIN_locate_none_3">
+                <Original>I can't tell you anything about that. There is none here at the moment.</Original>
+                <German>Dazu kann ich euch nichts sagen. Hier gibt es im Moment keinen.</German>
+            </Key>
+        </Container>
+        <Container name="Answers">
+            <Key ID="STR_COIN_answer_nothing_1">
+                <Original>No idea what you're talking about. I stay out of that stuff.</Original>
+                <German>Keine Ahnung, was ihr meint. Ich halte mich aus so was raus.</German>
+            </Key>
+            <Key ID="STR_COIN_answer_nothing_2">
+                <Original>Don't ask me. I've got enough trouble as it is.</Original>
+                <German>Fragt mich nicht. Ich habe schon genug Ärger am Hals.</German>
+            </Key>
+            <Key ID="STR_COIN_answer_nothing_3">
+                <Original>I haven't noticed anything. I mean it.</Original>
+                <German>Ich hab nichts mitbekommen. Wirklich nicht.</German>
+            </Key>
+            <Key ID="STR_COIN_answer_nothing_4">
+                <Original>Nobody around here likes talking about that sort of thing. Neither do I.</Original>
+                <German>Hier redet keiner gern über solche Dinge. Ich auch nicht.</German>
+            </Key>
+            <Key ID="STR_COIN_answer_nothing_5">
+                <Original>If I knew anything, I'd think twice about who I told.</Original>
+                <German>Wenn ich irgendwas wüsste, würde ich's mir gut überlegen, wem ich es erzähle.</German>
+            </Key>
+            <Key ID="STR_COIN_answer_nothing_6">
+                <Original>Sorry. I look after my family, not armed men.</Original>
+                <German>Tut mir leid. Ich kümmere mich um meine Familie, nicht um bewaffnete Männer.</German>
+            </Key>
+            <Key ID="STR_COIN_answer_nothing_7">
+                <Original>I'm home most of the time. I can't tell you anything new.</Original>
+                <German>Ich bin die meiste Zeit zu Hause. Von mir erfahrt ihr nichts Neues.</German>
+            </Key>
+            <Key ID="STR_COIN_answer_nothing_8">
+                <Original>Please just let me go. I don't know anything that would help you.</Original>
+                <German>Lasst mich bitte einfach weitergehen. Ich weiß nichts, was euch hilft.</German>
+            </Key>
+            <Key ID="STR_COIN_answer_unsafe_1">
+                <Original>Not here. They can hear everything.</Original>
+                <German>Nicht hier. Die hören doch alles mit.</German>
+            </Key>
+            <Key ID="STR_COIN_answer_unsafe_2">
+                <Original>Are you crazy? They're right over there!</Original>
+                <German>Seid ihr verrückt? Die stehen doch gleich da drüben!</German>
+            </Key>
+            <Key ID="STR_COIN_answer_unsafe_3">
+                <Original>I've got a family. Please, just move along.</Original>
+                <German>Ich hab Familie. Bitte geht einfach weiter.</German>
+            </Key>
+            <Key ID="STR_COIN_answer_unsafe_4">
+                <Original>You need to leave. I don't want them seeing us together.</Original>
+                <German>Ihr könnt wieder gehen. Ich will nicht, dass die uns zusammen sehen.</German>
+            </Key>
+            <Key ID="STR_COIN_answer_unsafe_5">
+                <Original>Shh! Keep your voice down. Are you trying to get me in trouble?</Original>
+                <German>Psst! Nicht so laut. Wollt ihr, dass ich Ärger kriege?</German>
+            </Key>
+            <Key ID="STR_COIN_answer_unsafe_6">
+                <Original>I'm not saying a word while they're still around.</Original>
+                <German>Ich sag kein Wort, solange die hier herumlaufen.</German>
+            </Key>
+            <Key ID="STR_COIN_answer_unsafe_7">
+                <Original>Please. If they see me talking to you, I'm the one who'll pay for it.</Original>
+                <German>Bitte. Wenn die merken, dass ich mit euch rede, bin ich dran.</German>
+            </Key>
+            <Key ID="STR_COIN_answer_unsafe_8">
+                <Original>Leave me alone. I've seen what happens to people who talk.</Original>
+                <German>Lasst mich in Ruhe. Ich hab schon gesehen, was mit Leuten passiert, die reden.</German>
+            </Key>
+            <Key ID="STR_COIN_answer_rumor_1">
+                <Original>They say strange men have been moving around here at night. That's all I've heard.</Original>
+                <German>In der Gegend sollen nachts öfter fremde Männer unterwegs sein. Mehr hab ich nicht gehört.</German>
+            </Key>
+            <Key ID="STR_COIN_answer_rumor_2">
+                <Original>Some people are talking about armed men somewhere around here. No idea if it's true.</Original>
+                <German>Ein paar Leute reden von bewaffneten Männern irgendwo hier draußen. Ob das stimmt? Keine Ahnung.</German>
+            </Key>
+            <Key ID="STR_COIN_answer_rumor_3">
+                <Original>Something's been going on around here lately. Ask about it and people go quiet.</Original>
+                <German>In letzter Zeit ist hier irgendwas los. Sobald man nachfragt, werden die Leute still.</German>
+            </Key>
+            <Key ID="STR_COIN_answer_rumor_4">
+                <Original>My neighbor says he heard vehicles at night. Hardly anyone drives around here that late.</Original>
+                <German>Mein Nachbar meint, er hätte nachts Fahrzeuge gehört. Hier draußen fährt sonst kaum jemand um die Zeit.</German>
+            </Key>
+            <Key ID="STR_COIN_answer_rumor_5">
+                <Original>Word is some men have been coming and going around here. Nobody wants to know why.</Original>
+                <German>Man erzählt sich, dass einige Männer in der Gegend ein und aus gehen. Niemand will wissen, warum.</German>
+            </Key>
+            <Key ID="STR_COIN_answer_rumor_6">
+                <Original>I wouldn't hang around out here too long. There are rumors about people carrying guns.</Original>
+                <German>Ich würde mich hier draußen nicht zu lange aufhalten. Es gibt Gerüchte über Leute mit Waffen.</German>
+            </Key>
+            <Key ID="STR_COIN_answer_rumor_7">
+                <Original>People have been on edge these past few days. Something isn't right around here.</Original>
+                <German>Seit ein paar Tagen sind manche Leute ziemlich nervös. Irgendetwas stimmt hier nicht.</German>
+            </Key>
+            <Key ID="STR_COIN_answer_rumor_8">
+                <Original>A trader said he'd seen some unfamiliar men. Wouldn't say exactly where, though.</Original>
+                <German>Ein Händler hat erzählt, er hätte fremde Männer gesehen. Er wollte aber nicht sagen, wo genau.</German>
+            </Key>
+            <Key ID="STR_COIN_answer_warning_1">
+                <Original>Don't just keep driving out there. Armed men who aren't from here have been sitting out there for a few days.</Original>
+                <German>Fahrt da draußen nicht einfach weiter. Seit ein paar Tagen sitzen dort Bewaffnete, die nicht von hier sind.</German>
+            </Key>
+            <Key ID="STR_COIN_answer_warning_2">
+                <Original>I was at the edge of the fields yesterday. There are tents and men with rifles. Stay away if you value your life.</Original>
+                <German>Ich war gestern am Feldrand. Da stehen Zelte und Männer mit Gewehren. Haltet euch fern, wenn euch euer Leben lieb ist.</German>
+            </Key>
+            <Key ID="STR_COIN_answer_warning_3">
+                <Original>Watch where you step. A group of armed men has settled in very close to here.</Original>
+                <German>Passt auf, wo ihr hintretet. Ganz in der Nähe hat sich eine Gruppe Bewaffneter eingerichtet.</German>
+            </Key>
+            <Key ID="STR_COIN_answer_warning_4">
+                <Original>None of us go that way anymore. Men with guns have dug in over there.</Original>
+                <German>Keiner von uns geht mehr in die Richtung. Dort haben sich Männer mit Waffen festgesetzt.</German>
+            </Key>
+            <Key ID="STR_COIN_answer_warning_5">
+                <Original>You can see fires there at night. Those aren't shepherds, they're armed men. I'd steer clear if I were you.</Original>
+                <German>Nachts sieht man dort Feuer. Das sind keine Hirten, das sind Bewaffnete. Ich an eurer Stelle würde einen Bogen machen.</German>
+            </Key>
+            <Key ID="STR_COIN_answer_warning_6">
+                <Original>I'll only say this once: there are armed men camped near here. They're watching the road.</Original>
+                <German>Ich sag's euch nur einmal: Hier in der Nähe lagern bewaffnete Männer. Sie beobachten die Straße.</German>
+            </Key>
+            <Key ID="STR_COIN_answer_warning_7">
+                <Original>I won't take my goats there anymore. Since the strangers set up camp, nobody who goes too close comes back.</Original>
+                <German>Meine Ziegen traue ich da nicht mehr hin. Seit die Fremden dort lagern, kommt keiner mehr zurück, der zu nah ran ist.</German>
+            </Key>
+            <Key ID="STR_COIN_answer_warning_8">
+                <Original>You're not the first to come through here. If you go that way, someone will be waiting for you.</Original>
+                <German>Ihr seid nicht die Ersten, die hier vorbeikommen. Wenn ihr in diese Richtung geht, wartet dort jemand auf euch.</German>
+            </Key>
+            <Key ID="STR_COIN_answer_warningIED_1">
+                <Original>I wouldn't take the road up ahead. Men buried something in the ground there last night.</Original>
+                <German>Ich würde die Straße da vorn nicht nehmen. Letzte Nacht haben dort Männer etwas im Boden vergraben.</German>
+            </Key>
+            <Key ID="STR_COIN_answer_warningIED_2">
+                <Original>Don't drive down there blind. I saw someone digging by the roadside in the middle of the night.</Original>
+                <German>Fahrt da nicht blind lang. Ich habe gesehen, wie jemand am Straßenrand gegraben hat, mitten in der Nacht.</German>
+            </Key>
+            <Key ID="STR_COIN_answer_warningIED_3">
+                <Original>The earth by the road over there has been churned up for a few days. Nobody gets me to go there anymore.</Original>
+                <German>Seit ein paar Tagen ist die Erde an der Straße dort aufgewühlt. Mich bringt keiner mehr dorthin.</German>
+            </Key>
+            <Key ID="STR_COIN_answer_warningIED_4">
+                <Original>Watch where you drive. Something is hidden by the road there, and it wasn't meant for us.</Original>
+                <German>Passt auf, wo ihr hinfahrt. Dort an der Straße ist etwas versteckt, das nicht für uns gedacht ist.</German>
+            </Key>
+            <Key ID="STR_COIN_answer_warningIED_5">
+                <Original>My cousin drove down there and barely survived. Search the road before you go on.</Original>
+                <German>Mein Cousin ist dort langgefahren und hat es gerade so überlebt. Sucht die Straße ab, bevor ihr weiterfahrt.</German>
+            </Key>
+            <Key ID="STR_COIN_answer_warningIED_6">
+                <Original>Keep your eyes open. There is something by the road very close to here, and the men who put it there are watching.</Original>
+                <German>Haltet die Augen offen. An der Straße ganz in der Nähe liegt etwas, und die Männer, die es gelegt haben, schauen zu.</German>
+            </Key>
+            <Key ID="STR_COIN_answer_warningAmbush_1">
+                <Original>Don't take that road. Armed men crawled into the ditch there yesterday evening and never came out.</Original>
+                <German>Nehmt diese Straße nicht. Gestern Abend sind Bewaffnete dort in den Graben gekrochen und nicht wieder herausgekommen.</German>
+            </Key>
+            <Key ID="STR_COIN_answer_warningAmbush_2">
+                <Original>There are men with rifles lying by the side of the road up ahead. I saw them when I was driving my goats back.</Original>
+                <German>Auf der Straße da vorn liegen Männer mit Gewehren am Rand. Ich habe sie gesehen, als ich meine Ziegen zurückgetrieben habe.</German>
+            </Key>
+            <Key ID="STR_COIN_answer_warningAmbush_3">
+                <Original>Don't just drive through. Men have dug in beside the road, and they're waiting for someone.</Original>
+                <German>Fahrt da nicht einfach durch. Am Straßenrand haben sich Männer eingegraben, und sie warten auf jemanden.</German>
+            </Key>
+            <Key ID="STR_COIN_answer_warningAmbush_4">
+                <Original>For two days none of us has gone near that road. Armed men are lurking behind sandbags there.</Original>
+                <German>Seit zwei Tagen bleibt jeder von uns von dieser Straße fern. Dort lauern Bewaffnete hinter Sandsäcken.</German>
+            </Key>
+            <Key ID="STR_COIN_answer_warningAmbush_5">
+                <Original>I wouldn't show my face there. My brother says anyone driving down that road gets shot at.</Original>
+                <German>Ich würde mich dort nicht blicken lassen. Wer die Straße entlangfährt, wird beschossen, hat mein Bruder gesagt.</German>
+            </Key>
+            <Key ID="STR_COIN_answer_warningAmbush_6">
+                <Original>Men are sitting by the road there, watching everyone who passes. I know what they're up to.</Original>
+                <German>Dort an der Straße sitzen Männer und schauen jedem nach, der vorbeikommt. Ich weiß, was die vorhaben.</German>
+            </Key>
+            <Key ID="STR_COIN_answerType_hint_command_1">
+                <Original>The same armed men keep meeting there. One gives the orders, the others listen.</Original>
+                <German>Da treffen sich immer wieder dieselben bewaffneten Männer. Einer gibt die Anweisungen, die anderen hören zu.</German>
+            </Key>
+            <Key ID="STR_COIN_answerType_hint_command_2">
+                <Original>I've seen men with radios around there. People keep showing up, reporting in, then leaving again.</Original>
+                <German>Ich habe da Leute mit Funkgeräten gesehen. Ständig kommen welche, melden sich und verschwinden wieder.</German>
+            </Key>
+            <Key ID="STR_COIN_answerType_hint_iedWorkshop_1">
+                <Original>If you ask me, they're putting something together over there. Cables and scrap metal all over the place.</Original>
+                <German>Wenn ihr mich fragt, basteln die da irgendwas zusammen. Überall liegen Kabel und alte Metallteile herum.</German>
+            </Key>
+            <Key ID="STR_COIN_answerType_hint_iedWorkshop_2">
+                <Original>Sometimes you can hear hammering and sawing from there. Funny thing is, nobody knows what they're building.</Original>
+                <German>Von dort hört man manchmal Hämmern und Sägen. Komisch nur, dass keiner sagen kann, was die eigentlich bauen.</German>
+            </Key>
+            <Key ID="STR_COIN_answerType_hint_cache_1">
+                <Original>There are always men around there carrying some serious firepower. More than you'd need to guard a few houses.</Original>
+                <German>Da stehen immer wieder Männer mit schwerem Geschütz herum. Viel mehr, als man zum Bewachen von ein paar Häusern braucht.</German>
+            </Key>
+            <Key ID="STR_COIN_answerType_hint_cache_2">
+                <Original>I saw them unloading heavy crates. When someone got too close, they sent him away straight off.</Original>
+                <German>Ich hab gesehen, wie sie schwere Kisten abgeladen haben. Als einer zu nah kam, haben sie ihn sofort weggeschickt.</German>
+            </Key>
+            <Key ID="STR_COIN_answerType_hint_vbiedGarage_1">
+                <Original>They're always working on old cars over there. Can't say the cars look any more roadworthy afterward.</Original>
+                <German>Die schrauben dort ständig an alten Autos herum. Die Wagen sehen danach aber nicht gerade fahrtüchtiger aus.</German>
+            </Key>
+            <Key ID="STR_COIN_answerType_hint_vbiedGarage_2">
+                <Original>Vehicles disappear behind closed doors for hours. You can often hear engines running at night.</Original>
+                <German>Da verschwinden Fahrzeuge für Stunden hinter verschlossenen Türen. Nachts hört man oft Motoren laufen.</German>
+            </Key>
+            <Key ID="STR_COIN_answerType_hint_recruitment_1">
+                <Original>Young lads nobody's seen before keep turning up there. A few days later, they're carrying guns.</Original>
+                <German>Da tauchen ständig junge Kerle auf, die man vorher noch nie gesehen hat. Ein paar Tage später tragen sie Waffen.</German>
+            </Key>
+            <Key ID="STR_COIN_answerType_hint_recruitment_2">
+                <Original>Some men there promise the young lads money and something to do. Some don't come home for days afterward.</Original>
+                <German>Ein paar Männer versprechen den Jungs dort Geld und eine Aufgabe. Manche kommen danach tagelang nicht nach Hause.</German>
+            </Key>
+            <Key ID="STR_COIN_answerType_tip_command_1">
+                <Original>I know where those men hold their meetings. I've seen them there more than once with maps and radios.</Original>
+                <German>Ich weiß, wo die Männer ihre Besprechungen abhalten. Ich hab sie dort schon mehrmals mit Karten und Funkgeräten gesehen.</German>
+            </Key>
+            <Key ID="STR_COIN_answerType_tip_command_2">
+                <Original>I can point you to the area where messengers keep coming and going. One man seems to be in charge there.</Original>
+                <German>Ich kann euch die Gegend zeigen, wo ständig Boten ein und aus gehen. Einer scheint dort das Sagen zu haben.</German>
+            </Key>
+            <Key ID="STR_COIN_answerType_tip_iedWorkshop_1">
+                <Original>I know the spot. They regularly carry wires, canisters and bits of metal inside. That's no ordinary workshop.</Original>
+                <German>Ich kenne die Stelle. Da tragen sie regelmäßig Kabel, Kanister und Metallstücke hinein. Das ist keine normale Werkstatt.</German>
+            </Key>
+            <Key ID="STR_COIN_answerType_tip_iedWorkshop_2">
+                <Original>I've seen the place myself. They work behind closed doors and won't let anyone get close.</Original>
+                <German>Ich hab den Ort selbst gesehen. Die arbeiten dort hinter verschlossenen Türen und lassen niemanden in die Nähe.</German>
+            </Key>
+            <Key ID="STR_COIN_answerType_tip_cache_1">
+                <Original>I've seen where they take those heavy crates. Armed men guard the place even when nobody else is around.</Original>
+                <German>Ich hab gesehen, wo sie die schweren Kisten hinbringen. Bewaffnete stehen dort Wache, selbst wenn sonst niemand da ist.</German>
+            </Key>
+            <Key ID="STR_COIN_answerType_tip_cache_2">
+                <Original>I can show you the area where they unload their cargo at night. They're guarding more than food and water.</Original>
+                <German>Ich kann euch zeigen, in welcher Gegend sie nachts ihre Ladung abladen. Da wird mehr bewacht als nur Essen und Wasser.</German>
+            </Key>
+            <Key ID="STR_COIN_answerType_tip_vbiedGarage_1">
+                <Original>I know where they take the cars. They work on them for hours, then someone else drives them away.</Original>
+                <German>Ich weiß, wo die Autos hingebracht werden. Da wird stundenlang daran gearbeitet, und hinterher fährt ein anderer damit weg.</German>
+            </Key>
+            <Key ID="STR_COIN_answerType_tip_vbiedGarage_2">
+                <Original>I know the place. Battered cars go in, then come back out with their windows covered.</Original>
+                <German>Die Stelle kenne ich. Erst fahren kaputte Wagen hinein, später kommen sie mit verhängten Scheiben wieder raus.</German>
+            </Key>
+            <Key ID="STR_COIN_answerType_tip_recruitment_1">
+                <Original>I can show you where the young men gather. Armed men come to collect them there.</Original>
+                <German>Ich kann euch zeigen, wo sich die jungen Männer versammeln. Dort werden sie von Bewaffneten abgeholt.</German>
+            </Key>
+            <Key ID="STR_COIN_answerType_tip_recruitment_2">
+                <Original>I know where they tell the new lads to show up. A few days later, most of them are walking around with guns.</Original>
+                <German>Ich weiß, wo sie die Neuen hinbestellen. Wer dort auftaucht, ist ein paar Tage später oft mit einer Waffe unterwegs.</German>
+            </Key>
+            <Key ID="STR_COIN_answer_cooldown_1">
+                <Original>I saw you questioning the others. Come back later, then maybe we'll talk.</Original>
+                <German>Ich hab gesehen, wie ihr die anderen ausfragt. Kommt später wieder, dann reden wir vielleicht.</German>
+            </Key>
+            <Key ID="STR_COIN_answer_cooldown_2">
+                <Original>Not now. There are too many eyes here. Wait a little.</Original>
+                <German>Nicht jetzt. Hier sind zu viele Augen. Wartet ein bisschen.</German>
+            </Key>
+            <Key ID="STR_COIN_answer_cooldown_3">
+                <Original>I can't right now. People are already whispering about you. Try again in a few minutes.</Original>
+                <German>Gerade geht das nicht. Die Leute tuscheln schon über euch. Versucht es in ein paar Minuten noch mal.</German>
+            </Key>
+            <Key ID="STR_COIN_answer_cooldown_4">
+                <Original>Talk to me later. If we're seen together now, the wrong people will remember it.</Original>
+                <German>Mit mir redet ihr später. Wenn man uns jetzt zusammen sieht, merken sich das die Falschen.</German>
+            </Key>
+            <Key ID="STR_COIN_answer_cooldown_5">
+                <Original>I don't want to be the next one you question in front of everybody. Come back later.</Original>
+                <German>Ich will nicht der Nächste sein, den ihr hier vor allen ausfragt. Kommt später wieder.</German>
+            </Key>
+            <Key ID="STR_COIN_answer_cooldown_6">
+                <Original>Give me a little time. I need to see first whether anyone is watching us.</Original>
+                <German>Lasst mir etwas Zeit. Ich muss erst sehen, ob uns jemand beobachtet.</German>
+            </Key>
+            <Key ID="STR_COIN_answer_cooldown_7">
+                <Original>Word has got around that you're asking questions. Give it a moment, then we'll talk.</Original>
+                <German>Es hat sich herumgesprochen, dass ihr Fragen stellt. Gebt der Sache einen Moment, dann reden wir.</German>
+            </Key>
+            <Key ID="STR_COIN_answer_cooldown_8">
+                <Original>Not now. Move along for a bit and ask me again later.</Original>
+                <German>Jetzt nicht. Geht erst mal weiter und fragt mich später noch mal.</German>
+            </Key>
+        </Container>
+        <Container name="Interrogation">
+            <Key ID="STR_COIN_interrogation_nothing_1">
+                <Original>I'm not saying anything. Ask as long as you like.</Original>
+                <German>Ich sage nichts. Da könnt ihr fragen, solange ihr wollt.</German>
+            </Key>
+            <Key ID="STR_COIN_interrogation_nothing_2">
+                <Original>I don't know anything that would help you. I only followed orders.</Original>
+                <German>Ich weiß nichts, was euch weiterhilft. Ich habe nur Befehle befolgt.</German>
+            </Key>
+            <Key ID="STR_COIN_interrogation_nothing_3">
+                <Original>Nobody told me anything. I just went along.</Original>
+                <German>Mich hat niemand eingeweiht. Ich bin nur mitgelaufen.</German>
+            </Key>
+            <Key ID="STR_COIN_interrogation_nothing_4">
+                <Original>You're wasting your time. You won't get anything out of me.</Original>
+                <German>Ihr verschwendet eure Zeit. Von mir erfahrt ihr nichts.</German>
+            </Key>
+            <Key ID="STR_COIN_interrogation_rumor_1">
+                <Original>I'm just a small fish. There's a meeting place somewhere around here. That's all I know.</Original>
+                <German>Ich bin nur ein kleines Licht. Irgendwo hier in der Gegend gibt es einen Treffpunkt. Mehr weiß ich nicht.</German>
+            </Key>
+            <Key ID="STR_COIN_interrogation_rumor_2">
+                <Original>They told us where to go, not why. There's a hideout somewhere out here.</Original>
+                <German>Man hat uns gesagt, wohin wir gehen, nicht warum. Irgendwo hier draußen ist ein Versteck.</German>
+            </Key>
+            <Key ID="STR_COIN_interrogation_rumor_3">
+                <Original>The orders always came from further away. I know the direction, not the place.</Original>
+                <German>Die Befehle kamen immer von weiter weg. Ich kenne die Richtung, nicht den Ort.</German>
+            </Key>
+            <Key ID="STR_COIN_interrogation_rumor_4">
+                <Original>Ask the others. All I know is that we sometimes drove out to this area at night.</Original>
+                <German>Fragt die anderen. Ich weiß nur, dass wir nachts manchmal in diese Gegend gefahren sind.</German>
+            </Key>
+            <Key ID="STR_COIN_interrogation_hint_1">
+                <Original>We picked up supplies there. A building, a few guards. That's all I saw.</Original>
+                <German>Wir haben dort Nachschub abgeholt. Ein Gebäude, ein paar Wachen. Mehr hab ich nicht gesehen.</German>
+            </Key>
+            <Key ID="STR_COIN_interrogation_hint_2">
+                <Original>There's a place out there where our people gather. I can tell you roughly where.</Original>
+                <German>Da draußen gibt es einen Ort, an dem sich unsere Leute sammeln. Ich kann ungefähr sagen, wo.</German>
+            </Key>
+            <Key ID="STR_COIN_interrogation_hint_3">
+                <Original>If you treat me properly: it isn't far from here. Look in that direction.</Original>
+                <German>Wenn ihr mich ordentlich behandelt: Es ist nicht weit von hier. Sucht in dieser Richtung.</German>
+            </Key>
+            <Key ID="STR_COIN_interrogation_hint_4">
+                <Original>I was there twice. I didn't pay attention to how we drove, but it was in this area.</Original>
+                <German>Ich war zweimal dort. Ich habe nicht darauf geachtet, wie wir gefahren sind, aber es war in dieser Gegend.</German>
+            </Key>
+            <Key ID="STR_COIN_interrogation_tip_1">
+                <Original>Fine, I'll show you on the map. Right where the road bends. I've been there often enough.</Original>
+                <German>Gut, ich zeig's euch auf der Karte. Genau dort, wo die Straße abknickt. Ich war oft genug da.</German>
+            </Key>
+            <Key ID="STR_COIN_interrogation_tip_2">
+                <Original>I stood guard there last week. I can show you the spot almost to the meter.</Original>
+                <German>Ich hatte dort letzte Woche Wache. Ich kann euch den Platz fast auf den Meter zeigen.</German>
+            </Key>
+            <Key ID="STR_COIN_interrogation_tip_3">
+                <Original>You've won. It's very close, and I was there. I'll tell you where.</Original>
+                <German>Ihr habt gewonnen. Es liegt ganz in der Nähe, und ich war dort. Ich sag euch, wo.</German>
+            </Key>
+            <Key ID="STR_COIN_interrogation_tip_4">
+                <Original>I've seen too much tonight already. It's there, right there.</Original>
+                <German>Ich hab diese Nacht schon zu viel gesehen. Dort ist es, ganz genau dort.</German>
+            </Key>
+            <Key ID="STR_COIN_interrogation_warning_1">
+                <Original>Watch out, another group of ours is sitting out there. They're just waiting for someone to come by.</Original>
+                <German>Passt auf, da draußen sitzt noch eine Gruppe von uns. Die warten nur darauf, dass jemand vorbeikommt.</German>
+            </Key>
+            <Key ID="STR_COIN_interrogation_warning_2">
+                <Original>Another unit is camped nearby. You'll walk right into them if you follow the road.</Original>
+                <German>In der Nähe lagert noch eine Einheit. Ihr lauft ihnen in die Arme, wenn ihr dem Weg folgt.</German>
+            </Key>
+            <Key ID="STR_COIN_interrogation_warning_3">
+                <Original>You're not the first to search around here. The others aren't far, and they're armed.</Original>
+                <German>Ihr seid nicht die Ersten, die hier suchen. Die anderen sind nicht weit und bewaffnet.</German>
+            </Key>
+            <Key ID="STR_COIN_interrogation_warning_4">
+                <Original>A group has dug in over there. Don't get too close, they shoot first.</Original>
+                <German>Eine Gruppe hat sich dort eingegraben. Geht nicht zu nah ran, die schießen zuerst.</German>
+            </Key>
+            <Key ID="STR_COIN_interrogation_warningIED_1">
+                <Original>Don't drive down the road up ahead. We left something there for you.</Original>
+                <German>Fahrt nicht über die Straße da vorn. Wir haben dort etwas für euch hinterlassen.</German>
+            </Key>
+            <Key ID="STR_COIN_interrogation_warningIED_2">
+                <Original>There's a surprise on the way. I won't say where exactly, but be careful.</Original>
+                <German>Auf dem Weg liegt eine Überraschung. Ich sage nicht, wo genau, aber seid vorsichtig.</German>
+            </Key>
+            <Key ID="STR_COIN_interrogation_warningIED_3">
+                <Original>Stay off that road. It isn't safe, there's something in the ground.</Original>
+                <German>Bleibt von der Straße weg. Es ist nicht sicher, dort liegt etwas im Boden.</German>
+            </Key>
+            <Key ID="STR_COIN_interrogation_warningIED_4">
+                <Original>If you follow the road, it won't end well. It has been prepared.</Original>
+                <German>Wenn ihr dem Weg folgt, geht es nicht lange gut. Die Straße ist vorbereitet.</German>
+            </Key>
+            <Key ID="STR_COIN_interrogation_warningAmbush_1">
+                <Original>Don't drive along that road. Men are lying in the ditch there, waiting for you.</Original>
+                <German>Fahrt nicht die Straße entlang. Dort liegen Männer im Graben und warten auf euch.</German>
+            </Key>
+            <Key ID="STR_COIN_interrogation_warningAmbush_2">
+                <Original>We have the road covered. Anyone coming along it walks straight into our rifles.</Original>
+                <German>Wir haben die Straße im Auge. Wer dort langkommt, läuft uns direkt vor die Gewehre.</German>
+            </Key>
+            <Key ID="STR_COIN_interrogation_warningAmbush_3">
+                <Original>Stay off the road. A group is waiting in cover there, and they open fire as soon as you're close enough.</Original>
+                <German>Bleibt von der Straße weg. Dort liegt eine Gruppe in Deckung, und sie schießen, sobald ihr nah genug seid.</German>
+            </Key>
+            <Key ID="STR_COIN_interrogation_warningAmbush_4">
+                <Original>I was there last night when we dug in by the road. It won't be a walk in the park.</Original>
+                <German>Ich war letzte Nacht dabei, als wir uns an der Straße eingegraben haben. Es wird kein Spaziergang.</German>
+            </Key>
+            <Key ID="STR_COIN_interrogation_cooldown_1">
+                <Original>Not so fast. I need to think first.</Original>
+                <German>Nicht so schnell. Ich muss erst nachdenken.</German>
+            </Key>
+            <Key ID="STR_COIN_interrogation_cooldown_2">
+                <Original>Too many questions at once. Come back later.</Original>
+                <German>Zu viele Fragen auf einmal. Kommt später wieder.</German>
+            </Key>
+            <Key ID="STR_COIN_interrogation_cooldown_3">
+                <Original>Give me a moment. I'll talk, but not now.</Original>
+                <German>Gebt mir einen Moment. Ich rede, aber nicht jetzt.</German>
+            </Key>
+            <Key ID="STR_COIN_interrogation_cooldown_4">
+                <Original>Nothing comes to mind right now. Leave me be, then we'll talk later.</Original>
+                <German>Mir fällt gerade nichts ein. Lasst mich in Ruhe, dann reden wir später.</German>
+            </Key>
+        </Container>
+        <Container name="Mood">
+            <Key ID="STR_COIN_mood_hostile_1">
+                <Original>Honestly? Most people here wish you were far away. You only bring trouble.</Original>
+                <German>Ehrlich? Die meisten hier wünschen euch weit weg. Ihr bringt nur Ärger.</German>
+            </Key>
+            <Key ID="STR_COIN_mood_hostile_2">
+                <Original>We didn't call you. Many here would rather stand with the insurgents.</Original>
+                <German>Wir haben euch nicht gerufen. Viele hier stehen lieber auf der Seite der Aufständischen.</German>
+            </Key>
+            <Key ID="STR_COIN_mood_hostile_3">
+                <Original>You'd better leave before somebody does something stupid. Nobody here trusts you.</Original>
+                <German>Geht besser, bevor jemand etwas Dummes tut. Hier traut euch keiner.</German>
+            </Key>
+            <Key ID="STR_COIN_mood_hostile_4">
+                <Original>You've broken too much. You'll get nothing from us.</Original>
+                <German>Ihr habt zu viel kaputt gemacht. Von uns bekommt ihr nichts.</German>
+            </Key>
+            <Key ID="STR_COIN_mood_suspicious_1">
+                <Original>We don't know yet what to make of you. People are careful.</Original>
+                <German>Wir wissen noch nicht, was wir von euch halten sollen. Die Leute sind vorsichtig.</German>
+            </Key>
+            <Key ID="STR_COIN_mood_suspicious_2">
+                <Original>Some speak well of you, others don't. Don't believe everyone who tells you something.</Original>
+                <German>Manche reden gut über euch, andere nicht. Glaubt nicht jedem, der euch etwas erzählt.</German>
+            </Key>
+            <Key ID="STR_COIN_mood_suspicious_3">
+                <Original>You're watched closely here. Whoever talks to you weighs every word.</Original>
+                <German>Man beobachtet euch hier genau. Wer mit euch spricht, überlegt sich jedes Wort.</German>
+            </Key>
+            <Key ID="STR_COIN_mood_suspicious_4">
+                <Original>Trust is thin. One mistake, and it's gone.</Original>
+                <German>Das Vertrauen ist dünn. Ein Fehler, und es ist weg.</German>
+            </Key>
+            <Key ID="STR_COIN_mood_waiting_1">
+                <Original>We're waiting to see. If you stay and keep your word, maybe things will change.</Original>
+                <German>Wir warten ab. Wenn ihr bleibt und euer Wort haltet, ändert sich vielleicht etwas.</German>
+            </Key>
+            <Key ID="STR_COIN_mood_waiting_2">
+                <Original>Nobody is against you, but nobody is thrilled either. Show what you can do.</Original>
+                <German>Niemand ist gegen euch, aber begeistert ist auch keiner. Zeigt, was ihr könnt.</German>
+            </Key>
+            <Key ID="STR_COIN_mood_waiting_3">
+                <Original>It has become calmer. Whether it stays that way is up to you.</Original>
+                <German>Es ist ruhiger geworden. Ob das bleibt, hängt von euch ab.</German>
+            </Key>
+            <Key ID="STR_COIN_mood_waiting_4">
+                <Original>We've seen many soldiers come and go. Prove that you're different.</Original>
+                <German>Wir haben schon viele Soldaten kommen und gehen sehen. Beweist, dass ihr anders seid.</German>
+            </Key>
+            <Key ID="STR_COIN_mood_friendly_1">
+                <Original>Most people here are glad you're here. They help you where they can.</Original>
+                <German>Die meisten hier sind froh, dass ihr da seid. Man hilft euch, wo man kann.</German>
+            </Key>
+            <Key ID="STR_COIN_mood_friendly_2">
+                <Original>You've earned respect. People speak well of you.</Original>
+                <German>Ihr habt euch Respekt verdient. Die Leute reden gut über euch.</German>
+            </Key>
+            <Key ID="STR_COIN_mood_friendly_3">
+                <Original>We're on your side as far as we can be. Tell us if you need something.</Original>
+                <German>Wir sind auf eurer Seite, so gut es geht. Sagt, wenn ihr etwas braucht.</German>
+            </Key>
+            <Key ID="STR_COIN_mood_friendly_4">
+                <Original>Things have been looking up since you came. You can tell.</Original>
+                <German>Seit ihr hier seid, geht es bergauf. Das merkt man.</German>
+            </Key>
+            <Key ID="STR_COIN_mood_veryFriendly_1">
+                <Original>You're welcome here. People would take a risk for you.</Original>
+                <German>Ihr seid hier willkommen. Die Leute würden für euch ein Risiko eingehen.</German>
+            </Key>
+            <Key ID="STR_COIN_mood_veryFriendly_2">
+                <Original>To us you're no longer occupiers but allies. Tell us what you need.</Original>
+                <German>Für uns seid ihr keine Besatzer mehr, sondern Verbündete. Sagt, was ihr braucht.</German>
+            </Key>
+            <Key ID="STR_COIN_mood_veryFriendly_3">
+                <Original>When you call, people come. We haven't had this much trust in a long time.</Original>
+                <German>Wenn ihr ruft, kommen die Leute. So viel Vertrauen hatten wir lange nicht.</German>
+            </Key>
+            <Key ID="STR_COIN_mood_veryFriendly_4">
+                <Original>You have our trust. Everyone here would help you.</Original>
+                <German>Ihr habt unser Vertrauen. Jeder hier würde euch helfen.</German>
+            </Key>
+        </Container>
+        <Container name="Radio">
+            <Key ID="STR_COIN_radio_follow">
+                <Original>Understood, we follow you.</Original>
+                <German>Verstanden, wir folgen dir.</German>
+            </Key>
+            <Key ID="STR_COIN_radio_goto">
+                <Original>Understood, we are moving to %1.</Original>
+                <German>Verstanden, wir gehen zu %1.</German>
+            </Key>
+            <Key ID="STR_COIN_radio_attack">
+                <Original>Understood, we attack %1, %2 m.</Original>
+                <German>Verstanden, wir greifen %1 an, %2 m.</German>
+            </Key>
+            <Key ID="STR_COIN_radio_arrived">
+                <Original>We have reached point %1.</Original>
+                <German>Wir sind an Punkt %1 angekommen.</German>
+            </Key>
+            <Key ID="STR_COIN_radio_contact">
+                <Original>Enemy contact at %1.</Original>
+                <German>Feindkontakt bei %1.</German>
+            </Key>
+            <Key ID="STR_COIN_radio_firefight">
+                <Original>We are in a firefight at %1.</Original>
+                <German>Wir sind im Feuergefecht bei %1.</German>
+            </Key>
+            <Key ID="STR_COIN_radio_casualties">
+                <Original>Losses: Only %1 of %2 are still able to fight.</Original>
+                <German>Verluste: Nur noch %1 von %2 sind kampffähig.</German>
+            </Key>
+            <Key ID="STR_COIN_radio_no_target">
+                <Original>No target: There is no town of the insurgents left.</Original>
+                <German>Kein Ziel: Es gibt keine Ortschaft der Aufständischen mehr.</German>
+            </Key>
+            <Key ID="STR_COIN_radio_refused">
+                <Original>Radio message not understood.</Original>
+                <German>Funkspruch nicht verstanden.</German>
+            </Key>
+            <Key ID="STR_COIN_radioPick_start">
+                <Original>Click the target point of the reinforcement. The circle shows the range. Esc cancels.</Original>
+                <German>Klickt den Zielpunkt der Verstärkung an. Der Kreis zeigt die Reichweite. Esc bricht ab.</German>
+            </Key>
+            <Key ID="STR_COIN_radioPick_water">
+                <Original>The fighters cannot stand in water. Pick another point.</Original>
+                <German>Im Wasser können die Kämpfer nicht stehen. Wählt einen anderen Punkt.</German>
+            </Key>
+            <Key ID="STR_COIN_radioPick_far">
+                <Original>That is too far from the elder. Pick a point inside the circle.</Original>
+                <German>Das ist zu weit vom Ältesten. Wählt einen Punkt im Kreis.</German>
+            </Key>
+            <Key ID="STR_COIN_radioPick_start_radio">
+                <Original>Click on the map where the reinforcement should go. Esc cancels.</Original>
+                <German>Klickt auf die Karte, wohin die Verstärkung gehen soll. Esc bricht ab.</German>
+            </Key>
+            <Key ID="STR_COIN_radioPick_away">
+                <Original>You walked away from the elder. The reinforcement is cancelled, it cost nothing.</Original>
+                <German>Ihr habt euch vom Ältesten entfernt. Die Verstärkung ist abgebrochen, es hat nichts gekostet.</German>
+            </Key>
+            <Key ID="STR_COIN_radio_callsign">
+                <Original>Reinforcement</Original>
+                <German>Verstärkung</German>
+            </Key>
+            <Key ID="STR_COIN_radio_briefingTitle">
+                <Original>Lead the reinforcement</Original>
+                <German>Verstärkung führen</German>
+            </Key>
+            <Key ID="STR_COIN_radio_briefingText">
+                <Original>As long as a reinforcement is on its way, you have three radio orders in the communication menu (0-8). The commander, the squad leader and the interpreter may give them, the last order counts.&lt;br/&gt;&lt;br/&gt;- &lt;font color='#4da6ff'&gt;Follow us&lt;/font&gt;: The group follows whoever gives the order. If he dies or goes offline, it holds its position.&lt;br/&gt;- &lt;font color='#4da6ff'&gt;Go there&lt;/font&gt;: Click on the map, the group walks there and holds the point.&lt;br/&gt;- &lt;font color='#4da6ff'&gt;Attack&lt;/font&gt;: The group goes to the nearest town of the insurgents in combat mode. It only fights there if you are nearby, otherwise the town is empty.&lt;br/&gt;&lt;br/&gt;The reinforcement leaves after its time is up or when the population no longer trusts you enough. Then the orders disappear.</Original>
+                <German>Solange eine Verstärkung unterwegs ist, habt ihr im Kommunikationsmenü (0-8) drei Funkbefehle. Kommandant, Truppführer und Dolmetscher dürfen sie geben, der letzte Befehl gilt.&lt;br/&gt;&lt;br/&gt;- &lt;font color='#4da6ff'&gt;Folgt uns&lt;/font&gt;: Die Gruppe folgt dem, der den Befehl gibt. Stirbt er oder geht er offline, hält sie ihre Stellung.&lt;br/&gt;- &lt;font color='#4da6ff'&gt;Geht dorthin&lt;/font&gt;: Klickt auf die Karte, die Gruppe läuft hin und hält den Punkt.&lt;br/&gt;- &lt;font color='#4da6ff'&gt;Greift an&lt;/font&gt;: Die Gruppe geht im Kampfmodus in die nächste Ortschaft der Aufständischen. Dort kämpft sie nur, wenn ihr in der Nähe seid, sonst ist die Ortschaft leer.&lt;br/&gt;&lt;br/&gt;Die Verstärkung zieht nach der Zeit ab oder wenn die Bevölkerung euch nicht mehr genug vertraut. Dann verschwinden die Befehle.</German>
+            </Key>
+            <Key ID="STR_COIN_radio_menu_follow">
+                <Original>Reinforcement: Follow us</Original>
+                <German>Verstärkung: Folgt uns</German>
+            </Key>
+            <Key ID="STR_COIN_radio_menu_goto">
+                <Original>Reinforcement: Go there</Original>
+                <German>Verstärkung: Geht dorthin</German>
+            </Key>
+            <Key ID="STR_COIN_radio_menu_attack">
+                <Original>Reinforcement: Attack</Original>
+                <German>Verstärkung: Greift an</German>
+            </Key>
+        </Container>
+        <Container name="Favors">
+            <Key ID="STR_COIN_favor_reinforcement_title">
+                <Original>Reinforcement</Original>
+                <German>Verstärkung</German>
+            </Key>
+            <Key ID="STR_COIN_favor_reinforcement_explanation">
+                <Original>The population puts %1 fighters at your side.&lt;br/&gt;&lt;br/&gt;After accepting you click the target point on the map, at most %4 m from the elder. The fighters walk there and hold it. After %2 minutes they leave again, sooner if the population no longer trusts you enough.&lt;br/&gt;&lt;br/&gt;&lt;t size='1.15' color='#00a0ff'&gt;Cost: one favor and %3 intel points. You have %5 of %6 favors.&lt;/t&gt;&lt;br/&gt;&lt;t size='1.15' color='#ffa000'&gt;If all the fighters are killed, the next favor takes longer.&lt;/t&gt;</Original>
+                <German>Die Bevölkerung stellt euch %1 Kämpfer zur Seite.&lt;br/&gt;&lt;br/&gt;Nach dem Annehmen klickt ihr auf der Karte den Zielpunkt an, höchstens %4 m vom Ältesten entfernt. Die Kämpfer laufen dorthin und halten ihn. Nach %2 Minuten ziehen sie wieder ab, früher, wenn die Bevölkerung euch nicht mehr genug vertraut.&lt;br/&gt;&lt;br/&gt;&lt;t size='1.15' color='#00a0ff'&gt;Kosten: eine Gefälligkeit und %3 Intel-Punkte. Ihr habt %5 von %6 Gefälligkeiten.&lt;/t&gt;&lt;br/&gt;&lt;t size='1.15' color='#ffa000'&gt;Werden alle Kämpfer getötet, dauert es länger bis zur nächsten Gefälligkeit.&lt;/t&gt;</German>
+            </Key>
+        </Container>
+        <Container name="Talk">
+            <Key ID="STR_COIN_talk_askMilitia">
+                <Original>Ask about the insurgents</Original>
+                <German>Nach den Aufständischen fragen</German>
+            </Key>
+            <Key ID="STR_COIN_talk_interrogate">
+                <Original>Interrogate</Original>
+                <German>Verhören</German>
+            </Key>
+            <Key ID="STR_COIN_talk_mood">
+                <Original>How do you feel about us?</Original>
+                <German>Wie steht ihr zu uns?</German>
+            </Key>
+            <Key ID="STR_COIN_talk_elderLocate">
+                <Original>Where do I find the elder?</Original>
+                <German>Wo finde ich den Ältesten?</German>
+            </Key>
+        </Container>
     </Package>
     <!-- COIN END -->
 </Project>

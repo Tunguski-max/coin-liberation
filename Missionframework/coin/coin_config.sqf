@@ -464,304 +464,150 @@ COIN_intelMarkerAlpha       = 0.35;
 COIN_unsafeRadius           = 100;      // m: a civilian refuses to talk while an armed enemy is this close; he can be asked again later
 COIN_enableCooldown         = true;     // Ticket 3.5: after a question that made a marker (also a lie) the interpreter has to wait
 COIN_questionCooldown       = 300;      // s the interpreter waits after a marker; "I know nothing" starts no cooldown
-// Entry in the action menu (mouse wheel / space bar): [German, English]
-COIN_askMilitiaLabel = ["Nach der Miliz fragen", "Ask about the militia"];
-COIN_interrogateLabel = ["Verhören", "Interrogate"];
-COIN_moodLabel = ["Wie steht ihr zu uns?", "How do you feel about us?"];
-COIN_elderLocateLabel = ["Wo finde ich den Ältesten?", "Where do I find the elder?"];
-// Answers to "Where do I find the elder?" (ticket 5.9a): [found or none, [German sentences, English sentences]], one is picked at random.
+// Entry in the action menu (mouse wheel / space bar): key of the COIN package in stringtable.xml (ADR 0026)
+COIN_askMilitiaLabel = "STR_COIN_talk_askMilitia";
+COIN_interrogateLabel = "STR_COIN_talk_interrogate";
+COIN_moodLabel = "STR_COIN_talk_mood";
+COIN_elderLocateLabel = "STR_COIN_talk_elderLocate";
+// Answers to "Where do I find the elder?" (ticket 5.9a): [found or none, [keys of the sentences]], one is picked at random.
 // "found" while the elder is marked on the map, "none" if the town has no elder for now or he is too far away
 COIN_elderLocateAnswers = [
     ["found", [
-        [
-            "Der Älteste? Ich zeige ihn euch, seht auf eure Karte.",
-            "Ihr sucht den Ältesten? Er wartet an seinem Haus, ihr findet ihn.",
-            "Den Ältesten kennt hier jeder. Ich habe euch den Weg eingezeichnet."
-        ],
-        [
-            "The elder? I'll show you, look at your map.",
-            "You're looking for the elder? He waits at his house, you'll find him.",
-            "Everybody here knows the elder. I've marked the way for you."
-        ]
+        "STR_COIN_locate_found_1",
+        "STR_COIN_locate_found_2",
+        "STR_COIN_locate_found_3"
     ]],
     ["none", [
-        [
-            "Einen Ältesten haben wir gerade nicht.",
-            "Der Älteste? Der ist nicht mehr da. Fragt später noch einmal.",
-            "Dazu kann ich euch nichts sagen. Hier gibt es im Moment keinen."
-        ],
-        [
-            "We don't have an elder right now.",
-            "The elder? He's gone. Ask again later.",
-            "I can't tell you anything about that. There is none here at the moment."
-        ]
+        "STR_COIN_locate_none_1",
+        "STR_COIN_locate_none_2",
+        "STR_COIN_locate_none_3"
     ]]
 ];
-// Answer sentences of a civilian (tickets 3.1 and 3.4): [result, [German sentences, English sentences]], one is picked at random.
+// Answer sentences of a civilian (tickets 3.1 and 3.4): [result, [keys of the sentences]], one is picked at random.
 // A civilian does not name the nest type: a hint or a tip knows the place better, not the word for it (see COIN_questionAnswersByType).
 // "unsafe" is the refusal while enemies are close (COIN_enableUnsafeRefusal): no answer, no marker.
 COIN_questionAnswers = [
     ["nothing", [
-        [
-            "Keine Ahnung, was ihr meint. Ich halte mich aus so was raus.",
-            "Fragt mich nicht. Ich habe schon genug Ärger am Hals.",
-            "Ich hab nichts mitbekommen. Wirklich nicht.",
-            "Hier redet keiner gern über solche Dinge. Ich auch nicht.",
-            "Wenn ich irgendwas wüsste, würde ich's mir gut überlegen, wem ich es erzähle.",
-            "Tut mir leid. Ich kümmere mich um meine Familie, nicht um bewaffnete Männer.",
-            "Ich bin die meiste Zeit zu Hause. Von mir erfahrt ihr nichts Neues.",
-            "Lasst mich bitte einfach weitergehen. Ich weiß nichts, was euch hilft."
-        ],
-        [
-            "No idea what you're talking about. I stay out of that stuff.",
-            "Don't ask me. I've got enough trouble as it is.",
-            "I haven't noticed anything. I mean it.",
-            "Nobody around here likes talking about that sort of thing. Neither do I.",
-            "If I knew anything, I'd think twice about who I told.",
-            "Sorry. I look after my family, not armed men.",
-            "I'm home most of the time. I can't tell you anything new.",
-            "Please just let me go. I don't know anything that would help you."
-        ]
+        "STR_COIN_answer_nothing_1",
+        "STR_COIN_answer_nothing_2",
+        "STR_COIN_answer_nothing_3",
+        "STR_COIN_answer_nothing_4",
+        "STR_COIN_answer_nothing_5",
+        "STR_COIN_answer_nothing_6",
+        "STR_COIN_answer_nothing_7",
+        "STR_COIN_answer_nothing_8"
     ]],
     ["unsafe", [
-        [
-            "Nicht hier. Die hören doch alles mit.",
-            "Seid ihr verrückt? Die stehen doch gleich da drüben!",
-            "Ich hab Familie. Bitte geht einfach weiter.",
-            "Ihr könnt wieder gehen. Ich will nicht, dass die uns zusammen sehen.",
-            "Psst! Nicht so laut. Wollt ihr, dass ich Ärger kriege?",
-            "Ich sag kein Wort, solange die hier herumlaufen.",
-            "Bitte. Wenn die merken, dass ich mit euch rede, bin ich dran.",
-            "Lasst mich in Ruhe. Ich hab schon gesehen, was mit Leuten passiert, die reden."
-        ],
-        [
-            "Not here. They can hear everything.",
-            "Are you crazy? They're right over there!",
-            "I've got a family. Please, just move along.",
-            "You need to leave. I don't want them seeing us together.",
-            "Shh! Keep your voice down. Are you trying to get me in trouble?",
-            "I'm not saying a word while they're still around.",
-            "Please. If they see me talking to you, I'm the one who'll pay for it.",
-            "Leave me alone. I've seen what happens to people who talk."
-        ]
+        "STR_COIN_answer_unsafe_1",
+        "STR_COIN_answer_unsafe_2",
+        "STR_COIN_answer_unsafe_3",
+        "STR_COIN_answer_unsafe_4",
+        "STR_COIN_answer_unsafe_5",
+        "STR_COIN_answer_unsafe_6",
+        "STR_COIN_answer_unsafe_7",
+        "STR_COIN_answer_unsafe_8"
     ]],
     ["rumor", [
-        [
-            "In der Gegend sollen nachts öfter fremde Männer unterwegs sein. Mehr hab ich nicht gehört.",
-            "Ein paar Leute reden von bewaffneten Männern irgendwo hier draußen. Ob das stimmt? Keine Ahnung.",
-            "In letzter Zeit ist hier irgendwas los. Sobald man nachfragt, werden die Leute still.",
-            "Mein Nachbar meint, er hätte nachts Fahrzeuge gehört. Hier draußen fährt sonst kaum jemand um die Zeit.",
-            "Man erzählt sich, dass einige Männer in der Gegend ein und aus gehen. Niemand will wissen, warum.",
-            "Ich würde mich hier draußen nicht zu lange aufhalten. Es gibt Gerüchte über Leute mit Waffen.",
-            "Seit ein paar Tagen sind manche Leute ziemlich nervös. Irgendetwas stimmt hier nicht.",
-            "Ein Händler hat erzählt, er hätte fremde Männer gesehen. Er wollte aber nicht sagen, wo genau."
-        ],
-        [
-            "They say strange men have been moving around here at night. That's all I've heard.",
-            "Some people are talking about armed men somewhere around here. No idea if it's true.",
-            "Something's been going on around here lately. Ask about it and people go quiet.",
-            "My neighbor says he heard vehicles at night. Hardly anyone drives around here that late.",
-            "Word is some men have been coming and going around here. Nobody wants to know why.",
-            "I wouldn't hang around out here too long. There are rumors about people carrying guns.",
-            "People have been on edge these past few days. Something isn't right around here.",
-            "A trader said he'd seen some unfamiliar men. Wouldn't say exactly where, though."
-        ]
+        "STR_COIN_answer_rumor_1",
+        "STR_COIN_answer_rumor_2",
+        "STR_COIN_answer_rumor_3",
+        "STR_COIN_answer_rumor_4",
+        "STR_COIN_answer_rumor_5",
+        "STR_COIN_answer_rumor_6",
+        "STR_COIN_answer_rumor_7",
+        "STR_COIN_answer_rumor_8"
     ]],
     // A warning of a camp close by (ticket 3.6): the civilian describes what he saw, he does not say "camp"
     ["warning", [
-        [
-            "Fahrt da draußen nicht einfach weiter. Seit ein paar Tagen sitzen dort Bewaffnete, die nicht von hier sind.",
-            "Ich war gestern am Feldrand. Da stehen Zelte und Männer mit Gewehren. Haltet euch fern, wenn euch euer Leben lieb ist.",
-            "Passt auf, wo ihr hintretet. Ganz in der Nähe hat sich eine Gruppe Bewaffneter eingerichtet.",
-            "Keiner von uns geht mehr in die Richtung. Dort haben sich Männer mit Waffen festgesetzt.",
-            "Nachts sieht man dort Feuer. Das sind keine Hirten, das sind Bewaffnete. Ich an eurer Stelle würde einen Bogen machen.",
-            "Ich sag's euch nur einmal: Hier in der Nähe lagern bewaffnete Männer. Sie beobachten die Straße.",
-            "Meine Ziegen traue ich da nicht mehr hin. Seit die Fremden dort lagern, kommt keiner mehr zurück, der zu nah ran ist.",
-            "Ihr seid nicht die Ersten, die hier vorbeikommen. Wenn ihr in diese Richtung geht, wartet dort jemand auf euch."
-        ],
-        [
-            "Don't just keep driving out there. Armed men who aren't from here have been sitting out there for a few days.",
-            "I was at the edge of the fields yesterday. There are tents and men with rifles. Stay away if you value your life.",
-            "Watch where you step. A group of armed men has settled in very close to here.",
-            "None of us go that way anymore. Men with guns have dug in over there.",
-            "You can see fires there at night. Those aren't shepherds, they're armed men. I'd steer clear if I were you.",
-            "I'll only say this once: there are armed men camped near here. They're watching the road.",
-            "I won't take my goats there anymore. Since the strangers set up camp, nobody who goes too close comes back.",
-            "You're not the first to come through here. If you go that way, someone will be waiting for you."
-        ]
+        "STR_COIN_answer_warning_1",
+        "STR_COIN_answer_warning_2",
+        "STR_COIN_answer_warning_3",
+        "STR_COIN_answer_warning_4",
+        "STR_COIN_answer_warning_5",
+        "STR_COIN_answer_warning_6",
+        "STR_COIN_answer_warning_7",
+        "STR_COIN_answer_warning_8"
     ]],
     // A warning of an IED close by (ticket 4.8): he saw men dig by the road or heard a blast, he does not say "bomb" or "IED".
     // The same sentences for a real IED and a decoy, he cannot tell them apart. Texts to be agreed with Niklas
     ["warningIED", [
-        [
-            "Ich würde die Straße da vorn nicht nehmen. Letzte Nacht haben dort Männer etwas im Boden vergraben.",
-            "Fahrt da nicht blind lang. Ich habe gesehen, wie jemand am Straßenrand gegraben hat, mitten in der Nacht.",
-            "Seit ein paar Tagen ist die Erde an der Straße dort aufgewühlt. Mich bringt keiner mehr dorthin.",
-            "Passt auf, wo ihr hinfahrt. Dort an der Straße ist etwas versteckt, das nicht für uns gedacht ist.",
-            "Mein Cousin ist dort langgefahren und hat es gerade so überlebt. Sucht die Straße ab, bevor ihr weiterfahrt.",
-            "Haltet die Augen offen. An der Straße ganz in der Nähe liegt etwas, und die Männer, die es gelegt haben, schauen zu."
-        ],
-        [
-            "I wouldn't take the road up ahead. Men buried something in the ground there last night.",
-            "Don't drive down there blind. I saw someone digging by the roadside in the middle of the night.",
-            "The earth by the road over there has been churned up for a few days. Nobody gets me to go there anymore.",
-            "Watch where you drive. Something is hidden by the road there, and it wasn't meant for us.",
-            "My cousin drove down there and barely survived. Search the road before you go on.",
-            "Keep your eyes open. There is something by the road very close to here, and the men who put it there are watching."
-        ]
+        "STR_COIN_answer_warningIED_1",
+        "STR_COIN_answer_warningIED_2",
+        "STR_COIN_answer_warningIED_3",
+        "STR_COIN_answer_warningIED_4",
+        "STR_COIN_answer_warningIED_5",
+        "STR_COIN_answer_warningIED_6"
     ]],
     // A warning of an ambush (ticket 4.5): he saw armed men lie down by the road, he does not say "ambush". Texts to be agreed with Niklas
     ["warningAmbush", [
-        [
-            "Nehmt diese Straße nicht. Gestern Abend sind Bewaffnete dort in den Graben gekrochen und nicht wieder herausgekommen.",
-            "Auf der Straße da vorn liegen Männer mit Gewehren am Rand. Ich habe sie gesehen, als ich meine Ziegen zurückgetrieben habe.",
-            "Fahrt da nicht einfach durch. Am Straßenrand haben sich Männer eingegraben, und sie warten auf jemanden.",
-            "Seit zwei Tagen bleibt jeder von uns von dieser Straße fern. Dort lauern Bewaffnete hinter Sandsäcken.",
-            "Ich würde mich dort nicht blicken lassen. Wer die Straße entlangfährt, wird beschossen, hat mein Bruder gesagt.",
-            "Dort an der Straße sitzen Männer und schauen jedem nach, der vorbeikommt. Ich weiß, was die vorhaben."
-        ],
-        [
-            "Don't take that road. Armed men crawled into the ditch there yesterday evening and never came out.",
-            "There are men with rifles lying by the side of the road up ahead. I saw them when I was driving my goats back.",
-            "Don't just drive through. Men have dug in beside the road, and they're waiting for someone.",
-            "For two days none of us has gone near that road. Armed men are lurking behind sandbags there.",
-            "I wouldn't show my face there. My brother says anyone driving down that road gets shot at.",
-            "Men are sitting by the road there, watching everyone who passes. I know what they're up to."
-        ]
+        "STR_COIN_answer_warningAmbush_1",
+        "STR_COIN_answer_warningAmbush_2",
+        "STR_COIN_answer_warningAmbush_3",
+        "STR_COIN_answer_warningAmbush_4",
+        "STR_COIN_answer_warningAmbush_5",
+        "STR_COIN_answer_warningAmbush_6"
     ]]
 ];
 
-// Answer sentences of a hint and of a tip by nest type: [level, [[nest type, [German sentences, English sentences]], ...]].
+// Answer sentences of a hint and of a tip by nest type: [level, [[nest type, [keys of the sentences]], ...]].
 // The type only picks the sentences, the civilian never says it. The map symbol still shows it (COIN_intelMarkerTypes)
 COIN_questionAnswersByType = [
     ["hint", [
         ["command", [
-            [
-                "Da treffen sich immer wieder dieselben bewaffneten Männer. Einer gibt die Anweisungen, die anderen hören zu.",
-                "Ich habe da Leute mit Funkgeräten gesehen. Ständig kommen welche, melden sich und verschwinden wieder."
-            ],
-            [
-                "The same armed men keep meeting there. One gives the orders, the others listen.",
-                "I've seen men with radios around there. People keep showing up, reporting in, then leaving again."
-            ]
+            "STR_COIN_answerType_hint_command_1",
+            "STR_COIN_answerType_hint_command_2"
         ]],
         ["iedWorkshop", [
-            [
-                "Wenn ihr mich fragt, basteln die da irgendwas zusammen. Überall liegen Kabel und alte Metallteile herum.",
-                "Von dort hört man manchmal Hämmern und Sägen. Komisch nur, dass keiner sagen kann, was die eigentlich bauen."
-            ],
-            [
-                "If you ask me, they're putting something together over there. Cables and scrap metal all over the place.",
-                "Sometimes you can hear hammering and sawing from there. Funny thing is, nobody knows what they're building."
-            ]
+            "STR_COIN_answerType_hint_iedWorkshop_1",
+            "STR_COIN_answerType_hint_iedWorkshop_2"
         ]],
         ["cache", [
-            [
-                "Da stehen immer wieder Männer mit schwerem Geschütz herum. Viel mehr, als man zum Bewachen von ein paar Häusern braucht.",
-                "Ich hab gesehen, wie sie schwere Kisten abgeladen haben. Als einer zu nah kam, haben sie ihn sofort weggeschickt."
-            ],
-            [
-                "There are always men around there carrying some serious firepower. More than you'd need to guard a few houses.",
-                "I saw them unloading heavy crates. When someone got too close, they sent him away straight off."
-            ]
+            "STR_COIN_answerType_hint_cache_1",
+            "STR_COIN_answerType_hint_cache_2"
         ]],
         ["vbiedGarage", [
-            [
-                "Die schrauben dort ständig an alten Autos herum. Die Wagen sehen danach aber nicht gerade fahrtüchtiger aus.",
-                "Da verschwinden Fahrzeuge für Stunden hinter verschlossenen Türen. Nachts hört man oft Motoren laufen."
-            ],
-            [
-                "They're always working on old cars over there. Can't say the cars look any more roadworthy afterward.",
-                "Vehicles disappear behind closed doors for hours. You can often hear engines running at night."
-            ]
+            "STR_COIN_answerType_hint_vbiedGarage_1",
+            "STR_COIN_answerType_hint_vbiedGarage_2"
         ]],
         ["recruitment", [
-            [
-                "Da tauchen ständig junge Kerle auf, die man vorher noch nie gesehen hat. Ein paar Tage später tragen sie Waffen.",
-                "Ein paar Männer versprechen den Jungs dort Geld und eine Aufgabe. Manche kommen danach tagelang nicht nach Hause."
-            ],
-            [
-                "Young lads nobody's seen before keep turning up there. A few days later, they're carrying guns.",
-                "Some men there promise the young lads money and something to do. Some don't come home for days afterward."
-            ]
+            "STR_COIN_answerType_hint_recruitment_1",
+            "STR_COIN_answerType_hint_recruitment_2"
         ]]
     ]],
     ["tip", [
         ["command", [
-            [
-                "Ich weiß, wo die Männer ihre Besprechungen abhalten. Ich hab sie dort schon mehrmals mit Karten und Funkgeräten gesehen.",
-                "Ich kann euch die Gegend zeigen, wo ständig Boten ein und aus gehen. Einer scheint dort das Sagen zu haben."
-            ],
-            [
-                "I know where those men hold their meetings. I've seen them there more than once with maps and radios.",
-                "I can point you to the area where messengers keep coming and going. One man seems to be in charge there."
-            ]
+            "STR_COIN_answerType_tip_command_1",
+            "STR_COIN_answerType_tip_command_2"
         ]],
         ["iedWorkshop", [
-            [
-                "Ich kenne die Stelle. Da tragen sie regelmäßig Kabel, Kanister und Metallstücke hinein. Das ist keine normale Werkstatt.",
-                "Ich hab den Ort selbst gesehen. Die arbeiten dort hinter verschlossenen Türen und lassen niemanden in die Nähe."
-            ],
-            [
-                "I know the spot. They regularly carry wires, canisters and bits of metal inside. That's no ordinary workshop.",
-                "I've seen the place myself. They work behind closed doors and won't let anyone get close."
-            ]
+            "STR_COIN_answerType_tip_iedWorkshop_1",
+            "STR_COIN_answerType_tip_iedWorkshop_2"
         ]],
         ["cache", [
-            [
-                "Ich hab gesehen, wo sie die schweren Kisten hinbringen. Bewaffnete stehen dort Wache, selbst wenn sonst niemand da ist.",
-                "Ich kann euch zeigen, in welcher Gegend sie nachts ihre Ladung abladen. Da wird mehr bewacht als nur Essen und Wasser."
-            ],
-            [
-                "I've seen where they take those heavy crates. Armed men guard the place even when nobody else is around.",
-                "I can show you the area where they unload their cargo at night. They're guarding more than food and water."
-            ]
+            "STR_COIN_answerType_tip_cache_1",
+            "STR_COIN_answerType_tip_cache_2"
         ]],
         ["vbiedGarage", [
-            [
-                "Ich weiß, wo die Autos hingebracht werden. Da wird stundenlang daran gearbeitet, und hinterher fährt ein anderer damit weg.",
-                "Die Stelle kenne ich. Erst fahren kaputte Wagen hinein, später kommen sie mit verhängten Scheiben wieder raus."
-            ],
-            [
-                "I know where they take the cars. They work on them for hours, then someone else drives them away.",
-                "I know the place. Battered cars go in, then come back out with their windows covered."
-            ]
+            "STR_COIN_answerType_tip_vbiedGarage_1",
+            "STR_COIN_answerType_tip_vbiedGarage_2"
         ]],
         ["recruitment", [
-            [
-                "Ich kann euch zeigen, wo sich die jungen Männer versammeln. Dort werden sie von Bewaffneten abgeholt.",
-                "Ich weiß, wo sie die Neuen hinbestellen. Wer dort auftaucht, ist ein paar Tage später oft mit einer Waffe unterwegs."
-            ],
-            [
-                "I can show you where the young men gather. Armed men come to collect them there.",
-                "I know where they tell the new lads to show up. A few days later, most of them are walking around with guns."
-            ]
+            "STR_COIN_answerType_tip_recruitment_1",
+            "STR_COIN_answerType_tip_recruitment_2"
         ]]
     ]]
 ];
 
-// What the civilian says when the interpreter asks while his cooldown runs (ticket 3.5): he puts the interpreter off, [German sentences, English sentences]
+// What the civilian says when the interpreter asks while his cooldown runs (ticket 3.5): he puts the interpreter off, a list of keys of the sentences
 COIN_cooldownAnswers = [
-    [
-        "Ich hab gesehen, wie ihr die anderen ausfragt. Kommt später wieder, dann reden wir vielleicht.",
-        "Nicht jetzt. Hier sind zu viele Augen. Wartet ein bisschen.",
-        "Gerade geht das nicht. Die Leute tuscheln schon über euch. Versucht es in ein paar Minuten noch mal.",
-        "Mit mir redet ihr später. Wenn man uns jetzt zusammen sieht, merken sich das die Falschen.",
-        "Ich will nicht der Nächste sein, den ihr hier vor allen ausfragt. Kommt später wieder.",
-        "Lasst mir etwas Zeit. Ich muss erst sehen, ob uns jemand beobachtet.",
-        "Es hat sich herumgesprochen, dass ihr Fragen stellt. Gebt der Sache einen Moment, dann reden wir.",
-        "Jetzt nicht. Geht erst mal weiter und fragt mich später noch mal."
-    ],
-    [
-        "I saw you questioning the others. Come back later, then maybe we'll talk.",
-        "Not now. There are too many eyes here. Wait a little.",
-        "I can't right now. People are already whispering about you. Try again in a few minutes.",
-        "Talk to me later. If we're seen together now, the wrong people will remember it.",
-        "I don't want to be the next one you question in front of everybody. Come back later.",
-        "Give me a little time. I need to see first whether anyone is watching us.",
-        "Word has got around that you're asking questions. Give it a moment, then we'll talk.",
-        "Not now. Move along for a bit and ask me again later."
-    ]
+    "STR_COIN_answer_cooldown_1",
+    "STR_COIN_answer_cooldown_2",
+    "STR_COIN_answer_cooldown_3",
+    "STR_COIN_answer_cooldown_4",
+    "STR_COIN_answer_cooldown_5",
+    "STR_COIN_answer_cooldown_6",
+    "STR_COIN_answer_cooldown_7",
+    "STR_COIN_answer_cooldown_8"
 ];
 
 // Interrogation of prisoners (ticket 3.8, ADR 0011)
@@ -773,125 +619,61 @@ COIN_interrogationWeights = [
 ];
 COIN_interrogationSecondChance = 0;     // Chance of a second result. 0 = exactly one result per interrogation (no double reward, decided 2026-10-29); the weights of the second result stay for a later change
 
-// What a prisoner says: [result, [German sentences, English sentences]], one is picked at random per result.
+// What a prisoner says: [result, [keys of the sentences]], one is picked at random per result.
 // A prisoner never names the nest type. "nothing" is the first result that could not be made (no nest, no camp to warn of)
 COIN_interrogationAnswers = [
     ["nothing", [
-        [
-            "Ich sage nichts. Da könnt ihr fragen, solange ihr wollt.",
-            "Ich weiß nichts, was euch weiterhilft. Ich habe nur Befehle befolgt.",
-            "Mich hat niemand eingeweiht. Ich bin nur mitgelaufen.",
-            "Ihr verschwendet eure Zeit. Von mir erfahrt ihr nichts."
-        ],
-        [
-            "I'm not saying anything. Ask as long as you like.",
-            "I don't know anything that would help you. I only followed orders.",
-            "Nobody told me anything. I just went along.",
-            "You're wasting your time. You won't get anything out of me."
-        ]
+        "STR_COIN_interrogation_nothing_1",
+        "STR_COIN_interrogation_nothing_2",
+        "STR_COIN_interrogation_nothing_3",
+        "STR_COIN_interrogation_nothing_4"
     ]],
     ["rumor", [
-        [
-            "Ich bin nur ein kleines Licht. Irgendwo hier in der Gegend gibt es einen Treffpunkt. Mehr weiß ich nicht.",
-            "Man hat uns gesagt, wohin wir gehen, nicht warum. Irgendwo hier draußen ist ein Versteck.",
-            "Die Befehle kamen immer von weiter weg. Ich kenne die Richtung, nicht den Ort.",
-            "Fragt die anderen. Ich weiß nur, dass wir nachts manchmal in diese Gegend gefahren sind."
-        ],
-        [
-            "I'm just a small fish. There's a meeting place somewhere around here. That's all I know.",
-            "They told us where to go, not why. There's a hideout somewhere out here.",
-            "The orders always came from further away. I know the direction, not the place.",
-            "Ask the others. All I know is that we sometimes drove out to this area at night."
-        ]
+        "STR_COIN_interrogation_rumor_1",
+        "STR_COIN_interrogation_rumor_2",
+        "STR_COIN_interrogation_rumor_3",
+        "STR_COIN_interrogation_rumor_4"
     ]],
     ["hint", [
-        [
-            "Wir haben dort Nachschub abgeholt. Ein Gebäude, ein paar Wachen. Mehr hab ich nicht gesehen.",
-            "Da draußen gibt es einen Ort, an dem sich unsere Leute sammeln. Ich kann ungefähr sagen, wo.",
-            "Wenn ihr mich ordentlich behandelt: Es ist nicht weit von hier. Sucht in dieser Richtung.",
-            "Ich war zweimal dort. Ich habe nicht darauf geachtet, wie wir gefahren sind, aber es war in dieser Gegend."
-        ],
-        [
-            "We picked up supplies there. A building, a few guards. That's all I saw.",
-            "There's a place out there where our people gather. I can tell you roughly where.",
-            "If you treat me properly: it isn't far from here. Look in that direction.",
-            "I was there twice. I didn't pay attention to how we drove, but it was in this area."
-        ]
+        "STR_COIN_interrogation_hint_1",
+        "STR_COIN_interrogation_hint_2",
+        "STR_COIN_interrogation_hint_3",
+        "STR_COIN_interrogation_hint_4"
     ]],
     ["tip", [
-        [
-            "Gut, ich zeig's euch auf der Karte. Genau dort, wo die Straße abknickt. Ich war oft genug da.",
-            "Ich hatte dort letzte Woche Wache. Ich kann euch den Platz fast auf den Meter zeigen.",
-            "Ihr habt gewonnen. Es liegt ganz in der Nähe, und ich war dort. Ich sag euch, wo.",
-            "Ich hab diese Nacht schon zu viel gesehen. Dort ist es, ganz genau dort."
-        ],
-        [
-            "Fine, I'll show you on the map. Right where the road bends. I've been there often enough.",
-            "I stood guard there last week. I can show you the spot almost to the meter.",
-            "You've won. It's very close, and I was there. I'll tell you where.",
-            "I've seen too much tonight already. It's there, right there."
-        ]
+        "STR_COIN_interrogation_tip_1",
+        "STR_COIN_interrogation_tip_2",
+        "STR_COIN_interrogation_tip_3",
+        "STR_COIN_interrogation_tip_4"
     ]],
     ["warning", [
-        [
-            "Passt auf, da draußen sitzt noch eine Gruppe von uns. Die warten nur darauf, dass jemand vorbeikommt.",
-            "In der Nähe lagert noch eine Einheit. Ihr lauft ihnen in die Arme, wenn ihr dem Weg folgt.",
-            "Ihr seid nicht die Ersten, die hier suchen. Die anderen sind nicht weit und bewaffnet.",
-            "Eine Gruppe hat sich dort eingegraben. Geht nicht zu nah ran, die schießen zuerst."
-        ],
-        [
-            "Watch out, another group of ours is sitting out there. They're just waiting for someone to come by.",
-            "Another unit is camped nearby. You'll walk right into them if you follow the road.",
-            "You're not the first to search around here. The others aren't far, and they're armed.",
-            "A group has dug in over there. Don't get too close, they shoot first."
-        ]
+        "STR_COIN_interrogation_warning_1",
+        "STR_COIN_interrogation_warning_2",
+        "STR_COIN_interrogation_warning_3",
+        "STR_COIN_interrogation_warning_4"
     ]],
     // A warning of an IED (ticket 4.8): a prisoner of the militia knows about the roads. Texts to be agreed with Niklas
     ["warningIED", [
-        [
-            "Fahrt nicht über die Straße da vorn. Wir haben dort etwas für euch hinterlassen.",
-            "Auf dem Weg liegt eine Überraschung. Ich sage nicht, wo genau, aber seid vorsichtig.",
-            "Bleibt von der Straße weg. Es ist nicht sicher, dort liegt etwas im Boden.",
-            "Wenn ihr dem Weg folgt, geht es nicht lange gut. Die Straße ist vorbereitet."
-        ],
-        [
-            "Don't drive down the road up ahead. We left something there for you.",
-            "There's a surprise on the way. I won't say where exactly, but be careful.",
-            "Stay off that road. It isn't safe, there's something in the ground.",
-            "If you follow the road, it won't end well. It has been prepared."
-        ]
+        "STR_COIN_interrogation_warningIED_1",
+        "STR_COIN_interrogation_warningIED_2",
+        "STR_COIN_interrogation_warningIED_3",
+        "STR_COIN_interrogation_warningIED_4"
     ]],
     // A warning of an ambush (ticket 4.5): a prisoner of the militia was there or knows the plan. Texts to be agreed with Niklas
     ["warningAmbush", [
-        [
-            "Fahrt nicht die Straße entlang. Dort liegen Männer im Graben und warten auf euch.",
-            "Wir haben die Straße im Auge. Wer dort langkommt, läuft uns direkt vor die Gewehre.",
-            "Bleibt von der Straße weg. Dort liegt eine Gruppe in Deckung, und sie schießen, sobald ihr nah genug seid.",
-            "Ich war letzte Nacht dabei, als wir uns an der Straße eingegraben haben. Es wird kein Spaziergang."
-        ],
-        [
-            "Don't drive along that road. Men are lying in the ditch there, waiting for you.",
-            "We have the road covered. Anyone coming along it walks straight into our rifles.",
-            "Stay off the road. A group is waiting in cover there, and they open fire as soon as you're close enough.",
-            "I was there last night when we dug in by the road. It won't be a walk in the park."
-        ]
+        "STR_COIN_interrogation_warningAmbush_1",
+        "STR_COIN_interrogation_warningAmbush_2",
+        "STR_COIN_interrogation_warningAmbush_3",
+        "STR_COIN_interrogation_warningAmbush_4"
     ]]
 ];
 
-// What the prisoner says when the interpreter asks while his cooldown runs (ticket 3.5): [German sentences, English sentences]
+// What the prisoner says when the interpreter asks while his cooldown runs (ticket 3.5): a list of keys of the sentences
 COIN_interrogationCooldownAnswers = [
-    [
-        "Nicht so schnell. Ich muss erst nachdenken.",
-        "Zu viele Fragen auf einmal. Kommt später wieder.",
-        "Gebt mir einen Moment. Ich rede, aber nicht jetzt.",
-        "Mir fällt gerade nichts ein. Lasst mich in Ruhe, dann reden wir später."
-    ],
-    [
-        "Not so fast. I need to think first.",
-        "Too many questions at once. Come back later.",
-        "Give me a moment. I'll talk, but not now.",
-        "Nothing comes to mind right now. Leave me be, then we'll talk later."
-    ]
+    "STR_COIN_interrogation_cooldown_1",
+    "STR_COIN_interrogation_cooldown_2",
+    "STR_COIN_interrogation_cooldown_3",
+    "STR_COIN_interrogation_cooldown_4"
 ];
 
 // Marker radius per intel level in m
@@ -1099,78 +881,38 @@ COIN_repBandHigh            = 25;       // Band "high" starts here (= Liberation
 COIN_moodThresholds         = [-25, 0, 25, 50]; // Mood (ticket 5.3): below the first hostile, then suspicious, waiting, friendly, from the last very friendly
 
 // What a civilian says when the interpreter asks "How do you feel about us?" (ticket 5.3, always true):
-// [mood, [German sentences, English sentences]], one is picked at random. The rows are in the order of COIN_moodThresholds
+// [mood, [keys of the sentences]], one is picked at random. The rows are in the order of COIN_moodThresholds
 // (hostile, suspicious, waiting, friendly, veryFriendly). They tell the mood, never a number and never the reason.
 COIN_moodAnswers = [
     ["hostile", [
-        [
-            "Ehrlich? Die meisten hier wünschen euch weit weg. Ihr bringt nur Ärger.",
-            "Wir haben euch nicht gerufen. Viele hier stehen lieber auf der Seite der Miliz.",
-            "Geht besser, bevor jemand etwas Dummes tut. Hier traut euch keiner.",
-            "Ihr habt zu viel kaputt gemacht. Von uns bekommt ihr nichts."
-        ],
-        [
-            "Honestly? Most people here wish you were far away. You only bring trouble.",
-            "We didn't call you. Many here would rather stand with the militia.",
-            "You'd better leave before somebody does something stupid. Nobody here trusts you.",
-            "You've broken too much. You'll get nothing from us."
-        ]
+        "STR_COIN_mood_hostile_1",
+        "STR_COIN_mood_hostile_2",
+        "STR_COIN_mood_hostile_3",
+        "STR_COIN_mood_hostile_4"
     ]],
     ["suspicious", [
-        [
-            "Wir wissen noch nicht, was wir von euch halten sollen. Die Leute sind vorsichtig.",
-            "Manche reden gut über euch, andere nicht. Glaubt nicht jedem, der euch etwas erzählt.",
-            "Man beobachtet euch hier genau. Wer mit euch spricht, überlegt sich jedes Wort.",
-            "Das Vertrauen ist dünn. Ein Fehler, und es ist weg."
-        ],
-        [
-            "We don't know yet what to make of you. People are careful.",
-            "Some speak well of you, others don't. Don't believe everyone who tells you something.",
-            "You're watched closely here. Whoever talks to you weighs every word.",
-            "Trust is thin. One mistake, and it's gone."
-        ]
+        "STR_COIN_mood_suspicious_1",
+        "STR_COIN_mood_suspicious_2",
+        "STR_COIN_mood_suspicious_3",
+        "STR_COIN_mood_suspicious_4"
     ]],
     ["waiting", [
-        [
-            "Wir warten ab. Wenn ihr bleibt und euer Wort haltet, ändert sich vielleicht etwas.",
-            "Niemand ist gegen euch, aber begeistert ist auch keiner. Zeigt, was ihr könnt.",
-            "Es ist ruhiger geworden. Ob das bleibt, hängt von euch ab.",
-            "Wir haben schon viele Soldaten kommen und gehen sehen. Beweist, dass ihr anders seid."
-        ],
-        [
-            "We're waiting to see. If you stay and keep your word, maybe things will change.",
-            "Nobody is against you, but nobody is thrilled either. Show what you can do.",
-            "It has become calmer. Whether it stays that way is up to you.",
-            "We've seen many soldiers come and go. Prove that you're different."
-        ]
+        "STR_COIN_mood_waiting_1",
+        "STR_COIN_mood_waiting_2",
+        "STR_COIN_mood_waiting_3",
+        "STR_COIN_mood_waiting_4"
     ]],
     ["friendly", [
-        [
-            "Die meisten hier sind froh, dass ihr da seid. Man hilft euch, wo man kann.",
-            "Ihr habt euch Respekt verdient. Die Leute reden gut über euch.",
-            "Wir sind auf eurer Seite, so gut es geht. Sagt, wenn ihr etwas braucht.",
-            "Seit ihr hier seid, geht es bergauf. Das merkt man."
-        ],
-        [
-            "Most people here are glad you're here. They help you where they can.",
-            "You've earned respect. People speak well of you.",
-            "We're on your side as far as we can be. Tell us if you need something.",
-            "Things have been looking up since you came. You can tell."
-        ]
+        "STR_COIN_mood_friendly_1",
+        "STR_COIN_mood_friendly_2",
+        "STR_COIN_mood_friendly_3",
+        "STR_COIN_mood_friendly_4"
     ]],
     ["veryFriendly", [
-        [
-            "Ihr seid hier willkommen. Die Leute würden für euch ein Risiko eingehen.",
-            "Für uns seid ihr keine Besatzer mehr, sondern Verbündete. Sagt, was ihr braucht.",
-            "Wenn ihr ruft, kommen die Leute. So viel Vertrauen hatten wir lange nicht.",
-            "Ihr habt unser Vertrauen. Jeder hier würde euch helfen."
-        ],
-        [
-            "You're welcome here. People would take a risk for you.",
-            "To us you're no longer occupiers but allies. Tell us what you need.",
-            "When you call, people come. We haven't had this much trust in a long time.",
-            "You have our trust. Everyone here would help you."
-        ]
+        "STR_COIN_mood_veryFriendly_1",
+        "STR_COIN_mood_veryFriendly_2",
+        "STR_COIN_mood_veryFriendly_3",
+        "STR_COIN_mood_veryFriendly_4"
     ]]
 ];
 
@@ -1225,43 +967,34 @@ COIN_radioContactAge         = 30;       // s: an enemy seen this long ago still
 COIN_radioFightSeconds      = 10;       // s: a fighter who fired or was hit this long ago means a firefight
 COIN_radioQuietSeconds      = 60;       // s without an enemy and without a shot until contact and firefight are reported again
 COIN_radioCasualtyShare     = 0.5;      // The reinforcement reports its losses when this share of the fighters or fewer are able to fight
-COIN_radioCallsign          = ["Verstärkung", "Reinforcement"]; // How the answers of the radio start
-// Answers to the one who gave the order: [key, [German, English]]; %1 = point or town (grid), %2 = distance in m ("attack"); "arrived": the group has reached the point of "go there"; "contact", "firefight", "casualties" (%1 = grid, for the losses %1 = able to fight, %2 = fighters at the start) go to all who may give orders
+COIN_radioCallsign = "STR_COIN_radio_callsign"; // How the answers of the radio start
+// Answers to the one who gave the order: [key, key of the text]; %1 = point or town (grid), %2 = distance in m ("attack"); "arrived": the group has reached the point of "go there"; "contact", "firefight", "casualties" (%1 = grid, for the losses %1 = able to fight, %2 = fighters at the start) go to all who may give orders
 COIN_radioReplyTexts = [
-    ["follow",    ["Verstanden, wir folgen dir.", "Understood, we follow you."]],
-    ["goto",      ["Verstanden, wir gehen zu %1.", "Understood, we are moving to %1."]],
-    ["attack",    ["Verstanden, wir greifen %1 an, %2 m.", "Understood, we attack %1, %2 m."]],
-    ["arrived",   ["Wir sind an Punkt %1 angekommen.", "We have reached point %1."]],
-    ["contact",   ["Feindkontakt bei %1.", "Enemy contact at %1."]],
-    ["firefight", ["Wir sind im Feuergefecht bei %1.", "We are in a firefight at %1."]],
-    ["casualties", ["Verluste: Nur noch %1 von %2 sind kampffähig.", "Losses: Only %1 of %2 are still able to fight."]],
-    ["no_target", ["Kein Ziel: Es gibt keine Ortschaft der Miliz mehr.", "No target: There is no town of the militia left."]],
-    ["refused",   ["Funkspruch nicht verstanden.", "Radio message not understood."]]
+    ["follow", "STR_COIN_radio_follow"],
+    ["goto", "STR_COIN_radio_goto"],
+    ["attack", "STR_COIN_radio_attack"],
+    ["arrived", "STR_COIN_radio_arrived"],
+    ["contact", "STR_COIN_radio_contact"],
+    ["firefight", "STR_COIN_radio_firefight"],
+    ["casualties", "STR_COIN_radio_casualties"],
+    ["no_target", "STR_COIN_radio_no_target"],
+    ["refused", "STR_COIN_radio_refused"]
 ];
-// The briefing in the map diary of the ones who may give orders, tab "COIN Liberation" (German like the rest of it): [title, text]
-COIN_radioBriefing = [
-    "Verstärkung führen",
-    "Solange eine Verstärkung unterwegs ist, habt ihr im Kommunikationsmenü (0-8) drei Funkbefehle. Kommandant, Truppführer und Dolmetscher dürfen sie geben, der letzte Befehl gilt.<br/><br/>- <font color='#4da6ff'>Folgt uns</font>: Die Gruppe folgt dem, der den Befehl gibt. Stirbt er oder geht er offline, hält sie ihre Stellung.<br/>- <font color='#4da6ff'>Geht dorthin</font>: Klickt auf die Karte, die Gruppe läuft hin und hält den Punkt.<br/>- <font color='#4da6ff'>Greift an</font>: Die Gruppe geht im Kampfmodus in die nächste Ortschaft der Miliz. Dort kämpft sie nur, wenn ihr in der Nähe seid, sonst ist die Ortschaft leer.<br/><br/>Die Verstärkung zieht nach der Zeit ab oder wenn die Bevölkerung euch nicht mehr genug vertraut. Dann verschwinden die Befehle."
-];
+// The briefing in the map diary of the ones who may give orders, tab "COIN Liberation" : [key of the title, key of the text]
+COIN_radioBriefing = ["STR_COIN_radio_briefingTitle", "STR_COIN_radio_briefingText"];
 
-// Texts of the favor offer in the dialog of the elder, like COIN_aidTaskTexts: [id, [title German, English], [explanation German, English]]
+// Texts of the favor offer in the dialog of the elder, like COIN_aidTaskTexts: [id, key of the title, key of the explanation]
 // Explanation: %1 = fighters, %2 = minutes, %3 = intel points, %4 = most distance from the elder in m, %5 = favors in stock, %6 = most in stock
 COIN_favorOfferTexts = [
-    ["reinforcement",
-        ["Verstärkung", "Reinforcement"],
-        [
-            "Die Bevölkerung stellt euch %1 Kämpfer zur Seite.<br/><br/>Nach dem Annehmen klickt ihr auf der Karte den Zielpunkt an, höchstens %4 m vom Ältesten entfernt. Die Kämpfer laufen dorthin und halten ihn. Nach %2 Minuten ziehen sie wieder ab, früher, wenn die Bevölkerung euch nicht mehr genug vertraut.<br/><br/><t size='1.15' color='#00a0ff'>Kosten: eine Gefälligkeit und %3 Intel-Punkte. Ihr habt %5 von %6 Gefälligkeiten.</t><br/><t size='1.15' color='#ffa000'>Werden alle Kämpfer getötet, dauert es länger bis zur nächsten Gefälligkeit.</t>",
-            "The population puts %1 fighters at your side.<br/><br/>After accepting you click the target point on the map, at most %4 m from the elder. The fighters walk there and hold it. After %2 minutes they leave again, sooner if the population no longer trusts you enough.<br/><br/><t size='1.15' color='#00a0ff'>Cost: one favor and %3 intel points. You have %5 of %6 favors.</t><br/><t size='1.15' color='#ffa000'>If all the fighters are killed, the next favor takes longer.</t>"
-        ]
-    ]
+    ["reinforcement", "STR_COIN_favor_reinforcement_title", "STR_COIN_favor_reinforcement_explanation"]
 ];
-// Hints while the interpreter picks the point on the map (ticket 5.6): [key, [German, English]]
+// Hints while the interpreter picks the point on the map (ticket 5.6): [key, key of the text]
 COIN_reinforcementPickTexts = [
-    ["start", ["Klickt den Zielpunkt der Verstärkung an. Der Kreis zeigt die Reichweite. Esc bricht ab.", "Click the target point of the reinforcement. The circle shows the range. Esc cancels."]],
-    ["water", ["Im Wasser können die Kämpfer nicht stehen. Wählt einen anderen Punkt.", "The fighters cannot stand in water. Pick another point."]],
-    ["far", ["Das ist zu weit vom Ältesten. Wählt einen Punkt im Kreis.", "That is too far from the elder. Pick a point inside the circle."]],
-    ["start_radio", ["Klickt auf die Karte, wohin die Verstärkung gehen soll. Esc bricht ab.", "Click on the map where the reinforcement should go. Esc cancels."]],
-    ["away", ["Ihr habt euch vom Ältesten entfernt. Die Verstärkung ist abgebrochen, es hat nichts gekostet.", "You walked away from the elder. The reinforcement is cancelled, it cost nothing."]]
+    ["start", "STR_COIN_radioPick_start"],
+    ["water", "STR_COIN_radioPick_water"],
+    ["far", "STR_COIN_radioPick_far"],
+    ["start_radio", "STR_COIN_radioPick_start_radio"],
+    ["away", "STR_COIN_radioPick_away"]
 ];
 // Messages to everybody (ticket 5.6): the classes coin_reinforcement_<key>_<en|de> of CfgNotifications.hpp, keys arrived, left_time, left_reputation, left_wiped
 
