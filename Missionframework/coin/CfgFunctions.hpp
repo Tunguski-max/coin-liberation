@@ -141,6 +141,9 @@ class COIN {
 
         // Debug console: terrain nest of a type in front of the player, as a real one spawns
         class debugTerrainNest {};
+
+        // Debug console: mortar attack now on the nearest FOB, without chance and cooldown (ticket 6.7a)
+        class debugMortarAttack {};
     };
 
     class intel {
@@ -617,6 +620,34 @@ class COIN {
 
         // Server loop: logs a change of the staging areas and redraws the debug map (no hook)
         class stagingLoop {};
+    };
+
+    class mortar {
+        file = "coin\functions\mortar";
+
+        // Server loop: decides when a mortar attack starts (ticket 6.7a, #158)
+        class mortarLoop {};
+
+        // Server: may a mortar attack hit this FOB? (staging area, cooldown, player at the FOB)
+        class checkMortarFob {};
+
+        // Server: key of a FOB in the cooldown table
+        class mortarFobKey {};
+
+        // Server: position for the mortar squad, 1500-2500 m away, out of sight, flat, preferably in a staging area
+        class findMortarSpot {};
+
+        // Server: starts an attack, if none runs and a spot exists
+        class startMortarAttack {};
+
+        // Server, spawned: the course of an attack (squad, salvos, hold, take-down)
+        class runMortarAttack {};
+
+        // Server: the mortar and its crew, to Zeus
+        class spawnMortarSquad {};
+
+        // Server, scheduled: one salvo of real rounds around the FOB
+        class fireMortarSalvo {};
     };
 
     class battlegroup {

@@ -353,6 +353,39 @@ COIN_enableStagingRelief    = true;     // Ticket 6.1c, #156: relief for a milit
 COIN_stagingCheckSeconds    = 5;        // s between two checks for a change (nest destroyed, military post captured or lost)
 COIN_stagingDebugColor      = "ColorKhaki"; // Debug map: circle and label of a staging area
 
+// Mortar attack (ticket 6.7a, #158, DESIGN 9, CONTEXT.md: Mörserangriff): a small militia squad shells a FOB in a staging area
+// while a player is there. Chance and cooldown are checked per FOB, at most one attack runs on the map. Cooldowns are not saved
+COIN_enableMortarAttacks    = true;     // Off: no mortar attacks
+COIN_mortarChance           = 0.15;     // Chance per check and eligible FOB
+COIN_mortarCheckSeconds     = 600;      // s between two checks
+COIN_mortarCooldownSeconds  = 2700;     // s a FOB is left alone after an attack
+COIN_mortarFobPlayerRadius  = 300;      // m: a player this near the FOB is needed
+// Light mortar: the first class that exists. Project OPFOR has no mortar for the Afghan Militia (OPFOR side classes), its M252
+// of the Iraqi and Syrian army and the vanilla Mk6 serve as fallback
+COIN_mortarClasses          = ["LOP_AA_Static_M252", "LOP_IA_Static_M252", "O_Mortar_01_F"];
+COIN_mortarCrew             = 3;        // Militia fighters, the first one is the gunner
+COIN_mortarDistance         = [1500, 2500]; // [min, max] m of the squad from the FOB
+COIN_mortarSpotTries        = 80;       // Random points per pass (first only inside a staging area, then anywhere)
+COIN_mortarMinNormalZ       = 0.97;     // Flat ground: z of the surface normal at least this (0.97 is about 14 degrees)
+COIN_mortarMinDistPlayer    = 1000;     // m: no player nearer than this to the spot
+COIN_mortarSightDistance    = 2500;     // m: no player within this with a line of sight to the spot
+COIN_mortarClearRadius      = 10;       // m: no wall, house, fence or tree this close around the mortar (checked in 8 directions)
+COIN_mortarClearHeights     = [0.5, 1.5, 3]; // m above the ground the clearance rays run at
+COIN_mortarClearArc         = 40;       // m: length of the rays along the firing arc towards the FOB
+COIN_mortarClearElevations  = [45, 60, 75]; // Degrees above the horizon of those rays (a mortar fires between 45 and 80)
+COIN_mortarMinDistSector    = 300;      // m from a sector centre
+COIN_mortarMinDistBase      = 500;      // m from the start base and every FOB
+COIN_mortarSpread           = [150, 100, 50]; // One salvo per entry: radius in m around the FOB (the squad ranges in)
+COIN_mortarRounds           = 4;        // Rounds per salvo
+COIN_mortarStartDelay       = 20;       // s from the spawn to the first round
+COIN_mortarRoundGap         = 5;        // s after a round before the next one
+COIN_mortarSalvoGap         = 40;       // s between two salvos (time to take cover)
+COIN_mortarFireTimeout      = 40;       // s to wait for a round before the salvo stops
+COIN_mortarHoldSeconds      = 600;      // s the squad stays in position after the last salvo
+COIN_mortarRemoveDistance   = 800;      // m: the squad is taken down when no player is nearer than this
+COIN_mortarRemoveSeconds    = 30;       // s between two checks for players near the squad
+COIN_mortarMarkerColor      = "ColorRed"; // Debug map: marker at the squad
+
 // Capital garrison = base * (1 + factor * active nests) - Phase 6
 COIN_capitalGarrisonBase    = 1.0;
 COIN_capitalGarrisonFactor  = 0.15;

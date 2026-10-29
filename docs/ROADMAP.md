@@ -326,9 +326,15 @@ Vier Blöcke, nacheinander umgesetzt und getestet: 6A → 6B → 6C → 6D. Samm
   (Funktion direkt aufgerufen mit BTR-60 ×3, Ural, UAZ: ein BTR-60 bleibt, zwei durch Offroad M2 und UAZ ersetzt, Ural und UAZ
   unverändert, zwei Logzeilen; nicht getestet: Hook im echten Gegenangriff, Schalter aus. Die Klassen stehen in
   `COIN_battlegroupOldVehicleClasses`, nicht in `COIN_oldVehicleClasses`: Die Preset-Liste hat den ISTS-BTR-60)
-- [ ] 6.7a (#158) Mörserangriff, Durchstich: nur auf eine FOB im Aufmarschraum mit Spieler an der FOB (300 m), alle 10 min 15 %, 45 min
-  Wartezeit pro FOB, höchstens einer gleichzeitig; 3 Kämpfer mit leichtem Mörser 1500–2500 m entfernt außer Sicht, 3 Salven zu je
-  4 Granaten mit Streuung 150 m → 50 m, echter Schaden, 10 min in Stellung, Abbau außer Sicht; COIN-Einheiten, spawnen immer
+- [x] 6.7a (#158, am 2026-10-29 im Spiel getestet) Mörserangriff, Durchstich: nur auf eine FOB im Aufmarschraum mit Spieler an der FOB (300 m), alle 10 min 15 %, 45 min
+  Wartezeit pro FOB (ab dem Ende des Angriffs), höchstens einer gleichzeitig; 3 Kämpfer mit leichtem Mörser 1500–2500 m entfernt außer Sicht, 3 Salven zu je
+  4 Granaten mit Streuung 150 m → 50 m, echter Schaden, 10 min in Stellung (ab der letzten Salve), Abbau außer Sicht; COIN-Einheiten, spawnen immer
+  (Debug-Funktion `COIN_fnc_debugMortarAttack`; Mörserklasse `LOP_AA_Static_M252` aus Project OPFOR, Liste mit Rückfällen in der Config;
+  drei Läufe an FOB Alpha: 12 von 12 Granaten gefallen, Trupp 1628–2213 m entfernt im Aufmarschraum Amir Barricaded Village;
+  Trupp nach Salve 2 ausgeschaltet: kein weiteres Feuer, `eliminated`, Abbau; FOB außerhalb des Aufmarschraums: `no attack, not in a
+  staging area`; Zeus sieht Trupp und Mörser; nicht einzeln getestet: Zufallsauslöser der Schleife mit Würfel und Wartezeit, kein
+  Spieler an der FOB, Schalter aus. Bei der Entwicklung gefunden: `magazinesTurret` ist binär, `inRangeOfArtillery` erwartet die
+  Position links. Ohne Schütze feuert niemand mehr, auch wenn die anderen leben)
 - [ ] 6.7b (#159) Mörserangriff: Meldung „Mörserbeschuss auf FOB …“ und Kreis (etwa 400 m) um die Stellung nach der ersten Salve,
   verschwindet mit dem Trupp; Verhör nennt den Kommandoposten des Aufmarschraums, beim Militärposten gilt „Welches Nest“
 
