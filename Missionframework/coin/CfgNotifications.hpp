@@ -27,6 +27,7 @@ class coin_camp_cleared: coin_nest_destroyed {
 class coin_intel_new: coin_nest_destroyed {
     title = $STR_COIN_notify_intelNew_title;
     description = $STR_COIN_notify_intelNew_text;
+    iconPicture = "res\notif\ui_notif_int.paa";
     color[] = { 1, 0.6, 0, 1 };
     sound = "taskCreated";
 };
@@ -40,15 +41,18 @@ class coin_intel_warning: coin_intel_new {
 class coin_mortar_attack: coin_intel_warning {
     title = $STR_COIN_notify_mortarAttack_title;
     description = $STR_COIN_notify_mortarAttack_text;
+    iconPicture = "res\notif\ui_notif_fob_und.paa";
 };
 // Reinforcement (ticket 5.6): %1 is the town of the elder. Arrived is good news (green), leaving is a hint (orange), wiped out a warning (red)
 class coin_reinforcement_arrived: coin_nest_destroyed {
     title = $STR_COIN_notify_reinforcementArrived_title;
     description = $STR_COIN_notify_reinforcementArrived_text;
+    iconPicture = "res\notif\ui_notif_ref.paa";
 };
 class coin_reinforcement_left_time: coin_intel_new {
     title = $STR_COIN_notify_reinforcementLeftTime_title;
     description = $STR_COIN_notify_reinforcementLeftTime_text;
+    iconPicture = "res\notif\ui_notif_ref.paa";
 };
 class coin_reinforcement_left_reputation: coin_reinforcement_left_time {
     description = $STR_COIN_notify_reinforcementLeftReputation_text;
@@ -56,4 +60,5 @@ class coin_reinforcement_left_reputation: coin_reinforcement_left_time {
 class coin_reinforcement_left_wiped: coin_intel_warning {
     title = $STR_COIN_notify_reinforcementWiped_title;
     description = $STR_COIN_notify_reinforcementWiped_text;
+    iconPicture = "res\notif\ui_notif_ref.paa";
 };
