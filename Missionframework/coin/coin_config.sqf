@@ -339,8 +339,8 @@ COIN_campRelocateMinutes    = [120, 180]; // [min, max] minutes after which an u
 COIN_campFleeDistance       = 200;      // m: a fighter farther from its camp than this no longer counts, it fled (the patrol walks within COIN_nestPatrolRadius)
 
 // Readiness cap by the network (ticket 6.6a, #152, ADR 0013, ADR 0025): cap = floor + (100 - floor) x network strength,
-// switch COIN_capReadinessByNetwork. Full network 100 (no effect), 6 of 11 nests about 66, no nest left the floor
-COIN_readinessCapFloor      = 25;       // Cap with no active nest left, so Liberation does not send only weak militia squads at the end
+// switch COIN_capReadinessByNetwork. Full network 100 (no effect), 6 of 11 nests about 68, no nest left the floor
+COIN_readinessCapFloor      = 30;       // Cap with no active nest left (25 until 2026-10-29). 30 is the lower bound of the armor mix (COIN_squadMixReadiness) and of the army squad type of the capital: below it Liberation sends only weak militia squads without armored twins
 COIN_readinessCapSeconds    = 60;       // s between two checks of the server loop; Liberation's raises are pulled back within this time
 COIN_readinessCapLogDrop    = 1;        // Points: smaller pull-backs (Liberation's 0.25 steps over time) are logged only with COIN_debug
 
@@ -413,8 +413,9 @@ COIN_mortarCircleRadius     = 400;      // m
 COIN_mortarCircleMarkerType = "hd_destroy"; // Own symbol, not the warning triangle
 COIN_mortarCircleColor      = "ColorRed";
 
-// Capital garrison = base * (1 + factor * active nests) - Phase 6
-COIN_capitalGarrisonBase    = 1.0;
+// Additional garrison of the capital (ticket 6.3a, #160, DESIGN 9): round (Liberation's infantry squads of the capital x factor x active nests)
+// more squads when the capital is activated: 3 squads and 11 nests give 5, 5 nests give 2, no nest none. Liberation's own garrison is the minimum
+COIN_enableCapitalGarrison  = true;     // Off: Liberation's garrison alone
 COIN_capitalGarrisonFactor  = 0.15;
 // Fixed heavy equipment of the capital, independent of caches (ADR 0014)
 COIN_capitalHeavyVehicles   = ["LOP_AM_OPF_T72BA", "LOP_AM_OPF_T72BA", "LOP_ISTS_OPF_ZSU234"];

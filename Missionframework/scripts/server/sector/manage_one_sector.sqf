@@ -220,6 +220,12 @@ if ((!(_sector in blufor_sectors)) && (([markerPos _sector, [_opforcount] call K
         _managed_units = _managed_units + (units _grp);
     };
 
+    // COIN BEGIN: additional squads in the capital by the militia network, taken down with the sector (ticket 6.3a, #160, DESIGN 9, hook 35)
+    if (_sector in sectors_bigtown) then {
+        _managed_units = _managed_units + ([_sector, _infsquad, count ([_squad1, _squad2, _squad3, _squad4] select {count _x > 0})] call COIN_fnc_spawnCapitalGarrison);
+    };
+    // COIN END
+
     if (_spawncivs && GRLIB_civilian_activity > 0) then {
         _managed_units = _managed_units + ([_sector] call KPLIB_fnc_spawnCivilians);
     };
