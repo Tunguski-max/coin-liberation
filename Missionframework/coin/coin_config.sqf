@@ -462,7 +462,7 @@ COIN_intelMarkerColor       = "ColorOrange";
 COIN_intelMarkerAlpha       = 0.35;
 COIN_unsafeRadius           = 100;      // m: a civilian refuses to talk while an armed enemy is this close; he can be asked again later
 COIN_enableCooldown         = true;     // Ticket 3.5: after a question that made a marker (also a lie) the interpreter has to wait
-COIN_questionCooldown       = 300;      // s the interpreter waits after a marker; "I know nothing" starts no cooldown
+COIN_questionCooldown       = 90;       // s the interpreter waits after a marker; "I know nothing" starts no cooldown
 // Entry in the action menu (mouse wheel / space bar): key of the COIN package in stringtable.xml (ADR 0026)
 COIN_askMilitiaLabel = "STR_COIN_talk_askMilitia";
 COIN_interrogateLabel = "STR_COIN_talk_interrogate";
