@@ -710,8 +710,8 @@ Festgelegt beim Grilling für Phase 6 (2026-10-28, ADR 0025, Ergänzung ADR 0013
   Rüstungsmischung (ADR 0014), sie besetzen Häuser und patrouillieren im Sektor. Sie zählen als COIN-Einheiten und spawnen immer
   (ADR 0015). Bei vollem Netzwerk ist die Hauptstadt praktisch nicht einnehmbar.
 - Fest dazu gehört schweres Gerät für den Endkampf: **2 Kampfpanzer T-72BA** und **1 Flakpanzer ZSU-23-4** wie Liberations
-  Sektorfahrzeuge, dazu 3 Igla-Schützen auf hohen Gebäudeplätzen. Es hängt nicht an den Waffenlagern. Zerstörtes Gerät bleibt
-  bis zum Serverneustart weg (nicht gespeichert), damit es sich lohnt, es vorab herauszuschießen.
+  Sektorfahrzeuge, dazu 3 Igla-Schützen auf hohen Gebäudeplätzen. Es hängt nicht an den Waffenlagern. Jede Aktivierung der
+  Hauptstadt spawnt es neu, auch zerstörtes: Wer den Sektor neu spawnen lässt, zahlt den Preis dafür (verworfen am 2026-10-29: „bleibt bis zum Serverneustart weg“, nicht stabil umzusetzen).
 - Einnahme der Hauptstadt = Kampagnensieg.
 
 **Kampagnenende**

@@ -232,7 +232,8 @@ coin/
     │   ├── fn_initVehicleSeizure.sqf   COIN_fnc_initVehicleSeizure: Client, Einsteigen in ein Zivilfahrzeug beschlagnahmt es, Ruf nach Config (Liberations Handler hat einen Tippfehler)
     │   └── fn_hideReputationDisplay.sqf COIN_fnc_hideReputationDisplay: Client, blendet Ruf-Zahl und -Symbol im Overlay aus, außer mit COIN_debug (Hook 28)
     ├── capital/
-    │   └── fn_spawnCapitalGarrison.sqf COIN_fnc_spawnCapitalGarrison: zusätzliche Trupps der Hauptstadt nach aktiven Nestern, Hook 35 (Ticket 6.3a)
+    │   ├── fn_spawnCapitalGarrison.sqf COIN_fnc_spawnCapitalGarrison: zusätzliche Trupps der Hauptstadt nach aktiven Nestern, Hook 35 (Ticket 6.3a)
+    │   └── fn_spawnCapitalHeavy.sqf COIN_fnc_spawnCapitalHeavy: festes schweres Gerät und Igla-Schützen der Hauptstadt, Hook 35 (Ticket 6.3b)
     ├── battlegroup/
     │   └── fn_limitOldVehicles.sqf     COIN_fnc_limitOldVehicles: Server, höchstens 1 Altfahrzeug pro Gegenangriff, jedes weitere wird ein Technical, Hook 34 (Ticket 6.2)
     ├── readiness/

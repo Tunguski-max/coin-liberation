@@ -417,9 +417,14 @@ COIN_mortarCircleColor      = "ColorRed";
 // more squads when the capital is activated: 3 squads and 11 nests give 5, 5 nests give 2, no nest none. Liberation's own garrison is the minimum
 COIN_enableCapitalGarrison  = true;     // Off: Liberation's garrison alone
 COIN_capitalGarrisonFactor  = 0.15;
-// Fixed heavy equipment of the capital, independent of caches (ADR 0014)
+// Fixed heavy equipment of the capital, independent of caches (ticket 6.3b, #161, ADR 0014): manned like Liberation's sector vehicles,
+// locked for players. Every activation spawns all of them again, destroyed or not: whoever lets the sector respawn pays the price
+COIN_enableCapitalHeavy     = true;     // Off: no heavy equipment and no Igla gunners
 COIN_capitalHeavyVehicles   = ["LOP_AM_OPF_T72BA", "LOP_AM_OPF_T72BA", "LOP_ISTS_OPF_ZSU234"];
-COIN_capitalAAInfantry      = 3;        // Igla gunners in the capital garrison
+COIN_capitalAAInfantry      = 3;        // Igla gunners on the highest building spots of the capital
+COIN_capitalAAClasses       = ["LOP_AM_OPF_Infantry_AA", "LOP_TKA_Infantry_AA", "LOP_SLA_Infantry_AA"]; // First one that exists is used
+COIN_capitalAARadius        = 150;      // m around the middle in which buildings are searched
+COIN_capitalAASpacing       = 30;       // m the gunners keep apart
 
 // ---------------------------------------------------------------------------
 // Army equipment limits (Phase 1, ticket 1.9, ADR 0007)
