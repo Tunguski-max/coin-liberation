@@ -744,7 +744,7 @@ COIN_interrogationWeights = [
     [ 0, 15, 30, 40,  7,  8],
     [25, 20, 25, 20,  5,  5]
 ];
-COIN_interrogationSecondChance = 0.5;   // Chance of a second result
+COIN_interrogationSecondChance = 0;     // Chance of a second result. 0 = exactly one result per interrogation (no double reward, decided 2026-10-29); the weights of the second result stay for a later change
 
 // What a prisoner says: [result, [German sentences, English sentences]], one is picked at random per result.
 // A prisoner never names the nest type. "nothing" is the first result that could not be made (no nest, no camp to warn of)
