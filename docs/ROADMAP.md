@@ -381,6 +381,16 @@ sichtbar unterschiedlich viele Verteidiger. (Der Abschnitt „COIN“ im Endbild
 
 ## Phase 7 – Server und Balancing
 
+**7.0 Vor dem Deployment (#145)** – Texte, Tutorial und Mission für den Go-Live, Reihenfolge nacheinander (ADR 0026). Entschieden am 2026-10-29;
+das Arsenal-Preset („limited Arsenal“) ist verworfen: Es bleibt bei Liberations Blacklist (`KP_liberation_arsenal = 0`).
+- [ ] 7.0a Stringtable-Grundlage: COIN-Package in `stringtable.xml` (Hook), `COIN_fnc_getLanguageText` und `CfgNotifications` auf Keys, Server schickt nur Keys
+- [ ] 7.0b Texte von Ältestem, Dialogen und Aufträgen auf Keys, sichtbar „Versteck“ und „Aufständische“
+- [ ] 7.0c Texte von Intel, Verhör, Gefälligkeiten und Funkantworten auf Keys, ebenso
+- [ ] 7.0d Texte von Strike, Hilfsaufträgen, Entsatz und Mörserangriff auf Keys, ebenso
+- [ ] 7.0e Tutorial: die 10 Seiten durch COIN-Seiten ersetzen (Dolmetscher, Intel, Verstecke, Aufträge, Ruf, Gegenangriffe, Zeus), FOB, Bauen und Logistik von Liberation behalten; Texte als Entwurf zur Freigabe
+- [ ] 7.0f Missionstitel „Counterinsurgency - Liberate Lythium“, Beschreibung als Key (Deutsch und Englisch), Autorenzeile mit „Tunguski (COIN Liberation)“, Bild von Niklas (2:1, 1024×512)
+- [ ] 7.0g Bilder der Zugriffsaufträge (`courier`, `leader`, `convoy`, `export`): Prompts von Claude, Bilder von Niklas, Ablage und README
+
 - [ ] 7.1 Erstes Deployment auf G-Portal (siehe `docs/DEPLOY.md`)
 - [ ] 7.2 Persistenz über Server-Neustart testen
 - [ ] 7.3 Performance unter Last messen (Server-FPS bei 5–10 Spielern)
