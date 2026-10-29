@@ -8407,6 +8407,19 @@
                 <German>Gesperrt: noch %1 Min. bis zum nächsten Kauf</German>
             </Key>
         </Container>
+        <Container name="Mission">
+            <Key ID="STR_COIN_mission_title">
+                <Original>Counterinsurgency - Liberate Lythium</Original>
+            </Key>
+            <Key ID="STR_COIN_mission_overview">
+                <Original>Counterinsurgency on Lythium: track down the network of the insurgents with the help of the population and destroy it before you storm the capital. Based on KP Liberation (www.killahpotatoes.de).</Original>
+                <German>Counterinsurgency auf Lythium: Spürt das Netzwerk der Aufständischen mit Hilfe der Bevölkerung auf und zerschlagt es, bevor ihr die Hauptstadt stürmt. Basiert auf KP Liberation (www.killahpotatoes.de).</German>
+            </Key>
+            <Key ID="STR_COIN_mission_loading">
+                <Original>COIN Liberation - based on KP Liberation (www.killahpotatoes.de)</Original>
+                <German>COIN Liberation - basiert auf KP Liberation (www.killahpotatoes.de)</German>
+            </Key>
+        </Container>
     </Package>
     <!-- COIN END -->
 </Project>
