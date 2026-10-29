@@ -4,7 +4,7 @@
 
     Description:
         Shows what a prisoner says to the interpreter as a subtitle (ticket 3.8): his name and one sentence per result,
-        German or else English by the game language. The sentences come from COIN_interrogationAnswers by the level of
+        in the game language (keys of the COIN package, ADR 0026). The sentences come from COIN_interrogationAnswers by the level of
         the result, a prisoner never says the nest type. While the cooldown of the interpreter runs (ticket 3.5) the
         result is "cooldown" and the prisoner puts him off (COIN_interrogationCooldownAnswers). Sent by
         COIN_fnc_interrogatePrisoner to the asking client only.
@@ -23,7 +23,6 @@ params [
 ];
 
 if (!hasInterface) exitWith {false};
-
 
 private _sentences = [];
 {

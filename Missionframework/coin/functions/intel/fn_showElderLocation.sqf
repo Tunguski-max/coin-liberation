@@ -4,7 +4,7 @@
 
     Description:
         Shows the answer to "Where do I find the elder?" to the interpreter as a subtitle (ticket 5.9a): the name of the
-        civilian and a sentence of COIN_elderLocateAnswers, German or else English by the game language. Sent by
+        civilian and a sentence of COIN_elderLocateAnswers, in the game language (keys of the COIN package, ADR 0026). Sent by
         COIN_fnc_askElder to the asking client only.
 
     Parameter(s):

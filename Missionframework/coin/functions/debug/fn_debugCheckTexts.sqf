@@ -31,7 +31,7 @@ _collect = {
 
 private _found = [];
 {
-    [missionNamespace getVariable [_x, nil], _x, _found] call _collect;
+    [missionNamespace getVariable [_x, ""], _x, _found] call _collect;
 } forEach ((allVariables missionNamespace) select {(_x select [0, 5]) isEqualTo "coin_"});
 
 private _missing = _found select {!(isLocalized (_x select 0))};

@@ -4,7 +4,7 @@
 
     Description:
         Shows the mood of the population to the interpreter as a subtitle (ticket 5.3): the name of the civilian and a
-        sentence of COIN_moodAnswers for this mood, German or else English by the game language. Sent by
+        sentence of COIN_moodAnswers for this mood, in the game language (keys of the COIN package, ADR 0026). Sent by
         COIN_fnc_askMood to the asking client only.
 
     Parameter(s):
