@@ -55,7 +55,7 @@ for "_i" from 1 to COIN_mortarRounds do {
 
     private _point = _fob getPos [random _spread, random 360];
     _point = [_point select 0, _point select 1, 0];
-    if !([_mortar] inRangeOfArtillery [_point, _mag]) exitWith {
+    if !(_point inRangeOfArtillery [[_mortar], _mag]) exitWith {
         diag_log format ["[COIN] mortar: target %1 is out of range of %2, salvo stops", _point, typeOf _mortar];
     };
 
