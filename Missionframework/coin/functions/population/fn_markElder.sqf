@@ -31,7 +31,10 @@ createMarker [_marker, getPosATL _elder];
 _marker setMarkerType "mil_dot";
 _marker setMarkerColor "ColorCIV";
 _marker setMarkerSize [1, 1];
-_marker setMarkerText name _elder;
+private _town = markerText (_elder getVariable ["COIN_sector", ""]);
+// The global text is the name of the town, every machine shows the name of the elder in its own language (ADR 0026)
+_marker setMarkerText _town;
+[_marker, _town] remoteExec ["COIN_fnc_localizeElderMarker", 0, _marker];
 
 [_elder, _marker] spawn {
     params ["_elder", "_marker"];
@@ -40,6 +43,8 @@ _marker setMarkerText name _elder;
         !alive _elder || {time >= (_elder getVariable ["COIN_hintEnd", 0])}
     };
     deleteMarker _marker;
+    // The late joiners do not get the text of a marker that is gone
+    [] remoteExec ["", _marker];
 };
 
 true

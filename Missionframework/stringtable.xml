@@ -7414,6 +7414,10 @@
             </Key>
         </Container>
         <Container name="Elder">
+            <Key ID="STR_COIN_elder_name">
+                <Original>Elder of %1</Original>
+                <German>Ältester von %1</German>
+            </Key>
             <Key ID="STR_COIN_elder_helpLabel">
                 <Original>Can we help?</Original>
                 <German>Können wir helfen?</German>

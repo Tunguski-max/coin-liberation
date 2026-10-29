@@ -475,6 +475,10 @@ class COIN {
 
         // Server: marks an elder on the map for COIN_elderMarkerSeconds (ticket 5.9a)
         class markElder {};
+
+        // Client: the name of the elder and the text of his marker in the game language (ticket 7.0c, #180, ADR 0026)
+        class setElderName {};
+        class localizeElderMarker {};
     };
 
     class persistence {

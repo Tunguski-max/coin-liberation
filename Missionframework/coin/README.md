@@ -91,7 +91,9 @@ coin/
     │   ├── fn_spawnPopulation.sqf      COIN_fnc_spawnPopulation: die Zivilisten einer Ortschaft, wie Liberations, laufen im Ort umher
     │   ├── fn_findElderSpot.sqf        COIN_fnc_findElderSpot: Platz des Ältesten, Moschee oder größtes Haus nahe dem Ortskern (Ticket 5.9a)
     │   ├── fn_spawnElder.sqf           COIN_fnc_spawnElder: der Älteste einer Ortschaft, eigene Kleidung, Name „Ältester …“, steht fest (Ticket 5.9a)
-    │   └── fn_markElder.sqf            COIN_fnc_markElder: Marker auf der Karte für den Ältesten, 5 min (Ticket 5.9a)
+    │   ├── fn_markElder.sqf            COIN_fnc_markElder: Marker auf der Karte für den Ältesten, 5 min (Ticket 5.9a)
+    │   ├── fn_setElderName.sqf         COIN_fnc_setElderName: Client, Name des Ältesten in der Spielsprache (Ticket 7.0c)
+    │   └── fn_localizeElderMarker.sqf  COIN_fnc_localizeElderMarker: Client, Text seines Markers in der Spielsprache (Ticket 7.0c)
     ├── elder/
     │   ├── fn_askElderHelp.sqf         COIN_fnc_askElderHelp: Server, „Können wir helfen?“ beim Ältesten, schickt die Angebote an den Dolmetscher (Ticket 5.9b)
     │   ├── fn_getAidOffers.sqf         COIN_fnc_getAidOffers: Server, was der Älteste jetzt anbietet und warum etwas grau ist

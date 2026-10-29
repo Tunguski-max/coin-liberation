@@ -358,7 +358,7 @@ Alles in `Missionframework/coin/coin_config.sqf`. Wichtige Namen:
 | Sätze | `COIN_questionAnswers`, `COIN_questionAnswersByType`, `COIN_interrogationAnswers` und die Sätze für die Abklingzeit |
 | Bevölkerung | `COIN_populationCount` ([4, 8]), `COIN_populationRadius` (80 m) |
 | Hilfsaufträge | `COIN_enableAidTasks`, `COIN_aidTaskMaxActive` (2), `COIN_aidTaskCooldownMin` (60), `COIN_aidTaskTimeoutMin` (60), `COIN_repAidSupplies` (5), `COIN_aidSupplyDistance` (20), `COIN_aidSupplyMinValue` (100), Texte `COIN_aidTaskTexts`, `COIN_aidReasonTexts`, `COIN_elderSentences` |
-| Ältester | `COIN_enableElder`, `COIN_enableElderLocate`, `COIN_elderLocateRange`, `COIN_elderMarkerSeconds`, `COIN_elderLocateAnswers`, `COIN_elderAbsenceMinutes` (60), `COIN_elderSearchRadius`, `COIN_elderBuildingKeywords`, `COIN_elderUniforms`, `COIN_elderHeadgear`, `COIN_elderNameFormat` |
+| Ältester | `COIN_enableElder`, `COIN_enableElderLocate`, `COIN_elderLocateRange`, `COIN_elderMarkerSeconds`, `COIN_elderLocateAnswers`, `COIN_elderAbsenceMinutes` (60), `COIN_elderSearchRadius`, `COIN_elderBuildingKeywords`, `COIN_elderUniforms`, `COIN_elderHeadgear` (der Name des Ältesten ist der Schlüssel `STR_COIN_elder_name`, Ticket 7.0c) |
 
 ---
 

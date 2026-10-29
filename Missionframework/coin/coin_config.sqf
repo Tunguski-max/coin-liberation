@@ -111,7 +111,6 @@ COIN_elderMarkerSeconds     = 300;      // s the elder is marked on the map for 
 COIN_elderMinBuildingArea   = 30;       // m2: smaller buildings (sheds, wall pieces) do not count
 COIN_elderMinBuildingHeight = 2.5;      // m: lower ones do not either
 COIN_elderSpotDistance      = [2, 6];   // [min, max] m he stands beyond half the longer side of the building (about from its wall)
-COIN_elderNameFormat        = "Ältester von %1"; // %1 is the name of the town
 // Clothes, one of each is picked; a class of a mod that is not loaded is left out (no error, he keeps his civilian look)
 COIN_elderUniforms          = ["LOP_U_TAK_Civ_Fatigue_01", "LOP_U_TAK_Civ_Fatigue_02"];
 COIN_elderHeadgear          = ["LOP_H_Turban"];
