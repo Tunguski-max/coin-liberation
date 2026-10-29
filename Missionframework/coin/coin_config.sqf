@@ -1287,125 +1287,63 @@ COIN_aidFailurePenaltyFactor = 1;       // An aid task that fails because the ti
 COIN_aidTaskType            = "help";   // Icon of the task in the task list and on the map (BIS_fnc_taskCreate type)
 COIN_aidImagePath           = "coin\res\secondary\%1.jpg"; // Picture of an aid task in the elder's dialog, %1 = its id (see coin/res/secondary/README.md); no file, no picture
 
-// Entry in the action menu at the elder: [German, English]
-COIN_helpLabel = ["Können wir helfen?", "Can we help?"];
+// Texts of the elder and the aid tasks are keys of the COIN package in stringtable.xml (ADR 0026, ticket 7.0b, #179), read on the client
+// Entry in the action menu at the elder: key
+COIN_helpLabel = "STR_COIN_elder_helpLabel";
 
-// Dialog of the elder (ticket 5.9b): header, accept button, tasks line ("%1 of %2" = running, limit) as [German, English]
+// Dialog of the elder (ticket 5.9b): keys of the header, the accept button and the tasks line ("%1 of %2" = running, limit)
 COIN_elderDialogTexts = [
-    ["Ältester", "Elder"],
-    ["Annehmen", "Accept"],
-    ["Hilfsaufträge: %1 von %2", "Aid tasks: %1 of %2"]
+    "STR_COIN_elder_dialogHeader",
+    "STR_COIN_elder_dialogAccept",
+    "STR_COIN_elder_dialogTasks"
 ];
-// Sections of the list, in this order: [id, [German, English]]. An offer belongs to one section (more come with later tickets)
+// Sections of the list, in this order: [id, key of the title]. An offer belongs to one section (more come with later tickets)
 COIN_elderSections = [
-    ["aid", ["Hilfsaufträge", "Aid tasks"]],
-    ["secondary", ["Nebenmissionen", "Secondary missions"]],
-    ["favor", ["Gefälligkeit", "Favor"]]
+    ["aid", "STR_COIN_elder_section_aid"],
+    ["secondary", "STR_COIN_elder_section_secondary"],
+    ["favor", "STR_COIN_elder_section_favor"]
 ];
-// Aid tasks: [id, [title German, English], [explanation German, English], [task text German, English]]
+// Aid tasks: [id, key of the title, key of the explanation, key of the task text]
 // Explanation in the dialog: %1 = time limit in minutes, %2 = distance in m, %3 = supplies of the crate, %4 = seconds of a repair, %5 = least distance of a device from the elder in m (no text uses it since ticket 5.21), %6 = place of the task: the village, else the town.
 // Task text: %1 = town, %2 = minutes, %3 = distance in m, %4 = supplies, %5 = seconds of a repair, %6 = least distance in m.
 // (A text may leave out what it does not need: "medical" uses only the time limit and the town.)
 // The reward is named roughly, without a number (the reputation is hidden).
 COIN_aidTaskTexts = [
-    ["supplies",
-        ["Hilfsgüter liefern", "Deliver supplies"],
-        [
-            "Die Ortschaft braucht Nachschub.<br/><br/>Stellt eine Supply-Kiste mit %3 Supplies aus einer FOB am Boden ab, höchstens %2 m vom Ältesten entfernt. Die Kiste verschwindet dann. Jeder Spieler kann sie bringen.<br/><br/><t size='1.15' color='#00a0ff'>Zeitlimit: %1 Minuten. Läuft die Zeit ab, ist der Auftrag gescheitert.</t><br/><t size='1.15' color='#ffa000'>Fehlschlag: Die Bevölkerung merkt sich, dass ihr euer Versprechen nicht gehalten habt.</t><br/><t size='1.15' color='#ffa000'>Belohnung: Die Bevölkerung wird es euch danken.</t>",
-            "The town needs supplies.<br/><br/>Put a supply crate with %3 supplies from a FOB on the ground, at most %2 m from the elder. The crate is then removed. Any player can bring it.<br/><br/><t size='1.15' color='#00a0ff'>Time limit: %1 minutes. If the time runs out the task has failed.</t><br/><t size='1.15' color='#ffa000'>Failure: The population will remember that you did not keep your promise.</t><br/><t size='1.15' color='#ffa000'>Reward: The population will be grateful.</t>"
-        ],
-        [
-            "Stellt in %1 eine Supply-Kiste mit %4 Supplies am Boden ab, höchstens %3 m vom Ältesten entfernt. Zeitlimit: %2 Minuten.",
-            "Put a supply crate with %4 supplies on the ground in %1, at most %3 m from the elder. Time limit: %2 minutes."
-        ]
-    ],
-    ["medical",
-        ["Arzt-Einsatz", "Medical aid"],
-        [
-            "In %6 gibt es Verletzte.<br/><br/>Behandelt die Patienten, sie liegen in den Kreisen auf der Karte. Jeder Spieler mit einer ACE-Bandage kann helfen, ein Sanitäter ist nicht nötig. Pro Patient wird eine Bandage verbraucht.<br/><br/><t size='1.15' color='#00a0ff'>Zeitlimit: %1 Minuten. Läuft die Zeit ab, ist der Auftrag gescheitert.</t><br/><t size='1.15' color='#ffa000'>Fehlschlag: Die Bevölkerung merkt sich, dass ihr euer Versprechen nicht gehalten habt.</t><br/><t size='1.15' color='#ffa000'>Belohnung: Die Bevölkerung wird es euch danken.</t>",
-            "There are wounded in %6.<br/><br/>Treat the patients, they lie in the circles on the map. Any player with an ACE bandage can help, no medic needed. One bandage is used up per patient.<br/><br/><t size='1.15' color='#00a0ff'>Time limit: %1 minutes. If the time runs out the task has failed.</t><br/><t size='1.15' color='#ffa000'>Failure: The population will remember that you did not keep your promise.</t><br/><t size='1.15' color='#ffa000'>Reward: The population will be grateful.</t>"
-        ],
-        [
-            "Behandelt die Verletzten in %1, sie liegen in den Kreisen auf der Karte. Pro Patient eine ACE-Bandage. Zeitlimit: %2 Minuten.",
-            "Treat the wounded in %1, they lie in the circles on the map. One ACE bandage per patient. Time limit: %2 minutes."
-        ]
-    ],
-    ["repair",
-        ["Infrastruktur reparieren", "Repair infrastructure"],
-        [
-            "In %6 sind Generatoren beschädigt, sie rauchen.<br/><br/>Reparieren muss sie ein ACE-Pionier (Slot EOD) mit einem Werkzeugkasten. Eine Reparatur dauert %4 Sekunden, ihr könnt sie abbrechen und später neu beginnen.<br/><br/><t size='1.15' color='#00a0ff'>Zeitlimit: %1 Minuten. Läuft die Zeit ab, ist der Auftrag gescheitert.</t><br/><t size='1.15' color='#ffa000'>Fehlschlag: Die Bevölkerung merkt sich, dass ihr euer Versprechen nicht gehalten habt.</t><br/><t size='1.15' color='#ffa000'>Belohnung: Die Bevölkerung wird es euch danken.</t>",
-            "Generators in %6 are damaged, they are smoking.<br/><br/>They can only be repaired by an ACE engineer (EOD slot) with a tool kit. A repair takes %4 seconds, you can cancel it and start again later.<br/><br/><t size='1.15' color='#00a0ff'>Time limit: %1 minutes. If the time runs out the task has failed.</t><br/><t size='1.15' color='#ffa000'>Failure: The population will remember that you did not keep your promise.</t><br/><t size='1.15' color='#ffa000'>Reward: The population will be grateful.</t>"
-        ],
-        [
-            "Repariert die rauchenden Generatoren in %1 (ACE-Pionier mit Werkzeugkasten, %5 Sekunden je Gerät). Zeitlimit: %2 Minuten.",
-            "Repair the smoking generators in %1 (ACE engineer with a tool kit, %5 seconds each). Time limit: %2 minutes."
-        ]
-    ]
+    ["supplies", "STR_COIN_aid_supplies_title", "STR_COIN_aid_supplies_explanation", "STR_COIN_aid_supplies_task"],
+    ["medical",  "STR_COIN_aid_medical_title",  "STR_COIN_aid_medical_explanation",  "STR_COIN_aid_medical_task"],
+    ["repair",   "STR_COIN_aid_repair_title",   "STR_COIN_aid_repair_explanation",   "STR_COIN_aid_repair_task"]
 ];
-// Why an offer is grey: [key, [German, English]], %1 is the value named in the comment
+// Why an offer is grey: [key, key of the text], %1 is the value named in the comment
 COIN_aidReasonTexts = [
-    ["town_running", ["In dieser Ortschaft läuft schon ein Hilfsauftrag.", "This town has an aid task running already."]],   // no value
-    ["town_wait",    ["Die Ortschaft braucht erst in etwa %1 Minuten wieder Hilfe.", "The town needs help again in about %1 minutes."]], // %1 = minutes left
-    ["limit",        ["Es laufen schon %1 Hilfsaufträge.", "%1 aid tasks are running already."]],                                        // %1 = limit
-    ["no_ace",       ["Dieser Auftrag braucht ACE.", "This task needs ACE."]],                                                           // no value
-    ["no_site",      ["Kein Dorf in der Nähe, das Hilfe braucht.", "No village nearby needs help."]],                                    // no value (ticket 5.21)
-    ["secondary_running", ["Es läuft schon eine Nebenmission.", "A secondary mission is running already."]],                            // no value (ticket 5.17)
-    ["no_intel",     ["Dafür fehlen Intel-Punkte (%1 nötig).", "Not enough intel points (%1 needed)."]],                                // %1 = cost (ticket 5.17)
-    ["no_territory", ["Es ist nicht genug Feindgebiet für eine Nebenmission übrig.", "There is not enough enemy territory left for a mission."]], // no value (ticket 5.17)
-    ["reinforcement_running", ["Es ist schon eine Verstärkung unterwegs.", "A reinforcement is on its way already."]],           // no value (ticket 5.6)
-    ["reinforcement_rep",     ["Dafür vertraut die Bevölkerung euch nicht genug.", "The population does not trust you enough for that."]], // no value (ticket 5.6)
-    ["no_favor",              ["Du hast gerade keinen Gefallen bei den Bewohnern gut.", "The locals do not owe you a favor right now."]]                                // no value (ticket 5.6)
+    ["town_running", "STR_COIN_aidReason_town_running"],   // no value
+    ["town_wait",    "STR_COIN_aidReason_town_wait"],      // %1 = minutes left
+    ["limit",        "STR_COIN_aidReason_limit"],          // %1 = limit
+    ["no_ace",       "STR_COIN_aidReason_no_ace"],         // no value
+    ["no_site",      "STR_COIN_aidReason_no_site"],        // no value (ticket 5.21)
+    ["secondary_running", "STR_COIN_aidReason_secondary_running"], // no value (ticket 5.17)
+    ["no_intel",     "STR_COIN_aidReason_no_intel"],       // %1 = cost (ticket 5.17)
+    ["no_territory", "STR_COIN_aidReason_no_territory"],   // no value (ticket 5.17)
+    ["reinforcement_running", "STR_COIN_aidReason_reinforcement_running"], // no value (ticket 5.6)
+    ["reinforcement_rep",     "STR_COIN_aidReason_reinforcement_rep"],     // no value (ticket 5.6)
+    ["no_favor",              "STR_COIN_aidReason_no_favor"]               // no value (ticket 5.6)
 ];
-// What the elder says, one is picked at random: [key, [German sentences, English sentences]]
+// What the elder says, one of the sentences is picked at random: [key, [keys of the sentences]]
 COIN_elderSentences = [
-    ["busy", [
-        ["Wir brauchen gerade nichts. Kommt später wieder.", "Im Moment fehlt uns nichts. Kommt später noch einmal vorbei."],
-        ["We don't need anything right now. Come back later.", "Nothing is missing at the moment. Come by again later."]
-    ]],
-    ["accepted", [
-        ["Ich danke euch. Wir warten auf eure Hilfe.", "Das wird vielen hier helfen. Ich danke euch."],
-        ["Thank you. We will wait for your help.", "This will help many people here. Thank you."]
-    ]],
+    ["busy", ["STR_COIN_elderSay_busy_1", "STR_COIN_elderSay_busy_2"]],
+    ["accepted", ["STR_COIN_elderSay_accepted_1", "STR_COIN_elderSay_accepted_2"]],
     // The reinforcement was sent (ticket 5.6). Texts to be agreed with Niklas
-    ["reinforcement", [
-        ["Ich schicke die Männer los. Sie werden euch beistehen.", "Die Männer machen sich auf den Weg. Möge es euch nützen."],
-        ["I am sending the men. They will stand by you.", "The men are on their way. May it serve you well."]
-    ]],
+    ["reinforcement", ["STR_COIN_elderSay_reinforcement_1", "STR_COIN_elderSay_reinforcement_2"]],
     // Where an aid task plays (ticket 5.21), %1 = the village
-    ["site", [
-        ["Im Nachbardorf %1 brauchen sie Hilfe.", "Im Nachbardorf %1 wartet man auf Hilfe."],
-        ["In the neighbouring village %1 they need help.", "In the neighbouring village %1 they are waiting for help."]
-    ]],
+    ["site", ["STR_COIN_elderSay_site_1", "STR_COIN_elderSay_site_2"]],
     // A warning after the "site" sentence when an ambush waits there (ticket 5.22): vague, no place, no kind of danger. Texts to be agreed with Niklas
-    ["danger", [
-        ["Seid vorsichtig. In letzter Zeit hat man dort Fremde gesehen.", "Gebt auf euch acht. Dort treiben sich neuerdings Leute herum, die niemand kennt."],
-        ["Be careful. Strangers have been seen there lately.", "Watch yourselves. Lately people nobody knows have been hanging around there."]
-    ]],
+    ["danger", ["STR_COIN_elderSay_danger_1", "STR_COIN_elderSay_danger_2"]],
     // What the one who tells of a strike task says (ticket 5.13, 5.14): the story of the offer, then the thanks after accepting. Texts to be agreed with Niklas
-    ["strike_courier", [
-        ["Ich habe gehört, dass bald ein Kurier der Miliz mit ein paar bewaffneten Männern im Auto unterwegs ist. Er hat Papiere bei sich.", "Man erzählt sich, ein Bote der Miliz fahre bald mit Begleitschutz von Ort zu Ort. Er soll Dokumente tragen."],
-        ["I heard a militia courier will soon be on the road in a car with a few armed men. He carries papers.", "People say a messenger of the militia will soon drive down the road with an escort. He is said to carry documents."]
-    ]],
-    ["strike_leader", [
-        ["Einer von den Anführern der Miliz soll sich bald in einem Dorf in der Nähe aufhalten. Er trägt keine Uniform, aber er ist nie allein.", "Ich habe gehört, dass bald einer von ihren Anführern in einem Dorf übernachtet. Er ist wie wir gekleidet, aber ihm folgen viele Bewaffnete."],
-        ["I heard one of the militia leaders will soon stay in a village nearby. He wears no uniform, but he is never alone.", "People say one of their leaders will soon spend a night in a village. He dresses like us, but a crowd of armed men follows him."]
-    ]],
-    ["strike_convoy", [
-        ["Ich habe von zwei Punkten erfahren, die ein Waffentransport der Miliz bald passiert. Es sind ein Lastwagen und bewaffnete Wagen, und sie fahren nicht ohne Schutz.", "Man erzählt sich, dass ein Konvoi der Miliz mit Waffen bald an zwei Stellen vorbeikommt. Viele Männer fahren mit ihm."],
-        ["I learned of two points that a militia arms transport will soon pass. They are a truck and armed vehicles, and they do not drive without protection.", "People say a militia convoy with weapons will soon pass two places. Many men travel with it."]
-    ]],
-    ["strike_export", [
-        ["Ich habe gehört, dass die Miliz bald auf einem Flugplatz ein Flugzeug bereitstellt, um etwas außer Landes zu bringen. Es steht auf der Piste und wird bewacht.", "Man erzählt sich, die Miliz wolle bald von einem Flugplatz aus etwas ausfliegen. Das Flugzeug steht bereit, und Bewaffnete passen darauf auf."],
-        ["I heard the militia will soon have a plane ready at an airfield to get something out of the country. It stands on the runway and is guarded.", "People say the militia wants to fly something out from an airfield soon. The plane is ready, and armed men watch over it."]
-    ]],
-    ["strike_accepted", [
-        ["Seid vorsichtig. Wenn ihr schnell seid, erwischt ihr ihn.", "Gut. Passt auf euch auf. Er wird nicht lange auf sich warten lassen."],
-        ["Be careful. If you are quick, you will catch him.", "Good. Take care. He will not keep you waiting long."]
-    ]],
-    ["refused", [
-        ["Das geht gerade nicht. Fragt später noch einmal.", "Jetzt nicht. Kommt bitte später wieder."],
-        ["Not right now. Please ask again later.", "Not now. Please come back later."]
-    ]]
+    ["strike_courier", ["STR_COIN_elderSay_strike_courier_1", "STR_COIN_elderSay_strike_courier_2"]],
+    ["strike_leader", ["STR_COIN_elderSay_strike_leader_1", "STR_COIN_elderSay_strike_leader_2"]],
+    ["strike_convoy", ["STR_COIN_elderSay_strike_convoy_1", "STR_COIN_elderSay_strike_convoy_2"]],
+    ["strike_export", ["STR_COIN_elderSay_strike_export_1", "STR_COIN_elderSay_strike_export_2"]],
+    ["strike_accepted", ["STR_COIN_elderSay_strike_accepted_1", "STR_COIN_elderSay_strike_accepted_2"]],
+    ["refused", ["STR_COIN_elderSay_refused_1", "STR_COIN_elderSay_refused_2"]]
 ];
 
 // Aid task "Medical aid" (ticket 5.11): patients around the elder, wounded like Liberation's civilians after a town was taken
@@ -1445,13 +1383,13 @@ COIN_aidRepairClasses       = ["Land_Portable_generator_F", "Land_PortableGenera
 COIN_aidRepairTools         = ["ToolKit"]; // One of these must be in the player's inventory (not used up)
 COIN_aidRepairSmokeClass    = "test_EmptyObjectForSmoke"; // Smoke of a device, a global object (deleted when the device is repaired)
 COIN_aidRepairSmokeHeight   = 0.5;      // m above the ground at the device where the smoke object stands
-COIN_aidRepairLabel         = ["Reparieren", "Repair"]; // Action at the device: [German, English]
-COIN_aidRepairBarText       = ["Repariere ...", "Repairing ..."]; // Text of the progress bar: [German, English]
+COIN_aidRepairLabel         = "STR_COIN_aid_repairLabel"; // Action at the device: key
+COIN_aidRepairBarText       = "STR_COIN_aid_repairBar"; // Text of the progress bar: key
 
 // Site of "Medical aid" and "Repair infrastructure" (ticket 5.20, ADR 0024): a village outside Liberation's sectors. The tasks play
 // there (ticket 5.21); the choice of every town is written to the RPT at the start (ticket 5.20)
 COIN_enableAidSites         = true;     // Off: no site is chosen, nothing is written to the RPT, the tasks play in the town as before
-COIN_aidNoSitePlace         = ["einem Nachbardorf", "a neighbouring village"]; // Named in the explanation of an offer that is grey because no village is free (%6)
+COIN_aidNoSitePlace         = "STR_COIN_aid_noSitePlace"; // Named in the explanation of an offer that is grey because no village is free (%6)
 COIN_siteTypes              = ["NameVillage", "NameLocal"]; // Map location types a site can be
 COIN_siteMinHouses          = 6;        // Houses within COIN_siteHouseRadius, fewer is no village (a camp, a lone farm)
 COIN_siteHouseRadius        = 150;      // m around the map label in which houses are counted; their middle is the village centre
@@ -1492,7 +1430,7 @@ COIN_secondaryOffers = [
 // [min, max] m from the sectors and FOBs of the army in which an enemy spawn point must exist for a mission to start (Liberation's dialog: 2000, 999999)
 COIN_secondaryTerritoryRange = [2000, 999999];
 // Under the briefing (which names the cost itself): %1 = cost in intel points, %2 = intel points the army has
-COIN_secondaryCostText = ["Ihr habt %2 Intel-Punkte.", "You have %2 intel points."];
+COIN_secondaryCostText = "STR_COIN_elder_secondaryCost";
 
 // Strike tasks, created as a result of questioning or interrogation
 COIN_strikeTaskChance       = 0.15;     // Chance per questioning (result other than "nothing") or interrogation

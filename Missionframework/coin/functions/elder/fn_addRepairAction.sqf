@@ -25,15 +25,13 @@ params [
 // The progress bar is ACE's, without ACE there is nothing to repair with
 if (!hasInterface || {isNull _device} || {!KP_liberation_ace}) exitWith {false};
 
-private _index = [1, 0] select (language isEqualTo "German");
 
 _device addAction [
-    ["<t color='#FFFF00'>", COIN_aidRepairLabel select _index, "</t>"] joinString "",
+    ["<t color='#FFFF00'>", [COIN_aidRepairLabel] call COIN_fnc_text, "</t>"] joinString "",
     {
         params ["_target", "_caller"];
 
         if (isNil "ace_common_fnc_progressBar") exitWith {};
-        private _index = [1, 0] select (language isEqualTo "German");
 
         [
             COIN_aidRepairSeconds,
@@ -44,7 +42,7 @@ _device addAction [
                 [_target, player] remoteExecCall ["COIN_fnc_repairInfrastructure", 2];
             },
             {},
-            COIN_aidRepairBarText select _index,
+            [COIN_aidRepairBarText] call COIN_fnc_text,
             {
                 params ["_args"];
                 _args params ["_target"];

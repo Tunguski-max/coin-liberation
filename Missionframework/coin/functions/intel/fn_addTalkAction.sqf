@@ -25,7 +25,6 @@ params [["_unit", objNull, [objNull]]];
 
 if (isNull _unit) exitWith {[]};
 
-private _index = [1, 0] select (language isEqualTo "German");
 
 // [label, variable that holds the target, function on the server]
 [
@@ -37,7 +36,7 @@ private _index = [1, 0] select (language isEqualTo "German");
 ] apply {
     _x params ["_label", "_targetVar", "_serverFunction"];
     _unit addAction [
-        ["<t color='#FFFF00'>", _label select _index, "</t>"] joinString "",
+        ["<t color='#FFFF00'>", [_label] call COIN_fnc_text, "</t>"] joinString "",
         {
             (_this select 3) params ["_targetVar", "_serverFunction"];
             private _target = missionNamespace getVariable [_targetVar, objNull];

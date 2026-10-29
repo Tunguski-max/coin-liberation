@@ -87,6 +87,9 @@ class COIN {
         // Text of a config table row [key, [German, English]] in the game language (tickets 5.6, 5.19)
         class getLanguageText {};
 
+        // Text of a config entry in the game language: a key of the COIN package, or the old pair [German, English] until 7.0d (ADR 0026, tickets 7.0b to 7.0d)
+        class text {};
+
         // Fighters among given objects who can still fight (tickets 2.10, 4.5): a camp or an ambush is cleared when none is left
         class getCapableFighters {};
 

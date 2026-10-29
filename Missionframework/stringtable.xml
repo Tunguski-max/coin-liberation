@@ -7413,6 +7413,226 @@
                 <German>Rekrutierungsstelle</German>
             </Key>
         </Container>
+        <Container name="Elder">
+            <Key ID="STR_COIN_elder_helpLabel">
+                <Original>Can we help?</Original>
+                <German>Können wir helfen?</German>
+            </Key>
+            <Key ID="STR_COIN_elder_dialogHeader">
+                <Original>Elder</Original>
+                <German>Ältester</German>
+            </Key>
+            <Key ID="STR_COIN_elder_dialogAccept">
+                <Original>Accept</Original>
+                <German>Annehmen</German>
+            </Key>
+            <Key ID="STR_COIN_elder_dialogTasks">
+                <Original>Aid tasks: %1 of %2</Original>
+                <German>Hilfsaufträge: %1 von %2</German>
+            </Key>
+            <Key ID="STR_COIN_elder_section_aid">
+                <Original>Aid tasks</Original>
+                <German>Hilfsaufträge</German>
+            </Key>
+            <Key ID="STR_COIN_elder_section_secondary">
+                <Original>Secondary missions</Original>
+                <German>Nebenmissionen</German>
+            </Key>
+            <Key ID="STR_COIN_elder_section_favor">
+                <Original>Favor</Original>
+                <German>Gefälligkeit</German>
+            </Key>
+            <Key ID="STR_COIN_elder_secondaryCost">
+                <Original>You have %2 intel points.</Original>
+                <German>Ihr habt %2 Intel-Punkte.</German>
+            </Key>
+        </Container>
+        <Container name="ElderSay">
+            <Key ID="STR_COIN_elderSay_busy_1">
+                <Original>We don't need anything right now. Come back later.</Original>
+                <German>Wir brauchen gerade nichts. Kommt später wieder.</German>
+            </Key>
+            <Key ID="STR_COIN_elderSay_busy_2">
+                <Original>Nothing is missing at the moment. Come by again later.</Original>
+                <German>Im Moment fehlt uns nichts. Kommt später noch einmal vorbei.</German>
+            </Key>
+            <Key ID="STR_COIN_elderSay_accepted_1">
+                <Original>Thank you. We will wait for your help.</Original>
+                <German>Ich danke euch. Wir warten auf eure Hilfe.</German>
+            </Key>
+            <Key ID="STR_COIN_elderSay_accepted_2">
+                <Original>This will help many people here. Thank you.</Original>
+                <German>Das wird vielen hier helfen. Ich danke euch.</German>
+            </Key>
+            <Key ID="STR_COIN_elderSay_reinforcement_1">
+                <Original>I am sending the men. They will stand by you.</Original>
+                <German>Ich schicke die Männer los. Sie werden euch beistehen.</German>
+            </Key>
+            <Key ID="STR_COIN_elderSay_reinforcement_2">
+                <Original>The men are on their way. May it serve you well.</Original>
+                <German>Die Männer machen sich auf den Weg. Möge es euch nützen.</German>
+            </Key>
+            <Key ID="STR_COIN_elderSay_site_1">
+                <Original>In the neighbouring village %1 they need help.</Original>
+                <German>Im Nachbardorf %1 brauchen sie Hilfe.</German>
+            </Key>
+            <Key ID="STR_COIN_elderSay_site_2">
+                <Original>In the neighbouring village %1 they are waiting for help.</Original>
+                <German>Im Nachbardorf %1 wartet man auf Hilfe.</German>
+            </Key>
+            <Key ID="STR_COIN_elderSay_danger_1">
+                <Original>Be careful. Strangers have been seen there lately.</Original>
+                <German>Seid vorsichtig. In letzter Zeit hat man dort Fremde gesehen.</German>
+            </Key>
+            <Key ID="STR_COIN_elderSay_danger_2">
+                <Original>Watch yourselves. Lately people nobody knows have been hanging around there.</Original>
+                <German>Gebt auf euch acht. Dort treiben sich neuerdings Leute herum, die niemand kennt.</German>
+            </Key>
+            <Key ID="STR_COIN_elderSay_strike_courier_1">
+                <Original>I heard an insurgent courier will soon be on the road in a car with a few armed men. He carries papers.</Original>
+                <German>Ich habe gehört, dass bald ein Kurier der Aufständischen mit ein paar bewaffneten Männern im Auto unterwegs ist. Er hat Papiere bei sich.</German>
+            </Key>
+            <Key ID="STR_COIN_elderSay_strike_courier_2">
+                <Original>People say a messenger of the insurgents will soon drive down the road with an escort. He is said to carry documents.</Original>
+                <German>Man erzählt sich, ein Bote der Aufständischen fahre bald mit Begleitschutz von Ort zu Ort. Er soll Dokumente tragen.</German>
+            </Key>
+            <Key ID="STR_COIN_elderSay_strike_leader_1">
+                <Original>I heard one of the insurgent leaders will soon stay in a village nearby. He wears no uniform, but he is never alone.</Original>
+                <German>Einer von den Anführern der Aufständischen soll sich bald in einem Dorf in der Nähe aufhalten. Er trägt keine Uniform, aber er ist nie allein.</German>
+            </Key>
+            <Key ID="STR_COIN_elderSay_strike_leader_2">
+                <Original>People say one of their leaders will soon spend a night in a village. He dresses like us, but a crowd of armed men follows him.</Original>
+                <German>Ich habe gehört, dass bald einer von ihren Anführern in einem Dorf übernachtet. Er ist wie wir gekleidet, aber ihm folgen viele Bewaffnete.</German>
+            </Key>
+            <Key ID="STR_COIN_elderSay_strike_convoy_1">
+                <Original>I learned of two points that an insurgent arms transport will soon pass. They are a truck and armed vehicles, and they do not drive without protection.</Original>
+                <German>Ich habe von zwei Punkten erfahren, die ein Waffentransport der Aufständischen bald passiert. Es sind ein Lastwagen und bewaffnete Wagen, und sie fahren nicht ohne Schutz.</German>
+            </Key>
+            <Key ID="STR_COIN_elderSay_strike_convoy_2">
+                <Original>People say an insurgent convoy with weapons will soon pass two places. Many men travel with it.</Original>
+                <German>Man erzählt sich, dass ein Konvoi der Aufständischen mit Waffen bald an zwei Stellen vorbeikommt. Viele Männer fahren mit ihm.</German>
+            </Key>
+            <Key ID="STR_COIN_elderSay_strike_export_1">
+                <Original>I heard the insurgents will soon have a plane ready at an airfield to get something out of the country. It stands on the runway and is guarded.</Original>
+                <German>Ich habe gehört, dass die Aufständischen bald auf einem Flugplatz ein Flugzeug bereitstellen, um etwas außer Landes zu bringen. Es steht auf der Piste und wird bewacht.</German>
+            </Key>
+            <Key ID="STR_COIN_elderSay_strike_export_2">
+                <Original>People say the insurgents want to fly something out from an airfield soon. The plane is ready, and armed men watch over it.</Original>
+                <German>Man erzählt sich, die Aufständischen wollten bald von einem Flugplatz aus etwas ausfliegen. Das Flugzeug steht bereit, und Bewaffnete passen darauf auf.</German>
+            </Key>
+            <Key ID="STR_COIN_elderSay_strike_accepted_1">
+                <Original>Be careful. If you are quick, you will catch him.</Original>
+                <German>Seid vorsichtig. Wenn ihr schnell seid, erwischt ihr ihn.</German>
+            </Key>
+            <Key ID="STR_COIN_elderSay_strike_accepted_2">
+                <Original>Good. Take care. He will not keep you waiting long.</Original>
+                <German>Gut. Passt auf euch auf. Er wird nicht lange auf sich warten lassen.</German>
+            </Key>
+            <Key ID="STR_COIN_elderSay_refused_1">
+                <Original>Not right now. Please ask again later.</Original>
+                <German>Das geht gerade nicht. Fragt später noch einmal.</German>
+            </Key>
+            <Key ID="STR_COIN_elderSay_refused_2">
+                <Original>Not now. Please come back later.</Original>
+                <German>Jetzt nicht. Kommt bitte später wieder.</German>
+            </Key>
+        </Container>
+        <Container name="AidReasons">
+            <Key ID="STR_COIN_aidReason_town_running">
+                <Original>This town has an aid task running already.</Original>
+                <German>In dieser Ortschaft läuft schon ein Hilfsauftrag.</German>
+            </Key>
+            <Key ID="STR_COIN_aidReason_town_wait">
+                <Original>The town needs help again in about %1 minutes.</Original>
+                <German>Die Ortschaft braucht erst in etwa %1 Minuten wieder Hilfe.</German>
+            </Key>
+            <Key ID="STR_COIN_aidReason_limit">
+                <Original>%1 aid tasks are running already.</Original>
+                <German>Es laufen schon %1 Hilfsaufträge.</German>
+            </Key>
+            <Key ID="STR_COIN_aidReason_no_ace">
+                <Original>This task needs ACE.</Original>
+                <German>Dieser Auftrag braucht ACE.</German>
+            </Key>
+            <Key ID="STR_COIN_aidReason_no_site">
+                <Original>No village nearby needs help.</Original>
+                <German>Kein Dorf in der Nähe, das Hilfe braucht.</German>
+            </Key>
+            <Key ID="STR_COIN_aidReason_secondary_running">
+                <Original>A secondary mission is running already.</Original>
+                <German>Es läuft schon eine Nebenmission.</German>
+            </Key>
+            <Key ID="STR_COIN_aidReason_no_intel">
+                <Original>Not enough intel points (%1 needed).</Original>
+                <German>Dafür fehlen Intel-Punkte (%1 nötig).</German>
+            </Key>
+            <Key ID="STR_COIN_aidReason_no_territory">
+                <Original>There is not enough enemy territory left for a mission.</Original>
+                <German>Es ist nicht genug Feindgebiet für eine Nebenmission übrig.</German>
+            </Key>
+            <Key ID="STR_COIN_aidReason_reinforcement_running">
+                <Original>A reinforcement is on its way already.</Original>
+                <German>Es ist schon eine Verstärkung unterwegs.</German>
+            </Key>
+            <Key ID="STR_COIN_aidReason_reinforcement_rep">
+                <Original>The population does not trust you enough for that.</Original>
+                <German>Dafür vertraut die Bevölkerung euch nicht genug.</German>
+            </Key>
+            <Key ID="STR_COIN_aidReason_no_favor">
+                <Original>The locals do not owe you a favor right now.</Original>
+                <German>Du hast gerade keinen Gefallen bei den Bewohnern gut.</German>
+            </Key>
+        </Container>
+        <Container name="AidTasks">
+            <Key ID="STR_COIN_aid_noSitePlace">
+                <Original>a neighbouring village</Original>
+                <German>einem Nachbardorf</German>
+            </Key>
+            <Key ID="STR_COIN_aid_repairLabel">
+                <Original>Repair</Original>
+                <German>Reparieren</German>
+            </Key>
+            <Key ID="STR_COIN_aid_repairBar">
+                <Original>Repairing ...</Original>
+                <German>Repariere ...</German>
+            </Key>
+            <Key ID="STR_COIN_aid_supplies_title">
+                <Original>Deliver supplies</Original>
+                <German>Hilfsgüter liefern</German>
+            </Key>
+            <Key ID="STR_COIN_aid_supplies_explanation">
+                <Original>The town needs supplies.&lt;br/&gt;&lt;br/&gt;Put a supply crate with %3 supplies from a FOB on the ground, at most %2 m from the elder. The crate is then removed. Any player can bring it.&lt;br/&gt;&lt;br/&gt;&lt;t size='1.15' color='#00a0ff'&gt;Time limit: %1 minutes. If the time runs out the task has failed.&lt;/t&gt;&lt;br/&gt;&lt;t size='1.15' color='#ffa000'&gt;Failure: The population will remember that you did not keep your promise.&lt;/t&gt;&lt;br/&gt;&lt;t size='1.15' color='#ffa000'&gt;Reward: The population will be grateful.&lt;/t&gt;</Original>
+                <German>Die Ortschaft braucht Nachschub.&lt;br/&gt;&lt;br/&gt;Stellt eine Supply-Kiste mit %3 Supplies aus einer FOB am Boden ab, höchstens %2 m vom Ältesten entfernt. Die Kiste verschwindet dann. Jeder Spieler kann sie bringen.&lt;br/&gt;&lt;br/&gt;&lt;t size='1.15' color='#00a0ff'&gt;Zeitlimit: %1 Minuten. Läuft die Zeit ab, ist der Auftrag gescheitert.&lt;/t&gt;&lt;br/&gt;&lt;t size='1.15' color='#ffa000'&gt;Fehlschlag: Die Bevölkerung merkt sich, dass ihr euer Versprechen nicht gehalten habt.&lt;/t&gt;&lt;br/&gt;&lt;t size='1.15' color='#ffa000'&gt;Belohnung: Die Bevölkerung wird es euch danken.&lt;/t&gt;</German>
+            </Key>
+            <Key ID="STR_COIN_aid_supplies_task">
+                <Original>Put a supply crate with %4 supplies on the ground in %1, at most %3 m from the elder. Time limit: %2 minutes.</Original>
+                <German>Stellt in %1 eine Supply-Kiste mit %4 Supplies am Boden ab, höchstens %3 m vom Ältesten entfernt. Zeitlimit: %2 Minuten.</German>
+            </Key>
+            <Key ID="STR_COIN_aid_medical_title">
+                <Original>Medical aid</Original>
+                <German>Arzt-Einsatz</German>
+            </Key>
+            <Key ID="STR_COIN_aid_medical_explanation">
+                <Original>There are wounded in %6.&lt;br/&gt;&lt;br/&gt;Treat the patients, they lie in the circles on the map. Any player with an ACE bandage can help, no medic needed. One bandage is used up per patient.&lt;br/&gt;&lt;br/&gt;&lt;t size='1.15' color='#00a0ff'&gt;Time limit: %1 minutes. If the time runs out the task has failed.&lt;/t&gt;&lt;br/&gt;&lt;t size='1.15' color='#ffa000'&gt;Failure: The population will remember that you did not keep your promise.&lt;/t&gt;&lt;br/&gt;&lt;t size='1.15' color='#ffa000'&gt;Reward: The population will be grateful.&lt;/t&gt;</Original>
+                <German>In %6 gibt es Verletzte.&lt;br/&gt;&lt;br/&gt;Behandelt die Patienten, sie liegen in den Kreisen auf der Karte. Jeder Spieler mit einer ACE-Bandage kann helfen, ein Sanitäter ist nicht nötig. Pro Patient wird eine Bandage verbraucht.&lt;br/&gt;&lt;br/&gt;&lt;t size='1.15' color='#00a0ff'&gt;Zeitlimit: %1 Minuten. Läuft die Zeit ab, ist der Auftrag gescheitert.&lt;/t&gt;&lt;br/&gt;&lt;t size='1.15' color='#ffa000'&gt;Fehlschlag: Die Bevölkerung merkt sich, dass ihr euer Versprechen nicht gehalten habt.&lt;/t&gt;&lt;br/&gt;&lt;t size='1.15' color='#ffa000'&gt;Belohnung: Die Bevölkerung wird es euch danken.&lt;/t&gt;</German>
+            </Key>
+            <Key ID="STR_COIN_aid_medical_task">
+                <Original>Treat the wounded in %1, they lie in the circles on the map. One ACE bandage per patient. Time limit: %2 minutes.</Original>
+                <German>Behandelt die Verletzten in %1, sie liegen in den Kreisen auf der Karte. Pro Patient eine ACE-Bandage. Zeitlimit: %2 Minuten.</German>
+            </Key>
+            <Key ID="STR_COIN_aid_repair_title">
+                <Original>Repair infrastructure</Original>
+                <German>Infrastruktur reparieren</German>
+            </Key>
+            <Key ID="STR_COIN_aid_repair_explanation">
+                <Original>Generators in %6 are damaged, they are smoking.&lt;br/&gt;&lt;br/&gt;They can only be repaired by an ACE engineer (EOD slot) with a tool kit. A repair takes %4 seconds, you can cancel it and start again later.&lt;br/&gt;&lt;br/&gt;&lt;t size='1.15' color='#00a0ff'&gt;Time limit: %1 minutes. If the time runs out the task has failed.&lt;/t&gt;&lt;br/&gt;&lt;t size='1.15' color='#ffa000'&gt;Failure: The population will remember that you did not keep your promise.&lt;/t&gt;&lt;br/&gt;&lt;t size='1.15' color='#ffa000'&gt;Reward: The population will be grateful.&lt;/t&gt;</Original>
+                <German>In %6 sind Generatoren beschädigt, sie rauchen.&lt;br/&gt;&lt;br/&gt;Reparieren muss sie ein ACE-Pionier (Slot EOD) mit einem Werkzeugkasten. Eine Reparatur dauert %4 Sekunden, ihr könnt sie abbrechen und später neu beginnen.&lt;br/&gt;&lt;br/&gt;&lt;t size='1.15' color='#00a0ff'&gt;Zeitlimit: %1 Minuten. Läuft die Zeit ab, ist der Auftrag gescheitert.&lt;/t&gt;&lt;br/&gt;&lt;t size='1.15' color='#ffa000'&gt;Fehlschlag: Die Bevölkerung merkt sich, dass ihr euer Versprechen nicht gehalten habt.&lt;/t&gt;&lt;br/&gt;&lt;t size='1.15' color='#ffa000'&gt;Belohnung: Die Bevölkerung wird es euch danken.&lt;/t&gt;</German>
+            </Key>
+            <Key ID="STR_COIN_aid_repair_task">
+                <Original>Repair the smoking generators in %1 (ACE engineer with a tool kit, %5 seconds each). Time limit: %2 minutes.</Original>
+                <German>Repariert die rauchenden Generatoren in %1 (ACE-Pionier mit Werkzeugkasten, %5 Sekunden je Gerät). Zeitlimit: %2 Minuten.</German>
+            </Key>
+        </Container>
     </Package>
     <!-- COIN END -->
 </Project>
