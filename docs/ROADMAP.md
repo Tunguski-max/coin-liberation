@@ -350,8 +350,14 @@ Vier Blöcke, nacheinander umgesetzt und getestet: 6A → 6B → 6C → 6D. Samm
   Magic Numbers in der Config, Doku zum einen Verhörergebnis nachgezogen; diese Nacharbeiten sind ungetestet)
 
 **6C Hauptstadt (ADR 0014)** – Reihenfolge: 6.3a, 6.3b
-- [ ] 6.3a (#160) Zusatz-Garnison: `runden(Liberations Infanterie-Trupps × 0,15 × aktive Nester)` zusätzliche Trupps beim Aktivieren der
-  Hauptstadt (Hook in `manage_one_sector`), Zusammensetzung wie Liberation mit Rüstungsmischung, COIN-Einheiten, spawnen immer
+- [x] 6.3a (#160, am 2026-10-29 im Spiel getestet) Zusatz-Garnison: `runden(Liberations Infanterie-Trupps × 0,15 × aktive Nester)` zusätzliche Trupps beim Aktivieren der
+  Hauptstadt (Hook 35 in `manage_one_sector`), Zusammensetzung wie Liberation mit Rüstungsmischung, COIN-Einheiten, spawnen immer
+  (Kalae Noowi: 3 Liberation-Trupps, 11 Nester ergeben 5 Zusatz-Trupps mit 25 Einheiten; nach der Zerstörung von zwei Nestern und
+  erneuter Aktivierung 9 Nester und 4 Zusatz-Trupps mit 20 Einheiten; Zeus sieht die Zusatz-Trupps, die Hauptstadt ließ sich
+  einnehmen; nicht getestet: Schalter aus, 0 Nester. Beide Läufe mit dem Typ „militia“, weil die Readiness unter 30 lag: die
+  Rüstungsmischung gibt es erst ab Readiness 30. Deshalb der Boden des Readiness-Deckels von 25 auf 30 angehoben, ungetestet.
+  Spawn über `KPLIB_fnc_spawnRegularSquad`: bis etwa 150 m um die Mitte der Hauptstadt, nicht in Häusern. `COIN_capitalGarrisonBase`
+  entfällt)
 - [ ] 6.3b (#161) Festes schweres Gerät (2 T-72BA, 1 ZSU-23-4 wie Sektorfahrzeuge) und 3 Igla-Schützen auf hohen Gebäudeplätzen;
   zerstörtes Gerät bleibt bis zum Serverneustart weg (nicht gespeichert)
 
