@@ -162,7 +162,8 @@ die jeweils einen **Einflussradius** haben und dort einen konkreten Effekt erzeu
 - Nester sind **nicht** auf der Karte markiert. Nur Intel macht sie sichtbar (siehe System C).
 - Die **Netzwerkstärke** ist der Anteil der aktiven Nester an allen Nestern (0 bis 1, alle Typen gleich gewichtet).
   Die Garnison der Hauptstadt skaliert mit der Zahl der Nester:
-  `Garnison = Basis × (1 + Faktor × verbleibende Nester)`.
+  Liberations normale Besatzung ist die Mindestbesetzung bei 0 Nestern, COIN ergänzt beim Aktivieren der Hauptstadt
+  `runden(Liberations Infanterie-Trupps der Hauptstadt × Faktor (0,15) × aktive Nester)` Trupps (Ticket 6.3a).
 - Ein Nest gilt als zerstört, wenn sein Kernobjekt zerstört ist (z. B. Waffenkiste, Funkgerät) oder das Haus eines
   Gebäude-Nests einstürzt. Kernobjekte sind nur Objekte, die Arma zerstören kann; passende, aber unzerstörbare Objekte
   (z. B. Werkbank) stehen nur als Requisite daneben. Löscht Zeus das Kernobjekt, ist das keine Zerstörung.

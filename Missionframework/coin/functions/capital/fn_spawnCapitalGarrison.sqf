@@ -53,11 +53,12 @@ for "_i" from 1 to _extra do {
         continue;
     };
     [_group, _centre] spawn add_defense_waypoints;
+    // Marked and handed to Zeus per squad at once: the spawn of the next one can yield, the budget must not count these as Liberation's
+    [units _group] call COIN_fnc_markCoinUnits;
+    [units _group] call COIN_fnc_addToCurators;
     _units append (units _group);
 };
 
-[_units] call COIN_fnc_markCoinUnits;
-[_units] call COIN_fnc_addToCurators;
 diag_log format ["[COIN] capital: %1: %2 additional units in %3 squads spawned", _sector, count _units, _extra];
 
 _units
