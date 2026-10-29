@@ -619,6 +619,13 @@ class COIN {
         class stagingLoop {};
     };
 
+    class battlegroup {
+        file = "coin\functions\battlegroup";
+
+        // Server: at most one old vehicle per counterattack, further ones become technicals (hook 34, ticket 6.2, #157)
+        class limitOldVehicles {};
+    };
+
     class readiness {
         file = "coin\functions\readiness";
 

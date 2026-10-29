@@ -6,7 +6,7 @@
       so a wrong or missing classname never produces an invalid unit.
     - Sector defenders and patrols (militia_vehicles, opfor_vehicles*): technicals only.
     - Counterattacks (opfor_battlegroup_vehicles*): technicals and troop transports (Ural), rarely one old vehicle
-      (BTR-60, also a troop transport) via list weighting. Two BTR-60 at once would be too much (hard limit: phase 6.2).
+      (BTR-60, also a troop transport) via list weighting. Two BTR-60 at once would be too much (hard limit: COIN_fnc_limitOldVehicles, hook 34).
     - No tanks, no anti-aircraft tank, no helicopters, no planes (empty lists). The capital's heavy equipment is
       spawned by COIN code later (ticket 6.3), not through these lists.
     - Lists that Liberation picks from with selectRandom must never be empty (selectRandom [] returns nil).
@@ -100,7 +100,7 @@ opfor_vehicles_low_intensity = [
 ];
 
 /* Counterattacks (battlegroups) at high readiness: technicals, troop transports, rarely one old vehicle.
-   COIN: LOP_ISTS_OPF_BTR60 is confirmed (upstream preset). One entry of 40 keeps it rare (about 6 percent for two or more in a group of 16); a hard limit of 1 comes in phase 6.2 (ADR 0014). */
+   COIN: LOP_ISTS_OPF_BTR60 is confirmed (upstream preset). One entry of 40 keeps it rare (about 6 percent for two or more in a group of 16); the hard limit of 1 is COIN_fnc_limitOldVehicles (hook 34, ADR 0014). */
 opfor_battlegroup_vehicles = [
     "LOP_AM_OPF_UAZ_DshKM",                                             // UAZ-3151 (DShKM)
     "LOP_AM_OPF_UAZ_DshKM",                                             // UAZ-3151 (DShKM)

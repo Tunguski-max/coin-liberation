@@ -212,6 +212,11 @@ COIN_oldVehicleClasses      = ["LOP_AM_OPF_BTR60", "LOP_AM_OPF_M113_W"];
 COIN_enableOldVehicles      = true;     // Off: weapons caches get no old vehicles (ticket 2.9a)
 COIN_oldVehicleDist         = [20, 40]; // [min, max] m from the nest position (beyond the house or the template)
 COIN_oldVehicleTries        = 10;       // Spots tried per vehicle before it is left out
+
+// Old vehicles in counterattacks (ticket 6.2, #157, ADR 0014, E10, hook 34): every one beyond the limit becomes a technical of the list
+COIN_enableOldVehicleLimit  = true;     // Off: no limit, only the weighting of the preset list decides
+COIN_battlegroupOldVehicleMax = 1;      // Old vehicles per counterattack
+COIN_battlegroupOldVehicleClasses = COIN_oldVehicleClasses + ["LOP_ISTS_OPF_BTR60"]; // The BTR-60 of the preset list is the ISTS twin of the nests' one
 COIN_oldVehicleSearch       = 10;       // m around a tried spot searched for free room (findEmptyPosition)
 COIN_oldVehicleMaxGradient  = COIN_nestTerrainMaxGradient; // Largest terrain gradient under a vehicle (isFlatEmpty)
 COIN_oldVehicleFlatRadius   = 5;        // m around a vehicle spot that must have that gradient (isFlatEmpty)

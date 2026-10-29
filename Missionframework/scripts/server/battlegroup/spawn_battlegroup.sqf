@@ -53,6 +53,9 @@ if !(_spawn_marker isEqualTo "") then {
             _selected_opfor_battlegroup pushback (selectRandom _vehicle_pool);
         };
 
+        // COIN: at most one old vehicle per counterattack, every further one becomes a technical (ticket 6.2, #157, ADR 0014, hook 34)
+        _selected_opfor_battlegroup = [_selected_opfor_battlegroup, _vehicle_pool] call COIN_fnc_limitOldVehicles;
+
         private ["_nextgrp", "_vehicle"];
         {
             _nextgrp = createGroup [GRLIB_side_enemy, true];
