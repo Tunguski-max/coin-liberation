@@ -253,7 +253,7 @@ while {_result isEqualTo ""} do {
             private _seconds = round (time - _begin);
             diag_log format [
                 "[COIN] strike: convoy %1 passes point %2 (%3) %4 s after the beginning, window %5 to %6 s",
-                _taskId, _forEachIndex + 1, ([_name1, _name2] select _forEachIndex) select 0, _seconds,
+                _taskId, _forEachIndex + 1, ([_name1, _name2] select _forEachIndex) select 1, _seconds,
                 ((_windows select _forEachIndex) select 0), ((_windows select _forEachIndex) select 1)
             ];
         };

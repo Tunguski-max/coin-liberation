@@ -43,9 +43,9 @@ private _endClock = [_endTime - time] call COIN_fnc_clockText;
 private _minutes = round ((_endTime - time) / 60);
 // A kind may add texts of its own after the four every strike task has (its extra function, fifth entry of the kind): the arms transport its time windows
 private _extra = [_startName, _endName, _startClock, _endClock] + (if (_extraFunction isEqualTo "") then {[]} else {[_plan, _startTime] call (missionNamespace getVariable [_extraFunction, {[]}])});
-// The names may come in German and English (a point on a road has no name of its own); the markers are German
-private _startLabel = if (_startName isEqualType []) then {_startName select 0} else {_startName};
-private _endLabel = if (_endName isEqualType []) then {_endName select 0} else {_endName};
+// A name is a text, or [key, place] for a point on a road (no name of its own): the markers and the log show the place
+private _startLabel = if (_startName isEqualType []) then {_startName select 1} else {_startName};
+private _endLabel = if (_endName isEqualType []) then {_endName select 1} else {_endName};
 // A kind may have its own look for the two markers (sixth entry of the kind: [start, end])
 private _looks = [[COIN_strikeMarkerStart, COIN_strikeMarkerEnd], _markerLooks] select (count _markerLooks == 2);
 

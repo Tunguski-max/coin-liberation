@@ -4,7 +4,7 @@
 
     Description:
         Adds the COIN information to the player's map diary (map screen, tab "COIN Liberation").
-        Players read it in game, so the text is German. Diary records belong to the player unit,
+        The texts are keys of the COIN package (ADR 0026), so every player reads them in his language. Diary records belong to the player unit,
         so this is called again after every respawn.
 
     Parameter(s):
@@ -27,19 +27,6 @@ private _blue = "#4da6ff";
 
 _unit createDiarySubject ["COIN_info", "COIN Liberation"];
 
-_unit createDiaryRecord ["COIN_info", ["Erkennungszeichen", format [
-    "<font size='18'>Wer ist wer? Das Kopftuch (Shemag)</font><br/><br/>" +
-    "Miliz und Widerstand sehen sich ähnlich. Deshalb tragen alle ihre bewaffneten Kämpfer ein Kopftuch in fester Farbe:<br/><br/>" +
-    "<font color='%1' size='16'>ROT: Miliz</font><br/>" +
-    "Der Gegner. Immer feindlich. Miliz-Kämpfer mit Helm tragen statt des Tuchs ihren Helm: Wer einen Helm trägt, gehört zur Miliz.<br/><br/>" +
-    "<font color='%2' size='16'>GRÜN: Widerstand, feindlich</font><br/>" +
-    "Der Ruf bei der Bevölkerung ist schlecht. Der Widerstand kämpft gegen uns und an der Seite der Miliz.<br/><br/>" +
-    "<font color='%3' size='16'>BLAU: Widerstand, neutral oder freundlich</font><br/>" +
-    "Der Ruf ist nicht schlecht. Blau schießt nicht auf uns. Bei gutem Ruf kämpft der Widerstand an unserer Seite gegen die Miliz, bei mittlerem Ruf hält er sich heraus.<br/><br/>" +
-    "<font size='14'>Hinweise</font><br/>" +
-    "- Die Farbe wechselt, sobald sich der Ruf ändert. Auch bereits lebende Widerstandskämpfer färben um (nach wenigen Sekunden).<br/>" +
-    "- Sinkt der Ruf, kann ein eben noch blauer Kämpfer grün werden. Beim Näherkommen zuerst auf die Farbe achten, dann schießen.",
-    _red, _green, _blue
-]]];
+_unit createDiaryRecord ["COIN_info", [localize "STR_COIN_diary_idTitle", format [localize "STR_COIN_diary_idText", _red, _green, _blue]]];
 
 true

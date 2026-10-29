@@ -13,14 +13,14 @@
         _class - Vehicle class from the build list [STRING] (other types, e.g. squads, are always allowed)
 
     Returns:
-        [allowed, reason shown to the player, limit entry of COIN_vehicleLimits or [] if the class is not limited] [ARRAY]
+        [allowed, key of the reason (stringtable, ADR 0026) or "", limit entry of COIN_vehicleLimits or [] if the class is not limited, value for %1 of the reason] [ARRAY]
 */
 
 params [
     ["_class", "", ["", []]]
 ];
 
-if (!COIN_enableVehicleLimits || {!(_class isEqualType "")}) exitWith {[true, "", []]};
+if (!COIN_enableVehicleLimits || {!(_class isEqualType "")}) exitWith {[true, "", [], 0]};
 
 private _classLower = toLower _class;
 private _limit = [];
@@ -28,13 +28,13 @@ private _limit = [];
     if ((toLower (_x select 0)) isEqualTo _classLower) exitWith {_limit = _x;};
 } forEach COIN_vehicleLimits;
 
-if (_limit isEqualTo []) exitWith {[true, "", []]};
+if (_limit isEqualTo []) exitWith {[true, "", [], 0]};
 
 private _max = _limit select 1;
 // The placement preview and preplaced vehicles carry KP_liberation_preplaced (as in Liberation's unit_cap.sqf). On a local host the preview of the buyer is a vehicle of the server, too
 private _alive = count (vehicles select {alive _x && {(toLower (typeOf _x)) isEqualTo _classLower} && {!(_x getVariable ["KP_liberation_preplaced", false])}});
 if (_alive >= _max) exitWith {
-    [false, format ["Bereits im Einsatz (höchstens %1 gleichzeitig)", _max], _limit]
+    [false, "STR_COIN_limits_alive", _limit, _max]
 };
 
 private _remaining = 0;
@@ -43,7 +43,7 @@ private _remaining = 0;
 } forEach (missionNamespace getVariable ["COIN_vehicleLocks", []]);
 
 if (_remaining > 0) exitWith {
-    [false, format ["Gesperrt: noch %1 Min. bis zum nächsten Kauf", ceil (_remaining / 60)], _limit]
+    [false, "STR_COIN_limits_locked", _limit, ceil (_remaining / 60)]
 };
 
-[true, "", _limit]
+[true, "", _limit, 0]

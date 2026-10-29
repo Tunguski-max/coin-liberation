@@ -56,12 +56,13 @@ private _placeAt = {
     [_pos, _from getDir _to]
 };
 
-// The name of a point: the kind of road and the nearest place, German and English
+// The name of a point: the kind of road (key) and the nearest place
 private _nameOf = {
     params ["_pos", "_kind"];
     private _places = nearestLocations [_pos, ["NameCityCapital", "NameCity", "NameVillage", "NameLocal"], COIN_convoyNameRadius];
     private _place = if (_places isEqualTo []) then {mapGridPosition _pos} else {text (_places select 0)};
-    (COIN_convoyPointNames select _kind) apply {format [_x, _place]}
+    // A name is [key of the kind, place]: every player builds the text in his language, the key and the place travel, no text (ADR 0026)
+    [COIN_convoyPointNames select _kind, _place]
 };
 
 // The point on the route near a fraction of its length: [index, kind 0 road / 1 junction / 2 bridge]

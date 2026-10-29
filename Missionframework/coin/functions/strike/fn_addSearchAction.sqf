@@ -5,8 +5,8 @@
     Description:
         Client: gives a stopped vehicle the action "Search documents" (the courier's car, ticket 5.14; a truck of the arms transport as "Search
         delivery documents", ticket 5.16; DESIGN 8.2) in the yellow text of
-        Liberation's own entries (fn_addActionsPlayer), German or else English
-        by the game language. It shows when the car is alive and stopped (COIN_searchOpen, public) and the player is
+        Liberation's own entries (fn_addActionsPlayer), in the game language
+        (keys of the COIN package, ADR 0026). It shows when the car is alive and stopped (COIN_searchOpen, public) and the player is
         within COIN_searchRange, and asks the server to search (COIN_fnc_searchDocuments), which checks again.
         With ACE the search runs on the progress bar for COIN_searchSeconds (it ends if the player walks away, the car is
         destroyed or somebody else searched; Escape cancels it), without ACE it is done at once.
@@ -14,8 +14,8 @@
 
     Parameter(s):
         _vehicle - The car or truck [OBJECT, defaults to objNull]
-        _label   - Text of the action, [German, English]; empty = COIN_searchLabel [ARRAY, defaults to []]
-        _barText - Text of the progress bar, [German, English]; empty = COIN_searchBarText [ARRAY, defaults to []]
+        _label   - Key of the text of the action; empty = COIN_searchLabel [STRING, defaults to ""]
+        _barText - Key of the text of the progress bar; empty = COIN_searchBarText [STRING, defaults to ""]
 
     Returns:
         NONE
@@ -23,18 +23,17 @@
 
 params [
     ["_vehicle", objNull, [objNull]],
-    ["_label", [], [[]]],
-    ["_barText", [], [[]]]
+    ["_label", "", [""]],
+    ["_barText", "", [""]]
 ];
 
 if (!hasInterface || {isNull _vehicle}) exitWith {};
 
-private _index = [1, 0] select (language isEqualTo "German");
-if (_label isEqualTo []) then {_label = COIN_searchLabel};
-if (_barText isEqualTo []) then {_barText = COIN_searchBarText};
+if (_label isEqualTo "") then {_label = COIN_searchLabel};
+if (_barText isEqualTo "") then {_barText = COIN_searchBarText};
 
 _vehicle addAction [
-    ["<t color='#FFFF00'>", _label select _index, "</t>"] joinString "",
+    ["<t color='#FFFF00'>", [_label] call COIN_fnc_text, "</t>"] joinString "",
     {
         params ["_target", "_caller", "_actionId", "_actionArgs"];
         _actionArgs params ["_barText"];
@@ -43,7 +42,6 @@ _vehicle addAction [
         if (isNil "ace_common_fnc_progressBar") exitWith {
             [_target, _caller] remoteExecCall ["COIN_fnc_searchDocuments", 2];
         };
-        private _index = [1, 0] select (language isEqualTo "German");
 
         [
             COIN_searchSeconds,
@@ -54,7 +52,7 @@ _vehicle addAction [
                 [_target, player] remoteExecCall ["COIN_fnc_searchDocuments", 2];
             },
             {},
-            _barText select _index,
+            [_barText] call COIN_fnc_text,
             {
                 params ["_args"];
                 _args params ["_target"];

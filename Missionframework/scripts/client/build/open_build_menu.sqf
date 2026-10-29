@@ -125,7 +125,7 @@ while {dialog && alive player && (dobuild == 0 || buildtype == 1)} do {
     _linked = false;
     _linked_unlocked = true;
     _base_link = "";
-    private _coinLimit = [true, "", []]; // COIN: result of the equipment limit check for the selected item (ticket 1.9)
+    private _coinLimit = [true, "", [], 0]; // COIN: result of the equipment limit check for the selected item (ticket 1.9)
     if (dobuild == 0 && _selected_item != -1 && (_selected_item < (count _build_list))) then {
         _build_item = _build_list select _selected_item;
         if (
@@ -205,7 +205,7 @@ while {dialog && alive player && (dobuild == 0 || buildtype == 1)} do {
 
     // COIN: show why the selected vehicle is blocked (ticket 1.9)
     if !(_coinLimit select 0) then {
-        ((findDisplay 5501) displayCtrl (161)) ctrlSetStructuredText parseText format ["<t color='#e00000' align='center'>%1</t>", _coinLimit select 1];
+        ((findDisplay 5501) displayCtrl (161)) ctrlSetStructuredText parseText format ["<t color='#e00000' align='center'>%1</t>", format [localize (_coinLimit select 1), _coinLimit select 3]];
     };
 
     buildindex = _selected_item;
