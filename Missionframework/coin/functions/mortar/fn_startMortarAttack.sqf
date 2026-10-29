@@ -4,8 +4,8 @@
 
     Description:
         Starts a mortar attack on a FOB (ticket 6.7a, #158, DESIGN 9): only if none is running (at most one on the
-        map) and a spot for the squad was found (COIN_fnc_findMortarSpot). Puts the FOB in its cooldown
-        (COIN_mortarCooldownSeconds) and spawns COIN_fnc_runMortarAttack. The caller has checked the FOB
+        map) and a spot for the squad was found (COIN_fnc_findMortarSpot). Takes COIN_mortarActive before the search. The FOB goes into its cooldown
+        at the end of the attack (COIN_fnc_runMortarAttack, spawned here). The caller has checked the FOB
         (COIN_fnc_checkMortarFob) and rolled the chance, the debug function skips both. Server only.
 
     Parameter(s):
@@ -29,8 +29,11 @@ if (COIN_mortarActive) exitWith {
     false
 };
 
+// Taken before the search, which can be suspended: a second start in the meantime is refused
+COIN_mortarActive = true;
 ([_fob] call COIN_fnc_findMortarSpot) params ["_spot", "_inArea", "_rejected"];
 if (_spot isEqualTo []) exitWith {
+    COIN_mortarActive = false;
     diag_log format [
         "[COIN] mortar: no attack on FOB %1 (%2): no spot for the squad %3-%4 m away, rejected points %5",
         _fobName, _reason, COIN_mortarDistance select 0, COIN_mortarDistance select 1, _rejected
@@ -38,7 +41,5 @@ if (_spot isEqualTo []) exitWith {
     false
 };
 
-COIN_mortarActive = true;
-COIN_mortarCooldowns set [[_fob] call COIN_fnc_mortarFobKey, time + COIN_mortarCooldownSeconds];
 [_fob, _spot, _reason] spawn COIN_fnc_runMortarAttack;
 true

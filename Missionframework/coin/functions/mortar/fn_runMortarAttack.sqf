@@ -12,7 +12,7 @@
            is over then),
         4. then it is taken down: everything is deleted as soon as no player is within COIN_mortarRemoveDistance,
            checked every COIN_mortarRemoveSeconds (dead fighters and the mortar included).
-        Sets COIN_mortarActive to false at the end. Must be spawned. Server only.
+        Sets COIN_mortarActive to false when the attack is over (before the take-down) and sets the cooldown. Must be spawned. Server only.
 
     Parameter(s):
         _fob    - Position of the FOB that is shelled [ARRAY]
@@ -47,7 +47,7 @@ diag_log format [
 
 private _marker = "";
 if (COIN_debug) then {
-    _marker = createMarker ["COIN_mortarSquad", _spot];
+    _marker = createMarker [format ["COIN_mortarSquad_%1", round time], _spot];
     _marker setMarkerType "mil_triangle";
     _marker setMarkerColor COIN_mortarMarkerColor;
     _marker setMarkerText format ["Mörsertrupp (FOB %1)", _fobName];
@@ -86,6 +86,10 @@ diag_log format [
     _fobName, ["the squad is eliminated", "time is up, the squad is taken down"] select (call _anyAlive), {alive _x} count _fighters, count _fighters
 ];
 
+// The attack is over: the FOB waits COIN_mortarCooldownSeconds, the next attack may start while the squad is taken down
+COIN_mortarCooldowns set [[_fob] call COIN_fnc_mortarFobKey, time + COIN_mortarCooldownSeconds];
+COIN_mortarActive = false;
+
 // Taken down when nobody is near
 private _playerNear = {
     ((allPlayers - entities "HeadlessClient_F") findIf {alive _x && {(_x distance2D _spot) < COIN_mortarRemoveDistance}}) >= 0
@@ -97,4 +101,3 @@ deleteGroup _group;
 if (_marker isNotEqualTo "") then {deleteMarker _marker};
 diag_log format ["[COIN] mortar: squad of the attack on FOB %1 removed", _fobName];
 
-COIN_mortarActive = false;

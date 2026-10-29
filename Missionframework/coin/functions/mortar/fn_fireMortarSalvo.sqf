@@ -49,6 +49,9 @@ private _fired = 0;
 for "_i" from 1 to COIN_mortarRounds do {
     private _gunner = gunner _mortar;
     if (!alive _mortar || {!alive _gunner}) exitWith {};
+    if ((GRLIB_all_fobs findIf {(_x distance2D _fob) < 50}) < 0) exitWith {
+        diag_log "[COIN] mortar: the FOB is gone, salvo stops";
+    };
 
     private _point = _fob getPos [random _spread, random 360];
     _point = [_point select 0, _point select 1, 0];

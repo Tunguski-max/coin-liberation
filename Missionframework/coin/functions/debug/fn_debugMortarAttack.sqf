@@ -3,9 +3,10 @@
     Author: COIN Liberation
 
     Description:
-        Debug console, server (ticket 6.7a, #158): starts a mortar attack now on the FOB nearest to the player, without
+        Debug console, local host (ticket 6.7a, #158): starts a mortar attack now on the FOB nearest to the player, without
         the chance, the cooldown and the player at the FOB. The FOB must still lie in a staging area and no other
-        attack may run, otherwise it refuses with a [COIN] line (and a system chat message). Call it with
+        attack may run, otherwise it refuses with a [COIN] line (and a system chat message). On a dedicated server there is no
+        player: pass the position of the FOB. Call it with
         [] call COIN_fnc_debugMortarAttack, or with a FOB position to name the FOB.
 
     Parameter(s):
@@ -20,6 +21,11 @@ params [
 ];
 
 if (!isServer) exitWith {false};
+if (!COIN_enableMortarAttacks) exitWith {
+    diag_log "[COIN] debug: mortar attack: COIN_enableMortarAttacks is off";
+    systemChat "[COIN] mortar attack: COIN_enableMortarAttacks is off";
+    false
+};
 
 private _say = {
     params ["_text"];
@@ -28,8 +34,8 @@ private _say = {
 };
 
 if (_fob isEqualTo []) then {
-    private _pos = if (isNull player) then {[0, 0, 0]} else {getPosATL player};
-    _fob = [_pos] call KPLIB_fnc_getNearestFob;
+    if (isNull player) exitWith {};
+    _fob = [getPosATL player] call KPLIB_fnc_getNearestFob;
 };
 if (_fob isEqualTo [] || {_fob isEqualTo [0, 0, 0]}) exitWith {
     ["no FOB found"] call _say;

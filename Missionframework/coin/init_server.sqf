@@ -89,11 +89,12 @@ if (COIN_enableStagingAreas) then {
     diag_log "[COIN] init: staging areas off";
 };
 
-// Mortar attacks (ticket 6.7a, #158, DESIGN 9): a militia squad shells a FOB in a staging area while a player is there
+// Mortar attacks (ticket 6.7a, #158, DESIGN 9): a militia squad shells a FOB in a staging area while a player is there.
+// The state exists with the switch off too (the debug function and the FOB check read it); not saved
+COIN_mortarCooldowns = createHashMap;
+COIN_mortarActive = false;
 if (COIN_enableMortarAttacks) then {
     diag_log format ["[COIN] init: mortar attacks on, chance %1 every %2 s, cooldown %3 s per FOB, classes %4", COIN_mortarChance, COIN_mortarCheckSeconds, COIN_mortarCooldownSeconds, COIN_mortarClasses];
-    COIN_mortarCooldowns = createHashMap;
-    COIN_mortarActive = false;
     [] spawn COIN_fnc_mortarLoop;
 } else {
     diag_log "[COIN] init: mortar attacks off";
