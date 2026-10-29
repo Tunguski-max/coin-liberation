@@ -358,8 +358,11 @@ Vier Blöcke, nacheinander umgesetzt und getestet: 6A → 6B → 6C → 6D. Samm
   Rüstungsmischung gibt es erst ab Readiness 30. Deshalb der Boden des Readiness-Deckels von 25 auf 30 angehoben, ungetestet.
   Spawn über `KPLIB_fnc_spawnRegularSquad`: bis etwa 150 m um die Mitte der Hauptstadt, nicht in Häusern. `COIN_capitalGarrisonBase`
   entfällt)
-- [ ] 6.3b (#161) Festes schweres Gerät (2 T-72BA, 1 ZSU-23-4 wie Sektorfahrzeuge) und 3 Igla-Schützen auf hohen Gebäudeplätzen;
-  jede Aktivierung spawnt es neu, auch zerstörtes (Regel „bleibt bis zum Serverneustart weg“ am 2026-10-29 verworfen)
+- [x] 6.3b (#161, am 2026-10-29 im Spiel getestet) Festes schweres Gerät (2 T-72BA, 1 ZSU-23-4 wie Sektorfahrzeuge) und 3 Igla-Schützen auf hohen Gebäudeplätzen;
+  jede Aktivierung spawnt es neu, auch zerstörtes (Regel „bleibt bis zum Serverneustart weg“ am 2026-10-29 verworfen: nicht stabil)
+  (Kalae Noowi: 2 T-72BA und ZSU-23-4 mit je 3 Mann Besatzung, 7–154 m von der Mitte, und 3 Igla-Schützen auf 11, 20 und 31 m Höhe bei
+  jeder Aktivierung; nicht ausdrücklich geprüft: Zeus-Sicht, Sperre für Spieler, Schalter aus. Der Igla-Schütze ist `LOP_TKA_Infantry_AA`,
+  `LOP_AM_OPF_Infantry_AA` gibt es nicht)
 
 **6D Kampagnenende** – Reihenfolge: 6.5a, 6.5b
 - [ ] 6.5a (#162) Abschnitt „COIN“ in Liberations Endbildschirm (Hook) mit gespeicherten Zählern (`COIN_saveVersion` 4, ältere
