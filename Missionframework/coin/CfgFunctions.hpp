@@ -521,6 +521,9 @@ class COIN {
         // Server: checks the request for a reinforcement, takes favor and intel points, spawns the local fighters (ticket 5.6)
         class requestReinforcement {};
 
+        // Server: loads the empty weapons of the fighters of a reinforcement from their vests (ticket 5.6)
+        class loadFighterWeapons {};
+
         // Server: watches the reinforcement: arrived, time, reputation, wiped out; the walk home (ticket 5.6)
         class runReinforcement {};
 

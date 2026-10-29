@@ -210,6 +210,7 @@ coin/
     │   ├── fn_delayFavor.sqf           COIN_fnc_delayFavor: Server, den Zähler um die Config-Minuten zurückwerfen (Schnittstelle für 5.6)
     │   ├── fn_pickReinforcementPoint.sqf COIN_fnc_pickReinforcementPoint: Client, der Dolmetscher klickt den Zielpunkt der Verstärkung auf der Karte an, Kreis = Reichweite (Ticket 5.6)
     │   ├── fn_requestReinforcement.sqf COIN_fnc_requestReinforcement: Server, prüft die Anfrage, nimmt Gefälligkeit und Intel-Punkte, lässt die lokalen Kämpfer entstehen (Ticket 5.6)
+    │   ├── fn_loadFighterWeapons.sqf   COIN_fnc_loadFighterWeapons: Server, lädt die leeren Waffen der Kämpfer einer Verstärkung aus der Weste (Ticket 5.6)
     │   ├── fn_runReinforcement.sqf     COIN_fnc_runReinforcement: Server, überwacht die Verstärkung (Ankunft, Zeit, Ruf, aufgerieben) und den Rückweg (Ticket 5.6)
     │   ├── fn_showReinforcementMessage.sqf COIN_fnc_showReinforcementMessage: Client, Meldung zur Verstärkung an alle (Ticket 5.6)
     │   ├── fn_pickMapPoint.sqf         COIN_fnc_pickMapPoint: Client, ein Punkt auf der Karte, mit Kreis der Reichweite wenn gewünscht (Tickets 5.6, 5.19)
