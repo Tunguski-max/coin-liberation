@@ -321,8 +321,11 @@ Vier Blöcke, nacheinander umgesetzt und getestet: 6A → 6B → 6C → 6D. Samm
   Fallschirmjäger-Spur; Schalter aus nicht einzeln getestet. Aufgefallen: Die Wartezeit beträgt bei 2,9 km bis zu 12 min, und
   Liberations Manager zählt vor der Wartezeit alle Gegner im Sektorradius, bei kleinen Sektoren verzögert das den Start; beides
   Liberations Verhalten und Stoff für Phase 7)
-- [ ] 6.2 (#157) Höchstens 1 Altfahrzeug pro Gegenangriff: jedes weitere wird durch einen Technical ersetzt (Hook). Konvoi-Überfälle
+- [x] 6.2 (#157, am 2026-10-29 im Spiel getestet) Höchstens 1 Altfahrzeug pro Gegenangriff: jedes weitere wird durch einen Technical ersetzt (Hook 34). Konvoi-Überfälle
   entfallen hier: Liberations Überfälle auf KI-Konvois laufen schon (ADR 0008), Überfälle auf Spieler sind die Hinterhalte (Phase 4)
+  (Funktion direkt aufgerufen mit BTR-60 ×3, Ural, UAZ: ein BTR-60 bleibt, zwei durch Offroad M2 und UAZ ersetzt, Ural und UAZ
+  unverändert, zwei Logzeilen; nicht getestet: Hook im echten Gegenangriff, Schalter aus. Die Klassen stehen in
+  `COIN_battlegroupOldVehicleClasses`, nicht in `COIN_oldVehicleClasses`: Die Preset-Liste hat den ISTS-BTR-60)
 - [ ] 6.7a (#158) Mörserangriff, Durchstich: nur auf eine FOB im Aufmarschraum mit Spieler an der FOB (300 m), alle 10 min 15 %, 45 min
   Wartezeit pro FOB, höchstens einer gleichzeitig; 3 Kämpfer mit leichtem Mörser 1500–2500 m entfernt außer Sicht, 3 Salven zu je
   4 Granaten mit Streuung 150 m → 50 m, echter Schaden, 10 min in Stellung, Abbau außer Sicht; COIN-Einheiten, spawnen immer
