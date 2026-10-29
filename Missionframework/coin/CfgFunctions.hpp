@@ -144,6 +144,9 @@ class COIN {
 
         // Debug console: mortar attack now on the nearest FOB, without chance and cooldown (ticket 6.7a)
         class debugMortarAttack {};
+
+        // Debug console, client: every COIN message once in the game language (ticket 7.0a, #177)
+        class debugShowMessages {};
     };
 
     class intel {

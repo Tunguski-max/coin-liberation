@@ -4,8 +4,9 @@
 
     Description:
         Shows a COIN message on this client (ticket 2.14): BIS_fnc_showNotification with the class of
-        CfgNotifications (coin\CfgNotifications.hpp) in the game language, German or else English. A nest message
-        names the nest type (COIN_nestTypeNames). Sent by COIN_fnc_initMessages with remoteExecCall to all machines;
+        CfgNotifications (coin\CfgNotifications.hpp), whose texts are keys of the COIN package in stringtable.xml, so
+        every client reads it in its own game language (ADR 0026). A nest message names the nest type
+        (COIN_nestTypeNames, a key as well). Sent by COIN_fnc_initMessages with remoteExecCall to all machines;
         a dedicated server has no interface and does nothing. With COIN_debug a client logs one line, so the test can see who got it.
 
     Parameter(s):
@@ -24,7 +25,6 @@ params [
 
 if (!hasInterface) exitWith {false};
 
-private _german = (language isEqualTo "German");
 private _class = switch (_kind) do {
     case "nest": {"coin_nest_destroyed"};
     case "camp": {"coin_camp_cleared"};
@@ -40,12 +40,12 @@ if (_kind isEqualTo "mortar") then {
     _args = [_type];
 };
 if (_kind isEqualTo "nest") then {
-    // Unknown type: the type itself
-    private _names = ([COIN_nestTypeNames, _type] call COIN_fnc_findByType) param [1, [_type, _type]];
-    _args = [_names select ([1, 0] select _german)];
+    // The name of the type is a key, localized here on the client; an unknown type shows itself
+    private _key = ([COIN_nestTypeNames, _type] call COIN_fnc_findByType) param [1, ""];
+    _args = [[_type, localize _key] select (_key isNotEqualTo "")];
 };
 
-[format ["%1_%2", _class, ["en", "de"] select _german], _args] call BIS_fnc_showNotification;
+[_class, _args] call BIS_fnc_showNotification;
 if (COIN_debug) then {
     diag_log format ["[COIN] messages: shown %1 message %2", _kind, _args];
 };
