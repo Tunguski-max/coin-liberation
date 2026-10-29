@@ -39,7 +39,8 @@ briefingName = $STR_COIN_mission_title;
 
 // Path to image which will be displayed when the mission is highlighted on the mission selection screen.
 // Image should be .paa format and in 2:1 aspect ratio – ideally 1024x512 (Arma 3).
-overviewPicture = "res\lib.paa";
+// COIN: own picture, 2:1 (docs/hooks.md #2)
+overviewPicture = "res\mission.jpg";
 
 // Text to be displayed below the overviewPicture on the mission selection screen
 // COIN: own mission description (docs/hooks.md #2)
@@ -57,7 +58,8 @@ onLoadName = $STR_COIN_mission_title;
 
 // You can define a picture to be shown while the mission is loaded.
 // The path is relative to the mission folder.
-loadScreen = "res\lib.paa";
+// COIN: own picture (docs/hooks.md #2)
+loadScreen = "res\mission.jpg";
 
 // Displays a message while the mission is loading below the loadScreen picture.
 // COIN: own loading text (docs/hooks.md #2)
