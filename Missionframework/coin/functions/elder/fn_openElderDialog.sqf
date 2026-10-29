@@ -39,7 +39,6 @@ if (!hasInterface || {isNull _elder && {_mode isNotEqualTo "strike"}}) exitWith 
 // remoteExecCall runs unscheduled, the dialog loop needs to sleep
 if (!canSuspend) exitWith {_this spawn COIN_fnc_openElderDialog; true};
 
-private _index = [1, 0] select (language isEqualTo "German");
 private _strike = _mode isEqualTo "strike";
 
 if (_busy isNotEqualTo "") then {
@@ -58,16 +57,16 @@ private _button = _display displayCtrl 103;
 private _pictureCtrl = _display displayCtrl 106;
 
 (if (_strike) then {COIN_strikeDialogTexts} else {COIN_elderDialogTexts}) params ["_header", "_accept", "_tasks"];
-(_display displayCtrl 108) ctrlSetText (_header select _index);
-_button ctrlSetText (_accept select _index);
-(_display displayCtrl 107) ctrlSetText format [_tasks select _index, _active, [COIN_aidTaskMaxActive, COIN_strikeTaskMaxActive] select _strike];
+(_display displayCtrl 108) ctrlSetText ([_header] call COIN_fnc_text);
+_button ctrlSetText ([_accept] call COIN_fnc_text);
+(_display displayCtrl 107) ctrlSetText format [[_tasks] call COIN_fnc_text, _active, [COIN_aidTaskMaxActive, COIN_strikeTaskMaxActive] select _strike];
 
 // Sections with their offers; a section header has no data and cannot be accepted
 {
     _x params ["_section", "_title"];
     private _rows = _offers select {(_x select 1) isEqualTo _section};
     if (_rows isNotEqualTo []) then {
-        private _headerRow = _list lbAdd (_title select _index);
+        private _headerRow = _list lbAdd ([_title] call COIN_fnc_text);
         _list lbSetData [_headerRow, ""];
         _list lbSetColor [_headerRow, [0.8, 0.8, 0.8, 0.6]];
         {
@@ -79,7 +78,7 @@ _button ctrlSetText (_accept select _index);
                 localize (_secondary select 2)
             } else {
                 private _row = if (_favorRow isNotEqualTo []) then {_favorRow} else {[[COIN_aidTaskTexts, COIN_strikeTaskTexts] select _strike, _id] call COIN_fnc_findByType};
-                (_row select 1) select _index
+                [_row select 1] call COIN_fnc_text
             };
             private _row = _list lbAdd ("    " + _label);
             _list lbSetData [_row, _id];
@@ -115,28 +114,28 @@ while {dialog && {alive player} && {_strike || {alive _elder && {(player distanc
         } else {
             (_offer select 0) params ["", "", "_enabled", "_reasonKey", "_reasonValue", "_place"];
             // No village for the task: the explanation names no place of the town, as the offer is grey for that reason
-            if (_reasonKey isEqualTo "no_site") then {_place = COIN_aidNoSitePlace select _index};
+            if (_reasonKey isEqualTo "no_site") then {_place = [COIN_aidNoSitePlace] call COIN_fnc_text};
             private _favorRow = [COIN_favorOfferTexts, _id] call COIN_fnc_findByType;
             private _row = if (_favorRow isNotEqualTo []) then {_favorRow} else {[[COIN_aidTaskTexts, COIN_strikeTaskTexts] select _strike, _id] call COIN_fnc_findByType};
             private _explanation = if (_secondary isNotEqualTo []) then {
                 // Liberation's briefing, then its cost and the intel points the army has
                 (localize (_secondary select 3)) + "<br/><br/>" + format [
-                    COIN_secondaryCostText select _index, GRLIB_secondary_missions_costs select (_secondary select 1), missionNamespace getVariable ["resources_intel", 0]
+                    [COIN_secondaryCostText] call COIN_fnc_text, GRLIB_secondary_missions_costs select (_secondary select 1), missionNamespace getVariable ["resources_intel", 0]
                 ]
             } else {
                 if (_favorRow isNotEqualTo []) then {
                     // A favor (ticket 5.6): the fighters, the time, the cost, the reach, then the favors in stock and the most (8th entry)
                     private _stocks = (_offer select 0) param [7, [0, 0]];
                     format [
-                        (_row select 2) select _index, COIN_reinforcementSize, COIN_reinforcementMaxMin, COIN_favorIntelCost,
+                        [_row select 2] call COIN_fnc_text, COIN_reinforcementSize, COIN_reinforcementMaxMin, COIN_favorIntelCost,
                         COIN_reinforcementMaxDistance, _stocks select 0, _stocks select 1
                     ]
                 } else {
                     if (_strike) then {
                         // The minutes until the event starts and the whole window, each as [least, most]
-                        format [(_row select 2) select _index, COIN_strikeTaskDelayMin select 0, COIN_strikeTaskDelayMin select 1, COIN_strikeTaskWindowMin select 0, COIN_strikeTaskWindowMin select 1]
+                        format [[_row select 2] call COIN_fnc_text, COIN_strikeTaskDelayMin select 0, COIN_strikeTaskDelayMin select 1, COIN_strikeTaskWindowMin select 0, COIN_strikeTaskWindowMin select 1]
                     } else {
-                        format [(_row select 2) select _index, COIN_aidTaskTimeoutMin, COIN_aidSupplyDistance, COIN_aidSupplyMinValue, COIN_aidRepairSeconds, COIN_aidRepairRadius select 0, _place]
+                        format [[_row select 2] call COIN_fnc_text, COIN_aidTaskTimeoutMin, COIN_aidSupplyDistance, COIN_aidSupplyMinValue, COIN_aidRepairSeconds, COIN_aidRepairRadius select 0, _place]
                     }
                 }
             };
@@ -145,12 +144,12 @@ while {dialog && {alive player} && {_strike || {alive _elder && {(player distanc
             // own colours (blue and orange). A secondary mission has its title in Liberation's briefing
             private _shown = _explanation;
             if (_secondary isEqualTo []) then {
-                private _title = ((_row select 1) select _index);
+                private _title = [_row select 1] call COIN_fnc_text;
                 _shown = format ["<t size='1.3' color='#ffa000'>%1</t><br/><br/>%2", _title, _explanation];
             };
             if (!_enabled) then {
                 private _reasonRow = [COIN_aidReasonTexts, _reasonKey] call COIN_fnc_findByType;
-                _reason = format [(_reasonRow param [1, ["", ""]]) select _index, _reasonValue];
+                _reason = format [[_reasonRow param [1, ""]] call COIN_fnc_text, _reasonValue];
                 _shown = format ["<t color='#e00000'>%1</t><br/><br/>", _reason] + _shown;
             };
             _text ctrlSetStructuredText parseText _shown;

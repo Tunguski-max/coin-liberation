@@ -66,12 +66,12 @@ if (_row isEqualTo []) exitWith {};
 COIN_clientTasks set [_taskId, [_taskId, _state, _id, _pos, _town, _minutes, false, _extra]];
 
 if !([_taskId] call BIS_fnc_taskExists) then {
-    private _title = if (_strike) then {(_row select 1) select _index} else {format ["%1: %2", (_row select 1) select _index, _town]};
+    private _title = if (_strike) then {[_row select 1] call COIN_fnc_text} else {format ["%1: %2", [_row select 1] call COIN_fnc_text, _town]};
     private _description = if (_strike) then {
         // A name that comes in two languages (a destination on a road) is read in this player's
-        format ([(_row select 3) select _index] + (_extra apply {if (_x isEqualType []) then {_x select _index} else {_x}}))
+        format ([[_row select 3] call COIN_fnc_text] + (_extra apply {if (_x isEqualType []) then {_x select _index} else {_x}}))
     } else {
-        format [((_row select 3) select _index), _town, _minutes, COIN_aidSupplyDistance, COIN_aidSupplyMinValue, COIN_aidRepairSeconds, COIN_aidRepairRadius select 0]
+        format [[_row select 3] call COIN_fnc_text, _town, _minutes, COIN_aidSupplyDistance, COIN_aidSupplyMinValue, COIN_aidRepairSeconds, COIN_aidRepairRadius select 0]
     };
     [
         player,

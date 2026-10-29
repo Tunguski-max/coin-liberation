@@ -4,7 +4,7 @@
 
     Description:
         Client: the elder says a sentence to the interpreter as a subtitle (tickets 5.9b and 5.10): a random sentence of
-        COIN_elderSentences for the key, German or else English by the game language, under his name. Keys: "busy" (the town
+        COIN_elderSentences for the key (the sentences are keys of the COIN package, ADR 0026), in the game language, under his name. Keys: "busy" (the town
         runs or waits for an aid task, on opening the dialog), "accepted" (the interpreter accepted a task), "refused"
         (the server refused the offer), "site" (ticket 5.21: where the aid task plays, %1 is the name of the village). Sent by the
         server with remoteExecCall, or called by the dialog.
@@ -28,21 +28,20 @@ params [
 
 if (!hasInterface) exitWith {false};
 
-private _index = [1, 0] select (language isEqualTo "German");
-private _texts = ([COIN_elderSentences, _key] call COIN_fnc_findByType) param [1, []];
+private _keys = ([COIN_elderSentences, _key] call COIN_fnc_findByType) param [1, []];
 
-if (_texts isEqualTo []) exitWith {
+if (_keys isEqualTo []) exitWith {
     diag_log format ["[COIN] elder: ERROR - no elder sentences for %1", _key];
     false
 };
 
-private _lines = [format [selectRandom (_texts select _index), _place]];
+private _lines = [format [[selectRandom _keys] call COIN_fnc_text, _place]];
 
 // A second line under the first, e.g. the vague warning of an ambush at the site
 if (_extraKey isNotEqualTo "") then {
     private _extra = ([COIN_elderSentences, _extraKey] call COIN_fnc_findByType) param [1, []];
     if (_extra isNotEqualTo []) then {
-        _lines pushBack (selectRandom (_extra select _index));
+        _lines pushBack ([selectRandom _extra] call COIN_fnc_text);
     };
 };
 
