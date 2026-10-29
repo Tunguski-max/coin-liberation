@@ -88,7 +88,6 @@ private _vehicleCount = 0;
     _units append _crew;
     _vehicleCount = _vehicleCount + 1;
     diag_log format ["[COIN] capital: %1: %2 (no. %3) at %4, %5 m from the middle, %6 crew", _sector, _class, _index, getPosATL _vehicle, round (_centre distance2D _vehicle), count _crew];
-    sleep 0.25;
 } forEach COIN_capitalHeavyVehicles;
 
 // Igla gunners on high building spots
