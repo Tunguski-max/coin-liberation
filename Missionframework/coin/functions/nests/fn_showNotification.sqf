@@ -9,8 +9,9 @@
         a dedicated server has no interface and does nothing. With COIN_debug a client logs one line, so the test can see who got it.
 
     Parameter(s):
-        _kind - "nest" (nest destroyed), "camp" (camp cleared), "intel" (new intel, ticket 3.1) or "warning" (ticket 3.6) [STRING]
-        _type - Nest type, for "nest" [STRING]
+        _kind - "nest" (nest destroyed), "camp" (camp cleared), "intel" (new intel, ticket 3.1), "warning" (ticket 3.6) or
+                "mortar" (mortar fire on a FOB, ticket 6.7b) [STRING]
+        _type - Nest type, for "nest"; name of the FOB, for "mortar" [STRING]
 
     Returns:
         Message was shown [BOOL]
@@ -29,11 +30,15 @@ private _class = switch (_kind) do {
     case "camp": {"coin_camp_cleared"};
     case "intel": {"coin_intel_new"};
     case "warning": {"coin_intel_warning"};
+    case "mortar": {"coin_mortar_attack"};
     default {""};
 };
 if (_class isEqualTo "") exitWith {false};
 
 private _args = [];
+if (_kind isEqualTo "mortar") then {
+    _args = [_type];
+};
 if (_kind isEqualTo "nest") then {
     // Unknown type: the type itself
     private _names = ([COIN_nestTypeNames, _type] call COIN_fnc_findByType) param [1, [_type, _type]];

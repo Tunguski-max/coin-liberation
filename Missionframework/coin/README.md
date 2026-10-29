@@ -67,7 +67,9 @@ coin/
     │   ├── fn_startMortarAttack.sqf    COIN_fnc_startMortarAttack: startet einen Angriff, wenn keiner läuft und ein Platz da ist
     │   ├── fn_runMortarAttack.sqf      COIN_fnc_runMortarAttack: Ablauf eines Angriffs (Trupp, 3 Salven, Stellung halten, Abbau)
     │   ├── fn_spawnMortarSquad.sqf     COIN_fnc_spawnMortarSquad: Mörser und 3 Kämpfer der Miliz, alles an Zeus
-    │   └── fn_fireMortarSalvo.sqf      COIN_fnc_fireMortarSalvo: eine Salve scharfer Granaten um die FOB
+    │   ├── fn_fireMortarSalvo.sqf      COIN_fnc_fireMortarSalvo: eine Salve scharfer Granaten um die FOB
+    │   ├── fn_announceMortarAttack.sqf COIN_fnc_announceMortarAttack: Meldung „Mörserbeschuss auf FOB …“ und Kreis (400 m) nach der ersten Salve (Ticket 6.7b)
+    │   └── fn_removeMortarCircle.sqf   COIN_fnc_removeMortarCircle: nimmt den Kreis von der Karte
     ├── staging/
     │   ├── fn_getStagingAreas.sqf      COIN_fnc_getStagingAreas: alle Aufmarschräume [Mitte, Radius, Quelle] aus aktiven Kommandoposten und Militärposten der Miliz (Ticket 6.1a, ADR 0025)
     │   ├── fn_getStagingAreasAt.sqf    COIN_fnc_getStagingAreasAt: die Aufmarschräume, die eine Position enthalten (Tickets 6.1b, 6.1c, 6.7a)

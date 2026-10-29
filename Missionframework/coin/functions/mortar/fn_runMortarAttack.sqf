@@ -7,11 +7,13 @@
         1. the squad spawns at the given spot (COIN_fnc_spawnMortarSquad), with COIN_debug a marker shows it,
         2. after COIN_mortarStartDelay seconds it fires one salvo per entry of COIN_mortarSpread, the first spreads
            around the FOB with the first radius, the next ones tighter (the squad ranges in), COIN_mortarSalvoGap
-           seconds apart, one log line per salvo; it stops when the gunner or the mortar is dead or the FOB is gone,
+           seconds apart, one log line per salvo; it stops when the gunner or the mortar is dead or the FOB is gone;
+           after the first salvo the side gets the message and the circle (COIN_fnc_announceMortarAttack, #159),
         3. the squad stays COIN_mortarHoldSeconds after the last salvo, or less if all its fighters are dead (the attack
            is over then),
         4. then it is taken down: everything is deleted as soon as no player is within COIN_mortarRemoveDistance,
-           checked every COIN_mortarRemoveSeconds (dead fighters and the mortar included).
+           checked every COIN_mortarRemoveSeconds (dead fighters and the mortar included). The circle goes when the
+           squad is eliminated or taken down.
         Sets COIN_mortarActive to false when the attack is over (before the take-down) and sets the cooldown. Must be spawned. Server only.
 
     Parameter(s):
@@ -57,6 +59,9 @@ private _fobExists = {(GRLIB_all_fobs findIf {(_x distance2D _fob) < 50}) >= 0};
 private _canFire = {alive _mortar && {alive (gunner _mortar)}};
 private _anyAlive = {(_fighters findIf {alive _x}) >= 0};
 
+// Message and circle after the first salvo (ticket 6.7b, #159)
+private _circle = "";
+
 sleep COIN_mortarStartDelay;
 
 private _total = count COIN_mortarSpread;
@@ -72,6 +77,10 @@ private _total = count COIN_mortarSpread;
     private _fired = [_mortar, _fob, _x] call COIN_fnc_fireMortarSalvo;
     diag_log format ["[COIN] mortar: attack on FOB %1: salvo %2 of %3, %4 of %5 rounds fired, spread %6 m", _fobName, _salvo, _total, _fired, COIN_mortarRounds, _x];
 
+    if (_salvo isEqualTo 1 && {_fired > 0} && {call _anyAlive}) then {
+        _circle = [_fobName, _spot] call COIN_fnc_announceMortarAttack;
+    };
+
     if (_salvo < _total) then {
         private _next = time + COIN_mortarSalvoGap;
         waitUntil {sleep 1; time > _next || {!(call _canFire)}};
@@ -86,6 +95,12 @@ diag_log format [
     _fobName, ["the squad is eliminated", "time is up, the squad is taken down"] select (call _anyAlive), {alive _x} count _fighters, count _fighters
 ];
 
+// An eliminated squad takes its circle with it, a squad that is taken down at the end
+if !(call _anyAlive) then {
+    [_circle] call COIN_fnc_removeMortarCircle;
+    _circle = "";
+};
+
 // The attack is over: the FOB waits COIN_mortarCooldownSeconds, the next attack may start while the squad is taken down
 COIN_mortarCooldowns set [[_fob] call COIN_fnc_mortarFobKey, time + COIN_mortarCooldownSeconds];
 COIN_mortarActive = false;
@@ -98,6 +113,7 @@ waitUntil {sleep COIN_mortarRemoveSeconds; !(call _playerNear)};
 
 {deleteVehicle _x} forEach (_fighters + [_mortar]);
 deleteGroup _group;
+[_circle] call COIN_fnc_removeMortarCircle;
 if (_marker isNotEqualTo "") then {deleteMarker _marker};
 diag_log format ["[COIN] mortar: squad of the attack on FOB %1 removed", _fobName];
 

@@ -648,6 +648,12 @@ class COIN {
 
         // Server, scheduled: one salvo of real rounds around the FOB
         class fireMortarSalvo {};
+
+        // Server: message and circle on the map after the first salvo (ticket 6.7b, #159)
+        class announceMortarAttack {};
+
+        // Server: takes the circle off the map
+        class removeMortarCircle {};
     };
 
     class battlegroup {

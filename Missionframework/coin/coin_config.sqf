@@ -385,6 +385,12 @@ COIN_mortarHoldSeconds      = 600;      // s the squad stays in position after t
 COIN_mortarRemoveDistance   = 800;      // m: the squad is taken down when no player is nearer than this
 COIN_mortarRemoveSeconds    = 30;       // s between two checks for players near the squad
 COIN_mortarMarkerColor      = "ColorRed"; // Debug map: marker at the squad
+// Message and circle after the first salvo (ticket 6.7b, #159): the squad lies in the circle, not in its middle (COIN_intelCenterOffset)
+COIN_enableMortarMessage    = true;     // Off: no message "Mortar fire on FOB ..."
+COIN_enableMortarCircle     = true;     // Off: no circle on the map
+COIN_mortarCircleRadius     = 400;      // m
+COIN_mortarCircleMarkerType = "hd_destroy"; // Own symbol, not the warning triangle
+COIN_mortarCircleColor      = "ColorRed";
 
 // Capital garrison = base * (1 + factor * active nests) - Phase 6
 COIN_capitalGarrisonBase    = 1.0;
