@@ -57,7 +57,17 @@ coin/
     │   ├── fn_exportNestTemplate.sqf   COIN_fnc_exportNestTemplate: Gebäude-Template des angeschauten Hauses in die Zwischenablage
     │   ├── fn_exportTerrainTemplate.sqf COIN_fnc_exportTerrainTemplate: Gelände-Template um den Richtungspfeil in die Zwischenablage
     │   ├── fn_debugTerrainNest.sqf     COIN_fnc_debugTerrainNest: Gelände-Nest eines Typs vor dem Spieler, wie ein echtes
-    │   └── fn_debugCaptureSector.sqf   COIN_fnc_debugCaptureSector: nimmt einen Sektor über Liberations Ablauf ein, ohne Angabe listet sie die Sektoren der Miliz (Ticket 6.1a)
+    │   ├── fn_debugCaptureSector.sqf   COIN_fnc_debugCaptureSector: nimmt einen Sektor über Liberations Ablauf ein, ohne Angabe listet sie die Sektoren der Miliz (Ticket 6.1a)
+    │   └── fn_debugMortarAttack.sqf    COIN_fnc_debugMortarAttack: Mörserangriff jetzt auf die nächste FOB, ohne Chance, Wartezeit und Spieler an der FOB (Ticket 6.7a)
+    ├── mortar/
+    │   ├── fn_mortarLoop.sqf           COIN_fnc_mortarLoop: Server-Schleife, würfelt alle COIN_mortarCheckSeconds den Mörserangriff auf eine FOB (Ticket 6.7a, kein Hook)
+    │   ├── fn_checkMortarFob.sqf       COIN_fnc_checkMortarFob: darf diese FOB getroffen werden (Aufmarschraum, Wartezeit, Spieler an der FOB)
+    │   ├── fn_mortarFobKey.sqf         COIN_fnc_mortarFobKey: Schlüssel einer FOB in der Wartezeit-Tabelle
+    │   ├── fn_findMortarSpot.sqf       COIN_fnc_findMortarSpot: Platz des Trupps, 1500–2500 m von der FOB, außer Sicht, eben, möglichst im Aufmarschraum
+    │   ├── fn_startMortarAttack.sqf    COIN_fnc_startMortarAttack: startet einen Angriff, wenn keiner läuft und ein Platz da ist
+    │   ├── fn_runMortarAttack.sqf      COIN_fnc_runMortarAttack: Ablauf eines Angriffs (Trupp, 3 Salven, Stellung halten, Abbau)
+    │   ├── fn_spawnMortarSquad.sqf     COIN_fnc_spawnMortarSquad: Mörser und 3 Kämpfer der Miliz, alles an Zeus
+    │   └── fn_fireMortarSalvo.sqf      COIN_fnc_fireMortarSalvo: eine Salve scharfer Granaten um die FOB
     ├── staging/
     │   ├── fn_getStagingAreas.sqf      COIN_fnc_getStagingAreas: alle Aufmarschräume [Mitte, Radius, Quelle] aus aktiven Kommandoposten und Militärposten der Miliz (Ticket 6.1a, ADR 0025)
     │   ├── fn_getStagingAreasAt.sqf    COIN_fnc_getStagingAreasAt: die Aufmarschräume, die eine Position enthalten (Tickets 6.1b, 6.1c, 6.7a)

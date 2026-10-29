@@ -89,6 +89,16 @@ if (COIN_enableStagingAreas) then {
     diag_log "[COIN] init: staging areas off";
 };
 
+// Mortar attacks (ticket 6.7a, #158, DESIGN 9): a militia squad shells a FOB in a staging area while a player is there
+if (COIN_enableMortarAttacks) then {
+    diag_log format ["[COIN] init: mortar attacks on, chance %1 every %2 s, cooldown %3 s per FOB, classes %4", COIN_mortarChance, COIN_mortarCheckSeconds, COIN_mortarCooldownSeconds, COIN_mortarClasses];
+    COIN_mortarCooldowns = createHashMap;
+    COIN_mortarActive = false;
+    [] spawn COIN_fnc_mortarLoop;
+} else {
+    diag_log "[COIN] init: mortar attacks off";
+};
+
 // Readiness cap (ticket 6.6a, #152, ADR 0013, ADR 0025): the network strength of the nests caps combat_readiness
 if (COIN_capReadinessByNetwork) then {
     diag_log format ["[COIN] init: readiness cap on, floor %1, check every %2 s", COIN_readinessCapFloor, COIN_readinessCapSeconds];
