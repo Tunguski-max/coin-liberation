@@ -25,7 +25,6 @@ params [
 // The progress bar is ACE's, without ACE there is nothing to repair with
 if (!hasInterface || {isNull _device} || {!KP_liberation_ace}) exitWith {false};
 
-
 _device addAction [
     ["<t color='#FFFF00'>", [COIN_aidRepairLabel] call COIN_fnc_text, "</t>"] joinString "",
     {

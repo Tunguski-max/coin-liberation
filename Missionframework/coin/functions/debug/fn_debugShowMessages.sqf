@@ -3,7 +3,7 @@
     Author: COIN Liberation
 
     Description:
-        Debug console, on the machine of a player (ticket 7.0a, #177, ADR 0026): shows every COIN message once, one after the
+        Debug console, on the machine of a player (tickets 7.0a and 7.0b, #177, #179, ADR 0026): shows every COIN message once, one after the
         other, in the game language of this machine, so the texts of the stringtable can be read without playing the
         event. Nest messages for all nest types, camp, intel, warning, mortar fire (FOB "Test") and the four reinforcement
         messages, and since ticket 7.0b every sentence of the elder as a subtitle. A system chat line and a [COIN] line say what is shown. Must be called from a script that can

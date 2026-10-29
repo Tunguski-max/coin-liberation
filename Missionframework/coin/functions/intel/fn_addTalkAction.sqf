@@ -25,7 +25,6 @@ params [["_unit", objNull, [objNull]]];
 
 if (isNull _unit) exitWith {[]};
 
-
 // [label, variable that holds the target, function on the server]
 [
     [COIN_askMilitiaLabel, "COIN_talkTarget", "COIN_fnc_questionCivilian"],
