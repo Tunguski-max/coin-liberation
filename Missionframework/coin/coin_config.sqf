@@ -942,7 +942,9 @@ COIN_favorMinRep            = 25;       // A stored favor can be redeemed from h
 // The reinforcement (ticket 5.6, ADR 0012, ADR 0023): local fighters, Liberation's resistance in a group of their own
 COIN_enableReinforcement    = true;     // Off: the elder offers no reinforcement (the favors still count up)
 COIN_reinforcementSize      = 10;       // Local fighters per reinforcement
-COIN_reinforcementLoadWeapons = true;   // Off: the fighters keep Liberation's empty weapons (the magazines lie in the vest) and have to reload first
+COIN_reinforcementLoadWeapons = true;   // Off: the fighters keep what Liberation gives them (empty weapons, often no magazines, its small vests)
+COIN_reinforcementMagazines = 4;        // Reserve magazines of a fighter whose weapon is not in the preset rows of Liberation
+COIN_reinforcementBackpack  = "B_FieldPack_cbr"; // Backpack for the magazines that do not fit into the uniform and vest (the one Liberation gives for the RPG)
 COIN_reinforcementMaxMin    = 30;       // Group leaves after this time, counted from the moment the fighters appear (the walk counts)
 COIN_reinforcementMaxDistance = 2500;   // m: the point the interpreter clicks is at most this far from the elder (the map shows it as a circle)
 COIN_reinforcementArriveRadius = 50;    // m: the group has arrived when one fighter is this close to the point

@@ -3,45 +3,82 @@
     Author: COIN Liberation
 
     Description:
-        Loads the weapons of the local fighters of a reinforcement (ticket 5.6, switch COIN_reinforcementLoadWeapons). Liberation's
-        KPLIB_fnc_spawnGuerillaGroup gives a fighter his rifle with addWeapon and puts the magazines only into the vest
-        (addItemToVest), so every weapon starts empty and the fighter has to reload first. Here a fighter whose rifle or launcher has
-        no magazine takes a compatible one from his inventory and loads it into the weapon (the magazine is moved, not added: the
-        vest has one less). A weapon that is loaded already, or without a compatible magazine in the inventory, is left alone.
-        Called by COIN_fnc_requestReinforcement right after the fighters are made. Server only.
+        Arms the local fighters of a reinforcement (ticket 5.6, switch COIN_reinforcementLoadWeapons). Liberation's
+        KPLIB_fnc_spawnGuerillaGroup gives a fighter his rifle with addWeapon and puts the magazines with addItemToVest, which does
+        nothing when they do not fit (the small vests of tier 1), so the weapon starts empty and the fighter often has no magazine at all.
+        For every fighter this function
+        - loads the rifle (addPrimaryWeaponItem, needs no room in the inventory) with the magazine of the preset row of his weapon
+          (KP_liberation_guerilla_weapons_<tier>, the same row Liberation took), else the first compatible magazine,
+        - adds the reserve magazines up to the count of that row (COIN_reinforcementMagazines without a row), and when the vest and uniform
+          have no room for them a backpack (COIN_reinforcementBackpack) as Liberation gives for the RPG,
+        - loads a launcher without a rocket with the first compatible one.
+        A weapon that is loaded already stays as it is. Called by COIN_fnc_requestReinforcement right after the fighters are made.
+        Server only.
 
     Parameter(s):
         _group - Group of the fighters [GROUP, defaults to grpNull]
 
     Returns:
-        [rifles loaded, launchers loaded, fighters] [ARRAY of NUMBERs]
+        [rifles loaded, fighters with a new backpack, launchers loaded, fighters] [ARRAY of NUMBERs]
 */
 
 params [
     ["_group", grpNull, [grpNull]]
 ];
 
-if (!isServer || {!COIN_reinforcementLoadWeapons} || {isNull _group}) exitWith {[0, 0, 0]};
+if (!isServer || {!COIN_reinforcementLoadWeapons} || {isNull _group}) exitWith {[0, 0, 0, 0]};
 
-// Moves a compatible magazine of the inventory into the weapon; true if one was loaded
-private _load = {
-    params ["_unit", "_weapon", "_loadedMagazines", "_slot"];
-    if (_weapon isEqualTo "" || {_loadedMagazines isNotEqualTo []}) exitWith {false};
-    private _compatible = (compatibleMagazines _weapon) apply {toLower _x};
-    private _index = (magazines _unit) findIf {(toLower _x) in _compatible};
-    if (_index < 0) exitWith {false};
-    private _class = (magazines _unit) select _index;
-    _unit removeMagazine _class;
-    if (_slot isEqualTo "primary") then {_unit addPrimaryWeaponItem _class} else {_unit addSecondaryWeaponItem _class};
-    true
-};
+private _tier = [] call KPLIB_fnc_getResistanceTier;
+private _rows = missionNamespace getVariable ["KP_liberation_guerilla_weapons_" + str _tier, []];
 
 private _rifles = 0;
+private _backpacks = 0;
 private _launchers = 0;
 private _units = (units _group) select {alive _x};
 {
-    if ([_x, primaryWeapon _x, primaryWeaponMagazine _x, "primary"] call _load) then {_rifles = _rifles + 1};
-    if ([_x, secondaryWeapon _x, secondaryWeaponMagazine _x, "secondary"] call _load) then {_launchers = _launchers + 1};
+    private _unit = _x;
+    private _weapon = primaryWeapon _unit;
+    if (_weapon isNotEqualTo "") then {
+        private _row = _rows select {(toLower (_x select 0)) isEqualTo (toLower _weapon)};
+        private _magazine = "";
+        private _wanted = COIN_reinforcementMagazines;
+        if (_row isNotEqualTo []) then {
+            _magazine = (_row select 0) select 1;
+            _wanted = (_row select 0) select 2;
+        } else {
+            _magazine = (compatibleMagazines _weapon) param [0, ""];
+        };
+
+        if (_magazine isNotEqualTo "") then {
+            if (primaryWeaponMagazine _unit isEqualTo []) then {
+                _unit addPrimaryWeaponItem _magazine;
+                _rifles = _rifles + 1;
+            };
+            private _have = {(toLower _x) isEqualTo (toLower _magazine)} count (magazines _unit);
+            if (_have < _wanted) then {
+                _unit addMagazines [_magazine, _wanted - _have];
+                _have = {(toLower _x) isEqualTo (toLower _magazine)} count (magazines _unit);
+                // No room in the uniform and vest: a backpack for the rest
+                if (_have < _wanted && {backpack _unit isEqualTo ""} && {isClass (configFile >> "CfgVehicles" >> COIN_reinforcementBackpack)}) then {
+                    _unit addBackpack COIN_reinforcementBackpack;
+                    _unit addMagazines [_magazine, _wanted - _have];
+                    _backpacks = _backpacks + 1;
+                };
+            };
+        };
+    };
+
+    private _launcher = secondaryWeapon _unit;
+    if (_launcher isNotEqualTo "" && {secondaryWeaponMagazine _unit isEqualTo []}) then {
+        private _compatible = (compatibleMagazines _launcher) apply {toLower _x};
+        private _inventory = (magazines _unit) findIf {(toLower _x) in _compatible};
+        private _rocket = if (_inventory >= 0) then {(magazines _unit) select _inventory} else {(compatibleMagazines _launcher) param [0, ""]};
+        if (_rocket isNotEqualTo "") then {
+            if (_inventory >= 0) then {_unit removeMagazine _rocket};
+            _unit addSecondaryWeaponItem _rocket;
+            _launchers = _launchers + 1;
+        };
+    };
 } forEach _units;
 
-[_rifles, _launchers, count _units]
+[_rifles, _backpacks, _launchers, count _units]

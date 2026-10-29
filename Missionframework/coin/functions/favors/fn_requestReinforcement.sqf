@@ -81,9 +81,9 @@ resources_intel = (_intelBefore - COIN_favorIntelCost) max 0;
 private _group = [_home, COIN_reinforcementSize] call KPLIB_fnc_spawnGuerillaGroup;
 _group setVariable ["COIN_reinforcement", true, true];
 [units _group] call COIN_fnc_addToCurators;
-// Liberation gives them empty weapons, the magazines lie in the vest
-([_group] call COIN_fnc_loadFighterWeapons) params ["_riflesLoaded", "_launchersLoaded", "_fighters"];
-diag_log format ["[COIN] favors: reinforcement: %1 of %2 rifles and %3 launchers loaded", _riflesLoaded, _fighters, _launchersLoaded];
+// Liberation gives them empty weapons and often no magazines (its small vests), so they are armed here
+([_group] call COIN_fnc_loadFighterWeapons) params ["_riflesLoaded", "_backpacks", "_launchersLoaded", "_fighters"];
+diag_log format ["[COIN] favors: reinforcement: %1 of %2 rifles and %3 launchers loaded, %4 backpacks for magazines", _riflesLoaded, _fighters, _launchersLoaded, _backpacks];
 
 [_group, _target, COIN_reinforcementArriveRadius] call COIN_fnc_moveGroup;
 
