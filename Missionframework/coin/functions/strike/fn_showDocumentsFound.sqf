@@ -3,24 +3,22 @@
     Author: COIN Liberation
 
     Description:
-        Client: shows what the search of the courier's car found (ticket 5.14) as a subtitle, German or else English by the game
-        language. Sent by COIN_fnc_runStrikeCourier to the player who searched.
+        Client: shows what the search of the courier's car found (ticket 5.14) as a subtitle, in the game
+        language (keys of the COIN package, ADR 0026). Sent by COIN_fnc_runStrikeCourier to the player who searched.
 
     Parameter(s):
-        _speaker - Who speaks, [German, English] [ARRAY, defaults to ["", ""]]
-        _text    - What he says, [German, English] [ARRAY, defaults to ["", ""]]
+        _speaker - Key of the name of who speaks [STRING, defaults to ""]
+        _text    - Key of what he says [STRING, defaults to ""]
 
     Returns:
         The subtitle was shown [BOOL]
 */
 
 params [
-    ["_speaker", ["", ""], [[]]],
-    ["_text", ["", ""], [[]]]
+    ["_speaker", "", [""]],
+    ["_text", "", [""]]
 ];
 
 if (!hasInterface) exitWith {false};
 
-private _index = [1, 0] select (language isEqualTo "German");
-
-[_speaker select _index, [_text select _index]] call COIN_fnc_showSubtitle
+[[_speaker] call COIN_fnc_text, [[_text] call COIN_fnc_text]] call COIN_fnc_showSubtitle

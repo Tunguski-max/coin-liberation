@@ -43,7 +43,7 @@ params [
 if (!isServer || {_plan isEqualTo []}) exitWith {"no plan"};
 
 _plan params ["_startPos", "_startName", "_endPos", "_endName", "_nestId", "_startDir"];
-private _endLabel = if (_endName isEqualType []) then {_endName select 0} else {_endName};
+private _endLabel = if (_endName isEqualType []) then {_endName select 1} else {_endName};
 
 COIN_courierGuards params ["_guardsMin", "_guardsMax"];
 private _wanted = _guardsMin + floor random ((_guardsMax - _guardsMin) + 1);

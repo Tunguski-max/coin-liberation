@@ -6,10 +6,11 @@
         Client: the server denied the purchase (see COIN_fnc_vehicleLimitPurchase). Cancels the running placement
         of that class the same way the player's own cancel does, so Liberation refunds the price (if the
         FOB storage has room for the crates, otherwise Liberation says so itself).
-        Players read the hint, so it is German.
+        The hint is built here in the language of the buyer: the server sends only the key of the reason and its number (ADR 0026).
 
     Parameter(s):
-        _reason - Reason from COIN_fnc_vehicleLimitStatus [STRING]
+        _reason - Key of the reason from COIN_fnc_vehicleLimitStatus [STRING]
+        _value  - Number put in for %1 of the reason [NUMBER, defaults to 0]
         _class  - Class whose purchase was denied [STRING]
 
     Returns:
@@ -18,6 +19,7 @@
 
 params [
     ["_reason", "", [""]],
+    ["_value", 0, [0]],
     ["_class", "", [""]]
 ];
 
@@ -33,7 +35,7 @@ if ((missionNamespace getVariable ["build_confirmed", 0]) != 1 || {!((toLower _p
     false
 };
 
-hint format ["Kauf nicht möglich\n%1", _reason];
+hint format ["%1\n%2", localize "STR_COIN_limits_denied", format [localize _reason, _value]];
 
 // The flag keeps the cancel from lifting the lock of the earlier buyer (COIN_fnc_vehicleLimitCancel)
 COIN_buildDenied = true;

@@ -84,7 +84,7 @@ class COIN {
         // Row of a config table keyed by nest type (COIN_nestSetup, COIN_nestBuildingShare, ...)
         class findByType {};
 
-        // Text of a config entry in the game language: a key of the COIN package, or the old pair [German, English] until 7.0d (ADR 0026, tickets 7.0b to 7.0d)
+        // Text of a config entry in the game language: a key of the COIN package (ADR 0026)
         class text {};
 
         // Fighters among given objects who can still fight (tickets 2.10, 4.5): a camp or an ambush is cleared when none is left

@@ -56,12 +56,13 @@ private _placeAt = {
     [_pos, _from getDir _to]
 };
 
-// The name of a point: the kind of road and the nearest place, German and English
+// The name of a point: the kind of road (key) and the nearest place
 private _nameOf = {
     params ["_pos", "_kind"];
     private _places = nearestLocations [_pos, ["NameCityCapital", "NameCity", "NameVillage", "NameLocal"], COIN_convoyNameRadius];
     private _place = if (_places isEqualTo []) then {mapGridPosition _pos} else {text (_places select 0)};
-    (COIN_convoyPointNames select _kind) apply {format [_x, _place]}
+    // A name is [key of the kind, place]: every player builds the text in his language, the key and the place travel, no text (ADR 0026)
+    [COIN_convoyPointNames select _kind, _place]
 };
 
 // The point on the route near a fraction of its length: [index, kind 0 road / 1 junction / 2 bridge]
@@ -186,8 +187,8 @@ while {_plan isEqualTo [] && {_caches isNotEqualTo []} && {_tries < COIN_convoyP
                     if (_plan isNotEqualTo []) then {
                         diag_log format [
                             "[COIN] strike: convoy plan: from %1 to cache %2 (%3 m by road, %4 m by air), point 1 %5 at %6 s, point 2 %7 at %8 s after the beginning, start %9 m from the origin",
-                            _plan select 9, _nest select 0, _plan select 10, round _straight, (_plan select 1) select 0, (_plan select 8) select 0,
-                            (_plan select 3) select 0, (_plan select 8) select 1, round (_startPos distance2D _origin)
+                            _plan select 9, _nest select 0, _plan select 10, round _straight, (_plan select 1) select 1, (_plan select 8) select 0,
+                            (_plan select 3) select 1, (_plan select 8) select 1, round (_startPos distance2D _origin)
                         ];
                     };
                 } else {

@@ -39,7 +39,7 @@ coin/
     │   └── fn_campFitsBudget.sqf       COIN_fnc_campFitsBudget: darf ein Camp mit N Kämpfern jetzt spawnen? Ganz oder gar nicht (COIN_maxCampAI)
     ├── common/
     │   ├── fn_findByType.sqf           COIN_fnc_findByType: Zeile einer Config-Tabelle nach Nest-Typ
-    │   ├── fn_text.sqf                 COIN_fnc_text: Text eines Config-Eintrags in der Spielsprache, Schlüssel der Stringtable oder altes Paar bis 7.0d (ADR 0026)
+    │   ├── fn_text.sqf                 COIN_fnc_text: Text eines Config-Eintrags in der Spielsprache, Schlüssel der Stringtable (ADR 0026)
     │   ├── fn_getCapableFighters.sqf   COIN_fnc_getCapableFighters: Kämpfer unter gegebenen Objekten, die noch kämpfen können (Camp und Hinterhalt ausgehoben, Tickets 2.10, 4.5)
     │   ├── fn_isPrisoner.sqf           COIN_fnc_isPrisoner: Gefangener? Miliz-Kämpfer, gefesselt, ergeben oder per CAPTURE im Squad (Ticket 3.8, 5.1)
     │   ├── fn_getReputationBand.sqf    COIN_fnc_getReputationBand: Ruf-Band „low“, „mid“ oder „high“ (Ticket 3.4)

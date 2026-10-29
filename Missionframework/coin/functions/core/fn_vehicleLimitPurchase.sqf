@@ -24,7 +24,7 @@ params [
 
 if (!isServer) exitWith {false};
 
-([_class] call COIN_fnc_vehicleLimitStatus) params ["_allowed", "_reason", "_limit"];
+([_class] call COIN_fnc_vehicleLimitStatus) params ["_allowed", "_reason", "_limit", "_reasonValue"];
 if (_limit isEqualTo []) exitWith {true};
 
 // A local host calls itself, remoteExecutedOwner is then 0 and the host's machine is 2
@@ -32,7 +32,8 @@ if (_owner <= 0) then {_owner = 2;};
 
 if (!_allowed) exitWith {
     diag_log format ["[COIN] limits: purchase of %1 denied (%2), buyer %3", _class, _reason, _owner];
-    [_reason, _class] remoteExecCall ["COIN_fnc_vehicleLimitDeny", _owner];
+    // Only the key and its number go over the network, the buyer reads the text in his language (ADR 0026)
+    [_reason, _reasonValue, _class] remoteExecCall ["COIN_fnc_vehicleLimitDeny", _owner];
     false
 };
 

@@ -52,7 +52,6 @@ if (_state isEqualTo "REMOVED") exitWith {
     };
 };
 
-private _index = [1, 0] select (language isEqualTo "German");
 private _row = [COIN_aidTaskTexts, _id] call COIN_fnc_findByType;
 // A strike task has its own texts (ticket 5.13)
 private _strike = false;
@@ -68,8 +67,8 @@ COIN_clientTasks set [_taskId, [_taskId, _state, _id, _pos, _town, _minutes, fal
 if !([_taskId] call BIS_fnc_taskExists) then {
     private _title = if (_strike) then {[_row select 1] call COIN_fnc_text} else {format ["%1: %2", [_row select 1] call COIN_fnc_text, _town]};
     private _description = if (_strike) then {
-        // A name that comes in two languages (a destination on a road) is read in this player's
-        format ([[_row select 3] call COIN_fnc_text] + (_extra apply {if (_x isEqualType []) then {_x select _index} else {_x}}))
+        // A name that is [key, place] (a point on a road) is built in this player's language, any other text goes in as it is
+        format ([[_row select 3] call COIN_fnc_text] + (_extra apply {if (_x isEqualType []) then {format [localize (_x select 0), _x select 1]} else {_x}}))
     } else {
         format [[_row select 3] call COIN_fnc_text, _town, _minutes, COIN_aidSupplyDistance, COIN_aidSupplyMinValue, COIN_aidRepairSeconds, COIN_aidRepairRadius select 0]
     };

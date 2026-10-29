@@ -12,8 +12,8 @@
         _nestId      - Id of the nest the documents name [NUMBER, defaults to -1]
         _fallback    - Position for a nest by chance, if that nest is not active any more [ARRAY, defaults to [0, 0, 0]]
         _searcher    - The player who searched, gets the subtitle [OBJECT, defaults to objNull]
-        _speaker     - Who speaks in the subtitle, [German, English] [ARRAY, defaults to ["", ""]]
-        _text        - What he says, [German, English] [ARRAY, defaults to ["", ""]]
+        _speaker     - Key of the name of who speaks in the subtitle [STRING, defaults to ""]
+        _text        - Key of what he says [STRING, defaults to ""]
         _taskId      - Id of the Arma task, for the log [STRING, defaults to ""]
 
     Returns:
@@ -24,8 +24,8 @@ params [
     ["_nestId", -1, [0]],
     ["_fallback", [0, 0, 0], [[]]],
     ["_searcher", objNull, [objNull]],
-    ["_speaker", ["", ""], [[]]],
-    ["_text", ["", ""], [[]]],
+    ["_speaker", "", [""]],
+    ["_text", "", [""]],
     ["_taskId", "", [""]]
 ];
 

@@ -1198,66 +1198,26 @@ COIN_strikeKinds = [
 
 // Dialog of a strike task (the one of the elder, ticket 5.9b): header, accept button, line "%1 of %2" = running, limit
 COIN_strikeDialogTexts = [
-    ["Gelegenheit", "Opportunity"],
-    ["Annehmen", "Accept"],
-    ["Zugriffsaufträge: %1 von %2", "Strike tasks: %1 of %2"]
+    "STR_COIN_strike_dialogHeader",
+    "STR_COIN_strike_dialogAccept",
+    "STR_COIN_strike_dialogTasks"
 ];
 COIN_strikeSections = [
-    ["strike", ["Zugriffsauftrag", "Strike task"]]
+    ["strike", "STR_COIN_strike_section_strike"]
 ];
-// Strike tasks: [id, [title German, English], [explanation German, English], [task text German, English]]
+// Strike tasks: [id, key of the title, key of the explanation, key of the task text] (ADR 0026)
 // Explanation in the dialog: %1 = least minutes until the event starts, %2 = most, %3 = least minutes of the whole window, %4 = most.
 // Task text: %1 = start, %2 = destination, %3 = time of day (game clock) of the beginning, %4 = time of day of the end.
 // No reward is named in numbers; the reputation is hidden, and a strike task that fails or runs out costs nothing
 COIN_strikeTaskTexts = [
-    ["courier",
-        ["Kurier abfangen", "Intercept courier"],
-        [
-            "Ein Kurier der Miliz fährt in einem Auto von einer Ortschaft zu einer anderen, mehrere Kilometer weit. Dort wartet er zwei Minuten und fährt zurück. Er hat Dokumente bei sich.<br/><br/>Stoppt das Auto (Fahrer ausschalten, gefangen nehmen oder das Auto fahrunfähig schießen), aber zerstört es nicht. Rechnet mit Widerstand. Durchsucht dann das Auto nach Dokumenten.<br/><br/><t size='1.15' color='#00a0ff'>Beginn: %1 bis %2 Minuten nach dem Annehmen. Das Zeitfenster dauert insgesamt %3 bis %4 Minuten.</t><br/><t size='1.15' color='#ffa000'>Fehlschlag: Das Auto kommt zurück zum Start oder brennt aus. Das kostet nichts.</t><br/><t size='1.15' color='#ffa000'>Belohnung: Die Dokumente nennen euch das Nest des Kuriers.</t>",
-            "A courier of the militia drives a car from one town to another, several kilometres away. He waits there for two minutes and drives back. He carries documents.<br/><br/>Stop the car (kill the driver, capture him or shoot the car immobile), but do not destroy it. Expect resistance. Then search the car for documents.<br/><br/><t size='1.15' color='#00a0ff'>Start: %1 to %2 minutes after accepting. The time window lasts %3 to %4 minutes in all.</t><br/><t size='1.15' color='#ffa000'>Failure: The car gets back to its start or burns out. That costs nothing.</t><br/><t size='1.15' color='#ffa000'>Reward: The documents name the courier's nest.</t>"
-        ],
-        [
-            "Fangt den Kurier der Miliz ab: Er fährt von %1 nach %2, wartet dort kurz und fährt zurück. Beginn um %3 Uhr, spätestens bis %4 Uhr. Stoppt das Auto, zerstört es nicht und durchsucht es nach Dokumenten.",
-            "Intercept the militia courier: he drives from %1 to %2, waits there for a while and drives back. Start at %3, no later than %4. Stop the car, do not destroy it and search it for documents."
-        ]
-    ],
+    ["courier", "STR_COIN_strike_courier_title", "STR_COIN_strike_courier_explanation", "STR_COIN_strike_courier_task"],
     // A kind without a destination (the leader) names only the start: the village. %2 is not used
-    ["leader",
-        ["Anführer festnehmen", "Arrest leader"],
-        [
-            "Ein Anführer der Miliz hält sich in Zivilkleidung und unbewaffnet an einem Haus in einem Dorf auf. Er läuft nicht weg.<br/><br/>Rechnet mit Widerstand. Nehmt den Anführer lebend fest (Fesseln) und bringt ihn zu einer FOB. Stirbt er, ist der Auftrag verloren.<br/><br/><t size='1.15' color='#00a0ff'>Beginn: %1 bis %2 Minuten nach dem Annehmen. Das Zeitfenster dauert insgesamt %3 bis %4 Minuten.</t><br/><t size='1.15' color='#ffa000'>Fehlschlag: Der Anführer stirbt oder das Zeitfenster endet. Das kostet nichts.</t><br/><t size='1.15' color='#ffa000'>Belohnung: Die Miliz verliert an Schlagkraft, und sein Verhör nennt euch den Kommandoposten, zu dem er gehört.</t>",
-            "A militia leader is staying at a house in a village, in civilian clothes and unarmed. He does not run away.<br/><br/>Expect resistance. Arrest the leader alive (handcuffs) and bring him to a FOB. If he dies, the task is lost.<br/><br/><t size='1.15' color='#00a0ff'>Start: %1 to %2 minutes after accepting. The time window lasts %3 to %4 minutes in all.</t><br/><t size='1.15' color='#ffa000'>Failure: The leader dies or the time window ends. That costs nothing.</t><br/><t size='1.15' color='#ffa000'>Reward: The militia loses strength, and his interrogation names the command post he belongs to.</t>"
-        ],
-        [
-            "Nehmt den Anführer der Miliz fest: Er hält sich in %1 an einem Haus auf, in Zivilkleidung. Beginn um %3 Uhr, spätestens bis %4 Uhr. Nehmt ihn lebend fest und bringt ihn zu einer FOB.",
-            "Arrest the militia leader: he stays at a house in %1, in civilian clothes. Start at %3, no later than %4. Arrest him alive and bring him to a FOB."
-        ]
-    ],
-    // The arms transport names two points on its route, no start and no destination: %1 and %2 are the points (German and English), %3 and
+    ["leader", "STR_COIN_strike_leader_title", "STR_COIN_strike_leader_explanation", "STR_COIN_strike_leader_task"],
+    // The arms transport names two points on its route, no start and no destination: %1 and %2 are the points (a name of the kind COIN_convoyPointNames with the place, shown in every player's language), %3 and
     // %4 the beginning and the end as for every task, %5 to %8 the times of day in which the convoy passes point 1 (from, to) and point 2
-    ["convoy",
-        ["Waffentransport abfangen", "Intercept arms transport"],
-        [
-            "Ein Waffentransport der Miliz fährt über die Straße zu einem Waffenlager: zwei Technicals, ein Lastwagen und ein Wagen mit schwer gepanzerten Kämpfern. Ihr wisst nicht, woher er kommt und wohin er fährt, nur an welchen zwei Punkten und ungefähr wann er vorbeikommt.<br/><br/>Legt dort einen Hinterhalt, bevor ein Fahrzeug das Lager erreicht. Durchsucht den Laster nach den Lieferdokumenten. Zerstört anschließend alles und hinterlasst nur Wracks: Die Fahrzeuge müssen komplett zerstört werden, ein Fahrzeug, das nur steht, ausgeschaltet oder liegengeblieben ist, zählt nicht. Rechnet mit starker Gegenwehr.<br/><br/><t size='1.15' color='#00a0ff'>Beginn: %1 bis %2 Minuten nach dem Annehmen. Das Zeitfenster dauert insgesamt %3 bis %4 Minuten.</t><br/><t size='1.15' color='#ffa000'>Fehlschlag: Ein Fahrzeug erreicht das Lager, oder das Zeitfenster endet. Das kostet nichts.</t><br/><t size='1.15' color='#ffa000'>Belohnung: Die Miliz verliert stark an Schlagkraft. Nur wenn ihr vorher die Lieferdokumente findet, erfahrt ihr, wohin der Transport fuhr.</t>",
-            "A militia arms transport drives along the road to a weapons cache: two technicals, a truck and a car with heavily armored fighters. You do not know where it comes from or where it goes, only the two points it passes and about when.<br/><br/>Set an ambush there before a vehicle reaches the cache. Search the truck for the delivery documents. Then destroy everything and leave nothing but wrecks: the vehicles must be destroyed completely, a vehicle that only stands, is disabled or broke down does not count. Expect strong resistance.<br/><br/><t size='1.15' color='#00a0ff'>Start: %1 to %2 minutes after accepting. The time window lasts %3 to %4 minutes in all.</t><br/><t size='1.15' color='#ffa000'>Failure: A vehicle reaches the cache, or the time window ends. That costs nothing.</t><br/><t size='1.15' color='#ffa000'>Reward: The militia loses much strength. Only if you find the delivery documents first do you learn where the transport was going.</t>"
-        ],
-        [
-            "Fangt den Waffentransport der Miliz ab: Er passiert Punkt 1 (%1) zwischen %5 und %6 Uhr und Punkt 2 (%2) zwischen %7 und %8 Uhr. Durchsucht den Laster nach den Lieferdokumenten. Zerstört anschließend alles und hinterlasst nur Wracks. Beginn um %3 Uhr, spätestens bis %4 Uhr.",
-            "Intercept the militia arms transport: it passes point 1 (%1) between %5 and %6 and point 2 (%2) between %7 and %8. Search the truck for the delivery documents. Then destroy everything and leave nothing but wrecks. Start at %3, no later than %4."
-        ]
-    ],
+    ["convoy", "STR_COIN_strike_convoy_title", "STR_COIN_strike_convoy_explanation", "STR_COIN_strike_convoy_task"],
     // A kind without a destination (the leader, the export) names only the start: here the airfield. %2 is not used
-    ["export",
-        ["Export verhindern", "Stop export"],
-        [
-            "Die Miliz will ein Flugzeug außer Landes bringen. Ein Zivilflugzeug steht auf der Piste eines Flugplatzes in der Nähe einer Ortschaft, die die Miliz hält. Es hebt nicht ab, aber ihr müsst es zerstören, bevor das Zeitfenster endet. Rechnet mit Widerstand.<br/><br/><t size='1.15' color='#00a0ff'>Beginn: %1 bis %2 Minuten nach dem Annehmen. Das Zeitfenster dauert insgesamt %3 bis %4 Minuten.</t><br/><t size='1.15' color='#ffa000'>Fehlschlag: Das Zeitfenster endet. Das Flugzeug verschwindet. Das kostet nichts.</t><br/><t size='1.15' color='#ffa000'>Belohnung: Die Miliz verliert an Schlagkraft.</t>",
-            "The militia wants to get a plane out of the country. A civilian plane stands on the runway of an airfield near a town the militia holds. It does not take off, but you have to destroy it before the time window ends. Expect resistance.<br/><br/><t size='1.15' color='#00a0ff'>Start: %1 to %2 minutes after accepting. The time window lasts %3 to %4 minutes in all.</t><br/><t size='1.15' color='#ffa000'>Failure: The time window ends. The plane disappears. That costs nothing.</t><br/><t size='1.15' color='#ffa000'>Reward: The militia loses strength.</t>"
-        ],
-        [
-            "Verhindert den Export der Miliz: Zerstört das Flugzeug auf dem Flugplatz %1. Beginn um %3 Uhr, spätestens bis %4 Uhr.",
-            "Stop the militia export: destroy the plane at the airfield %1. Start at %3, no later than %4."
-        ]
-    ]
+    ["export", "STR_COIN_strike_export_title", "STR_COIN_strike_export_explanation", "STR_COIN_strike_export_task"]
 ];
 
 // Leader (ticket 5.15): in civilian clothes and unarmed beside a house of a village near his command post, guards around him. Arrested
@@ -1307,10 +1267,10 @@ COIN_convoyCrateWait       = 0.5;      // s Liberation waits before a crate is m
 COIN_convoySpawnWait       = 0.5;      // s after each vehicle of the convoy is made (Liberation hijack mission)
 COIN_convoySpeedMode       = "LIMITED"; // Speed mode of the group on the road (until it flees: COIN_convoyFleeSpeed)
 COIN_convoySearchSpeed     = 3;        // km/h below which a truck that is alive counts as standing: it can be searched for the delivery documents
-COIN_convoySearchLabel     = ["Lieferdokumente suchen", "Search delivery documents"]; // Action at the truck: [German, English]
-COIN_convoySearchBarText   = ["Suche Lieferdokumente ...", "Searching delivery documents ..."]; // Text of the progress bar: [German, English]
-COIN_convoyFoundSpeaker    = ["Lieferdokumente", "Delivery documents"]; // Subtitle after the search: who, then the line
-COIN_convoyFoundText       = ["Die Papiere nennen das Ziel des Transports. Ihr wisst jetzt, wohin er fuhr.", "The papers name where the transport was going. Now you know."];
+COIN_convoySearchLabel = "STR_COIN_strike_convoySearchLabel"; // Action at the truck: key
+COIN_convoySearchBarText = "STR_COIN_strike_convoySearchBar"; // Text of the progress bar: key
+COIN_convoyFoundSpeaker = "STR_COIN_strike_convoyFoundSpeaker"; // Subtitle after the search: who, then the line
+COIN_convoyFoundText = "STR_COIN_strike_convoyFoundText";
 COIN_convoySpacing          = 30;       // m between the vehicles at the start
 COIN_convoyDistance         = [4000, 8000]; // [min, max] m in a straight line from the start town to the road end next to the cache
 COIN_convoyRouteLength      = [6000, 10000]; // [min, max] m the route a car finds is long
@@ -1322,10 +1282,10 @@ COIN_convoyPointSearch      = 0.08;     // Share of the route round such a fract
 COIN_convoyPointMinCache    = 2000;     // m (straight line) the second point is at least from the cache, so the task does not give the cache away
 COIN_convoyPointMinGap      = 1000;     // m along the route the two points are at least apart
 COIN_convoyNameRadius       = 1500;     // m around a point in which the nearest place is looked for for its name
-COIN_convoyPointNames       = [         // Name of a point by its kind (road, junction, bridge): [German, English], %1 = the nearest place
-    ["Straße bei %1", "Road near %1"],
-    ["Kreuzung bei %1", "Junction near %1"],
-    ["Brücke bei %1", "Bridge near %1"]
+COIN_convoyPointNames = [
+    "STR_COIN_strike_point_road",
+    "STR_COIN_strike_point_junction",
+    "STR_COIN_strike_point_bridge"
 ];
 COIN_convoyAverageKmh       = 30;       // km/h the convoy averages on the road, for the time windows (it drives slower than its limit; measured with the courier)
 COIN_convoyWindowShare      = 0.3;      // Share of the time to a point that the window reaches to either side
@@ -1387,10 +1347,10 @@ COIN_courierRepathSeconds   = 30;       // s after which the order to drive to t
 COIN_searchRange     = 3;        // m from the car or truck (arms transport) from which the action "Search documents" shows
 COIN_searchRangeMargin = 1;      // m a player may be further away when the server checks the search
 COIN_searchSeconds   = 30;       // s of the progress bar of the search (ACE)
-COIN_searchBarText   = ["Durchsuche ...", "Searching ..."]; // Text of the progress bar: [German, English]
-COIN_searchLabel     = ["Dokumente durchsuchen", "Search documents"]; // Action at the car: [German, English]
-COIN_courierFoundSpeaker    = ["Dokumente", "Documents"]; // Subtitle after the search: who, then the line
-COIN_courierFoundText       = ["Die Papiere nennen Orte und Namen. Ihr wisst jetzt, woher der Kurier kam.", "The papers name places and people. Now you know where the courier came from."];
+COIN_searchBarText = "STR_COIN_strike_searchBar"; // Text of the progress bar: key
+COIN_searchLabel = "STR_COIN_strike_searchLabel"; // Action at the car: key
+COIN_courierFoundSpeaker = "STR_COIN_strike_courierFoundSpeaker"; // Subtitle after the search: who, then the line
+COIN_courierFoundText = "STR_COIN_strike_courierFoundText";
 
 // ---------------------------------------------------------------------------
 // Faction markers (Phase 1, ticket 1.6 / #9, ADR 0012, ADR 0014)
