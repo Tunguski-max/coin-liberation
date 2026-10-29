@@ -359,7 +359,7 @@ Vier Blöcke, nacheinander umgesetzt und getestet: 6A → 6B → 6C → 6D. Samm
   Spawn über `KPLIB_fnc_spawnRegularSquad`: bis etwa 150 m um die Mitte der Hauptstadt, nicht in Häusern. `COIN_capitalGarrisonBase`
   entfällt)
 - [ ] 6.3b (#161) Festes schweres Gerät (2 T-72BA, 1 ZSU-23-4 wie Sektorfahrzeuge) und 3 Igla-Schützen auf hohen Gebäudeplätzen;
-  zerstörtes Gerät bleibt bis zum Serverneustart weg (nicht gespeichert)
+  jede Aktivierung spawnt es neu, auch zerstörtes (Regel „bleibt bis zum Serverneustart weg“ am 2026-10-29 verworfen)
 
 **6D Kampagnenende** – Reihenfolge: 6.5a, 6.5b
 - [ ] 6.5a (#162) Abschnitt „COIN“ in Liberations Endbildschirm (Hook) mit gespeicherten Zählern (`COIN_saveVersion` 4, ältere
