@@ -63,13 +63,14 @@ coin/
     │   ├── fn_mortarLoop.sqf           COIN_fnc_mortarLoop: Server-Schleife, würfelt alle COIN_mortarCheckSeconds den Mörserangriff auf eine FOB (Ticket 6.7a, kein Hook)
     │   ├── fn_checkMortarFob.sqf       COIN_fnc_checkMortarFob: darf diese FOB getroffen werden (Aufmarschraum, Wartezeit, Spieler an der FOB)
     │   ├── fn_mortarFobKey.sqf         COIN_fnc_mortarFobKey: Schlüssel einer FOB in der Wartezeit-Tabelle
+    │   ├── fn_mortarFobExists.sqf      COIN_fnc_mortarFobExists: gibt es die FOB noch (sie kann während des Angriffs abgebaut werden)
     │   ├── fn_findMortarSpot.sqf       COIN_fnc_findMortarSpot: Platz des Trupps, 1500–2500 m von der FOB, außer Sicht, eben, möglichst im Aufmarschraum
     │   ├── fn_startMortarAttack.sqf    COIN_fnc_startMortarAttack: startet einen Angriff, wenn keiner läuft und ein Platz da ist
     │   ├── fn_runMortarAttack.sqf      COIN_fnc_runMortarAttack: Ablauf eines Angriffs (Trupp, 3 Salven, Stellung halten, Abbau)
     │   ├── fn_spawnMortarSquad.sqf     COIN_fnc_spawnMortarSquad: Mörser und 3 Kämpfer der Miliz, alles an Zeus
     │   ├── fn_fireMortarSalvo.sqf      COIN_fnc_fireMortarSalvo: eine Salve scharfer Granaten um die FOB
     │   ├── fn_spawnMortarCar.sqf       COIN_fnc_spawnMortarCar: unbewaffnetes Auto hinter dem Mörser für die Flucht des Trupps
-    │   ├── fn_runMortarGetaway.sqf     COIN_fnc_runMortarGetaway: Schütze steigt aus, Trupp steigt ein und fährt 800 m weg vom Mörser, weg von der FOB
+    │   ├── fn_runMortarGetaway.sqf     COIN_fnc_runMortarGetaway: Schütze steigt aus, Trupp steigt ein und fährt `COIN_mortarGetawayDistance` weg vom Mörser, weg von der FOB
     │   ├── fn_announceMortarAttack.sqf COIN_fnc_announceMortarAttack: Meldung „Mörserbeschuss auf FOB …“ und Kreis (400 m) nach der ersten Salve (Ticket 6.7b)
     │   └── fn_removeMortarCircle.sqf   COIN_fnc_removeMortarCircle: nimmt den Kreis von der Karte
     ├── staging/

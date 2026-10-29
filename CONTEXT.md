@@ -66,7 +66,7 @@ Code-Bezeichner stehen in Klammern.
 | **Attentäter** (`suicideBomber`) | Zivilist mit Sprengweste. Kommt nur im Einflussradius einer IED-Werkstatt vor, wie oft, hängt am Ruf. |
 | **Hinterhalt** (`ambush`) | Vorbereiteter Überfall an einer Straße, ausgehend von einem aktiven Camp. |
 | **Hinterhalt am Einsatzort** (`siteAmbush`) | Vorbereiteter Überfall der Miliz am Einsatzort eines Hilfsauftrags (Arzt-Einsatz, Reparatur): Kämpfer in Deckung und in Häusern, die das Feuer eröffnen, sobald die Armee nah ist. Entsteht nur, wenn ein aktives Nest den Einsatzort im Einflussradius hat. _Nicht:_ der Hinterhalt eines Camps. |
-| **Mörserangriff** (`mortarAttack`) | Beschuss einer FOB in einem Aufmarschraum durch einen kleinen Mörsertrupp der Miliz aus einigen Kilometern Entfernung. Der Trupp lässt sich finden und ausschalten. |
+| **Mörserangriff** (`mortarAttack`) | Beschuss einer FOB in einem Aufmarschraum durch einen kleinen Mörsertrupp der Miliz aus einigen Kilometern Entfernung. Der Trupp lässt sich finden und ausschalten; lässt man ihn gewähren, flieht er nach einiger Zeit in einem Auto. |
 | **Kämpfer in Zivil** | Miliz-Einheit ohne sichtbare Waffe, bis es zum Kontakt kommt. |
 
 ## Intel und Bevölkerung

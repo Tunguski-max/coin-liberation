@@ -341,11 +341,13 @@ Vier Blöcke, nacheinander umgesetzt und getestet: 6A → 6B → 6C → 6D. Samm
   verschwindet mit dem Trupp; Verhör nennt den Kommandoposten des Aufmarschraums, beim Militärposten gilt „Welches Nest“
   (Meldung bei jedem Lauf nach der ersten Salve mit Schuss, Kreis 400 m, der Trupp liegt 170–268 m von der Mitte; Kreis weg beim
   Ausschalten und beim Abbau; Verhör eines Kämpfers im Aufmarschraum eines Militärpostens: Herkunft leer, „Welches Nest“;
-  nicht getestet: Verhör im Aufmarschraum eines Kommandopostens (im Spielstand gibt es dort keinen), Schalter aus, Meldungstexte
-  noch mit Niklas abzustimmen. Dazu auf Wunsch: Flucht des Trupps nach der Stellung in einem unbewaffneten Auto (UAZ aus dem
-  Takistan-Preset), Schütze steigt aus, 800 m weg vom Mörser und von der FOB, erst dann Abbau; getestet: Einsteigen nach 12 s,
-  803 m in 61 s, Abbau danach; und die Ergänzungen zu 6.7a: Wand- und Schussbahnprüfung des Platzes, Wartezeit ab Ende des
-  Angriffs, „höchstens ein Angriff“ bis zum Ende der Flucht)
+  Meldungstexte „MÖRSERBESCHUSS / Mörserbeschuss auf FOB …“ von Niklas am 2026-10-29 bestätigt;
+  nicht getestet: Verhör im Aufmarschraum eines Kommandopostens (im Spielstand gibt es dort keinen), Schalter aus.
+  Auf Wunsch von Niklas dazu: Flucht des Trupps nach der Stellung in einem unbewaffneten Auto (UAZ aus dem Takistan-Preset),
+  Schütze steigt aus, 800 m weg vom Mörser und von der FOB, erst dann Abbau; getestet: Einsteigen nach 12 s, 803 m in 61 s,
+  Abbau danach. Nach dem Review: Kreis erst weg, wenn die Flucht gelingt; „höchstens ein Angriff“ bis zum Ende der Flucht;
+  Wächter für ein hängendes Flag, Cooldown nach einer gescheiterten Platzsuche, billige Regeln zuerst in der Platzsuche,
+  Magic Numbers in der Config, Doku zum einen Verhörergebnis nachgezogen; diese Nacharbeiten sind ungetestet)
 
 **6C Hauptstadt (ADR 0014)** – Reihenfolge: 6.3a, 6.3b
 - [ ] 6.3a (#160) Zusatz-Garnison: `runden(Liberations Infanterie-Trupps × 0,15 × aktive Nester)` zusätzliche Trupps beim Aktivieren der

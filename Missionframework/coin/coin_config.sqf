@@ -393,6 +393,18 @@ COIN_mortarCarDistance      = [8, 20];  // [min, max] m the car stands behind th
 COIN_mortarBoardSeconds     = 60;       // s the squad has to get into the car, then the rest is put in
 COIN_mortarGetawayDistance  = 800;      // m from the mortar the car drives, away from the FOB
 COIN_mortarDriveSeconds     = 300;      // s the drive may take at most
+COIN_mortarGetawayOvershoot = 50;       // m the drive target lies beyond the distance, so the car passes it
+COIN_mortarGetawayRoadRadius = 250;     // m around the target a road is looked for
+COIN_mortarGetawaySafeRadius = 300;     // m around a target in water a dry spot is looked for
+COIN_mortarCarFreeRadius    = 6;        // m around the chosen spot the car needs to be free
+COIN_mortarCarAngles        = [0, 25, -25, 50, -50, 75, -75]; // Degrees off "straight behind" that are tried in turn
+COIN_mortarCarHeadingJitter = 20;       // Degrees the heading of the car may differ from "away from the FOB"
+COIN_mortarFobRadius        = 50;       // m: a FOB this near the remembered position is still that FOB
+COIN_mortarClearDirections  = 8;        // Rays of the wall check around the mortar
+COIN_mortarClearArcStart    = 1;        // m above the ground where the firing-arc rays start
+COIN_mortarClearMaxHits     = 5;        // Surfaces a wall ray looks at (a terrain hit uses a slot)
+COIN_mortarFailCooldownSeconds = 600;   // s a FOB is left alone after a failed attempt (no spot, no squad)
+COIN_mortarActiveMaxSeconds = 2400;     // s after which the loop treats a running attack as stuck and frees the flag
 
 // Message and circle after the first salvo (ticket 6.7b, #159): the squad lies in the circle, not in its middle (COIN_intelCenterOffset)
 COIN_enableMortarMessage    = true;     // Off: no message "Mortar fire on FOB ..."

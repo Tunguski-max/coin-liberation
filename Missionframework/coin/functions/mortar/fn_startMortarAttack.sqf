@@ -21,7 +21,11 @@ params [
     ["_reason", "chance", [""]]
 ];
 
-if (!isServer || {!COIN_enableMortarAttacks}) exitWith {false};
+if (!isServer) exitWith {false};
+if (!COIN_enableMortarAttacks) exitWith {
+    diag_log "[COIN] mortar: no attack, COIN_enableMortarAttacks is off";
+    false
+};
 
 private _fobName = [_fob] call KPLIB_fnc_getFobName;
 if (COIN_mortarActive) exitWith {
@@ -34,6 +38,7 @@ COIN_mortarActive = true;
 ([_fob] call COIN_fnc_findMortarSpot) params ["_spot", "_inArea", "_rejected"];
 if (_spot isEqualTo []) exitWith {
     COIN_mortarActive = false;
+    COIN_mortarCooldowns set [[_fob] call COIN_fnc_mortarFobKey, time + COIN_mortarFailCooldownSeconds];
     diag_log format [
         "[COIN] mortar: no attack on FOB %1 (%2): no spot for the squad %3-%4 m away, rejected points %5",
         _fobName, _reason, COIN_mortarDistance select 0, COIN_mortarDistance select 1, _rejected

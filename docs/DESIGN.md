@@ -400,7 +400,7 @@ Festgelegt beim Grilling für Phase 3 (2026-10-22). Speicherformat, Triangulatio
   - **Lüge**: Kreis an einer falschen Stelle. Häufig bei niedrigem Ruf.
 - Ab Ruf +25 kann statt des Ergebnisses (außer „Ich weiß nichts“) ein **Zugriffsauftrag** entstehen: Er ersetzt das Intel
   der Befragung, damit es keine doppelte Belohnung gibt, und beginnt dafür früher (Abschnitt 8.2). Beim Verhör entsteht er
-  zusätzlich zu den Ergebnissen.
+  zusätzlich zum Ergebnis (Entscheidung Niklas 2026-10-29: das zählt nicht als doppelte Belohnung).
 - **Welches Nest:** ein zufälliges aktives Nest im Umkreis von etwa 4 km um den Zivilisten; gibt es dort keins, das nächste
   aktive Nest überhaupt. So zählt die Geografie, und am Ende sind auch die letzten Nester noch zu finden.
 
@@ -689,7 +689,9 @@ Festgelegt beim Grilling für Phase 6 (2026-10-28, ADR 0025, Ergänzung ADR 0013
   (Einschießen: Zeit, in Deckung zu gehen). Echte Munition, echter Schaden an Fahrzeugen und Bauten.
 - Nach der ersten Salve bekommt die Seite die Meldung „Mörserbeschuss auf FOB …“ und einen Kreis (etwa 400 m) um die Stellung;
   der Trupp liegt darin, nicht in der Mitte. Der Kreis verschwindet mit dem Trupp.
-- Der Trupp bleibt 10 min in Stellung und wird danach außer Sicht abgebaut, sobald niemand nah ist. Er zählt als
+- Der Trupp bleibt 10 min in Stellung. Danach flieht er: Hinter dem Mörser steht ein unbewaffnetes Auto (UAZ aus dem Takistan-Preset),
+  der Schütze steigt aus, der Trupp steigt ein und fährt 800 m weg vom Mörser und von der FOB. Erst danach wird er abgebaut, sobald
+  niemand nah ist (Mörser und Auto bleiben bis dahin stehen). Ist der Trupp ausgeschaltet, ist der Angriff vorbei. Er zählt als
   COIN-Einheiten und spawnt immer. Ein gefangener Mörserschütze nennt im Verhör den Kommandoposten seines Aufmarschraums,
   kam er von einem Militärposten, gilt die Regel „Welches Nest“ (Abschnitt 7).
 

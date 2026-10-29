@@ -6,7 +6,7 @@
         Server: an interpreter interrogates a prisoner (ticket 3.8, DESIGN 7, ADR 0011). Called by the client with
         remoteExecCall. Checks the rules again (COIN_fnc_canInterrogate), marks the prisoner as interrogated for good and
         keeps him in the conversation until the answer has been read. After a short pause (COIN_questionDelay) there are
-        one or two results (the second with the chance COIN_interrogationSecondChance), each rolled by its own weights
+        one result, or two if COIN_interrogationSecondChance is raised above 0 (the second with that chance, 0 since 2026-10-29: no double reward), each rolled by its own weights
         (COIN_interrogationWeights, they do not depend on the reputation). The first result is never "I know nothing" as
         long as there is a nest to tell of. The nest the results are about: COIN_fnc_pickInterrogationNest, one for both
         results. The leader of the strike task "Arrest leader" (ticket 5.15) names his command post (COIN_leaderNest) in the first result and

@@ -39,6 +39,8 @@ if (!isServer) exitWith {};
 private _fobName = [_fob] call KPLIB_fnc_getFobName;
 private _squad = [_spot, _fob] call COIN_fnc_spawnMortarSquad;
 if (_squad isEqualTo []) exitWith {
+    // No class of COIN_mortarClasses exists: the FOB is left alone for a while, the loop does not retry on every pass
+    COIN_mortarCooldowns set [[_fob] call COIN_fnc_mortarFobKey, time + COIN_mortarFailCooldownSeconds];
     COIN_mortarActive = false;
 };
 _squad params ["_group", "_fighters", "_mortar", "_car"];
@@ -58,7 +60,7 @@ if (COIN_debug) then {
     _marker setMarkerText format ["Mörsertrupp (FOB %1)", _fobName];
 };
 
-private _fobExists = {(GRLIB_all_fobs findIf {(_x distance2D _fob) < 50}) >= 0};
+private _fobExists = {[_fob] call COIN_fnc_mortarFobExists};
 private _canFire = {alive _mortar && {alive (gunner _mortar)}};
 private _anyAlive = {(_fighters findIf {alive _x}) >= 0};
 
@@ -100,16 +102,18 @@ diag_log format [
     _fobName, ["the squad is eliminated", "time is up, the squad is taken down"] select (call _anyAlive), {alive _x} count _fighters, count _fighters
 ];
 
-// An eliminated squad takes its circle with it. A squad that is still alive packs up: the circle goes when it leaves
+// An eliminated squad takes its circle with it. A squad that is still alive packs up and drives away; the circle goes when
+// it has got away. If the getaway fails the squad is still at the mortar, the circle stays until it is taken down
 if !(call _anyAlive) then {
     [_circle] call COIN_fnc_removeMortarCircle;
     _circle = "";
 } else {
-    if (!isNull _car && {alive _car}) then {
-        [_circle] call COIN_fnc_removeMortarCircle;
-        _circle = "";
+    if (COIN_enableMortarAttacks && {!isNull _car} && {alive _car}) then {
         // The gunner gets out, the squad drives COIN_mortarGetawayDistance away from the mortar, away from the FOB
-        [_fighters, _mortar, _car, _fob] call COIN_fnc_runMortarGetaway;
+        if ([_fighters, _mortar, _car, _fob] call COIN_fnc_runMortarGetaway) then {
+            [_circle] call COIN_fnc_removeMortarCircle;
+            _circle = "";
+        };
     };
 };
 

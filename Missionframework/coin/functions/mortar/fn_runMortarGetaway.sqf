@@ -58,6 +58,11 @@ diag_log format ["[COIN] mortar: getaway: %1 fighters go to the car %2, %3 m awa
 
 private _boardEnd = time + COIN_mortarBoardSeconds;
 waitUntil {sleep 2; (_crew findIf {alive _x && {vehicle _x isNotEqualTo _car}}) < 0 || {time > _boardEnd}};
+// A driver who fell while boarding is replaced by the next fighter who is alive
+if (!alive _driver) then {
+    _driver = (_crew select {alive _x}) param [0, objNull];
+    diag_log "[COIN] mortar: getaway: the driver fell, the next fighter drives";
+};
 if (alive _driver && {vehicle _driver isNotEqualTo _car}) then {_driver moveInDriver _car};
 {
     if (alive _x && {vehicle _x isNotEqualTo _car}) then {_x moveInCargo _car};
@@ -70,15 +75,15 @@ if (!alive _driver || {!alive _car}) exitWith {
 
 // 3. Away from the FOB, 800 m from the mortar, on a road if there is one
 private _towards = (_spot getDir _fob) + 180;
-private _target = _spot getPos [COIN_mortarGetawayDistance + 50, _towards];
-private _roads = _target nearRoads 250;
+private _target = _spot getPos [COIN_mortarGetawayDistance + COIN_mortarGetawayOvershoot, _towards];
+private _roads = _target nearRoads COIN_mortarGetawayRoadRadius;
 if (_roads isNotEqualTo []) then {
     _roads = [_roads, [], {_x distance2D _target}, "ASCEND"] call BIS_fnc_sortBy;
     private _roadPos = getPosATL (_roads select 0);
     if ((_roadPos distance2D _spot) >= COIN_mortarGetawayDistance) then {_target = _roadPos};
 };
 if (surfaceIsWater _target) then {
-    _target = [_target, 0, 300, 5, 0, 0.3, 0] call BIS_fnc_findSafePos;
+    _target = [_target, 0, COIN_mortarGetawaySafeRadius, 5, 0, 0.3, 0] call BIS_fnc_findSafePos;
 };
 _target = [_target select 0, _target select 1, 0];
 

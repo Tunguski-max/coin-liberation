@@ -44,11 +44,11 @@ _away = _away + 180;
 private _position = [];
 {
     private _candidate = _spot getPos [_distMin + random (_distMax - _distMin), _away + _x];
-    private _free = _candidate findEmptyPosition [0, 6, _class];
+    private _free = _candidate findEmptyPosition [0, COIN_mortarCarFreeRadius, _class];
     if (_free isNotEqualTo [] && {!surfaceIsWater _free} && {((surfaceNormal _free) select 2) >= COIN_mortarMinNormalZ}) exitWith {
         _position = _free;
     };
-} forEach [0, 25, -25, 50, -50, 75, -75];
+} forEach COIN_mortarCarAngles;
 if (_position isEqualTo []) exitWith {
     diag_log format ["[COIN] mortar: no free spot for the car of the squad at %1, the squad has none", _spot apply {round _x}];
     objNull
@@ -56,7 +56,7 @@ if (_position isEqualTo []) exitWith {
 
 private _car = createVehicle [_class, [_position select 0, _position select 1, 0], [], 0, "CAN_COLLIDE"];
 // Nose to the way out: away from the FOB
-_car setDir (_away + (random 40) - 20);
+_car setDir (_away + (random (2 * COIN_mortarCarHeadingJitter)) - COIN_mortarCarHeadingJitter);
 _car setVectorUp (surfaceNormal (getPosATL _car));
 [[_car]] call COIN_fnc_addToCurators;
 

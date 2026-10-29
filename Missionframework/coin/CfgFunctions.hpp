@@ -634,6 +634,9 @@ class COIN {
         // Server: key of a FOB in the cooldown table
         class mortarFobKey {};
 
+        // Server: is there still a FOB at this position (it can be dismantled during an attack)
+        class mortarFobExists {};
+
         // Server: position for the mortar squad, 1500-2500 m away, out of sight, flat, preferably in a staging area
         class findMortarSpot {};
 
