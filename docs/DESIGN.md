@@ -714,7 +714,7 @@ Festgelegt beim Grilling für Phase 6 (2026-10-28, ADR 0025, Ergänzung ADR 0013
   Hauptstadt spawnt es neu, auch zerstörtes: Wer den Sektor neu spawnen lässt, zahlt den Preis dafür (verworfen am 2026-10-29: „bleibt bis zum Serverneustart weg“, nicht stabil umzusetzen).
 - Einnahme der Hauptstadt = Kampagnensieg.
 
-**Kampagnenende**
+**Kampagnenende** (nice to have, nicht Teil der DoD von Phase 6, Niklas 2026-10-29)
 - Liberations Endbildschirm bekommt einen Abschnitt **„COIN“**: Nester zerstört (je Typ) und Netzwerkstärke am Ende, Camps und
   Hinterhalte ausgehoben, Befragungen, Verhöre, Intel-Marker (davon Lügen), IEDs entschärft/explodiert, VBIEDs
   gestoppt/explodiert, Attentäter ausgeschaltet/explodiert, Hilfs- und Zugriffsaufträge erfüllt/gescheitert, angeforderte
