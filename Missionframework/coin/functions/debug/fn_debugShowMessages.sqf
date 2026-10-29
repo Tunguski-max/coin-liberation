@@ -10,14 +10,14 @@
         sleep (spawn it): [] spawn COIN_fnc_debugShowMessages.
 
     Parameter(s):
-        _pause - Seconds between two messages [NUMBER, defaults to 4]
+        _pause - Seconds between two messages [NUMBER, defaults to 10]
 
     Returns:
         Number of messages shown [NUMBER]
 */
 
 params [
-    ["_pause", 4, [0]]
+    ["_pause", 10, [0]]
 ];
 
 if (!hasInterface || {!canSuspend}) exitWith {
