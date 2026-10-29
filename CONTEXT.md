@@ -9,7 +9,7 @@ Code-Bezeichner stehen in Klammern.
 |---|---|
 | **Armee** | Die Spielerseite (BLUFOR). Konkrete Fraktion: offen (Entscheidung E1). Ausgerüstet als **leichte Brigade**. |
 | **Leichte Brigade** | Ausrüstungsrahmen der Armee: Infanterie, geschützte Radfahrzeuge, leichte Unterstützung. Keine fahrbare Artillerie, keine Jets. |
-| **Miliz** (`militia`) | Der Gegner (OPFOR). Taliban-ähnlich, asymmetrisch, nutzt Project-OPFOR-Einheiten („Afghan Militia“). |
+| **Miliz** (`militia`) | Der Gegner (OPFOR). Taliban-ähnlich, asymmetrisch, nutzt Project-OPFOR-Einheiten („Afghan Militia“). _Sichtbares Wort im Spiel:_ „Aufständische“ (englisch „insurgents“), ADR 0026. |
 | **Zivilisten** (`civ`) | Bevölkerung. Quelle von Intel, aber auch Tarnung für Attentäter. |
 | **Widerstand** (`resistance`) | Bewaffnete Einheimische (Liberation-Fraktion, im Code auch „Guerilla“). Ihre Haltung zur Armee und zur Miliz hängt vom Ruf ab. Erkennbar am Kopftuch: grün feindlich, blau neutral oder freundlich. |
 | **Erkennungstuch** (`COIN_marker*`) | Farbiges Kopftuch (Shemag) der KI-Kämpfer: rot Miliz, grün feindlicher Widerstand, blau neutraler oder freundlicher Widerstand. |
@@ -36,7 +36,7 @@ Code-Bezeichner stehen in Klammern.
 
 | Begriff | Bedeutung |
 |---|---|
-| **Nest** (`nest`) | Verdeckter Knoten der Miliz mit Effekt im Einflussradius. Ersetzt die Idee „OPFOR-FOB“. |
+| **Nest** (`nest`) | Verdeckter Knoten der Miliz mit Effekt im Einflussradius. Ersetzt die Idee „OPFOR-FOB“. _Sichtbares Wort im Spiel:_ „Versteck“ (englisch „hideout“), ADR 0026. |
 | **Nest-Typ** (`nestType`) | Kommandoposten (`command`), IED-Werkstatt (`iedWorkshop`), Waffenlager (`cache`), VBIED-Garage (`vbiedGarage`), Rekrutierungsstelle (`recruitment`). |
 | **Gebäude-Nest** | Nest in einem vorhandenen Haus am Rand einer Ortschaft. |
 | **Gelände-Nest** | Nest als kleines Lager im Gelände abseits der Ortschaften. |
