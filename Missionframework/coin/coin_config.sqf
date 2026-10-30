@@ -122,9 +122,9 @@ COIN_elderHeadgear          = ["LOP_H_Turban"];
 // ---------------------------------------------------------------------------
 COIN_nestSetup = [
     ["command",      2, 2500],
-    ["iedWorkshop",  4, 2000],
+    ["iedWorkshop",  3, 2000],
     ["cache",        3, 1500],
-    ["vbiedGarage",  1, 2500],
+    ["vbiedGarage",  2, 2500],
     ["recruitment",  2, 2000]
 ];
 // Placement at campaign start (ticket 2.2, DESIGN 5, ADR 0018)
@@ -313,7 +313,8 @@ COIN_campsPerNest = [
 COIN_campMinDistStartBase   = 2000;     // m between camps and the start base
 COIN_campMinDistMapEdge     = 1000;     // m between camps and the map edge
 COIN_campMinDistSector      = COIN_nestMinDistSector; // m between camps and every sector centre (Liberation's 175 m evaluation)
-COIN_campPlaceAttempts      = 1000;     // Random positions tried per camp (about 1 in 200 passes on Lythium, 500 left 2 of 7 camps out), fewer camps with an error line if none fits
+COIN_campPlaceAttempts      = 2000;     // Random positions tried per camp (about 1 in 200 passes on Lythium, 500 left 2 of 7 camps out), fewer camps with an error line if none fits. 1000 until 2026-10-30
+COIN_campCandidates         = 6;        // Valid places drawn per camp, the one farthest from the other camps wins (like COIN_nestCandidates), so the camps spread over the map instead of clustering. 1 = the first valid place as before
 COIN_campExclusionRadius    = 800;      // m around captured sectors and FOBs without camps (1000 until 2026-10-29) (also the search radius for roads in the log)
 COIN_campMinDistRoad        = COIN_nestTerrainMinDistRoad; // m, the same rule as for terrain nests (COIN_fnc_checkTerrainSpot) ...
 COIN_campMinDistTown        = COIN_nestTerrainMinDistTown; // m ... so the two cannot drift apart; give the camps their own number here if they should

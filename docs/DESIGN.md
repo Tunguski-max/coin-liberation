@@ -115,7 +115,7 @@ die jeweils einen **Einflussradius** haben und dort einen konkreten Effekt erzeu
 | Rekrutierungsstelle | Füllt Verluste der Miliz wieder auf | Miliz regeneriert langsamer |
 
 **Regeln**
-- 12 Nester zu Kampagnenbeginn (11 bis 2026-10-29, eine vierte IED-Werkstatt kam dazu), von jedem Typ mindestens 2: Reicht die Verteilung aus `coin_config.sqf` dafür nicht,
+- 12 Nester zu Kampagnenbeginn (11 bis 2026-10-29, eine zweite VBIED-Garage kam dazu: IED-Werkstatt 3, Waffenlager 3, VBIED-Garage 2, Kommandoposten 2, Rekrutierungsstelle 2), von jedem Typ mindestens 2: Reicht die Verteilung aus `coin_config.sqf` dafür nicht,
   gibt der häufigste Typ ein Nest ab (bei Gleichstand gelost), die Gesamtzahl bleibt (Test 2026-10-20, wie bei den
   Ressourcen). Typen mit den wenigsten passenden Häusern werden zuerst platziert, damit sie nicht immer im selben
   abgelegenen Haus landen.
@@ -214,7 +214,8 @@ und sind die zweite Intel-Quelle neben dem Dolmetscher.
 **Regeln (entschieden)**
 - Gebiet: die ganze Karte.
 - Platzierung zufällig auf ebenem Gelände mit Deckung, mit Mindestabstand zu Straßen,
-  Ortschaften, FOBs und der Startbasis.
+  Ortschaften, FOBs und der Startbasis. Von bis zu 6 gültigen Plätzen gewinnt der, der am weitesten von den anderen
+  Camps entfernt liegt (`COIN_campCandidates`, seit 2026-10-30, wie bei den Nestern), damit sich die Camps über die Karte verteilen.
 - Nicht persistent. Beim Serverstart wird die aktuelle Kapazität (siehe unten) neu verteilt.
 - Jedes Camp **gehört zu einem Nest**: dem nächstgelegenen aktiven Nest, das noch Kapazität frei hat.
   Ausgehobene Camps haben keine eigene Intel-Quelle: Die Spur vom Camp zum Nest läuft über das Verhör ihrer Kämpfer.
