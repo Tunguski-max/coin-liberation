@@ -120,7 +120,7 @@ die jeweils einen **Einflussradius** haben und dort einen konkreten Effekt erzeu
   Ressourcen). Typen mit den wenigsten passenden Häusern werden zuerst platziert, damit sie nicht immer im selben
   abgelegenen Haus landen.
 - Gleichmäßig über die Karte verteilt: mindestens 2,5 km Abstand untereinander,
-  mindestens 4 km von der Startbasis, keines im Umkreis von 1 km um die Hauptstadt. Findet die Verteilung keinen
+  mindestens 3 km von der Startbasis (4 km bis 2026-10-30), keines im Umkreis von 1 km um die Hauptstadt. Findet die Verteilung keinen
   Platz, wird der Abstand schrittweise verringert (mit Logzeile).
   Gleichmäßig heißt: Für jedes Nest werden mehrere zulässige Stellen gezogen (Startwert 30), genommen wird die mit dem
   größten Abstand zu den bisherigen Nestern („bester Kandidat“). Mindestens 1 km Abstand zum Kartenrand.

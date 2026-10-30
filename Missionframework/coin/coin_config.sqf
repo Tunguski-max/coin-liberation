@@ -128,7 +128,7 @@ COIN_nestSetup = [
 ];
 // Placement at campaign start (ticket 2.2, DESIGN 5, ADR 0018)
 COIN_nestMinPerType         = 2;        // Nests of every type at least; the most frequent type of COIN_nestSetup gives nests away, the total stays
-COIN_nestMinDistStartBase   = 4000;     // m between nests and the start base
+COIN_nestMinDistStartBase   = 3000;     // m between nests and the start base (4000 until 2026-10-30)
 COIN_nestMinDistCapital     = 1000;     // m between nests and the capital (Liberation's sectors_bigtown)
 COIN_nestMinDistSector      = 250;      // m between nests and every sector centre (Liberation evaluates 175 m around it)
 COIN_nestMinDistMapEdge     = 1000;     // m between nests and the map edge
