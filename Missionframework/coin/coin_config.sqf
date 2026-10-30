@@ -95,6 +95,7 @@ COIN_curatorSyncInterval    = 10;       // s: objects given to Zeus are added ag
 COIN_enablePopulation       = true;     // Off: no own civilians in liberated towns, the loop removes those that exist
 COIN_populationCount        = [4, 8];   // [min, max] civilians per town, rolled at every spawn
 COIN_populationRadius       = 80;       // m around the centre of the town (sector marker) where they appear
+COIN_populationClearRadius  = 200;      // m around the centre: while an enemy is alive there the town gets no people (the last defenders after the capture), 0 = no check. Until 2026-10-30 the people waited for Liberation (about 90 s)
 COIN_populationSpotClearance = 2;       // m a civilian keeps from objects when he is placed (BIS_fnc_findSafePos)
 COIN_populationMaxGradient  = 0.5;      // Steepest ground he is placed on (BIS_fnc_findSafePos)
 
@@ -123,12 +124,12 @@ COIN_nestSetup = [
     ["command",      2, 2500],
     ["iedWorkshop",  3, 2000],
     ["cache",        3, 1500],
-    ["vbiedGarage",  1, 2500],
+    ["vbiedGarage",  2, 2500],
     ["recruitment",  2, 2000]
 ];
 // Placement at campaign start (ticket 2.2, DESIGN 5, ADR 0018)
 COIN_nestMinPerType         = 2;        // Nests of every type at least; the most frequent type of COIN_nestSetup gives nests away, the total stays
-COIN_nestMinDistStartBase   = 4000;     // m between nests and the start base
+COIN_nestMinDistStartBase   = 3000;     // m between nests and the start base (4000 until 2026-10-30)
 COIN_nestMinDistCapital     = 1000;     // m between nests and the capital (Liberation's sectors_bigtown)
 COIN_nestMinDistSector      = 250;      // m between nests and every sector centre (Liberation evaluates 175 m around it)
 COIN_nestMinDistMapEdge     = 1000;     // m between nests and the map edge
@@ -298,7 +299,7 @@ COIN_nestProps = [
 // Camps (Phase 2) - not persisted, redistributed on every server start
 // ---------------------------------------------------------------------------
 COIN_enableCamps            = true;     // Off: no camps are created (ticket 2.7)
-COIN_campMax                = 10;       // Hard cap of simultaneous camps
+COIN_campMax                = 14;       // Hard cap of simultaneous camps (10 until 2026-10-29)
 COIN_campSeedRange          = 1e6;      // Seeds of camps are below this (not saved, only for a repeatable look within one session)
 // Weight per nest type: [type, weight]. It counts in the camp capacity (decision E8) and is the most camps one nest of the type supplies
 COIN_campsPerNest = [
@@ -312,8 +313,9 @@ COIN_campsPerNest = [
 COIN_campMinDistStartBase   = 2000;     // m between camps and the start base
 COIN_campMinDistMapEdge     = 1000;     // m between camps and the map edge
 COIN_campMinDistSector      = COIN_nestMinDistSector; // m between camps and every sector centre (Liberation's 175 m evaluation)
-COIN_campPlaceAttempts      = 1000;     // Random positions tried per camp (about 1 in 200 passes on Lythium, 500 left 2 of 7 camps out), fewer camps with an error line if none fits
-COIN_campExclusionRadius    = 1000;     // m around captured sectors and FOBs without camps (also the search radius for roads in the log)
+COIN_campPlaceAttempts      = 2000;     // Random positions tried per camp (about 1 in 200 passes on Lythium, 500 left 2 of 7 camps out), fewer camps with an error line if none fits. 1000 until 2026-10-30
+COIN_campCandidates         = 6;        // Valid places drawn per camp, the one farthest from the other camps wins (like COIN_nestCandidates), so the camps spread over the map instead of clustering. 1 = the first valid place as before
+COIN_campExclusionRadius    = 800;      // m around captured sectors and FOBs without camps (1000 until 2026-10-29) (also the search radius for roads in the log)
 COIN_campMinDistRoad        = COIN_nestTerrainMinDistRoad; // m, the same rule as for terrain nests (COIN_fnc_checkTerrainSpot) ...
 COIN_campMinDistTown        = COIN_nestTerrainMinDistTown; // m ... so the two cannot drift apart; give the camps their own number here if they should
 COIN_campFlatRadius         = COIN_terrainTemplateRadius; // m around a camp that must be flat and free: room for a camp template ...

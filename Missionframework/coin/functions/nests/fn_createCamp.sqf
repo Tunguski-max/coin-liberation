@@ -45,7 +45,7 @@ if (_owners isEqualTo []) exitWith {
     []
 };
 
-([] call COIN_fnc_findCampSpot) params ["_pos", "_rejected"];
+([] call COIN_fnc_findCampSpot) params ["_pos", "_rejected", "_nearestCamp"];
 if (_pos isEqualTo []) exitWith {
     diag_log format [
         "[COIN] camps: ERROR - no place for a camp in %1 tries, rejected by: %2, camp left out",
@@ -91,8 +91,9 @@ private _camp = [_id, _nestId, _pos, false, floor random COIN_campSeedRange, fal
 COIN_camps pushBack _camp;
 
 diag_log format [
-    "[COIN] camps: camp %1 at %2 belongs to nest %3 (%4), %5 m away; %6; %7 tries; %8",
-    _id, _pos, _nestId, _nestType, round (_pos distance2D _nestPos), [_pos] call COIN_fnc_describeCampSpot, _tries, _ambushNote
+    "[COIN] camps: camp %1 at %2 belongs to nest %3 (%4), %5 m away; %6; %7 tries; nearest other camp %9; %8",
+    _id, _pos, _nestId, _nestType, round (_pos distance2D _nestPos), [_pos] call COIN_fnc_describeCampSpot, _tries, _ambushNote,
+    [format ["%1 m", round _nearestCamp], "none"] select (_nearestCamp < 0)
 ];
 
 _camp

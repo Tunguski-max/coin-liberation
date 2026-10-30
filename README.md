@@ -20,7 +20,7 @@ KP Liberation is a conventional "liberate every sector" campaign against a regul
 |---|---|---|
 | **Enemy** | Regular army (NATO, CSAT, …) with bases, radio towers and a USS Freedom story | Insurgent militia (Project OPFOR "Afghan Militia" / Islamic State look), asymmetric, with a hidden network |
 | **Goal** | Liberate **all** major cities | Take **one** capital, Kalae Noowi. Its defence depends on how much of the network is still alive |
-| **Map** | Very many sectors (COIN removed 157 sector markers from Lythium) | The whole of Lythium, thinned out: 29 towns, 8 supply points, 6 military posts, 11 hideouts (hand-picked list, ADR 0016) |
+| **Map** | Very many sectors (COIN removed 157 sector markers from Lythium) | The whole of Lythium, thinned out: 29 towns, 8 supply points, 6 military posts, 12 hideouts (hand-picked list, ADR 0016) |
 | **Enemy bases** | FOBs, radio towers, "FOB hunting" | No radio towers (they would reveal hideouts). **Hideouts** instead: invisible until you find them with intel |
 | **Information** | The map shows the enemy | You get **intel** from civilians and prisoners as circles on the map. Circles shrink with every true lead. Lies look identical |
 | **Player roles** | Commander and squad roles | Plus a dedicated **interpreter** (two slots). Only the interpreter can talk to civilians and prisoners |
