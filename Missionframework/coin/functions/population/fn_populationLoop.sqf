@@ -6,13 +6,16 @@
         Server loop for the own population of liberated towns (ticket 3.7, DESIGN 7, ADR 0011): Liberation has no
         civilians in a town the army holds. A town gets COIN_populationCount civilians (rolled per spawn) when
         - it is a liberated town (sectors_capture and blufor_sectors, so no supply point, outpost or capital),
-        - Liberation is done with it (not in active_sectors: its own civilians and defenders are gone),
+        - no enemy is alive within COIN_populationClearRadius of its centre (captive and surrendered ones do not count),
+          so the town gets its people right after the capture, not while the last defenders still fight. Liberation keeps
+          a captured sector active for 60 s and a liberated one for 40 s at every approach, the loop does not wait for that
+          (until 2026-10-30 it did: not in active_sectors),
         - the nearest player or drone (COIN_fnc_getPresence) is at most COIN_spawnDistance away,
         - they fit the civilian budget: as with a camp all or none (ADR 0015), only the own civilians count against
           COIN_maxCivilians, Liberation's do not. Without COIN_enableAIBudget there is no limit. A town that waits for
           room is written to the RPT once.
         They are removed when nobody was within COIN_despawnDistance for COIN_despawnDelay seconds, and at once when
-        the town is no longer free (lost to the enemy or active again). The civilians are new at every visit.
+        the town is no longer free (lost to the enemy). The civilians are new at every visit.
         Each town has one elder besides them (ticket 5.9a, COIN_enableElder, DESIGN 8): he spawns and goes with the others
         and counts against the budget with them (all or none). He stands at the same place at every visit (found once per
         town, COIN_fnc_findElderSpot, not saved). When he dies the town has no elder for COIN_elderAbsenceMinutes, a new
@@ -49,6 +52,8 @@ diag_log format [
 private _spawned = createHashMap;
 // Sector -> number of civilians it waits to spawn (logged once), kept so the roll does not change every check
 private _waiting = createHashMap;
+// Sector -> true while an enemy near the centre keeps the population back (logged once)
+private _blocked = createHashMap;
 // Sector -> [position, direction, building] where the elder stands, found at the first spawn and kept for the session
 // (global: an aid task needs the place, ticket 5.9b)
 COIN_elderSpots = createHashMap;
@@ -67,7 +72,7 @@ private _remove = {
 
 while {COIN_enablePopulation} do {
     private _present = [] call COIN_fnc_getPresence;
-    private _free = sectors_capture select {_x in blufor_sectors && {!(_x in active_sectors)}};
+    private _free = sectors_capture select {_x in blufor_sectors};
 
     // Removal first, so the room they take is free for the spawns below
     {
@@ -102,6 +107,9 @@ while {COIN_enablePopulation} do {
     {
         if !(_x in _free) then {_waiting deleteAt _x};
     } forEach (keys _waiting);
+    {
+        if !(_x in _free) then {_blocked deleteAt _x};
+    } forEach (keys _blocked);
 
     {
         private _sector = _x;
@@ -110,7 +118,27 @@ while {COIN_enablePopulation} do {
         private _distance = if (_present isEqualTo []) then {-1} else {selectMin (_present apply {_x distance2D (markerPos _sector)})};
         if (_distance < 0 || {_distance > COIN_spawnDistance}) then {
             _waiting deleteAt _sector;
+            _blocked deleteAt _sector;
             continue;
+        };
+
+        // The last defenders of a captured town may still fight: civilians would be shot (reputation, the elder)
+        if (COIN_populationClearRadius > 0) then {
+            private _enemies = [markerPos _sector, COIN_populationClearRadius, GRLIB_side_enemy] call KPLIB_fnc_getUnitsCount;
+            if (_enemies > 0) then {
+                if !(_sector in _blocked) then {
+                    _blocked set [_sector, true];
+                    diag_log format [
+                        "[COIN] population: %1 (%2) waits, %3 enemies within %4 m of the centre",
+                        markerText _sector, _sector, _enemies, COIN_populationClearRadius
+                    ];
+                };
+                continue;
+            };
+        };
+        if (_sector in _blocked) then {
+            _blocked deleteAt _sector;
+            diag_log format ["[COIN] population: %1 (%2) is clear of enemies now", markerText _sector, _sector];
         };
 
         COIN_populationCount params ["_min", "_max"];

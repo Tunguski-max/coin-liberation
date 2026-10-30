@@ -435,7 +435,7 @@ Festgelegt beim Grilling für Phase 3 (2026-10-22). Speicherformat, Triangulatio
 - Liberation hat in befreiten Ortschaften keine Zivilisten. Die Mission spawnt dort bei Spielernähe 4–8 eigene Zivilisten im
   Ortskern, mit denselben Abständen für Spawn und Abbau wie bei Nestern, innerhalb des gemeinsamen Zivilisten-Budgets
   (ADR 0015). Im Budget zählen nur die eigenen Zivilisten, nicht die von Liberation; eine Ortschaft bekommt ihre Bevölkerung ganz
-  oder gar nicht (Entscheidung 2026-10-22). Sie entsteht erst, wenn Liberation mit der Ortschaft fertig ist (Sektor nicht aktiv).
+  oder gar nicht (Entscheidung 2026-10-22). Sie entsteht, sobald die Ortschaft befreit ist und im Umkreis von `COIN_populationClearRadius` (200 m) kein Feind mehr lebt, also nicht erst, wenn Liberation den Sektor freigibt (bis 2026-10-30 etwa 90 s Wartezeit).
   Weil sie bei jedem Besuch neu entstehen, verhindert die Abklingzeit das Abgrasen.
 - Dazu gehört ab Phase 5 der **Älteste** (Abschnitt 8).
 
