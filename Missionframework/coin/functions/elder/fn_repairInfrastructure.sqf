@@ -23,6 +23,14 @@ params [
     ["_by", objNull, [objNull]]
 ];
 
+// Diagnosis for the dedicated server: says whether the request of the action reaches the server at all
+if (isServer) then {
+    diag_log format [
+        "[COIN] aid: repair of a %1 requested by %2 (machine %3), device still waiting: %4",
+        typeOf _device, name _by, remoteExecutedOwner, _device getVariable ["COIN_infraOpen", false]
+    ];
+};
+
 if (!isServer || {isNull _device} || {isNull _by} || {!(_device getVariable ["COIN_infraOpen", false])}) exitWith {false};
 
 // The player must be the unit of the machine that sent this
@@ -36,7 +44,11 @@ if (
     !([_by] call COIN_fnc_canRepairInfrastructure)
     || {(_by distance _device) > (COIN_aidRepairRange + COIN_aidRepairRangeMargin)}
 ) exitWith {
-    diag_log format ["[COIN] aid: repair of a %1 by %2 refused (rules)", typeOf _device, name _by];
+    diag_log format [
+        "[COIN] aid: repair of a %1 by %2 refused (rules): ACE on the server %3, alive %4, on foot %5, ACE_isEngineer %6, tools %7, %8 m from the device (max %9)",
+        typeOf _device, name _by, KP_liberation_ace, alive _by, (vehicle _by) isEqualTo _by, _by getVariable ["ACE_isEngineer", -1],
+        COIN_aidRepairTools arrayIntersect (items _by), round (_by distance _device), COIN_aidRepairRange + COIN_aidRepairRangeMargin
+    ];
     false
 };
 

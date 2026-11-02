@@ -54,11 +54,15 @@ COIN_secondaryAtElder       = true;     // Phase 5, ADR 0023: Liberation's secon
 // ACE abilities a slot gets beyond its class config: [unit class, [[variable, value], ...]]
 // The classes already bring most of it (B_medic_F is an ACE medic, B_soldier_exp_F an explosive specialist);
 // the table sets the ACE variables explicitly, at start and after every respawn.
+// ACE values: ace_medical_medicClass 0 none, 1 medic, 2 doctor (advanced medic); ACE_isEngineer 0 none, 1 engineer, 2 advanced engineer;
+// ACE_isEOD true/false (explosive specialist, defuses IEDs). Changed 2026-11-01: squad leaders medic, medics doctor, EOD advanced engineer,
+// the commander medic, engineer and EOD.
 // ---------------------------------------------------------------------------
 COIN_roleTraits = [
-    ["B_soldier_exp_F", [["ACE_isEngineer", 1]]],               // EOD: repair (ACE engineer)
-    ["B_medic_F",       [["ace_medical_medicClass", 1]]],       // Medic: ACE medic
-    ["B_officer_F",     [["ace_medical_medicClass", 1], ["ACE_isEngineer", 1]]]  // Commander (as in his Eden init), kept after respawn
+    ["B_soldier_exp_F", [["ACE_isEngineer", 2], ["ACE_isEOD", true]]],   // EOD: ACE advanced engineer (repair) and explosive specialist
+    ["B_medic_F",       [["ace_medical_medicClass", 2]]],       // Medic: ACE doctor (advanced medic)
+    ["B_Soldier_SL_F",  [["ace_medical_medicClass", 1]]],       // Squad leader: ACE medic
+    ["B_officer_F",     [["ace_medical_medicClass", 1], ["ACE_isEngineer", 1], ["ACE_isEOD", true]]]  // Commander: medic, engineer and EOD (Eden init sets medic and engineer too), kept after respawn
 ];
 
 // ---------------------------------------------------------------------------
