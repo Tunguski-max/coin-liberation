@@ -87,6 +87,14 @@ if (_id isEqualTo "repair") then {
 };
 
 private _result = "";
+// Diagnosis for the dedicated server (no debug mode): crates near the elder that are not taken are named once, with the reason
+private _seenCrates = createHashMap;
+if (_id isEqualTo "supplies") then {
+    diag_log format [
+        "[COIN] aid: supplies task in %1 waits for a %2 with at least %3 supplies within %4 m of %5",
+        _town, KP_liberation_supply_crate, COIN_aidSupplyMinValue, COIN_aidSupplyDistance, _pos apply {round _x}
+    ];
+};
 while {_result isEqualTo ""} do {
     sleep COIN_aidCheckSeconds;
 
@@ -103,6 +111,19 @@ while {_result isEqualTo ""} do {
             && {((getPosATL _x) select 2) < COIN_aidSupplyMaxHeight}
             && {(_x getVariable ["KP_liberation_crate_value", 0]) >= COIN_aidSupplyMinValue}
         };
+        {
+            private _key = netId _x;
+            if (!(_x in _crates) && {!(_seenCrates getOrDefault [_key, false])}) then {
+                _seenCrates set [_key, true];
+                diag_log format [
+                    "[COIN] aid: crate near the elder of %1 not taken: class %2 (needs %3), alive %4, attached to %5, in %6, height %7 m (max %8), value %9 (min %10), %11 m from the elder's place (max %12)",
+                    _town, typeOf _x, KP_liberation_supply_crate, alive _x, attachedTo _x, objectParent _x, (getPosATL _x) select 2, COIN_aidSupplyMaxHeight,
+                    _x getVariable ["KP_liberation_crate_value", -1], COIN_aidSupplyMinValue, round (_x distance2D _pos), COIN_aidSupplyDistance
+                ];
+            };
+        } forEach ((nearestObjects [_pos, [], COIN_aidSupplyDistance + 10]) select {
+            (typeOf _x) isEqualTo KP_liberation_supply_crate || {!isNil {_x getVariable "KP_liberation_crate_value"}}
+        });
         if (_crates isNotEqualTo []) then {
             private _value = (_crates select 0) getVariable ["KP_liberation_crate_value", 0];
             deleteVehicle (_crates select 0);
